@@ -685,6 +685,18 @@
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Інтерактивне передавання апаратного хешу</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>Технік може ввести користувача, чий UPN заповнюється заздалегідь під час OOBE.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>Пропонувати призначеного користувача</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>Застосовується до пристроїв, які ще не зареєстровано в Autopilot. Технік вводить настроюваний тег безпосередньо.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>Попередньо вибирати «Настроюваний» для тега групи</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Імпортуйте або завантажте профіль Autopilot, який вбудовується в носій розгортання.</value>
   </data>

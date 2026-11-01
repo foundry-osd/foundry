@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.PreOobe;
+using Foundry.PostInstall.Console;
 using Foundry.PostInstall.Execution;
 
 namespace Foundry.PostInstall.Tests;
@@ -155,6 +156,41 @@ public sealed class OrchestratorTests
         Assert.Equal(0, await fixture.Run("boot"));
         Assert.Equal("CompletedWithErrors", fixture.Journal.Read().Status);
         Assert.Equal(["autopilot-registration", "second"], fixture.Executed);
+    }
+
+    [Fact]
+    public async Task SkippedAutopilotRegistration_ShowsSucceededWithWarningAndContinues()
+    {
+        using var fixture = new Fixture("autopilot-registration", "second");
+        fixture.FailingActionId = "autopilot-registration";
+        fixture.Outcome = new ActionStepOutcome(true, 2, "autopilot_registration_skipped", HasWarnings: true);
+        var progress = new ProgressRecorder();
+
+        Assert.Equal(0, await fixture.Run("boot", progress));
+
+        JournalState state = fixture.Journal.Read();
+        Assert.Equal("CompletedWithErrors", state.Status);
+        Assert.True(state.HasWarnings);
+        Assert.Equal("Succeeded", state.Actions["autopilot-registration"].Status);
+        Assert.Equal(2, state.Actions["autopilot-registration"].ExitCode);
+        Assert.Equal("autopilot_registration_skipped", state.Actions["autopilot-registration"].FailureCode);
+        Assert.Equal(["autopilot-registration", "second"], fixture.Executed);
+        PostInstallProgress final = progress.Values[^1];
+        Assert.Equal("Succeeded", final.Actions[0].Status);
+        Assert.Equal(1, final.WarningCount);
+
+        using var output = new StringWriter();
+        using (var console = new PostInstallConsole(fixture.Plan, "test.log", output))
+        {
+            console.Report(final);
+            console.Complete(new("CompletedWithErrors", 0));
+        }
+        string[] lines = output.ToString().Split(Environment.NewLine);
+        string action = Assert.Single(lines, line => line.Contains("Upload hardware hash to Windows Autopilot", StringComparison.Ordinal));
+        Assert.StartsWith("- [Succeeded]", action, StringComparison.Ordinal);
+        Assert.DoesNotContain("(exit", action, StringComparison.Ordinal);
+        Assert.Contains("Post-installation completed with warnings. Review the execution result and logs.", lines);
+        Assert.Contains("Succeeded: 2  Failed: 0  Skipped: 0  Warnings: 1", lines);
     }
 
     [Fact]

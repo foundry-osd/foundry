@@ -937,6 +937,53 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.Equal("interactive_hardware_hash_upload", result["autopilot_provisioning_mode"]);
     }
 
+    [Theory]
+    [InlineData(true, AutopilotProvisioningMode.InteractiveHardwareHashUpload, true, true, true, true)]
+    [InlineData(true, AutopilotProvisioningMode.InteractiveHardwareHashUpload, true, false, true, false)]
+    [InlineData(true, AutopilotProvisioningMode.InteractiveHardwareHashUpload, false, true, false, true)]
+    [InlineData(true, AutopilotProvisioningMode.HardwareHashUpload, true, true, false, false)]
+    [InlineData(true, AutopilotProvisioningMode.JsonProfile, true, true, false, false)]
+    [InlineData(false, AutopilotProvisioningMode.InteractiveHardwareHashUpload, true, true, false, false)]
+    public void Build_ReportsInteractiveAutopilotOptionsOnlyForEnabledInteractiveMode(
+        bool autopilotEnabled,
+        AutopilotProvisioningMode mode,
+        bool preselectCustom,
+        bool offerAssignedUser,
+        bool expectedPreselectCustom,
+        bool expectedOfferAssignedUser)
+    {
+        var options = new MediaPreflightOptions
+        {
+            IsAutopilotEnabled = autopilotEnabled,
+            AutopilotProvisioningMode = mode
+        };
+        var document = new FoundryConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                Interactive = new AutopilotInteractiveSettings
+                {
+                    PreselectCustomGroupTag = preselectCustom,
+                    OfferAssignedUser = offerAssignedUser
+                }
+            }
+        };
+
+        IReadOnlyDictionary<string, object?> result = BootMediaTelemetryPropertyBuilder.Build(
+            TelemetryBootMediaTargets.Iso,
+            TelemetryBootMediaUsbOperations.None,
+            options,
+            document,
+            success: true,
+            failedStepName: null,
+            duration: TimeSpan.Zero,
+            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+
+        Assert.Equal(expectedPreselectCustom, result["autopilot_interactive_preselect_custom"]);
+        Assert.Equal(expectedOfferAssignedUser, result["autopilot_interactive_offer_assigned_user"]);
+    }
+
     [Fact]
     public void Build_WhenUsbBootMediaIsUpdated_ReportsUpdateOperation()
     {

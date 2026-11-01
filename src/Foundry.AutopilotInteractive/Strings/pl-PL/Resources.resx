@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Ta aplikacja rejestruje urządzenie w usłudze Windows Autopilot podczas konfiguracji systemu Windows.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>To oprogramowanie jest dostarczane w stanie, w jakim jest.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Mickaël CHAVE i współtwórcy Foundry Project.
+Licencjonowany na licencji MIT.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>O Foundry Autopilot Interactive</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Autopilot Interactive</value>
+  </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>Anuluj</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>Pominąć rejestrację w usłudze Autopilot? Instalacja systemu Windows będzie kontynuowana bez rejestrowania tego urządzenia.</value>
+  </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Trwa rejestracja. Jeśli zatrzymasz ją teraz, to urządzenie może mimo to pojawić się w usłudze Windows Autopilot. Przestać czekać i kontynuować instalację systemu Windows?</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>Pomiń rejestrację</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Zamknij</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Wersja: {0}</value>
+  </data>
+  <data name="Config.LoadFailed" xml:space="preserve">
+    <value>Konfiguracja Autopilot nie istnieje lub jest nieprawidłowa, dlatego tego urządzenia nie można zarejestrować.</value>
+  </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>Czas przeznaczony na ten krok upłynął. Instalacja systemu Windows jest kontynuowana bez rejestrowania tego urządzenia.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>Urządzenie już zarejestrowane</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>Wyświetlony przypisany użytkownik</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>Odnowienie kodu</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>Kontrola ukończenia (zamyka)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>Osiągnięto termin</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>Błąd wykrywania tagów grupy</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>Wiele tagów grupy</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>Oczekiwanie na sieć</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>Brak tagów grupy</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>Profil przypisany</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>Przekroczono limit czasu oczekiwania na profil</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>Przesyłanie zakończone powodzeniem z oczekiwaniem na profil</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>Wygasła sesja (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>Kilka pasujących urządzeń</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>Kod logowania i kod QR</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>Błąd logowania z opcją Ponów</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>Przesyłanie nie powiodło się: brak uprawnień (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>Przesyłanie nie powiodło się: błąd ogólny</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>Przesyłanie nie powiodło się: inna dzierżawa</value>
+  </data>
+  <data name="Footer.Unknown" xml:space="preserve">
+    <value>Nieznane</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>Wprowadź nazwę UPN (główną nazwę użytkownika), na przykład user@contoso.com, lub pozostaw to pole puste.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>Przypisany użytkownik (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>Niestandardowy</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>Niestandardowy tag grupy</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>Wybierz tag grupy, a następnie zarejestruj skrót sprzętowy tego urządzenia w usłudze Windows Autopilot.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>Tag grupy</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>Brak</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>brak</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>Zarejestruj</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>To urządzenie jest już zarejestrowane w usłudze Windows Autopilot</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>Bieżący tag grupy: {0}. Przypisany użytkownik: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>Kilka urządzeń Windows Autopilot ma ten sam numer seryjny. Rejestracja nie może zaktualizować niejednoznacznego urządzenia.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>Zalogowano jako {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>Nie można załadować istniejących tagów grupy. Nadal możesz wprowadzić niestandardowy tag grupy.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>Zarejestruj to urządzenie w usłudze Autopilot</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>nieznane konto</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>Użyj innego konta</value>
+  </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Inne języki</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arabski (Arabia Saudyjska)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bułgarski (Bułgaria)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>chiński uproszczony (Chiny)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>chiński tradycyjny (Tajwan)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>chorwacki (Chorwacja)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>czeski (Czechy)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>duński (Dania)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>holenderski (Holandia)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>angielski (Wielka Brytania)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>angielski (Stany Zjednoczone)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>estoński (Estonia)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>fiński (Finlandia)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>francuski (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>francuski (Francja)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>niemiecki (Niemcy)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>grecki (Grecja)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>hebrajski (Izrael)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>węgierski (Węgry)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>włoski (Włochy)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japoński (Japonia)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>koreański (Korea)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>łotewski (Łotwa)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>litewski (Litwa)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>norweski bokmal (Norwegia)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>polski (Polska)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugalski (Brazylia)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugalski (Portugalia)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>rumuński (Rumunia)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>rosyjski (Rosja)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>serbski łaciński (Serbia)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>słowacki (Słowacja)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>słoweński (Słowenia)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>hiszpański (Meksyk)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>hiszpański (Hiszpania)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>szwedzki (Szwecja)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>tajski (Tajlandia)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>turecki (Turcja)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ukraiński (Ukraina)</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_Informacje</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_Debugowanie</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>_Klawiatura</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>_Klawiatura ({0})</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_Język</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_Motyw</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>Rejestracja zakończona</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>Kontynuuj teraz</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>Kontynuuj bez czekania</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>Instalacja systemu Windows będzie kontynuowana za {0} s</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>Czas przeznaczony na ten krok upłynął.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>Kilka urządzeń Windows Autopilot ma ten sam numer seryjny. Usuń duplikaty w usłudze Intune, a następnie spróbuj ponownie.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>To urządzenie jest zarejestrowane w innej dzierżawie. Inna dzierżawa lub sprzedawca musi anulować jego rejestrację, zanim będzie można je tutaj zarejestrować.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>To urządzenie jest już zarejestrowane w usłudze Windows Autopilot. Sprawdź urządzenie w usłudze Intune, a następnie spróbuj ponownie.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>Zalogowane konto nie może importować urządzeń Windows Autopilot. Zaloguj się na konto z rolą usługi Intune uprawniającą do importowania urządzeń Autopilot.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph odrzucił logowanie. Zaloguj się ponownie, a następnie spróbuj ponownie.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>Nie można odczytać numeru seryjnego ani skrótu sprzętowego tego urządzenia. Szczegóły znajdują się w dzienniku.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>Nie można nawiązać połączenia z usługą Microsoft Graph. Sprawdź połączenie sieciowe, a następnie spróbuj ponownie.</value>
+  </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>To urządzenie jest zarejestrowane w usłudze Windows Autopilot, ale nie udało się zastosować jego tagu grupy, nazwy komputera ani przypisanego użytkownika. Sprawdź nazwę użytkownika i usługę Intune, a następnie spróbuj ponownie.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>Rejestracja nie powiodła się. Przyczyną może być serwer proxy lub portal captive w tej sieci. Szczegóły znajdują się w dzienniku; spróbuj ponownie.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>Urządzenie nie pojawiło się w usłudze Windows Autopilot w ciągu 15 minut. Sprawdź usługę Intune, a następnie spróbuj ponownie.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Profil Autopilot został przypisany.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Usługa Intune zgłosiła niepowodzenie przypisania profilu Autopilot. Instalacja systemu Windows jest kontynuowana.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>Instalacja systemu Windows jest kontynuowana bez oczekiwania na przypisanie profilu.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>Profil nie został jeszcze przypisany; instalacja systemu Windows jest kontynuowana.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>Nie można odczytać stanu przypisania profilu. Instalacja systemu Windows jest kontynuowana.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>Oczekiwanie na przypisanie profilu Autopilot ({0})</value>
+  </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>Pomiń rejestrację</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>Przypisywanie tagu grupy, nazwy komputera i użytkownika…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>Zbieranie skrótu sprzętowego…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>Przesyłanie skrótu sprzętowego…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>Oczekiwanie na pojawienie się urządzenia w usłudze Windows Autopilot (do 15 minut)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>Nie można załadować strony rejestracji. Zaloguj się ponownie przy użyciu nowego kodu.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>Sesja wygasła. Zaloguj się ponownie przy użyciu nowego kodu.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>Wylogowano. Zaloguj się na inne konto przy użyciu nowego kodu.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>Sieć jest niedostępna. Ponawianie próby co 10 sekund…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>Zaloguj się na konto, które może rejestrować urządzenia w usłudze Windows Autopilot.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>Następnie wprowadź ten kod</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>Logowanie nie powiodło się. Twoja organizacja może blokować logowanie za pomocą kodu urządzenia przy użyciu zasad dostępu warunkowego. Wybierz pozycję Ponów, aby uzyskać nowy kod.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>Logowanie zostało odrzucone. Wybierz pozycję Ponów, aby uzyskać nowy kod.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>Logowanie nie powiodło się, ponieważ firma Microsoft zwróciła nieoczekiwaną odpowiedź. Przyczyną może być serwer proxy lub portal captive w tej sieci. Wybierz pozycję Ponów, aby spróbować ponownie.</value>
+  </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Nie można nawiązać bezpiecznego połączenia z firmą Microsoft. Przyczyną może być serwer proxy sprawdzający ruch HTTPS lub nieprawidłowo ustawiony zegar systemowy. Wybierz pozycję Ponów, aby spróbować ponownie.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>Kod wygaśnie za {0}</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>Ładowanie tagów grupy…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>Na innym urządzeniu otwórz</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>lub</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>Żądanie kodu logowania…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>Ponów</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>Zeskanuj, aby się zalogować</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>Logowanie do firmy Microsoft</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Ciemny</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Jasny</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>Systemu</value>
+  </data>
+</root>

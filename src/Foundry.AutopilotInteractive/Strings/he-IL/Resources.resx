@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>אפליקציה זו רושמת את ההתקן ב-Windows Autopilot במהלך התקנת Windows.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>תוכנה זו מסופקת כפי שהיא.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Mickaël CHAVE והתורמים ל־Foundry Project.
+מורשה תחת רישיון MIT.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>על Foundry Autopilot Interactive</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Autopilot Interactive</value>
+  </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>ביטול</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>לדלג על רישום Autopilot? התקנת Windows תמשיך מבלי לרשום מכשיר זה.</value>
+  </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>הרישום מתבצע. אם תעצור עכשיו, מכשיר זה עשוי עדיין להופיע ב-Windows Autopilot. להפסיק להמתין ולהמשיך בהתקנת Windows?</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>דלג על הרישום</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>סגור</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>גרסה: {0}</value>
+  </data>
+  <data name="Config.LoadFailed" xml:space="preserve">
+    <value>תצורת Autopilot חסרה או לא חוקית, ולכן לא ניתן לרשום התקן זה.</value>
+  </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>הזמן שהוקצה לשלב זה הסתיים. התקנת Windows ממשיכה מבלי לרשום מכשיר זה.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>מכשיר שכבר רשום</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>המשתמש המוקצה מוצג</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>חידוש קוד</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>בדיקת השלמה (יציאה)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>המועד האחרון הגיע</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>איתור תגי הקבוצה נכשל</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>תגי קבוצה רבים</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>ממתין לרשת</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>אין תגי קבוצה</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>הפרופיל הוקצה</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>תם הזמן הקצוב להמתנה לפרופיל</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>העלאה הצליחה עם המתנה לפרופיל</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>הפעלה שפג תוקפה (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>כמה מכשירים תואמים</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>קוד כניסה וקוד QR</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>שגיאת כניסה עם נסה שוב</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>ההעלאה נכשלה: חסרה הרשאה (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>ההעלאה נכשלה: שגיאה כללית</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>ההעלאה נכשלה: דייר אחר</value>
+  </data>
+  <data name="Footer.Unknown" xml:space="preserve">
+    <value>לא ידוע</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>הזן שם משתמש ראשי (UPN) כגון user@contoso.com, או השאר את השדה ריק.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>משתמש מוקצה (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>מותאם אישית</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>תג קבוצה מותאם אישית</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>בחר את תג הקבוצה ולאחר מכן רשום את גיבוב החומרה של מכשיר זה ב-Windows Autopilot.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>תג קבוצה</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>ללא</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>ללא</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>רישום</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>מכשיר זה כבר רשום ב-Windows Autopilot</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>תג הקבוצה הנוכחי: {0}. משתמש מוקצה: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>למספר סידורי זה יש כמה מכשירי Windows Autopilot. הרישום אינו יכול לעדכן מכשיר לא חד-משמעי.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>מחובר בשם {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>לא ניתן היה לטעון את תגי הקבוצה הקיימים. עדיין ניתן להזין תג קבוצה מותאם אישית.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>רישום מכשיר זה ב-Autopilot</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>חשבון לא ידוע</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>שימוש בחשבון אחר</value>
+  </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>שפות אחרות</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>ערבית (ערב הסעודית)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>בולגרית (בולגריה)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>סינית פשוטה (סין)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>סינית מסורתית (טייוואן)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>קרואטית (קרואטיה)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>צ'כית (צ'כיה)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>דנית (דנמרק)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>הולנדית (הולנד)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>אנגלית (בריטניה)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>אנגלית (ארצות הברית)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>אסטונית (אסטוניה)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>פינית (פינלנד)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>צרפתית (קנדה)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>צרפתית (צרפת)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>גרמנית (גרמניה)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>יוונית (יוון)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>עברית (ישראל)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>הונגרית (הונגריה)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>איטלקית (איטליה)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>יפנית (יפן)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>קוריאנית (קוריאה)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>לטבית (לטביה)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>ליטאית (ליטא)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>נורווגית בוקמול (נורווגיה)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>פולנית (פולין)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>פורטוגזית (ברזיל)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>פורטוגזית (פורטוגל)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>רומנית (רומניה)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>רוסית (רוסיה)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>סרבית לטינית (סרביה)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>סלובקית (סלובקיה)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>סלובנית (סלובניה)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>ספרדית (מקסיקו)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>ספרדית (ספרד)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>שוודית (שוודיה)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>תאית (תאילנד)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>טורקית (טורקיה)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>אוקראינית (אוקראינה)</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_אודות</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_ניפוי באגים</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>_מקלדת</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>_מקלדת ({0})</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_שפה</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_ערכת נושא</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>הרישום הושלם</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>המשך עכשיו</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>המשך בלי להמתין</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>התקנת Windows תמשיך בעוד {0} שנ'</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>הזמן שהוקצה לשלב זה הסתיים.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>למספר סידורי זה יש כמה מכשירי Windows Autopilot. הסר את הכפילויות ב-Intune ונסה שוב.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>מכשיר זה רשום אצל דייר אחר. הדייר האחר או המשווק חייב לבטל את הרישום לפני שניתן יהיה לרשום אותו כאן.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>מכשיר זה כבר רשום ב-Windows Autopilot. בדוק את המכשיר ב-Intune ונסה שוב.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>החשבון המחובר אינו יכול לייבא מכשירי Windows Autopilot. היכנס עם חשבון שיש לו תפקיד Intune המאפשר לייבא מכשירי Autopilot.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph דחה את הכניסה. היכנס שוב ונסה שוב.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>לא ניתן היה לקרוא את המספר הסידורי או את גיבוב החומרה של מכשיר זה. הפרטים נמצאים ביומן.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>לא ניתן היה להגיע אל Microsoft Graph. בדוק את חיבור הרשת ונסה שוב.</value>
+  </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>מכשיר זה רשום ב-Windows Autopilot, אך לא ניתן היה להחיל את תג הקבוצה, שם המחשב או המשתמש המוקצה שלו. בדוק את שם המשתמש ואת Intune ונסה שוב.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>הרישום נכשל. ייתכן שהסיבה היא שרת proxy או פורטל captive ברשת זו. הפרטים נמצאים ביומן; נסה שוב.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>המכשיר לא הופיע ב-Windows Autopilot תוך 15 דקות. בדוק את Intune ונסה שוב.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>פרופיל Autopilot הוקצה.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Intune דיווח שהקצאת פרופיל Autopilot נכשלה. התקנת Windows ממשיכה.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>התקנת Windows ממשיכה מבלי להמתין להקצאת הפרופיל.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>הפרופיל עדיין לא הוקצה; התקנת Windows ממשיכה.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>לא ניתן היה לקרוא את מצב הקצאת הפרופיל. התקנת Windows ממשיכה.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>ממתין להקצאת פרופיל Autopilot ({0})</value>
+  </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>דלג על הרישום</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>מקצה את תג הקבוצה, שם המחשב והמשתמש…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>אוסף את גיבוב החומרה…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>מעלה את גיבוב החומרה…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>ממתין להופעת המכשיר ב-Windows Autopilot (עד 15 דקות)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>לא ניתן היה לטעון את דף הרישום. היכנס שוב עם הקוד החדש.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>ההפעלה שלך פגה. היכנס שוב עם הקוד החדש.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>יצאת מהחשבון. היכנס עם חשבון אחר באמצעות הקוד החדש.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>הרשת אינה זמינה. מנסה שוב כל 10 שניות…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>היכנס עם חשבון שיכול לרשום מכשירים ב-Windows Autopilot.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>לאחר מכן הזן את הקוד הזה</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>הכניסה נכשלה. ייתכן שהארגון שלך חוסם כניסה עם קוד מכשיר באמצעות מדיניות גישה מותנית. בחר נסה שוב כדי לקבל קוד חדש.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>הכניסה נדחתה. בחר נסה שוב כדי לקבל קוד חדש.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>הכניסה נכשלה מפני ש-Microsoft החזירה תגובה בלתי צפויה. ייתכן שהסיבה היא שרת proxy או פורטל captive ברשת זו. בחר נסה שוב כדי לנסות שוב.</value>
+  </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>לא ניתן היה ליצור חיבור מאובטח ל-Microsoft. ייתכן שהסיבה היא שרת proxy שבודק תעבורת HTTPS או שעון מערכת שגוי. בחר נסה שוב כדי לנסות שוב.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>תוקף הקוד יפוג בעוד {0}</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>טוען תגי קבוצה…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>במכשיר אחר, פתח</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>או</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>מבקש קוד כניסה…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>נסה שוב</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>סרוק כדי להיכנס</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>כניסה ל-Microsoft</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>כהה</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>בהיר</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>מערכת</value>
+  </data>
+</root>

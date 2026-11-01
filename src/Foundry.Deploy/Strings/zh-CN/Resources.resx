@@ -40,6 +40,15 @@
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>在部署期间将此设备的硬件哈希上传到 Windows Autopilot。</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>无法在此设备上安装交互式 Autopilot 注册助手。请检查连接并重试部署。有关详细信息，请参阅部署日志。</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeRateLimited" xml:space="preserve">
+    <value>GitHub 暂时限制了来自此网络的下载。请等待几分钟，然后重新开始部署。</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>此 Foundry 版本不提供交互式 Autopilot 注册助手。请检查连接并重试，或重新创建启动介质。有关详细信息，请参阅部署日志。</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>将离线 Autopilot 配置文件添加到 Windows 安装中。</value>
   </data>

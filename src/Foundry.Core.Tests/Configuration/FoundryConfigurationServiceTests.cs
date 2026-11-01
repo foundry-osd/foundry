@@ -646,6 +646,25 @@ public sealed class FoundryConfigurationServiceTests
     }
 
     [Fact]
+    public void Load_ReadsMissingInteractiveSettingsAsFalse()
+    {
+        var service = new FoundryConfigurationService();
+
+        FoundryConfigurationDocument document = service.Deserialize("""
+            {
+              "schemaVersion": 19,
+              "autopilot": {
+                "isEnabled": true,
+                "provisioningMode": "interactiveHardwareHashUpload"
+              }
+            }
+            """);
+
+        Assert.False(document.Autopilot.Interactive.PreselectCustomGroupTag);
+        Assert.False(document.Autopilot.Interactive.OfferAssignedUser);
+    }
+
+    [Fact]
     public void Serialize_ThenDeserialize_WhenInteractiveHardwareHashModeIsSelected_PreservesReadableMode()
     {
         var service = new FoundryConfigurationService();

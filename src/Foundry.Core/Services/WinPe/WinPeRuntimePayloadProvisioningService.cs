@@ -4,6 +4,7 @@
 
 using System.IO.Compression;
 using System.Text.Json;
+using Foundry.Core.Models.Autopilot;
 using Foundry.Core.Models.Packages;
 using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
@@ -64,7 +65,8 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 Bootstrap = await PrepareLocalApplicationAsync("Foundry.Bootstrap", options.Bootstrap, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false),
                 Connect = await PrepareLocalApplicationAsync("Foundry.Connect", options.Connect, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false),
                 Deploy = await PrepareLocalApplicationAsync("Foundry.Deploy", options.Deploy, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false),
-                PostInstall = await PrepareLocalApplicationAsync("Foundry.PostInstall", options.PostInstall, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false)
+                PostInstall = await PrepareLocalApplicationAsync("Foundry.PostInstall", options.PostInstall, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false),
+                AutopilotInteractive = await PrepareLocalApplicationAsync(AutopilotInteractiveLayout.ApplicationName, options.AutopilotInteractive, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false)
             };
             var releaseApplications = new[]
             {
@@ -124,8 +126,20 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         string runtimeIdentifier,
         CancellationToken cancellationToken)
     {
-        if (!applicationOptions.IsEnabled ||
-            (applicationOptions.ProvisioningSource == WinPeProvisioningSource.Release && string.IsNullOrWhiteSpace(applicationOptions.ArchivePath)))
+        if (!applicationOptions.IsEnabled)
+        {
+            return applicationOptions;
+        }
+
+        if (applicationName == AutopilotInteractiveLayout.ApplicationName &&
+            string.IsNullOrWhiteSpace(applicationOptions.ArchivePath) &&
+            (applicationOptions.ProvisioningSource == WinPeProvisioningSource.Release || string.IsNullOrWhiteSpace(applicationOptions.ProjectPath)))
+        {
+            // Release media never carry this app: Deploy downloads it into the target OS, so there is no release asset to fall back to.
+            throw new InvalidOperationException($"{applicationName} is only provisioned on debug media, from a local archive or project.");
+        }
+
+        if (applicationOptions.ProvisioningSource == WinPeProvisioningSource.Release && string.IsNullOrWhiteSpace(applicationOptions.ArchivePath))
         {
             return applicationOptions;
         }
@@ -243,10 +257,13 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             await ProvisionApplicationAsync("Foundry.PostInstall", options.PostInstall, options,
                 runtimeIdentifier, cancellationToken).ConfigureAwait(false);
 
+            await ProvisionApplicationAsync(AutopilotInteractiveLayout.ApplicationName, options.AutopilotInteractive, options,
+                runtimeIdentifier, cancellationToken).ConfigureAwait(false);
+
             if (!string.IsNullOrWhiteSpace(options.MountedImagePath))
             {
                 RuntimePayloadTrust.WriteManifest(Path.Combine(Path.GetFullPath(options.MountedImagePath), "Foundry"),
-                    new[] { (Name: "Foundry.Connect", Options: options.Connect), (Name: "Foundry.Deploy", Options: options.Deploy), (Name: "Foundry.PostInstall", Options: options.PostInstall) }
+                    new[] { (Name: "Foundry.Connect", Options: options.Connect), (Name: "Foundry.Deploy", Options: options.Deploy), (Name: "Foundry.PostInstall", Options: options.PostInstall), (Name: AutopilotInteractiveLayout.ApplicationName, Options: options.AutopilotInteractive) }
                         .Where(application => application.Options.IsEnabled)
                         .Select(application => new RuntimePayloadArchiveTrust(application.Name, runtimeIdentifier, application.Options.ArchiveSha256)));
             }
@@ -689,12 +706,12 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 "Provide a non-null WinPeRuntimePayloadProvisioningOptions instance.");
         }
 
-        if (options.Bootstrap is null || options.Connect is null || options.Deploy is null || options.PostInstall is null)
+        if (options.Bootstrap is null || options.Connect is null || options.Deploy is null || options.PostInstall is null || options.AutopilotInteractive is null)
         {
             return new WinPeDiagnostic(
                 WinPeErrorCodes.ValidationFailed,
                 "Runtime payload application options are required.",
-                "Provide non-null Bootstrap, Connect, Deploy, and PostInstall options.");
+                "Provide non-null Bootstrap, Connect, Deploy, PostInstall, and AutopilotInteractive options.");
         }
 
         if (!Enum.IsDefined(options.Architecture))

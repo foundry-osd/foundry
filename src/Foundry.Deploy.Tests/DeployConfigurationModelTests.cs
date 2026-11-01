@@ -232,6 +232,36 @@ public sealed class DeployConfigurationModelTests
     }
 
     [Fact]
+    public void DeployConfiguration_DeserializesInteractiveSettings()
+    {
+        const string json = """
+            {
+              "schemaVersion": 17,
+              "autopilot": {
+                "isEnabled": true,
+                "provisioningMode": "interactiveHardwareHashUpload",
+                "interactive": {
+                  "preselectCustomGroupTag": true,
+                  "offerAssignedUser": true
+                }
+              }
+            }
+            """;
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+
+        FoundryDeployConfigurationDocument? document = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, options);
+
+        Assert.NotNull(document);
+        Assert.True(document.Autopilot.Interactive.PreselectCustomGroupTag);
+        Assert.True(document.Autopilot.Interactive.OfferAssignedUser);
+    }
+
+    [Fact]
     public void Deserialize_WhenHardwareHashSettingsAreConfigured_PreservesRuntimeMetadata()
     {
         const string json = """

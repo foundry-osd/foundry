@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>此应用程序会在 Windows 安装期间将设备注册到 Windows Autopilot。</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>本软件按现状提供。</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Mickaël CHAVE 和 Foundry Project 贡献者。
+根据 MIT 许可证获得许可。</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>关于Foundry Autopilot Interactive</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Autopilot Interactive</value>
+  </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>要跳过 Autopilot 注册吗？Windows 安装将在不注册此设备的情况下继续。</value>
+  </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>正在注册。如果现在停止，此设备仍可能出现在 Windows Autopilot 中。要停止等待并继续 Windows 安装吗？</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>跳过注册</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>版本：{0}</value>
+  </data>
+  <data name="Config.LoadFailed" xml:space="preserve">
+    <value>Autopilot 配置缺失或无效，因此无法注册此设备。</value>
+  </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>此步骤允许的时间已结束。Windows 安装将在不注册此设备的情况下继续。</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>已注册的设备</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>显示已分配的用户</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>代码续订</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>完成保护（退出）</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>已到截止时间</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>组标签发现失败</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>大量组标签</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>正在等待网络</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>无组标签</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>配置文件已分配</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>配置文件等待超时</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>上传成功并等待配置文件</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>会话已过期 (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>多个匹配的设备</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>登录代码和 QR 码</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>登录错误及“重试”</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>上传失败：缺少权限 (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>上传失败：一般错误</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>上传失败：其他租户</value>
+  </data>
+  <data name="Footer.Unknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>请输入用户主体名称 (UPN)，例如 user@contoso.com，或将此字段留空。</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>已分配的用户 (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>自定义</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>自定义组标签</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>请选择组标签，然后在 Windows Autopilot 中注册此设备的硬件哈希。</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>组标签</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>注册</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>此设备已在 Windows Autopilot 中注册</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>当前组标签：{0}。已分配的用户：{1}。</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>有多个 Windows Autopilot 设备使用此序列号。注册无法更新有歧义的设备。</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>已登录为 {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>无法加载现有的组标签。你仍然可以输入自定义组标签。</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>在 Autopilot 中注册此设备</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>未知帐户</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>使用其他帐户</value>
+  </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>其他语言</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>阿拉伯语（沙特阿拉伯）</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>保加利亚语（保加利亚）</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>简体中文（中国）</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>繁体中文（台湾）</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>克罗地亚语（克罗地亚）</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>捷克语（捷克）</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>丹麦语（丹麦）</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>荷兰语（荷兰）</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>英语（英国）</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>英语（美国）</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>爱沙尼亚语（爱沙尼亚）</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>芬兰语（芬兰）</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>法语（加拿大）</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>法语（法国）</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>德语（德国）</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>希腊语（希腊）</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>希伯来语（以色列）</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>匈牙利语（匈牙利）</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>意大利语（意大利）</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>日语（日本）</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>韩语（韩国）</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>拉脱维亚语（拉脱维亚）</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>立陶宛语（立陶宛）</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>挪威博克马尔语（挪威）</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>波兰语（波兰）</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>葡萄牙语（巴西）</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>葡萄牙语（葡萄牙）</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>罗马尼亚语（罗马尼亚）</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>俄语（俄罗斯）</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>塞尔维亚语拉丁文（塞尔维亚）</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>斯洛伐克语（斯洛伐克）</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>斯洛文尼亚语（斯洛文尼亚）</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>西班牙语（墨西哥）</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>西班牙语（西班牙）</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>瑞典语（瑞典）</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>泰语（泰国）</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>土耳其语（土耳其）</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>乌克兰语（乌克兰）</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_关于</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_调试</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>_键盘</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>_键盘 ({0})</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_语言</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_主题</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>注册已完成</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>立即继续</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>无需等待，直接继续</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>Windows 安装将在 {0} 秒后继续</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>此步骤允许的时间已结束。</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>有多个 Windows Autopilot 设备使用此序列号。请在 Intune 中删除重复项，然后重试。</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>此设备已在另一个租户中注册。必须由该租户或经销商取消注册后，才能在此处注册。</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>此设备已在 Windows Autopilot 中注册。请在 Intune 中检查该设备，然后重试。</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>已登录的帐户无法导入 Windows Autopilot 设备。请使用具有可导入 Autopilot 设备的 Intune 角色的帐户登录。</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph 拒绝了登录。请重新登录，然后重试。</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>无法读取此设备的序列号或硬件哈希。详细信息请参阅日志。</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>无法连接到 Microsoft Graph。请检查网络连接，然后重试。</value>
+  </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>此设备已在 Windows Autopilot 中注册，但无法应用其组标签、计算机名称或已分配的用户。请检查用户名和 Intune，然后重试。</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>注册失败。此网络上的代理或强制门户可能导致此问题。详细信息请参阅日志；请重试。</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>设备未在 15 分钟内出现在 Windows Autopilot 中。请检查 Intune，然后重试。</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Autopilot 配置文件已分配。</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Intune 报告 Autopilot 配置文件分配失败。Windows 安装将继续。</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>Windows 安装将继续，不再等待配置文件分配。</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>配置文件尚未分配；Windows 安装将继续。</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>无法读取配置文件分配状态。Windows 安装将继续。</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>正在等待 Autopilot 配置文件分配 ({0})</value>
+  </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>跳过注册</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>正在分配组标签、计算机名称和用户…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>正在收集硬件哈希…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>正在上传硬件哈希…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>正在等待设备出现在 Windows Autopilot 中（最长 15 分钟）…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>无法加载注册页面。请使用新代码重新登录。</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>你的会话已过期。请使用新代码重新登录。</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>已注销。请使用新代码以其他帐户登录。</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>网络不可用。每 10 秒重试一次…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>请使用可在 Windows Autopilot 中注册设备的帐户登录。</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>然后输入此代码</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>登录失败。你的组织可能通过条件访问策略阻止了使用设备代码登录。请选择“重试”以获取新代码。</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>登录已被拒绝。请选择“重试”以获取新代码。</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>登录失败，因为 Microsoft 返回了意外的响应。此网络上的代理或强制门户可能导致此问题。请选择“重试”再试一次。</value>
+  </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>无法与 Microsoft 建立安全连接。检查 HTTPS 流量的代理或不正确的系统时钟可能导致此问题。请选择“重试”再试一次。</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>代码将在 {0} 后过期</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>正在加载组标签…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>在另一台设备上，打开</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>或</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>正在请求登录代码…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>重试</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>扫描以登录</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>登录到 Microsoft</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>浅色</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>系统</value>
+  </data>
+</root>

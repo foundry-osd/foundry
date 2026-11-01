@@ -685,6 +685,18 @@ Licencjonowany na licencji MIT.</value>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktywne przesyłanie skrótu sprzętowego</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>Technik może wprowadzić użytkownika, którego UPN jest wstępnie wypełniany podczas OOBE.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>Zaproponuj przypisanego użytkownika</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>Dotyczy urządzeń, które nie są jeszcze zarejestrowane w usłudze Autopilot. Technik wpisuje tag niestandardowy bezpośrednio.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>Wstępnie wybierz opcję Niestandardowy dla tagu grupy</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Zaimportuj lub pobierz profil Autopilot osadzany na nośniku wdrożeniowym.</value>
   </data>

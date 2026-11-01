@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Ova aplikacija registrira uređaj u sustavu Windows Autopilot tijekom postavljanja sustava Windows.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Ovaj softver isporučuje se takav kakav jest.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Mickaël CHAVE i suradnici na projektu Foundry Project.
+Licenciran prema MIT licenci.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>O Foundry Autopilot Interactive</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Autopilot Interactive</value>
+  </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>Preskočiti registraciju u uslugu Autopilot? Postavljanje sustava Windows nastavit će se bez registracije ovog uređaja.</value>
+  </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Registracija je u tijeku. Ako sada prekinete, ovaj se uređaj ipak može pojaviti u usluzi Windows Autopilot. Prestati čekati i nastaviti postavljanje sustava Windows?</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>Preskoči registraciju</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Verzija: {0}</value>
+  </data>
+  <data name="Config.LoadFailed" xml:space="preserve">
+    <value>Konfiguracija za Autopilot nedostaje ili nije valjana pa se ovaj uređaj ne može registrirati.</value>
+  </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>Vrijeme predviđeno za ovaj korak je isteklo. Postavljanje sustava Windows nastavlja se bez registracije ovog uređaja.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>Već registrirani uređaj</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>Prikazan dodijeljeni korisnik</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>Obnova koda</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>Provjera dovršetka (izlazi)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>Rok je dosegnut</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>Otkrivanje oznaka grupe nije uspjelo</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>Mnogo oznaka grupe</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>Čekanje na mrežu</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>Nema oznaka grupe</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>Profil dodijeljen</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>Istek vremena čekanja na profil</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>Prijenos uspješan uz čekanje na profil</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>Istekla sesija (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>Više odgovarajućih uređaja</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>Kod za prijavu i QR kod</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>Pogreška pri prijavi s mogućnošću Pokušaj ponovno</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>Prijenos nije uspio: nedostaje dozvola (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>Prijenos nije uspio: opća pogreška</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>Prijenos nije uspio: drugi stanar</value>
+  </data>
+  <data name="Footer.Unknown" xml:space="preserve">
+    <value>Nepoznato</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>Unesite glavni naziv korisnika (UPN), na primjer user@contoso.com, ili ostavite polje prazno.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>Dodijeljeni korisnik (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>Prilagođeno</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>Prilagođena oznaka grupe</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>Odaberite oznaku grupe, a zatim registrirajte hardverski hash ovog uređaja u usluzi Windows Autopilot.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>Oznaka grupe</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>Nijedna</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>nijedna</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>Registriraj</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>Ovaj je uređaj već registriran u usluzi Windows Autopilot</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>Trenutačna oznaka grupe: {0}. Dodijeljeni korisnik: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>Ovaj serijski broj ima više uređaja usluge Windows Autopilot. Registracija ne može ažurirati dvosmislen uređaj.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>Prijavljeni ste kao {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>Postojeće oznake grupe nije bilo moguće učitati. I dalje možete unijeti prilagođenu oznaku grupe.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>Registriraj ovaj uređaj u usluzi Autopilot</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>nepoznati račun</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>Upotrijebi drugi račun</value>
+  </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Ostali jezici</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>Arapski (Saudijska Arabija)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>Bugarski (Bugarska)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Pojednostavljeni kineski (Kina)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Tradicionalni kineski (Tajvan)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Hrvatski (Hrvatska)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Češki (Češka)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>Danski (Danska)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Nizozemski (Nizozemska)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>Engleski (Ujedinjeno Kraljevstvo)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>Engleski (Sjedinjene Države)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Estonski (Estonija)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>Finski (Finska)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>Francuski (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>Francuski (Francuska)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>Njemački (Njemačka)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>Grčki (Grčka)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>Hebrejski (Izrael)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>Mađarski (Mađarska)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>Talijanski (Italija)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>Japanski (Japan)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>Korejski (Koreja)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>Latvijski (Latvija)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Litvanski (Litva)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Norveški bokmål (Norveška)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>Poljski (Poljska)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>Portugalski (Brazil)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>Portugalski (Portugal)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>Rumunjski (Rumunjska)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>Ruski (Rusija)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Srpski, latinica (Srbija)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Slovački (Slovačka)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>Slovenski (Slovenija)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>Španjolski (Meksiko)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>Španjolski (Španjolska)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>Švedski (Švedska)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>Tajlandski (Tajland)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>Turski (Turska)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>Ukrajinski (Ukrajina)</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_O aplikaciji</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_Otklanjanje pogrešaka</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Tip_kovnica</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Tip_kovnica ({0})</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_Jezik</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_Tema</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>Registracija je dovršena</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>Nastavi sada</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>Nastavi bez čekanja</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>Postavljanje sustava Windows nastavit će se za {0} s</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>Vrijeme predviđeno za ovaj korak je isteklo.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>Ovaj serijski broj ima više uređaja usluge Windows Autopilot. Uklonite duplikate u usluzi Intune, a zatim pokušajte ponovno.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>Ovaj je uređaj registriran kod drugog stanara. Drugi stanar ili prodavač mora poništiti registraciju prije nego što se uređaj može registrirati ovdje.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>Ovaj je uređaj već registriran u usluzi Windows Autopilot. Provjerite uređaj u usluzi Intune, a zatim pokušajte ponovno.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>Račun kojim ste prijavljeni ne može uvoziti uređaje usluge Windows Autopilot. Prijavite se računom koji ima ulogu u usluzi Intune s dopuštenjem za uvoz uređaja za Autopilot.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph odbio je prijavu. Prijavite se ponovno, a zatim pokušajte ponovno.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>Serijski broj ili hardverski hash ovog uređaja nije bilo moguće pročitati. Pojedinosti se nalaze u zapisniku.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>Povezivanje s uslugom Microsoft Graph nije bilo moguće. Provjerite mrežnu vezu, a zatim pokušajte ponovno.</value>
+  </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Ovaj je uređaj registriran u usluzi Windows Autopilot, ali njegovu oznaku grupe, naziv računala ili dodijeljenog korisnika nije bilo moguće primijeniti. Provjerite korisničko ime i uslugu Intune, a zatim pokušajte ponovno.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>Registracija nije uspjela. Uzrok može biti proxy poslužitelj ili captive portal u ovoj mreži. Pojedinosti se nalaze u zapisniku; pokušajte ponovno.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>Uređaj se nije pojavio u usluzi Windows Autopilot unutar 15 minuta. Provjerite uslugu Intune, a zatim pokušajte ponovno.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Profil Autopilot dodijeljen je.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Usluga Intune izvijestila je da dodjela profila Autopilot nije uspjela. Postavljanje sustava Windows nastavlja se.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>Postavljanje sustava Windows nastavlja se bez čekanja na dodjelu profila.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>Profil još nije dodijeljen; postavljanje sustava Windows nastavlja se.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>Status dodjele profila nije bilo moguće pročitati. Postavljanje sustava Windows nastavlja se.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>Čekanje na dodjelu profila Autopilot ({0})</value>
+  </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>Preskoči registraciju</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>Dodjela oznake grupe, naziva računala i korisnika…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>Prikupljanje hardverskog hasha…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>Prijenos hardverskog hasha…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>Čekanje da se uređaj pojavi u usluzi Windows Autopilot (do 15 minuta)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>Stranicu za registraciju nije bilo moguće učitati. Prijavite se ponovno s novim kodom.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>Vaša je sesija istekla. Prijavite se ponovno s novim kodom.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>Odjavljeni ste. Prijavite se drugim računom pomoću novog koda.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>Mreža nije dostupna. Ponovni pokušaj svakih 10 sekundi…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>Prijavite se računom koji može registrirati uređaje u usluzi Windows Autopilot.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>Zatim unesite ovaj kod</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>Prijava nije uspjela. Vaša organizacija možda blokira prijavu kodom uređaja pravilom uvjetnog pristupa. Odaberite Pokušaj ponovno da biste dobili novi kod.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>Prijava je odbijena. Odaberite Pokušaj ponovno da biste dobili novi kod.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>Prijava nije uspjela jer je Microsoft vratio neočekivani odgovor. Uzrok može biti proxy poslužitelj ili captive portal u ovoj mreži. Odaberite Pokušaj ponovno da biste pokušali ponovno.</value>
+  </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Nije moguće uspostaviti sigurnu vezu s tvrtkom Microsoft. Uzrok može biti proxy poslužitelj koji pregledava HTTPS promet ili netočan sat sustava. Odaberite Pokušaj ponovno da biste pokušali ponovno.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>Kod istječe za {0}</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>Učitavanje oznaka grupe…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>Na drugom uređaju otvorite</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>ili</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>Zahtijevanje koda za prijavu…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>Pokušaj ponovno</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>Skenirajte za prijavu</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>Prijava u Microsoft</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Tamno</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Svijetlo</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>sustav</value>
+  </data>
+</root>

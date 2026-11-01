@@ -30,7 +30,7 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
     public string UsbCacheRootPath { get; init; } = string.Empty;
 
     /// <summary>
-    /// Gets whether original Connect, Deploy, and PostInstall archives enter the image. Trust anchors always enter the image.
+    /// Gets whether original Connect, Deploy, PostInstall, and debug AutopilotInteractive archives enter the image. Trust anchors always enter the image.
     /// </summary>
     public bool IncludePayloadsInImage { get; init; } = true;
 
@@ -56,6 +56,12 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
 
     /// <summary>Gets Foundry.PostInstall payload options, following the Deploy debug selection.</summary>
     public WinPeRuntimePayloadApplicationOptions PostInstall { get; init; } = new();
+
+    /// <summary>
+    /// Gets Foundry.AutopilotInteractive payload options. The application is provisioned only on debug media, from a local
+    /// archive or project, and never from a release: release media do not carry it and Deploy downloads it into the target OS.
+    /// </summary>
+    public WinPeRuntimePayloadApplicationOptions AutopilotInteractive { get; init; } = new();
 
     /// <summary>Enables the selected local runtime or paired release source when domain actions require it.</summary>
     public WinPeRuntimePayloadProvisioningOptions WithDomainJoinRuntime(bool enabled) => !enabled ? this : this with
@@ -134,6 +140,12 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
         }
         string? discoveryPath = string.IsNullOrWhiteSpace(options.Deploy.ProjectPath)
             ? projectDiscoveryStartPath : Path.GetDirectoryName(Path.GetFullPath(options.Deploy.ProjectPath));
+        WinPeRuntimePayloadApplicationOptions autopilotInteractive = CreateApplicationOptions(
+            "Foundry.AutopilotInteractive",
+            WinPeRuntimePayloadEnvironmentVariables.DebugDeployEnable,
+            WinPeRuntimePayloadEnvironmentVariables.DebugAutopilotInteractiveArchive,
+            WinPeRuntimePayloadEnvironmentVariables.DebugAutopilotInteractiveProject,
+            true, getEnvironmentVariable, discoveryPath);
         return options with
         {
             PostInstall = CreateApplicationOptions(
@@ -141,7 +153,13 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
                 WinPeRuntimePayloadEnvironmentVariables.DebugDeployEnable,
                 WinPeRuntimePayloadEnvironmentVariables.DebugPostInstallArchive,
                 WinPeRuntimePayloadEnvironmentVariables.DebugPostInstallProject,
-                true, getEnvironmentVariable, discoveryPath, requireLocalSourceWhenDebugging: true)
+                true, getEnvironmentVariable, discoveryPath, requireLocalSourceWhenDebugging: true),
+            // Without a local source there is nothing to provision; the app is optional on debug media.
+            AutopilotInteractive = autopilotInteractive with
+            {
+                IsEnabled = !string.IsNullOrWhiteSpace(autopilotInteractive.ArchivePath) ||
+                    !string.IsNullOrWhiteSpace(autopilotInteractive.ProjectPath)
+            }
         };
     }
 

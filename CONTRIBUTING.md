@@ -31,6 +31,7 @@ dotnet restore .\src\Foundry.slnx --nologo
 | `Foundry.Bootstrap` | .NET console runtime for Windows PE boot orchestration, runtime payload preparation, the deployment key relay between Foundry Connect and Foundry Deploy, and startup diagnostics |
 | `Foundry.Connect` | WPF network-provisioning runtime included in boot media |
 | `Foundry.Deploy` | WPF deployment runtime included in boot media |
+| `Foundry.AutopilotInteractive` | WPF interactive Autopilot registration runtime that Deploy installs into the target OS and PostInstall runs during specialize |
 | `Foundry.PostInstall` | .NET console runtime for built-in and custom post-installation actions, restart/resume, and cleanup before OOBE |
 | `Foundry.Localization` | Shared cultures and resource-based localization |
 | `Foundry.Telemetry` | Shared telemetry contracts, privacy rules, and implementations |
@@ -84,7 +85,7 @@ Validate ARM64 when the change affects runtime behavior, packaging, architecture
 
 CI treats build warnings as errors. Existing targeted suppressions remain in effect; fix new warnings instead of adding blanket suppressions.
 
-Foundry OSD publishes without trimming or Native AOT, matching its Velopack packaging settings, and keeps ReadyToRun enabled in Release. Foundry.Connect and Foundry.Deploy retain their self-contained WPF publication without trimming or Native AOT. Foundry.Bootstrap is published as a self-contained console application using the same single-file release settings for x64 and ARM64.
+Foundry OSD publishes without trimming or Native AOT, matching its Velopack packaging settings, and keeps ReadyToRun enabled in Release. Foundry.Connect, Foundry.Deploy, and Foundry.AutopilotInteractive retain their self-contained WPF publication without trimming or Native AOT. Foundry.Bootstrap is published as a self-contained console application using the same single-file release settings for x64 and ARM64.
 
 Foundry.PostInstall is also published as self-contained single-file x64 and ARM64 archives through `scripts/Publish-FoundryPostInstall.ps1`. Bootstrap resolves it independently using the same release lookup, archive verification, and cache rules as Connect and Deploy, then passes the prepared runtime to Deploy for target staging. PostInstall follows Deploy's debug selection and media storage conventions. Its archive includes its own runtime manifest; Deploy checks the execution contract and target architecture before disk preparation. Verify both architectures when changing this publication contract.
 

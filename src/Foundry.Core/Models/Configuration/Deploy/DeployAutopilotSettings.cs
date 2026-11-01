@@ -30,4 +30,9 @@ public sealed record DeployAutopilotSettings
     /// Gets runtime metadata required for hardware hash upload mode.
     /// </summary>
     public DeployAutopilotHardwareHashUploadSettings HardwareHashUpload { get; init; } = new();
+
+    /// <summary>
+    /// Gets the technician options for interactive hardware hash upload mode; both stay disabled in every other mode.
+    /// </summary>
+    public DeployAutopilotInteractiveSettings Interactive { get; init; } = new();
 }

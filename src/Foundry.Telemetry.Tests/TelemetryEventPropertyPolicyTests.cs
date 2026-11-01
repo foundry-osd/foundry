@@ -427,6 +427,8 @@ public sealed class TelemetryEventPropertyPolicyTests
             ["boot_media_deploy_runtime_payload_source"] = "release",
             ["autopilot_enabled"] = true,
             ["autopilot_provisioning_mode"] = "hardware_hash_upload",
+            ["autopilot_interactive_preselect_custom"] = true,
+            ["autopilot_interactive_offer_assigned_user"] = false,
             ["domain_join_enabled"] = true,
             ["domain_join_mode"] = "zero_touch",
             ["domain_join_domain_count"] = 2,
@@ -535,6 +537,8 @@ public sealed class TelemetryEventPropertyPolicyTests
         Assert.Equal("release", result["boot_media_deploy_runtime_payload_source"]);
         Assert.True((bool)result["autopilot_enabled"]!);
         Assert.Equal("hardware_hash_upload", result["autopilot_provisioning_mode"]);
+        Assert.True((bool)result["autopilot_interactive_preselect_custom"]!);
+        Assert.False((bool)result["autopilot_interactive_offer_assigned_user"]!);
         Assert.True((bool)result["domain_join_enabled"]!);
         Assert.Equal("zero_touch", result["domain_join_mode"]);
         Assert.Equal(2, result["domain_join_domain_count"]);

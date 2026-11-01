@@ -40,6 +40,15 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>展開中にこのデバイスのハードウェア ハッシュを Windows Autopilot にアップロードします。</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>対話型 Autopilot 登録アシスタントをこのデバイスにインストールできませんでした。接続を確認して展開を再試行してください。詳細は展開ログを参照してください。</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeRateLimited" xml:space="preserve">
+    <value>GitHub により、このネットワークからのダウンロードが一時的に制限されました。数分待ってから、展開をもう一度開始してください。</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>このリリースの Foundry では対話型 Autopilot 登録アシスタントを利用できません。接続を確認して再試行するか、ブートメディアを再作成してください。詳細は展開ログを参照してください。</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>オフラインの Autopilot プロファイルを Windows インストールに追加します。</value>
   </data>

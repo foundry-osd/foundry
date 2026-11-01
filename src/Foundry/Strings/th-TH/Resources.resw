@@ -685,6 +685,18 @@
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>การอัปโหลดแฮชฮาร์ดแวร์แบบโต้ตอบ</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>ช่างเทคนิคสามารถป้อนผู้ใช้ที่จะมี UPN กรอกไว้ล่วงหน้าระหว่าง OOBE</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>เสนอให้ระบุผู้ใช้ที่ได้รับมอบหมาย</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>ใช้กับอุปกรณ์ที่ยังไม่ได้ลงทะเบียนใน Autopilot ช่างเทคนิคพิมพ์แท็กที่กำหนดเองโดยตรง</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>เลือก "กำหนดเอง" ไว้ล่วงหน้าสำหรับแท็กกลุ่ม</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>นำเข้าหรือดาวน์โหลดโปรไฟล์ Autopilot ที่ฝังอยู่ในสื่อการปรับใช้</value>
   </data>

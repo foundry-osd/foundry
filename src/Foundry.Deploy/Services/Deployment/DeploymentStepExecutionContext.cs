@@ -47,6 +47,12 @@ public sealed class DeploymentStepExecutionContext : IDisposable
     internal PreOobe.PreOobePreparedContent? PostInstallContent { get; set; }
 
     /// <summary>
+    /// Holds the <c>Foundry.AutopilotInteractive</c> archive the preflight resolved before any disk operation, for the Autopilot step
+    /// to install; <see langword="null"/> when interactive Autopilot is not selected or the preflight has not run.
+    /// </summary>
+    internal AutopilotInteractiveRuntimeOrigin? AutopilotInteractiveRuntime { get; set; }
+
+    /// <summary>
     /// Returns whether <paramref name="path"/> is under the connected network cache share. The check is lexical
     /// (no I/O), so it is safe for UNC paths that <see cref="DriveInfo"/> and disk mapping cannot handle.
     /// </summary>

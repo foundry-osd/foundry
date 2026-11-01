@@ -2,15 +2,20 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Models.Autopilot;
 using Foundry.Core.Services.Autopilot;
+using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Deployment.Steps;
 using Foundry.Deploy.Services.Hardware;
+using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
+using Foundry.Utilities.Diagnostics;
+using Foundry.Wpf.Theme;
 using System.Text.Json;
 using System.Text;
 
@@ -44,8 +49,10 @@ public sealed class ProvisionAutopilotStepTests
         }
         else
         {
-            using JsonDocument config = JsonDocument.Parse(File.ReadAllText(context.RuntimeState.StagedAutopilotConfigurationPath!));
-            Assert.False(config.RootElement.TryGetProperty("assignedComputerName", out _));
+            AutopilotInteractiveRuntimeConfiguration configuration = AutopilotInteractiveRuntimeConfigurationSerializer.Deserialize(
+                File.ReadAllText(context.RuntimeState.StagedAutopilotConfigurationPath!));
+            Assert.Null(configuration.AssignedComputerName);
+            Assert.Null(configuration.ComputerName);
         }
         string logs = string.Join("\n", Directory.EnumerateFiles(workspace.RootPath, "*.log", SearchOption.AllDirectories).Select(File.ReadAllText));
         Assert.Contains("computer name assignment skipped", logs, StringComparison.OrdinalIgnoreCase);
@@ -78,7 +85,31 @@ public sealed class ProvisionAutopilotStepTests
             using JsonDocument config = JsonDocument.Parse(File.ReadAllText(context.RuntimeState.StagedAutopilotConfigurationPath!));
             string? actual = config.RootElement.TryGetProperty("assignedComputerName", out var name) ? name.GetString() : null;
             Assert.Equal(expected, actual);
+            // The display-only name is written whether or not the name is uploaded.
+            string? display = config.RootElement.TryGetProperty("computerName", out var displayName) ? displayName.GetString() : null;
+            Assert.Equal("Edited-042", display);
         }
+    }
+
+    [Theory]
+    [InlineData(false, "Edited-042")]
+    [InlineData(true, null)]
+    public async Task Provision_WritesDisplayComputerNameRegardlessOfUploadOption_ExceptWithCustomUnattend(bool customUnattend, string? expected)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var unattend = customUnattend
+            ? new UnattendSelection(new Foundry.Core.Models.Configuration.Deploy.DeployUnattendFile(), "custom.xml")
+            : null;
+        using DeploymentStepExecutionContext context = CreateContext(workspace, false, AutopilotProvisioningMode.InteractiveHardwareHashUpload,
+            uploadComputerName: false, computerName: "Edited-042", unattend: unattend);
+
+        DeploymentStepResult result = await CreateStep().ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        AutopilotInteractiveRuntimeConfiguration configuration = AutopilotInteractiveRuntimeConfigurationSerializer.Deserialize(
+            await File.ReadAllTextAsync(context.RuntimeState.StagedAutopilotConfigurationPath!, TestContext.Current.CancellationToken));
+        Assert.Equal(expected, configuration.ComputerName);
+        Assert.Null(configuration.AssignedComputerName);
     }
 
     [Fact]
@@ -199,34 +230,92 @@ public sealed class ProvisionAutopilotStepTests
     }
 
     [Fact]
-    public async Task ExecuteAsync_WhenLiveInteractiveHardwareHashModeIsSelected_StagesRegistrationAssistant()
+    public async Task ExecuteAsync_WhenLiveInteractiveHardwareHashModeIsSelected_InstallsRegistrationAssistant()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
         var uploadService = new FakeAutopilotHardwareHashUploadService(
             AutopilotHardwareHashUploadResult.Completed("Graph should not be called."));
         ProvisionAutopilotStep step = CreateStep(uploadService: uploadService);
-        DeploymentStepExecutionContext context = CreateContext(
+        using DeploymentStepExecutionContext context = CreateContext(
             workspace,
             isDryRun: false,
             provisioningMode: AutopilotProvisioningMode.InteractiveHardwareHashUpload);
 
         DeploymentStepResult result = await step.ExecuteAsync(context, CancellationToken.None);
 
-        string registrationRoot = Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Temp", "Foundry", "Runtime", "AutopilotRegistration");
-        string expectedConfigPath = Path.Combine(registrationRoot, "config.json");
+        DeploymentStorageLayout layout = DeploymentStorageLayout.FromPartitionRoot(workspace.TargetWindowsRootPath);
+        string expectedConfigPath = Path.Combine(layout.RuntimeAutopilotInteractive, "autopilot-interactive.json");
 
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
         Assert.Contains("registration assistant", result.Message, StringComparison.OrdinalIgnoreCase);
         Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, context.RuntimeState.AutopilotProvisioningMode);
         Assert.Equal(AutopilotHardwareHashUploadState.NotPlanned, context.RuntimeState.AutopilotHardwareHashUploadState);
         Assert.Equal(expectedConfigPath, context.RuntimeState.StagedAutopilotConfigurationPath);
-        Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.ps1")));
-        Assert.True(File.Exists(Path.Combine(registrationRoot, "Start-FoundryAutopilotRegistration.cmd")));
+        Assert.True(File.Exists(Path.Combine(layout.RuntimeAutopilotInteractive, "Foundry.AutopilotInteractive.exe")));
         Assert.True(File.Exists(expectedConfigPath));
-        Assert.True(Directory.Exists(DeploymentStorageLayout.FromPartitionRoot(workspace.TargetWindowsRootPath).StateAutopilotRegistration));
-        Assert.True(Directory.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Temp", "Foundry", "Logs", "AutopilotRegistration")));
+        Assert.True(Directory.Exists(layout.StateAutopilotInteractive));
+        Assert.True(Directory.Exists(layout.LogsAutopilotInteractive));
         Assert.False(Directory.Exists(Path.Combine(workspace.TargetWindowsRootPath, "Windows", "Provisioning", "Autopilot")));
         Assert.Empty(uploadService.Requests);
+    }
+
+    [Fact]
+    public async Task Provision_WritesConfigWithThemeCultureKeyboardLayoutAndOptions()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        ProvisionAutopilotStep step = CreateStep(theme: ThemeMode.Dark, cultureName: "fr-FR", activeKeyboardLayoutId: "0000080c");
+        using DeploymentStepExecutionContext context = CreateContext(workspace, false, AutopilotProvisioningMode.InteractiveHardwareHashUpload,
+            uploadComputerName: true, computerName: "FINAL-PC",
+            interactive: new DeployAutopilotInteractiveSettings { PreselectCustomGroupTag = true, OfferAssignedUser = true });
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        AutopilotInteractiveRuntimeConfiguration configuration = AutopilotInteractiveRuntimeConfigurationSerializer.Deserialize(
+            await File.ReadAllTextAsync(context.RuntimeState.StagedAutopilotConfigurationPath!, TestContext.Current.CancellationToken));
+        Assert.Equal(new AutopilotInteractiveRuntimeConfiguration
+        {
+            AssignedComputerName = "FINAL-PC",
+            ComputerName = "FINAL-PC",
+            PreselectCustomGroupTag = true,
+            OfferAssignedUser = true,
+            Theme = RuntimeThemePreference.Dark,
+            CultureName = "fr-FR",
+            DiagnosticSessionId = DiagnosticSessionContext.CurrentSessionId,
+            KeyboardLayoutId = "0000080C"
+        }, configuration);
+    }
+
+    [Fact]
+    public async Task Provision_WhenActiveKeyboardLayoutIsUnknown_WritesNoKeyboardLayout()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        ProvisionAutopilotStep step = CreateStep(activeKeyboardLayoutId: string.Empty);
+        using DeploymentStepExecutionContext context = CreateContext(workspace, false, AutopilotProvisioningMode.InteractiveHardwareHashUpload);
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        AutopilotInteractiveRuntimeConfiguration configuration = AutopilotInteractiveRuntimeConfigurationSerializer.Deserialize(
+            await File.ReadAllTextAsync(context.RuntimeState.StagedAutopilotConfigurationPath!, TestContext.Current.CancellationToken));
+        Assert.Null(configuration.KeyboardLayoutId);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WhenInteractiveRuntimeCannotBeInstalled_StopsDeployment()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        using DeploymentStepExecutionContext context = CreateContext(workspace, false, AutopilotProvisioningMode.InteractiveHardwareHashUpload);
+        context.AutopilotInteractiveRuntime = context.AutopilotInteractiveRuntime! with { Sha256 = new string('0', 64) };
+
+        DeploymentStepResult result = await CreateStep().ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal(DeploymentOperationNames.StageAutopilotAssistant, result.Failure?.OperationName);
+        Assert.Equal("autopilot_interactive_install_failed", result.Failure?.Code);
+        Assert.Equal(LocalizationText.GetString("Autopilot.InteractiveInstallFailed"), result.Message);
+        Assert.False(File.Exists(Path.Combine(DeploymentStorageLayout.FromPartitionRoot(workspace.TargetWindowsRootPath).RuntimeAutopilotInteractive,
+            "autopilot-interactive.json")));
     }
 
     [Fact]
@@ -425,14 +514,20 @@ public sealed class ProvisionAutopilotStepTests
     private static ProvisionAutopilotStep CreateStep(
         IAutopilotHardwareHashCaptureService? captureService = null,
         IAutopilotHardwareHashUploadService? uploadService = null,
-        IAutopilotProfileContentService? contentService = null)
+        IAutopilotProfileContentService? contentService = null,
+        ThemeMode theme = ThemeMode.System,
+        string cultureName = "en-US",
+        string activeKeyboardLayoutId = "00000409")
     {
         return new ProvisionAutopilotStep(
             captureService ?? new FakeAutopilotHardwareHashCaptureService(),
             uploadService ?? new FakeAutopilotHardwareHashUploadService(
                 AutopilotHardwareHashUploadResult.Completed("Device imported.")),
-            new AutopilotInteractiveRegistrationProvisioningService(),
-            contentService ?? new FakeAutopilotProfileContentService());
+            new AutopilotInteractiveProvisioningService(),
+            contentService ?? new FakeAutopilotProfileContentService(),
+            new AutopilotInteractiveTestRuntime.FixedTheme(theme),
+            new AutopilotInteractiveTestRuntime.FixedCulture(cultureName),
+            new AutopilotInteractiveTestRuntime.FixedKeyboardLayout(activeKeyboardLayoutId));
     }
 
     private static DeploymentStepExecutionContext CreateContext(
@@ -443,7 +538,8 @@ public sealed class ProvisionAutopilotStepTests
         AutopilotProfileCatalogItem? selectedProfile = null,
         bool uploadComputerName = false,
         string computerName = "LAB01",
-        UnattendSelection? unattend = null)
+        UnattendSelection? unattend = null,
+        DeployAutopilotInteractiveSettings? interactive = null)
     {
         DeploymentContext request = new()
         {
@@ -459,7 +555,8 @@ public sealed class ProvisionAutopilotStepTests
             IsAutopilotEnabled = true,
             AutopilotProvisioningMode = provisioningMode,
             SelectedAutopilotProfile = selectedProfile,
-            AutopilotHardwareHashUpload = hardwareHashUpload ?? new DeployAutopilotHardwareHashUploadSettings()
+            AutopilotHardwareHashUpload = hardwareHashUpload ?? new DeployAutopilotHardwareHashUploadSettings(),
+            AutopilotInteractive = interactive ?? new DeployAutopilotInteractiveSettings()
         };
         DeploymentRuntimeState runtimeState = new()
         {
@@ -475,7 +572,13 @@ public sealed class ProvisionAutopilotStepTests
             new FakeOperationProgressService(),
             new FakeDeploymentLogService(),
             new FakeTargetDiskService(),
-            _ => { });
+            _ => { })
+        {
+            // Preflight resolves the origin before any disk step; a media archive keeps these tests offline.
+            AutopilotInteractiveRuntime = provisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload
+                ? AutopilotInteractiveTestRuntime.CreateLocalOrigin(workspace.RootPath)
+                : null
+        };
     }
 
     private sealed class FakeDeploymentLogService : IDeploymentLogService

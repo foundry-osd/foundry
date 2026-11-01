@@ -685,6 +685,18 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktiivne riistvararäsi üleslaadimine</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>Tehnik saab sisestada kasutaja, kelle UPN täidetakse OOBE ajal ette.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>Paku määratud kasutajat</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>Kehtib seadmetele, mis pole veel teenuses Autopilot registreeritud. Tehnik sisestab kohandatud märgendi otse.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>Eelvali rühmamärgendi jaoks Kohandatud</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Importige või laadige alla juurutusmeediumisse manustatud Autopilot profiil.</value>
   </data>

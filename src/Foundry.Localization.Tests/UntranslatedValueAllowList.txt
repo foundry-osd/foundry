@@ -150,6 +150,13 @@ Foundry.Deploy TargetDevice.Tpm
 Foundry.Deploy Theme.System da-DK de-DE nb-NO sv-SE
 Foundry.Deploy Wizard.Step.Autopilot
 
+# Foundry.AutopilotInteractive
+Foundry.AutopilotInteractive App.Name
+Foundry.AutopilotInteractive Common.VersionFormat da-DK de-DE sv-SE
+Foundry.AutopilotInteractive Language.ThaiThailand da-DK nb-NO
+Foundry.AutopilotInteractive Menu.Debug it-IT
+Foundry.AutopilotInteractive Theme.System da-DK de-DE nb-NO sv-SE
+
 # Foundry.Connect
 Foundry.Connect App.Name
 Foundry.Connect App.WindowTitle

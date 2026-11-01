@@ -11,7 +11,7 @@ namespace Foundry.PostInstall.Actions;
 internal sealed record DriverSettings(string CommandKind, string PackagePath);
 internal sealed record AppxSettings(IReadOnlyList<string> PackageNames);
 internal sealed record NetworkSettings(string SettingsPath);
-internal sealed record AutopilotRegistrationSettings(string ScriptPath, string ConfigPath);
+internal sealed record AutopilotRegistrationSettings(string ExecutablePath, string ConfigPath);
 
 internal static class BuiltInSettings
 {

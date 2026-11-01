@@ -12,6 +12,7 @@ $RepoRoot = Resolve-Path (Join-Path $PSScriptRoot '..')
 $BootstrapProjectPath = Join-Path $RepoRoot 'src\Foundry.Bootstrap\Foundry.Bootstrap.csproj'
 $ConnectProjectPath = Join-Path $RepoRoot 'src\Foundry.Connect\Foundry.Connect.csproj'
 $DeployProjectPath = Join-Path $RepoRoot 'src\Foundry.Deploy\Foundry.Deploy.csproj'
+$AutopilotInteractiveProjectPath = Join-Path $RepoRoot 'src\Foundry.AutopilotInteractive\Foundry.AutopilotInteractive.csproj'
 $FoundryProjectPath = Join-Path $RepoRoot 'src\Foundry\Foundry.csproj'
 
 if (-not (Test-Path -Path $BootstrapProjectPath -PathType Leaf)) {
@@ -24,6 +25,10 @@ if (-not (Test-Path -Path $ConnectProjectPath -PathType Leaf)) {
 
 if (-not (Test-Path -Path $DeployProjectPath -PathType Leaf)) {
     throw "Foundry.Deploy project not found: '$DeployProjectPath'."
+}
+
+if (-not (Test-Path -Path $AutopilotInteractiveProjectPath -PathType Leaf)) {
+    throw "Foundry.AutopilotInteractive project not found: '$AutopilotInteractiveProjectPath'."
 }
 
 if (-not [string]::IsNullOrWhiteSpace($ArchivePath) -and [string]::IsNullOrWhiteSpace($DeployArchivePath)) {
@@ -49,6 +54,7 @@ $env:FOUNDRY_WINPE_DEBUG_CONNECT = '1'
 $env:FOUNDRY_WINPE_DEBUG_CONNECT_PROJECT = $ConnectProjectPath
 $env:FOUNDRY_WINPE_DEBUG_DEPLOY = '1'
 $env:FOUNDRY_WINPE_DEBUG_DEPLOY_PROJECT = $DeployProjectPath
+$env:FOUNDRY_WINPE_DEBUG_AUTOPILOTINTERACTIVE_PROJECT = $AutopilotInteractiveProjectPath
 
 if ([string]::IsNullOrWhiteSpace($ConnectArchivePath)) {
     $env:FOUNDRY_WINPE_DEBUG_CONNECT_ARCHIVE = ''
@@ -74,7 +80,7 @@ else {
     $env:FOUNDRY_WINPE_DEBUG_DEPLOY_ARCHIVE = $resolvedDeployArchivePath
 }
 
-Write-Host "Local WinPE Bootstrap/Connect/Deploy mode enabled."
+Write-Host "Local WinPE Bootstrap/Connect/Deploy/AutopilotInteractive mode enabled."
 Write-Host "FOUNDRY_WINPE_DEBUG_BOOTSTRAP=$($env:FOUNDRY_WINPE_DEBUG_BOOTSTRAP)"
 Write-Host "FOUNDRY_WINPE_DEBUG_BOOTSTRAP_PROJECT=$($env:FOUNDRY_WINPE_DEBUG_BOOTSTRAP_PROJECT)"
 if (-not [string]::IsNullOrWhiteSpace($env:FOUNDRY_WINPE_DEBUG_BOOTSTRAP_ARCHIVE)) {
@@ -91,6 +97,8 @@ Write-Host "FOUNDRY_WINPE_DEBUG_DEPLOY_PROJECT=$($env:FOUNDRY_WINPE_DEBUG_DEPLOY
 if (-not [string]::IsNullOrWhiteSpace($env:FOUNDRY_WINPE_DEBUG_DEPLOY_ARCHIVE)) {
     Write-Host "FOUNDRY_WINPE_DEBUG_DEPLOY_ARCHIVE=$($env:FOUNDRY_WINPE_DEBUG_DEPLOY_ARCHIVE)"
 }
+
+Write-Host "FOUNDRY_WINPE_DEBUG_AUTOPILOTINTERACTIVE_PROJECT=$($env:FOUNDRY_WINPE_DEBUG_AUTOPILOTINTERACTIVE_PROJECT)"
 
 if ($RunFoundry) {
     if (-not (Test-Path -Path $FoundryProjectPath -PathType Leaf)) {

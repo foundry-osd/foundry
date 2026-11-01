@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Dette programmet registrerer enheten i Windows Autopilot under Windows-installasjonen.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Denne programvaren leveres som den er.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Mickaël CHAVE og bidragsyterne til Foundry Project.
+Lisensiert under MIT-lisensen.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Om Foundry Autopilot Interactive</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Autopilot Interactive</value>
+  </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>Hoppe over Autopilot-registreringen? Windows-installasjonen fortsetter uten å registrere denne enheten.</value>
+  </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Registreringen pågår. Hvis du stopper nå, kan denne enheten likevel vises i Windows Autopilot. Vil du slutte å vente og fortsette Windows-installasjonen?</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>Hopp over registrering</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Lukk</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Versjon: {0}</value>
+  </data>
+  <data name="Config.LoadFailed" xml:space="preserve">
+    <value>Autopilot-konfigurasjonen mangler eller er ugyldig, så denne enheten kan ikke registreres.</value>
+  </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>Tiden som er satt av til dette trinnet, er over. Windows-installasjonen fortsetter uten å registrere denne enheten.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>Enhet som allerede er registrert</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>Tilordnet bruker vist</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>Fornyelse av kode</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>Fullført-kontroll (avslutter)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>Fristen er nådd</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>Feil ved søk etter gruppetagger</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>Mange gruppetagger</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>Venter på nettverket</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>Ingen gruppetagger</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>Profil tilordnet</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>Tidsavbrudd under venting på profil</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>Opplasting fullført med venting på profil</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>Utløpt økt (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>Flere samsvarende enheter</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>Påloggingskode og QR-kode</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>Påloggingsfeil med Prøv på nytt</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>Opplasting mislyktes: manglende tillatelse (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>Opplasting mislyktes: generell feil</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>Opplasting mislyktes: annen leietaker</value>
+  </data>
+  <data name="Footer.Unknown" xml:space="preserve">
+    <value>Ukjent</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>Skriv inn et brukerhovednavn som user@contoso.com, eller la feltet stå tomt.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>Tilordnet bruker (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>Egendefinert</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>Egendefinert gruppetagg</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>Velg gruppetaggen, og registrer deretter maskinvarehashen til denne enheten i Windows Autopilot.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>Gruppetagg</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>Ingen</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>ingen</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>Registrer</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>Denne enheten er allerede registrert i Windows Autopilot</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>Gjeldende gruppetagg: {0}. Tilordnet bruker: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>Flere Windows Autopilot-enheter har dette serienummeret. Registreringen kan ikke oppdatere en tvetydig enhet.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>Pålogget som {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>De eksisterende gruppetaggene kunne ikke lastes inn. Du kan fortsatt skrive inn en egendefinert gruppetagg.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>Registrer denne enheten i Autopilot</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>en ukjent konto</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>Bruk en annen konto</value>
+  </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Andre språk</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>Arabisk (Saudi-Arabia)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>Bulgarsk (Bulgaria)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Forenklet kinesisk (Kina)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Tradisjonell kinesisk (Taiwan)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Kroatisk (Kroatia)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Tsjekkisk (Tsjekkia)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>Dansk (Danmark)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Nederlandsk (Nederland)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>Engelsk (Storbritannia)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>Engelsk (USA)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Estisk (Estland)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>Finsk (Finland)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>Fransk (Canada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>Fransk (Frankrike)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>Tysk (Tyskland)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>Gresk (Hellas)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>Hebraisk (Israel)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>Ungarsk (Ungarn)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>Italiensk (Italia)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>Japansk (Japan)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>Koreansk (Korea)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>Latvisk (Latvia)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Litauisk (Litauen)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Norsk bokmål (Norge)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>Polsk (Polen)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>Portugisisk (Brasil)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>Portugisisk (Portugal)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>Rumensk (Romania)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>Russisk (Russland)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Serbisk, latinsk (Serbia)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Slovakisk (Slovakia)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>Slovensk (Slovenia)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>Spansk (Mexico)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>Spansk (Spania)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>Svensk (Sverige)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>Thai (Thailand)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>Tyrkisk (Tyrkia)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>Ukrainsk (Ukraina)</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_Om</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_Feilsøk</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>T_astatur</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>T_astatur ({0})</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_Språk</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_Tema</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>Registreringen er fullført</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>Fortsett nå</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>Fortsett uten å vente</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>Windows-installasjonen fortsetter om {0} s</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>Tiden som er satt av til dette trinnet, er over.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>Flere Windows Autopilot-enheter har dette serienummeret. Fjern duplikatene i Intune, og prøv på nytt.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>Denne enheten er registrert hos en annen leietaker. Den andre leietakeren eller forhandleren må avregistrere den før den kan registreres her.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>Denne enheten er allerede registrert i Windows Autopilot. Kontroller enheten i Intune, og prøv på nytt.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>Kontoen du er logget på med, kan ikke importere Windows Autopilot-enheter. Logg på med en konto som har en Intune-rolle med tillatelse til å importere Autopilot-enheter.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph avviste påloggingen. Logg på igjen, og prøv deretter på nytt.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>Serienummeret eller maskinvarehashen til denne enheten kunne ikke leses. Du finner detaljer i loggen.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>Fikk ikke kontakt med Microsoft Graph. Kontroller nettverkstilkoblingen, og prøv på nytt.</value>
+  </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Denne enheten er registrert i Windows Autopilot, men gruppetaggen, datamaskinnavnet eller den tilordnede brukeren kunne ikke brukes. Kontroller brukernavnet og Intune, og prøv på nytt.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>Registreringen mislyktes. En proxy eller en captive portal i dette nettverket kan være årsaken. Du finner detaljer i loggen; prøv på nytt.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>Enheten dukket ikke opp i Windows Autopilot innen 15 minutter. Kontroller Intune, og prøv på nytt.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Autopilot-profilen er tilordnet.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Intune rapporterte at tilordningen av Autopilot-profilen mislyktes. Windows-installasjonen fortsetter.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>Windows-installasjonen fortsetter uten å vente på profiltilordningen.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>Profilen er ikke tilordnet ennå; Windows-installasjonen fortsetter.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>Statusen for profiltilordningen kunne ikke leses. Windows-installasjonen fortsetter.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>Venter på tilordning av Autopilot-profilen ({0})</value>
+  </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>Hopp over registrering</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>Tilordner gruppetagg, datamaskinnavn og bruker…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>Samler inn maskinvarehash…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>Laster opp maskinvarehash…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>Venter på at enheten skal vises i Windows Autopilot (opptil 15 minutter)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>Registreringssiden kunne ikke lastes inn. Logg på igjen med den nye koden.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>Økten din har utløpt. Logg på igjen med den nye koden.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>Logget av. Logg på med en annen konto ved hjelp av den nye koden.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>Nettverket er ikke tilgjengelig. Prøver på nytt hvert 10. sekund…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>Logg på med en konto som kan registrere enheter i Windows Autopilot.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>Skriv deretter inn denne koden</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>Påloggingen mislyktes. Organisasjonen din blokkerer kanskje pålogging med enhetskode via en policy for betinget tilgang. Velg Prøv på nytt for å få en ny kode.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>Påloggingen ble avvist. Velg Prøv på nytt for å få en ny kode.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>Påloggingen mislyktes fordi Microsoft returnerte et uventet svar. En proxy eller en captive portal i dette nettverket kan være årsaken. Velg Prøv på nytt for å prøve igjen.</value>
+  </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Kan ikke opprette en sikker tilkobling til Microsoft. En proxy som inspiserer HTTPS-trafikk, eller en feil systemklokke kan være årsaken. Velg Prøv på nytt for å prøve igjen.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>Koden utløper om {0}</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>Laster inn gruppetagger…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>Åpne på en annen enhet</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>eller</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>Ber om en påloggingskode…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>Prøv på nytt</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>Skann for å logge på</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>Logg på Microsoft</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Mørk</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Lys</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>System</value>
+  </data>
+</root>

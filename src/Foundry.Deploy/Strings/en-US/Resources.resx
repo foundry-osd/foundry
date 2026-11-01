@@ -40,6 +40,15 @@ Licensed under the MIT License.</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>Uploads this device's hardware hash to Windows Autopilot during deployment.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>The interactive Autopilot registration assistant could not be installed on this device. Check your connection and retry the deployment. See the deployment log for details.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeRateLimited" xml:space="preserve">
+    <value>GitHub temporarily limited downloads from this network. Wait a few minutes, then start the deployment again.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>The interactive Autopilot registration assistant is not available for this Foundry release. Check your connection and retry, or recreate the boot media. See the deployment log for details.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Stages an offline Autopilot profile in the Windows installation.</value>
   </data>

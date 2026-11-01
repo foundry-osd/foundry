@@ -1220,6 +1220,55 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
+    public void Generate_CopiesInteractiveSettings_WhenModeIsInteractive()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.InteractiveHardwareHashUpload,
+                Interactive = new AutopilotInteractiveSettings
+                {
+                    PreselectCustomGroupTag = true,
+                    OfferAssignedUser = true
+                }
+            }
+        };
+
+        var result = generator.Generate(document);
+
+        Assert.True(result.Autopilot.Interactive.PreselectCustomGroupTag);
+        Assert.True(result.Autopilot.Interactive.OfferAssignedUser);
+    }
+
+    [Fact]
+    public void Generate_LeavesInteractiveSettingsDefault_WhenModeIsZeroTouch()
+    {
+        var generator = new DeployConfigurationGenerator();
+        var document = new FoundryConfigurationDocument
+        {
+            Autopilot = new AutopilotSettings
+            {
+                IsEnabled = true,
+                ProvisioningMode = AutopilotProvisioningMode.HardwareHashUpload,
+                HardwareHashUpload = CreateCompleteHardwareHashSettings(DateTimeOffset.UtcNow.AddMonths(6)),
+                Interactive = new AutopilotInteractiveSettings
+                {
+                    PreselectCustomGroupTag = true,
+                    OfferAssignedUser = true
+                }
+            }
+        };
+
+        var result = generator.Generate(document, null, null, null, null, SessionPfxPassword);
+
+        Assert.False(result.Autopilot.Interactive.PreselectCustomGroupTag);
+        Assert.False(result.Autopilot.Interactive.OfferAssignedUser);
+    }
+
+    [Fact]
     public void Generate_WhenJsonProfileModeHasNoSelectedProfile_ThrowsInvalidOperationException()
     {
         var generator = new DeployConfigurationGenerator();

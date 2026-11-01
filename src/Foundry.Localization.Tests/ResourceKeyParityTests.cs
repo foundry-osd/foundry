@@ -65,6 +65,7 @@ public sealed class ResourceKeyParityTests
     public static TheoryData<string, string> ResourceSets => new()
     {
         { "Foundry", ".resw" },
+        { "Foundry.AutopilotInteractive", ".resx" },
         { "Foundry.Connect", ".resx" },
         { "Foundry.Deploy", ".resx" }
     };
@@ -221,6 +222,7 @@ public sealed class ResourceKeyParityTests
 
     public static TheoryData<string> WpfResourceProjects => new()
     {
+        "Foundry.AutopilotInteractive",
         "Foundry.Connect",
         "Foundry.Deploy"
     };

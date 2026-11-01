@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Šī lietojumprogramma Windows iestatīšanas laikā reģistrē ierīci pakalpojumā Windows Autopilot.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Šī programmatūra tiek nodrošināta tādā stāvoklī, kādā tā ir.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Mickaël CHAVE un Foundry Project līdzautori.
+Licencēts saskaņā ar MIT licenci.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Par Foundry Autopilot Interactive</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Autopilot Interactive</value>
+  </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>Atcelt</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>Vai izlaist Autopilot reģistrēšanu? Windows iestatīšana turpināsies, nereģistrējot šo ierīci.</value>
+  </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Notiek reģistrēšana. Ja pārtrauksiet tagad, šī ierīce tik un tā var parādīties pakalpojumā Windows Autopilot. Vai pārtraukt gaidīšanu un turpināt Windows iestatīšanu?</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>Izlaist reģistrēšanu</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Aizvērt</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Versija: {0}</value>
+  </data>
+  <data name="Config.LoadFailed" xml:space="preserve">
+    <value>Autopilot konfigurācija nav atrasta vai nav derīga, tāpēc šo ierīci nevar reģistrēt.</value>
+  </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>Šim solim atvēlētais laiks ir beidzies. Windows iestatīšana turpinās, nereģistrējot šo ierīci.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>Jau reģistrēta ierīce</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>Rādīts piešķirtais lietotājs</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>Koda atjaunošana</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>Pabeigšanas pārbaude (iziet)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>Sasniegts termiņš</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>Grupas atzīmju atrašana neizdevās</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>Daudz grupas atzīmju</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>Gaida tīklu</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>Nav grupas atzīmju</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>Profils piešķirts</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>Profila gaidīšanas noildze</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>Augšupielāde veiksmīga, gaida profilu</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>Beidzies sesijas derīgums (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>Vairākas atbilstošas ierīces</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>Pierakstīšanās kods un QR kods</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>Pierakstīšanās kļūda ar pogu Mēģināt vēlreiz</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>Augšupielāde neizdevās: trūkst atļaujas (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>Augšupielāde neizdevās: vispārīga kļūda</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>Augšupielāde neizdevās: cits nomnieks</value>
+  </data>
+  <data name="Footer.Unknown" xml:space="preserve">
+    <value>Nezināms</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>Ievadiet lietotāja pamatvārdu (UPN), piemēram, user@contoso.com, vai atstājiet lauku tukšu.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>Piešķirtais lietotājs (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>Pielāgots</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>Pielāgota grupas atzīme</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>Izvēlieties grupas atzīmi un pēc tam reģistrējiet šīs ierīces aparatūras jaucējkodu pakalpojumā Windows Autopilot.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>Grupas atzīme</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>Nav</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>nav</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>Reģistrēt</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>Šī ierīce jau ir reģistrēta pakalpojumā Windows Autopilot</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>Pašreizējā grupas atzīme: {0}. Piešķirtais lietotājs: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>Šis sērijas numurs ir vairākām Windows Autopilot ierīcēm. Reģistrēšana nevar atjaunināt neviennozīmīgu ierīci.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>Pierakstījies kā {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>Esošās grupas atzīmes nevarēja ielādēt. Joprojām varat ievadīt pielāgotu grupas atzīmi.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>Reģistrēt šo ierīci pakalpojumā Autopilot</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>nezināms konts</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>Izmantot citu kontu</value>
+  </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Citas valodas</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>Arābu (Saūda Arābija)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>Bulgāru (Bulgārija)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Ķīniešu, vienkāršotā (Ķīna)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Ķīniešu, tradicionālā (Taivāna)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Horvātu (Horvātija)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Čehu (Čehija)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>Dāņu (Dānija)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Holandiešu (Nīderlande)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>Angļu (Apvienotā Karaliste)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>Angļu (Amerikas Savienotās Valstis)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Igauņu (Igaunija)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>Somu (Somija)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>Franču (Kanāda)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>Franču (Francija)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>Vācu (Vācija)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>Grieķu (Grieķija)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>Ebreju (Izraēla)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>Ungāru (Ungārija)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>Itāļu (Itālija)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>Japāņu (Japāna)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>Korejiešu (Koreja)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>Latviešu (Latvija)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Lietuviešu (Lietuva)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Norvēģu bukmols (Norvēģija)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>Poļu (Polija)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>Portugāļu (Brazīlija)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>Portugāļu (Portugāle)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>Rumāņu (Rumānija)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>Krievu (Krievija)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Serbu, latīņu (Serbija)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Slovāku (Slovākija)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>Slovēņu (Slovēnija)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>Spāņu (Meksika)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>Spāņu (Spānija)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>Zviedru (Zviedrija)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>Taju (Taizeme)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>Turku (Turcija)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>Ukraiņu (Ukraina)</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_Par</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_Atkļūdošana</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Ta_statūra</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Ta_statūra ({0})</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_Valoda</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_Tēma</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>Reģistrēšana pabeigta</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>Turpināt tūlīt</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>Turpināt negaidot</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>Windows iestatīšana turpināsies pēc {0} s</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>Šim solim atvēlētais laiks ir beidzies.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>Šis sērijas numurs ir vairākām Windows Autopilot ierīcēm. Noņemiet dublikātus pakalpojumā Intune un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>Šī ierīce ir reģistrēta pie cita nomnieka. Citam nomniekam vai pārdevējam ir jāatceļ reģistrācija, pirms ierīci var reģistrēt šeit.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>Šī ierīce jau ir reģistrēta pakalpojumā Windows Autopilot. Pārbaudiet ierīci pakalpojumā Intune un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>Konts, kurā pierakstīts, nevar importēt Windows Autopilot ierīces. Pierakstieties kontā, kuram ir Intune loma ar atļauju importēt Autopilot ierīces.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph noraidīja pierakstīšanos. Pierakstieties atkārtoti un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>Nevarēja nolasīt šīs ierīces sērijas numuru vai aparatūras jaucējkodu. Detalizēta informācija ir žurnālā.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>Nevarēja izveidot savienojumu ar Microsoft Graph. Pārbaudiet tīkla savienojumu un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Šī ierīce ir reģistrēta pakalpojumā Windows Autopilot, taču tās grupas atzīmi, datora nosaukumu vai piešķirto lietotāju nevarēja lietot. Pārbaudiet lietotājvārdu un Intune un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>Reģistrēšana neizdevās. Cēlonis var būt starpniekserveris vai captive portāls šajā tīklā. Detalizēta informācija ir žurnālā; mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>Ierīce 15 minūšu laikā neparādījās pakalpojumā Windows Autopilot. Pārbaudiet Intune un mēģiniet vēlreiz.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Autopilot profils ir piešķirts.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Intune ziņoja, ka Autopilot profila piešķiršana neizdevās. Windows iestatīšana turpinās.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>Windows iestatīšana turpinās, negaidot profila piešķiršanu.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>Profils vēl nav piešķirts; Windows iestatīšana turpinās.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>Profila piešķiršanas statusu nevarēja nolasīt. Windows iestatīšana turpinās.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>Gaida Autopilot profila piešķiršanu ({0})</value>
+  </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>Izlaist reģistrēšanu</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>Tiek piešķirta grupas atzīme, datora nosaukums un lietotājs…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>Tiek vākts aparatūras jaucējkods…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>Tiek augšupielādēts aparatūras jaucējkods…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>Gaida, līdz ierīce parādīsies pakalpojumā Windows Autopilot (līdz 15 minūtēm)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>Reģistrācijas lapu nevarēja ielādēt. Pierakstieties atkārtoti, izmantojot jauno kodu.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>Jūsu sesijas derīgums ir beidzies. Pierakstieties atkārtoti, izmantojot jauno kodu.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>Izrakstījāties. Pierakstieties ar citu kontu, izmantojot jauno kodu.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>Tīkls nav pieejams. Mēģinājums tiks atkārtots ik pēc 10 sekundēm…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>Pierakstieties ar kontu, kas var reģistrēt ierīces pakalpojumā Windows Autopilot.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>Pēc tam ievadiet šo kodu</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>Pierakstīšanās neizdevās. Jūsu organizācija, iespējams, bloķē pierakstīšanos ar ierīces kodu, izmantojot nosacījumpiekļuves politiku. Atlasiet Mēģināt vēlreiz, lai iegūtu jaunu kodu.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>Pierakstīšanās tika noraidīta. Atlasiet Mēģināt vēlreiz, lai iegūtu jaunu kodu.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>Pierakstīšanās neizdevās, jo Microsoft atgrieza negaidītu atbildi. Cēlonis var būt starpniekserveris vai captive portāls šajā tīklā. Atlasiet Mēģināt vēlreiz, lai mēģinātu vēlreiz.</value>
+  </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Nevarēja izveidot drošu savienojumu ar Microsoft. Cēlonis var būt starpniekserveris, kas pārbauda HTTPS datplūsmu, vai nepareizs sistēmas pulkstenis. Atlasiet Mēģināt vēlreiz, lai mēģinātu vēlreiz.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>Kods beigsies pēc {0}</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>Notiek grupas atzīmju ielāde…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>Citā ierīcē atveriet</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>vai</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>Tiek pieprasīts pierakstīšanās kods…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>Mēģināt vēlreiz</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>Skenējiet, lai pierakstītos</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>Pierakstīšanās pakalpojumā Microsoft</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Tumšs</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Gaišs</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>Sistēma</value>
+  </data>
+</root>

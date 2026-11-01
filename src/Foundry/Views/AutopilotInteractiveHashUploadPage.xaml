@@ -2,9 +2,11 @@
 <Page x:Class="Foundry.Views.AutopilotInteractiveHashUploadPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:Foundry.Behaviors"
     xmlns:controls="using:Foundry.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wct="using:CommunityToolkit.WinUI.Controls"
     mc:Ignorable="d">
     <Grid
         Margin="{ThemeResource ContentPageMargin}"
@@ -41,8 +43,41 @@
                 HorizontalContentAlignment="Stretch"
                 VerticalContentAlignment="Stretch"
                 IsEnabled="{x:Bind ViewModel.IsInteractiveHardwareHashUploadActive, Mode=OneWay}">
-                <Grid>
+                <Grid x:Name="InteractiveLayout"
+                    RowSpacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel x:Name="InteractiveOptions"
+                        HorizontalAlignment="Stretch"
+                        SizeChanged="OnInteractiveContentSizeChanged"
+                        Spacing="{ThemeResource FoundrySettingsSectionSpacing}">
+                        <wct:SettingsCard
+                            x:Uid="AutopilotInteractivePreselectCustomCard"
+                            IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
+                            <wct:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE8EC;" />
+                            </wct:SettingsCard.HeaderIcon>
+                            <ToggleSwitch
+                                behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                                IsOn="{x:Bind ViewModel.PreselectCustomGroupTag, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </wct:SettingsCard>
+                        <wct:SettingsCard
+                            x:Uid="AutopilotInteractiveOfferAssignedUserCard"
+                            IsEnabled="{x:Bind Managed.IsEditable, Mode=OneWay}">
+                            <wct:SettingsCard.HeaderIcon>
+                                <FontIcon Glyph="&#xE77B;" />
+                            </wct:SettingsCard.HeaderIcon>
+                            <ToggleSwitch
+                                behaviors:LocalizedToggleSwitch.UseLocalizedStateContent="True"
+                                IsOn="{x:Bind ViewModel.OfferAssignedUser, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </wct:SettingsCard>
+                    </StackPanel>
+
                     <Grid x:Name="InteractivePresentation"
+                        Grid.Row="1"
                         MaxWidth="{ThemeResource FoundryContentMaxWidth}"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"

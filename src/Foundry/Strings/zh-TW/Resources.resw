@@ -685,6 +685,18 @@
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>互動式硬體雜湊上傳</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>技術人員可以輸入在 OOBE 期間預先填入其 UPN 的使用者。</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>提供已指派的使用者</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>適用於尚未在 Autopilot 中註冊的裝置。技術人員直接輸入自訂標籤。</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>為群組標籤預先選取「自訂」</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>匯入或下載內嵌於部署媒體中的 Autopilot 設定檔。</value>
   </data>

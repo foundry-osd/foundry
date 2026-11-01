@@ -59,6 +59,10 @@
     <Platform Solution="*|x64" Project="x64" />
     <Platform Solution="*|ARM64" Project="ARM64" />
   </Project>
+  <Project Path="Foundry.AutopilotInteractive/Foundry.AutopilotInteractive.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+  </Project>
   <Project Path="Foundry.Deploy/Foundry.Deploy.csproj">
     <Platform Solution="*|x64" Project="x64" />
     <Platform Solution="*|ARM64" Project="ARM64" />
@@ -68,6 +72,10 @@
     <Platform Solution="*|ARM64" Project="ARM64" />
   </Project>
   <Project Path="Foundry.Deploy.Tests/Foundry.Deploy.Tests.csproj">
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|ARM64" Project="ARM64" />
+  </Project>
+  <Project Path="Foundry.AutopilotInteractive.Tests/Foundry.AutopilotInteractive.Tests.csproj">
     <Platform Solution="*|x64" Project="x64" />
     <Platform Solution="*|ARM64" Project="ARM64" />
   </Project>

@@ -685,6 +685,18 @@ Licencováno pod licencí MIT.</value>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktivní nahrání hardwarového hashe</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>Technik může zadat uživatele, jehož UPN se předvyplní při OOBE.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>Nabídnout přiřazeného uživatele</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>Platí pro zařízení, která ještě nejsou zaregistrována ve službě Autopilot. Technik zadá vlastní značku přímo.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>Předvybrat možnost Vlastní pro značku skupiny</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Importujte nebo stáhněte profil Autopilot vložený do média pro nasazení.</value>
   </data>

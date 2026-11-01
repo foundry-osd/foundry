@@ -117,18 +117,8 @@ internal sealed class PostInstallRuntimeRecovery(string winPeRoot, string deploy
             throw new InvalidDataException("PostInstall archive override does not match the trusted SHA256 digest.");
     }
 
-    private string ResolveReleaseTag()
-    {
-        foreach (string name in new[] { "FOUNDRY_POSTINSTALL_RELEASE_TAG", "FOUNDRY_DEPLOY_RELEASE_TAG", "FOUNDRY_RELEASE_TAG" })
-        {
-            string tag = ReadEnvironment(name);
-            if (tag.Length > 0) return tag;
-        }
-        string version = deployVersion.Split('+')[0];
-        if (!Version.TryParse(version, out Version? parsed) || parsed.Revision < 0)
-            throw new InvalidDataException("The running Deploy release cannot be identified for PostInstall recovery.");
-        return "v" + version;
-    }
+    private string ResolveReleaseTag() => DeployReleaseTag.Resolve(deployVersion, environment,
+        "FOUNDRY_POSTINSTALL_RELEASE_TAG", "FOUNDRY_DEPLOY_RELEASE_TAG", "FOUNDRY_RELEASE_TAG");
 
     private Task<RuntimeReleaseAsset> ReadReleaseAssetAsync(string tag, string runtimeIdentifier, CancellationToken cancellationToken) =>
         HttpRetryPolicy.ExecuteAsync(async token =>

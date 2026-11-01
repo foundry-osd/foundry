@@ -685,6 +685,18 @@ Lisensiert under MIT-lisensen.</value>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktiv opplasting av maskinvarehash</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>Teknikeren kan angi brukeren hvis UPN fylles ut på forhånd under OOBE.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>Tilby tildelt bruker</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>Gjelder for enheter som ennå ikke er registrert i Autopilot. Teknikeren skriver inn en egendefinert tagg direkte.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>Forhåndsvelg Egendefinert for gruppetaggen</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Importer eller last ned Autopilot-profilen som bygges inn i distribusjonsmediene.</value>
   </data>

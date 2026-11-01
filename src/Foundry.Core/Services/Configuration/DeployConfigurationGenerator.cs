@@ -204,7 +204,14 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                 HardwareHashUpload = CreateDeployHardwareHashUploadSettings(
                     document.Autopilot,
                     deploymentSecretsKey,
-                    inputs)
+                    inputs),
+                Interactive = document.Autopilot is { IsEnabled: true, ProvisioningMode: AutopilotProvisioningMode.InteractiveHardwareHashUpload }
+                    ? new DeployAutopilotInteractiveSettings
+                    {
+                        PreselectCustomGroupTag = document.Autopilot.Interactive.PreselectCustomGroupTag,
+                        OfferAssignedUser = document.Autopilot.Interactive.OfferAssignedUser
+                    }
+                    : new DeployAutopilotInteractiveSettings()
             },
             Telemetry = document.Telemetry
         };

@@ -40,6 +40,15 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>Dağıtım sırasında bu cihazın donanım karmasını Windows Autopilot'a karşıya yükler.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>Etkileşimli Autopilot kayıt yardımcısı bu cihaza yüklenemedi. Bağlantınızı kontrol edip dağıtımı yeniden deneyin. Ayrıntılar için dağıtım günlüğüne bakın.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeRateLimited" xml:space="preserve">
+    <value>GitHub bu ağdan yapılan indirmeleri geçici olarak sınırladı. Birkaç dakika bekleyin, ardından dağıtımı yeniden başlatın.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>Etkileşimli Autopilot kayıt yardımcısı bu Foundry sürümü için kullanılamıyor. Bağlantınızı kontrol edip yeniden deneyin veya önyükleme medyasını yeniden oluşturun. Ayrıntılar için dağıtım günlüğüne bakın.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Çevrimdışı bir Autopilot profilini Windows yüklemesine ekler.</value>
   </data>

@@ -40,6 +40,15 @@ Licensierad under MIT-licensen.</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>Laddar upp enhetens maskinvaruhash till Windows Autopilot under distributionen.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>Den interaktiva Autopilot-registreringsassistenten kunde inte installeras på den här enheten. Kontrollera anslutningen och försök med distributionen igen. Se distributionsloggen för mer information.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeRateLimited" xml:space="preserve">
+    <value>GitHub har tillfälligt begränsat nedladdningar från det här nätverket. Vänta några minuter och starta sedan distributionen igen.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>Den interaktiva Autopilot-registreringsassistenten är inte tillgänglig för den här versionen av Foundry. Kontrollera anslutningen och försök igen, eller skapa startmediet på nytt. Se distributionsloggen för mer information.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Lägger till en offlineprofil för Autopilot i Windows-installationen.</value>
   </data>

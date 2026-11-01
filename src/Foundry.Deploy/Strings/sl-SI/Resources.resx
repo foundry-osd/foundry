@@ -40,6 +40,15 @@ Licencirano pod licenco MIT.</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>Med uvajanjem naloži zgoščeno vrednost strojne opreme te naprave v Windows Autopilot.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>Interaktivnega pomočnika za registracijo Autopilot ni bilo mogoče namestiti v to napravo. Preverite povezavo in ponovite uvajanje. Podrobnosti najdete v dnevniku uvajanja.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeRateLimited" xml:space="preserve">
+    <value>GitHub je začasno omejil prenose iz tega omrežja. Počakajte nekaj minut in nato znova zaženite uvajanje.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>Interaktivni pomočnik za registracijo Autopilot za to različico programa Foundry ni na voljo. Preverite povezavo in poskusite znova ali znova ustvarite zagonski medij. Podrobnosti najdete v dnevniku uvajanja.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>V namestitev sistema Windows doda profil Autopilot brez povezave.</value>
   </data>

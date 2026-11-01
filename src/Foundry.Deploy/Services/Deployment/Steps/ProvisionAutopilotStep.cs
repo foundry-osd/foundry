@@ -5,10 +5,18 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text.Json;
+using Foundry.Core.Models.Autopilot;
 using Foundry.Core.Services.Autopilot;
+using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Autopilot;
+using Foundry.Deploy.Services.Download;
+using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Logging;
+using Foundry.Utilities.Diagnostics;
+using Foundry.Utilities.Globalization;
+using Foundry.Wpf.Localization;
+using Foundry.Wpf.Theme;
 
 namespace Foundry.Deploy.Services.Deployment.Steps;
 
@@ -24,19 +32,36 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
 
     private readonly IAutopilotHardwareHashCaptureService _hardwareHashCaptureService;
     private readonly IAutopilotHardwareHashUploadService _hardwareHashUploadService;
-    private readonly IAutopilotInteractiveRegistrationProvisioningService _interactiveRegistrationProvisioningService;
+    private readonly IAutopilotInteractiveProvisioningService _interactiveProvisioningService;
     private readonly IAutopilotProfileContentService _autopilotProfileContentService;
+    private readonly IThemeService _themeService;
+    private readonly ILocalizationService _localizationService;
+    private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
 
+    /// <summary>Creates the step.</summary>
+    /// <param name="hardwareHashCaptureService">Captures the hardware hash for zero-touch upload.</param>
+    /// <param name="hardwareHashUploadService">Uploads the hardware hash for zero-touch upload.</param>
+    /// <param name="interactiveProvisioningService">Installs and configures Foundry.AutopilotInteractive in the target OS.</param>
+    /// <param name="autopilotProfileContentService">Reads the selected offline Autopilot profile.</param>
+    /// <param name="themeService">Supplies the theme Foundry.AutopilotInteractive starts with.</param>
+    /// <param name="localizationService">Supplies the UI culture Foundry.AutopilotInteractive starts with.</param>
+    /// <param name="keyboardLayoutSwitcher">Supplies the keyboard layout Foundry.AutopilotInteractive starts with.</param>
     public ProvisionAutopilotStep(
         IAutopilotHardwareHashCaptureService hardwareHashCaptureService,
         IAutopilotHardwareHashUploadService hardwareHashUploadService,
-        IAutopilotInteractiveRegistrationProvisioningService interactiveRegistrationProvisioningService,
-        IAutopilotProfileContentService autopilotProfileContentService)
+        IAutopilotInteractiveProvisioningService interactiveProvisioningService,
+        IAutopilotProfileContentService autopilotProfileContentService,
+        IThemeService themeService,
+        ILocalizationService localizationService,
+        IKeyboardLayoutSwitcher keyboardLayoutSwitcher)
     {
         _hardwareHashCaptureService = hardwareHashCaptureService;
         _hardwareHashUploadService = hardwareHashUploadService;
-        _interactiveRegistrationProvisioningService = interactiveRegistrationProvisioningService;
+        _interactiveProvisioningService = interactiveProvisioningService;
         _autopilotProfileContentService = autopilotProfileContentService;
+        _themeService = themeService;
+        _localizationService = localizationService;
+        _keyboardLayoutSwitcher = keyboardLayoutSwitcher;
     }
 
     public override string Name => DeploymentStepNames.ProvisionAutopilot;
@@ -196,17 +221,72 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
 
         context.EmitCurrentStepIndeterminate("Staging Autopilot registration assistant...", "Copying interactive registration files...", DeploymentOperationNames.StageAutopilotAssistant);
         string? assignedComputerName = await ResolveAssignedComputerNameAsync(context, cancellationToken).ConfigureAwait(false);
-        AutopilotInteractiveRegistrationProvisioningResult provisioningResult =
-            _interactiveRegistrationProvisioningService.Provision(context.RuntimeState.TargetWindowsPartitionRoot, assignedComputerName);
+        AutopilotInteractiveRuntimeConfiguration configuration = CreateInteractiveConfiguration(context, assignedComputerName);
+        AutopilotInteractiveProvisioningResult provisioningResult;
+        try
+        {
+            // The preflight resolves the archive before any disk operation; a missing origin means it did not run for this request.
+            AutopilotInteractiveRuntimeOrigin origin = context.AutopilotInteractiveRuntime
+                ?? throw new InvalidOperationException("The Foundry.AutopilotInteractive runtime was not resolved before disk preparation.");
+            IProgress<DownloadProgress> progress = context.CreateDownloadProgressReporter(
+                AutopilotInteractiveLayout.ApplicationName, DeploymentOperationNames.StageAutopilotAssistant);
+            provisioningResult = await _interactiveProvisioningService.ProvisionAsync(
+                context.RuntimeState.TargetWindowsPartitionRoot, origin, configuration, progress, cancellationToken).ConfigureAwait(false);
+        }
+        catch (Exception exception) when (exception is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
+        {
+            await context.AppendLogAsync(
+                DeploymentLogLevel.Error,
+                $"Interactive Autopilot registration assistant installation failed. FailureType={exception.GetType().Name}.",
+                cancellationToken).ConfigureAwait(false);
+            return DeploymentStepResult.Failed(
+                LocalizationText.GetString("Autopilot.InteractiveInstallFailed"),
+                DeploymentFailureClassifier.Classify(exception, DeploymentOperationNames.StageAutopilotAssistant) with
+                {
+                    OperationName = DeploymentOperationNames.StageAutopilotAssistant,
+                    Code = "autopilot_interactive_install_failed"
+                });
+        }
 
         context.RuntimeState.StagedAutopilotConfigurationPath = provisioningResult.ConfigPath;
         context.RuntimeState.AutopilotHardwareHashUploadState = AutopilotHardwareHashUploadState.NotPlanned;
         await context.AppendLogAsync(
             DeploymentLogLevel.Info,
-            $"Interactive Autopilot registration assistant staged to '{provisioningResult.RegistrationRootPath}'.",
+            $"Interactive Autopilot registration assistant installed to '{provisioningResult.RuntimeDirectory}'.",
             cancellationToken).ConfigureAwait(false);
         return DeploymentStepResult.Succeeded("Interactive Autopilot registration assistant staged.");
     }
+
+    /// <summary>
+    /// Builds the configuration Foundry.AutopilotInteractive reads at startup: the computer name to assign (upload option only), the
+    /// display-only final computer name, the interactive options,
+    /// the theme, culture and keyboard layout currently active in Deploy (the layout chosen in Connect or in Deploy's Keyboard
+    /// menu, otherwise the WinPE layout), and the diagnostic session that correlates its logs with this deployment.
+    /// </summary>
+    private AutopilotInteractiveRuntimeConfiguration CreateInteractiveConfiguration(DeploymentStepExecutionContext context, string? assignedComputerName)
+    {
+        string cultureName = _localizationService.CurrentCulture.Name;
+        return new AutopilotInteractiveRuntimeConfiguration
+        {
+            AssignedComputerName = assignedComputerName,
+            ComputerName = ResolveFinalComputerName(context),
+            PreselectCustomGroupTag = context.Request.AutopilotInteractive.PreselectCustomGroupTag,
+            OfferAssignedUser = context.Request.AutopilotInteractive.OfferAssignedUser,
+            Theme = ToRuntimeTheme(_themeService.CurrentTheme),
+            CultureName = string.IsNullOrWhiteSpace(cultureName) ? "en-US" : cultureName,
+            DiagnosticSessionId = DiagnosticSessionContext.CurrentSessionId,
+            KeyboardLayoutId = KeyboardLayoutCatalog.TryNormalizeId(_keyboardLayoutSwitcher.GetActiveLayoutId(), out string layoutId)
+                ? layoutId
+                : null
+        };
+    }
+
+    private static RuntimeThemePreference ToRuntimeTheme(ThemeMode theme) => theme switch
+    {
+        ThemeMode.Light => RuntimeThemePreference.Light,
+        ThemeMode.Dark => RuntimeThemePreference.Dark,
+        _ => RuntimeThemePreference.System
+    };
 
     private async Task<DeploymentStepResult> PrepareHardwareHashUploadAsync(
         DeploymentStepExecutionContext context,
@@ -328,6 +408,9 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             : DeploymentStepResult.Skipped(uploadResult.Message);
     }
 
+    /// <summary>
+    /// Resolves the name sent to Autopilot: the final computer name, only when the upload option is enabled.
+    /// </summary>
     private static async Task<string?> ResolveAssignedComputerNameAsync(
         DeploymentStepExecutionContext context,
         CancellationToken cancellationToken)
@@ -337,17 +420,28 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             return null;
         }
 
-        if (context.Request.UsesCustomUnattend ||
-            !Foundry.Core.Services.Configuration.ComputerNameRules.IsValid(context.Request.TargetComputerName))
+        string? finalComputerName = ResolveFinalComputerName(context);
+        if (finalComputerName is null)
         {
             await context.AppendLogAsync(
                 DeploymentLogLevel.Warning,
                 "Autopilot computer name assignment skipped because no final Foundry Deploy computer name is available. Hardware hash upload continues.",
                 cancellationToken).ConfigureAwait(false);
-            return null;
         }
 
-        return context.Request.TargetComputerName;
+        return finalComputerName;
+    }
+
+    /// <summary>
+    /// Returns the deployment's final computer name when it is known and reliable, independent of the upload option.
+    /// A custom unattend may rename the device, so no name is reliable then; an invalid target name is never reported.
+    /// </summary>
+    private static string? ResolveFinalComputerName(DeploymentStepExecutionContext context)
+    {
+        return !context.Request.UsesCustomUnattend &&
+            Foundry.Core.Services.Configuration.ComputerNameRules.IsValid(context.Request.TargetComputerName)
+            ? context.Request.TargetComputerName
+            : null;
     }
 
     private static async Task<DeploymentStepResult> WriteDryRunHardwareHashManifestAsync(
@@ -406,10 +500,8 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             createdAtUtc = DateTimeOffset.UtcNow,
             mode = "dry-run",
             provisioningMode = "interactiveHardwareHashUpload",
-            registrationRootPath = @"Windows\Temp\Foundry\Runtime\AutopilotRegistration",
-            logRootPath = @"Windows\Temp\Foundry\Logs\AutopilotRegistration",
-            scriptName = "Start-FoundryAutopilotRegistration.ps1",
-            launcherName = "Start-FoundryAutopilotRegistration.cmd"
+            executableRelativePath = AutopilotInteractiveProvisioningService.RuntimeExecutableRelativePath,
+            configRelativePath = AutopilotInteractiveProvisioningService.RuntimeConfigRelativePath
         }, new JsonSerializerOptions
         {
             WriteIndented = true

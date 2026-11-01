@@ -685,6 +685,18 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktyvus aparatūros maišos įkėlimas</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>Technikas gali įvesti naudotoją, kurio UPN iš anksto užpildomas per OOBE.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>Siūlyti priskirtą naudotoją</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>Taikoma įrenginiams, kurie dar neregistruoti Autopilot. Technikas tiesiogiai įveda tinkintą žymą.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>Iš anksto pasirinkti Tinkinta grupės žymai</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Importuokite arba atsisiųskite į diegimo laikmeną įterptą Autopilot profilį.</value>
   </data>

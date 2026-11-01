@@ -527,6 +527,26 @@ public sealed class DeploymentLaunchPreparationServiceTests
     }
 
     [Fact]
+    public void Prepare_WhenInteractiveHardwareHashModeIsSelected_CarriesInteractiveOptions()
+    {
+        var shell = new FakeApplicationShellService { ConfirmationResult = true };
+        var service = new DeploymentLaunchPreparationService(shell);
+        var interactive = new DeployAutopilotInteractiveSettings { PreselectCustomGroupTag = true, OfferAssignedUser = true };
+
+        DeploymentLaunchPreparationResult result = service.Prepare(
+            CreateRequest(
+                selectedTargetDisk: CreateDisk(),
+                isAutopilotEnabled: true,
+                autopilotProvisioningMode: AutopilotProvisioningMode.InteractiveHardwareHashUpload,
+                selectedAutopilotProfile: null,
+                autopilotInteractive: interactive,
+                isDryRun: false));
+
+        Assert.True(result.IsReadyToStart);
+        Assert.Same(interactive, result.Context?.AutopilotInteractive);
+    }
+
+    [Fact]
     public void Prepare_WhenJsonProfileModeHasNoProfile_FailsValidation()
     {
         var shell = new FakeApplicationShellService();
@@ -583,6 +603,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
         AutopilotProvisioningMode autopilotProvisioningMode = AutopilotProvisioningMode.JsonProfile,
         AutopilotProfileCatalogItem? selectedAutopilotProfile = null,
         DeployAutopilotHardwareHashUploadSettings? autopilotHardwareHashUpload = null,
+        DeployAutopilotInteractiveSettings? autopilotInteractive = null,
         DeployOobeSettings? oobe = null,
         DeployAppxRemovalSettings? appxRemoval = null,
         DeployAiComponentRemovalSettings? aiComponentRemoval = null,
@@ -614,6 +635,7 @@ public sealed class DeploymentLaunchPreparationServiceTests
             AutopilotProvisioningMode = autopilotProvisioningMode,
             SelectedAutopilotProfile = selectedAutopilotProfile,
             AutopilotHardwareHashUpload = autopilotHardwareHashUpload ?? new DeployAutopilotHardwareHashUploadSettings(),
+            AutopilotInteractive = autopilotInteractive ?? new DeployAutopilotInteractiveSettings(),
             Oobe = oobe ?? new DeployOobeSettings(),
             AppxRemoval = appxRemoval ?? new DeployAppxRemovalSettings(),
             AiComponentRemoval = aiComponentRemoval ?? new DeployAiComponentRemovalSettings(),

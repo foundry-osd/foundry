@@ -40,6 +40,15 @@ Licencováno pod licencí MIT.</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>Nahraje hardwarový hash tohoto zařízení do Windows Autopilotu během nasazení.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>Interaktivního asistenta registrace Autopilotu se nepodařilo nainstalovat do tohoto zařízení. Zkontrolujte připojení a zopakujte nasazení. Podrobnosti najdete v protokolu nasazení.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeRateLimited" xml:space="preserve">
+    <value>GitHub dočasně omezil stahování z této sítě. Počkejte několik minut a pak spusťte nasazení znovu.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>Interaktivní asistent registrace Autopilotu není pro tuto verzi Foundry k dispozici. Zkontrolujte připojení a zkuste to znovu nebo znovu vytvořte spouštěcí médium. Podrobnosti najdete v protokolu nasazení.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Vloží offline profil Autopilotu do instalace Windows.</value>
   </data>

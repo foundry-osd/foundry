@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Această aplicație înregistrează dispozitivul în Windows Autopilot în timpul configurării Windows.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Acest software este furnizat ca atare.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Mickaël CHAVE și colaboratorii Foundry Project.
+Licențiat sub licența MIT.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Despre Foundry Autopilot Interactive</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Autopilot Interactive</value>
+  </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>Anulare</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>Omiteți înregistrarea în Autopilot? Configurarea Windows va continua fără înregistrarea acestui dispozitiv.</value>
+  </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Înregistrarea este în curs. Dacă vă opriți acum, acest dispozitiv poate apărea totuși în Windows Autopilot. Opriți așteptarea și continuați configurarea Windows?</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>Omitere înregistrare</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Închide</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Versiune: {0}</value>
+  </data>
+  <data name="Config.LoadFailed" xml:space="preserve">
+    <value>Configurația Autopilot lipsește sau nu este validă, deci acest dispozitiv nu poate fi înregistrat.</value>
+  </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>Timpul alocat acestui pas a expirat. Configurarea Windows continuă fără înregistrarea acestui dispozitiv.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>Dispozitiv deja înregistrat</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>Utilizator atribuit afișat</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>Reînnoirea codului</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>Verificare finalizare (se închide)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>Termen atins</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>Descoperirea etichetelor de grup a eșuat</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>Multe etichete de grup</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>Se așteaptă rețeaua</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>Fără etichete de grup</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>Profil atribuit</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>Timp de așteptare a profilului expirat</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>Încărcare reușită cu așteptarea profilului</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>Sesiune expirată (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>Mai multe dispozitive potrivite</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>Cod de conectare și cod QR</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>Eroare de conectare cu Reîncercați</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>Încărcare eșuată: permisiune lipsă (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>Încărcare eșuată: eroare generală</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>Încărcare eșuată: altă entitate găzduită</value>
+  </data>
+  <data name="Footer.Unknown" xml:space="preserve">
+    <value>Necunoscut</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>Introduceți un nume principal de utilizator (UPN), de exemplu user@contoso.com, sau lăsați câmpul necompletat.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>Utilizator atribuit (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>Personalizat</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>Etichetă de grup personalizată</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>Alegeți eticheta de grup, apoi înregistrați hashul hardware al acestui dispozitiv în Windows Autopilot.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>Etichetă de grup</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>Niciuna</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>niciuna</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>Înregistrare</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>Acest dispozitiv este deja înregistrat în Windows Autopilot</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>Eticheta de grup curentă: {0}. Utilizator atribuit: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>Mai multe dispozitive Windows Autopilot au acest număr de serie. Înregistrarea nu poate actualiza un dispozitiv ambiguu.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>Conectat ca {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>Etichetele de grup existente nu au putut fi încărcate. Puteți totuși introduce o etichetă de grup personalizată.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>Înregistrați acest dispozitiv în Autopilot</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>un cont necunoscut</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>Utilizați alt cont</value>
+  </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Alte limbi</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arabă (Arabia Saudită)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bulgară (Bulgaria)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>chineză simplificată (China)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>chineză tradițională (Taiwan)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>croată (Croația)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>cehă (Cehia)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>daneză (Danemarca)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>olandeză (Țările de Jos)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>engleză (Regatul Unit)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>engleză (Statele Unite)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>estonă (Estonia)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>finlandeză (Finlanda)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>franceză (Canada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>franceză (Franța)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>germană (Germania)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>greacă (Grecia)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>ebraică (Israel)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>maghiară (Ungaria)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>italiană (Italia)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japoneză (Japonia)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>coreeană (Coreea)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>letonă (Letonia)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>lituaniană (Lituania)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>norvegiană bokmal (Norvegia)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>poloneză (Polonia)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugheză (Brazilia)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugheză (Portugalia)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>română (România)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>rusă (Rusia)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>sârbă latină (Serbia)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>slovacă (Slovacia)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>slovenă (Slovenia)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>spaniolă (Mexic)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>spaniolă (Spania)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>suedeză (Suedia)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>thailandeză (Thailanda)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>turcă (Turcia)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ucraineană (Ucraina)</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_Despre</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_Depanare</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>T_astatură</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>T_astatură ({0})</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_Limba</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_Temă</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>Înregistrare finalizată</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>Continuați acum</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>Continuați fără a aștepta</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>Configurarea Windows va continua în {0} s</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>Timpul alocat acestui pas a expirat.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>Mai multe dispozitive Windows Autopilot au acest număr de serie. Eliminați duplicatele în Intune, apoi încercați din nou.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>Acest dispozitiv este înregistrat într-o altă entitate găzduită. Cealaltă entitate găzduită sau revânzătorul trebuie să anuleze înregistrarea înainte ca dispozitivul să poată fi înregistrat aici.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>Acest dispozitiv este deja înregistrat în Windows Autopilot. Verificați dispozitivul în Intune, apoi încercați din nou.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>Contul conectat nu poate importa dispozitive Windows Autopilot. Conectați-vă cu un cont care are un rol Intune ce permite importul dispozitivelor Autopilot.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph a respins conectarea. Conectați-vă din nou, apoi încercați din nou.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>Numărul de serie sau hashul hardware al acestui dispozitiv nu a putut fi citit. Detaliile se află în jurnal.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>Microsoft Graph nu a putut fi accesat. Verificați conexiunea la rețea, apoi încercați din nou.</value>
+  </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Acest dispozitiv este înregistrat în Windows Autopilot, dar eticheta de grup, numele computerului sau utilizatorul atribuit nu au putut fi aplicate. Verificați numele de utilizator și Intune, apoi încercați din nou.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>Înregistrarea a eșuat. O cauză posibilă este un proxy sau un portal captiv din această rețea. Detaliile se află în jurnal; încercați din nou.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>Dispozitivul nu a apărut în Windows Autopilot în 15 minute. Verificați Intune, apoi încercați din nou.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Profilul Autopilot este atribuit.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Intune a raportat că atribuirea profilului Autopilot a eșuat. Configurarea Windows continuă.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>Configurarea Windows continuă fără a aștepta atribuirea profilului.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>Profilul nu este încă atribuit; configurarea Windows continuă.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>Starea atribuirii profilului nu a putut fi citită. Configurarea Windows continuă.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>Se așteaptă atribuirea profilului Autopilot ({0})</value>
+  </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>Omitere înregistrare</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>Se atribuie eticheta de grup, numele computerului și utilizatorul…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>Se colectează hashul hardware…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>Se încarcă hashul hardware…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>Se așteaptă ca dispozitivul să apară în Windows Autopilot (până la 15 minute)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>Pagina de înregistrare nu a putut fi încărcată. Conectați-vă din nou cu noul cod.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>Sesiunea a expirat. Conectați-vă din nou cu noul cod.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>V-ați deconectat. Conectați-vă cu alt cont folosind noul cod.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>Rețeaua nu este disponibilă. Se reîncearcă la fiecare 10 secunde…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>Conectați-vă cu un cont care poate înregistra dispozitive în Windows Autopilot.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>Apoi introduceți acest cod</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>Conectarea a eșuat. Este posibil ca organizația dvs. să blocheze conectarea cu cod de dispozitiv printr-o politică de acces condiționat. Selectați Reîncercați pentru a obține un cod nou.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>Conectarea a fost refuzată. Selectați Reîncercați pentru a obține un cod nou.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>Conectarea a eșuat deoarece Microsoft a returnat un răspuns neașteptat. O cauză posibilă este un proxy sau un portal captiv din această rețea. Selectați Reîncercați pentru a încerca din nou.</value>
+  </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Nu s-a putut stabili o conexiune securizată cu Microsoft. Cauza poate fi un proxy care inspectează traficul HTTPS sau un ceas de sistem incorect. Selectați Reîncercați pentru a încerca din nou.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>Codul expiră în {0}</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>Se încarcă etichetele de grup…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>Pe alt dispozitiv, deschideți</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>sau</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>Se solicită un cod de conectare…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>Reîncercați</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>Scanați pentru a vă conecta</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>Conectare la Microsoft</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Întunecat</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Luminos</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>Sistem</value>
+  </data>
+</root>

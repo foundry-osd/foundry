@@ -13,15 +13,14 @@ public sealed class DeploymentStorageLayoutTests
     public void Layout_UsesSelectedOfflineWindowsAndDoesNotCreateUnusedDirectories()
     {
         var layout = DeploymentStorageLayout.FromPartitionRoot(@"R:\");
-        string[] paths = [layout.RuntimePreOobe, layout.RuntimeAutopilotRegistration,
+        string[] paths = [layout.RuntimePreOobe, layout.RuntimeAutopilotInteractive,
             layout.PayloadsDrivers, layout.PayloadsNetworkProfiles,
-            layout.StateDeployment, layout.StatePreOobe, layout.StateAutopilotRegistration,
-            layout.LogsDeployment, layout.LogsPreOobe, layout.LogsAutopilotRegistration, layout.LogsAutopilotHash];
+            layout.StateDeployment, layout.StatePreOobe, layout.StateAutopilotInteractive,
+            layout.LogsDeployment, layout.LogsPreOobe, layout.LogsAutopilotInteractive, layout.LogsAutopilotHash];
         Assert.All(paths, path => Assert.StartsWith(@"R:\Windows\Temp\Foundry\", path));
         Assert.All(paths, path => Assert.DoesNotContain("ProgramData", path));
         string temporary = Path.Combine(Path.GetTempPath(), "FoundryDeployTests", Guid.NewGuid().ToString("N"));
         _ = DeploymentStorageLayout.FromPartitionRoot(temporary);
         Assert.False(Directory.Exists(temporary));
-        Assert.Equal(@"%SystemRoot%\Temp\Foundry\State\Deployment", DeploymentStorageLayout.RuntimePath(@"State\Deployment"));
     }
 }

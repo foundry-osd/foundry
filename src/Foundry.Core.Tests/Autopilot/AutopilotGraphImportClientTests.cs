@@ -936,6 +936,233 @@ public sealed class AutopilotGraphImportClientTests
         Assert.Contains("visible", result.Message);
     }
 
+    [Theory]
+    [InlineData(HttpStatusCode.Unauthorized)]
+    [InlineData(HttpStatusCode.Forbidden)]
+    public async Task ImportHardwareHashAsync_WhenPropertyUpdateIsRejectedWithAuthorizationStatus_Propagates(HttpStatusCode status)
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "imported-id", "state": { "deviceImportStatus": "complete" } }] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "device-id", "serialNumber": "SER123" }] }""");
+        handler.EnqueueText(status, "rejected");
+
+        HttpRequestException exception = await Assert.ThrowsAsync<HttpRequestException>(() => CreateClient(handler).ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest("token", "SER123", "hash", "Sales", null, "import"), CancellationToken.None));
+
+        Assert.Equal(status, exception.StatusCode);
+        Assert.EndsWith("/updateDeviceProperties", handler.Requests[2].PathAndQuery, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task ImportHardwareHashAsync_WhenPropertyConfirmationIsUnauthorized_Propagates()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "imported-id", "state": { "deviceImportStatus": "complete" } }] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "device-id", "serialNumber": "SER123" }] }""");
+        handler.EnqueueText(HttpStatusCode.NoContent, string.Empty);
+        handler.EnqueueText(HttpStatusCode.Unauthorized, "expired");
+
+        HttpRequestException exception = await Assert.ThrowsAsync<HttpRequestException>(() => CreateClient(handler).ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest("token", "SER123", "hash", "Sales", null, "import"), CancellationToken.None));
+
+        Assert.Equal(HttpStatusCode.Unauthorized, exception.StatusCode);
+    }
+
+    [Fact]
+    public async Task FindDeviceBySerialNumber_ReturnsFound_WhenExactlyOneSerialMatchesAcrossPages()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "@odata.nextLink": "https://graph.microsoft.com/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$skiptoken=page-2",
+              "value": [ { "id": "other", "serialNumber": "OTHER", "groupTag": "X" } ]
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                {
+                  "id": "device-id",
+                  "serialNumber": "ser123",
+                  "groupTag": "Sales",
+                  "displayName": "PC-01",
+                  "userPrincipalName": "user@contoso.com"
+                }
+              ]
+            }
+            """);
+
+        AutopilotDeviceLookup lookup = await CreateClient(handler)
+            .FindDeviceBySerialNumberAsync("token", "SER123", CancellationToken.None);
+
+        Assert.Equal(AutopilotDeviceLookupStatus.Found, lookup.Status);
+        Assert.NotNull(lookup.Device);
+        Assert.Equal("device-id", lookup.Device.Id);
+        Assert.Equal("Sales", lookup.Device.GroupTag);
+        Assert.Equal("PC-01", lookup.Device.DisplayName);
+        Assert.Equal("user@contoso.com", lookup.Device.UserPrincipalName);
+        Assert.Equal(2, handler.Requests.Count);
+        Assert.Equal("/v1.0/deviceManagement/windowsAutopilotDeviceIdentities", handler.Requests[0].PathAndQuery);
+        Assert.Equal(
+            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities?$skiptoken=page-2",
+            handler.Requests[1].PathAndQuery);
+    }
+
+    [Fact]
+    public async Task FindDeviceBySerialNumber_ReturnsAmbiguous_WhenTwoDevicesMatch()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                { "id": "device-id-1", "serialNumber": "SER123" },
+                { "id": "device-id-2", "serialNumber": "SER123" }
+              ]
+            }
+            """);
+
+        AutopilotDeviceLookup lookup = await CreateClient(handler)
+            .FindDeviceBySerialNumberAsync("token", "SER123", CancellationToken.None);
+
+        Assert.Equal(AutopilotDeviceLookupStatus.Ambiguous, lookup.Status);
+        Assert.Null(lookup.Device);
+    }
+
+    [Fact]
+    public async Task FindDeviceBySerialNumber_ReturnsNotFound_WhenNoSerialMatches()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            { "value": [ { "id": "other", "serialNumber": "OTHER" } ] }
+            """);
+
+        AutopilotDeviceLookup lookup = await CreateClient(handler)
+            .FindDeviceBySerialNumberAsync("token", "SER123", CancellationToken.None);
+
+        Assert.Equal(AutopilotDeviceLookupStatus.NotFound, lookup.Status);
+        Assert.Null(lookup.Device);
+    }
+
+    [Fact]
+    public async Task GetDeploymentProfileAssignmentStatus_ReadsBetaProperty()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            { "id": "dev-1", "deploymentProfileAssignmentStatus": "assignedInSync" }
+            """);
+
+        string? status = await CreateClient(handler)
+            .GetDeploymentProfileAssignmentStatusAsync("token", "dev-1", CancellationToken.None);
+
+        Assert.Equal("assignedInSync", status);
+        RecordedGraphRequest request = Assert.Single(handler.Requests);
+        Assert.Equal(HttpMethod.Get, request.Method);
+        Assert.StartsWith(
+            "/beta/deviceManagement/windowsAutopilotDeviceIdentities/dev-1",
+            request.PathAndQuery,
+            StringComparison.Ordinal);
+        Assert.Contains("select=id,deploymentProfileAssignmentStatus", request.PathAndQuery, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task GetDeploymentProfileAssignmentStatus_ReturnsNull_WhenPropertyIsMissing()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "id": "dev-1" }""");
+
+        string? status = await CreateClient(handler)
+            .GetDeploymentProfileAssignmentStatusAsync("token", "dev-1", CancellationToken.None);
+
+        Assert.Null(status);
+    }
+
+    [Fact]
+    public async Task GetDeploymentProfileAssignmentStatus_PropagatesHttpStatusCode()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.NotFound, """{ "error": { "code": "NotFound", "message": "gone" } }""");
+
+        HttpRequestException exception = await Assert.ThrowsAsync<HttpRequestException>(() => CreateClient(handler)
+            .GetDeploymentProfileAssignmentStatusAsync("token", "dev-1", CancellationToken.None));
+
+        Assert.Equal(HttpStatusCode.NotFound, exception.StatusCode);
+    }
+
+    [Fact]
+    public async Task ImportHardwareHash_SetsImportErrorName_WhenImportFails()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """
+            {
+              "value": [
+                {
+                  "id": "imported-id",
+                  "serialNumber": "SER123",
+                  "importId": "import-123",
+                  "state": {
+                    "deviceImportStatus": "error",
+                    "deviceErrorCode": 808,
+                    "deviceErrorName": "ZtdDeviceAssignedToOtherTenant"
+                  }
+                }
+              ]
+            }
+            """);
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [] }""");
+
+        AutopilotHardwareHashUploadResult result = await CreateClient(handler).ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest("token", "SER123", "hash", null, null, "import-123"),
+            CancellationToken.None);
+
+        Assert.Equal(AutopilotHardwareHashUploadState.UploadFailed, result.State);
+        Assert.Equal("ZtdDeviceAssignedToOtherTenant", result.ImportErrorName);
+        Assert.Equal("808", result.FailureCode);
+    }
+
+    [Fact]
+    public async Task ImportHardwareHash_UpdatesUserPrincipalName_WhenVisibleDeviceHasAnotherUser()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "imported-id", "state": { "deviceImportStatus": "complete" } }] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "device-id", "serialNumber": "SER123", "userPrincipalName": "old@contoso.com" }] }""");
+        handler.EnqueueText(HttpStatusCode.NoContent, string.Empty);
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "device-id", "serialNumber": "SER123", "userPrincipalName": "new@contoso.com" }] }""");
+
+        AutopilotHardwareHashUploadResult result = await CreateClient(handler).ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest("token", "SER123", "hash", null, "new@contoso.com", "import"),
+            CancellationToken.None);
+
+        Assert.True(result.IsCompleted);
+        Assert.Equal(
+            "/v1.0/deviceManagement/windowsAutopilotDeviceIdentities/device-id/updateDeviceProperties",
+            handler.Requests[2].PathAndQuery);
+        string body = handler.Requests[2].Body!;
+        using JsonDocument document = JsonDocument.Parse(body);
+        Assert.Equal("new@contoso.com", document.RootElement.GetProperty("userPrincipalName").GetString());
+        Assert.Contains("\"userPrincipalName\":\"new@contoso.com\"", body, StringComparison.Ordinal);
+        Assert.DoesNotContain("addressableUserName", body, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task ImportHardwareHash_DoesNotSendUserPrincipalName_WhenRequestUserIsNull()
+    {
+        var handler = new QueuedGraphHandler();
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "imported-id", "state": { "deviceImportStatus": "complete" } }] }""");
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "device-id", "serialNumber": "SER123", "groupTag": "OLD", "userPrincipalName": "keep@contoso.com" }] }""");
+        handler.EnqueueText(HttpStatusCode.NoContent, string.Empty);
+        handler.EnqueueJson(HttpStatusCode.OK, """{ "value": [{ "id": "device-id", "serialNumber": "SER123", "groupTag": "NEW", "userPrincipalName": "keep@contoso.com" }] }""");
+
+        AutopilotHardwareHashUploadResult result = await CreateClient(handler).ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest("token", "SER123", "hash", "NEW", null, "import"),
+            CancellationToken.None);
+
+        Assert.True(result.IsCompleted);
+        string body = handler.Requests[2].Body!;
+        Assert.Contains("groupTag", body, StringComparison.Ordinal);
+        Assert.DoesNotContain("userPrincipalName", body, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("addressableUserName", body, StringComparison.OrdinalIgnoreCase);
+    }
+
     private static AutopilotGraphImportClient CreateClient(
         QueuedGraphHandler handler,
         AutopilotGraphImportClientOptions? options = null)

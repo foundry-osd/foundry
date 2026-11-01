@@ -685,6 +685,18 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>対話型ハードウェア ハッシュのアップロード</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>技術者は、OOBE で UPN があらかじめ入力されるユーザーを入力できます。</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>割り当てユーザーの入力を提示する</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>まだ Autopilot に登録されていないデバイスに適用されます。技術者がカスタムタグを直接入力します。</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>グループタグで [カスタム] をあらかじめ選択する</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>展開メディアに埋め込む Autopilot プロファイルをインポートまたはダウンロードします。</value>
   </data>

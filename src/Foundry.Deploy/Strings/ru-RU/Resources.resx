@@ -40,6 +40,15 @@
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>Отправляет аппаратный хэш этого устройства в Windows Autopilot во время развертывания.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>Не удалось установить интерактивный помощник регистрации Autopilot на это устройство. Проверьте подключение и повторите развертывание. Подробности см. в журнале развертывания.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeRateLimited" xml:space="preserve">
+    <value>GitHub временно ограничил загрузки из этой сети. Подождите несколько минут и снова запустите развертывание.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>Интерактивный помощник регистрации Autopilot недоступен для этой версии Foundry. Проверьте подключение и повторите попытку или заново создайте загрузочный носитель. Подробности см. в журнале развертывания.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Добавляет автономный профиль Autopilot в установку Windows.</value>
   </data>

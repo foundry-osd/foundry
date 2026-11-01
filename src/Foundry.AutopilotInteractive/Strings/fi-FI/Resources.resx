@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Tämä sovellus rekisteröi laitteen Windows Autopilotiin Windowsin asennuksen aikana.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Tämä ohjelmisto toimitetaan sellaisenaan.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Mickaël CHAVE ja Foundry Project -projektin avustajat.
+Lisensoitu MIT-lisenssillä.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Tietoja Foundry Autopilot Interactive</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Autopilot Interactive</value>
+  </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>Peruuta</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>Ohitetaanko Autopilot-rekisteröinti? Windowsin asennus jatkuu rekisteröimättä tätä laitetta.</value>
+  </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Rekisteröinti on käynnissä. Jos lopetat nyt, tämä laite voi silti näkyä palvelussa Windows Autopilot. Lopetetaanko odottaminen ja jatketaanko Windowsin asennusta?</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>Ohita rekisteröinti</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Versio: {0}</value>
+  </data>
+  <data name="Config.LoadFailed" xml:space="preserve">
+    <value>Autopilot-määritykset puuttuvat tai ovat virheelliset, joten tätä laitetta ei voi rekisteröidä.</value>
+  </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>Tälle vaiheelle varattu aika on päättynyt. Windowsin asennus jatkuu rekisteröimättä tätä laitetta.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>Jo rekisteröity laite</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>Määritetty käyttäjä näkyvissä</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>Koodin uusiminen</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>Valmis-tarkistus (poistuu)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>Määräaika saavutettu</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>Ryhmän tunnisteiden haku epäonnistui</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>Useita ryhmän tunnisteita</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>Odotetaan verkkoa</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>Ei ryhmän tunnisteita</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>Profiili määritetty</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>Profiilin odotuksen aikakatkaisu</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>Lataus onnistui, odotetaan profiilia</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>Vanhentunut istunto (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>Useita vastaavia laitteita</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>Kirjautumiskoodi ja QR-koodi</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>Kirjautumisvirhe ja Yritä uudelleen</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>Lataus epäonnistui: käyttöoikeus puuttuu (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>Lataus epäonnistui: yleinen virhe</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>Lataus epäonnistui: toinen vuokraaja</value>
+  </data>
+  <data name="Footer.Unknown" xml:space="preserve">
+    <value>Tuntematon</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>Anna UPN-nimi (user principal name), kuten user@contoso.com, tai jätä kenttä tyhjäksi.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>Määritetty käyttäjä (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>Mukautettu</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>Mukautettu ryhmän tunniste</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>Valitse ryhmän tunniste ja rekisteröi sitten tämän laitteen laitteiston hajautusarvo palveluun Windows Autopilot.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>Ryhmän tunniste</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>Ei mitään</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>ei mitään</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>Rekisteröi</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>Tämä laite on jo rekisteröity palveluun Windows Autopilot</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>Nykyinen ryhmän tunniste: {0}. Määritetty käyttäjä: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>Useilla Windows Autopilot -laitteilla on tämä sarjanumero. Rekisteröinti ei voi päivittää monitulkintaista laitetta.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>Kirjautuneena: {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>Olemassa olevia ryhmän tunnisteita ei voitu ladata. Voit silti antaa mukautetun ryhmän tunnisteen.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>Rekisteröi tämä laite palveluun Autopilot</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>tuntematon tili</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>Käytä toista tiliä</value>
+  </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Muut kielet</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>Arabia (Saudi-Arabia)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>Bulgaria (Bulgaria)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Yksinkertaistettu kiina (Kiina)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Perinteinen kiina (Taiwan)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Kroatia (Kroatia)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Tšekki (Tšekki)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>Tanska (Tanska)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Hollanti (Alankomaat)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>Englanti (Iso-Britannia)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>Englanti (Yhdysvallat)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Viro (Viro)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>Suomi (Suomi)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>Ranska (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>Ranska (Ranska)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>Saksa (Saksa)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>Kreikka (Kreikka)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>Heprea (Israel)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>Unkari (Unkari)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>Italia (Italia)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>Japani (Japani)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>Korea (Korea)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>Latvia (Latvia)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Liettua (Liettua)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Norja, bokmål (Norja)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>Puola (Puola)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>Portugali (Brasilia)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>Portugali (Portugali)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>Romania (Romania)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>Venäjä (Venäjä)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Serbia, latinalainen (Serbia)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Slovakki (Slovakia)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>Slovenia (Slovenia)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>Espanja (Meksiko)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>Espanja (Espanja)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>Ruotsi (Ruotsi)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>Thai (Thaimaa)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>Turkki (Turkki)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>Ukraina (Ukraina)</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_Tietoja</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_Virheenkorjaus</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>_Näppäimistö</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>_Näppäimistö ({0})</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_Kieli</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_Teema</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>Rekisteröinti valmis</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>Jatka nyt</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>Jatka odottamatta</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>Windowsin asennus jatkuu {0} s kuluttua</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>Tälle vaiheelle varattu aika on päättynyt.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>Useilla Windows Autopilot -laitteilla on tämä sarjanumero. Poista kaksoiskappaleet Intune-palvelussa ja yritä uudelleen.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>Tämä laite on rekisteröity toiseen vuokraajaan. Toisen vuokraajan tai jälleenmyyjän on poistettava rekisteröinti, ennen kuin laite voidaan rekisteröidä tänne.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>Tämä laite on jo rekisteröity palveluun Windows Autopilot. Tarkista laite Intune-palvelussa ja yritä uudelleen.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>Kirjautunut tili ei voi tuoda Windows Autopilot -laitteita. Kirjaudu tilillä, jolla on Intune-rooli, joka sallii Autopilot-laitteiden tuonnin.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph hylkäsi kirjautumisen. Kirjaudu uudelleen ja yritä sitten uudelleen.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>Tämän laitteen sarjanumeroa tai laitteiston hajautusarvoa ei voitu lukea. Lisätietoja on lokissa.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>Yhteyttä palveluun Microsoft Graph ei saatu. Tarkista verkkoyhteys ja yritä uudelleen.</value>
+  </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Tämä laite on rekisteröity palveluun Windows Autopilot, mutta sen ryhmän tunnistetta, tietokoneen nimeä tai määritettyä käyttäjää ei voitu ottaa käyttöön. Tarkista käyttäjänimi ja Intune-palvelu ja yritä uudelleen.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>Rekisteröinti epäonnistui. Syynä voi olla tämän verkon välityspalvelin tai captive portal. Lisätietoja on lokissa; yritä uudelleen.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>Laite ei tullut näkyviin palveluun Windows Autopilot 15 minuutin kuluessa. Tarkista Intune-palvelu ja yritä uudelleen.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Autopilot-profiili on määritetty.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Intune ilmoitti, että Autopilot-profiilin määritys epäonnistui. Windowsin asennus jatkuu.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>Windowsin asennus jatkuu odottamatta profiilin määritystä.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>Profiilia ei ole vielä määritetty; Windowsin asennus jatkuu.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>Profiilin määrityksen tilaa ei voitu lukea. Windowsin asennus jatkuu.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>Odotetaan Autopilot-profiilin määritystä ({0})</value>
+  </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>Ohita rekisteröinti</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>Määritetään ryhmän tunnistetta, tietokoneen nimeä ja käyttäjää…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>Kerätään laitteiston hajautusarvoa…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>Ladataan laitteiston hajautusarvoa…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>Odotetaan, että laite tulee näkyviin palveluun Windows Autopilot (enintään 15 minuuttia)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>Rekisteröintisivua ei voitu ladata. Kirjaudu uudelleen uudella koodilla.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>Istuntosi on vanhentunut. Kirjaudu uudelleen uudella koodilla.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>Olet kirjautunut ulos. Kirjaudu toisella tilillä uudella koodilla.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>Verkko ei ole käytettävissä. Yritetään uudelleen 10 sekunnin välein…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>Kirjaudu tilillä, jolla voi rekisteröidä laitteita palveluun Windows Autopilot.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>Anna sitten tämä koodi</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>Kirjautuminen epäonnistui. Organisaatiosi voi estää laitekoodilla kirjautumisen ehdollisen käyttöoikeuden käytännöllä. Valitse Yritä uudelleen, jos haluat uuden koodin.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>Kirjautuminen hylättiin. Valitse Yritä uudelleen, jos haluat uuden koodin.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>Kirjautuminen epäonnistui, koska Microsoft palautti odottamattoman vastauksen. Syynä voi olla tämän verkon välityspalvelin tai captive portal. Valitse Yritä uudelleen.</value>
+  </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Suojattua yhteyttä Microsoftin palveluihin ei voitu muodostaa. Syynä voi olla HTTPS-liikennettä tarkastava välityspalvelin tai väärin asetettu järjestelmän kello. Valitse Yritä uudelleen.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>Koodi vanhenee {0} kuluttua</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>Ladataan ryhmän tunnisteita…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>Avaa toisella laitteella</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>tai</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>Pyydetään kirjautumiskoodia…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>Yritä uudelleen</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>Kirjaudu skannaamalla</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>Kirjaudu Microsoftiin</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Tumma</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Vaalea</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>Järjestelmä</value>
+  </data>
+</root>

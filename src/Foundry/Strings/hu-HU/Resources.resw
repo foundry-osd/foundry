@@ -685,6 +685,18 @@ Licenc az MIT licenc alatt.</value>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktív hardverhash-feltöltés</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>A technikus megadhatja azt a felhasználót, akinek az UPN-jét az OOBE során előre kitölti a rendszer.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>Hozzárendelt felhasználó felajánlása</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>Azokra az eszközökre vonatkozik, amelyek még nincsenek regisztrálva az Autopilotban. A technikus közvetlenül egyéni címkét ír be.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>Az Egyéni előre kijelölése a csoportcímkéhez</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Importálja vagy töltse le a telepítési adathordozóba ágyazott Autopilot-profilt.</value>
   </data>

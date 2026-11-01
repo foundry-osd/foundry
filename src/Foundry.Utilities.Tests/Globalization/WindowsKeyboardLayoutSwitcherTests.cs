@@ -95,6 +95,31 @@ public sealed class WindowsKeyboardLayoutSwitcherTests
         }
     }
 
+    [Fact]
+    public void Apply_WithoutHandoffPath_SwitchesOnlyTheProcessEvenInWinPe()
+    {
+        string activeLayoutId = "0000040C";
+        int wpeUtilCalls = 0;
+        var switcher = new WindowsKeyboardLayoutSwitcher(
+            handoffPath: null,
+            loadLayouts: () => [BelgianFrench],
+            activateLayout: id => { activeLayoutId = id; return true; },
+            getActiveLayoutId: () => activeLayoutId,
+            isWinPe: () => true,
+            setWinPeSessionLayout: _ =>
+            {
+                wpeUtilCalls++;
+                return null;
+            });
+
+        KeyboardLayoutSwitchResult result = switcher.Apply(BelgianFrench);
+
+        Assert.True(result.Succeeded);
+        Assert.Null(result.Error);
+        Assert.Equal(0, wpeUtilCalls);
+        Assert.Null(switcher.RestoreHandoff());
+    }
+
     private static string CreateHandoffPath()
     {
         string directory = Path.Combine(Path.GetTempPath(), $"foundry-keyboard-{Guid.NewGuid():N}");

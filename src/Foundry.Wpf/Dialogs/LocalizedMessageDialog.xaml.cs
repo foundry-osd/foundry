@@ -29,7 +29,9 @@ public partial class LocalizedMessageDialog : Window
         CancelButtonText = cancelButtonText ?? string.Empty;
         CancelButtonVisibility = cancelButtonText is null ? Visibility.Collapsed : Visibility.Visible;
         InitializeComponent();
-        Owner = Application.Current?.MainWindow;
+        // Without a main window yet, the application adopts this dialog as its main window; a window cannot own itself.
+        Window? owner = Application.Current?.MainWindow;
+        Owner = ReferenceEquals(owner, this) ? null : owner;
     }
 
     public string DialogTitle { get; }

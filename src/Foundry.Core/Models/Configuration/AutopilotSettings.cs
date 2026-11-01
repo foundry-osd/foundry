@@ -33,4 +33,9 @@ public sealed record AutopilotSettings
     /// Gets tenant app registration metadata used by hardware hash upload mode.
     /// </summary>
     public AutopilotHardwareHashUploadSettings HardwareHashUpload { get; init; } = new();
+
+    /// <summary>
+    /// Gets the technician options used by interactive hardware hash upload mode.
+    /// </summary>
+    public AutopilotInteractiveSettings Interactive { get; init; } = new();
 }

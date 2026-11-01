@@ -298,10 +298,13 @@ public sealed class DeploymentPreparationViewModelTests
             {
                 IsEnabled = true,
                 ProvisioningMode = AutopilotProvisioningMode.InteractiveHardwareHashUpload,
-                DefaultProfileFolderName = "json"
+                DefaultProfileFolderName = "json",
+                Interactive = new DeployAutopilotInteractiveSettings { PreselectCustomGroupTag = true, OfferAssignedUser = true }
             },
             [profile]);
 
+        Assert.Equal(new DeployAutopilotInteractiveSettings { PreselectCustomGroupTag = true, OfferAssignedUser = true },
+            viewModel.CreateAutopilotInteractiveForLaunch());
         Assert.True(viewModel.IsAutopilotEnabled);
         Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, viewModel.AutopilotProvisioningMode);
         Assert.False(viewModel.IsJsonProfileControlsVisible);

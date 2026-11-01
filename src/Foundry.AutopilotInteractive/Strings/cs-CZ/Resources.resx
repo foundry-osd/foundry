@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Tato aplikace zaregistruje zařízení ve Windows Autopilot během instalace Windows.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Tento software je poskytován tak, jak je.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Mickaël CHAVE a přispěvatelé do Foundry Project.
+Licencováno pod licencí MIT.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>O Foundry Autopilot Interactive</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Autopilot Interactive</value>
+  </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>Zrušit</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>Přeskočit registraci do služby Autopilot? Instalace Windows bude pokračovat bez registrace tohoto zařízení.</value>
+  </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Registrace probíhá. Pokud ji teď zastavíte, toto zařízení se může ve službě Windows Autopilot přesto objevit. Přestat čekat a pokračovat v instalaci Windows?</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>Přeskočit registraci</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Zavřít</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Verze: {0}</value>
+  </data>
+  <data name="Config.LoadFailed" xml:space="preserve">
+    <value>Konfigurace Autopilot chybí nebo je neplatná, proto toto zařízení nelze zaregistrovat.</value>
+  </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>Čas vyhrazený pro tento krok vypršel. Instalace Windows pokračuje bez registrace tohoto zařízení.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>Již registrované zařízení</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>Zobrazený přiřazený uživatel</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>Obnovení kódu</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>Kontrola dokončení (ukončí se)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>Dosažený termín</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>Selhalo zjišťování značek skupiny</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>Mnoho značek skupiny</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>Čekání na síť</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>Žádné značky skupiny</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>Profil přiřazen</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>Vypršel časový limit čekání na profil</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>Nahrání proběhlo úspěšně, čeká se na profil</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>Vypršelá relace (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>Několik odpovídajících zařízení</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>Přihlašovací kód a QR kód</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>Chyba přihlášení s možností Zkusit znovu</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>Nahrání se nezdařilo: chybí oprávnění (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>Nahrání se nezdařilo: obecná chyba</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>Nahrání se nezdařilo: jiný nájemník</value>
+  </data>
+  <data name="Footer.Unknown" xml:space="preserve">
+    <value>Neznámé</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>Zadejte hlavní název uživatele (UPN), například user@contoso.com, nebo pole nechte prázdné.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>Přiřazený uživatel (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>Vlastní</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>Vlastní značka skupiny</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>Vyberte značku skupiny a poté zaregistrujte hardwarový hash tohoto zařízení ve službě Windows Autopilot.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>Značka skupiny</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>Žádná</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>žádná</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>Zaregistrovat</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>Toto zařízení je již zaregistrováno ve službě Windows Autopilot</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>Aktuální značka skupiny: {0}. Přiřazený uživatel: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>Toto sériové číslo má více zařízení Windows Autopilot. Registrace nemůže aktualizovat nejednoznačné zařízení.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>Přihlášen jako {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>Existující značky skupiny se nepodařilo načíst. Vlastní značku skupiny můžete přesto zadat.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>Zaregistrovat toto zařízení ve službě Autopilot</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>neznámý účet</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>Použít jiný účet</value>
+  </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Další jazyky</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>arabština (Saúdská Arábie)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>bulharština (Bulharsko)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>zjednodušená čínština (Čína)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>tradiční čínština (Tchaj-wan)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>chorvatština (Chorvatsko)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>čeština (Česko)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>dánština (Dánsko)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>nizozemština (Nizozemsko)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>angličtina (Spojené království)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>angličtina (Spojené státy americké)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>estonština (Estonsko)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>finština (Finsko)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>francouzština (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>francouzština (Francie)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>němčina (Německo)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>řečtina (Řecko)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>hebrejština (Izrael)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>maďarština (Maďarsko)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>italština (Itálie)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>japonština (Japonsko)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>korejština (Korea)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>lotyština (Lotyšsko)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>litevština (Litva)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>norský bokmal (Norsko)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>polština (Polsko)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>portugalština (Brazílie)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>portugalština (Portugalsko)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>rumunština (Rumunsko)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>ruština (Rusko)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>srbština – latinka (Srbsko)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>slovenština (Slovensko)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>slovinština (Slovinsko)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>španělština (Mexiko)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>španělština (Španělsko)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>švédština (Švédsko)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>thajština (Thajsko)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>turečtina (Turecko)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>ukrajinština (Ukrajina)</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_O aplikaci</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_Ladit</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>_Klávesnice</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>_Klávesnice ({0})</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_Jazyk</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_Motiv</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>Registrace byla dokončena</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>Pokračovat hned</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>Pokračovat bez čekání</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>Instalace Windows bude pokračovat za {0} s</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>Čas vyhrazený pro tento krok vypršel.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>Toto sériové číslo má více zařízení Windows Autopilot. Odeberte duplicity v Intune a zkuste to znovu.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>Toto zařízení je zaregistrováno u jiného nájemníka. Jiný nájemník nebo prodejce musí zrušit jeho registraci, než bude možné zařízení zaregistrovat zde.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>Toto zařízení je již zaregistrováno ve službě Windows Autopilot. Zkontrolujte zařízení v Intune a zkuste to znovu.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>Přihlášený účet nemůže importovat zařízení Windows Autopilot. Přihlaste se účtem, který má roli Intune umožňující import zařízení Autopilot.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph přihlášení odmítl. Přihlaste se znovu a zkuste akci zopakovat.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>Sériové číslo nebo hardwarový hash tohoto zařízení se nepodařilo přečíst. Podrobnosti jsou v protokolu.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>Nepodařilo se připojit ke službě Microsoft Graph. Zkontrolujte síťové připojení a zkuste to znovu.</value>
+  </data>
+  <data name="Registration.Failure.properties_not_applied" xml:space="preserve">
+    <value>Toto zařízení je zaregistrované ve službě Windows Autopilot, ale značku skupiny, název počítače nebo přiřazeného uživatele se nepodařilo použít. Zkontrolujte uživatelské jméno a Intune a zkuste to znovu.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>Registrace se nezdařila. Příčinou může být proxy server nebo captive portál v této síti. Podrobnosti jsou v protokolu; zkuste to znovu.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>Zařízení se ve službě Windows Autopilot neobjevilo do 15 minut. Zkontrolujte Intune a zkuste to znovu.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Profil Autopilot je přiřazen.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Intune oznámil, že přiřazení profilu Autopilot selhalo. Instalace Windows pokračuje.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>Instalace Windows pokračuje bez čekání na přiřazení profilu.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>Profil ještě není přiřazen; instalace Windows pokračuje.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>Stav přiřazení profilu se nepodařilo přečíst. Instalace Windows pokračuje.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>Čekání na přiřazení profilu Autopilot ({0})</value>
+  </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>Přeskočit registraci</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>Přiřazování značky skupiny, názvu počítače a uživatele…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>Shromažďování hardwarového hashe…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>Nahrávání hardwarového hashe…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>Čekání, až se zařízení objeví ve službě Windows Autopilot (až 15 minut)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>Registrační stránku se nepodařilo načíst. Přihlaste se znovu pomocí nového kódu.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>Platnost relace vypršela. Přihlaste se znovu pomocí nového kódu.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>Odhlášeno. Přihlaste se jiným účtem pomocí nového kódu.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>Síť není dostupná. Pokus se opakuje každých 10 sekund…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>Přihlaste se účtem, který může registrovat zařízení ve službě Windows Autopilot.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>Poté zadejte tento kód</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>Přihlášení se nezdařilo. Vaše organizace může blokovat přihlášení pomocí kódu zařízení zásadou podmíněného přístupu. Výběrem možnosti Zkusit znovu získáte nový kód.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>Přihlášení bylo odmítnuto. Výběrem možnosti Zkusit znovu získáte nový kód.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>Přihlášení se nezdařilo, protože Microsoft vrátil neočekávanou odpověď. Příčinou může být proxy server nebo captive portál v této síti. Výběrem možnosti Zkusit znovu to zkuste znovu.</value>
+  </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Nepodařilo se navázat zabezpečené připojení ke službám Microsoft. Příčinou může být proxy server, který kontroluje provoz HTTPS, nebo nesprávně nastavené systémové hodiny. Výběrem možnosti Zkusit znovu to zkuste znovu.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>Platnost kódu vyprší za {0}</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>Načítání značek skupiny…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>Na jiném zařízení otevřete</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>nebo</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>Žádost o přihlašovací kód…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>Zkusit znovu</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>Naskenujte a přihlaste se</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>Přihlášení k účtu Microsoft</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Tmavý</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Světlý</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>Systém</value>
+  </data>
+</root>

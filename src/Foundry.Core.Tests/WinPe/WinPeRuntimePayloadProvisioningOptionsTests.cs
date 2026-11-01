@@ -149,6 +149,59 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
         Assert.False(options.PostInstall.IsEnabled);
     }
 
+    [Fact]
+    public void CreateDeveloperOptions_EnablesAutopilotInteractive_WhenDeployIsDebugAndProjectExists()
+    {
+        using TempProjectRoot root = TempProjectRoot.Create();
+        root.CreateProject("Foundry.Deploy");
+        string autopilotProjectPath = root.CreateProject("Foundry.AutopilotInteractive");
+
+        var options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
+            WinPeArchitecture.X64, "work", "mount", "usb", true, _ => null, root.RootPath);
+
+        Assert.True(options.AutopilotInteractive.IsEnabled);
+        Assert.Equal(WinPeProvisioningSource.Debug, options.AutopilotInteractive.ProvisioningSource);
+        Assert.Equal(autopilotProjectPath, options.AutopilotInteractive.ProjectPath);
+    }
+
+    [Fact]
+    public void CreateDeveloperOptions_PrefersAutopilotInteractiveArchiveOverProject()
+    {
+        var options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
+            WinPeArchitecture.X64, "work", "mount", "usb", false,
+            key => key switch
+            {
+                WinPeRuntimePayloadEnvironmentVariables.DebugDeployEnable => "1",
+                WinPeRuntimePayloadEnvironmentVariables.DebugAutopilotInteractiveArchive => "autopilot.zip",
+                WinPeRuntimePayloadEnvironmentVariables.DebugAutopilotInteractiveProject => "autopilot.csproj",
+                _ => null
+            });
+
+        Assert.True(options.AutopilotInteractive.IsEnabled);
+        Assert.Equal("autopilot.zip", options.AutopilotInteractive.ArchivePath);
+        Assert.Empty(options.AutopilotInteractive.ProjectPath);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void CreateDeveloperOptions_KeepsAutopilotInteractiveDisabled_WhenDeployIsNotDebugOrNoSourceExists(bool deployDebug)
+    {
+        using TempProjectRoot root = TempProjectRoot.Create();
+        if (!deployDebug)
+        {
+            root.CreateProject("Foundry.AutopilotInteractive");
+        }
+
+        var options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
+            WinPeArchitecture.X64, "work", "mount", "usb", false,
+            key => deployDebug && key == WinPeRuntimePayloadEnvironmentVariables.DebugDeployEnable ? "1" : null,
+            root.RootPath);
+
+        Assert.Equal(deployDebug, options.Deploy.IsEnabled);
+        Assert.False(options.AutopilotInteractive.IsEnabled);
+    }
+
     private sealed class TempProjectRoot : IDisposable
     {
         private TempProjectRoot(string rootPath)

@@ -111,6 +111,7 @@ public static class BootMediaTelemetryPropertyBuilder
 
         AddCustomizationTelemetryProperties(properties, document.Customization);
         AddPostInstallationTelemetryProperties(properties, postInstallation);
+        AddAutopilotInteractiveTelemetryProperties(properties, options, document.Autopilot?.Interactive ?? new AutopilotInteractiveSettings());
         AddDomainJoinTelemetryProperties(properties, document.DomainJoin ?? new DomainJoinSettings());
         AddNetworkCacheTelemetryProperties(properties, document.NetworkCache ?? new NetworkCacheSettings());
         AddOperatingSystemSelectionTelemetryProperties(properties, document.OperatingSystemSelection);
@@ -133,6 +134,21 @@ public static class BootMediaTelemetryPropertyBuilder
         }
 
         return string.IsNullOrWhiteSpace(diagnostic?.FailureKind) ? WinPeFailureKinds.Unknown : diagnostic.FailureKind;
+    }
+
+    /// <summary>
+    /// Reports the interactive Autopilot authoring options as booleans, never a group tag or user. They are false unless
+    /// Autopilot is enabled in the interactive mode, so a saved but inactive draft is not counted as usage.
+    /// </summary>
+    private static void AddAutopilotInteractiveTelemetryProperties(
+        IDictionary<string, object?> properties,
+        MediaPreflightOptions options,
+        AutopilotInteractiveSettings settings)
+    {
+        bool interactive = options.IsAutopilotEnabled &&
+            options.AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload;
+        properties["autopilot_interactive_preselect_custom"] = interactive && settings.PreselectCustomGroupTag;
+        properties["autopilot_interactive_offer_assigned_user"] = interactive && settings.OfferAssignedUser;
     }
 
     /// <summary>
