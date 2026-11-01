@@ -47,7 +47,23 @@ public static class Program
         List<string> argumentWarnings = [];
         AutopilotInteractiveCommandLine commandLine = AutopilotInteractiveCommandLine.Parse(args, argumentWarnings.Add);
 
-        Log.Logger = CreateLogger();
+        // The configuration is read before logging starts because it carries the session id shared with Deploy and
+        // PostInstall. A failure is kept and logged once the logger exists.
+        AutopilotInteractiveRuntimeConfiguration? configuration = null;
+        InvalidDataException? configurationFailure = null;
+        try
+        {
+            configuration = AutopilotInteractiveConfigurationLoader.Load(commandLine.ConfigPath, allowDebugDefault: DebugSafetyMode.IsEnabled);
+        }
+        catch (InvalidDataException exception)
+        {
+            configurationFailure = exception;
+        }
+
+        string sessionId = AutopilotInteractiveLogSession.Resolve(
+            configuration,
+            Environment.GetEnvironmentVariable(DiagnosticSessionContext.EnvironmentVariableName));
+        Log.Logger = CreateLogger(sessionId);
         Serilog.ILogger logger = Log.ForContext(typeof(Program));
         IHost? host = null;
         try
@@ -56,7 +72,7 @@ public static class Program
             logger.Information(
                 "Foundry.AutopilotInteractive started. Version={Version}, SessionId={SessionId}, HasConfigPath={HasConfigPath}, HasDeadline={HasDeadline}",
                 FoundryAutopilotInteractiveApplicationInfo.Version,
-                DiagnosticSessionContext.CurrentSessionId,
+                sessionId,
                 commandLine.ConfigPath is not null,
                 commandLine.DeadlineUtc is not null);
             foreach (string warning in argumentWarnings)
@@ -64,13 +80,15 @@ public static class Program
                 logger.Warning("Command line: {Warning}", warning);
             }
 
-            // The completed-registration guard runs here, before the configuration is read.
-            AutopilotInteractiveRuntimeConfiguration? configuration = LoadConfiguration(commandLine, logger);
+            // The completed-registration guard runs here, once logging is available.
             if (configuration is null)
             {
+                logger.Error(configurationFailure, "The configuration is missing or invalid. Exiting with code {ExitCode}.", StartupFailureExitCode);
                 ShowConfigurationError();
                 return StartupFailureExitCode;
             }
+
+            LogConfiguration(configuration, logger);
 
             host = BuildHost(args, commandLine, configuration);
             App app = host.Services.GetRequiredService<App>();
@@ -118,30 +136,15 @@ public static class Program
         }
     }
 
-    private static AutopilotInteractiveRuntimeConfiguration? LoadConfiguration(
-        AutopilotInteractiveCommandLine commandLine,
-        Serilog.ILogger logger)
+    private static void LogConfiguration(AutopilotInteractiveRuntimeConfiguration configuration, Serilog.ILogger logger)
     {
-        try
-        {
-            AutopilotInteractiveRuntimeConfiguration configuration = AutopilotInteractiveConfigurationLoader.Load(
-                commandLine.ConfigPath,
-                allowDebugDefault: DebugSafetyMode.IsEnabled);
-            logger.Information(
-                "Configuration loaded. CultureName={CultureName}, Theme={Theme}, HasAssignedComputerName={HasAssignedComputerName}, PreselectCustomGroupTag={PreselectCustomGroupTag}, OfferAssignedUser={OfferAssignedUser}, ConfiguredSessionId={ConfiguredSessionId}",
-                configuration.CultureName,
-                configuration.Theme,
-                !string.IsNullOrWhiteSpace(configuration.AssignedComputerName),
-                configuration.PreselectCustomGroupTag,
-                configuration.OfferAssignedUser,
-                configuration.DiagnosticSessionId);
-            return configuration;
-        }
-        catch (InvalidDataException exception)
-        {
-            logger.Error(exception, "The configuration is missing or invalid. Exiting with code {ExitCode}.", StartupFailureExitCode);
-            return null;
-        }
+        logger.Information(
+            "Configuration loaded. CultureName={CultureName}, Theme={Theme}, HasAssignedComputerName={HasAssignedComputerName}, PreselectCustomGroupTag={PreselectCustomGroupTag}, OfferAssignedUser={OfferAssignedUser}",
+            configuration.CultureName,
+            configuration.Theme,
+            !string.IsNullOrWhiteSpace(configuration.AssignedComputerName),
+            configuration.PreselectCustomGroupTag,
+            configuration.OfferAssignedUser);
     }
 
     /// <summary>
@@ -181,9 +184,8 @@ public static class Program
     /// Creates the shared Foundry logger: the file under the retained Foundry root, or the debugger output in a debug session
     /// (and when the file cannot be opened) so a development machine never writes into its Windows folder.
     /// </summary>
-    private static Serilog.ILogger CreateLogger()
+    private static Serilog.ILogger CreateLogger(string sessionId)
     {
-        string sessionId = DiagnosticSessionContext.CurrentSessionId;
         if (DebugSafetyMode.IsEnabled)
         {
             return FoundryLogConfiguration.CreateDebugLogger(ApplicationName, sessionId, LogEventLevel.Verbose);
