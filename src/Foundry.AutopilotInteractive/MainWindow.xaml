@@ -150,8 +150,24 @@
             HorizontalAlignment="Center"
             Command="{Binding SkipRegistrationCommand}"
             Content="{Binding Strings[Registration.Skip]}"
-            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-            Visibility="{Binding CanSkipRegistration, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}">
+            <!--  Hidden, not Collapsed: the row keeps its height so the centered page does not jump when the button goes away.  -->
+            <Button.Style>
+                <Style
+                    BasedOn="{StaticResource {x:Type Button}}"
+                    TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger
+                            Binding="{Binding CanSkipRegistration}"
+                            Value="False">
+                            <Setter
+                                Property="Visibility"
+                                Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
 
         <Border
             Grid.Row="3"
