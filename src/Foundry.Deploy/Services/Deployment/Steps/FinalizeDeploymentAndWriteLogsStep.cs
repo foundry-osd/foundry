@@ -4,6 +4,7 @@
 
 using System.IO;
 using System.Text.Json;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Logging;
 

@@ -5,6 +5,7 @@
 using System.Globalization;
 using System.Net.Http;
 using System.Runtime.InteropServices;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.DomainJoin;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Wpf.Shell;

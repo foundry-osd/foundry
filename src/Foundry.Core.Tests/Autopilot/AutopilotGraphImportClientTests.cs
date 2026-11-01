@@ -5,11 +5,10 @@
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text.Json;
-using Foundry.Deploy.Services.Autopilot;
-using Foundry.Deploy.Services.Deployment;
+using Foundry.Core.Services.Autopilot;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Foundry.Deploy.Tests;
+namespace Foundry.Core.Tests.Autopilot;
 
 public sealed class AutopilotGraphImportClientTests
 {

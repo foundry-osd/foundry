@@ -5,6 +5,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Telemetry;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;

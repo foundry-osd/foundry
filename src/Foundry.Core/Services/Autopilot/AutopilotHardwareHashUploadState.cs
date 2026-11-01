@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-namespace Foundry.Deploy.Services.Deployment;
+namespace Foundry.Core.Services.Autopilot;
 
 /// <summary>
 /// Describes the non-secret runtime status of the Autopilot hardware hash upload workflow.

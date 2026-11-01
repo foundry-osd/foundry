@@ -5,6 +5,7 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text.Json;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Deploy.Services.Logging;

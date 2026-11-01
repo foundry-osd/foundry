@@ -5,6 +5,7 @@
 using System.Text;
 using System.Text.Json;
 using Foundry.Core.Models.Network;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;

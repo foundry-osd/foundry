@@ -5,6 +5,7 @@
 using System.Net;
 using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using System.Net.Http;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.NetworkCache;
 using Foundry.Core.Services.Sharing;
 using Foundry.Deploy.Models;
