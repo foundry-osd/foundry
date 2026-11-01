@@ -13,7 +13,7 @@ public sealed record RuntimeReleaseAsset(string DownloadUrl, string Sha256)
 {
     /// <summary>Selects one runtime archive and requires its trusted digest and secure download address.</summary>
     /// <param name="release">The GitHub release metadata.</param>
-    /// <param name="applicationName">The Connect, Deploy, or PostInstall application name.</param>
+    /// <param name="applicationName">The Connect, Deploy, PostInstall, or AutopilotInteractive application name.</param>
     /// <param name="runtimeIdentifier">The target Windows runtime identifier.</param>
     /// <returns>The validated runtime release asset.</returns>
     /// <exception cref="InvalidDataException">The identity or release asset is missing, ambiguous, or invalid.</exception>

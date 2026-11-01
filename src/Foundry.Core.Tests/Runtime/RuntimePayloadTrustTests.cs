@@ -44,6 +44,13 @@ public sealed class RuntimePayloadTrustTests : IDisposable
         Assert.Throws<InvalidDataException>(() => RuntimePayloadTrust.ReadArchiveHash(_root, "Foundry.Deploy", "win-x64"));
     }
 
+    [Fact]
+    public void GetBaselineArchivePath_AcceptsAutopilotInteractive()
+    {
+        string path = RuntimePayloadTrust.GetBaselineArchivePath(Path.Combine(_root, "Runtime"), "Foundry.AutopilotInteractive", "win-x64");
+        Assert.EndsWith(Path.Combine("Runtime", "Foundry.AutopilotInteractive", "win-x64", "original.zip"), path, StringComparison.Ordinal);
+    }
+
     [Theory]
     [InlineData("../evil", "win-x64")]
     [InlineData("Foundry.Connect", "../evil")]
