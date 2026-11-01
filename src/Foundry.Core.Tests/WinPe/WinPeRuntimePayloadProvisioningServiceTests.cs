@@ -134,6 +134,140 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
     }
 
     [Theory]
+    [InlineData(false, false)]
+    [InlineData(true, false)]
+    [InlineData(true, true)]
+    public async Task Provision_Throws_WhenAutopilotInteractiveEnabledWithoutLocalSource(bool releaseSource, bool withProject)
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        string projectPath = Path.Combine(workspace.RootPath, "Foundry.AutopilotInteractive.csproj");
+        File.WriteAllText(projectPath, "<Project />");
+        var handler = new FakeReleaseHttpMessageHandler("unused", []);
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler));
+
+        var result = await service.ProvisionAsync(new WinPeRuntimePayloadProvisioningOptions
+        {
+            WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            MountedImagePath = workspace.MountedImagePath,
+            AutopilotInteractive = new()
+            {
+                IsEnabled = true,
+                ProvisioningSource = releaseSource ? WinPeProvisioningSource.Release : WinPeProvisioningSource.Debug,
+                ProjectPath = withProject ? projectPath : string.Empty
+            }
+        }, cancellationToken: TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Contains("only provisioned on debug media", result.Error!.Details, StringComparison.Ordinal);
+        Assert.Empty(handler.RequestUris);
+        Assert.False(Directory.Exists(Path.Combine(workspace.MountedImagePath, "Foundry")));
+    }
+
+    [Theory]
+    [InlineData(WinPeArchitecture.X64, "win-x64")]
+    [InlineData(WinPeArchitecture.Arm64, "win-arm64")]
+    public async Task Provision_WritesAutopilotInteractiveToTrustManifest_OnDebugIso(WinPeArchitecture architecture, string runtime)
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        string archive = workspace.CreateArchive("autopilot.zip", "Foundry.AutopilotInteractive.exe", runtimeIdentifier: runtime);
+        string hash = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(archive))).ToLowerInvariant();
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner());
+
+        var result = await service.ProvisionAsync(new WinPeRuntimePayloadProvisioningOptions
+        {
+            Architecture = architecture,
+            WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            MountedImagePath = workspace.MountedImagePath,
+            AutopilotInteractive = new() { IsEnabled = true, ArchivePath = archive }
+        }, cancellationToken: TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        string foundryRoot = Path.Combine(workspace.MountedImagePath, "Foundry");
+        Assert.Equal(hash, RuntimePayloadTrust.ReadArchiveHash(foundryRoot, "Foundry.AutopilotInteractive", runtime));
+        string baseline = RuntimePayloadTrust.GetBaselineArchivePath(Path.Combine(foundryRoot, "Runtime"), "Foundry.AutopilotInteractive", runtime);
+        Assert.Equal(hash, Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(baseline))).ToLowerInvariant());
+    }
+
+    [Theory]
+    [InlineData(WinPeArchitecture.X64, "win-x64")]
+    [InlineData(WinPeArchitecture.Arm64, "win-arm64")]
+    public async Task Provision_WritesAutopilotInteractiveToTrustManifest_OnDebugUsb(WinPeArchitecture architecture, string runtime)
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        string archive = workspace.CreateArchive("autopilot.zip", "Foundry.AutopilotInteractive.exe", runtimeIdentifier: runtime);
+        string hash = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(archive))).ToLowerInvariant();
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner());
+
+        var result = await service.ProvisionAsync(new WinPeRuntimePayloadProvisioningOptions
+        {
+            Architecture = architecture,
+            WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            MountedImagePath = workspace.MountedImagePath,
+            UsbCacheRootPath = workspace.UsbCacheRootPath,
+            IncludePayloadsInImage = false,
+            AutopilotInteractive = new() { IsEnabled = true, ArchivePath = archive }
+        }, cancellationToken: TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(hash, RuntimePayloadTrust.ReadArchiveHash(Path.Combine(workspace.MountedImagePath, "Foundry"), "Foundry.AutopilotInteractive", runtime));
+        Assert.False(Directory.Exists(Path.Combine(workspace.MountedImagePath, "Foundry", "Runtime")));
+        string baseline = Path.Combine(workspace.UsbCacheRootPath, "Runtime", "Foundry.AutopilotInteractive", runtime, "original.zip");
+        Assert.Equal(hash, Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(baseline))).ToLowerInvariant());
+    }
+
+    [Fact]
+    public async Task Provision_PublishesAutopilotInteractiveProject_WithExecutableInArchive()
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        string projectPath = Path.Combine(workspace.RootPath, "src", "Foundry.AutopilotInteractive", "Foundry.AutopilotInteractive.csproj");
+        Directory.CreateDirectory(Path.GetDirectoryName(projectPath)!);
+        File.WriteAllText(projectPath, "<Project />");
+        var runner = new FakeRuntimeProcessRunner();
+
+        var result = await new WinPeRuntimePayloadProvisioningService(runner).ProvisionAsync(new WinPeRuntimePayloadProvisioningOptions
+        {
+            WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            MountedImagePath = workspace.MountedImagePath,
+            AutopilotInteractive = new() { IsEnabled = true, ProjectPath = projectPath }
+        }, cancellationToken: TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Contains("PublishSingleFile=true", Assert.Single(runner.Executions).Arguments);
+        using ZipArchive stored = ZipFile.OpenRead(Path.Combine(workspace.MountedImagePath, "Foundry", "Runtime",
+            "Foundry.AutopilotInteractive", "win-x64", "original.zip"));
+        Assert.Single(stored.Entries, entry => entry.FullName == "Foundry.AutopilotInteractive.exe");
+    }
+
+    [Theory]
+    [InlineData(WinPeArchitecture.X64, "win-x64")]
+    [InlineData(WinPeArchitecture.Arm64, "win-arm64")]
+    public async Task ReleaseProvisioning_NeverIncludesAutopilotInteractive(WinPeArchitecture architecture, string runtime)
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        byte[] connect = File.ReadAllBytes(workspace.CreateArchive("connect.zip", "Foundry.Connect.exe"));
+        var handler = new FakeReleaseHttpMessageHandler($"Foundry.Connect-{runtime}.zip", connect);
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler));
+        var options = new WinPeRuntimePayloadProvisioningOptions
+        {
+            Architecture = architecture,
+            WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            MountedImagePath = workspace.MountedImagePath,
+            UsbCacheRootPath = workspace.UsbCacheRootPath,
+            Connect = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
+        };
+
+        Assert.False(options.AutopilotInteractive.IsEnabled);
+        Assert.False(options.WithDomainJoinRuntime(true).AutopilotInteractive.IsEnabled);
+        var result = await service.ProvisionAsync(options, cancellationToken: TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.DoesNotContain(handler.RequestUris, uri => uri.Contains("AutopilotInteractive", StringComparison.OrdinalIgnoreCase));
+        Assert.Null(RuntimePayloadTrust.ReadArchiveHash(Path.Combine(workspace.MountedImagePath, "Foundry"), "Foundry.AutopilotInteractive", runtime));
+        Assert.False(Directory.Exists(Path.Combine(workspace.MountedImagePath, "Foundry", "Runtime", "Foundry.AutopilotInteractive")));
+        Assert.False(Directory.Exists(Path.Combine(workspace.UsbCacheRootPath, "Runtime", "Foundry.AutopilotInteractive")));
+    }
+
+    [Theory]
     [InlineData(null)]
     [InlineData("")]
     [InlineData("md5:abcd")]
@@ -828,6 +962,8 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
                 ? "Foundry.Connect.exe"
                 : arguments.Contains("Foundry.PostInstall.csproj", StringComparison.OrdinalIgnoreCase)
                 ? "Foundry.PostInstall.exe"
+                : arguments.Contains("Foundry.AutopilotInteractive.csproj", StringComparison.OrdinalIgnoreCase)
+                ? "Foundry.AutopilotInteractive.exe"
                 : "Foundry.Deploy.exe";
             if (CreateOutput)
             {

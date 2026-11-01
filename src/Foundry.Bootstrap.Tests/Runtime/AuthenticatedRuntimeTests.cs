@@ -499,6 +499,56 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         Assert.Empty(requests);
     }
 
+    [Fact]
+    public void TryGetDebugArchive_ReturnsTheBaselineArchiveAndItsTrustedHash()
+    {
+        string archive = SeedOriginal("Foundry.AutopilotInteractive");
+        using var client = Client();
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        var debugArchive = Resolver(client, logger).TryGetDebugArchive("Foundry.AutopilotInteractive");
+
+        Assert.Equal((archive, Hash(archive).ToLowerInvariant()), debugArchive);
+        Assert.Empty(requests);
+    }
+
+    [Fact]
+    public void TryGetDebugArchive_PrefersTheImageCopyOnIsoMedia()
+    {
+        string imageRuntime = Path.Combine(BootRoot, "Runtime");
+        string archive = SeedOriginal("Foundry.AutopilotInteractive", runtimeRoot: imageRuntime);
+        using var client = Client();
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        Assert.Equal(archive, Resolver(client, logger, runtimeRoot: imageRuntime).TryGetDebugArchive("Foundry.AutopilotInteractive")!.Value.ArchivePath);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void TryGetDebugArchive_ReturnsNull_WhenTheTrustManifestOrTheArchiveIsMissing(bool deleteArchive)
+    {
+        string archive = SeedOriginal("Foundry.AutopilotInteractive");
+        string application = deleteArchive ? "Foundry.AutopilotInteractive" : "Foundry.Connect";
+        if (deleteArchive) File.Delete(archive);
+        using var client = Client();
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        Assert.Null(Resolver(client, logger).TryGetDebugArchive(deleteArchive ? application : "Foundry.Deploy"));
+        Assert.Empty(requests);
+    }
+
+    [Fact]
+    public void TryGetDebugArchive_ReturnsNull_WhenTheTrustManifestIsMalformed()
+    {
+        SeedOriginal("Foundry.AutopilotInteractive");
+        File.WriteAllText(Path.Combine(BootRoot, "Config", "foundry.runtime-trust.json"), "not json");
+        using var client = Client();
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        Assert.Null(Resolver(client, logger).TryGetDebugArchive("Foundry.AutopilotInteractive"));
+    }
+
     private string SeedOriginal(string application = "Foundry.Connect", string rid = "win-x64", string? runtimeRoot = null)
     {
         string path = Path.Combine(runtimeRoot ?? CacheRoot, application, rid, "original.zip");

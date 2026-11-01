@@ -7,6 +7,7 @@ using Foundry.Bootstrap.Diagnostics;
 using Foundry.Bootstrap.Processes;
 using Foundry.Bootstrap.Runtime;
 using Foundry.Bootstrap.SystemPreparation;
+using Foundry.Core.Models.Autopilot;
 using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
@@ -174,6 +175,12 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
             [DeploymentKeyHandoff.SendPipeEnvironmentVariable] = null,
             [DeploymentKeyHandoff.ReceivePipeEnvironmentVariable] = null
         };
+        // Debug media only: release media never carry this application, so Deploy downloads it into the target OS.
+        if (context.DeployIsDebug && runtime.TryGetDebugArchive(AutopilotInteractiveLayout.ApplicationName) is var (archivePath, archiveSha256))
+        {
+            deployEnvironment[AutopilotInteractiveLayout.ArchiveEnvironmentVariable] = archivePath;
+            deployEnvironment[AutopilotInteractiveLayout.ArchiveSha256EnvironmentVariable] = archiveSha256;
+        }
         Report(BootstrapStatus.Completed, "Deployment applications prepared");
         stage = BootstrapStage.Deploy;
         Report(BootstrapStatus.Running, "Starting Foundry Deploy");

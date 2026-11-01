@@ -28,6 +28,26 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
     public async Task RefreshAsync(string applicationName, CancellationToken cancellationToken) =>
         await ResolveCoreAsync(applicationName, skipReleaseLookup: false, retainPayload: false, cancellationToken).ConfigureAwait(false);
 
+    /// <inheritdoc />
+    public (string ArchivePath, string Sha256)? TryGetDebugArchive(string applicationName)
+    {
+        try
+        {
+            string? hash = RuntimePayloadTrust.ReadArchiveHash(winPeRoot, applicationName, runtimeIdentifier);
+            if (hash is null) return null;
+            // Same lookup order as an original payload: the image copy wins over the USB runtime root.
+            string imageArchive = RuntimePayloadTrust.GetBaselineArchivePath(Path.Combine(winPeRoot, "Runtime"), applicationName, runtimeIdentifier);
+            string archive = File.Exists(imageArchive) ? imageArchive : RuntimePayloadTrust.GetBaselineArchivePath(runtimeRoot, applicationName, runtimeIdentifier);
+            return File.Exists(archive) ? (archive, hash) : null;
+        }
+        catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException)
+        {
+            // The archive is an optional debug input; an unreadable trust manifest must not fail the boot.
+            logger.Warning(exception, "Debug archive for {PayloadApplication} could not be located", applicationName);
+            return null;
+        }
+    }
+
     /// <summary>Best-effort deletion of this resolver's registered workspace, including bundle extraction, after the child exits.</summary>
     internal void Release(string executable)
     {

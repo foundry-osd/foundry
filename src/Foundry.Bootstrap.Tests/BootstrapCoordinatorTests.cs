@@ -8,6 +8,7 @@ using Foundry.Bootstrap.Processes;
 using Foundry.Bootstrap.Runtime;
 using Foundry.Bootstrap.SystemPreparation;
 using Foundry.Bootstrap.Tests.Support;
+using Foundry.Core.Models.Autopilot;
 using Foundry.Core.Services.Runtime;
 using Serilog;
 using Serilog.Events;
@@ -76,6 +77,41 @@ public sealed class BootstrapCoordinatorTests
         Assert.Equal("Foundry.PostInstall.exe", fixture.DeployEnvironment!["FOUNDRY_POSTINSTALL_PATH"]);
         Assert.Equal("TEST", fixture.DeployEnvironment["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
         Assert.False(fixture.Context.ChildEnvironment.ContainsKey("FOUNDRY_POSTINSTALL_PATH"));
+    }
+
+    [Fact]
+    public async Task Deploy_ReceivesAutopilotInteractiveArchive_OnDebugMedia()
+    {
+        using var fixture = new Fixture { DebugArchive = (@"D:\Runtime\Foundry.AutopilotInteractive\win-x64\original.zip", new string('a', 64)) };
+        fixture.Context = fixture.Context with { DeployIsDebug = true };
+        Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
+        Assert.Equal(["Foundry.AutopilotInteractive"], fixture.DebugArchiveLookups);
+        Assert.Equal(@"D:\Runtime\Foundry.AutopilotInteractive\win-x64\original.zip",
+            fixture.DeployEnvironment![AutopilotInteractiveLayout.ArchiveEnvironmentVariable]);
+        Assert.Equal(new string('a', 64), fixture.DeployEnvironment[AutopilotInteractiveLayout.ArchiveSha256EnvironmentVariable]);
+        Assert.False(fixture.Context.ChildEnvironment.ContainsKey(AutopilotInteractiveLayout.ArchiveEnvironmentVariable));
+        Assert.DoesNotContain("Foundry.AutopilotInteractive:True", fixture.Calls);
+        Assert.DoesNotContain("Foundry.AutopilotInteractive:False", fixture.Calls);
+    }
+
+    [Fact]
+    public async Task Deploy_ReceivesNoAutopilotInteractiveVariables_OnDebugMediaWithoutTheArchive()
+    {
+        using var fixture = new Fixture();
+        fixture.Context = fixture.Context with { DeployIsDebug = true };
+        Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
+        Assert.DoesNotContain(AutopilotInteractiveLayout.ArchiveEnvironmentVariable, fixture.DeployEnvironment!.Keys);
+        Assert.DoesNotContain(AutopilotInteractiveLayout.ArchiveSha256EnvironmentVariable, fixture.DeployEnvironment.Keys);
+    }
+
+    [Fact]
+    public async Task Deploy_ReceivesNoAutopilotInteractiveVariables_OnReleaseMedia()
+    {
+        using var fixture = new Fixture { DebugArchive = (@"D:\Runtime\Foundry.AutopilotInteractive\win-x64\original.zip", new string('a', 64)) };
+        Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
+        Assert.Empty(fixture.DebugArchiveLookups);
+        Assert.DoesNotContain(AutopilotInteractiveLayout.ArchiveEnvironmentVariable, fixture.DeployEnvironment!.Keys);
+        Assert.DoesNotContain(AutopilotInteractiveLayout.ArchiveSha256EnvironmentVariable, fixture.DeployEnvironment.Keys);
     }
 
     [Fact]
@@ -340,6 +376,8 @@ public sealed class BootstrapCoordinatorTests
         internal bool CancelConnect { get; init; }
         internal bool DeployFails { get; init; }
         internal bool PostInstallFails { get; init; }
+        internal (string ArchivePath, string Sha256)? DebugArchive { get; init; }
+        internal List<string> DebugArchiveLookups { get; } = [];
         internal IReadOnlyDictionary<string, string?>? DeployEnvironment { get; private set; }
         internal bool ConnectTimeout { get; init; }
         internal bool ObserveDiagnostics { get; init; }
@@ -399,6 +437,12 @@ public sealed class BootstrapCoordinatorTests
         {
             Calls.Add(applicationName + ":Refresh");
             return Task.CompletedTask;
+        }
+
+        public (string ArchivePath, string Sha256)? TryGetDebugArchive(string applicationName)
+        {
+            DebugArchiveLookups.Add(applicationName);
+            return DebugArchive;
         }
 
         public Task PrepareNetworkAsync(CancellationToken cancellationToken) { Calls.Add("network"); return Task.CompletedTask; }
