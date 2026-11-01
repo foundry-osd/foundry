@@ -810,10 +810,7 @@ internal sealed record AutopilotDeviceLookupResult(
     }
 }
 
-/// <summary>
-/// Shared JSON options for Microsoft Graph payloads, including the certificate client assertion built by Deploy.
-/// </summary>
-public static class AutopilotGraphJson
+internal static class AutopilotGraphJson
 {
     public static readonly JsonSerializerOptions Options = new(JsonSerializerDefaults.Web)
     {

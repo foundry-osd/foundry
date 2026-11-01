@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json;
-using Foundry.Core.Services.Autopilot;
+using System.Text.Json.Serialization;
 using Foundry.Core.Services.Http;
 using Microsoft.Extensions.Logging;
 
@@ -32,6 +32,11 @@ public sealed class AutopilotGraphTokenService(
 {
     private const string Scope = "https://graph.microsoft.com/.default";
     private const string ClientAssertionType = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer";
+
+    private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web)
+    {
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+    };
 
     private readonly HttpClient httpClient = httpClient;
     private readonly ILogger logger = logger;
@@ -99,7 +104,7 @@ public sealed class AutopilotGraphTokenService(
             ["alg"] = "PS256",
             ["typ"] = "JWT",
             ["x5t#S256"] = Base64UrlEncode(SHA256.HashData(certificate.RawData))
-        }, AutopilotGraphJson.Options);
+        }, JsonOptions);
         string payload = JsonSerializer.Serialize(new Dictionary<string, object>
         {
             ["aud"] = tokenEndpoint,
@@ -109,7 +114,7 @@ public sealed class AutopilotGraphTokenService(
             ["nbf"] = now,
             ["iat"] = now,
             ["sub"] = clientId
-        }, AutopilotGraphJson.Options);
+        }, JsonOptions);
 
         string unsignedToken = $"{Base64UrlEncode(Encoding.UTF8.GetBytes(header))}.{Base64UrlEncode(Encoding.UTF8.GetBytes(payload))}";
         using RSA? rsa = certificate.GetRSAPrivateKey();
