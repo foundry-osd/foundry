@@ -27,6 +27,24 @@ public enum ProfileAssignmentOutcome
 }
 
 /// <summary>
+/// Waits for the Autopilot deployment profile assignment of a registered device.
+/// </summary>
+/// <remarks>Implemented by <see cref="ProfileAssignmentWaiter"/> and, in debug sessions, by a simulation.</remarks>
+public interface IProfileAssignmentService
+{
+    /// <summary>
+    /// Waits for the profile assignment of one device. Never throws for Graph failures: they end the wait as
+    /// <see cref="ProfileAssignmentOutcome.Unavailable"/>.
+    /// </summary>
+    /// <param name="accessToken">Graph access token.</param>
+    /// <param name="deviceId">Autopilot device identity.</param>
+    /// <param name="stopAtUtc">Instant at which the wait gives up.</param>
+    /// <param name="skip">Cancelled when the technician skips the wait; wins over every other outcome.</param>
+    /// <returns>How the wait ended.</returns>
+    Task<ProfileAssignmentOutcome> WaitAsync(string accessToken, string deviceId, DateTimeOffset stopAtUtc, CancellationToken skip);
+}
+
+/// <summary>
 /// Polls Graph until the registered device has a deployment profile, the wait is skipped, or the stop time is reached.
 /// </summary>
 /// <remarks>
@@ -43,7 +61,7 @@ public sealed class ProfileAssignmentWaiter(
     AutopilotGraphImportClient client,
     Func<TimeSpan, CancellationToken, Task> delay,
     Func<DateTimeOffset> utcNow,
-    ILogger<ProfileAssignmentWaiter>? logger = null)
+    ILogger<ProfileAssignmentWaiter>? logger = null) : IProfileAssignmentService
 {
     /// <summary>Interval between two status reads.</summary>
     public static readonly TimeSpan PollInterval = TimeSpan.FromSeconds(30);
@@ -64,14 +82,8 @@ public sealed class ProfileAssignmentWaiter(
         return deadlineStop is { } stop && stop < limit ? stop : limit;
     }
 
-    /// <summary>
-    /// Waits for the profile assignment of one device.
-    /// </summary>
-    /// <param name="accessToken">Graph access token.</param>
-    /// <param name="deviceId">Autopilot device identity.</param>
-    /// <param name="stopAtUtc">Instant at which the wait gives up, including a read still in progress.</param>
-    /// <param name="skip">Cancelled when the technician skips the wait; wins over every other outcome.</param>
-    /// <returns>How the wait ended.</returns>
+    /// <inheritdoc />
+    /// <remarks>The stop time also bounds a status read still in progress.</remarks>
     public async Task<ProfileAssignmentOutcome> WaitAsync(
         string accessToken,
         string deviceId,

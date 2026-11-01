@@ -85,7 +85,12 @@ public static class Program
             // Both startup guards run before any UI and before the configuration is needed: a device that is already
             // registered or a setup window that already closed must not show the application.
             RegistrationResultStore resultStore = new(RegistrationResultStore.ResolveStateDirectory(DebugSafetyMode.IsEnabled));
-            if (resultStore.IsCompleted())
+            if (DebugSafetyMode.IsEnabled)
+            {
+                // Simulated runs write real result files; the guard would otherwise lock every later debug session out.
+                logger.Information("Debug safety mode: the completed-result guard is bypassed.");
+            }
+            else if (resultStore.IsCompleted())
             {
                 logger.Information("Registration already completed by an earlier run. Exiting with code {ExitCode}.", CompletedExitCode);
                 return CompletedExitCode;
@@ -122,6 +127,8 @@ public static class Program
                 host.Services.GetRequiredService<ILocalizationService>(),
                 host.Services.GetRequiredService<ILogger<App>>());
 
+            // The window ends the application itself with the exit code of the run (MainWindow.OnClosed).
+            app.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             int exitCode = app.Run(host.Services.GetRequiredService<MainWindow>());
             logger.Information("Foundry.AutopilotInteractive exited with code {ExitCode}.", exitCode);
             return exitCode;

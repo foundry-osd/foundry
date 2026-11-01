@@ -4,8 +4,15 @@
 
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
+using System.Net;
+using System.Net.Http;
 using CommunityToolkit.Mvvm.Input;
+using Foundry.AutopilotInteractive.Services;
+using Foundry.AutopilotInteractive.Services.Authentication;
 using Foundry.AutopilotInteractive.Services.Device;
+using Foundry.AutopilotInteractive.Services.Registration;
+using Foundry.AutopilotInteractive.Services.Simulation;
 using Foundry.Core.Models.Autopilot;
 using Foundry.Localization;
 using Foundry.Wpf.Localization;
@@ -13,60 +20,199 @@ using Foundry.Wpf.Runtime;
 using Foundry.Wpf.Shell;
 using Foundry.Wpf.Theme;
 using Foundry.Wpf.ViewModels;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.AutopilotInteractive.ViewModels;
 
+/// <summary>The page shown in the window.</summary>
+public enum AutopilotPage
+{
+    /// <summary>Page 1: device code sign-in.</summary>
+    SignIn,
+
+    /// <summary>Page 2: group tag and registration.</summary>
+    GroupTag
+}
+
 /// <summary>
-/// The window shell: the menu bar (theme, language, debug, about), the version and the device footer shown on every page.
+/// The window shell and the run state machine: menu (theme, language, debug, about), version, device footer, current page,
+/// result file, deadline and exit code.
 /// </summary>
 /// <remarks>
-/// The shell holds no registration state. The Debug menu is shown only in debug safety mode, so a simulated state can
-/// never be reached in a shipped runtime.
+/// <para>
+/// The run goes sign-in, page loading (still on page 1), page 2, registration, profile wait, success countdown. A Graph 401
+/// or Use another account returns to page 1 with a new code. The shell writes <c>result.json</c>: <c>completed</c> on success,
+/// <c>failed</c> on a registration failure (the window stays open), <c>skipped</c> on a confirmed close, and
+/// <c>failed</c>/<c>deadline_reached</c> when the deadline arrives before the registration.
+/// </para>
+/// <para>
+/// <see cref="ExitCode"/> is 1 until the registration completes, then 0. When the run decides to end (countdown, Continue now,
+/// deadline) it raises <see cref="ExitRequested"/>; the window then closes without asking. The Debug menu exists only in
+/// debug safety mode, where the service factory is the simulation. Every member runs on the UI thread.
+/// </para>
 /// </remarks>
 public sealed partial class MainWindowViewModel : LocalizedViewModelBase
 {
+    /// <summary>How long the deadline message stays on screen before the application exits.</summary>
+    public static readonly TimeSpan DeadlineMessageDuration = TimeSpan.FromSeconds(5);
+
+    private const int CompletedExitCode = 0;
+    private const int IncompleteExitCode = 1;
+
     private readonly IThemeService _themeService;
     private readonly IApplicationShellService _applicationShellService;
     private readonly IDeviceInformationReader _deviceInformationReader;
+    private readonly IAutopilotServiceSetFactory _serviceSetFactory;
+    private readonly RegistrationResultStore _resultStore;
+    private readonly ISkipConfirmation _skipConfirmation;
+    private readonly TimeProvider _timeProvider;
+    private readonly IUiDispatcher _dispatcher;
+    private readonly ILogger<MainWindowViewModel> _logger;
     private readonly string? _assignedComputerName;
+    private AutopilotServiceSet? _services;
+    private CancellationTokenSource? _loadCts;
+    private ITimer? _deadlineTimer;
+    private ITimer? _exitTimer;
+    private RegistrationOutcome? _registration;
     private DeviceInformation _deviceInformation = new(null, null, null);
+    private bool _isSessionStarted;
+    private bool _isCompleted;
+    private bool _isEnding;
+    private bool _isExitRequested;
     private bool _isInitialized;
     private bool _hasDeviceInformation;
     private bool _isDisposed;
+    private string? _deadlineMessageKey;
 
     /// <summary>
-    /// Initializes the shell; the footer stays empty until <see cref="InitializeAsync"/> has read the device.
+    /// Initializes the shell; the Debug menu follows <see cref="DebugSafetyMode.IsEnabled"/>.
     /// </summary>
     /// <param name="localizationService">Source of the texts and of the language menu.</param>
     /// <param name="themeService">Applies the theme menu choices.</param>
     /// <param name="applicationShellService">Shows the About dialog.</param>
     /// <param name="deviceInformationReader">Reads the hardware identity for the footer.</param>
     /// <param name="configuration">Runtime configuration; its computer name is appended to the footer.</param>
+    /// <param name="signIn">Page 1.</param>
+    /// <param name="groupTag">Page 2.</param>
+    /// <param name="serviceSetFactory">Creates the services of a run (real, or simulated in debug safety mode).</param>
+    /// <param name="resultStore">Writes <c>result.json</c>.</param>
+    /// <param name="skipConfirmation">Asks before a close skips the registration.</param>
+    /// <param name="timeProvider">Clock and timers of the deadline.</param>
+    /// <param name="dispatcher">Delivers timer callbacks on the UI thread.</param>
+    /// <param name="logger">Logs the run outcomes.</param>
     public MainWindowViewModel(
         ILocalizationService localizationService,
         IThemeService themeService,
         IApplicationShellService applicationShellService,
         IDeviceInformationReader deviceInformationReader,
-        AutopilotInteractiveRuntimeConfiguration configuration)
+        AutopilotInteractiveRuntimeConfiguration configuration,
+        SignInViewModel signIn,
+        GroupTagViewModel groupTag,
+        IAutopilotServiceSetFactory serviceSetFactory,
+        RegistrationResultStore resultStore,
+        ISkipConfirmation skipConfirmation,
+        TimeProvider timeProvider,
+        IUiDispatcher dispatcher,
+        ILogger<MainWindowViewModel> logger)
+        : this(
+            localizationService,
+            themeService,
+            applicationShellService,
+            deviceInformationReader,
+            configuration,
+            signIn,
+            groupTag,
+            serviceSetFactory,
+            resultStore,
+            skipConfirmation,
+            timeProvider,
+            dispatcher,
+            logger,
+            DebugSafetyMode.IsEnabled)
+    {
+    }
+
+    /// <summary>Initializes the shell with an explicit debug safety flag, for tests.</summary>
+    internal MainWindowViewModel(
+        ILocalizationService localizationService,
+        IThemeService themeService,
+        IApplicationShellService applicationShellService,
+        IDeviceInformationReader deviceInformationReader,
+        AutopilotInteractiveRuntimeConfiguration configuration,
+        SignInViewModel signIn,
+        GroupTagViewModel groupTag,
+        IAutopilotServiceSetFactory serviceSetFactory,
+        RegistrationResultStore resultStore,
+        ISkipConfirmation skipConfirmation,
+        TimeProvider timeProvider,
+        IUiDispatcher dispatcher,
+        ILogger<MainWindowViewModel> logger,
+        bool isDebugSafeMode)
         : base(localizationService)
     {
-        ArgumentNullException.ThrowIfNull(themeService);
-        ArgumentNullException.ThrowIfNull(applicationShellService);
-        ArgumentNullException.ThrowIfNull(deviceInformationReader);
         ArgumentNullException.ThrowIfNull(configuration);
-
-        _themeService = themeService;
-        _applicationShellService = applicationShellService;
-        _deviceInformationReader = deviceInformationReader;
+        _themeService = themeService ?? throw new ArgumentNullException(nameof(themeService));
+        _applicationShellService = applicationShellService ?? throw new ArgumentNullException(nameof(applicationShellService));
+        _deviceInformationReader = deviceInformationReader ?? throw new ArgumentNullException(nameof(deviceInformationReader));
+        SignIn = signIn ?? throw new ArgumentNullException(nameof(signIn));
+        GroupTag = groupTag ?? throw new ArgumentNullException(nameof(groupTag));
+        _serviceSetFactory = serviceSetFactory ?? throw new ArgumentNullException(nameof(serviceSetFactory));
+        _resultStore = resultStore ?? throw new ArgumentNullException(nameof(resultStore));
+        _skipConfirmation = skipConfirmation ?? throw new ArgumentNullException(nameof(skipConfirmation));
+        _timeProvider = timeProvider ?? throw new ArgumentNullException(nameof(timeProvider));
+        _dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _assignedComputerName = configuration.AssignedComputerName;
-        IsDebugMenuVisible = DebugSafetyMode.IsEnabled;
+        IsDebugMenuVisible = isDebugSafeMode;
+
+        SignIn.SignedIn += OnSignedIn;
+        GroupTag.SessionExpired += OnSessionExpired;
+        GroupTag.SignOutRequested += OnSignOutRequested;
+        GroupTag.RegistrationFailed += OnRegistrationFailed;
+        GroupTag.RegistrationSucceeded += OnRegistrationSucceeded;
+        GroupTag.Completed += OnCompleted;
+        GroupTag.ContinueRequested += OnContinueRequested;
 
         LocalizationService.LanguageChanged += OnLanguageChanged;
         RefreshSupportedCultures();
+        RefreshDebugScenarios();
     }
+
+    /// <summary>Raised when the run ends by itself (countdown, Continue now, deadline): the window closes with <see cref="ExitCode"/>.</summary>
+    public event EventHandler? ExitRequested;
+
+    /// <summary>Gets page 1.</summary>
+    public SignInViewModel SignIn { get; }
+
+    /// <summary>Gets page 2.</summary>
+    public GroupTagViewModel GroupTag { get; }
+
+    /// <summary>Gets the page shown in the window.</summary>
+    public AutopilotPage CurrentPage { get; private set; } = AutopilotPage.SignIn;
+
+    /// <summary>Gets whether page 1 is shown.</summary>
+    public bool IsSignInPage => CurrentPage == AutopilotPage.SignIn;
+
+    /// <summary>Gets whether page 2 is shown.</summary>
+    public bool IsGroupTagPage => CurrentPage == AutopilotPage.GroupTag;
+
+    /// <summary>Gets the process exit code: 0 once the registration completed, 1 otherwise.</summary>
+    public int ExitCode { get; private set; } = IncompleteExitCode;
+
+    /// <summary>Gets the message shown when the deadline ended the run, empty otherwise.</summary>
+    public string DeadlineMessage => _deadlineMessageKey is null ? string.Empty : LocalizationService.GetString(_deadlineMessageKey);
+
+    /// <summary>Gets whether the deadline message is shown.</summary>
+    public bool HasDeadlineMessage => _deadlineMessageKey is not null;
 
     /// <summary>Gets the supported UI cultures, the active one marked as selected.</summary>
     public ObservableCollection<SupportedCultureOption> SupportedCultures { get; } = [];
+
+    /// <summary>Gets the Debug menu entries, the active scenario checked; empty outside debug safety mode.</summary>
+    public ObservableCollection<DebugScenarioOption> DebugScenarios { get; } = [];
+
+    /// <summary>Gets the simulated scenario of the run.</summary>
+    public DebugScenario ActiveDebugScenario { get; private set; } = DebugScenarioCatalog.Default;
 
     /// <summary>Gets the current application theme mode.</summary>
     public ThemeMode CurrentTheme => _themeService.CurrentTheme;
@@ -80,11 +226,12 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
     /// <summary>Gets whether the Debug menu is shown: a Debug build with a debugger attached.</summary>
     public bool IsDebugMenuVisible { get; }
 
-    /// <summary>Gets the footer line describing the device, empty until <see cref="InitializeAsync"/> completes.</summary>
+    /// <summary>Gets the footer line describing the device, empty until <see cref="InitializeAsync"/> read it.</summary>
     public string DeviceFooter { get; private set; } = string.Empty;
 
     /// <summary>
-    /// Reads the device identity off the UI thread and fills the footer. Later calls do nothing.
+    /// Starts the run (unless a debug scenario already did), then reads the device identity off the UI thread for the
+    /// footer. Later calls do nothing.
     /// </summary>
     /// <returns>A task that completes once the footer is set.</returns>
     public async Task InitializeAsync()
@@ -95,6 +242,11 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         _isInitialized = true;
+        if (!_isSessionStarted)
+        {
+            StartSession();
+        }
+
         DeviceInformation information = await Task.Run(_deviceInformationReader.Read);
         if (_isDisposed)
         {
@@ -106,7 +258,60 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         RefreshDeviceFooter();
     }
 
-    /// <summary>Unsubscribes from language changes. Idempotent.</summary>
+    /// <summary>
+    /// Decides whether the window may close, and records the outcome when it does.
+    /// </summary>
+    /// <remarks>
+    /// No question is asked once the run decided to end, during the success countdown (exit 0) or during the profile wait
+    /// (the device is registered: <c>completed</c> with the wait skipped, exit 0). Otherwise a confirmed close writes
+    /// <c>skipped</c> and keeps exit code 1.
+    /// </remarks>
+    /// <returns><see langword="true"/> when the window may close.</returns>
+    public async Task<bool> ConfirmCloseAsync()
+    {
+        if (_isExitRequested || _isEnding || _isDisposed)
+        {
+            return true;
+        }
+
+        if (_isCompleted)
+        {
+            _logger.LogInformation("Window closed during the success countdown. Exiting with code {ExitCode}.", CompletedExitCode);
+            EndRun(CompletedExitCode);
+            return true;
+        }
+
+        if (_registration is { } registration)
+        {
+            _logger.LogInformation("Window closed during the profile assignment wait; Windows setup continues.");
+            CancelWork();
+            WriteCompleted(registration, ProfileAssignmentOutcome.Skipped);
+            EndRun(CompletedExitCode);
+            return true;
+        }
+
+        bool confirmed = await _skipConfirmation.ConfirmAsync();
+
+        // The run kept going while the question was open: it may have ended (deadline), or the device may now be registered,
+        // in which case "skipped" would be wrong and the window stays open for the next close to decide.
+        if (_isExitRequested || _isEnding || _isDisposed)
+        {
+            return true;
+        }
+
+        if (!confirmed || _isCompleted || _registration is not null)
+        {
+            return false;
+        }
+
+        _logger.LogInformation("Autopilot registration skipped by the technician. Exiting with code {ExitCode}.", IncompleteExitCode);
+        CancelWork();
+        WriteResult(new RegistrationResult(RegistrationResult.StatusSkipped, null, null, null, null, _timeProvider.GetUtcNow()));
+        EndRun(IncompleteExitCode);
+        return true;
+    }
+
+    /// <summary>Stops every operation and timer and unsubscribes. Idempotent.</summary>
     public override void Dispose()
     {
         if (_isDisposed)
@@ -115,6 +320,19 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         _isDisposed = true;
+        CancelWork();
+        _loadCts?.Dispose();
+        _deadlineTimer?.Dispose();
+        _exitTimer?.Dispose();
+        SignIn.SignedIn -= OnSignedIn;
+        GroupTag.SessionExpired -= OnSessionExpired;
+        GroupTag.SignOutRequested -= OnSignOutRequested;
+        GroupTag.RegistrationFailed -= OnRegistrationFailed;
+        GroupTag.RegistrationSucceeded -= OnRegistrationSucceeded;
+        GroupTag.Completed -= OnCompleted;
+        GroupTag.ContinueRequested -= OnContinueRequested;
+        SignIn.Dispose();
+        GroupTag.Dispose();
         LocalizationService.LanguageChanged -= OnLanguageChanged;
         base.Dispose();
     }
@@ -140,6 +358,284 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         _applicationShellService.ShowAbout();
     }
 
+    /// <summary>Restarts the run on a simulated scenario. Refused outside debug safety mode.</summary>
+    [RelayCommand(CanExecute = nameof(IsDebugMenuVisible))]
+    private void SetDebugScenario(DebugScenario scenario)
+    {
+        if (!IsDebugMenuVisible || _isDisposed || _isExitRequested)
+        {
+            return;
+        }
+
+        ActiveDebugScenario = scenario;
+        RefreshDebugScenarios();
+        _logger.LogInformation("Debug scenario selected. Scenario={Scenario}", scenario);
+
+        if (scenario == DebugScenario.CompletedGuard)
+        {
+            // What the startup guard does when an earlier run completed: exit 0 without showing anything.
+            CancelWork();
+            _logger.LogInformation("Simulated completed result; exiting with code {ExitCode}.", CompletedExitCode);
+            EndRun(CompletedExitCode);
+            return;
+        }
+
+        StartSession();
+    }
+
+    private void StartSession()
+    {
+        CancelWork();
+        _deadlineTimer?.Dispose();
+        _deadlineTimer = null;
+        _exitTimer?.Dispose();
+        _exitTimer = null;
+        _registration = null;
+        _isCompleted = false;
+        _isEnding = false;
+        _deadlineMessageKey = null;
+        ExitCode = IncompleteExitCode;
+        OnPropertyChanged(nameof(ExitCode));
+        OnPropertyChanged(nameof(DeadlineMessage));
+        OnPropertyChanged(nameof(HasDeadlineMessage));
+
+        _isSessionStarted = true;
+        _services = _serviceSetFactory.Create(IsDebugMenuVisible ? ActiveDebugScenario : null);
+        ArmDeadline(_services.DeadlineUtc);
+        ShowSignIn(infoBannerKey: null);
+    }
+
+    private void ArmDeadline(DateTimeOffset? deadlineUtc)
+    {
+        if (DeadlinePolicy.StopAt(deadlineUtc) is not { } stopAt)
+        {
+            return;
+        }
+
+        TimeSpan due = stopAt - _timeProvider.GetUtcNow();
+        _deadlineTimer = _timeProvider.CreateTimer(
+            _ => _dispatcher.Run(OnDeadlineReached),
+            null,
+            due > TimeSpan.Zero ? due : TimeSpan.Zero,
+            Timeout.InfiniteTimeSpan);
+    }
+
+    private void ShowSignIn(string? infoBannerKey)
+    {
+        if (_services is null)
+        {
+            return;
+        }
+
+        _loadCts?.Cancel();
+        GroupTag.Reset();
+        SetPage(AutopilotPage.SignIn);
+        SignIn.Start(_services.DeviceCodeClient, infoBannerKey);
+    }
+
+    private void OnSignedIn(object? sender, AuthenticatedSession session)
+    {
+        if (_services is not { } services || _isEnding)
+        {
+            return;
+        }
+
+        SignIn.ShowLoadingGroupTags();
+        _loadCts?.Dispose();
+        _loadCts = new CancellationTokenSource();
+        _ = LoadGroupTagPageAsync(services, session, _loadCts.Token);
+    }
+
+    private async Task LoadGroupTagPageAsync(AutopilotServiceSet services, AuthenticatedSession session, CancellationToken token)
+    {
+        try
+        {
+            await GroupTag.LoadAsync(services, session, token);
+        }
+        catch (OperationCanceledException) when (token.IsCancellationRequested)
+        {
+            return;
+        }
+        catch (HttpRequestException exception) when (exception.StatusCode == HttpStatusCode.Unauthorized)
+        {
+            _logger.LogWarning("Microsoft Graph rejected the access token while loading the registration page; signing in again.");
+            ShowSignIn("SignIn.Banner.SessionExpired");
+            return;
+        }
+        catch (Exception exception)
+        {
+            // The registration service reports its own failures; anything else must not leave the page loading forever.
+            _logger.LogError("The registration page could not be loaded. FailureType={FailureType}", exception.GetType().Name);
+            ShowSignIn("SignIn.Banner.LoadFailed");
+            return;
+        }
+
+        if (token.IsCancellationRequested || _isEnding)
+        {
+            return;
+        }
+
+        SignIn.Stop();
+        SetPage(AutopilotPage.GroupTag);
+        GroupTag.OnPageShown();
+    }
+
+    private void OnSessionExpired(object? sender, EventArgs e)
+    {
+        _logger.LogWarning("Microsoft Graph rejected the access token; signing in again.");
+        ShowSignIn("SignIn.Banner.SessionExpired");
+    }
+
+    private void OnSignOutRequested(object? sender, EventArgs e)
+    {
+        _logger.LogInformation("The technician chose another account; signing in again.");
+        ShowSignIn("SignIn.Banner.SignedOut");
+    }
+
+    private void OnRegistrationFailed(object? sender, string failureCode)
+    {
+        WriteResult(new RegistrationResult(RegistrationResult.StatusFailed, failureCode, null, null, null, _timeProvider.GetUtcNow()));
+    }
+
+    private void OnRegistrationSucceeded(object? sender, RegistrationOutcome outcome)
+    {
+        _registration = outcome;
+    }
+
+    private void OnCompleted(object? sender, ProfileAssignmentOutcome? profile)
+    {
+        if (_registration is not { } registration || _isEnding)
+        {
+            return;
+        }
+
+        WriteCompleted(registration, profile);
+        _isCompleted = true;
+        ExitCode = CompletedExitCode;
+        OnPropertyChanged(nameof(ExitCode));
+    }
+
+    private void OnContinueRequested(object? sender, EventArgs e)
+    {
+        if (_isCompleted)
+        {
+            EndRun(CompletedExitCode);
+        }
+    }
+
+    private void OnDeadlineReached()
+    {
+        if (_isDisposed || _isEnding || _isExitRequested)
+        {
+            return;
+        }
+
+        if (_isCompleted)
+        {
+            _logger.LogInformation("The setup deadline is near; the registration is complete. Exiting with code {ExitCode}.", CompletedExitCode);
+            EndRun(CompletedExitCode);
+            return;
+        }
+
+        if (_registration is { } registration)
+        {
+            _logger.LogInformation("The setup deadline is near during the profile assignment wait. Exiting with code {ExitCode}.", CompletedExitCode);
+            CancelWork();
+            WriteCompleted(registration, ProfileAssignmentOutcome.TimedOut);
+            EndRun(CompletedExitCode);
+            return;
+        }
+
+        _logger.LogWarning("The setup deadline is near and the device is not registered. Exiting with code {ExitCode}.", IncompleteExitCode);
+        CancelWork();
+        WriteResult(new RegistrationResult(
+            RegistrationResult.StatusFailed,
+            RegistrationFailureCodes.DeadlineReached,
+            null,
+            null,
+            null,
+            _timeProvider.GetUtcNow()));
+        _isEnding = true;
+        ExitCode = IncompleteExitCode;
+        _deadlineMessageKey = "Deadline.Reached";
+        OnPropertyChanged(nameof(ExitCode));
+        OnPropertyChanged(nameof(DeadlineMessage));
+        OnPropertyChanged(nameof(HasDeadlineMessage));
+        _exitTimer = _timeProvider.CreateTimer(
+            _ => _dispatcher.Run(() => EndRun(IncompleteExitCode)),
+            null,
+            DeadlineMessageDuration,
+            Timeout.InfiniteTimeSpan);
+    }
+
+    private void EndRun(int exitCode)
+    {
+        if (_isExitRequested || _isDisposed)
+        {
+            return;
+        }
+
+        _isEnding = true;
+        _isExitRequested = true;
+        ExitCode = exitCode;
+        OnPropertyChanged(nameof(ExitCode));
+        _logger.LogInformation("Foundry.AutopilotInteractive is ending. ExitCode={ExitCode}", exitCode);
+        ExitRequested?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void CancelWork()
+    {
+        _loadCts?.Cancel();
+        SignIn.Stop();
+        GroupTag.Cancel();
+    }
+
+    private void WriteCompleted(RegistrationOutcome registration, ProfileAssignmentOutcome? profile)
+    {
+        WriteResult(new RegistrationResult(
+            RegistrationResult.StatusCompleted,
+            null,
+            registration.ImportId,
+            registration.AutopilotDeviceId,
+            profile is { } outcome ? RegistrationResult.ToResultValue(outcome) : null,
+            _timeProvider.GetUtcNow()));
+    }
+
+    private void WriteResult(RegistrationResult result)
+    {
+        try
+        {
+            _resultStore.Write(result);
+            _logger.LogInformation(
+                "Registration result written. Status={Status}, FailureCode={FailureCode}, ProfileAssignment={ProfileAssignment}",
+                result.Status,
+                result.FailureCode,
+                result.ProfileAssignment);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            // The exit code still tells PostInstall the outcome; a missing file only costs a later attempt.
+            _logger.LogWarning(
+                "The registration result could not be written. Status={Status}, FailureType={FailureType}, ErrorCode={ErrorCode}",
+                result.Status,
+                exception.GetType().Name,
+                exception.HResult);
+        }
+    }
+
+    private void SetPage(AutopilotPage page)
+    {
+        if (CurrentPage == page)
+        {
+            return;
+        }
+
+        CurrentPage = page;
+        OnPropertyChanged(nameof(CurrentPage));
+        OnPropertyChanged(nameof(IsSignInPage));
+        OnPropertyChanged(nameof(IsGroupTagPage));
+    }
+
     private void SetTheme(ThemeMode theme)
     {
         _themeService.SetTheme(theme);
@@ -152,6 +648,23 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         foreach (SupportedCultureOption option in LocalizationService.CreateSupportedCultureOptions())
         {
             SupportedCultures.Add(option);
+        }
+    }
+
+    private void RefreshDebugScenarios()
+    {
+        DebugScenarios.Clear();
+        if (!IsDebugMenuVisible)
+        {
+            return;
+        }
+
+        foreach (DebugScenario scenario in DebugScenarioCatalog.All)
+        {
+            DebugScenarios.Add(new DebugScenarioOption(
+                scenario,
+                LocalizationService.GetString(DebugScenarioCatalog.ResourceKey(scenario)),
+                scenario == ActiveDebugScenario));
         }
     }
 
@@ -175,8 +688,10 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
             }
 
             RefreshSupportedCultures();
+            RefreshDebugScenarios();
             OnPropertyChanged(nameof(WindowTitle));
             OnPropertyChanged(nameof(VersionDisplay));
+            OnPropertyChanged(nameof(DeadlineMessage));
             if (_hasDeviceInformation)
             {
                 RefreshDeviceFooter();
@@ -184,3 +699,11 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         });
     }
 }
+
+/// <summary>
+/// One Debug menu entry.
+/// </summary>
+/// <param name="Scenario">The scenario it selects.</param>
+/// <param name="Header">Localized menu text.</param>
+/// <param name="IsSelected">Whether it is the active scenario.</param>
+public sealed record DebugScenarioOption(DebugScenario Scenario, string Header, bool IsSelected);
