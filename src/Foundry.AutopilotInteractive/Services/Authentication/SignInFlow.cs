@@ -34,13 +34,26 @@ public enum SignInPhase
 public sealed record SignInState(SignInPhase Phase, DeviceCodeSession? Code, string? ErrorCode);
 
 /// <summary>
-/// The sign-in cannot succeed (access denied, declined, invalid request).
+/// The sign-in cannot succeed (access denied, declined, invalid request) or failed unexpectedly.
 /// </summary>
-/// <param name="errorCode">OAuth error code that ended the sign-in.</param>
-public sealed class SignInFailedException(string errorCode) : Exception("Sign-in failed: " + errorCode)
+public sealed class SignInFailedException : Exception
 {
-    /// <summary>Gets the OAuth error code that ended the sign-in.</summary>
-    public string ErrorCode { get; } = errorCode;
+    /// <param name="errorCode">Error code that ended the sign-in.</param>
+    public SignInFailedException(string errorCode)
+        : this(errorCode, null)
+    {
+    }
+
+    /// <param name="errorCode">Error code that ended the sign-in.</param>
+    /// <param name="innerException">Unexpected failure that ended the sign-in, if any.</param>
+    public SignInFailedException(string errorCode, Exception? innerException)
+        : base("Sign-in failed: " + errorCode, innerException)
+    {
+        ErrorCode = errorCode;
+    }
+
+    /// <summary>Gets the error code that ended the sign-in: an OAuth error code or <c>unexpected_error</c>.</summary>
+    public string ErrorCode { get; }
 }
 
 /// <summary>
@@ -58,6 +71,7 @@ public sealed class SignInFlow
 {
     private static readonly TimeSpan SlowDownIncrement = TimeSpan.FromSeconds(5);
     private static readonly TimeSpan RetryDelay = TimeSpan.FromSeconds(10);
+    private const string UnexpectedErrorCode = "unexpected_error";
 
     private readonly IDeviceCodeClient _client;
     private readonly Func<TimeSpan, CancellationToken, Task> _delay;
@@ -86,7 +100,7 @@ public sealed class SignInFlow
     /// <param name="progress">Receives the state to display; reports are made from the calling flow of control.</param>
     /// <param name="ct">Cancels the sign-in.</param>
     /// <returns>The authenticated session.</returns>
-    /// <exception cref="SignInFailedException">A blocking error ended the sign-in.</exception>
+    /// <exception cref="SignInFailedException">A blocking or unexpected error ended the sign-in.</exception>
     /// <exception cref="OperationCanceledException"><paramref name="ct"/> was cancelled.</exception>
     public async Task<AuthenticatedSession> RunAsync(IProgress<SignInState> progress, CancellationToken ct)
     {
@@ -106,6 +120,13 @@ public sealed class SignInFlow
         {
             _logger.LogInformation("Sign-in cancelled");
             throw;
+        }
+        catch (Exception exception)
+        {
+            // Only the exception type is logged: messages from HTTP or JSON failures could echo request content.
+            _logger.LogError("Sign-in failed. ErrorCode={ErrorCode}, ExceptionType={ExceptionType}", UnexpectedErrorCode, exception.GetType().Name);
+            progress.Report(new SignInState(SignInPhase.Failed, null, UnexpectedErrorCode));
+            throw new SignInFailedException(UnexpectedErrorCode, exception);
         }
     }
 
@@ -159,7 +180,14 @@ public sealed class SignInFlow
 
         while (true)
         {
-            await _delay(nextDelay, ct).ConfigureAwait(false);
+            // Never wait past the expiry, so the renewal (and the new QR code) starts exactly when the code dies.
+            TimeSpan remaining = code.ExpiresAtUtc - _utcNow();
+            if (remaining <= TimeSpan.Zero)
+            {
+                return null;
+            }
+
+            await _delay(nextDelay < remaining ? nextDelay : remaining, ct).ConfigureAwait(false);
             if (_utcNow() >= code.ExpiresAtUtc)
             {
                 return null;

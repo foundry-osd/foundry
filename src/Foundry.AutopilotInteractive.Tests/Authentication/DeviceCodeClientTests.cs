@@ -43,6 +43,18 @@ public sealed class DeviceCodeClientTests
     }
 
     [Fact]
+    public async Task Request_ClampsIntervalToFiveSeconds()
+    {
+        DeviceCodeClient client = CreateClient(new FakeHttpMessageHandler((_, _) => FakeHttpMessageHandler.Json(
+            HttpStatusCode.OK,
+            """{"device_code":"dc","user_code":"UC-123","verification_uri":"https://microsoft.com/devicelogin","expires_in":900,"interval":1}""")));
+
+        DeviceCodeSession session = await client.RequestAsync(CancellationToken.None);
+
+        Assert.Equal(TimeSpan.FromSeconds(5), session.Interval);
+    }
+
+    [Fact]
     public async Task Request_ThrowsTransient_OnNetworkFailure()
     {
         DeviceCodeClient client = CreateClient(new FakeHttpMessageHandler((_, _) => throw new HttpRequestException("offline")));
@@ -155,6 +167,17 @@ public sealed class DeviceCodeClientTests
 
         Assert.Equal(DeviceCodePollStatus.Failed, result.Status);
         Assert.Equal("http_403", result.ErrorCode);
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("<html>Bad Request</html>")]
+    public async Task Poll_MapsBareBadRequestToFailed(string body)
+    {
+        DeviceCodePollResult result = await PollAsync(HttpStatusCode.BadRequest, body);
+
+        Assert.Equal(DeviceCodePollStatus.Failed, result.Status);
+        Assert.Equal("http_400", result.ErrorCode);
     }
 
     [Fact]

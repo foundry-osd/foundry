@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.AutopilotInteractive.Services.Authentication;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.AutopilotInteractive.Tests.Authentication;
 
@@ -86,6 +87,31 @@ public sealed class SignInFlowTests
     }
 
     [Fact]
+    public async Task RunAsync_RenewsCodeExactlyAtExpiry_WhenRetryWaitReachesIt()
+    {
+        Harness harness = new();
+        harness.Client.Codes.Enqueue(harness.NewCode("AAAA-1111", lifetime: TimeSpan.FromSeconds(12)));
+        harness.Client.Codes.Enqueue(harness.NewCode("BBBB-2222"));
+        harness.Client.Polls.Enqueue(new DeviceCodePollResult(DeviceCodePollStatus.TransientFailure));
+        harness.Client.Polls.Enqueue(Succeeded());
+
+        await harness.RunAsync();
+
+        // 5 s to the first poll (transient), then the 10 s retry wait is cut to the 7 s left; no poll happens after expiry.
+        Assert.Equal([TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(7), TimeSpan.FromSeconds(5)], harness.Delays);
+        Assert.Equal(2, harness.Client.PollCount);
+        Assert.Equal(
+            [
+                (SignInPhase.RequestingCode, (string?)null),
+                (SignInPhase.WaitingForUser, "AAAA-1111"),
+                (SignInPhase.WaitingForNetwork, "AAAA-1111"),
+                (SignInPhase.RequestingCode, null),
+                (SignInPhase.WaitingForUser, "BBBB-2222")
+            ],
+            harness.Reports.Select(report => (report.Phase, report.Code?.UserCode)));
+    }
+
+    [Fact]
     public async Task RunAsync_RetriesCodeRequest_OnTransientRequestFailure()
     {
         Harness harness = new();
@@ -129,6 +155,27 @@ public sealed class SignInFlowTests
     }
 
     [Fact]
+    public async Task RunAsync_ReportsFailedAndThrows_OnUnexpectedException()
+    {
+        CapturingLogger logger = new();
+        Harness harness = new(logger);
+        InvalidOperationException cause = new("boom");
+        harness.Client.Codes.Enqueue(cause);
+
+        SignInFailedException exception = await Assert.ThrowsAsync<SignInFailedException>(() => harness.RunAsync());
+
+        Assert.Equal("unexpected_error", exception.ErrorCode);
+        Assert.Same(cause, exception.InnerException);
+        SignInState last = harness.Reports[^1];
+        Assert.Equal(SignInPhase.Failed, last.Phase);
+        Assert.Null(last.Code);
+        Assert.Equal("unexpected_error", last.ErrorCode);
+        Assert.Equal(2, logger.Entries.Count);
+        Assert.Equal(LogLevel.Information, logger.Entries[0]);
+        Assert.Equal(LogLevel.Error, logger.Entries[1]);
+    }
+
+    [Fact]
     public async Task RunAsync_EndsQuietly_WhenCancelled()
     {
         Harness harness = new();
@@ -148,7 +195,7 @@ public sealed class SignInFlowTests
     {
         private DateTimeOffset _now = Start;
 
-        public Harness()
+        public Harness(ILogger<SignInFlow>? logger = null)
         {
             Flow = new SignInFlow(
                 Client,
@@ -161,7 +208,8 @@ public sealed class SignInFlowTests
                     ct.ThrowIfCancellationRequested();
                     return Task.CompletedTask;
                 },
-                () => _now);
+                () => _now,
+                logger);
         }
 
         public FakeDeviceCodeClient Client { get; } = new();
@@ -179,6 +227,19 @@ public sealed class SignInFlowTests
 
         public Task<AuthenticatedSession> RunAsync(CancellationToken? ct = null) =>
             Flow.RunAsync(new SyncProgress(Reports), ct ?? TestContext.Current.CancellationToken);
+    }
+
+    private sealed class CapturingLogger : ILogger<SignInFlow>
+    {
+        public List<LogLevel> Entries { get; } = [];
+
+        public IDisposable? BeginScope<TState>(TState state)
+            where TState : notnull => null;
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter) =>
+            Entries.Add(logLevel);
     }
 
     private sealed class SyncProgress(List<SignInState> reports) : IProgress<SignInState>

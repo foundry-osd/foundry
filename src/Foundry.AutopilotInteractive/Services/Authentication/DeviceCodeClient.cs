@@ -166,7 +166,8 @@ public sealed class DeviceCodeClient : IDeviceCodeClient
             throw new DeviceCodeRequestException(isTransient: false, errorCode: "invalid_response");
         }
 
-        int interval = ReadInt(json, "interval") is int value and > 0 ? value : DefaultIntervalSeconds;
+        // Floor the polling interval: a server value below 5 s would hammer the endpoint and trigger slow_down.
+        int interval = Math.Max(DefaultIntervalSeconds, ReadInt(json, "interval") ?? DefaultIntervalSeconds);
         return new DeviceCodeSession(
             deviceCode,
             userCode,
