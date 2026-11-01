@@ -121,7 +121,6 @@
                         HorizontalAlignment="Right"
                         Command="{Binding RegisterCommand}"
                         Content="{Binding Strings[GroupTag.Register]}"
-                        IsDefault="True"
                         Style="{StaticResource AccentButtonStyle}" />
                 </StackPanel>
 

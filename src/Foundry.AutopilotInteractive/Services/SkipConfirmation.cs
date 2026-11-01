@@ -15,8 +15,12 @@ public interface ISkipConfirmation
     /// <summary>
     /// Shows the confirmation.
     /// </summary>
-    /// <returns><see langword="true"/> when the technician confirmed the skip.</returns>
-    Task<bool> ConfirmAsync();
+    /// <param name="ct">
+    /// Cancelled when the question no longer applies (deadline, countdown exit, device registered meanwhile): the question
+    /// closes and the answer is "no", so it never blocks a graceful exit.
+    /// </param>
+    /// <returns><see langword="true"/> when the technician confirmed the skip before <paramref name="ct"/> was cancelled.</returns>
+    Task<bool> ConfirmAsync(CancellationToken ct);
 }
 
 /// <summary>
@@ -27,13 +31,29 @@ public interface ISkipConfirmation
 public sealed class DialogSkipConfirmation(ILocalizationService localization) : ISkipConfirmation
 {
     /// <inheritdoc />
-    public Task<bool> ConfirmAsync()
+    /// <remarks>
+    /// The dialog is modal: the run keeps going in its nested message loop, so a cancellation raised there closes it with a
+    /// "no" answer.
+    /// </remarks>
+    public Task<bool> ConfirmAsync(CancellationToken ct)
     {
+        if (ct.IsCancellationRequested)
+        {
+            return Task.FromResult(false);
+        }
+
         LocalizedMessageDialog dialog = new(
             localization.GetString("App.Name"),
             localization.GetString("Close.ConfirmMessage"),
             localization.GetString("Close.ConfirmSkip"),
             localization.GetString("Close.Cancel"));
-        return Task.FromResult(dialog.ShowDialog() == true);
+        using CancellationTokenRegistration registration = ct.Register(() => dialog.Dispatcher.InvokeAsync(() =>
+        {
+            if (dialog.IsVisible)
+            {
+                dialog.DialogResult = false;
+            }
+        }));
+        return Task.FromResult(dialog.ShowDialog() == true && !ct.IsCancellationRequested);
     }
 }

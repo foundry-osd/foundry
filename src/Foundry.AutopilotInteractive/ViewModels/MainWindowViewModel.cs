@@ -71,6 +71,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly string? _assignedComputerName;
     private AutopilotServiceSet? _services;
     private CancellationTokenSource? _loadCts;
+    private CancellationTokenSource? _confirmationCts;
     private ITimer? _deadlineTimer;
     private ITimer? _exitTimer;
     private RegistrationOutcome? _registration;
@@ -264,7 +265,8 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
     /// <remarks>
     /// No question is asked once the run decided to end, during the success countdown (exit 0) or during the profile wait
     /// (the device is registered: <c>completed</c> with the wait skipped, exit 0). Otherwise a confirmed close writes
-    /// <c>skipped</c> and keeps exit code 1.
+    /// <c>skipped</c> and keeps exit code 1. An open question is closed with a "no" answer when the device becomes registered,
+    /// the deadline arrives or the run ends, so it never blocks a graceful exit.
     /// </remarks>
     /// <returns><see langword="true"/> when the window may close.</returns>
     public async Task<bool> ConfirmCloseAsync()
@@ -290,13 +292,31 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
             return true;
         }
 
-        bool confirmed = await _skipConfirmation.ConfirmAsync();
+        bool confirmed;
+        using (CancellationTokenSource confirmation = new())
+        {
+            _confirmationCts = confirmation;
+            try
+            {
+                confirmed = await _skipConfirmation.ConfirmAsync(confirmation.Token);
+            }
+            finally
+            {
+                _confirmationCts = null;
+            }
+        }
 
-        // The run kept going while the question was open: it may have ended (deadline), or the device may now be registered,
-        // in which case "skipped" would be wrong and the window stays open for the next close to decide.
-        if (_isExitRequested || _isEnding || _isDisposed)
+        // The run kept going while the question was open and may have closed it: an exit already requested closes the
+        // window; the deadline message keeps it open for its few seconds; a device registered meanwhile makes "skipped"
+        // wrong, so the window stays open for the next close to decide.
+        if (_isExitRequested || _isDisposed)
         {
             return true;
+        }
+
+        if (_isEnding)
+        {
+            return false;
         }
 
         if (!confirmed || _isCompleted || _registration is not null)
@@ -320,6 +340,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         _isDisposed = true;
+        CancelConfirmation();
         CancelWork();
         _loadCts?.Dispose();
         _deadlineTimer?.Dispose();
@@ -500,6 +521,9 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
     private void OnRegistrationSucceeded(object? sender, RegistrationOutcome outcome)
     {
         _registration = outcome;
+
+        // "Skip the registration?" no longer applies to a registered device.
+        CancelConfirmation();
     }
 
     private void OnCompleted(object? sender, ProfileAssignmentOutcome? profile)
@@ -566,6 +590,9 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
             null,
             DeadlineMessageDuration,
             Timeout.InfiniteTimeSpan);
+
+        // Last, once the outcome is recorded: an open skip question closes so the deadline message is visible.
+        CancelConfirmation();
     }
 
     private void EndRun(int exitCode)
@@ -581,6 +608,14 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(ExitCode));
         _logger.LogInformation("Foundry.AutopilotInteractive is ending. ExitCode={ExitCode}", exitCode);
         ExitRequested?.Invoke(this, EventArgs.Empty);
+
+        // An open skip question would otherwise hold the window until PostInstall stops the process.
+        CancelConfirmation();
+    }
+
+    private void CancelConfirmation()
+    {
+        _confirmationCts?.Cancel();
     }
 
     private void CancelWork()

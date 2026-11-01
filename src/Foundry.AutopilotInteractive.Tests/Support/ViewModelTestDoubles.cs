@@ -25,17 +25,35 @@ internal static class TestLocalization
         new(new ResourceManager("Foundry.AutopilotInteractive.Strings.Resources", typeof(App).Assembly));
 }
 
-/// <summary>Answers the skip confirmation with <see cref="Result"/> and counts the prompts.</summary>
+/// <summary>
+/// Answers the skip confirmation with <see cref="Result"/> and counts the prompts. With <see cref="KeepOpen"/>, the question
+/// stays open until its token is cancelled, which answers "no" like the real dialog.
+/// </summary>
 internal sealed class FakeSkipConfirmation : ISkipConfirmation
 {
     public bool Result { get; set; }
 
+    public bool KeepOpen { get; set; }
+
     public int Calls { get; private set; }
 
-    public Task<bool> ConfirmAsync()
+    public bool WasCancelled { get; private set; }
+
+    public Task<bool> ConfirmAsync(CancellationToken ct)
     {
         Calls++;
-        return Task.FromResult(Result);
+        if (!KeepOpen)
+        {
+            return Task.FromResult(Result);
+        }
+
+        TaskCompletionSource<bool> answer = new();
+        ct.Register(() =>
+        {
+            WasCancelled = true;
+            answer.TrySetResult(false);
+        });
+        return answer.Task;
     }
 }
 

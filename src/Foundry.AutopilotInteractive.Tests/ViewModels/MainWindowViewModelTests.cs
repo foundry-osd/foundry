@@ -86,6 +86,74 @@ public sealed class MainWindowViewModelTests
         Assert.Equal("assigned", result.GetProperty("profileAssignment").GetString());
     }
 
+    [Fact]
+    public async Task Close_DuringProfileWait_WritesCompletedSkippedAndExitsZeroWithoutPrompt()
+    {
+        using AutopilotHarness harness = new();
+        harness.Start(DebugScenario.ProfileWait);
+        harness.ReachGroupTagPage();
+        Task register = harness.RegisterAndUpload();
+        Assert.True(harness.ViewModel.GroupTag.IsProfileWaiting);
+
+        Assert.True(await harness.ViewModel.ConfirmCloseAsync());
+        await register;
+
+        Assert.Equal(0, harness.Confirmation.Calls);
+        Assert.Equal(0, harness.ViewModel.ExitCode);
+        Assert.Equal(1, harness.ExitRequests);
+        JsonElement result = harness.ReadResult();
+        Assert.Equal(RegistrationResult.StatusCompleted, result.GetProperty("status").GetString());
+        Assert.Equal("skipped", result.GetProperty("profileAssignment").GetString());
+    }
+
+    [Fact]
+    public async Task Deadline_WhileSkipPromptIsOpen_ClosesThePromptAndExitsOnce()
+    {
+        DateTimeOffset stopAt = new ManualTimeProvider().GetUtcNow() + TimeSpan.FromSeconds(20);
+        using AutopilotHarness harness = new(deadlineUtc: stopAt + DeadlinePolicy.Margin);
+        harness.Start(DebugScenario.SignInCode);
+        harness.Confirmation.KeepOpen = true;
+        Task<bool> close = harness.ViewModel.ConfirmCloseAsync();
+
+        harness.Clock.Advance(stopAt - harness.Clock.GetUtcNow());
+
+        Assert.True(harness.Confirmation.WasCancelled);
+        Assert.False(await close);
+        Assert.True(harness.ViewModel.HasDeadlineMessage);
+        Assert.Equal(RegistrationFailureCodes.DeadlineReached, harness.ReadResult().GetProperty("failureCode").GetString());
+
+        harness.Clock.Advance(MainWindowViewModel.DeadlineMessageDuration);
+
+        Assert.Equal(1, harness.ExitRequests);
+        Assert.Equal(1, harness.ViewModel.ExitCode);
+        Assert.Equal(RegistrationResult.StatusFailed, harness.ReadResult().GetProperty("status").GetString());
+    }
+
+    [Fact]
+    public async Task Registration_CompletingWhileSkipPromptIsOpen_ClosesThePromptAndCountsDown()
+    {
+        using AutopilotHarness harness = new();
+        harness.Start(DebugScenario.ProfileAssigned);
+        harness.ReachGroupTagPage();
+        Task register = harness.ViewModel.GroupTag.RegisterCommand.ExecuteAsync(null);
+        harness.Confirmation.KeepOpen = true;
+        Task<bool> close = harness.ViewModel.ConfirmCloseAsync();
+
+        harness.Clock.Advance(3 * SimulatedRegistrationService.StepDuration);
+
+        Assert.True(harness.Confirmation.WasCancelled);
+        Assert.False(await close);
+
+        harness.Clock.Advance(SimulatedProfileAssignment.WaitDuration);
+        await register;
+        harness.Clock.Advance(GroupTagViewModel.SuccessCountdown);
+
+        Assert.Equal(1, harness.Confirmation.Calls);
+        Assert.Equal(1, harness.ExitRequests);
+        Assert.Equal(0, harness.ViewModel.ExitCode);
+        Assert.Equal(RegistrationResult.StatusCompleted, harness.ReadResult().GetProperty("status").GetString());
+    }
+
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
