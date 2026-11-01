@@ -25,6 +25,10 @@ public sealed class AutopilotGraphImportClient(
     private const string ImportedIdentitiesImportPath = "v1.0/deviceManagement/importedWindowsAutopilotDeviceIdentities/import";
     private const string ImportedIdentitiesPath = "v1.0/deviceManagement/importedWindowsAutopilotDeviceIdentities";
     private const string WindowsAutopilotDevicesPath = "v1.0/deviceManagement/windowsAutopilotDeviceIdentities";
+
+    // deploymentProfileAssignmentStatus is only exposed on the Graph beta endpoint. This is the single beta
+    // path in Foundry; keep it isolated here and do not add other beta calls without the same justification.
+    private const string WindowsAutopilotDevicesBetaPath = "beta/deviceManagement/windowsAutopilotDeviceIdentities";
     private const string ODataType = "#microsoft.graph.importedWindowsAutopilotDeviceIdentity";
 
     private readonly HttpClient httpClient = httpClient;
@@ -80,6 +84,63 @@ public sealed class AutopilotGraphImportClient(
             .ToArray();
     }
 
+    /// <summary>
+    /// Looks up a registered Windows Autopilot device by serial number (case-insensitive). The device list is
+    /// paged without an OData filter, like the visibility scan, because Graph filters on serial numbers are unreliable.
+    /// </summary>
+    /// <returns>
+    /// <see cref="AutopilotDeviceLookupStatus.Ambiguous"/> with no device when several devices share the serial number.
+    /// </returns>
+    public async Task<AutopilotDeviceLookup> FindDeviceBySerialNumberAsync(
+        string accessToken,
+        string serialNumber,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(accessToken);
+        ArgumentException.ThrowIfNullOrWhiteSpace(serialNumber);
+
+        List<WindowsAutopilotDeviceIdentity> matches = await ScanDevicesBySerialNumberAsync(
+            accessToken,
+            serialNumber,
+            "Windows Autopilot device lookup",
+            cancellationToken).ConfigureAwait(false);
+
+        return matches.Count switch
+        {
+            0 => new AutopilotDeviceLookup(AutopilotDeviceLookupStatus.NotFound, null),
+            1 => new AutopilotDeviceLookup(AutopilotDeviceLookupStatus.Found, ToRegisteredDevice(matches[0])),
+            _ => new AutopilotDeviceLookup(AutopilotDeviceLookupStatus.Ambiguous, null)
+        };
+    }
+
+    /// <summary>
+    /// Reads <c>deploymentProfileAssignmentStatus</c> for one Autopilot device from the Graph beta endpoint.
+    /// </summary>
+    /// <returns>The status string, or <see langword="null"/> when Graph does not return the property.</returns>
+    /// <exception cref="HttpRequestException">Graph rejected the request; <c>StatusCode</c> carries the HTTP status.</exception>
+    public async Task<string?> GetDeploymentProfileAssignmentStatusAsync(
+        string accessToken,
+        string autopilotDeviceId,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(accessToken);
+        ArgumentException.ThrowIfNullOrWhiteSpace(autopilotDeviceId);
+
+        string path =
+            $"{WindowsAutopilotDevicesBetaPath}/{Uri.EscapeDataString(autopilotDeviceId)}?$select=id,deploymentProfileAssignmentStatus";
+        WindowsAutopilotDeviceProfileStatus? response = await SendGraphAsync<object, WindowsAutopilotDeviceProfileStatus>(
+            HttpMethod.Get,
+            path,
+            accessToken,
+            body: null,
+            "Windows Autopilot deployment profile status",
+            cancellationToken).ConfigureAwait(false);
+
+        return string.IsNullOrWhiteSpace(response?.DeploymentProfileAssignmentStatus)
+            ? null
+            : response.DeploymentProfileAssignmentStatus;
+    }
+
     public async Task<AutopilotHardwareHashUploadResult> ImportHardwareHashAsync(
         AutopilotGraphImportRequest request,
         IProgress<AutopilotHardwareHashUploadProgress>? progress = null,
@@ -131,7 +192,8 @@ public sealed class AutopilotGraphImportClient(
                 $"Autopilot hardware hash import failed: {deviceErrorName}.",
                 failureCode,
                 request.ImportId,
-                importedIdentity.Id);
+                importedIdentity.Id,
+                importErrorName: importedIdentity.State?.DeviceErrorName);
         }
 
         return AutopilotHardwareHashUploadResult.Failed(
@@ -176,7 +238,8 @@ public sealed class AutopilotGraphImportClient(
         CancellationToken cancellationToken)
     {
         if (!ShouldUpdateGroupTag(existingDevice.GroupTag, request.GroupTag) &&
-            !ShouldUpdateComputerName(existingDevice.DisplayName, request.AssignedComputerName))
+            !ShouldUpdateComputerName(existingDevice.DisplayName, request.AssignedComputerName) &&
+            !ShouldUpdateUserPrincipalName(existingDevice.UserPrincipalName, request.AssignedUserPrincipalName))
         {
             return existingDevice;
         }
@@ -194,6 +257,7 @@ public sealed class AutopilotGraphImportClient(
             existingDevice.Id,
             request.GroupTag,
             request.AssignedComputerName,
+            request.AssignedUserPrincipalName,
             cancellationToken).ConfigureAwait(false);
         return await WaitForAutopilotDevicePropertiesAsync(request, progress, cancellationToken).ConfigureAwait(false);
     }
@@ -203,6 +267,7 @@ public sealed class AutopilotGraphImportClient(
         string autopilotDeviceId,
         string? groupTag,
         string? assignedComputerName,
+        string? assignedUserPrincipalName,
         CancellationToken cancellationToken)
     {
         string path = $"{WindowsAutopilotDevicesPath}/{Uri.EscapeDataString(autopilotDeviceId)}/updateDeviceProperties";
@@ -210,8 +275,10 @@ public sealed class AutopilotGraphImportClient(
             HttpMethod.Post,
             path,
             accessToken,
-            new UpdateDevicePropertiesRequest(NormalizeGroupTagForGraph(groupTag),
-                string.IsNullOrWhiteSpace(assignedComputerName) ? null : assignedComputerName),
+            new UpdateDevicePropertiesRequest(
+                NormalizeGroupTagForGraph(groupTag),
+                string.IsNullOrWhiteSpace(assignedComputerName) ? null : assignedComputerName,
+                string.IsNullOrWhiteSpace(assignedUserPrincipalName) ? null : assignedUserPrincipalName),
             "Windows Autopilot device property update",
             cancellationToken).ConfigureAwait(false);
     }
@@ -386,7 +453,8 @@ public sealed class AutopilotGraphImportClient(
             }
 
             if (deviceLookup.Device is not null && !ShouldUpdateGroupTag(deviceLookup.Device.GroupTag, request.GroupTag) &&
-                !ShouldUpdateComputerName(deviceLookup.Device.DisplayName, request.AssignedComputerName))
+                !ShouldUpdateComputerName(deviceLookup.Device.DisplayName, request.AssignedComputerName) &&
+                !ShouldUpdateUserPrincipalName(deviceLookup.Device.UserPrincipalName, request.AssignedUserPrincipalName))
             {
                 logger.LogInformation(
                     "Windows Autopilot device property update confirmed. SerialNumber={SerialNumber}, ImportId={ImportId}, AutopilotDeviceId={AutopilotDeviceId}.",
@@ -457,23 +525,11 @@ public sealed class AutopilotGraphImportClient(
         AutopilotGraphImportRequest request,
         CancellationToken cancellationToken)
     {
-        List<WindowsAutopilotDeviceIdentity> matches = [];
-        string? path = WindowsAutopilotDevicesPath;
-        while (!string.IsNullOrWhiteSpace(path))
-        {
-            GraphCollectionResponse<WindowsAutopilotDeviceIdentity>? response =
-                await SendGraphAsync<object, GraphCollectionResponse<WindowsAutopilotDeviceIdentity>>(
-                    HttpMethod.Get,
-                    path,
-                    request.AccessToken,
-                    body: null,
-                    "Windows Autopilot device visibility scan",
-                    cancellationToken).ConfigureAwait(false);
-
-            matches.AddRange(FindDevicesBySerialNumber(response, request.SerialNumber));
-
-            path = response?.NextLink;
-        }
+        List<WindowsAutopilotDeviceIdentity> matches = await ScanDevicesBySerialNumberAsync(
+            request.AccessToken,
+            request.SerialNumber,
+            "Windows Autopilot device visibility scan",
+            cancellationToken).ConfigureAwait(false);
 
         if (matches.Count == 0)
         {
@@ -493,6 +549,47 @@ public sealed class AutopilotGraphImportClient(
             AutopilotHardwareHashUploadState.UploadFailed,
             "Multiple Windows Autopilot devices matched the captured serial number; device property reconciliation was skipped to avoid updating the wrong device.",
             "AutopilotDeviceAmbiguous");
+    }
+
+    /// <summary>
+    /// Pages the unfiltered Autopilot device list and collects every device whose serial number matches
+    /// (case-insensitive). Shared by the post-import reconciliation and the public serial lookup.
+    /// </summary>
+    private async Task<List<WindowsAutopilotDeviceIdentity>> ScanDevicesBySerialNumberAsync(
+        string accessToken,
+        string serialNumber,
+        string operationName,
+        CancellationToken cancellationToken)
+    {
+        List<WindowsAutopilotDeviceIdentity> matches = [];
+        string? path = WindowsAutopilotDevicesPath;
+        while (!string.IsNullOrWhiteSpace(path))
+        {
+            GraphCollectionResponse<WindowsAutopilotDeviceIdentity>? response =
+                await SendGraphAsync<object, GraphCollectionResponse<WindowsAutopilotDeviceIdentity>>(
+                    HttpMethod.Get,
+                    path,
+                    accessToken,
+                    body: null,
+                    operationName,
+                    cancellationToken).ConfigureAwait(false);
+
+            matches.AddRange(FindDevicesBySerialNumber(response, serialNumber));
+
+            path = response?.NextLink;
+        }
+
+        return matches;
+    }
+
+    private static AutopilotRegisteredDevice ToRegisteredDevice(WindowsAutopilotDeviceIdentity device)
+    {
+        if (string.IsNullOrWhiteSpace(device.Id))
+        {
+            throw new InvalidOperationException("Microsoft Graph returned an Autopilot device without an ID.");
+        }
+
+        return new AutopilotRegisteredDevice(device.Id, device.GroupTag, device.DisplayName, device.UserPrincipalName);
     }
 
     private static IEnumerable<WindowsAutopilotDeviceIdentity> FindDevicesBySerialNumber(
@@ -655,6 +752,16 @@ public sealed class AutopilotGraphImportClient(
             !string.Equals(currentName, requestedName, StringComparison.Ordinal);
     }
 
+    /// <summary>
+    /// A requested user is applied when it is non-empty and differs from the current one. A missing request value
+    /// never clears the user already assigned in Autopilot.
+    /// </summary>
+    private static bool ShouldUpdateUserPrincipalName(string? currentUser, string? requestedUser)
+    {
+        return !string.IsNullOrWhiteSpace(requestedUser) &&
+            !string.Equals(currentUser, requestedUser, StringComparison.OrdinalIgnoreCase);
+    }
+
     private static string NormalizeGroupTagForComparison(string? groupTag)
     {
         return string.IsNullOrWhiteSpace(groupTag)
@@ -729,7 +836,8 @@ public sealed class AutopilotGraphImportClient(
         string? AssignedUserPrincipalName,
         string ImportId);
 
-    private sealed record UpdateDevicePropertiesRequest(string GroupTag, string? DisplayName);
+    // UserPrincipalName is omitted when null (WhenWritingNull). addressableUserName is intentionally never sent.
+    private sealed record UpdateDevicePropertiesRequest(string GroupTag, string? DisplayName, string? UserPrincipalName);
 }
 
 /// <summary>
@@ -786,6 +894,12 @@ internal sealed record WindowsAutopilotDeviceIdentity
     public string? SerialNumber { get; init; }
     public string? GroupTag { get; init; }
     public string? DisplayName { get; init; }
+    public string? UserPrincipalName { get; init; }
+}
+
+internal sealed record WindowsAutopilotDeviceProfileStatus
+{
+    public string? DeploymentProfileAssignmentStatus { get; init; }
 }
 
 internal sealed record AutopilotImportWaitResult(

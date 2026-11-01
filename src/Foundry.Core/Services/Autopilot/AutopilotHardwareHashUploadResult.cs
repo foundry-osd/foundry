@@ -14,6 +14,12 @@ public sealed record AutopilotHardwareHashUploadResult
     public required AutopilotHardwareHashUploadState State { get; init; }
     public required string Message { get; init; }
     public string? FailureCode { get; init; }
+
+    /// <summary>
+    /// Graph <c>deviceErrorName</c> reported by a failed import (for example <c>ZtdDeviceAssignedToOtherTenant</c>),
+    /// when the failure came from the import state. Callers can map it to a specific user-facing message.
+    /// </summary>
+    public string? ImportErrorName { get; init; }
     public string? ImportId { get; init; }
     public string? ImportedIdentityId { get; init; }
     public string? AutopilotDeviceId { get; init; }
@@ -43,13 +49,15 @@ public sealed record AutopilotHardwareHashUploadResult
         string? failureCode = null,
         string? importId = null,
         string? importedIdentityId = null,
-        string? autopilotDeviceId = null)
+        string? autopilotDeviceId = null,
+        string? importErrorName = null)
     {
         return new AutopilotHardwareHashUploadResult
         {
             State = state,
             Message = message,
             FailureCode = failureCode,
+            ImportErrorName = importErrorName,
             ImportId = importId,
             ImportedIdentityId = importedIdentityId,
             AutopilotDeviceId = autopilotDeviceId
