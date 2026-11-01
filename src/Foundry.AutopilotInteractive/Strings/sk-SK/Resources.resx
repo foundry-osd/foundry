@@ -28,6 +28,15 @@ Licencované podľa licencie MIT.</value>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Autopilot Interactive</value>
   </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>Zrušiť</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>Preskočiť registráciu v službe Autopilot? Inštalácia systému Windows bude pokračovať bez registrácie tohto zariadenia.</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>Preskočiť registráciu</value>
+  </data>
   <data name="Common.Close" xml:space="preserve">
     <value>Zavrieť</value>
   </data>
@@ -37,8 +46,119 @@ Licencované podľa licencie MIT.</value>
   <data name="Config.LoadFailed" xml:space="preserve">
     <value>Konfigurácia Autopilot chýba alebo je neplatná, preto toto zariadenie nemožno zaregistrovať.</value>
   </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>Čas vyhradený na tento krok uplynul. Inštalácia systému Windows pokračuje bez registrácie tohto zariadenia.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>Už registrované zariadenie</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>Zobrazený priradený používateľ</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>Obnovenie kódu</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>Kontrola dokončenia (ukončí sa)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>Dosiahnutý termín</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>Zistenie značiek skupiny zlyhalo</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>Veľa značiek skupiny</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>Čaká sa na sieť</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>Žiadne značky skupiny</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>Profil priradený</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>Časový limit čakania na profil</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>Nahratie bolo úspešné, čaká sa na profil</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>Vypršaná relácia (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>Viacero zodpovedajúcich zariadení</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>Prihlasovací kód a QR kód</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>Chyba prihlásenia s možnosťou Skúsiť znova</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>Nahratie zlyhalo: chýba povolenie (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>Nahratie zlyhalo: všeobecná chyba</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>Nahratie zlyhalo: iný nájomník</value>
+  </data>
   <data name="Footer.Unknown" xml:space="preserve">
     <value>Neznáme</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>Zadajte hlavný názov používateľa (UPN), napríklad user@contoso.com, alebo pole nechajte prázdne.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>Priradený používateľ (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>Vlastná</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>Vlastná značka skupiny</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>Vyberte značku skupiny a potom zaregistrujte hardvérový hash tohto zariadenia v službe Windows Autopilot.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>Značka skupiny</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>Žiadna</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>žiadna</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>Zaregistrovať</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>Toto zariadenie je už zaregistrované v službe Windows Autopilot</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>Aktuálna značka skupiny: {0}. Priradený používateľ: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>Toto sériové číslo má viacero zariadení Windows Autopilot. Registrácia nemôže aktualizovať nejednoznačné zariadenie.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>Prihlásený ako {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>Existujúce značky skupiny sa nepodarilo načítať. Vlastnú značku skupiny môžete napriek tomu zadať.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>Zaregistrovať toto zariadenie v službe Autopilot</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>neznámy účet</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>Použiť iný účet</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabčina (Saudská Arábia)</value>
@@ -165,6 +285,129 @@ Licencované podľa licencie MIT.</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Motív</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>Registrácia sa dokončila</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>Pokračovať hneď</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>Pokračovať bez čakania</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>Inštalácia systému Windows bude pokračovať za {0} s</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>Čas vyhradený na tento krok uplynul.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>Toto sériové číslo má viacero zariadení Windows Autopilot. Odstráňte duplikáty v Intune a skúste to znova.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>Toto zariadenie je zaregistrované u iného nájomníka. Iný nájomník alebo predajca musí zrušiť jeho registráciu, aby sa mohlo zaregistrovať tu.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>Toto zariadenie je už zaregistrované v službe Windows Autopilot. Skontrolujte zariadenie v Intune a skúste to znova.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>Prihlásený účet nemôže importovať zariadenia Windows Autopilot. Prihláste sa účtom, ktorý má rolu Intune umožňujúcu import zariadení Autopilot.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph prihlásenie odmietol. Prihláste sa znova a zopakujte akciu.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>Sériové číslo alebo hardvérový hash tohto zariadenia sa nepodarilo prečítať. Podrobnosti sú v zázname.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>Nepodarilo sa pripojiť k službe Microsoft Graph. Skontrolujte sieťové pripojenie a skúste to znova.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>Registrácia zlyhala. Príčinou môže byť proxy server alebo captive portál v tejto sieti. Podrobnosti sú v zázname; skúste to znova.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>Zariadenie sa v službe Windows Autopilot neobjavilo do 15 minút. Skontrolujte Intune a skúste to znova.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Profil Autopilot je priradený.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Intune oznámil, že priradenie profilu Autopilot zlyhalo. Inštalácia systému Windows pokračuje.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>Inštalácia systému Windows pokračuje bez čakania na priradenie profilu.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>Profil ešte nie je priradený; inštalácia systému Windows pokračuje.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>Stav priradenia profilu sa nepodarilo prečítať. Inštalácia systému Windows pokračuje.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>Čaká sa na priradenie profilu Autopilot ({0})</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>Priraďuje sa značka skupiny, názov počítača a používateľ…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>Zhromažďuje sa hardvérový hash…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>Nahráva sa hardvérový hash…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>Čaká sa, kým sa zariadenie objaví v službe Windows Autopilot (až 15 minút)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>Registračnú stránku sa nepodarilo načítať. Prihláste sa znova pomocou nového kódu.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>Platnosť relácie vypršala. Prihláste sa znova pomocou nového kódu.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>Odhlásené. Prihláste sa iným účtom pomocou nového kódu.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>Sieť nie je dostupná. Pokus sa opakuje každých 10 sekúnd…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>Prihláste sa účtom, ktorý môže registrovať zariadenia v službe Windows Autopilot.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>Potom zadajte tento kód</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>Prihlásenie zlyhalo. Vaša organizácia môže blokovať prihlásenie pomocou kódu zariadenia zásadou podmieneného prístupu. Výberom možnosti Skúsiť znova získate nový kód.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>Prihlásenie bolo odmietnuté. Výberom možnosti Skúsiť znova získate nový kód.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>Prihlásenie zlyhalo, pretože Microsoft vrátil neočakávanú odpoveď. Príčinou môže byť proxy server alebo captive portál v tejto sieti. Výberom možnosti Skúsiť znova to skúste znova.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>Platnosť kódu vyprší za {0}</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>Načítavajú sa značky skupiny…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>Na inom zariadení otvorte</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>alebo</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>Žiada sa prihlasovací kód…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>Skúsiť znova</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>Naskenujte a prihláste sa</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>Prihlásenie do účtu Microsoft</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Tmavý</value>

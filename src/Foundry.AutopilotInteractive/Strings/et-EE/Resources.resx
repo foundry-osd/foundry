@@ -28,6 +28,15 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Autopilot Interactive</value>
   </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>Tühista</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>Kas jätta Autopilot-registreerimine vahele? Windowsi seadistamine jätkub ilma seda seadet registreerimata.</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>Jäta registreerimine vahele</value>
+  </data>
   <data name="Common.Close" xml:space="preserve">
     <value>Sule</value>
   </data>
@@ -37,8 +46,119 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Config.LoadFailed" xml:space="preserve">
     <value>Autopiloti konfiguratsioon puudub või on kehtetu, seega ei saa seda seadet registreerida.</value>
   </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>Selle sammu jaoks lubatud aeg on lõppenud. Windowsi seadistamine jätkub ilma seda seadet registreerimata.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>Juba registreeritud seade</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>Määratud kasutaja kuvatud</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>Koodi uuendamine</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>Lõpetatud kontroll (väljub)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>Tähtaeg on käes</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>Rühmamärgendite tuvastamine ebaõnnestus</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>Palju rühmamärgendeid</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>Võrgu ootamine</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>Rühmamärgendeid pole</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>Profiil määratud</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>Profiili ootamise ajalõpp</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>Üleslaadimine õnnestus, profiili ootamisega</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>Aegunud seanss (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>Mitu sobivat seadet</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>Sisselogimiskood ja QR-kood</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>Sisselogimisviga koos nupuga Proovi uuesti</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>Üleslaadimine ebaõnnestus: luba puudub (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>Üleslaadimine ebaõnnestus: üldine viga</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>Üleslaadimine ebaõnnestus: teine üürnik</value>
+  </data>
   <data name="Footer.Unknown" xml:space="preserve">
     <value>Teadmata</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>Sisestage kasutajanimi (UPN), näiteks user@contoso.com, või jätke väli tühjaks.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>Määratud kasutaja (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>Kohandatud</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>Kohandatud rühmamärgend</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>Valige rühmamärgend ja registreerige seejärel selle seadme riistvararäsi teenuses Windows Autopilot.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>Rühmamärgend</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>Puudub</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>puudub</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>Registreeri</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>See seade on teenuses Windows Autopilot juba registreeritud</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>Praegune rühmamärgend: {0}. Määratud kasutaja: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>Mitmel Windows Autopilot seadmel on see seerianumber. Registreerimine ei saa mitmetähenduslikku seadet värskendada.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>Sisse logitud: {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>Olemasolevaid rühmamärgendeid ei õnnestunud laadida. Saate siiski sisestada kohandatud rühmamärgendi.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>Registreeri see seade teenuses Autopilot</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>tundmatu konto</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>Kasuta teist kontot</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Araabia (Saudi Araabia)</value>
@@ -165,6 +285,129 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Teema</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>Registreerimine lõpetatud</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>Jätka kohe</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>Jätka ootamata</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>Windowsi seadistamine jätkub {0} s pärast</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>Selle sammu jaoks lubatud aeg on lõppenud.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>Mitmel Windows Autopilot seadmel on see seerianumber. Eemaldage dublikaadid teenuses Intune ja proovige uuesti.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>See seade on registreeritud teise üürniku juures. Teine üürnik või edasimüüja peab registreeringu tühistama, enne kui seda saab siin registreerida.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>See seade on teenuses Windows Autopilot juba registreeritud. Kontrollige seadet teenuses Intune ja proovige uuesti.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>Sisselogitud konto ei saa Windows Autopilot seadmeid importida. Logige sisse kontoga, millel on teenuse Intune roll, mis lubab Autopilot seadmeid importida.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph lükkas sisselogimise tagasi. Logige uuesti sisse ja proovige uuesti.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>Selle seadme seerianumbrit või riistvararäsi ei õnnestunud lugeda. Üksikasjad on logis.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>Teenusega Microsoft Graph ei õnnestunud ühendust luua. Kontrollige võrguühendust ja proovige uuesti.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>Registreerimine ebaõnnestus. Põhjuseks võib olla selle võrgu puhverserver või captive portal. Üksikasjad on logis; proovige uuesti.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>Seade ei ilmunud teenusesse Windows Autopilot 15 minuti jooksul. Kontrollige teenust Intune ja proovige uuesti.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Autopilot-profiil on määratud.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Intune teatas, et Autopilot-profiili määramine ebaõnnestus. Windowsi seadistamine jätkub.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>Windowsi seadistamine jätkub profiili määramist ootamata.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>Profiili pole veel määratud; Windowsi seadistamine jätkub.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>Profiili määramise olekut ei õnnestunud lugeda. Windowsi seadistamine jätkub.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>Autopilot-profiili määramise ootamine ({0})</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>Rühmamärgendi, arvutinime ja kasutaja määramine…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>Riistvararäsi kogumine…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>Riistvararäsi üleslaadimine…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>Seadme ilmumise ootamine teenusesse Windows Autopilot (kuni 15 minutit)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>Registreerimislehte ei õnnestunud laadida. Logige uuesti sisse uue koodiga.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>Teie seanss aegus. Logige uuesti sisse uue koodiga.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>Välja logitud. Logige uue koodiga sisse teise kontoga.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>Võrk pole saadaval. Proovin uuesti iga 10 sekundi järel…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>Logige sisse kontoga, mis saab teenuses Windows Autopilot seadmeid registreerida.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>Seejärel sisestage see kood</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>Sisselogimine ebaõnnestus. Teie organisatsioon võib seadmekoodiga sisselogimise tingimusliku juurdepääsu poliitikaga blokeerida. Uue koodi saamiseks valige Proovi uuesti.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>Sisselogimine lükati tagasi. Uue koodi saamiseks valige Proovi uuesti.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>Sisselogimine ebaõnnestus, kuna Microsoft tagastas ootamatu vastuse. Põhjuseks võib olla selle võrgu puhverserver või captive portal. Uuesti proovimiseks valige Proovi uuesti.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>Kood aegub: {0}</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>Rühmamärgendite laadimine…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>Avage teises seadmes</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>või</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>Sisselogimiskoodi taotlemine…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>Proovi uuesti</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>Skannige sisselogimiseks</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>Logi sisse Microsoftiga</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Tume</value>

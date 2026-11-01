@@ -28,6 +28,15 @@
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Autopilot Interactive</value>
   </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>要略過 Autopilot 註冊嗎？Windows 安裝將在不註冊此裝置的情況下繼續。</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>略過註冊</value>
+  </data>
   <data name="Common.Close" xml:space="preserve">
     <value>關閉</value>
   </data>
@@ -37,8 +46,119 @@
   <data name="Config.LoadFailed" xml:space="preserve">
     <value>Autopilot 設定遺失或無效，因此無法註冊此裝置。</value>
   </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>此步驟允許的時間已結束。Windows 安裝將在不註冊此裝置的情況下繼續。</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>已註冊的裝置</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>顯示已指派的使用者</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>代碼更新</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>完成防護 (結束)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>已達期限</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>群組標籤探索失敗</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>大量群組標籤</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>正在等待網路</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>無群組標籤</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>設定檔已指派</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>設定檔等候逾時</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>上傳成功並等候設定檔</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>工作階段已過期 (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>多個相符的裝置</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>登入代碼和 QR 碼</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>登入錯誤與「重試」</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>上傳失敗：缺少權限 (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>上傳失敗：一般錯誤</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>上傳失敗：其他租用戶</value>
+  </data>
   <data name="Footer.Unknown" xml:space="preserve">
     <value>未知</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>請輸入使用者主體名稱 (UPN)，例如 user@contoso.com，或將此欄位留空。</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>已指派的使用者 (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>自訂</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>自訂群組標籤</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>請選取群組標籤，然後在 Windows Autopilot 中註冊此裝置的硬體雜湊。</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>群組標籤</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>無</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>無</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>註冊</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>此裝置已在 Windows Autopilot 中註冊</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>目前群組標籤：{0}。已指派的使用者：{1}。</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>有多個 Windows Autopilot 裝置使用此序號。註冊無法更新有歧義的裝置。</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>已登入為 {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>無法載入現有的群組標籤。您仍可輸入自訂群組標籤。</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>在 Autopilot 中註冊此裝置</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>未知的帳戶</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>使用其他帳戶</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>阿拉伯文（沙烏地阿拉伯）</value>
@@ -165,6 +285,129 @@
   </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>主題(_T)</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>註冊已完成</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>立即繼續</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>不等待直接繼續</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>Windows 安裝將在 {0} 秒後繼續</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>此步驟允許的時間已結束。</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>有多個 Windows Autopilot 裝置使用此序號。請在 Intune 中刪除重複項目，然後重試。</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>此裝置已在另一個租用戶中註冊。必須由該租用戶或經銷商取消註冊後，才能在此處註冊。</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>此裝置已在 Windows Autopilot 中註冊。請在 Intune 中檢查該裝置，然後重試。</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>已登入的帳戶無法匯入 Windows Autopilot 裝置。請使用具有可匯入 Autopilot 裝置之 Intune 角色的帳戶登入。</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph 拒絕了登入。請重新登入，然後重試。</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>無法讀取此裝置的序號或硬體雜湊。詳細資料請參閱記錄檔。</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>無法連線到 Microsoft Graph。請檢查網路連線，然後重試。</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>註冊失敗。此網路上的 Proxy 或強制入口網站可能導致此問題。詳細資料請參閱記錄檔；請重試。</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>裝置未在 15 分鐘內出現在 Windows Autopilot 中。請檢查 Intune，然後重試。</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Autopilot 設定檔已指派。</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Intune 回報 Autopilot 設定檔指派失敗。Windows 安裝將繼續。</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>Windows 安裝將繼續，不再等候設定檔指派。</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>設定檔尚未指派；Windows 安裝將繼續。</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>無法讀取設定檔指派狀態。Windows 安裝將繼續。</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>正在等候 Autopilot 設定檔指派 ({0})</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>正在指派群組標籤、電腦名稱和使用者…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>正在收集硬體雜湊…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>正在上傳硬體雜湊…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>正在等候裝置出現在 Windows Autopilot 中 (最多 15 分鐘)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>無法載入註冊頁面。請使用新代碼重新登入。</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>您的工作階段已過期。請使用新代碼重新登入。</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>已登出。請使用新代碼以其他帳戶登入。</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>網路無法使用。每 10 秒重試一次…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>請使用可在 Windows Autopilot 中註冊裝置的帳戶登入。</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>然後輸入此代碼</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>登入失敗。您的組織可能透過條件式存取原則封鎖了使用裝置代碼登入。請選取「重試」以取得新代碼。</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>登入已被拒絕。請選取「重試」以取得新代碼。</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>登入失敗，因為 Microsoft 傳回了未預期的回應。此網路上的 Proxy 或強制入口網站可能導致此問題。請選取「重試」再試一次。</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>代碼將在 {0} 後過期</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>正在載入群組標籤…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>在另一部裝置上，開啟</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>或</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>正在要求登入代碼…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>重試</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>掃描以登入</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>登入 Microsoft</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>深色</value>

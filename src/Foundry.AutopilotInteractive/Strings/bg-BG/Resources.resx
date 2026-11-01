@@ -28,6 +28,15 @@
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Autopilot Interactive</value>
   </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>Отказ</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>Да се пропусне ли регистрацията в Autopilot? Настройката на Windows ще продължи без регистриране на това устройство.</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>Пропускане на регистрацията</value>
+  </data>
   <data name="Common.Close" xml:space="preserve">
     <value>Затваряне</value>
   </data>
@@ -37,8 +46,119 @@
   <data name="Config.LoadFailed" xml:space="preserve">
     <value>Конфигурацията на Autopilot липсва или е невалидна, затова това устройство не може да бъде регистрирано.</value>
   </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>Времето, определено за тази стъпка, изтече. Настройката на Windows продължава без регистриране на това устройство.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>Вече регистрирано устройство</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>Показан назначен потребител</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>Подновяване на кода</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>Проверка за завършване (изход)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>Достигнат краен срок</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>Неуспешно откриване на груповите етикети</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>Много групови етикети</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>Изчакване на мрежата</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>Няма групови етикети</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>Профилът е назначен</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>Изтекло време за изчакване на профила</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>Успешно качване с изчакване на профила</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>Изтекла сесия (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>Няколко съвпадащи устройства</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>Код за вход и QR код</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>Грешка при вход с бутон „Опитай отново“</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>Неуспешно качване: липсващо разрешение (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>Неуспешно качване: обща грешка</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>Неуспешно качване: друг клиент</value>
+  </data>
   <data name="Footer.Unknown" xml:space="preserve">
     <value>Неизвестно</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>Въведете основно име на потребител (UPN), например user@contoso.com, или оставете полето празно.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>Назначен потребител (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>Персонализиран</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>Персонализиран групов етикет</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>Изберете груповия етикет, след което регистрирайте хардуерния хеш на това устройство в Windows Autopilot.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>Групов етикет</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>Няма</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>няма</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>Регистриране</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>Това устройство вече е регистрирано в Windows Autopilot</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>Текущ групов етикет: {0}. Назначен потребител: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>Няколко устройства на Windows Autopilot имат този сериен номер. Регистрацията не може да актуализира неоднозначно устройство.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>Влезли сте като {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>Съществуващите групови етикети не можаха да бъдат заредени. Все пак можете да въведете персонализиран групов етикет.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>Регистриране на това устройство в Autopilot</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>неизвестен акаунт</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>Използване на друг акаунт</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>арабски (Саудитска Арабия)</value>
@@ -165,6 +285,129 @@
   </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Тема</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>Регистрацията е завършена</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>Продължаване сега</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>Продължаване без изчакване</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>Настройката на Windows ще продължи след {0} сек.</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>Времето, определено за тази стъпка, изтече.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>Няколко устройства на Windows Autopilot имат този сериен номер. Премахнете дубликатите в Intune и опитайте отново.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>Това устройство е регистрирано при друг клиент. Другият клиент или препродавачът трябва да отмени регистрацията, преди устройството да може да бъде регистрирано тук.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>Това устройство вече е регистрирано в Windows Autopilot. Проверете устройството в Intune и опитайте отново.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>Акаунтът, с който сте влезли, не може да импортира устройства на Windows Autopilot. Влезте с акаунт, който има роля в Intune с право да импортира устройства на Autopilot.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph отхвърли влизането. Влезте отново и опитайте пак.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>Серийният номер или хардуерният хеш на това устройство не можа да бъде прочетен. Подробности има в дневника.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>Не можа да се осъществи връзка с Microsoft Graph. Проверете мрежовата връзка и опитайте отново.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>Регистрацията не бе успешна. Причина може да е прокси сървър или captive портал в тази мрежа. Подробности има в дневника; опитайте отново.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>Устройството не се появи в Windows Autopilot в рамките на 15 минути. Проверете Intune и опитайте отново.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Профилът на Autopilot е назначен.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Intune съобщи, че назначаването на профила на Autopilot не е успяло. Настройката на Windows продължава.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>Настройката на Windows продължава, без да изчаква назначаването на профила.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>Профилът все още не е назначен; настройката на Windows продължава.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>Състоянието на назначаването на профила не можа да бъде прочетено. Настройката на Windows продължава.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>Изчакване на назначаването на профила на Autopilot ({0})</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>Назначаване на груповия етикет, името на компютъра и потребителя…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>Събиране на хардуерния хеш…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>Качване на хардуерния хеш…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>Изчакване устройството да се появи в Windows Autopilot (до 15 минути)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>Страницата за регистрация не можа да бъде заредена. Влезте отново с новия код.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>Сесията ви изтече. Влезте отново с новия код.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>Излязохте. Влезте с друг акаунт, като използвате новия код.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>Мрежата не е налична. Повторен опит на всеки 10 секунди…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>Влезте с акаунт, който може да регистрира устройства в Windows Autopilot.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>След това въведете този код</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>Влизането не бе успешно. Организацията ви може да блокира влизането с код на устройство чрез политика за условен достъп. Изберете „Опитай отново“, за да получите нов код.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>Влизането бе отхвърлено. Изберете „Опитай отново“, за да получите нов код.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>Влизането не бе успешно, защото Microsoft върна неочакван отговор. Причина може да е прокси сървър или captive портал в тази мрежа. Изберете „Опитай отново“, за да опитате пак.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>Кодът изтича след {0}</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>Зареждане на груповите етикети…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>На друго устройство отворете</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>или</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>Заявяване на код за вход…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>Опитай отново</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>Сканирайте за вход</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>Вход в Microsoft</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Тъмен</value>

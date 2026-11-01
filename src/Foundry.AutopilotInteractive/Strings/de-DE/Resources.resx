@@ -28,6 +28,15 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Autopilot Interactive</value>
   </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>Autopilot-Registrierung überspringen? Die Windows-Einrichtung wird fortgesetzt, ohne dieses Gerät zu registrieren.</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>Registrierung überspringen</value>
+  </data>
   <data name="Common.Close" xml:space="preserve">
     <value>Schließen</value>
   </data>
@@ -37,8 +46,119 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Config.LoadFailed" xml:space="preserve">
     <value>Die Autopilot-Konfiguration fehlt oder ist ungültig, daher kann dieses Gerät nicht registriert werden.</value>
   </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>Die für diesen Schritt vorgesehene Zeit ist abgelaufen. Die Windows-Einrichtung wird fortgesetzt, ohne dieses Gerät zu registrieren.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>Bereits registriertes Gerät</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>Zugewiesener Benutzer angezeigt</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>Code-Erneuerung</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>Abgeschlossen-Prüfung (Beenden)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>Frist erreicht</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>Fehler bei der Ermittlung der Gruppen-Tags</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>Viele Gruppen-Tags</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>Warten auf das Netzwerk</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>Keine Gruppen-Tags</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>Profil zugewiesen</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>Zeitüberschreitung beim Warten auf das Profil</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>Upload erfolgreich mit Warten auf das Profil</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>Abgelaufene Sitzung (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>Mehrere übereinstimmende Geräte</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>Anmeldecode und QR-Code</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>Anmeldefehler mit Wiederholen</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>Upload fehlgeschlagen: fehlende Berechtigung (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>Upload fehlgeschlagen: allgemein</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>Upload fehlgeschlagen: anderer Mandant</value>
+  </data>
   <data name="Footer.Unknown" xml:space="preserve">
     <value>Unbekannt</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>Geben Sie einen Benutzerprinzipalnamen wie user@contoso.com ein, oder lassen Sie das Feld leer.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>Zugewiesener Benutzer (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>Benutzerdefiniert</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>Benutzerdefiniertes Gruppen-Tag</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>Wählen Sie das Gruppen-Tag aus, und registrieren Sie dann den Hardware-Hash dieses Geräts in Windows Autopilot.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>Gruppen-Tag</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>Keine</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>keine</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>Registrieren</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>Dieses Gerät ist bereits in Windows Autopilot registriert</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>Aktuelles Gruppen-Tag: {0}. Zugewiesener Benutzer: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>Mehrere Windows Autopilot-Geräte haben diese Seriennummer. Die Registrierung kann ein mehrdeutiges Gerät nicht aktualisieren.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>Angemeldet als {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>Vorhandene Gruppen-Tags konnten nicht geladen werden. Sie können weiterhin ein benutzerdefiniertes Gruppen-Tag eingeben.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>Dieses Gerät in Autopilot registrieren</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>ein unbekanntes Konto</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>Anderes Konto verwenden</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabisch (Saudi-Arabien)</value>
@@ -165,6 +285,129 @@ Lizenziert unter der MIT-Lizenz.</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Design</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>Registrierung abgeschlossen</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>Jetzt fortfahren</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>Ohne Warten fortfahren</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>Die Windows-Einrichtung wird in {0} s fortgesetzt</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>Die für diesen Schritt vorgesehene Zeit ist abgelaufen.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>Mehrere Windows Autopilot-Geräte haben diese Seriennummer. Entfernen Sie die Duplikate in Intune, und versuchen Sie es dann erneut.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>Dieses Gerät ist in einem anderen Mandanten registriert. Der andere Mandant oder der Reseller muss die Registrierung aufheben, bevor das Gerät hier registriert werden kann.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>Dieses Gerät ist bereits in Windows Autopilot registriert. Überprüfen Sie das Gerät in Intune, und versuchen Sie es dann erneut.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>Das angemeldete Konto kann keine Windows Autopilot-Geräte importieren. Melden Sie sich mit einem Konto an, das über eine Intune-Rolle mit der Berechtigung zum Importieren von Autopilot-Geräten verfügt.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph hat die Anmeldung abgelehnt. Melden Sie sich erneut an, und versuchen Sie es dann erneut.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>Die Seriennummer oder der Hardware-Hash dieses Geräts konnte nicht gelesen werden. Details finden Sie im Protokoll.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>Microsoft Graph war nicht erreichbar. Überprüfen Sie die Netzwerkverbindung, und versuchen Sie es dann erneut.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>Die Registrierung ist fehlgeschlagen. Ein Proxy oder ein Captive Portal in diesem Netzwerk kann die Ursache sein. Details finden Sie im Protokoll; versuchen Sie es erneut.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>Das Gerät ist innerhalb von 15 Minuten nicht in Windows Autopilot erschienen. Überprüfen Sie Intune, und versuchen Sie es dann erneut.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Das Autopilot-Profil wurde zugewiesen.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Intune hat gemeldet, dass die Zuweisung des Autopilot-Profils fehlgeschlagen ist. Die Windows-Einrichtung wird fortgesetzt.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>Die Windows-Einrichtung wird fortgesetzt, ohne auf die Profilzuweisung zu warten.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>Das Profil ist noch nicht zugewiesen; die Windows-Einrichtung wird fortgesetzt.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>Der Status der Profilzuweisung konnte nicht gelesen werden. Die Windows-Einrichtung wird fortgesetzt.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>Warten auf die Zuweisung des Autopilot-Profils ({0})</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>Gruppen-Tag, Computername und Benutzer werden zugewiesen…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>Hardware-Hash wird erfasst…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>Hardware-Hash wird hochgeladen…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>Warten, bis das Gerät in Windows Autopilot erscheint (bis zu 15 Minuten)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>Die Registrierungsseite konnte nicht geladen werden. Melden Sie sich mit dem neuen Code erneut an.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>Ihre Sitzung ist abgelaufen. Melden Sie sich mit dem neuen Code erneut an.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>Abgemeldet. Melden Sie sich mit dem neuen Code mit einem anderen Konto an.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>Das Netzwerk ist nicht verfügbar. Es wird alle 10 Sekunden erneut versucht…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>Melden Sie sich mit einem Konto an, das Geräte in Windows Autopilot registrieren kann.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>Geben Sie dann diesen Code ein</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>Die Anmeldung ist fehlgeschlagen. Ihre Organisation blockiert möglicherweise die Anmeldung per Gerätecode mit einer Richtlinie für bedingten Zugriff. Wählen Sie Wiederholen, um einen neuen Code zu erhalten.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>Die Anmeldung wurde abgelehnt. Wählen Sie Wiederholen, um einen neuen Code zu erhalten.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>Die Anmeldung ist fehlgeschlagen, weil Microsoft eine unerwartete Antwort zurückgegeben hat. Ein Proxy oder ein Captive Portal in diesem Netzwerk kann die Ursache sein. Wählen Sie Wiederholen, um es erneut zu versuchen.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>Code läuft ab in {0}</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>Gruppen-Tags werden geladen…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>Öffnen Sie auf einem anderen Gerät</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>oder</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>Anmeldecode wird angefordert…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>Wiederholen</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>Zum Anmelden scannen</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>Bei Microsoft anmelden</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Dunkel</value>

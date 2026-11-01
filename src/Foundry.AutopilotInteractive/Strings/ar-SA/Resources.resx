@@ -28,6 +28,15 @@
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Autopilot Interactive</value>
   </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>هل تريد تخطي تسجيل Autopilot؟ سيستمر إعداد Windows دون تسجيل هذا الجهاز.</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>تخطي التسجيل</value>
+  </data>
   <data name="Common.Close" xml:space="preserve">
     <value>إغلاق</value>
   </data>
@@ -37,8 +46,119 @@
   <data name="Config.LoadFailed" xml:space="preserve">
     <value>تكوين Autopilot مفقود أو غير صالح، لذا لا يمكن تسجيل هذا الجهاز.</value>
   </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>انتهى الوقت المسموح به لهذه الخطوة. يستمر إعداد Windows دون تسجيل هذا الجهاز.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>جهاز مسجّل مسبقًا</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>عرض المستخدم المعيّن</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>تجديد الرمز</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>فحص الاكتمال (خروج)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>تم بلوغ الموعد النهائي</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>فشل اكتشاف علامات المجموعة</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>علامات مجموعة كثيرة</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>في انتظار الشبكة</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>لا توجد علامات مجموعة</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>تم تعيين الملف الشخصي</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>انتهاء مهلة انتظار الملف الشخصي</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>نجاح التحميل مع انتظار الملف الشخصي</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>جلسة منتهية الصلاحية (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>عدة أجهزة مطابقة</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>رمز تسجيل الدخول ورمز QR</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>خطأ في تسجيل الدخول مع إعادة المحاولة</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>فشل التحميل: إذن مفقود (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>فشل التحميل: خطأ عام</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>فشل التحميل: مستأجر آخر</value>
+  </data>
   <data name="Footer.Unknown" xml:space="preserve">
     <value>غير معروف</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>أدخل اسم المستخدم الأساسي (UPN) مثل user@contoso.com، أو اترك الحقل فارغًا.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>المستخدم المعيّن (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>مخصص</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>علامة مجموعة مخصصة</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>اختر علامة المجموعة، ثم سجّل تجزئة الأجهزة لهذا الجهاز في Windows Autopilot.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>علامة المجموعة</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>بلا</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>بلا</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>تسجيل</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>هذا الجهاز مسجّل بالفعل في Windows Autopilot</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>علامة المجموعة الحالية: {0}. المستخدم المعيّن: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>توجد عدة أجهزة Windows Autopilot بهذا الرقم التسلسلي. لا يمكن للتسجيل تحديث جهاز غير محدد بوضوح.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>تم تسجيل الدخول باسم {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>تعذر تحميل علامات المجموعة الموجودة. لا يزال بإمكانك إدخال علامة مجموعة مخصصة.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>تسجيل هذا الجهاز في Autopilot</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>حساب غير معروف</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>استخدام حساب آخر</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>العربية (المملكة العربية السعودية)</value>
@@ -165,6 +285,129 @@
   </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_النسق</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>اكتمل التسجيل</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>متابعة الآن</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>متابعة دون انتظار</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>سيستمر إعداد Windows خلال {0} ث</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>انتهى الوقت المسموح به لهذه الخطوة.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>توجد عدة أجهزة Windows Autopilot بهذا الرقم التسلسلي. أزل التكرارات في Intune ثم حاول مرة أخرى.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>هذا الجهاز مسجّل لدى مستأجر آخر. يجب على المستأجر الآخر أو الموزّع إلغاء تسجيله قبل أن يمكن تسجيله هنا.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>هذا الجهاز مسجّل بالفعل في Windows Autopilot. تحقق من الجهاز في Intune ثم حاول مرة أخرى.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>لا يمكن للحساب الذي سجّلت الدخول به استيراد أجهزة Windows Autopilot. سجّل الدخول بحساب لديه دور Intune يسمح باستيراد أجهزة Autopilot.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>رفض Microsoft Graph تسجيل الدخول. سجّل الدخول مرة أخرى ثم حاول مرة أخرى.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>تعذرت قراءة الرقم التسلسلي أو تجزئة الأجهزة لهذا الجهاز. التفاصيل موجودة في السجل.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>تعذر الوصول إلى Microsoft Graph. تحقق من اتصال الشبكة ثم حاول مرة أخرى.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>فشل التسجيل. قد يكون السبب خادم وكيل أو بوابة مقيِّدة في هذه الشبكة. التفاصيل موجودة في السجل؛ حاول مرة أخرى.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>لم يظهر الجهاز في Windows Autopilot خلال 15 دقيقة. تحقق من Intune ثم حاول مرة أخرى.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>تم تعيين ملف Autopilot الشخصي.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>أبلغ Intune بأن تعيين ملف Autopilot الشخصي فشل. يستمر إعداد Windows.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>يستمر إعداد Windows دون انتظار تعيين الملف الشخصي.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>لم يتم تعيين الملف الشخصي بعد؛ يستمر إعداد Windows.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>تعذرت قراءة حالة تعيين الملف الشخصي. يستمر إعداد Windows.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>في انتظار تعيين ملف Autopilot الشخصي ({0})</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>جارٍ تعيين علامة المجموعة واسم الكمبيوتر والمستخدم…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>جارٍ جمع تجزئة الأجهزة…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>جارٍ تحميل تجزئة الأجهزة…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>في انتظار ظهور الجهاز في Windows Autopilot (حتى 15 دقيقة)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>تعذر تحميل صفحة التسجيل. سجّل الدخول مرة أخرى باستخدام الرمز الجديد.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>انتهت صلاحية جلستك. سجّل الدخول مرة أخرى باستخدام الرمز الجديد.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>تم تسجيل الخروج. سجّل الدخول بحساب آخر باستخدام الرمز الجديد.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>الشبكة غير متاحة. تتم إعادة المحاولة كل 10 ثوانٍ…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>سجّل الدخول بحساب يمكنه تسجيل الأجهزة في Windows Autopilot.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>ثم أدخل هذا الرمز</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>فشل تسجيل الدخول. قد تحظر مؤسستك تسجيل الدخول برمز الجهاز باستخدام سياسة الوصول المشروط. حدد إعادة المحاولة للحصول على رمز جديد.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>تم رفض تسجيل الدخول. حدد إعادة المحاولة للحصول على رمز جديد.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>فشل تسجيل الدخول لأن Microsoft أرجعت استجابة غير متوقعة. قد يكون السبب خادم وكيل أو بوابة مقيِّدة في هذه الشبكة. حدد إعادة المحاولة للمحاولة مرة أخرى.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>تنتهي صلاحية الرمز خلال {0}</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>جارٍ تحميل علامات المجموعة…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>على جهاز آخر، افتح</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>أو</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>جارٍ طلب رمز تسجيل الدخول…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>إعادة المحاولة</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>امسح ضوئيًا لتسجيل الدخول</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>تسجيل الدخول إلى Microsoft</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>داكن</value>

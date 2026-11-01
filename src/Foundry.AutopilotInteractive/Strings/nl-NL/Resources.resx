@@ -28,6 +28,15 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Autopilot Interactive</value>
   </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>Autopilot-registratie overslaan? De Windows-installatie wordt voortgezet zonder dit apparaat te registreren.</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>Registratie overslaan</value>
+  </data>
   <data name="Common.Close" xml:space="preserve">
     <value>Sluiten</value>
   </data>
@@ -37,8 +46,119 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Config.LoadFailed" xml:space="preserve">
     <value>De Autopilot-configuratie ontbreekt of is ongeldig, dus dit apparaat kan niet worden geregistreerd.</value>
   </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>De tijd die voor deze stap was toegestaan, is verstreken. De Windows-installatie wordt voortgezet zonder dit apparaat te registreren.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>Reeds geregistreerd apparaat</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>Toegewezen gebruiker weergegeven</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>Vernieuwing van de code</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>Voltooid-controle (afsluiten)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>Deadline bereikt</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>Fout bij het opsporen van groepstags</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>Veel groepstags</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>Wachten op het netwerk</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>Geen groepstags</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>Profiel toegewezen</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>Time-out bij wachten op profiel</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>Upload geslaagd met wachten op profiel</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>Verlopen sessie (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>Meerdere overeenkomende apparaten</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>Aanmeldcode en QR-code</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>Aanmeldfout met Opnieuw proberen</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>Upload mislukt: ontbrekende machtiging (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>Upload mislukt: algemeen</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>Upload mislukt: andere huurder</value>
+  </data>
   <data name="Footer.Unknown" xml:space="preserve">
     <value>Onbekend</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>Voer een UPN (user principal name) in, zoals user@contoso.com, of laat het veld leeg.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>Toegewezen gebruiker (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>Aangepast</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>Aangepaste groepstag</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>Kies de groepstag en registreer vervolgens de hardware-hash van dit apparaat in Windows Autopilot.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>Groepstag</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>Geen</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>geen</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>Registreren</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>Dit apparaat is al geregistreerd in Windows Autopilot</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>Huidige groepstag: {0}. Toegewezen gebruiker: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>Meerdere Windows Autopilot-apparaten hebben dit serienummer. De registratie kan een dubbelzinnig apparaat niet bijwerken.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>Aangemeld als {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>De bestaande groepstags konden niet worden geladen. U kunt nog steeds een aangepaste groepstag invoeren.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>Dit apparaat registreren in Autopilot</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>een onbekend account</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>Een ander account gebruiken</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabisch (Saoedi-Arabië)</value>
@@ -165,6 +285,129 @@ Gelicentieerd onder de MIT-licentie.</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Thema</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>Registratie voltooid</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>Nu doorgaan</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>Doorgaan zonder te wachten</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>De Windows-installatie wordt over {0} s voortgezet</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>De tijd die voor deze stap was toegestaan, is verstreken.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>Meerdere Windows Autopilot-apparaten hebben dit serienummer. Verwijder de duplicaten in Intune en probeer het opnieuw.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>Dit apparaat is geregistreerd bij een andere huurder. De andere huurder of de reseller moet de registratie ongedaan maken voordat het apparaat hier kan worden geregistreerd.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>Dit apparaat is al geregistreerd in Windows Autopilot. Controleer het apparaat in Intune en probeer het opnieuw.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>Het aangemelde account kan geen Windows Autopilot-apparaten importeren. Meld u aan met een account met een Intune-rol die Autopilot-apparaten mag importeren.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph heeft de aanmelding geweigerd. Meld u opnieuw aan en probeer het opnieuw.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>Het serienummer of de hardware-hash van dit apparaat kon niet worden gelezen. Details staan in het logboek.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>Microsoft Graph kon niet worden bereikt. Controleer de netwerkverbinding en probeer het opnieuw.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>De registratie is mislukt. Een proxy of een captive portal op dit netwerk kan de oorzaak zijn. Details staan in het logboek; probeer het opnieuw.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>Het apparaat is binnen 15 minuten niet verschenen in Windows Autopilot. Controleer Intune en probeer het opnieuw.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Het Autopilot-profiel is toegewezen.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Intune heeft gemeld dat het toewijzen van het Autopilot-profiel is mislukt. De Windows-installatie wordt voortgezet.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>De Windows-installatie wordt voortgezet zonder te wachten op de profieltoewijzing.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>Het profiel is nog niet toegewezen; de Windows-installatie wordt voortgezet.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>De status van de profieltoewijzing kon niet worden gelezen. De Windows-installatie wordt voortgezet.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>Wachten op de toewijzing van het Autopilot-profiel ({0})</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>Groepstag, computernaam en gebruiker toewijzen…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>Hardware-hash verzamelen…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>Hardware-hash uploaden…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>Wachten tot het apparaat verschijnt in Windows Autopilot (maximaal 15 minuten)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>De registratiepagina kon niet worden geladen. Meld u opnieuw aan met de nieuwe code.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>Uw sessie is verlopen. Meld u opnieuw aan met de nieuwe code.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>Afgemeld. Meld u met de nieuwe code aan met een ander account.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>Het netwerk is niet beschikbaar. Elke 10 seconden wordt het opnieuw geprobeerd…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>Meld u aan met een account dat apparaten kan registreren in Windows Autopilot.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>Voer vervolgens deze code in</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>Aanmelden is mislukt. Uw organisatie blokkeert mogelijk aanmelden met een apparaatcode via een beleid voor voorwaardelijke toegang. Selecteer Opnieuw proberen om een nieuwe code te krijgen.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>Aanmelden is geweigerd. Selecteer Opnieuw proberen om een nieuwe code te krijgen.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>Aanmelden is mislukt omdat Microsoft een onverwacht antwoord heeft geretourneerd. Een proxy of een captive portal op dit netwerk kan de oorzaak zijn. Selecteer Opnieuw proberen om het opnieuw te proberen.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>Code verloopt over {0}</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>Groepstags laden…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>Open op een ander apparaat</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>Een aanmeldcode aanvragen…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>Opnieuw proberen</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>Scan om u aan te melden</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>Aanmelden bij Microsoft</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Donker</value>

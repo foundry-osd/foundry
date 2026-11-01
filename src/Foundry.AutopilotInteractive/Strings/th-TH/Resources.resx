@@ -28,6 +28,15 @@
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Autopilot Interactive</value>
   </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>ยกเลิก</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>ข้ามการลงทะเบียน Autopilot หรือไม่ การตั้งค่า Windows จะดำเนินการต่อโดยไม่ลงทะเบียนอุปกรณ์นี้</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>ข้ามการลงทะเบียน</value>
+  </data>
   <data name="Common.Close" xml:space="preserve">
     <value>ปิด</value>
   </data>
@@ -37,8 +46,119 @@
   <data name="Config.LoadFailed" xml:space="preserve">
     <value>ไม่พบการกำหนดค่า Autopilot หรือการกำหนดค่าไม่ถูกต้อง จึงไม่สามารถลงทะเบียนอุปกรณ์นี้ได้</value>
   </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>หมดเวลาที่กำหนดสำหรับขั้นตอนนี้แล้ว การตั้งค่า Windows จะดำเนินการต่อโดยไม่ลงทะเบียนอุปกรณ์นี้</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>อุปกรณ์ที่ลงทะเบียนแล้ว</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>แสดงผู้ใช้ที่กำหนด</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>การต่ออายุรหัส</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>การตรวจสอบความสมบูรณ์ (ออก)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>ถึงกำหนดเวลาแล้ว</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>การค้นหาแท็กกลุ่มล้มเหลว</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>แท็กกลุ่มจำนวนมาก</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>กำลังรอเครือข่าย</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>ไม่มีแท็กกลุ่ม</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>กำหนดโปรไฟล์แล้ว</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>หมดเวลารอโปรไฟล์</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>อัปโหลดสำเร็จพร้อมการรอโปรไฟล์</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>เซสชันหมดอายุ (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>อุปกรณ์ที่ตรงกันหลายเครื่อง</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>รหัสลงชื่อเข้าใช้และรหัส QR</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>ข้อผิดพลาดในการลงชื่อเข้าใช้พร้อมปุ่มลองอีกครั้ง</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>อัปโหลดล้มเหลว: ไม่มีสิทธิ์ (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>อัปโหลดล้มเหลว: ข้อผิดพลาดทั่วไป</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>อัปโหลดล้มเหลว: ผู้เช่ารายอื่น</value>
+  </data>
   <data name="Footer.Unknown" xml:space="preserve">
     <value>ไม่ทราบ</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>ป้อนชื่อผู้ใช้หลัก (UPN) เช่น user@contoso.com หรือเว้นช่องนี้ว่างไว้</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>ผู้ใช้ที่กำหนด (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>กำหนดเอง</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>แท็กกลุ่มที่กำหนดเอง</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>เลือกแท็กกลุ่ม แล้วลงทะเบียนแฮชฮาร์ดแวร์ของอุปกรณ์นี้ใน Windows Autopilot</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>แท็กกลุ่ม</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>ไม่มี</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>ไม่มี</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>ลงทะเบียน</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>อุปกรณ์นี้ลงทะเบียนใน Windows Autopilot แล้ว</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>แท็กกลุ่มปัจจุบัน: {0} ผู้ใช้ที่กำหนด: {1}</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>มีอุปกรณ์ Windows Autopilot หลายเครื่องที่ใช้หมายเลขประจำเครื่องนี้ การลงทะเบียนไม่สามารถอัปเดตอุปกรณ์ที่ระบุไม่ชัดเจนได้</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>ลงชื่อเข้าใช้ในชื่อ {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>ไม่สามารถโหลดแท็กกลุ่มที่มีอยู่ได้ คุณยังป้อนแท็กกลุ่มที่กำหนดเองได้</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>ลงทะเบียนอุปกรณ์นี้ใน Autopilot</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>บัญชีที่ไม่รู้จัก</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>ใช้บัญชีอื่น</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>อาหรับ (ซาอุดีอาระเบีย)</value>
@@ -165,6 +285,129 @@
   </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_ธีม</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>การลงทะเบียนเสร็จสมบูรณ์</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>ดำเนินการต่อทันที</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>ดำเนินการต่อโดยไม่ต้องรอ</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>การตั้งค่า Windows จะดำเนินการต่อใน {0} วินาที</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>หมดเวลาที่กำหนดสำหรับขั้นตอนนี้แล้ว</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>มีอุปกรณ์ Windows Autopilot หลายเครื่องที่ใช้หมายเลขประจำเครื่องนี้ ให้ลบรายการที่ซ้ำกันใน Intune แล้วลองอีกครั้ง</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>อุปกรณ์นี้ลงทะเบียนในผู้เช่ารายอื่น ผู้เช่ารายอื่นหรือผู้จำหน่ายต้องยกเลิกการลงทะเบียนก่อน จึงจะลงทะเบียนที่นี่ได้</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>อุปกรณ์นี้ลงทะเบียนใน Windows Autopilot แล้ว ตรวจสอบอุปกรณ์ใน Intune แล้วลองอีกครั้ง</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>บัญชีที่ลงชื่อเข้าใช้ไม่สามารถนำเข้าอุปกรณ์ Windows Autopilot ได้ ลงชื่อเข้าใช้ด้วยบัญชีที่มีบทบาท Intune ซึ่งได้รับอนุญาตให้นำเข้าอุปกรณ์ Autopilot</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph ปฏิเสธการลงชื่อเข้าใช้ ลงชื่อเข้าใช้อีกครั้ง แล้วลองอีกครั้ง</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>ไม่สามารถอ่านหมายเลขประจำเครื่องหรือแฮชฮาร์ดแวร์ของอุปกรณ์นี้ได้ ดูรายละเอียดในบันทึก</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>ไม่สามารถเชื่อมต่อกับ Microsoft Graph ได้ ตรวจสอบการเชื่อมต่อเครือข่าย แล้วลองอีกครั้ง</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>การลงทะเบียนล้มเหลว สาเหตุอาจเกิดจากพร็อกซีหรือ Captive Portal ในเครือข่ายนี้ ดูรายละเอียดในบันทึก แล้วลองอีกครั้ง</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>อุปกรณ์ไม่ปรากฏใน Windows Autopilot ภายใน 15 นาที ตรวจสอบ Intune แล้วลองอีกครั้ง</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>กำหนดโปรไฟล์ Autopilot แล้ว</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Intune รายงานว่าการกำหนดโปรไฟล์ Autopilot ล้มเหลว การตั้งค่า Windows ดำเนินการต่อ</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>การตั้งค่า Windows ดำเนินการต่อโดยไม่รอการกำหนดโปรไฟล์</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>ยังไม่ได้กำหนดโปรไฟล์ การตั้งค่า Windows ดำเนินการต่อ</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>ไม่สามารถอ่านสถานะการกำหนดโปรไฟล์ได้ การตั้งค่า Windows ดำเนินการต่อ</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>กำลังรอการกำหนดโปรไฟล์ Autopilot ({0})</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>กำลังกำหนดแท็กกลุ่ม ชื่อคอมพิวเตอร์ และผู้ใช้…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>กำลังรวบรวมแฮชฮาร์ดแวร์…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>กำลังอัปโหลดแฮชฮาร์ดแวร์…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>กำลังรอให้อุปกรณ์ปรากฏใน Windows Autopilot (นานสุด 15 นาที)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>ไม่สามารถโหลดหน้าการลงทะเบียนได้ ลงชื่อเข้าใช้อีกครั้งด้วยรหัสใหม่</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>เซสชันของคุณหมดอายุ ลงชื่อเข้าใช้อีกครั้งด้วยรหัสใหม่</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>ลงชื่อออกแล้ว ลงชื่อเข้าใช้ด้วยบัญชีอื่นโดยใช้รหัสใหม่</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>เครือข่ายไม่พร้อมใช้งาน กำลังลองอีกครั้งทุก 10 วินาที…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>ลงชื่อเข้าใช้ด้วยบัญชีที่สามารถลงทะเบียนอุปกรณ์ใน Windows Autopilot ได้</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>จากนั้นป้อนรหัสนี้</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>การลงชื่อเข้าใช้ล้มเหลว องค์กรของคุณอาจบล็อกการลงชื่อเข้าใช้ด้วยรหัสอุปกรณ์ผ่านนโยบายการเข้าถึงตามเงื่อนไข เลือกลองอีกครั้งเพื่อรับรหัสใหม่</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>การลงชื่อเข้าใช้ถูกปฏิเสธ เลือกลองอีกครั้งเพื่อรับรหัสใหม่</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>การลงชื่อเข้าใช้ล้มเหลวเนื่องจาก Microsoft ส่งการตอบกลับที่ไม่คาดคิดกลับมา สาเหตุอาจเกิดจากพร็อกซีหรือ Captive Portal ในเครือข่ายนี้ เลือกลองอีกครั้งเพื่อลองใหม่</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>รหัสจะหมดอายุใน {0}</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>กำลังโหลดแท็กกลุ่ม…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>บนอุปกรณ์อื่น ให้เปิด</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>หรือ</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>กำลังขอรหัสลงชื่อเข้าใช้…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>ลองอีกครั้ง</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>สแกนเพื่อลงชื่อเข้าใช้</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>ลงชื่อเข้าใช้ Microsoft</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>มืด</value>

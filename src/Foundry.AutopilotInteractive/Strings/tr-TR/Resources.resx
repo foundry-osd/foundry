@@ -28,6 +28,15 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Autopilot Interactive</value>
   </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>İptal</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>Autopilot kaydı atlansın mı? Windows kurulumu bu cihaz kaydedilmeden devam edecek.</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>Kaydı atla</value>
+  </data>
   <data name="Common.Close" xml:space="preserve">
     <value>Kapat</value>
   </data>
@@ -37,8 +46,119 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Config.LoadFailed" xml:space="preserve">
     <value>Autopilot yapılandırması eksik veya geçersiz olduğundan bu cihaz kaydedilemiyor.</value>
   </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>Bu adım için ayrılan süre doldu. Windows kurulumu bu cihaz kaydedilmeden devam ediyor.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>Zaten kayıtlı cihaz</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>Atanan kullanıcı gösteriliyor</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>Kod yenileme</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>Tamamlandı denetimi (çıkar)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>Son tarihe ulaşıldı</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>Grup etiketi bulma hatası</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>Çok sayıda grup etiketi</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>Ağ bekleniyor</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>Grup etiketi yok</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>Profil atandı</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>Profil bekleme zaman aşımı</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>Yükleme başarılı, profil bekleniyor</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>Süresi dolmuş oturum (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>Eşleşen birden çok cihaz</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>Oturum açma kodu ve QR kodu</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>Yeniden dene seçeneğiyle oturum açma hatası</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>Yükleme başarısız: eksik izin (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>Yükleme başarısız: genel hata</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>Yükleme başarısız: başka kiracı</value>
+  </data>
   <data name="Footer.Unknown" xml:space="preserve">
     <value>Bilinmiyor</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>user@contoso.com gibi bir kullanıcı asıl adı (UPN) girin veya alanı boş bırakın.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>Atanan kullanıcı (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>Özel</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>Özel grup etiketi</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>Grup etiketini seçin, ardından bu cihazın donanım karmasını Windows Autopilot hizmetine kaydedin.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>Grup etiketi</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>Yok</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>yok</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>Kaydet</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>Bu cihaz Windows Autopilot hizmetinde zaten kayıtlı</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>Geçerli grup etiketi: {0}. Atanan kullanıcı: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>Birden çok Windows Autopilot cihazı bu seri numarasına sahip. Kayıt, belirsiz bir cihazı güncelleyemez.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>Oturum açan: {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>Mevcut grup etiketleri yüklenemedi. Yine de özel bir grup etiketi girebilirsiniz.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>Bu cihazı Autopilot hizmetine kaydet</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>bilinmeyen bir hesap</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>Başka bir hesap kullan</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arapça (Suudi Arabistan)</value>
@@ -165,6 +285,129 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>Kayıt tamamlandı</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>Şimdi devam et</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>Beklemeden devam et</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>Windows kurulumu {0} sn sonra devam edecek</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>Bu adım için ayrılan süre doldu.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>Birden çok Windows Autopilot cihazı bu seri numarasına sahip. Intune hizmetindeki yinelenenleri kaldırın, ardından yeniden deneyin.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>Bu cihaz başka bir kiracıda kayıtlı. Cihazın burada kaydedilebilmesi için diğer kiracının veya bayinin kaydı silmesi gerekir.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>Bu cihaz Windows Autopilot hizmetinde zaten kayıtlı. Cihazı Intune hizmetinde denetleyin, ardından yeniden deneyin.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>Oturum açılan hesap Windows Autopilot cihazlarını içeri aktaramaz. Autopilot cihazlarını içeri aktarma iznine sahip bir Intune rolü olan bir hesapla oturum açın.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph oturum açmayı reddetti. Yeniden oturum açın, ardından yeniden deneyin.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>Bu cihazın seri numarası veya donanım karması okunamadı. Ayrıntılar günlükte yer alır.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>Microsoft Graph hizmetine ulaşılamadı. Ağ bağlantısını denetleyin, ardından yeniden deneyin.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>Kayıt başarısız oldu. Bu ağdaki bir ara sunucu veya captive portal buna neden olabilir. Ayrıntılar günlükte yer alır; yeniden deneyin.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>Cihaz 15 dakika içinde Windows Autopilot hizmetinde görünmedi. Intune hizmetini denetleyin, ardından yeniden deneyin.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Autopilot profili atandı.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Intune, Autopilot profili atamasının başarısız olduğunu bildirdi. Windows kurulumu devam ediyor.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>Windows kurulumu, profil atamasını beklemeden devam ediyor.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>Profil henüz atanmadı; Windows kurulumu devam ediyor.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>Profil ataması durumu okunamadı. Windows kurulumu devam ediyor.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>Autopilot profili ataması bekleniyor ({0})</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>Grup etiketi, bilgisayar adı ve kullanıcı atanıyor…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>Donanım karması toplanıyor…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>Donanım karması karşıya yükleniyor…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>Cihazın Windows Autopilot hizmetinde görünmesi bekleniyor (en fazla 15 dakika)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>Kayıt sayfası yüklenemedi. Yeni kodla yeniden oturum açın.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>Oturumunuzun süresi doldu. Yeni kodla yeniden oturum açın.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>Oturum kapatıldı. Yeni kodu kullanarak başka bir hesapla oturum açın.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>Ağ kullanılamıyor. Her 10 saniyede bir yeniden deneniyor…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>Windows Autopilot hizmetine cihaz kaydedebilen bir hesapla oturum açın.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>Ardından bu kodu girin</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>Oturum açılamadı. Kuruluşunuz, koşullu erişim ilkesiyle cihaz koduyla oturum açmayı engelliyor olabilir. Yeni bir kod almak için Yeniden dene seçeneğini belirleyin.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>Oturum açma reddedildi. Yeni bir kod almak için Yeniden dene seçeneğini belirleyin.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>Microsoft beklenmeyen bir yanıt döndürdüğü için oturum açılamadı. Bu ağdaki bir ara sunucu veya captive portal buna neden olabilir. Yeniden denemek için Yeniden dene seçeneğini belirleyin.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>Kodun süresi {0} sonra dolacak</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>Grup etiketleri yükleniyor…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>Başka bir cihazda şunu açın</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>veya</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>Oturum açma kodu isteniyor…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>Yeniden dene</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>Oturum açmak için tarayın</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>Microsoft'ta oturum aç</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Koyu</value>

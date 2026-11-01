@@ -28,6 +28,15 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Autopilot Interactive</value>
   </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>Autopilot の登録をスキップしますか? Windows セットアップは、このデバイスを登録せずに続行されます。</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>登録をスキップ</value>
+  </data>
   <data name="Common.Close" xml:space="preserve">
     <value>閉じる</value>
   </data>
@@ -37,8 +46,119 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Config.LoadFailed" xml:space="preserve">
     <value>Autopilot の構成が見つからないか無効なため、このデバイスを登録できません。</value>
   </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>この手順に許可された時間が経過しました。Windows セットアップは、このデバイスを登録せずに続行します。</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>登録済みのデバイス</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>割り当て済みユーザーを表示</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>コードの更新</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>完了ガード (終了)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>期限に到達</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>グループタグの検出に失敗</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>多数のグループタグ</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>ネットワークを待機中</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>グループタグなし</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>プロファイルが割り当て済み</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>プロファイル待機のタイムアウト</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>アップロード成功とプロファイル待機</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>期限切れのセッション (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>一致するデバイスが複数</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>サインイン コードと QR コード</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>サインイン エラーと [再試行]</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>アップロード失敗: アクセス許可がありません (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>アップロード失敗: 一般的なエラー</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>アップロード失敗: 別のテナント</value>
+  </data>
   <data name="Footer.Unknown" xml:space="preserve">
     <value>不明</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>user@contoso.com のようなユーザー プリンシパル名 (UPN) を入力するか、フィールドを空のままにしてください。</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>割り当て済みユーザー (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>カスタム</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>カスタム グループタグ</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>グループタグを選択し、このデバイスのハードウェア ハッシュを Windows Autopilot に登録してください。</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>グループタグ</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>登録</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>このデバイスは Windows Autopilot に登録済みです</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>現在のグループタグ: {0}。割り当て済みユーザー: {1}。</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>このシリアル番号を持つ Windows Autopilot デバイスが複数あります。登録では、特定できないデバイスを更新できません。</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>{0} としてサインイン済み</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>既存のグループタグを読み込めませんでした。カスタム グループタグは引き続き入力できます。</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>このデバイスを Autopilot に登録</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>不明なアカウント</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>別のアカウントを使用</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>アラビア語 (サウジアラビア)</value>
@@ -165,6 +285,129 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_テーマ</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>登録が完了しました</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>今すぐ続行</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>待たずに続行</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>{0} 秒後に Windows セットアップを続行します</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>この手順に許可された時間が経過しました。</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>このシリアル番号を持つ Windows Autopilot デバイスが複数あります。Intune で重複を削除してから、もう一度お試しください。</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>このデバイスは別のテナントに登録されています。ここに登録するには、そのテナントまたは再販業者が登録を解除する必要があります。</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>このデバイスは Windows Autopilot に登録済みです。Intune でデバイスを確認してから、もう一度お試しください。</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>サインインしているアカウントでは Windows Autopilot デバイスをインポートできません。Autopilot デバイスのインポートが許可されている Intune ロールを持つアカウントでサインインしてください。</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Microsoft Graph がサインインを拒否しました。もう一度サインインしてから、再試行してください。</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>このデバイスのシリアル番号またはハードウェア ハッシュを読み取れませんでした。詳細はログに記録されています。</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>Microsoft Graph に接続できませんでした。ネットワーク接続を確認してから、もう一度お試しください。</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>登録に失敗しました。このネットワークのプロキシまたはキャプティブ ポータルが原因の可能性があります。詳細はログに記録されています。もう一度お試しください。</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>15 分以内にデバイスが Windows Autopilot に表示されませんでした。Intune を確認してから、もう一度お試しください。</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Autopilot プロファイルが割り当てられました。</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Autopilot プロファイルの割り当てに失敗したことが Intune から報告されました。Windows セットアップは続行されます。</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>プロファイルの割り当てを待たずに、Windows セットアップを続行します。</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>プロファイルはまだ割り当てられていません。Windows セットアップは続行されます。</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>プロファイルの割り当て状態を読み取れませんでした。Windows セットアップは続行されます。</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>Autopilot プロファイルの割り当てを待機中 ({0})</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>グループタグ、コンピューター名、ユーザーを割り当てています…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>ハードウェア ハッシュを収集しています…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>ハードウェア ハッシュをアップロードしています…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>デバイスが Windows Autopilot に表示されるのを待機しています (最大 15 分)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>登録ページを読み込めませんでした。新しいコードでもう一度サインインしてください。</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>セッションの有効期限が切れました。新しいコードでもう一度サインインしてください。</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>サインアウトしました。新しいコードを使用して別のアカウントでサインインしてください。</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>ネットワークを利用できません。10 秒ごとに再試行しています…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>Windows Autopilot にデバイスを登録できるアカウントでサインインしてください。</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>次に、このコードを入力してください</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>サインインに失敗しました。組織が条件付きアクセス ポリシーでデバイス コードによるサインインをブロックしている可能性があります。新しいコードを取得するには、[再試行] を選択してください。</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>サインインが拒否されました。新しいコードを取得するには、[再試行] を選択してください。</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>Microsoft から予期しない応答が返されたため、サインインに失敗しました。このネットワークのプロキシまたはキャプティブ ポータルが原因の可能性があります。もう一度試すには、[再試行] を選択してください。</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>コードの有効期限: {0}</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>グループタグを読み込んでいます…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>別のデバイスで、次を開きます</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>または</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>サインイン コードを要求しています…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>再試行</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>スキャンしてサインイン</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>Microsoft にサインイン</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>ダーク</value>

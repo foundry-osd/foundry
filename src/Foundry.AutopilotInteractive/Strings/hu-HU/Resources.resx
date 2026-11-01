@@ -28,6 +28,15 @@ Licenc az MIT licenc alatt.</value>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Autopilot Interactive</value>
   </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>Mégse</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>Kihagyja az Autopilot-regisztrációt? A Windows telepítése az eszköz regisztrálása nélkül folytatódik.</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>Regisztráció kihagyása</value>
+  </data>
   <data name="Common.Close" xml:space="preserve">
     <value>Bezárás</value>
   </data>
@@ -37,8 +46,119 @@ Licenc az MIT licenc alatt.</value>
   <data name="Config.LoadFailed" xml:space="preserve">
     <value>Az Autopilot-konfiguráció hiányzik vagy érvénytelen, ezért ez az eszköz nem regisztrálható.</value>
   </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>A lépésre szánt idő lejárt. A Windows telepítése az eszköz regisztrálása nélkül folytatódik.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>Már regisztrált eszköz</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>Hozzárendelt felhasználó megjelenítve</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>Kód megújítása</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>Befejezettség-ellenőrzés (kilép)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>Határidő elérve</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>A csoportcímkék felderítése sikertelen</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>Sok csoportcímke</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>Várakozás a hálózatra</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>Nincsenek csoportcímkék</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>Profil hozzárendelve</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>Időtúllépés a profilra várakozásnál</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>Sikeres feltöltés profilra várakozással</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>Lejárt munkamenet (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>Több egyező eszköz</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>Bejelentkezési kód és QR-kód</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>Bejelentkezési hiba az Újrapróbálkozás gombbal</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>Sikertelen feltöltés: hiányzó engedély (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>Sikertelen feltöltés: általános hiba</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>Sikertelen feltöltés: másik bérlő</value>
+  </data>
   <data name="Footer.Unknown" xml:space="preserve">
     <value>Ismeretlen</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>Adjon meg egy UPN-t (felhasználó egyszerű neve), például user@contoso.com, vagy hagyja üresen a mezőt.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>Hozzárendelt felhasználó (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>Egyéni</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>Egyéni csoportcímke</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>Válassza ki a csoportcímkét, majd regisztrálja az eszköz hardverhashét a Windows Autopilot szolgáltatásban.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>Csoportcímke</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>Nincs</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>nincs</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>Regisztrálás</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>Ez az eszköz már regisztrálva van a Windows Autopilot szolgáltatásban</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>Jelenlegi csoportcímke: {0}. Hozzárendelt felhasználó: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>Több Windows Autopilot-eszköz is rendelkezik ezzel a sorozatszámmal. A regisztráció nem tud frissíteni egy félreérthető eszközt.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>Bejelentkezve mint {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>A meglévő csoportcímkéket nem sikerült betölteni. Egyéni csoportcímkét továbbra is megadhat.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>Az eszköz regisztrálása az Autopilot szolgáltatásban</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>ismeretlen fiók</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>Másik fiók használata</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arab (Szaúd-Arábia)</value>
@@ -165,6 +285,129 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Téma</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>A regisztráció befejeződött</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>Folytatás most</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>Folytatás várakozás nélkül</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>A Windows telepítése {0} mp múlva folytatódik</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>A lépésre szánt idő lejárt.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>Több Windows Autopilot-eszköz is rendelkezik ezzel a sorozatszámmal. Távolítsa el a duplikátumokat az Intune-ban, majd próbálja újra.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>Ez az eszköz másik bérlőnél van regisztrálva. A másik bérlőnek vagy a viszonteladónak törölnie kell a regisztrációt, mielőtt az eszközt itt regisztrálni lehetne.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>Ez az eszköz már regisztrálva van a Windows Autopilot szolgáltatásban. Ellenőrizze az eszközt az Intune-ban, majd próbálja újra.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>A bejelentkezett fiók nem importálhat Windows Autopilot-eszközöket. Jelentkezzen be olyan fiókkal, amelynek van Intune-szerepköre az Autopilot-eszközök importálásához.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>A Microsoft Graph elutasította a bejelentkezést. Jelentkezzen be újra, majd próbálja újra.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>Az eszköz sorozatszámát vagy hardverhashét nem sikerült beolvasni. A részletek a naplóban találhatók.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>A Microsoft Graph nem érhető el. Ellenőrizze a hálózati kapcsolatot, majd próbálja újra.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>A regisztráció sikertelen volt. Ezt a hálózaton lévő proxy vagy captive portal okozhatja. A részletek a naplóban találhatók; próbálja újra.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>Az eszköz 15 percen belül nem jelent meg a Windows Autopilot szolgáltatásban. Ellenőrizze az Intune-t, majd próbálja újra.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Az Autopilot-profil hozzá van rendelve.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Az Intune jelezte, hogy az Autopilot-profil hozzárendelése sikertelen volt. A Windows telepítése folytatódik.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>A Windows telepítése a profil-hozzárendelésre várakozás nélkül folytatódik.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>A profil még nincs hozzárendelve; a Windows telepítése folytatódik.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>A profil-hozzárendelés állapotát nem sikerült beolvasni. A Windows telepítése folytatódik.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>Várakozás az Autopilot-profil hozzárendelésére ({0})</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>Csoportcímke, számítógépnév és felhasználó hozzárendelése…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>Hardverhash gyűjtése…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>Hardverhash feltöltése…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>Várakozás, hogy az eszköz megjelenjen a Windows Autopilot szolgáltatásban (legfeljebb 15 perc)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>A regisztrációs oldalt nem sikerült betölteni. Jelentkezzen be újra az új kóddal.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>A munkamenet lejárt. Jelentkezzen be újra az új kóddal.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>Kijelentkezett. Jelentkezzen be másik fiókkal az új kóddal.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>A hálózat nem érhető el. Újrapróbálkozás 10 másodpercenként…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>Jelentkezzen be olyan fiókkal, amely eszközöket regisztrálhat a Windows Autopilot szolgáltatásban.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>Ezután adja meg ezt a kódot</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>A bejelentkezés sikertelen volt. Előfordulhat, hogy a szervezet feltételes hozzáférési szabályzattal letiltja az eszközkóddal való bejelentkezést. Új kód kéréséhez válassza az Újrapróbálkozás lehetőséget.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>A bejelentkezést elutasították. Új kód kéréséhez válassza az Újrapróbálkozás lehetőséget.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>A bejelentkezés sikertelen volt, mert a Microsoft váratlan választ adott. Ezt a hálózaton lévő proxy vagy captive portal okozhatja. Az újrapróbálkozáshoz válassza az Újrapróbálkozás lehetőséget.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>A kód {0} múlva lejár</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>Csoportcímkék betöltése…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>Egy másik eszközön nyissa meg</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>vagy</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>Bejelentkezési kód kérése…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>Újrapróbálkozás</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>Beolvasás a bejelentkezéshez</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>Bejelentkezés a Microsoftba</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Sötét</value>

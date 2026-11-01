@@ -28,6 +28,15 @@
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Autopilot Interactive</value>
   </data>
+  <data name="Close.Cancel" xml:space="preserve">
+    <value>Άκυρο</value>
+  </data>
+  <data name="Close.ConfirmMessage" xml:space="preserve">
+    <value>Παράλειψη της εγγραφής στο Autopilot; Η ρύθμιση των Windows θα συνεχιστεί χωρίς την εγγραφή αυτής της συσκευής.</value>
+  </data>
+  <data name="Close.ConfirmSkip" xml:space="preserve">
+    <value>Παράλειψη εγγραφής</value>
+  </data>
   <data name="Common.Close" xml:space="preserve">
     <value>Κλείσιμο</value>
   </data>
@@ -37,8 +46,119 @@
   <data name="Config.LoadFailed" xml:space="preserve">
     <value>Η διαμόρφωση του Autopilot λείπει ή δεν είναι έγκυρη, επομένως η συσκευή δεν μπορεί να καταχωρηθεί.</value>
   </data>
+  <data name="Deadline.Reached" xml:space="preserve">
+    <value>Ο χρόνος που διατέθηκε για αυτό το βήμα έχει λήξει. Η ρύθμιση των Windows συνεχίζεται χωρίς την εγγραφή αυτής της συσκευής.</value>
+  </data>
+  <data name="Debug.Scenario.AlreadyRegistered" xml:space="preserve">
+    <value>Ήδη εγγεγραμμένη συσκευή</value>
+  </data>
+  <data name="Debug.Scenario.AssignedUser" xml:space="preserve">
+    <value>Εμφάνιση του εκχωρημένου χρήστη</value>
+  </data>
+  <data name="Debug.Scenario.CodeRenewal" xml:space="preserve">
+    <value>Ανανέωση κωδικού</value>
+  </data>
+  <data name="Debug.Scenario.CompletedGuard" xml:space="preserve">
+    <value>Έλεγχος ολοκλήρωσης (έξοδος)</value>
+  </data>
+  <data name="Debug.Scenario.DeadlineReached" xml:space="preserve">
+    <value>Έληξε η προθεσμία</value>
+  </data>
+  <data name="Debug.Scenario.GroupTagDiscoveryFailure" xml:space="preserve">
+    <value>Αποτυχία εντοπισμού ετικετών ομάδας</value>
+  </data>
+  <data name="Debug.Scenario.ManyGroupTags" xml:space="preserve">
+    <value>Πολλές ετικέτες ομάδας</value>
+  </data>
+  <data name="Debug.Scenario.NetworkWait" xml:space="preserve">
+    <value>Αναμονή για το δίκτυο</value>
+  </data>
+  <data name="Debug.Scenario.NoGroupTags" xml:space="preserve">
+    <value>Χωρίς ετικέτες ομάδας</value>
+  </data>
+  <data name="Debug.Scenario.ProfileAssigned" xml:space="preserve">
+    <value>Το προφίλ εκχωρήθηκε</value>
+  </data>
+  <data name="Debug.Scenario.ProfileTimeout" xml:space="preserve">
+    <value>Λήξη χρονικού ορίου αναμονής προφίλ</value>
+  </data>
+  <data name="Debug.Scenario.ProfileWait" xml:space="preserve">
+    <value>Επιτυχής αποστολή με αναμονή προφίλ</value>
+  </data>
+  <data name="Debug.Scenario.SessionExpired" xml:space="preserve">
+    <value>Συνεδρία που έληξε (401)</value>
+  </data>
+  <data name="Debug.Scenario.SeveralMatches" xml:space="preserve">
+    <value>Πολλές αντιστοιχούσες συσκευές</value>
+  </data>
+  <data name="Debug.Scenario.SignInCode" xml:space="preserve">
+    <value>Κωδικός σύνδεσης και κωδικός QR</value>
+  </data>
+  <data name="Debug.Scenario.SignInError" xml:space="preserve">
+    <value>Σφάλμα σύνδεσης με Επανάληψη</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureForbidden" xml:space="preserve">
+    <value>Αποτυχία αποστολής: λείπει άδεια (403)</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureGeneric" xml:space="preserve">
+    <value>Αποτυχία αποστολής: γενικό σφάλμα</value>
+  </data>
+  <data name="Debug.Scenario.UploadFailureOtherTenant" xml:space="preserve">
+    <value>Αποτυχία αποστολής: άλλος μισθωτής</value>
+  </data>
   <data name="Footer.Unknown" xml:space="preserve">
     <value>Άγνωστο</value>
+  </data>
+  <data name="GroupTag.AssignedUserInvalid" xml:space="preserve">
+    <value>Εισαγάγετε ένα βασικό όνομα χρήστη (UPN), όπως user@contoso.com, ή αφήστε το πεδίο κενό.</value>
+  </data>
+  <data name="GroupTag.AssignedUserLabel" xml:space="preserve">
+    <value>Εκχωρημένος χρήστης (UPN)</value>
+  </data>
+  <data name="GroupTag.Custom" xml:space="preserve">
+    <value>Προσαρμοσμένο</value>
+  </data>
+  <data name="GroupTag.CustomLabel" xml:space="preserve">
+    <value>Προσαρμοσμένη ετικέτα ομάδας</value>
+  </data>
+  <data name="GroupTag.Description" xml:space="preserve">
+    <value>Επιλέξτε την ετικέτα ομάδας και, στη συνέχεια, καταχωρήστε τον κατακερματισμό υλικού αυτής της συσκευής στο Windows Autopilot.</value>
+  </data>
+  <data name="GroupTag.Label" xml:space="preserve">
+    <value>Ετικέτα ομάδας</value>
+  </data>
+  <data name="GroupTag.None" xml:space="preserve">
+    <value>Καμία</value>
+  </data>
+  <data name="GroupTag.NoneValue" xml:space="preserve">
+    <value>καμία</value>
+  </data>
+  <data name="GroupTag.Register" xml:space="preserve">
+    <value>Εγγραφή</value>
+  </data>
+  <data name="GroupTag.RegisteredDevice" xml:space="preserve">
+    <value>Αυτή η συσκευή είναι ήδη εγγεγραμμένη στο Windows Autopilot</value>
+  </data>
+  <data name="GroupTag.RegisteredDeviceDetailsFormat" xml:space="preserve">
+    <value>Τρέχουσα ετικέτα ομάδας: {0}. Εκχωρημένος χρήστης: {1}.</value>
+  </data>
+  <data name="GroupTag.SeveralMatches" xml:space="preserve">
+    <value>Αυτός ο σειριακός αριθμός αντιστοιχεί σε πολλές συσκευές Windows Autopilot. Η εγγραφή δεν μπορεί να ενημερώσει μια διφορούμενη συσκευή.</value>
+  </data>
+  <data name="GroupTag.SignedInAsFormat" xml:space="preserve">
+    <value>Συνδεδεμένος ως {0}</value>
+  </data>
+  <data name="GroupTag.TagsUnavailable" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η φόρτωση των υπαρχουσών ετικετών ομάδας. Μπορείτε ακόμη να εισαγάγετε μια προσαρμοσμένη ετικέτα ομάδας.</value>
+  </data>
+  <data name="GroupTag.Title" xml:space="preserve">
+    <value>Εγγραφή αυτής της συσκευής στο Autopilot</value>
+  </data>
+  <data name="GroupTag.UnknownAccount" xml:space="preserve">
+    <value>άγνωστος λογαριασμός</value>
+  </data>
+  <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
+    <value>Χρήση άλλου λογαριασμού</value>
   </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Αραβικά (Σαουδική Αραβία)</value>
@@ -165,6 +285,129 @@
   </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Θέμα</value>
+  </data>
+  <data name="Registration.Completed" xml:space="preserve">
+    <value>Η εγγραφή ολοκληρώθηκε</value>
+  </data>
+  <data name="Registration.ContinueNow" xml:space="preserve">
+    <value>Συνέχεια τώρα</value>
+  </data>
+  <data name="Registration.ContinueWithoutWaiting" xml:space="preserve">
+    <value>Συνέχεια χωρίς αναμονή</value>
+  </data>
+  <data name="Registration.CountdownFormat" xml:space="preserve">
+    <value>Η ρύθμιση των Windows θα συνεχιστεί σε {0} δ</value>
+  </data>
+  <data name="Registration.Failure.deadline_reached" xml:space="preserve">
+    <value>Ο χρόνος που διατέθηκε για αυτό το βήμα έχει λήξει.</value>
+  </data>
+  <data name="Registration.Failure.device_ambiguous" xml:space="preserve">
+    <value>Αυτός ο σειριακός αριθμός αντιστοιχεί σε πολλές συσκευές Windows Autopilot. Καταργήστε τα διπλότυπα στο Intune και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="Registration.Failure.device_assigned_to_other_tenant" xml:space="preserve">
+    <value>Αυτή η συσκευή είναι εγγεγραμμένη σε άλλον μισθωτή. Ο άλλος μισθωτής ή ο μεταπωλητής πρέπει να καταργήσει την εγγραφή προτού η συσκευή μπορέσει να εγγραφεί εδώ.</value>
+  </data>
+  <data name="Registration.Failure.device_duplicated" xml:space="preserve">
+    <value>Αυτή η συσκευή είναι ήδη εγγεγραμμένη στο Windows Autopilot. Ελέγξτε τη συσκευή στο Intune και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="Registration.Failure.graph_forbidden" xml:space="preserve">
+    <value>Ο λογαριασμός με τον οποίο συνδεθήκατε δεν μπορεί να εισαγάγει συσκευές Windows Autopilot. Συνδεθείτε με λογαριασμό που έχει ρόλο Intune με δικαίωμα εισαγωγής συσκευών Autopilot.</value>
+  </data>
+  <data name="Registration.Failure.graph_unauthorized" xml:space="preserve">
+    <value>Το Microsoft Graph απέρριψε τη σύνδεση. Συνδεθείτε ξανά και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="Registration.Failure.hardware_identity_unavailable" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η ανάγνωση του σειριακού αριθμού ή του κατακερματισμού υλικού αυτής της συσκευής. Οι λεπτομέρειες βρίσκονται στο αρχείο καταγραφής.</value>
+  </data>
+  <data name="Registration.Failure.network_unavailable" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η πρόσβαση στο Microsoft Graph. Ελέγξτε τη σύνδεση δικτύου και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="Registration.Failure.registration_failed" xml:space="preserve">
+    <value>Η εγγραφή απέτυχε. Αιτία μπορεί να είναι ένας διακομιστής μεσολάβησης ή μια πύλη captive σε αυτό το δίκτυο. Οι λεπτομέρειες βρίσκονται στο αρχείο καταγραφής· δοκιμάστε ξανά.</value>
+  </data>
+  <data name="Registration.Failure.registration_timed_out" xml:space="preserve">
+    <value>Η συσκευή δεν εμφανίστηκε στο Windows Autopilot εντός 15 λεπτών. Ελέγξτε το Intune και δοκιμάστε ξανά.</value>
+  </data>
+  <data name="Registration.Profile.Assigned" xml:space="preserve">
+    <value>Το προφίλ Autopilot έχει εκχωρηθεί.</value>
+  </data>
+  <data name="Registration.Profile.Failed" xml:space="preserve">
+    <value>Το Intune ανέφερε ότι η εκχώρηση του προφίλ Autopilot απέτυχε. Η ρύθμιση των Windows συνεχίζεται.</value>
+  </data>
+  <data name="Registration.Profile.Skipped" xml:space="preserve">
+    <value>Η ρύθμιση των Windows συνεχίζεται χωρίς αναμονή για την εκχώρηση του προφίλ.</value>
+  </data>
+  <data name="Registration.Profile.TimedOut" xml:space="preserve">
+    <value>Το προφίλ δεν έχει εκχωρηθεί ακόμη· η ρύθμιση των Windows συνεχίζεται.</value>
+  </data>
+  <data name="Registration.Profile.Unavailable" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η ανάγνωση της κατάστασης εκχώρησης του προφίλ. Η ρύθμιση των Windows συνεχίζεται.</value>
+  </data>
+  <data name="Registration.ProfileWaitFormat" xml:space="preserve">
+    <value>Αναμονή για την εκχώρηση του προφίλ Autopilot ({0})</value>
+  </data>
+  <data name="Registration.Status.Assigning" xml:space="preserve">
+    <value>Εκχώρηση ετικέτας ομάδας, ονόματος υπολογιστή και χρήστη…</value>
+  </data>
+  <data name="Registration.Status.Collecting" xml:space="preserve">
+    <value>Συλλογή του κατακερματισμού υλικού…</value>
+  </data>
+  <data name="Registration.Status.Uploading" xml:space="preserve">
+    <value>Αποστολή του κατακερματισμού υλικού…</value>
+  </data>
+  <data name="Registration.Status.WaitingForRegistration" xml:space="preserve">
+    <value>Αναμονή για την εμφάνιση της συσκευής στο Windows Autopilot (έως 15 λεπτά)…</value>
+  </data>
+  <data name="SignIn.Banner.LoadFailed" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η φόρτωση της σελίδας εγγραφής. Συνδεθείτε ξανά με τον νέο κωδικό.</value>
+  </data>
+  <data name="SignIn.Banner.SessionExpired" xml:space="preserve">
+    <value>Η συνεδρία σας έληξε. Συνδεθείτε ξανά με τον νέο κωδικό.</value>
+  </data>
+  <data name="SignIn.Banner.SignedOut" xml:space="preserve">
+    <value>Έγινε αποσύνδεση. Συνδεθείτε με άλλον λογαριασμό χρησιμοποιώντας τον νέο κωδικό.</value>
+  </data>
+  <data name="SignIn.Banner.WaitingForNetwork" xml:space="preserve">
+    <value>Το δίκτυο δεν είναι διαθέσιμο. Νέα προσπάθεια κάθε 10 δευτερόλεπτα…</value>
+  </data>
+  <data name="SignIn.Description" xml:space="preserve">
+    <value>Συνδεθείτε με λογαριασμό που μπορεί να εγγράψει συσκευές στο Windows Autopilot.</value>
+  </data>
+  <data name="SignIn.EnterCode" xml:space="preserve">
+    <value>Στη συνέχεια, εισαγάγετε αυτόν τον κωδικό</value>
+  </data>
+  <data name="SignIn.Error.Blocked" xml:space="preserve">
+    <value>Η σύνδεση απέτυχε. Ο οργανισμός σας ενδέχεται να αποκλείει τη σύνδεση με κωδικό συσκευής μέσω πολιτικής υπό όρους πρόσβασης. Επιλέξτε Επανάληψη για να λάβετε νέο κωδικό.</value>
+  </data>
+  <data name="SignIn.Error.Declined" xml:space="preserve">
+    <value>Η σύνδεση απορρίφθηκε. Επιλέξτε Επανάληψη για να λάβετε νέο κωδικό.</value>
+  </data>
+  <data name="SignIn.Error.Generic" xml:space="preserve">
+    <value>Η σύνδεση απέτυχε επειδή η Microsoft επέστρεψε μια μη αναμενόμενη απόκριση. Αιτία μπορεί να είναι ένας διακομιστής μεσολάβησης ή μια πύλη captive σε αυτό το δίκτυο. Επιλέξτε Επανάληψη για να δοκιμάσετε ξανά.</value>
+  </data>
+  <data name="SignIn.ExpiresFormat" xml:space="preserve">
+    <value>Ο κωδικός λήγει σε {0}</value>
+  </data>
+  <data name="SignIn.LoadingGroupTags" xml:space="preserve">
+    <value>Φόρτωση ετικετών ομάδας…</value>
+  </data>
+  <data name="SignIn.OpenOnAnotherDevice" xml:space="preserve">
+    <value>Σε άλλη συσκευή, ανοίξτε</value>
+  </data>
+  <data name="SignIn.Or" xml:space="preserve">
+    <value>ή</value>
+  </data>
+  <data name="SignIn.RequestingCode" xml:space="preserve">
+    <value>Αίτηση κωδικού σύνδεσης…</value>
+  </data>
+  <data name="SignIn.Retry" xml:space="preserve">
+    <value>Επανάληψη</value>
+  </data>
+  <data name="SignIn.ScanCaption" xml:space="preserve">
+    <value>Σάρωση για σύνδεση</value>
+  </data>
+  <data name="SignIn.Title" xml:space="preserve">
+    <value>Σύνδεση στη Microsoft</value>
   </data>
   <data name="Theme.Dark" xml:space="preserve">
     <value>Σκούρο</value>
