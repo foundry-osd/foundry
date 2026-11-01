@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Globalization;
 using System.Text.Json;
 using Foundry.Core.Models.PreOobe;
 using Foundry.PostInstall.Actions;
@@ -11,20 +12,20 @@ namespace Foundry.PostInstall.Tests;
 
 public sealed class AutopilotRegistrationActionTests : IDisposable
 {
-    private const string ScriptPath = "Runtime/AutopilotRegistration/Start-FoundryAutopilotRegistration.ps1";
-    private const string ConfigPath = "Runtime/AutopilotRegistration/config.json";
+    private const string ExecutablePath = "Runtime/AutopilotInteractive/Foundry.AutopilotInteractive.exe";
+    private const string ConfigPath = "Runtime/AutopilotInteractive/autopilot-interactive.json";
+    private static readonly DateTimeOffset Now = new(2026, 11, 1, 8, 30, 15, 250, TimeSpan.Zero);
     private readonly string root = Path.Combine(Path.GetTempPath(), "Foundry.PostInstall.Tests", Guid.NewGuid().ToString("N"));
-    private readonly string windows = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
 
     public AutopilotRegistrationActionTests()
     {
-        Directory.CreateDirectory(Path.Combine(root, "Runtime", "AutopilotRegistration"));
-        File.WriteAllText(Path.Combine(root, ScriptPath), "fixture");
+        Directory.CreateDirectory(Path.Combine(root, "Runtime", "AutopilotInteractive"));
+        File.WriteAllText(Path.Combine(root, ExecutablePath), "fixture");
         File.WriteAllText(Path.Combine(root, ConfigPath), "{}");
     }
 
     [Fact]
-    public async Task CompletedAssistant_RunsStagedScriptInteractively()
+    public async Task Execute_RunsExecutableWithConfigAndDeadline()
     {
         var processes = new RecordingProcesses(new(0, ""));
 
@@ -32,19 +33,22 @@ public sealed class AutopilotRegistrationActionTests : IDisposable
 
         Assert.True(outcome.Succeeded);
         ProcessCommand command = Assert.Single(processes.Commands);
-        Assert.Equal(Path.Combine(windows, "System32", "WindowsPowerShell", "v1.0", "powershell.exe"), command.FileName);
-        Assert.Contains("-STA", command.Arguments);
-        Assert.Equal(Path.Combine(root, "Runtime", "AutopilotRegistration", "Start-FoundryAutopilotRegistration.ps1"),
-            command.Arguments[command.Arguments.ToList().IndexOf("-File") + 1]);
-        Assert.Equal(Path.Combine(root, "Runtime", "AutopilotRegistration", "config.json"),
-            command.Arguments[command.Arguments.ToList().IndexOf("-ConfigPath") + 1]);
+        string executable = Path.Combine(root, "Runtime", "AutopilotInteractive", "Foundry.AutopilotInteractive.exe");
+        Assert.Equal(executable, command.FileName);
+        Assert.Equal(Path.GetDirectoryName(executable), command.WorkingDirectory);
+        Assert.Equal(
+            ["--config", Path.Combine(root, "Runtime", "AutopilotInteractive", "autopilot-interactive.json"),
+             "--deadline", (Now + AutopilotRegistrationAction.Timeout).ToString("O", CultureInfo.InvariantCulture)],
+            command.Arguments);
+        Assert.Equal("2026-11-01T10:30:15.2500000+00:00", command.Arguments[3]);
         Assert.Equal(AutopilotRegistrationAction.Timeout, command.Timeout);
+        Assert.Equal(Path.Combine(root, "Logs", "PreOobe", "autopilot-registration", "Process", "output.log"), command.OutputPath);
     }
 
     [Fact]
-    public async Task MissingStagedScript_FailsWithoutStartingProcess()
+    public async Task Execute_ReturnsAssistantMissing_WhenExecutableAbsent()
     {
-        File.Delete(Path.Combine(root, ScriptPath));
+        File.Delete(Path.Combine(root, ExecutablePath));
         var processes = new RecordingProcesses(new(0, ""));
 
         ActionStepOutcome outcome = await Execute(processes);
@@ -55,18 +59,21 @@ public sealed class AutopilotRegistrationActionTests : IDisposable
     }
 
     [Fact]
-    public async Task ClosedAssistant_ReportsIncompleteRegistration()
+    public async Task Execute_MapsExitCodes()
     {
-        ActionStepOutcome outcome = await Execute(new RecordingProcesses(new(1, "")));
+        ActionStepOutcome completed = await Execute(new RecordingProcesses(new(0, "")));
+        ActionStepOutcome incomplete = await Execute(new RecordingProcesses(new(1, "")));
 
-        Assert.False(outcome.Succeeded);
-        Assert.Equal(1, outcome.ExitCode);
-        Assert.Equal("autopilot_registration_incomplete", outcome.FailureCode);
-        Assert.False(outcome.TerminationUncertain);
+        Assert.True(completed.Succeeded);
+        Assert.Null(completed.FailureCode);
+        Assert.False(incomplete.Succeeded);
+        Assert.Equal(1, incomplete.ExitCode);
+        Assert.Equal("autopilot_registration_incomplete", incomplete.FailureCode);
+        Assert.False(incomplete.TerminationUncertain);
     }
 
     [Fact]
-    public async Task TimedOutAssistant_IsAnOrdinaryFailure()
+    public async Task Execute_ReturnsTimedOut()
     {
         ActionStepOutcome outcome = await Execute(new RecordingProcesses(new(null, "", TimedOut: true, TerminationUncertain: true)));
 
@@ -76,6 +83,9 @@ public sealed class AutopilotRegistrationActionTests : IDisposable
     }
 
     [Fact]
+    public void Timeout_Is120Minutes() => Assert.Equal(TimeSpan.FromMinutes(120), AutopilotRegistrationAction.Timeout);
+
+    [Fact]
     public void ConsoleLabel_NamesTheAssistantForTechnicians() =>
         Assert.Equal("Upload hardware hash to Windows Autopilot", PostInstallProgress.GetActionName(new PreOobeExecutionAction
         { Id = "autopilot-registration", Name = "autopilot-registration", BuiltInKind = PreOobeBuiltInKind.AutopilotRegistration }));
@@ -83,11 +93,11 @@ public sealed class AutopilotRegistrationActionTests : IDisposable
     public void Dispose() => Directory.Delete(root, true);
 
     private Task<ActionStepOutcome> Execute(RecordingProcesses processes) =>
-        new AutopilotRegistrationAction(root, windows, processes).ExecuteAsync(new PreOobeExecutionAction
+        new AutopilotRegistrationAction(root, processes, () => Now).ExecuteAsync(new PreOobeExecutionAction
         {
             Id = "autopilot-registration",
             BuiltInKind = PreOobeBuiltInKind.AutopilotRegistration,
-            Parameters = JsonSerializer.SerializeToElement(new { scriptPath = ScriptPath, configPath = ConfigPath })
+            Parameters = JsonSerializer.SerializeToElement(new { executablePath = ExecutablePath, configPath = ConfigPath })
         }, TestContext.Current.CancellationToken);
 
     private sealed class RecordingProcesses(ProcessOutcome outcome) : IPreOobeProcessExecutor
