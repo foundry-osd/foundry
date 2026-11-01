@@ -74,7 +74,7 @@ internal sealed class FakeThemeService : IThemeService
 }
 
 /// <summary>Keyboard switcher over French, Belgian French and Dutch layouts that records the layouts it applies.</summary>
-internal sealed class FakeKeyboardLayoutSwitcher(string activeLayoutId = "0000040C") : IKeyboardLayoutSwitcher
+internal sealed class FakeKeyboardLayoutSwitcher : IKeyboardLayoutSwitcher
 {
     private static readonly IReadOnlyList<KeyboardLayout> Layouts = KeyboardLayoutCatalog.FromEntries(
     [
@@ -83,9 +83,7 @@ internal sealed class FakeKeyboardLayoutSwitcher(string activeLayoutId = "000004
         new KeyboardLayoutRegistryEntry("00000413", "KBDNE.DLL", "Dutch", null)
     ]);
 
-    private string activeLayoutId = activeLayoutId;
-
-    public bool FailApply { get; init; }
+    private string activeLayoutId = "0000040C";
 
     public List<string> AppliedLayoutIds { get; } = [];
 
@@ -95,11 +93,6 @@ internal sealed class FakeKeyboardLayoutSwitcher(string activeLayoutId = "000004
 
     public KeyboardLayoutSwitchResult Apply(KeyboardLayout layout)
     {
-        if (FailApply)
-        {
-            return new KeyboardLayoutSwitchResult(false, layout.Id, "Simulated failure.");
-        }
-
         AppliedLayoutIds.Add(layout.Id);
         activeLayoutId = layout.Id;
         return new KeyboardLayoutSwitchResult(true, layout.Id, null);

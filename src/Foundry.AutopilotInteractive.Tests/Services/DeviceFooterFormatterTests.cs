@@ -42,17 +42,6 @@ public sealed class DeviceFooterFormatterTests
         Assert.Equal("Dell Inc. \u00B7 Latitude 7440 \u00B7 7XK2ABC \u00B7 PC-001", footer);
     }
 
-    [Fact]
-    public void Format_AppendsComputerName_WhenSet()
-    {
-        string footer = DeviceFooterFormatter.Format(
-            new DeviceInformation("Dell Inc.", "Latitude 7440", "7XK2ABC"),
-            computerName: "PC-001",
-            unknownText: "Unknown");
-
-        Assert.Equal("Dell Inc. \u00B7 Latitude 7440 \u00B7 7XK2ABC \u00B7 PC-001", footer);
-    }
-
     [Theory]
     [InlineData("FINAL-PC", "UPLOAD-PC", "FINAL-PC")]
     [InlineData("FINAL-PC", null, "FINAL-PC")]

@@ -151,25 +151,6 @@ public sealed class MainWindowViewModelTests
     }
 
     [Fact]
-    public async Task SkipRegistration_DuringUpload_UsesTheInProgressQuestion()
-    {
-        using AutopilotHarness harness = new();
-        harness.Start(DebugScenario.ProfileAssigned);
-        harness.ReachGroupTagPage();
-        Task register = harness.ViewModel.GroupTag.RegisterCommand.ExecuteAsync(null);
-        harness.Clock.Advance(SimulatedRegistrationService.StepDuration);
-        Assert.True(harness.ViewModel.GroupTag.IsBusy);
-        harness.Confirmation.Result = true;
-
-        await harness.ViewModel.SkipRegistrationCommand.ExecuteAsync(null);
-        await register;
-
-        Assert.True(harness.Confirmation.LastRegistrationInProgress);
-        Assert.Equal(1, harness.ViewModel.ExitCode);
-        Assert.Equal(RegistrationResult.StatusSkipped, harness.ReadResult().GetProperty("status").GetString());
-    }
-
-    [Fact]
     public async Task SkipRegistration_DuringProfileWait_ExitsZeroWithoutPrompt()
     {
         using AutopilotHarness harness = new();

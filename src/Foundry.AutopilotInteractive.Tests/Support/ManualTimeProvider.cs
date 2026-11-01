@@ -24,18 +24,6 @@ internal sealed class ManualTimeProvider : TimeProvider
 
     public override long TimestampFrequency => TimeSpan.TicksPerSecond;
 
-    // Lets a test wait until the code under test has armed its timer before advancing the clock.
-    public int ActiveTimerCount
-    {
-        get
-        {
-            lock (_gate)
-            {
-                return _timers.Count(static timer => timer.DueAt is not null);
-            }
-        }
-    }
-
     public override DateTimeOffset GetUtcNow()
     {
         lock (_gate)

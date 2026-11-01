@@ -25,16 +25,14 @@ internal sealed class AutopilotHarness : IDisposable
 
     public AutopilotHarness(
         DateTimeOffset? deadlineUtc = null,
-        bool offerAssignedUser = false,
-        string? keyboardLayoutId = null,
-        FakeKeyboardLayoutSwitcher? keyboard = null)
+        string? keyboardLayoutId = null)
     {
         // Continuations then run inline inside Advance instead of being posted to a test synchronization context.
         SynchronizationContext.SetSynchronizationContext(null);
 
         Localization = TestLocalization.Create();
-        AutopilotInteractiveRuntimeConfiguration configuration = new() { OfferAssignedUser = offerAssignedUser, KeyboardLayoutId = keyboardLayoutId };
-        Keyboard = keyboard ?? new FakeKeyboardLayoutSwitcher();
+        AutopilotInteractiveRuntimeConfiguration configuration = new() { KeyboardLayoutId = keyboardLayoutId };
+        Keyboard = new FakeKeyboardLayoutSwitcher();
         AutopilotInteractiveCommandLine commandLine = new(null, deadlineUtc);
         ImmediateUiDispatcher dispatcher = new();
 

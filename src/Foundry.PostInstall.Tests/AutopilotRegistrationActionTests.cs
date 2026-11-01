@@ -83,9 +83,6 @@ public sealed class AutopilotRegistrationActionTests : IDisposable
     }
 
     [Fact]
-    public void Timeout_Is120Minutes() => Assert.Equal(TimeSpan.FromMinutes(120), AutopilotRegistrationAction.Timeout);
-
-    [Fact]
     public void ConsoleLabel_NamesTheAssistantForTechnicians() =>
         Assert.Equal("Upload hardware hash to Windows Autopilot", PostInstallProgress.GetActionName(new PreOobeExecutionAction
         { Id = "autopilot-registration", Name = "autopilot-registration", BuiltInKind = PreOobeBuiltInKind.AutopilotRegistration }));

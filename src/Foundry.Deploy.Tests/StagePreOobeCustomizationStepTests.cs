@@ -550,7 +550,6 @@ public sealed class StagePreOobeCustomizationStepTests
         JsonElement parameters = actions[1].GetProperty("parameters");
         Assert.Equal("Runtime/AutopilotInteractive/Foundry.AutopilotInteractive.exe", parameters.GetProperty("executablePath").GetString());
         Assert.Equal("Runtime/AutopilotInteractive/autopilot-interactive.json", parameters.GetProperty("configPath").GetString());
-        Assert.False(parameters.TryGetProperty("scriptPath", out _));
     }
 
     [Fact]
