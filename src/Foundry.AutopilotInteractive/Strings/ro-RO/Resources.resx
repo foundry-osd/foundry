@@ -163,6 +163,9 @@ Licențiat sub licența MIT.</value>
   <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
     <value>Utilizați alt cont</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Alte limbi</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arabă (Arabia Saudită)</value>
   </data>
@@ -282,6 +285,12 @@ Licențiat sub licența MIT.</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Depanare</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>T_astatură</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>T_astatură ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Limba</value>

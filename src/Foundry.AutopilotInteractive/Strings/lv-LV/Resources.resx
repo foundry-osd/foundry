@@ -163,6 +163,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
     <value>Izmantot citu kontu</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Citas valodas</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arābu (Saūda Arābija)</value>
   </data>
@@ -282,6 +285,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Atkļūdošana</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Ta_statūra</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Ta_statūra ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Valoda</value>

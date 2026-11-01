@@ -124,7 +124,8 @@ public sealed class DeploymentCustomizationScenarioTests
             new StagePreOobeCustomizationStep(new DriverPackStrategyResolver(),
                 new PreOobeTargetStagingService(path => Directory.CreateDirectory(path))),
             new ProvisionAutopilotStep(forbidden, forbidden, new AutopilotInteractiveProvisioningService(), forbidden,
-                new AutopilotInteractiveTestRuntime.FixedTheme(Foundry.Wpf.Theme.ThemeMode.System), new AutopilotInteractiveTestRuntime.FixedCulture("en-US")),
+                new AutopilotInteractiveTestRuntime.FixedTheme(Foundry.Wpf.Theme.ThemeMode.System), new AutopilotInteractiveTestRuntime.FixedCulture("en-US"),
+                new AutopilotInteractiveTestRuntime.FixedKeyboardLayout("00000409")),
             new FinalizeDeploymentAndWriteLogsStep()
         ];
         IReadOnlyList<DeploymentPlanEntry> plan = DeploymentPlan.Build(request, state,

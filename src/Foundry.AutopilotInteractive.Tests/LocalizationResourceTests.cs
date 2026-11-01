@@ -55,8 +55,9 @@ public sealed class LocalizationResourceTests
     private static readonly string[] ShellKeys =
     [
         "About.DescriptionLine1", "About.DescriptionLine2", "About.Footer", "About.Title", "App.Name", "Common.Close",
-        "Common.VersionFormat", "Config.LoadFailed", "Footer.Unknown", "Menu.About", "Menu.Debug", "Menu.Language", "Menu.Theme",
-        "Registration.Skip", "Theme.Dark", "Theme.Light", "Theme.System"
+        "Common.VersionFormat", "Config.LoadFailed", "Footer.Unknown", "Keyboard.OtherLanguages", "Menu.About", "Menu.Debug",
+        "Menu.Keyboard", "Menu.KeyboardFormat", "Menu.Language", "Menu.Theme", "Registration.Skip", "Theme.Dark", "Theme.Light",
+        "Theme.System"
     ];
 
     public static TheoryData<string> SupportedCultures => new(CultureNames);
@@ -80,10 +81,12 @@ public sealed class LocalizationResourceTests
     {
         ResourceSet resourceSet = GetResourceSet(cultureName);
 
-        foreach (string key in new[] { "Menu.About", "Menu.Debug", "Menu.Language", "Menu.Theme" })
+        foreach (string key in new[] { "Menu.About", "Menu.Debug", "Menu.Keyboard", "Menu.KeyboardFormat", "Menu.Language", "Menu.Theme" })
         {
             Assert.Contains("_", resourceSet.GetString(key), StringComparison.Ordinal);
         }
+
+        Assert.Contains("{0}", resourceSet.GetString("Menu.KeyboardFormat"), StringComparison.Ordinal);
     }
 
     private static ResourceSet GetResourceSet(string cultureName)

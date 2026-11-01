@@ -9,12 +9,14 @@ using System.Windows.Threading;
 using Foundry.AutopilotInteractive.Services;
 using Foundry.AutopilotInteractive.Services.Authentication;
 using Foundry.AutopilotInteractive.Services.Device;
+using Foundry.AutopilotInteractive.Services.Keyboard;
 using Foundry.AutopilotInteractive.Services.Registration;
 using Foundry.AutopilotInteractive.Services.Simulation;
 using Foundry.AutopilotInteractive.Startup;
 using Foundry.AutopilotInteractive.ViewModels;
 using Foundry.Core.Models.Autopilot;
 using Foundry.Core.Services.Autopilot;
+using Foundry.Utilities.Globalization;
 using Foundry.Wpf.Localization;
 using Foundry.Wpf.Runtime;
 using Foundry.Wpf.Shell;
@@ -77,6 +79,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ILocalizationService>(_ => CreateLocalizationService());
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<IDeviceInformationReader, DeviceInformationReader>();
+        services.AddSingleton<IKeyboardLayoutSwitcher>(_ => CreateKeyboardLayoutSwitcher(new WindowsKeyboardLayoutAvailability()));
 
         if (DebugSafetyMode.IsEnabled)
         {
@@ -116,6 +119,16 @@ public static class ServiceCollectionExtensions
                 sp.GetRequiredService<ILogger<ProfileAssignmentWaiter>>());
         });
         services.AddSingleton<IAutopilotServiceSetFactory, LiveAutopilotServiceSetFactory>();
+    }
+
+    /// <summary>
+    /// Creates the keyboard switcher of the Keyboard menu: the installed layouts that this Windows can load, read once, switched
+    /// for this process only (never <c>wpeutil</c>, never the Windows input settings of a user or of the system).
+    /// </summary>
+    private static WindowsKeyboardLayoutSwitcher CreateKeyboardLayoutSwitcher(IKeyboardLayoutAvailability availability)
+    {
+        Lazy<IReadOnlyList<KeyboardLayout>> layouts = new(() => KeyboardLayoutAvailabilityFilter.Filter(KeyboardLayoutCatalog.GetInstalled(), availability));
+        return WindowsKeyboardLayoutSwitcher.CreateForCurrentProcess(() => layouts.Value);
     }
 
     /// <summary>Creates the localization service over the application's embedded string resources.</summary>

@@ -23,13 +23,18 @@ internal sealed class AutopilotHarness : IDisposable
 {
     private readonly string _stateDirectory = Path.Combine(Path.GetTempPath(), "foundry-autopilot-vm-" + Guid.NewGuid().ToString("N"));
 
-    public AutopilotHarness(DateTimeOffset? deadlineUtc = null, bool offerAssignedUser = false)
+    public AutopilotHarness(
+        DateTimeOffset? deadlineUtc = null,
+        bool offerAssignedUser = false,
+        string? keyboardLayoutId = null,
+        FakeKeyboardLayoutSwitcher? keyboard = null)
     {
         // Continuations then run inline inside Advance instead of being posted to a test synchronization context.
         SynchronizationContext.SetSynchronizationContext(null);
 
         Localization = TestLocalization.Create();
-        AutopilotInteractiveRuntimeConfiguration configuration = new() { OfferAssignedUser = offerAssignedUser };
+        AutopilotInteractiveRuntimeConfiguration configuration = new() { OfferAssignedUser = offerAssignedUser, KeyboardLayoutId = keyboardLayoutId };
+        Keyboard = keyboard ?? new FakeKeyboardLayoutSwitcher();
         AutopilotInteractiveCommandLine commandLine = new(null, deadlineUtc);
         ImmediateUiDispatcher dispatcher = new();
 
@@ -39,6 +44,7 @@ internal sealed class AutopilotHarness : IDisposable
             new FakeApplicationShellService(),
             new FakeDeviceInformationReader(),
             configuration,
+            Keyboard,
             new SignInViewModel(Localization, Clock, dispatcher, NullLogger<SignInFlow>.Instance),
             new GroupTagViewModel(Localization, configuration, Clock, dispatcher, NullLogger<GroupTagViewModel>.Instance),
             new SimulatedAutopilotServiceSetFactory(Clock, configuration, commandLine),
@@ -56,6 +62,8 @@ internal sealed class AutopilotHarness : IDisposable
     public ResourceLocalizationService Localization { get; }
 
     public FakeSkipConfirmation Confirmation { get; } = new();
+
+    public FakeKeyboardLayoutSwitcher Keyboard { get; }
 
     public MainWindowViewModel ViewModel { get; }
 

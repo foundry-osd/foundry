@@ -13,7 +13,7 @@ namespace Foundry.Utilities.Globalization;
 public sealed record KeyboardLayoutSwitchResult(bool Succeeded, string? LayoutId, string? Error);
 
 /// <summary>
-/// Switches the active keyboard layout of a WinPE application at runtime.
+/// Switches the active keyboard layout of a Foundry runtime application (WinPE, or the installed Windows during setup).
 /// </summary>
 public interface IKeyboardLayoutSwitcher
 {

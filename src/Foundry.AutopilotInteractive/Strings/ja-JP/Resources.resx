@@ -163,6 +163,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
     <value>別のアカウントを使用</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>その他の言語</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>アラビア語 (サウジアラビア)</value>
   </data>
@@ -282,6 +285,12 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_デバッグ</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>_キーボード</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>_キーボード ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_言語</value>

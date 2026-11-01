@@ -163,6 +163,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
     <value>다른 계정 사용</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>기타 언어</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>아랍어(사우디아라비아)</value>
   </data>
@@ -282,6 +285,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_디버그</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>_키보드</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>_키보드({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_언어</value>

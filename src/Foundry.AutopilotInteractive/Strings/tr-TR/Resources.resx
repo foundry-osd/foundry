@@ -163,6 +163,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
     <value>Başka bir hesap kullan</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Diğer diller</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arapça (Suudi Arabistan)</value>
   </data>
@@ -282,6 +285,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Hata ayıklama</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>_Klavye</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>_Klavye ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Dil</value>

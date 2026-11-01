@@ -163,6 +163,9 @@
   <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
     <value>Χρήση άλλου λογαριασμού</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Άλλες γλώσσες</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Αραβικά (Σαουδική Αραβία)</value>
   </data>
@@ -282,6 +285,12 @@
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Εντοπισμός σφαλμάτων</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Πλη_κτρολόγιο</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Πλη_κτρολόγιο ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Γλώσσα</value>

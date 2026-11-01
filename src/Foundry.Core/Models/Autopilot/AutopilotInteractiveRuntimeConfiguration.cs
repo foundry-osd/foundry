@@ -48,6 +48,13 @@ public sealed record AutopilotInteractiveRuntimeConfiguration
 
     /// <summary>Diagnostic session identifier shared with Bootstrap, Connect and Deploy for log correlation, when known.</summary>
     public string? DiagnosticSessionId { get; init; }
+
+    /// <summary>
+    /// Keyboard layout identifier (KLID, for example <c>0000080C</c>) active in Foundry Deploy when it staged the application.
+    /// The application applies it to its own process at startup when the layout exists in the installed Windows;
+    /// <see langword="null"/> keeps the current Windows layout.
+    /// </summary>
+    public string? KeyboardLayoutId { get; init; }
 }
 
 /// <summary>

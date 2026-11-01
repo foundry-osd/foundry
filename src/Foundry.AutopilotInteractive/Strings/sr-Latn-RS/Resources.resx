@@ -163,6 +163,9 @@ Licencirano pod MIT licencom.</value>
   <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
     <value>Koristi drugi nalog</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Drugi jezici</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arapski (Saudijska Arabija)</value>
   </data>
@@ -282,6 +285,12 @@ Licencirano pod MIT licencom.</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Otklanjanje grešaka</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>Ta_statura</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>Ta_statura ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Jezik</value>

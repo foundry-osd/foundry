@@ -14,6 +14,7 @@ using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Utilities.Diagnostics;
+using Foundry.Utilities.Globalization;
 using Foundry.Wpf.Localization;
 using Foundry.Wpf.Theme;
 
@@ -35,6 +36,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
     private readonly IAutopilotProfileContentService _autopilotProfileContentService;
     private readonly IThemeService _themeService;
     private readonly ILocalizationService _localizationService;
+    private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
 
     /// <summary>Creates the step.</summary>
     /// <param name="hardwareHashCaptureService">Captures the hardware hash for zero-touch upload.</param>
@@ -43,13 +45,15 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
     /// <param name="autopilotProfileContentService">Reads the selected offline Autopilot profile.</param>
     /// <param name="themeService">Supplies the theme Foundry.AutopilotInteractive starts with.</param>
     /// <param name="localizationService">Supplies the UI culture Foundry.AutopilotInteractive starts with.</param>
+    /// <param name="keyboardLayoutSwitcher">Supplies the keyboard layout Foundry.AutopilotInteractive starts with.</param>
     public ProvisionAutopilotStep(
         IAutopilotHardwareHashCaptureService hardwareHashCaptureService,
         IAutopilotHardwareHashUploadService hardwareHashUploadService,
         IAutopilotInteractiveProvisioningService interactiveProvisioningService,
         IAutopilotProfileContentService autopilotProfileContentService,
         IThemeService themeService,
-        ILocalizationService localizationService)
+        ILocalizationService localizationService,
+        IKeyboardLayoutSwitcher keyboardLayoutSwitcher)
     {
         _hardwareHashCaptureService = hardwareHashCaptureService;
         _hardwareHashUploadService = hardwareHashUploadService;
@@ -57,6 +61,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         _autopilotProfileContentService = autopilotProfileContentService;
         _themeService = themeService;
         _localizationService = localizationService;
+        _keyboardLayoutSwitcher = keyboardLayoutSwitcher;
     }
 
     public override string Name => DeploymentStepNames.ProvisionAutopilot;
@@ -254,7 +259,8 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
 
     /// <summary>
     /// Builds the configuration Foundry.AutopilotInteractive reads at startup: the confirmed computer name, the interactive options,
-    /// the theme and culture currently shown by Deploy, and the diagnostic session that correlates its logs with this deployment.
+    /// the theme, culture and keyboard layout currently active in Deploy (the layout chosen in Connect or in Deploy's Keyboard
+    /// menu, otherwise the WinPE layout), and the diagnostic session that correlates its logs with this deployment.
     /// </summary>
     private AutopilotInteractiveRuntimeConfiguration CreateInteractiveConfiguration(DeploymentStepExecutionContext context, string? assignedComputerName)
     {
@@ -266,7 +272,10 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             OfferAssignedUser = context.Request.AutopilotInteractive.OfferAssignedUser,
             Theme = ToRuntimeTheme(_themeService.CurrentTheme),
             CultureName = string.IsNullOrWhiteSpace(cultureName) ? "en-US" : cultureName,
-            DiagnosticSessionId = DiagnosticSessionContext.CurrentSessionId
+            DiagnosticSessionId = DiagnosticSessionContext.CurrentSessionId,
+            KeyboardLayoutId = KeyboardLayoutCatalog.TryNormalizeId(_keyboardLayoutSwitcher.GetActiveLayoutId(), out string layoutId)
+                ? layoutId
+                : null
         };
     }
 

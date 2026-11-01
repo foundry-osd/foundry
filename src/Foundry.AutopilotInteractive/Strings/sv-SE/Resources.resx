@@ -163,6 +163,9 @@ Licensierad under MIT-licensen.</value>
   <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
     <value>Använd ett annat konto</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Andra språk</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabiska (Saudiarabien)</value>
   </data>
@@ -282,6 +285,12 @@ Licensierad under MIT-licensen.</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Felsök</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>T_angentbord</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>T_angentbord ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Språk</value>

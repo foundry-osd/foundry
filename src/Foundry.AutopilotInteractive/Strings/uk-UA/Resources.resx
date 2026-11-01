@@ -163,6 +163,9 @@
   <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
     <value>Використати інший обліковий запис</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Інші мови</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Арабська (Саудівська Аравія)</value>
   </data>
@@ -282,6 +285,12 @@
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Налагодження</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>_Клавіатура</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>_Клавіатура ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Мова</value>

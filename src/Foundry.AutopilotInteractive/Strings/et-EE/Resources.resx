@@ -163,6 +163,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
     <value>Kasuta teist kontot</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Muud keeled</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Araabia (Saudi Araabia)</value>
   </data>
@@ -282,6 +285,12 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Silumine</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>K_laviatuur</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>K_laviatuur ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Keel</value>

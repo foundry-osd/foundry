@@ -163,6 +163,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
     <value>Naudoti kitą paskyrą</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Kitos kalbos</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabų (Saudo Arabija)</value>
   </data>
@@ -282,6 +285,12 @@ Licencijuota pagal MIT licenciją.</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Derinimas</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>K_laviatūra</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>K_laviatūra ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Kalba</value>

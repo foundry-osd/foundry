@@ -163,6 +163,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
     <value>Másik fiók használata</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Egyéb nyelvek</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>arab (Szaúd-Arábia)</value>
   </data>
@@ -282,6 +285,12 @@ Licenc az MIT licenc alatt.</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Hibakeresés</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>_Billentyűzet</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>_Billentyűzet ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Nyelv</value>

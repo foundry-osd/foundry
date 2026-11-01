@@ -6,6 +6,7 @@ using System.Resources;
 using Foundry.AutopilotInteractive.Services;
 using Foundry.AutopilotInteractive.Services.Device;
 using Foundry.AutopilotInteractive.ViewModels;
+using Foundry.Utilities.Globalization;
 using Foundry.Wpf.Localization;
 using Foundry.Wpf.Shell;
 using Foundry.Wpf.Theme;
@@ -70,6 +71,41 @@ internal sealed class FakeThemeService : IThemeService
     public ThemeMode CurrentTheme { get; private set; } = ThemeMode.System;
 
     public void SetTheme(ThemeMode theme) => CurrentTheme = theme;
+}
+
+/// <summary>Keyboard switcher over French, Belgian French and Dutch layouts that records the layouts it applies.</summary>
+internal sealed class FakeKeyboardLayoutSwitcher(string activeLayoutId = "0000040C") : IKeyboardLayoutSwitcher
+{
+    private static readonly IReadOnlyList<KeyboardLayout> Layouts = KeyboardLayoutCatalog.FromEntries(
+    [
+        new KeyboardLayoutRegistryEntry("0000040C", "KBDFR.DLL", "French (Legacy, AZERTY)", null),
+        new KeyboardLayoutRegistryEntry("0000080C", "KBDBE.DLL", "Belgian French", null),
+        new KeyboardLayoutRegistryEntry("00000413", "KBDNE.DLL", "Dutch", null)
+    ]);
+
+    private string activeLayoutId = activeLayoutId;
+
+    public bool FailApply { get; init; }
+
+    public List<string> AppliedLayoutIds { get; } = [];
+
+    public IReadOnlyList<KeyboardLayout> GetLayouts() => Layouts;
+
+    public string GetActiveLayoutId() => activeLayoutId;
+
+    public KeyboardLayoutSwitchResult Apply(KeyboardLayout layout)
+    {
+        if (FailApply)
+        {
+            return new KeyboardLayoutSwitchResult(false, layout.Id, "Simulated failure.");
+        }
+
+        AppliedLayoutIds.Add(layout.Id);
+        activeLayoutId = layout.Id;
+        return new KeyboardLayoutSwitchResult(true, layout.Id, null);
+    }
+
+    public KeyboardLayoutSwitchResult? RestoreHandoff() => null;
 }
 
 internal sealed class FakeApplicationShellService : IApplicationShellService

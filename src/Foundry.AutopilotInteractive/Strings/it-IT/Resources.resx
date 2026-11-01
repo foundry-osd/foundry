@@ -163,6 +163,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="GroupTag.UseAnotherAccount" xml:space="preserve">
     <value>Usa un altro account</value>
   </data>
+  <data name="Keyboard.OtherLanguages" xml:space="preserve">
+    <value>Altre lingue</value>
+  </data>
   <data name="Language.ArabicSaudiArabia" xml:space="preserve">
     <value>Arabo (Arabia Saudita)</value>
   </data>
@@ -282,6 +285,12 @@ Concesso in licenza con la licenza MIT.</value>
   </data>
   <data name="Menu.Debug" xml:space="preserve">
     <value>_Debug</value>
+  </data>
+  <data name="Menu.Keyboard" xml:space="preserve">
+    <value>T_astiera</value>
+  </data>
+  <data name="Menu.KeyboardFormat" xml:space="preserve">
+    <value>T_astiera ({0})</value>
   </data>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Lingua</value>

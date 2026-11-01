@@ -7,6 +7,7 @@ using System.IO.Compression;
 using System.Security.Cryptography;
 using Foundry.Deploy.Services.Autopilot;
 using Foundry.Localization;
+using Foundry.Utilities.Globalization;
 using Foundry.Wpf.Localization;
 using Foundry.Wpf.Theme;
 
@@ -59,5 +60,17 @@ internal static class AutopilotInteractiveTestRuntime
         public string Format(string key, params object[] args) => key;
 
         public IReadOnlyList<SupportedCultureOption> CreateSupportedCultureOptions() => [];
+    }
+
+    /// <summary>Keyboard layout switcher that reports a fixed active layout and refuses to switch.</summary>
+    public sealed class FixedKeyboardLayout(string activeLayoutId) : IKeyboardLayoutSwitcher
+    {
+        public IReadOnlyList<KeyboardLayout> GetLayouts() => [];
+
+        public string GetActiveLayoutId() => activeLayoutId;
+
+        public KeyboardLayoutSwitchResult Apply(KeyboardLayout layout) => throw new NotSupportedException();
+
+        public KeyboardLayoutSwitchResult? RestoreHandoff() => null;
     }
 }

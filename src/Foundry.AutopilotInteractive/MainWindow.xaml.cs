@@ -14,8 +14,8 @@ namespace Foundry.AutopilotInteractive;
 /// Full-screen shell window: menu, version, page host and device footer.
 /// </summary>
 /// <remarks>
-/// Code-behind is limited to window glue: the page transition, the Alt+F4 close confirmation and the exit code handed to the
-/// application when the window closes.
+/// Code-behind is limited to window glue: the page transition, the Alt+F4 close confirmation, the inherited keyboard layout
+/// applied on first activation and the exit code handed to the application when the window closes.
 /// </remarks>
 public partial class MainWindow : Window
 {
@@ -37,6 +37,7 @@ public partial class MainWindow : Window
         _viewModel.PropertyChanged += OnViewModelPropertyChanged;
         _viewModel.ExitRequested += OnExitRequested;
         Loaded += OnLoadedAsync;
+        Activated += OnFirstActivated;
     }
 
     /// <summary>
@@ -128,6 +129,13 @@ public partial class MainWindow : Window
 
         _isCloseAllowed = true;
         Close();
+    }
+
+    // Like Foundry Deploy's keyboard hand-off: the layout is switched once the window is active.
+    private void OnFirstActivated(object? sender, EventArgs e)
+    {
+        Activated -= OnFirstActivated;
+        _viewModel.ApplyInheritedKeyboardLayout();
     }
 
     private async void OnLoadedAsync(object sender, RoutedEventArgs e)

@@ -19,7 +19,8 @@ public sealed class AutopilotInteractiveRuntimeConfigurationTests
             OfferAssignedUser = true,
             Theme = RuntimeThemePreference.Dark,
             CultureName = "fr-FR",
-            DiagnosticSessionId = "session-42"
+            DiagnosticSessionId = "session-42",
+            KeyboardLayoutId = "0000080C"
         };
 
         string json = AutopilotInteractiveRuntimeConfigurationSerializer.Serialize(configuration);
@@ -27,6 +28,19 @@ public sealed class AutopilotInteractiveRuntimeConfigurationTests
 
         Assert.Contains("\"schemaVersion\": 1", json, StringComparison.Ordinal);
         Assert.Contains("\"theme\": \"Dark\"", json, StringComparison.Ordinal);
+        Assert.Contains("\"keyboardLayoutId\": \"0000080C\"", json, StringComparison.Ordinal);
+        Assert.Equal(configuration, result);
+    }
+
+    [Fact]
+    public void Serializer_RoundTripsWithoutKeyboardLayout()
+    {
+        var configuration = new AutopilotInteractiveRuntimeConfiguration { CultureName = "en-US" };
+
+        string json = AutopilotInteractiveRuntimeConfigurationSerializer.Serialize(configuration);
+        AutopilotInteractiveRuntimeConfiguration result = AutopilotInteractiveRuntimeConfigurationSerializer.Deserialize(json);
+
+        Assert.Null(result.KeyboardLayoutId);
         Assert.Equal(configuration, result);
     }
 
@@ -72,6 +86,7 @@ public sealed class AutopilotInteractiveRuntimeConfigurationTests
         Assert.False(result.PreselectCustomGroupTag);
         Assert.False(result.OfferAssignedUser);
         Assert.Null(result.DiagnosticSessionId);
+        Assert.Null(result.KeyboardLayoutId);
         Assert.Equal("en-US", result.CultureName);
     }
 }

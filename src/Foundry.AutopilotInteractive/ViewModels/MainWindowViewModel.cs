@@ -15,6 +15,7 @@ using Foundry.AutopilotInteractive.Services.Registration;
 using Foundry.AutopilotInteractive.Services.Simulation;
 using Foundry.Core.Models.Autopilot;
 using Foundry.Localization;
+using Foundry.Utilities.Globalization;
 using Foundry.Wpf.Localization;
 using Foundry.Wpf.Runtime;
 using Foundry.Wpf.Shell;
@@ -35,8 +36,8 @@ public enum AutopilotPage
 }
 
 /// <summary>
-/// The window shell and the run state machine: menu (theme, language, debug, about), version, device footer, current page,
-/// result file, deadline and exit code.
+/// The window shell and the run state machine: menu (theme, language, keyboard, debug, about), version, device footer, current
+/// page, result file, deadline and exit code.
 /// </summary>
 /// <remarks>
 /// <para>
@@ -68,7 +69,9 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly TimeProvider _timeProvider;
     private readonly IUiDispatcher _dispatcher;
     private readonly ILogger<MainWindowViewModel> _logger;
+    private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
     private readonly string? _assignedComputerName;
+    private readonly string? _inheritedKeyboardLayoutId;
     private AutopilotServiceSet? _services;
     private CancellationTokenSource? _loadCts;
     private CancellationTokenSource? _confirmationCts;
@@ -92,7 +95,11 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
     /// <param name="themeService">Applies the theme menu choices.</param>
     /// <param name="applicationShellService">Shows the About dialog.</param>
     /// <param name="deviceInformationReader">Reads the hardware identity for the footer.</param>
-    /// <param name="configuration">Runtime configuration; its computer name is appended to the footer.</param>
+    /// <param name="configuration">
+    /// Runtime configuration; its computer name is appended to the footer and its keyboard layout is applied by
+    /// <see cref="ApplyInheritedKeyboardLayout"/>.
+    /// </param>
+    /// <param name="keyboardLayoutSwitcher">Lists the layouts available in this Windows and switches this process only.</param>
     /// <param name="signIn">Page 1.</param>
     /// <param name="groupTag">Page 2.</param>
     /// <param name="serviceSetFactory">Creates the services of a run (real, or simulated in debug safety mode).</param>
@@ -107,6 +114,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         IApplicationShellService applicationShellService,
         IDeviceInformationReader deviceInformationReader,
         AutopilotInteractiveRuntimeConfiguration configuration,
+        IKeyboardLayoutSwitcher keyboardLayoutSwitcher,
         SignInViewModel signIn,
         GroupTagViewModel groupTag,
         IAutopilotServiceSetFactory serviceSetFactory,
@@ -121,6 +129,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
             applicationShellService,
             deviceInformationReader,
             configuration,
+            keyboardLayoutSwitcher,
             signIn,
             groupTag,
             serviceSetFactory,
@@ -140,6 +149,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         IApplicationShellService applicationShellService,
         IDeviceInformationReader deviceInformationReader,
         AutopilotInteractiveRuntimeConfiguration configuration,
+        IKeyboardLayoutSwitcher keyboardLayoutSwitcher,
         SignInViewModel signIn,
         GroupTagViewModel groupTag,
         IAutopilotServiceSetFactory serviceSetFactory,
@@ -163,7 +173,9 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         _timeProvider = timeProvider ?? throw new ArgumentNullException(nameof(timeProvider));
         _dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _keyboardLayoutSwitcher = keyboardLayoutSwitcher ?? throw new ArgumentNullException(nameof(keyboardLayoutSwitcher));
         _assignedComputerName = configuration.AssignedComputerName;
+        _inheritedKeyboardLayoutId = configuration.KeyboardLayoutId;
         IsDebugMenuVisible = isDebugSafeMode;
 
         SignIn.SignedIn += OnSignedIn;
@@ -176,6 +188,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
 
         LocalizationService.LanguageChanged += OnLanguageChanged;
         RefreshSupportedCultures();
+        RefreshKeyboardMenu();
         RefreshDebugScenarios();
     }
 
@@ -208,6 +221,12 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
 
     /// <summary>Gets the supported UI cultures, the active one marked as selected.</summary>
     public ObservableCollection<SupportedCultureOption> SupportedCultures { get; } = [];
+
+    /// <summary>Gets the keyboard menu entries: the active language's layouts, then the other languages.</summary>
+    public ObservableCollection<KeyboardMenuEntry> KeyboardMenuEntries { get; } = [];
+
+    /// <summary>Gets the keyboard menu header, including the active layout's short name when it is known.</summary>
+    public string KeyboardMenuHeader { get; private set; } = string.Empty;
 
     /// <summary>Gets the Debug menu entries, the active scenario checked; empty outside debug safety mode.</summary>
     public ObservableCollection<DebugScenarioOption> DebugScenarios { get; } = [];
@@ -263,6 +282,45 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         _deviceInformation = information;
         _hasDeviceInformation = true;
         RefreshDeviceFooter();
+    }
+
+    /// <summary>
+    /// Applies the keyboard layout Foundry Deploy was using to this process, once the window is first activated (like the
+    /// Foundry Deploy hand-off). Without a layout in the configuration, or when the layout does not exist in this Windows
+    /// installation, the Windows layout is kept.
+    /// </summary>
+    public void ApplyInheritedKeyboardLayout()
+    {
+        if (_isDisposed || string.IsNullOrWhiteSpace(_inheritedKeyboardLayoutId))
+        {
+            return;
+        }
+
+        KeyboardLayout? layout = KeyboardLayoutSelection.Find(_keyboardLayoutSwitcher.GetLayouts(), _inheritedKeyboardLayoutId);
+        if (layout is null)
+        {
+            _logger.LogInformation(
+                "The keyboard layout inherited from Foundry Deploy is not available in this Windows installation; the Windows layout is kept. LayoutId={LayoutId}",
+                _inheritedKeyboardLayoutId);
+            return;
+        }
+
+        if (_keyboardLayoutSwitcher.GetActiveLayoutId() == layout.Id)
+        {
+            return;
+        }
+
+        KeyboardLayoutSwitchResult result = _keyboardLayoutSwitcher.Apply(layout);
+        if (result.Succeeded)
+        {
+            _logger.LogInformation("Keyboard layout inherited from Foundry Deploy applied. LayoutId={LayoutId}", layout.Id);
+        }
+        else
+        {
+            _logger.LogWarning("Keyboard layout inherited from Foundry Deploy was not applied. LayoutId={LayoutId}, Error={Error}", layout.Id, result.Error);
+        }
+
+        RefreshKeyboardMenu();
     }
 
     /// <summary>
@@ -403,6 +461,28 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
     private void SetCulture(string cultureName)
     {
         LocalizationService.SetCulture(new CultureInfo(cultureName));
+    }
+
+    [RelayCommand]
+    private void SetKeyboardLayout(string? layoutId)
+    {
+        KeyboardLayout? layout = KeyboardLayoutSelection.Find(_keyboardLayoutSwitcher.GetLayouts(), layoutId);
+        if (layout is null)
+        {
+            return;
+        }
+
+        KeyboardLayoutSwitchResult result = _keyboardLayoutSwitcher.Apply(layout);
+        if (!result.Succeeded)
+        {
+            _logger.LogWarning("Keyboard layout change failed. LayoutId={LayoutId}, Error={Error}", layout.Id, result.Error);
+        }
+        else
+        {
+            _logger.LogInformation("Keyboard layout changed. LayoutId={LayoutId}", layout.Id);
+        }
+
+        RefreshKeyboardMenu();
     }
 
     [RelayCommand]
@@ -728,6 +808,23 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         }
     }
 
+    private void RefreshKeyboardMenu()
+    {
+        IReadOnlyList<KeyboardLayout> layouts = _keyboardLayoutSwitcher.GetLayouts();
+        string activeLayoutId = _keyboardLayoutSwitcher.GetActiveLayoutId();
+        KeyboardMenuEntries.Clear();
+        foreach (KeyboardMenuEntry entry in KeyboardLayoutSelection.BuildMenuEntries(layouts, activeLayoutId, LocalizationService.GetString("Keyboard.OtherLanguages")))
+        {
+            KeyboardMenuEntries.Add(entry);
+        }
+
+        KeyboardLayout? activeLayout = KeyboardLayoutSelection.Find(layouts, activeLayoutId);
+        KeyboardMenuHeader = activeLayout is null
+            ? LocalizationService.GetString("Menu.Keyboard")
+            : LocalizationService.Format("Menu.KeyboardFormat", activeLayout.ShortName);
+        OnPropertyChanged(nameof(KeyboardMenuHeader));
+    }
+
     private void RefreshDebugScenarios()
     {
         DebugScenarios.Clear();
@@ -765,6 +862,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
             }
 
             RefreshSupportedCultures();
+            RefreshKeyboardMenu();
             RefreshDebugScenarios();
             OnPropertyChanged(nameof(WindowTitle));
             OnPropertyChanged(nameof(VersionDisplay));

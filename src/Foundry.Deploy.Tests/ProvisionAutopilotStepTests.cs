@@ -234,10 +234,10 @@ public sealed class ProvisionAutopilotStepTests
     }
 
     [Fact]
-    public async Task Provision_WritesConfigWithThemeCultureAndOptions()
+    public async Task Provision_WritesConfigWithThemeCultureKeyboardLayoutAndOptions()
     {
         using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
-        ProvisionAutopilotStep step = CreateStep(theme: ThemeMode.Dark, cultureName: "fr-FR");
+        ProvisionAutopilotStep step = CreateStep(theme: ThemeMode.Dark, cultureName: "fr-FR", activeKeyboardLayoutId: "0000080c");
         using DeploymentStepExecutionContext context = CreateContext(workspace, false, AutopilotProvisioningMode.InteractiveHardwareHashUpload,
             uploadComputerName: true, computerName: "FINAL-PC",
             interactive: new DeployAutopilotInteractiveSettings { PreselectCustomGroupTag = true, OfferAssignedUser = true });
@@ -254,8 +254,24 @@ public sealed class ProvisionAutopilotStepTests
             OfferAssignedUser = true,
             Theme = RuntimeThemePreference.Dark,
             CultureName = "fr-FR",
-            DiagnosticSessionId = DiagnosticSessionContext.CurrentSessionId
+            DiagnosticSessionId = DiagnosticSessionContext.CurrentSessionId,
+            KeyboardLayoutId = "0000080C"
         }, configuration);
+    }
+
+    [Fact]
+    public async Task Provision_WhenActiveKeyboardLayoutIsUnknown_WritesNoKeyboardLayout()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        ProvisionAutopilotStep step = CreateStep(activeKeyboardLayoutId: string.Empty);
+        using DeploymentStepExecutionContext context = CreateContext(workspace, false, AutopilotProvisioningMode.InteractiveHardwareHashUpload);
+
+        DeploymentStepResult result = await step.ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        AutopilotInteractiveRuntimeConfiguration configuration = AutopilotInteractiveRuntimeConfigurationSerializer.Deserialize(
+            await File.ReadAllTextAsync(context.RuntimeState.StagedAutopilotConfigurationPath!, TestContext.Current.CancellationToken));
+        Assert.Null(configuration.KeyboardLayoutId);
     }
 
     [Fact]
@@ -473,7 +489,8 @@ public sealed class ProvisionAutopilotStepTests
         IAutopilotHardwareHashUploadService? uploadService = null,
         IAutopilotProfileContentService? contentService = null,
         ThemeMode theme = ThemeMode.System,
-        string cultureName = "en-US")
+        string cultureName = "en-US",
+        string activeKeyboardLayoutId = "00000409")
     {
         return new ProvisionAutopilotStep(
             captureService ?? new FakeAutopilotHardwareHashCaptureService(),
@@ -482,7 +499,8 @@ public sealed class ProvisionAutopilotStepTests
             new AutopilotInteractiveProvisioningService(),
             contentService ?? new FakeAutopilotProfileContentService(),
             new AutopilotInteractiveTestRuntime.FixedTheme(theme),
-            new AutopilotInteractiveTestRuntime.FixedCulture(cultureName));
+            new AutopilotInteractiveTestRuntime.FixedCulture(cultureName),
+            new AutopilotInteractiveTestRuntime.FixedKeyboardLayout(activeKeyboardLayoutId));
     }
 
     private static DeploymentStepExecutionContext CreateContext(
