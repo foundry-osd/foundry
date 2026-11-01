@@ -388,6 +388,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Kirjautuminen epäonnistui, koska Microsoft palautti odottamattoman vastauksen. Syynä voi olla tämän verkon välityspalvelin tai captive portal. Valitse Yritä uudelleen yrittääksesi uudelleen.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Suojattua yhteyttä Microsoftin palveluihin ei voitu muodostaa. Syynä voi olla HTTPS-liikennettä tarkastava välityspalvelin tai väärin asetettu järjestelmän kello. Valitse Yritä uudelleen.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Koodi vanhenee: {0}</value>
   </data>

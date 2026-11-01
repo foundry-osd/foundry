@@ -7,6 +7,7 @@ using System.IO;
 using System.Net.Http;
 using System.Text.Json;
 using Foundry.Core.Services.Autopilot;
+using Foundry.Core.Services.Http;
 
 namespace Foundry.AutopilotInteractive.Services.Authentication;
 
@@ -62,19 +63,31 @@ public enum DeviceCodePollStatus
 /// </summary>
 /// <param name="Status">Classified outcome.</param>
 /// <param name="Session">Signed-in session, only for <see cref="DeviceCodePollStatus.Succeeded"/>.</param>
-/// <param name="ErrorCode">OAuth error code, only for <see cref="DeviceCodePollStatus.Failed"/>.</param>
+/// <param name="ErrorCode">
+/// OAuth error code (or <see cref="DeviceCodeClient.SecureConnectionErrorCode"/>) for <see cref="DeviceCodePollStatus.Failed"/>;
+/// for a <see cref="DeviceCodePollStatus.TransientFailure"/> caused by an HTTP status, the OAuth error code or
+/// <c>http_&lt;status&gt;</c>.
+/// </param>
+/// <param name="TransportFailure">
+/// The exception of a request that got no HTTP answer, for diagnostics: only its type and HResult may be logged, never its
+/// message, which could echo request content.
+/// </param>
 public sealed record DeviceCodePollResult(
     DeviceCodePollStatus Status,
     AuthenticatedSession? Session = null,
-    string? ErrorCode = null);
+    string? ErrorCode = null,
+    Exception? TransportFailure = null);
 
 /// <summary>
 /// The device code request failed.
 /// </summary>
 /// <param name="isTransient"><see langword="true"/> when retrying later may succeed (network, timeout, throttling, 5xx).</param>
-/// <param name="errorCode">OAuth error code returned by the endpoint, when there was one.</param>
-public sealed class DeviceCodeRequestException(bool isTransient, string? errorCode)
-    : Exception("The device code request failed.")
+/// <param name="errorCode">
+/// OAuth error code returned by the endpoint, <c>http_&lt;status&gt;</c>, or <see cref="DeviceCodeClient.SecureConnectionErrorCode"/>.
+/// </param>
+/// <param name="innerException">Transport failure when no HTTP answer was received; only its type and HResult may be logged.</param>
+public sealed class DeviceCodeRequestException(bool isTransient, string? errorCode, Exception? innerException = null)
+    : Exception("The device code request failed.", innerException)
 {
     /// <summary>Gets a value indicating whether retrying later may succeed.</summary>
     public bool IsTransient { get; } = isTransient;
@@ -111,11 +124,15 @@ public interface IDeviceCodeClient
 /// </summary>
 /// <remarks>
 /// Entra answers pending, slow-down, expiry and denial as HTTP 400 with an <c>error</c> member, so classification looks
-/// at the status code first (transient statuses) and then at the OAuth error code. Nothing is logged here: requests and
-/// responses carry the device code and tokens.
+/// at the status code first (transient statuses) and then at the OAuth error code. A TLS handshake failure is blocking,
+/// not transient: a proxy that inspects HTTPS or a wrong clock does not fix itself, so waiting for the network would
+/// hide it. Nothing is logged here: requests and responses carry the device code and tokens.
 /// </remarks>
 public sealed class DeviceCodeClient : IDeviceCodeClient
 {
+    /// <summary>Error code of a sign-in that failed because no secure connection to Microsoft could be established.</summary>
+    public const string SecureConnectionErrorCode = "secure_connection";
+
     private const string DeviceCodeGrantType = "urn:ietf:params:oauth:grant-type:device_code";
     private const int DefaultIntervalSeconds = 5;
 
@@ -146,7 +163,9 @@ public sealed class DeviceCodeClient : IDeviceCodeClient
         }
         catch (Exception exception) when (IsTransportFailure(exception, ct))
         {
-            throw new DeviceCodeRequestException(isTransient: true, errorCode: null);
+            throw HttpConnectionFailure.IsSecureConnectionFailure(exception)
+                ? new DeviceCodeRequestException(isTransient: false, SecureConnectionErrorCode, exception)
+                : new DeviceCodeRequestException(isTransient: true, errorCode: null, exception);
         }
 
         if (response.status != HttpStatusCode.OK)
@@ -193,7 +212,9 @@ public sealed class DeviceCodeClient : IDeviceCodeClient
         }
         catch (Exception exception) when (IsTransportFailure(exception, ct))
         {
-            return new DeviceCodePollResult(DeviceCodePollStatus.TransientFailure);
+            return HttpConnectionFailure.IsSecureConnectionFailure(exception)
+                ? new DeviceCodePollResult(DeviceCodePollStatus.Failed, ErrorCode: SecureConnectionErrorCode, TransportFailure: exception)
+                : new DeviceCodePollResult(DeviceCodePollStatus.TransientFailure, TransportFailure: exception);
         }
 
         if (response.status == HttpStatusCode.OK)
@@ -201,12 +222,12 @@ public sealed class DeviceCodeClient : IDeviceCodeClient
             return ReadSuccess(response.body);
         }
 
+        string errorCode = ReadErrorCode(response.body, response.status);
         if (IsTransientStatus(response.status))
         {
-            return new DeviceCodePollResult(DeviceCodePollStatus.TransientFailure);
+            return new DeviceCodePollResult(DeviceCodePollStatus.TransientFailure, ErrorCode: errorCode);
         }
 
-        string errorCode = ReadErrorCode(response.body, response.status);
         return errorCode switch
         {
             "authorization_pending" => new DeviceCodePollResult(DeviceCodePollStatus.Pending),

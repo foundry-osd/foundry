@@ -388,6 +388,9 @@ Licencované podľa licencie MIT.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Prihlásenie zlyhalo, pretože Microsoft vrátil neočakávanú odpoveď. Príčinou môže byť proxy server alebo captive portál v tejto sieti. Výberom možnosti Skúsiť znova to skúste znova.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Nepodarilo sa nadviazať zabezpečené pripojenie k službám Microsoft. Príčinou môže byť proxy server, ktorý kontroluje prenos HTTPS, alebo nesprávne nastavené systémové hodiny. Výberom možnosti Skúsiť znova to skúste znova.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Platnosť kódu vyprší za {0}</value>
   </data>

@@ -388,6 +388,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>A bejelentkezés sikertelen volt, mert a Microsoft váratlan választ adott. Ezt a hálózaton lévő proxy vagy captive portal okozhatja. Az újrapróbálkozáshoz válassza az Újrapróbálkozás lehetőséget.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Nem sikerült biztonságos kapcsolatot létesíteni a Microsoft szolgáltatásaival. Ezt a HTTPS-forgalmat vizsgáló proxy vagy helytelenül beállított rendszeróra okozhatja. Az újrapróbálkozáshoz válassza az Újrapróbálkozás lehetőséget.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>A kód {0} múlva lejár</value>
   </data>

@@ -388,6 +388,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Sisselogimine ebaõnnestus, kuna Microsoft tagastas ootamatu vastuse. Põhjuseks võib olla selle võrgu puhverserver või captive portal. Uuesti proovimiseks valige Proovi uuesti.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Turvalist ühendust Microsofti teenustega ei õnnestunud luua. Põhjuseks võib olla HTTPS-liiklust kontrolliv puhverserver või vale süsteemikell. Uuesti proovimiseks valige Proovi uuesti.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Kood aegub: {0}</value>
   </data>

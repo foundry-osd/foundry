@@ -388,6 +388,9 @@
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>登录失败，因为 Microsoft 返回了意外的响应。此网络上的代理或强制门户可能导致此问题。请选择“重试”再试一次。</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>无法与 Microsoft 建立安全连接。检查 HTTPS 流量的代理或不正确的系统时钟可能导致此问题。请选择“重试”再试一次。</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>代码将在 {0} 后过期</value>
   </data>

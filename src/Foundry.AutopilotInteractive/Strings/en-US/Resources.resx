@@ -388,6 +388,9 @@ Licensed under the MIT License.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>The sign-in failed because Microsoft returned an unexpected response. A proxy or a captive portal on this network can cause this. Select Retry to try again.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>A secure connection to Microsoft could not be established. A proxy that inspects HTTPS traffic or a wrong system clock can cause this. Select Retry to try again.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Code expires in {0}</value>
   </data>

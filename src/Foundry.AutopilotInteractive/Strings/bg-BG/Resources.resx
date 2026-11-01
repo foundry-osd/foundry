@@ -388,6 +388,9 @@
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Влизането не бе успешно, защото Microsoft върна неочакван отговор. Причина може да е прокси сървър или captive портал в тази мрежа. Изберете „Опитай отново“, за да опитате пак.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Не можа да се установи защитена връзка с Microsoft. Причина може да е прокси сървър, който проверява HTTPS трафика, или грешен системен часовник. Изберете „Опитай отново“, за да опитате пак.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Кодът изтича след {0}</value>
   </data>

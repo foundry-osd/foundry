@@ -388,6 +388,9 @@ Sous licence MIT.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>La connexion a échoué, car Microsoft a renvoyé une réponse inattendue. Un proxy ou un portail captif sur ce réseau peut en être la cause. Sélectionnez Réessayer pour réessayer.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Impossible d'établir une connexion sécurisée avec Microsoft. Un proxy qui inspecte le trafic HTTPS ou une horloge système incorrecte peut en être la cause. Sélectionnez Réessayer pour réessayer.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Le code expire dans {0}</value>
   </data>

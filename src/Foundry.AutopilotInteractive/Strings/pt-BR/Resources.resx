@@ -388,6 +388,9 @@ Licenciado sob a licença MIT.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Falha na entrada porque a Microsoft retornou uma resposta inesperada. Um proxy ou um portal cativo nesta rede pode ser a causa. Selecione Tentar novamente para repetir a operação.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Não foi possível estabelecer uma conexão segura com a Microsoft. Um proxy que inspeciona o tráfego HTTPS ou um relógio do sistema incorreto pode ser a causa. Selecione Tentar novamente para repetir a operação.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>O código expira em {0}</value>
   </data>

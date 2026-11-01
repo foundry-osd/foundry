@@ -388,6 +388,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Påloggingen mislyktes fordi Microsoft returnerte et uventet svar. En proxy eller en captive portal i dette nettverket kan være årsaken. Velg Prøv på nytt for å prøve igjen.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Kan ikke opprette en sikker tilkobling til Microsoft. En proxy som inspiserer HTTPS-trafikk, eller en feil systemklokke kan være årsaken. Velg Prøv på nytt for å prøve igjen.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Koden utløper om {0}</value>
   </data>

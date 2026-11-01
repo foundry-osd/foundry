@@ -388,6 +388,9 @@
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>הכניסה נכשלה מפני ש-Microsoft החזירה תגובה בלתי צפויה. ייתכן שהסיבה היא שרת proxy או פורטל captive ברשת זו. בחר נסה שוב כדי לנסות שוב.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>לא ניתן היה ליצור חיבור מאובטח ל-Microsoft. ייתכן שהסיבה היא שרת proxy שבודק תעבורת HTTPS או שעון מערכת שגוי. בחר נסה שוב כדי לנסות שוב.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>תוקף הקוד יפוג בעוד {0}</value>
   </data>

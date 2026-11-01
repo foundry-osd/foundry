@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Net;
+using System.Security.Authentication;
 using System.Text;
 using Foundry.AutopilotInteractive.Services.Authentication;
 using Foundry.Core.Services.Autopilot;
@@ -63,6 +64,19 @@ public sealed class DeviceCodeClientTests
             () => client.RequestAsync(CancellationToken.None));
 
         Assert.True(exception.IsTransient);
+        Assert.IsType<HttpRequestException>(exception.InnerException);
+    }
+
+    [Fact]
+    public async Task Request_ThrowsBlockingSecureConnection_OnTlsFailure()
+    {
+        DeviceCodeClient client = CreateClient(new FakeHttpMessageHandler((_, _) => throw SecureConnectionFailure()));
+
+        DeviceCodeRequestException exception = await Assert.ThrowsAsync<DeviceCodeRequestException>(
+            () => client.RequestAsync(CancellationToken.None));
+
+        Assert.False(exception.IsTransient);
+        Assert.Equal(DeviceCodeClient.SecureConnectionErrorCode, exception.ErrorCode);
     }
 
     [Fact]
@@ -123,6 +137,18 @@ public sealed class DeviceCodeClientTests
         DeviceCodePollResult result = await client.PollAsync(Session, CancellationToken.None);
 
         Assert.Equal(DeviceCodePollStatus.TransientFailure, result.Status);
+        Assert.IsType<HttpRequestException>(result.TransportFailure);
+    }
+
+    [Fact]
+    public async Task Poll_MapsTlsFailureToBlockingSecureConnection()
+    {
+        DeviceCodeClient client = CreateClient(new FakeHttpMessageHandler((_, _) => throw SecureConnectionFailure()));
+
+        DeviceCodePollResult result = await client.PollAsync(Session, CancellationToken.None);
+
+        Assert.Equal(DeviceCodePollStatus.Failed, result.Status);
+        Assert.Equal(DeviceCodeClient.SecureConnectionErrorCode, result.ErrorCode);
     }
 
     [Fact]
@@ -218,6 +244,9 @@ public sealed class DeviceCodeClientTests
         DeviceCodeClient client = CreateClient(new FakeHttpMessageHandler((_, _) => FakeHttpMessageHandler.Json(status, json)));
         return client.PollAsync(Session, CancellationToken.None);
     }
+
+    private static HttpRequestException SecureConnectionFailure() =>
+        new(HttpRequestError.SecureConnectionError, "The SSL connection could not be established.", new AuthenticationException());
 
     private static DeviceCodeClient CreateClient(FakeHttpMessageHandler handler) =>
         new(new HttpClient(handler), new FixedTimeProvider(Now));

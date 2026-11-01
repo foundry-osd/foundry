@@ -388,6 +388,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Accesso non riuscito perché Microsoft ha restituito una risposta imprevista. La causa può essere un proxy o un captive portal su questa rete. Selezionare Riprova per riprovare.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Impossibile stabilire una connessione sicura con Microsoft. La causa può essere un proxy che ispeziona il traffico HTTPS o un orologio di sistema errato. Selezionare Riprova per riprovare.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Il codice scade tra {0}</value>
   </data>

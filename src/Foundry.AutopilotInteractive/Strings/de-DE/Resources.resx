@@ -388,6 +388,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Die Anmeldung ist fehlgeschlagen, weil Microsoft eine unerwartete Antwort zurückgegeben hat. Ein Proxy oder ein Captive Portal in diesem Netzwerk kann die Ursache sein. Wählen Sie Wiederholen, um es erneut zu versuchen.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Es konnte keine sichere Verbindung mit Microsoft hergestellt werden. Ein Proxy, der HTTPS-Datenverkehr überprüft, oder eine falsche Systemuhr kann die Ursache sein. Wählen Sie Wiederholen, um es erneut zu versuchen.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Code läuft ab in {0}</value>
   </data>

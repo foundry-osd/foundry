@@ -388,6 +388,9 @@
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>فشل تسجيل الدخول لأن Microsoft أرجعت استجابة غير متوقعة. قد يكون السبب خادم وكيل أو بوابة مقيِّدة في هذه الشبكة. حدد إعادة المحاولة للمحاولة مرة أخرى.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>تعذّر إنشاء اتصال آمن بـ Microsoft. قد يكون السبب خادم وكيل يفحص حركة مرور HTTPS أو ساعة نظام غير صحيحة. حدد إعادة المحاولة للمحاولة مرة أخرى.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>تنتهي صلاحية الرمز خلال {0}</value>
   </data>

@@ -58,6 +58,7 @@ public sealed class SignInViewModelTests
     [InlineData("invalid_response", "SignIn.Error.Generic")]
     [InlineData("unexpected_error", "SignIn.Error.Generic")]
     [InlineData("http_400", "SignIn.Error.Generic")]
+    [InlineData("secure_connection", "SignIn.Error.SecureConnection")]
     [InlineData("invalid_grant", "SignIn.Error.Blocked")]
     [InlineData("unauthorized_client", "SignIn.Error.Blocked")]
     public void ErrorResourceKey_SeparatesDeclinedBlockedAndGenericFailures(string errorCode, string expectedKey)

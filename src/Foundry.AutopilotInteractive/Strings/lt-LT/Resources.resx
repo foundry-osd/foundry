@@ -388,6 +388,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Prisijungti nepavyko, nes Microsoft grąžino netikėtą atsakymą. Priežastis gali būti šio tinklo tarpinis serveris arba captive portalas. Pasirinkite Bandyti dar kartą, kad bandytumėte iš naujo.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Nepavyko užmegzti saugaus ryšio su Microsoft. Priežastis gali būti HTTPS srautą tikrinantis tarpinis serveris arba neteisingas sistemos laikrodis. Pasirinkite Bandyti dar kartą, kad bandytumėte iš naujo.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Kodo galiojimas baigsis po {0}</value>
   </data>

@@ -388,6 +388,9 @@
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Η σύνδεση απέτυχε επειδή η Microsoft επέστρεψε μια μη αναμενόμενη απόκριση. Αιτία μπορεί να είναι ένας διακομιστής μεσολάβησης ή μια πύλη captive σε αυτό το δίκτυο. Επιλέξτε Επανάληψη για να δοκιμάσετε ξανά.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η δημιουργία ασφαλούς σύνδεσης με τη Microsoft. Αιτία μπορεί να είναι ένας διακομιστής μεσολάβησης που επιθεωρεί την κίνηση HTTPS ή λανθασμένο ρολόι συστήματος. Επιλέξτε Επανάληψη για να δοκιμάσετε ξανά.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Ο κωδικός λήγει σε {0}</value>
   </data>

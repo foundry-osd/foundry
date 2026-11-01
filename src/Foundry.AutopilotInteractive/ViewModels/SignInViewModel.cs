@@ -120,14 +120,19 @@ public sealed partial class SignInViewModel : LocalizedViewModelBase
     /// <summary>
     /// Maps an error code of <see cref="SignInFailedException"/> to the resource key of its message.
     /// </summary>
-    /// <param name="errorCode">OAuth error code, <c>invalid_response</c>, <c>unexpected_error</c> or <c>http_&lt;status&gt;</c>.</param>
+    /// <param name="errorCode">
+    /// OAuth error code, <c>invalid_response</c>, <c>unexpected_error</c>, <c>http_&lt;status&gt;</c> or
+    /// <see cref="DeviceCodeClient.SecureConnectionErrorCode"/>.
+    /// </param>
     /// <returns>
-    /// <c>SignIn.Error.Declined</c> for a declined sign-in, <c>SignIn.Error.Generic</c> for an unreadable answer (often a
-    /// proxy or captive portal), and <c>SignIn.Error.Blocked</c> for any other OAuth error, usually a Conditional Access block.
+    /// <c>SignIn.Error.Declined</c> for a declined sign-in, <c>SignIn.Error.SecureConnection</c> for a TLS failure (HTTPS
+    /// inspection or a wrong clock), <c>SignIn.Error.Generic</c> for an unreadable answer (often a proxy or captive portal),
+    /// and <c>SignIn.Error.Blocked</c> for any other OAuth error, usually a Conditional Access block.
     /// </returns>
     public static string ErrorResourceKey(string errorCode) => errorCode switch
     {
         "access_denied" or "authorization_declined" => "SignIn.Error.Declined",
+        DeviceCodeClient.SecureConnectionErrorCode => "SignIn.Error.SecureConnection",
         "invalid_response" or "unexpected_error" or "request_failed" or "unknown_error" => "SignIn.Error.Generic",
         _ when errorCode.StartsWith("http_", StringComparison.Ordinal) => "SignIn.Error.Generic",
         _ => "SignIn.Error.Blocked"

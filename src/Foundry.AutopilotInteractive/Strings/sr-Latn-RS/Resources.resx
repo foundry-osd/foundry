@@ -388,6 +388,9 @@ Licencirano pod MIT licencom.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Prijava nije uspela jer je Microsoft vratio neočekivan odgovor. Uzrok može biti proksi server ili captive portal na ovoj mreži. Izaberite Pokušaj ponovo da biste pokušali ponovo.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Nije moguće uspostaviti bezbednu vezu sa kompanijom Microsoft. Uzrok može biti proksi server koji proverava HTTPS saobraćaj ili netačan sistemski sat. Izaberite Pokušaj ponovo da biste pokušali ponovo.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Kod ističe za {0}</value>
   </data>

@@ -388,6 +388,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Logowanie nie powiodło się, ponieważ firma Microsoft zwróciła nieoczekiwaną odpowiedź. Przyczyną może być serwer proxy lub portal captive w tej sieci. Wybierz pozycję Ponów, aby spróbować ponownie.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Nie można nawiązać bezpiecznego połączenia z firmą Microsoft. Przyczyną może być serwer proxy sprawdzający ruch HTTPS lub nieprawidłowo ustawiony zegar systemowy. Wybierz pozycję Ponów, aby spróbować ponownie.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Kod wygaśnie za {0}</value>
   </data>

@@ -388,6 +388,9 @@ Licențiat sub licența MIT.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Conectarea a eșuat deoarece Microsoft a returnat un răspuns neașteptat. O cauză posibilă este un proxy sau un portal captiv din această rețea. Selectați Reîncercați pentru a încerca din nou.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Nu s-a putut stabili o conexiune securizată cu Microsoft. Cauza poate fi un proxy care inspectează traficul HTTPS sau un ceas de sistem incorect. Selectați Reîncercați pentru a încerca din nou.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Codul expiră în {0}</value>
   </data>

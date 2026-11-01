@@ -129,6 +129,56 @@ public sealed class SignInFlowTests
     }
 
     [Fact]
+    public async Task RunAsync_LogsOneWarningAndOneRecovery_PerTransientPollingSeries()
+    {
+        CapturingLogger logger = new();
+        Harness harness = new(logger);
+        harness.Client.Codes.Enqueue(harness.NewCode("AAAA-1111"));
+        harness.Client.Polls.Enqueue(new DeviceCodePollResult(DeviceCodePollStatus.TransientFailure, TransportFailure: new HttpRequestException("offline")));
+        harness.Client.Polls.Enqueue(new DeviceCodePollResult(DeviceCodePollStatus.TransientFailure, TransportFailure: new HttpRequestException("offline")));
+        harness.Client.Polls.Enqueue(new DeviceCodePollResult(DeviceCodePollStatus.TransientFailure, ErrorCode: "http_503"));
+        harness.Client.Polls.Enqueue(new DeviceCodePollResult(DeviceCodePollStatus.Pending));
+        harness.Client.Polls.Enqueue(Succeeded());
+
+        await harness.RunAsync();
+
+        // Sign-in started, one warning for the series, its recovery, sign-in completed.
+        Assert.Equal([LogLevel.Information, LogLevel.Warning, LogLevel.Information, LogLevel.Information], logger.Entries);
+    }
+
+    [Fact]
+    public async Task RunAsync_LogsOneWarningAndOneRecovery_PerTransientCodeRequestSeries()
+    {
+        CapturingLogger logger = new();
+        Harness harness = new(logger);
+        harness.Client.Codes.Enqueue(new DeviceCodeRequestException(isTransient: true, errorCode: null, new HttpRequestException("offline")));
+        harness.Client.Codes.Enqueue(new DeviceCodeRequestException(isTransient: true, errorCode: null, new HttpRequestException("offline")));
+        harness.Client.Codes.Enqueue(harness.NewCode("AAAA-1111"));
+        harness.Client.Polls.Enqueue(Succeeded());
+
+        await harness.RunAsync();
+
+        Assert.Equal([LogLevel.Information, LogLevel.Warning, LogLevel.Information, LogLevel.Information], logger.Entries);
+    }
+
+    [Fact]
+    public async Task RunAsync_FailsWithSecureConnection_WithoutWaitingForNetwork()
+    {
+        Harness harness = new();
+        harness.Client.Codes.Enqueue(harness.NewCode("AAAA-1111"));
+        harness.Client.Polls.Enqueue(new DeviceCodePollResult(
+            DeviceCodePollStatus.Failed,
+            ErrorCode: DeviceCodeClient.SecureConnectionErrorCode,
+            TransportFailure: new HttpRequestException(HttpRequestError.SecureConnectionError)));
+
+        SignInFailedException exception = await Assert.ThrowsAsync<SignInFailedException>(() => harness.RunAsync());
+
+        Assert.Equal(DeviceCodeClient.SecureConnectionErrorCode, exception.ErrorCode);
+        Assert.DoesNotContain(harness.Reports, report => report.Phase == SignInPhase.WaitingForNetwork);
+        Assert.Equal(SignInPhase.Failed, harness.Reports[^1].Phase);
+    }
+
+    [Fact]
     public async Task RunAsync_Throws_OnBlockingError()
     {
         Harness harness = new();

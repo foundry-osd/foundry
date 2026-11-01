@@ -64,8 +64,10 @@ public sealed class SignInFailedException : Exception
 /// Time is injected (<c>delay</c> and <c>utcNow</c>) so tests run without waiting. The flow ends only when the technician
 /// signs in, a blocking error occurs (<see cref="SignInFailedException"/>) or <c>ct</c> is cancelled (the
 /// <see cref="OperationCanceledException"/> propagates and no failure is reported). Network problems never end it: they are
-/// reported as <see cref="SignInPhase.WaitingForNetwork"/> and retried. Neither the user code, the device code nor the
-/// tokens are logged.
+/// reported as <see cref="SignInPhase.WaitingForNetwork"/> and retried; the first failure of each code request or polling
+/// series logs one warning with the failure type and HResult, and its recovery logs one information entry. A TLS failure
+/// is blocking (<see cref="DeviceCodeClient.SecureConnectionErrorCode"/>). Neither the user code, the device code, the
+/// tokens nor exception messages are logged.
 /// </remarks>
 public sealed class SignInFlow
 {
@@ -113,7 +115,13 @@ public sealed class SignInFlow
         }
         catch (SignInFailedException exception)
         {
-            _logger.LogError("Sign-in failed. ErrorCode={ErrorCode}", exception.ErrorCode);
+            // Only the failure types and HResult are logged: transport messages could echo request content.
+            _logger.LogError(
+                "Sign-in failed. ErrorCode={ErrorCode}, FailureType={FailureType}, HResult={HResult}, InnerFailureType={InnerFailureType}",
+                exception.ErrorCode,
+                exception.InnerException?.GetType().Name,
+                exception.InnerException?.HResult,
+                exception.InnerException?.InnerException?.GetType().Name);
             throw;
         }
         catch (OperationCanceledException)
@@ -150,20 +158,33 @@ public sealed class SignInFlow
 
     private async Task<DeviceCodeSession> RequestCodeAsync(IProgress<SignInState> progress, CancellationToken ct)
     {
+        bool failureLogged = false;
         while (true)
         {
             try
             {
-                return await _client.RequestAsync(ct).ConfigureAwait(false);
+                DeviceCodeSession code = await _client.RequestAsync(ct).ConfigureAwait(false);
+                if (failureLogged)
+                {
+                    _logger.LogInformation("Device code request recovered after a transient failure");
+                }
+
+                return code;
             }
             catch (DeviceCodeRequestException exception) when (exception.IsTransient)
             {
+                if (!failureLogged)
+                {
+                    LogTransientFailure("Device code request", exception.InnerException, exception.ErrorCode);
+                    failureLogged = true;
+                }
+
                 progress.Report(new SignInState(SignInPhase.WaitingForNetwork, null, null));
                 await _delay(RetryDelay, ct).ConfigureAwait(false);
             }
             catch (DeviceCodeRequestException exception)
             {
-                throw Fail(progress, exception.ErrorCode ?? "request_failed");
+                throw Fail(progress, exception.ErrorCode ?? "request_failed", exception.InnerException);
             }
         }
     }
@@ -198,6 +219,7 @@ public sealed class SignInFlow
             {
                 if (!networkReported)
                 {
+                    LogTransientFailure("Token polling", result.TransportFailure, result.ErrorCode);
                     progress.Report(new SignInState(SignInPhase.WaitingForNetwork, code, null));
                     networkReported = true;
                 }
@@ -208,6 +230,7 @@ public sealed class SignInFlow
 
             if (networkReported)
             {
+                _logger.LogInformation("Token polling recovered after a transient failure");
                 progress.Report(new SignInState(SignInPhase.WaitingForUser, code, null));
                 networkReported = false;
             }
@@ -224,16 +247,28 @@ public sealed class SignInFlow
                     nextDelay = interval;
                     break;
                 case DeviceCodePollStatus.Failed:
-                    throw Fail(progress, result.ErrorCode ?? "unknown_error");
+                    throw Fail(progress, result.ErrorCode ?? "unknown_error", result.TransportFailure);
                 case DeviceCodePollStatus.Succeeded:
                     throw Fail(progress, "invalid_response");
             }
         }
     }
 
-    private static SignInFailedException Fail(IProgress<SignInState> progress, string errorCode)
+    private static SignInFailedException Fail(IProgress<SignInState> progress, string errorCode, Exception? cause = null)
     {
         progress.Report(new SignInState(SignInPhase.Failed, null, errorCode));
-        return new SignInFailedException(errorCode);
+        return new SignInFailedException(errorCode, cause);
+    }
+
+    // Logged once per series: at specialize this is the only trace of a network or proxy problem.
+    private void LogTransientFailure(string operation, Exception? failure, string? errorCode)
+    {
+        _logger.LogWarning(
+            "{Operation} failed; retrying until the network recovers. FailureType={FailureType}, HResult={HResult}, InnerFailureType={InnerFailureType}, ErrorCode={ErrorCode}",
+            operation,
+            failure?.GetType().Name,
+            failure?.HResult,
+            failure?.InnerException?.GetType().Name,
+            errorCode);
     }
 }

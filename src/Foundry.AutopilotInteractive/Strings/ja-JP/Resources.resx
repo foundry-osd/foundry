@@ -388,6 +388,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Microsoft から予期しない応答が返されたため、サインインに失敗しました。このネットワークのプロキシまたはキャプティブ ポータルが原因の可能性があります。もう一度試すには、[再試行] を選択してください。</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Microsoft への安全な接続を確立できませんでした。HTTPS トラフィックを検査するプロキシ、またはシステム時計の誤りが原因の可能性があります。もう一度試すには、[再試行] を選択してください。</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>コードの有効期限: {0}</value>
   </data>

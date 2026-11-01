@@ -388,6 +388,9 @@
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>登入失敗，因為 Microsoft 傳回了未預期的回應。此網路上的 Proxy 或強制入口網站可能導致此問題。請選取「重試」再試一次。</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>無法與 Microsoft 建立安全連線。檢查 HTTPS 流量的 Proxy 或不正確的系統時鐘可能導致此問題。請選取「重試」再試一次。</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>代碼將在 {0} 後過期</value>
   </data>

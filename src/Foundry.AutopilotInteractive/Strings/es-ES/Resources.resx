@@ -388,6 +388,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Error al iniciar sesión porque Microsoft devolvió una respuesta inesperada. Puede deberse a un proxy o a un portal cautivo en esta red. Seleccione Reintentar para volver a intentarlo.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>No se pudo establecer una conexión segura con Microsoft. Puede deberse a un proxy que inspecciona el tráfico HTTPS o a un reloj del sistema incorrecto. Seleccione Reintentar para volver a intentarlo.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>El código expira en {0}</value>
   </data>

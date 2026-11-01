@@ -388,6 +388,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Pierakstīšanās neizdevās, jo Microsoft atgrieza negaidītu atbildi. Cēlonis var būt starpniekserveris vai captive portāls šajā tīklā. Atlasiet Mēģināt vēlreiz, lai mēģinātu vēlreiz.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Nevarēja izveidot drošu savienojumu ar Microsoft. Cēlonis var būt starpniekserveris, kas pārbauda HTTPS datplūsmu, vai nepareizs sistēmas pulkstenis. Atlasiet Mēģināt vēlreiz, lai mēģinātu vēlreiz.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Kods beigsies pēc {0}</value>
   </data>

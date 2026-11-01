@@ -388,6 +388,9 @@
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Не удалось выполнить вход, так как Microsoft вернула непредвиденный ответ. Причиной может быть прокси-сервер или captive-портал в этой сети. Нажмите «Повторить», чтобы попробовать ещё раз.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Не удалось установить защищённое подключение к Microsoft. Причиной может быть прокси-сервер, проверяющий трафик HTTPS, или неверно установленные системные часы. Нажмите «Повторить», чтобы попробовать ещё раз.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Срок действия кода истекает через {0}</value>
   </data>

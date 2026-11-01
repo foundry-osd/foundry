@@ -388,6 +388,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Aanmelden is mislukt omdat Microsoft een onverwacht antwoord heeft geretourneerd. Een proxy of een captive portal op dit netwerk kan de oorzaak zijn. Selecteer Opnieuw proberen om het opnieuw te proberen.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Er kan geen beveiligde verbinding met Microsoft tot stand worden gebracht. Een proxy die HTTPS-verkeer inspecteert of een onjuiste systeemklok kan de oorzaak zijn. Selecteer Opnieuw proberen om het opnieuw te proberen.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Code verloopt over {0}</value>
   </data>

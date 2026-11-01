@@ -388,6 +388,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="SignIn.Error.Generic" xml:space="preserve">
     <value>Microsoft beklenmeyen bir yanıt döndürdüğü için oturum açılamadı. Bu ağdaki bir ara sunucu veya captive portal buna neden olabilir. Yeniden denemek için Yeniden dene seçeneğini belirleyin.</value>
   </data>
+  <data name="SignIn.Error.SecureConnection" xml:space="preserve">
+    <value>Microsoft ile güvenli bağlantı kurulamadı. HTTPS trafiğini inceleyen bir ara sunucu veya yanlış bir sistem saati buna neden olabilir. Yeniden denemek için Yeniden dene seçeneğini belirleyin.</value>
+  </data>
   <data name="SignIn.ExpiresFormat" xml:space="preserve">
     <value>Kodun süresi {0} sonra dolacak</value>
   </data>
