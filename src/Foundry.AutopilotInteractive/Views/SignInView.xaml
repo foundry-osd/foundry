@@ -5,8 +5,9 @@
     <!--
         Page 1, bound to SignInViewModel. The content is centered horizontally and vertically in the page host and capped at
         760 px; the scroll viewer only scrolls when the window is shorter than the content (1024 x 768 with a banner).
-        Code area: URL | vertical separator with "or" | QR code (200 px); below it the user code, the decreasing lifetime bar
-        and its caption. The user code is a plain TextBlock, so it cannot be selected.
+        Sign-in area: URL | vertical separator with "or" | static QR code of the URL (200 px); below it the user code, the
+        decreasing lifetime bar and its caption. While a new code is requested the address and the QR code stay and a small
+        progress ring replaces the code. The user code is a plain TextBlock, so it cannot be selected.
     -->
     <ScrollViewer
         Focusable="False"
@@ -67,7 +68,7 @@
                     <StackPanel
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Visibility="{Binding IsBusyIndicatorVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Visibility="{Binding IsBusyIndicatorFullArea, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <controls:CustomProgressRing
                             Width="56"
                             Height="56"
@@ -85,7 +86,7 @@
 
                     <StackPanel
                         VerticalAlignment="Center"
-                        Visibility="{Binding IsCodeVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Visibility="{Binding IsAddressVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Grid HorizontalAlignment="Center">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="320" />
@@ -169,34 +170,60 @@
                             </StackPanel>
                         </Grid>
 
-                        <TextBlock
-                            Margin="0,24,0,0"
-                            HorizontalAlignment="Center"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{Binding Strings[SignIn.EnterCode]}" />
-                        <TextBlock
-                            Margin="0,4,0,0"
-                            HorizontalAlignment="Center"
-                            AutomationProperties.LiveSetting="Polite"
-                            FontSize="40"
-                            FontWeight="SemiBold"
-                            Text="{Binding UserCode}" />
-                        <ProgressBar
-                            Width="320"
-                            Height="4"
-                            Margin="0,12,0,0"
-                            HorizontalAlignment="Center"
-                            AutomationProperties.Name="{Binding RemainingCaption}"
-                            Maximum="1"
-                            Minimum="0"
-                            Value="{Binding RemainingFraction, Mode=OneWay}" />
-                        <TextBlock
-                            Margin="0,8,0,0"
-                            HorizontalAlignment="Center"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{Binding RemainingCaption}" />
+                        <!--  Fixed height: the address and the QR code do not move when the code and the small ring swap.  -->
+                        <Grid
+                            Height="120"
+                            Margin="0,24,0,0">
+                            <StackPanel
+                                VerticalAlignment="Top"
+                                Visibility="{Binding IsCodeVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{Binding Strings[SignIn.EnterCode]}" />
+                                <TextBlock
+                                    Margin="0,4,0,0"
+                                    HorizontalAlignment="Center"
+                                    AutomationProperties.LiveSetting="Polite"
+                                    FontSize="40"
+                                    FontWeight="SemiBold"
+                                    Text="{Binding UserCode}" />
+                                <ProgressBar
+                                    Width="320"
+                                    Height="4"
+                                    Margin="0,12,0,0"
+                                    HorizontalAlignment="Center"
+                                    AutomationProperties.Name="{Binding RemainingCaption}"
+                                    Maximum="1"
+                                    Minimum="0"
+                                    Value="{Binding RemainingFraction, Mode=OneWay}" />
+                                <TextBlock
+                                    Margin="0,8,0,0"
+                                    HorizontalAlignment="Center"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="{Binding RemainingCaption}" />
+                            </StackPanel>
+                            <StackPanel
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Visibility="{Binding IsCodeBusyIndicatorVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <controls:CustomProgressRing
+                                    Width="40"
+                                    Height="40"
+                                    AutomationProperties.Name="{Binding BusyText}"
+                                    IsIndeterminate="True"
+                                    ProgressBrush="{DynamicResource AccentFillColorDefaultBrush}"
+                                    Thickness="4"
+                                    TrackBrush="{DynamicResource ControlStrongFillColorDefaultBrush}" />
+                                <TextBlock
+                                    Margin="0,8,0,0"
+                                    HorizontalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{Binding BusyText}" />
+                            </StackPanel>
+                        </Grid>
                     </StackPanel>
                 </Grid>
             </StackPanel>

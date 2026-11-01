@@ -16,12 +16,14 @@ using Microsoft.Extensions.Logging;
 namespace Foundry.AutopilotInteractive.ViewModels;
 
 /// <summary>
-/// Page 1: runs the device code sign-in and shows the code, the QR code, the remaining lifetime and the banners.
+/// Page 1: runs the device code sign-in and shows the sign-in address with its QR code, the code, the remaining lifetime and
+/// the banners.
 /// </summary>
 /// <remarks>
-/// The page renders the <see cref="SignInState"/> reports of <see cref="SignInFlow"/>, delivered on the UI thread. The user
-/// code and the QR code always change in the same call and are hidden while a new code is requested, so the technician never
-/// sees a code and a QR code that disagree. Every member runs on the UI thread.
+/// The page renders the <see cref="SignInState"/> reports of <see cref="SignInFlow"/>, delivered on the UI thread. The QR code
+/// encodes the verification address only and is created once: it stays on screen while a new code is requested and is
+/// rebuilt only if Microsoft returns another address. The user code and the remaining lifetime are hidden while a new code is
+/// requested. Every member runs on the UI thread.
 /// </remarks>
 public sealed partial class SignInViewModel : LocalizedViewModelBase
 {
@@ -63,13 +65,16 @@ public sealed partial class SignInViewModel : LocalizedViewModelBase
     /// <summary>Gets the user code to type, empty while no code is shown.</summary>
     public string UserCode { get; private set; } = string.Empty;
 
-    /// <summary>Gets the plain verification address shown as text (the QR code adds the user code to it).</summary>
+    /// <summary>Gets the verification address shown as text, empty until the first code arrives.</summary>
     public string VerificationUriText { get; private set; } = string.Empty;
 
-    /// <summary>Gets the QR code of the verification address with the user code, or <see langword="null"/> while no code is shown.</summary>
+    /// <summary>Gets the QR code of exactly <see cref="VerificationUriText"/>, or <see langword="null"/> until the first code arrives.</summary>
     public ImageSource? QrCodeImage { get; private set; }
 
-    /// <summary>Gets whether a code, its QR code and its remaining lifetime are shown.</summary>
+    /// <summary>Gets whether the verification address and its QR code are shown.</summary>
+    public bool IsAddressVisible => QrCodeImage is not null;
+
+    /// <summary>Gets whether the user code and its remaining lifetime are shown.</summary>
     public bool IsCodeVisible { get; private set; }
 
     /// <summary>Gets whether a new code is being requested.</summary>
@@ -78,8 +83,14 @@ public sealed partial class SignInViewModel : LocalizedViewModelBase
     /// <summary>Gets whether the sign-in succeeded and the registration page is loading.</summary>
     public bool IsLoadingGroupTags { get; private set; }
 
-    /// <summary>Gets whether the progress ring replaces the code area.</summary>
+    /// <summary>Gets whether a progress ring is shown: instead of the whole sign-in area, or instead of the code only when the address is shown.</summary>
     public bool IsBusyIndicatorVisible => IsRequestingCode || IsLoadingGroupTags;
+
+    /// <summary>Gets whether the progress ring replaces the whole sign-in area rather than only the code.</summary>
+    public bool IsBusyIndicatorFullArea => IsBusyIndicatorVisible && !IsAddressVisible;
+
+    /// <summary>Gets whether the progress ring is shown below the address while a new code is requested.</summary>
+    public bool IsCodeBusyIndicatorVisible => IsBusyIndicatorVisible && IsAddressVisible;
 
     /// <summary>Gets the text under the progress ring.</summary>
     public string BusyText => LocalizationService.GetString(IsLoadingGroupTags ? "SignIn.LoadingGroupTags" : "SignIn.RequestingCode");
@@ -164,7 +175,7 @@ public sealed partial class SignInViewModel : LocalizedViewModelBase
         PendingSignIn = RunAsync(client, _runCts.Token);
     }
 
-    /// <summary>Cancels the running sign-in and hides the code. Idempotent.</summary>
+    /// <summary>Cancels the running sign-in and hides the code and the address. Idempotent.</summary>
     public void Stop()
     {
         _runCts?.Cancel();
@@ -172,6 +183,7 @@ public sealed partial class SignInViewModel : LocalizedViewModelBase
         _runCts = null;
         StopTick();
         SetCode(null);
+        ClearAddress();
     }
 
     /// <summary>Replaces the code area by the "Loading group tags" progress ring once the sign-in succeeded.</summary>
@@ -179,6 +191,7 @@ public sealed partial class SignInViewModel : LocalizedViewModelBase
     {
         StopTick();
         SetCode(null);
+        ClearAddress();
         _infoBannerKey = null;
         _errorKey = null;
         _isWaitingForNetwork = false;
@@ -220,6 +233,7 @@ public sealed partial class SignInViewModel : LocalizedViewModelBase
             case SignInPhase.Failed:
                 StopTick();
                 SetCode(null);
+                ClearAddress();
                 IsRequestingCode = false;
                 _isWaitingForNetwork = false;
                 _errorKey = ErrorResourceKey(state.ErrorCode ?? "unexpected_error");
@@ -288,7 +302,8 @@ public sealed partial class SignInViewModel : LocalizedViewModelBase
         }
     }
 
-    // UserCode, VerificationUriText, QrCodeImage and IsCodeVisible change together and are announced together.
+    // UserCode and IsCodeVisible change together and are announced together. The address and its QR code are untouched by a
+    // renewal: they are only rebuilt when the verification address differs from the one shown.
     private void SetCode(DeviceCodeSession? code)
     {
         if (ReferenceEquals(code, _code))
@@ -300,15 +315,12 @@ public sealed partial class SignInViewModel : LocalizedViewModelBase
         if (code is null)
         {
             UserCode = string.Empty;
-            VerificationUriText = string.Empty;
-            QrCodeImage = null;
             IsCodeVisible = false;
         }
         else
         {
             UserCode = code.UserCode;
-            VerificationUriText = code.VerificationUri.OriginalString;
-            QrCodeImage = QrCodeImageFactory.Create(VerificationUrlBuilder.Build(code.VerificationUri, code.UserCode).AbsoluteUri);
+            ShowAddress(code.VerificationUri.OriginalString);
             IsCodeVisible = true;
             _codeReceivedAtUtc = _timeProvider.GetUtcNow();
             UpdateRemaining();
@@ -316,9 +328,40 @@ public sealed partial class SignInViewModel : LocalizedViewModelBase
         }
 
         OnPropertyChanged(nameof(UserCode));
+        OnPropertyChanged(nameof(IsCodeVisible));
+    }
+
+    private void ShowAddress(string address)
+    {
+        if (address == VerificationUriText)
+        {
+            return;
+        }
+
+        VerificationUriText = address;
+        QrCodeImage = QrCodeImageFactory.Create(address);
+        RaiseAddressChanged();
+    }
+
+    private void ClearAddress()
+    {
+        if (QrCodeImage is null)
+        {
+            return;
+        }
+
+        VerificationUriText = string.Empty;
+        QrCodeImage = null;
+        RaiseAddressChanged();
+    }
+
+    private void RaiseAddressChanged()
+    {
         OnPropertyChanged(nameof(VerificationUriText));
         OnPropertyChanged(nameof(QrCodeImage));
-        OnPropertyChanged(nameof(IsCodeVisible));
+        OnPropertyChanged(nameof(IsAddressVisible));
+        OnPropertyChanged(nameof(IsBusyIndicatorFullArea));
+        OnPropertyChanged(nameof(IsCodeBusyIndicatorVisible));
     }
 
     private void OnTick()
@@ -371,6 +414,8 @@ public sealed partial class SignInViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(IsRequestingCode));
         OnPropertyChanged(nameof(IsLoadingGroupTags));
         OnPropertyChanged(nameof(IsBusyIndicatorVisible));
+        OnPropertyChanged(nameof(IsBusyIndicatorFullArea));
+        OnPropertyChanged(nameof(IsCodeBusyIndicatorVisible));
         OnPropertyChanged(nameof(BusyText));
         OnPropertyChanged(nameof(BannerSeverity));
         OnPropertyChanged(nameof(BannerText));

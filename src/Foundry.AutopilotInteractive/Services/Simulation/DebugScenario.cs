@@ -10,10 +10,10 @@ namespace Foundry.AutopilotInteractive.Services.Simulation;
 /// </summary>
 public enum DebugScenario
 {
-    /// <summary>Page 1 with a fake code and QR code; the sign-in never completes.</summary>
+    /// <summary>Page 1 with a fake code and the static QR code of the simulated sign-in address; the sign-in never completes.</summary>
     SignInCode,
 
-    /// <summary>Page 1 with a code that expires after 20 seconds, so the code and the QR code are renewed together.</summary>
+    /// <summary>Page 1 with a code that expires after 20 seconds, so the code is renewed while the QR code stays.</summary>
     CodeRenewal,
 
     /// <summary>The code request fails twice for network reasons before a code is shown.</summary>

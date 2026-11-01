@@ -2,8 +2,10 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Windows.Markup;
 using System.Windows.Media;
 using Foundry.AutopilotInteractive.Services.Authentication;
+using Foundry.AutopilotInteractive.Services.QrCode;
 using Foundry.AutopilotInteractive.Services.Simulation;
 using Foundry.AutopilotInteractive.Tests.Support;
 using Foundry.AutopilotInteractive.ViewModels;
@@ -21,34 +23,43 @@ public sealed class SignInViewModelTests
     }
 
     [Fact]
-    public void SignIn_ReplacesCodeAndQrTogether_OnRenewal()
+    public void SignIn_KeepsTheStaticQrCode_WhenTheCodeIsRenewed()
     {
         using SignInViewModel viewModel = new(TestLocalization.Create(), _clock, new ImmediateUiDispatcher(), NullLogger<SignInFlow>.Instance);
-        List<(string Code, ImageSource? Qr, bool Visible)> snapshots = [];
-        viewModel.PropertyChanged += (_, _) => snapshots.Add((viewModel.UserCode, viewModel.QrCodeImage, viewModel.IsCodeVisible));
+        List<(ImageSource? Qr, bool AddressVisible, bool CodeVisible)> snapshots = [];
+        viewModel.PropertyChanged += (_, _) => snapshots.Add((viewModel.QrCodeImage, viewModel.IsAddressVisible, viewModel.IsCodeVisible));
 
         viewModel.Start(new SimulatedDeviceCodeClient(DebugScenario.CodeRenewal, _clock), infoBannerKey: null);
-        Assert.True(viewModel.IsCodeVisible);
         string firstCode = viewModel.UserCode;
         ImageSource? firstQr = viewModel.QrCodeImage;
+        Assert.NotNull(firstQr);
+        snapshots.Clear();
 
         _clock.Advance(SimulatedDeviceCodeClient.ShortCodeLifetime);
 
+        Assert.NotEqual(firstCode, viewModel.UserCode);
         Assert.True(viewModel.IsCodeVisible);
-        string secondCode = viewModel.UserCode;
-        ImageSource? secondQr = viewModel.QrCodeImage;
-        Assert.NotEqual(firstCode, secondCode);
-        Assert.NotNull(secondQr);
-        Assert.NotSame(firstQr, secondQr);
+        Assert.Same(firstQr, viewModel.QrCodeImage);
+        Assert.Contains(snapshots, snapshot => !snapshot.CodeVisible);
+        Assert.All(snapshots, snapshot =>
+        {
+            Assert.True(snapshot.AddressVisible);
+            Assert.Same(firstQr, snapshot.Qr);
+        });
+        viewModel.Stop();
+    }
 
-        int lastFirst = snapshots.FindLastIndex(snapshot => snapshot.Visible && snapshot.Code == firstCode);
-        int firstSecond = snapshots.FindIndex(snapshot => snapshot.Visible && snapshot.Code == secondCode);
-        Assert.Contains(snapshots[lastFirst..firstSecond], snapshot => !snapshot.Visible);
-        Assert.All(
-            snapshots.Where(snapshot => snapshot.Visible),
-            snapshot => Assert.True(
-                (snapshot.Code == firstCode && ReferenceEquals(snapshot.Qr, firstQr))
-                || (snapshot.Code == secondCode && ReferenceEquals(snapshot.Qr, secondQr))));
+    [Fact]
+    public void SignIn_EncodesExactlyTheVerificationAddress_InTheQrCode()
+    {
+        using SignInViewModel viewModel = new(TestLocalization.Create(), _clock, new ImmediateUiDispatcher(), NullLogger<SignInFlow>.Instance);
+
+        viewModel.Start(new SimulatedDeviceCodeClient(DebugScenario.SignInCode, _clock), infoBannerKey: null);
+
+        Assert.Equal("https://microsoft.com/devicelogin", viewModel.VerificationUriText);
+        Assert.Equal(
+            XamlWriter.Save(QrCodeImageFactory.Create("https://microsoft.com/devicelogin")),
+            XamlWriter.Save(viewModel.QrCodeImage));
         viewModel.Stop();
     }
 

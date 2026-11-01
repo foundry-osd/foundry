@@ -201,7 +201,7 @@ public sealed class SignInFlow
 
         while (true)
         {
-            // Never wait past the expiry, so the renewal (and the new QR code) starts exactly when the code dies.
+            // Never wait past the expiry, so the renewal starts exactly when the code dies.
             TimeSpan remaining = code.ExpiresAtUtc - _utcNow();
             if (remaining <= TimeSpan.Zero)
             {
