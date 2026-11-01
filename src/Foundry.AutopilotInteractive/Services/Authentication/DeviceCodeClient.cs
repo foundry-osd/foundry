@@ -135,6 +135,7 @@ public sealed class DeviceCodeClient : IDeviceCodeClient
 
     private const string DeviceCodeGrantType = "urn:ietf:params:oauth:grant-type:device_code";
     private const int DefaultIntervalSeconds = 5;
+    private const int MinimumCodeLifetimeSeconds = 60;
 
     private readonly HttpClient _httpClient;
     private readonly TimeProvider _timeProvider;
@@ -187,11 +188,15 @@ public sealed class DeviceCodeClient : IDeviceCodeClient
 
         // Floor the polling interval: a server value below 5 s would hammer the endpoint and trigger slow_down.
         int interval = Math.Max(DefaultIntervalSeconds, ReadInt(json, "interval") ?? DefaultIntervalSeconds);
+
+        // Floor the lifetime: a zero or negative expires_in would make the sign-in renew the code in a tight loop. Entra
+        // still rejects an expired code, which the flow handles as a normal expiry.
+        int lifetime = Math.Max(MinimumCodeLifetimeSeconds, expiresIn);
         return new DeviceCodeSession(
             deviceCode,
             userCode,
             uri,
-            _timeProvider.GetUtcNow().AddSeconds(expiresIn),
+            _timeProvider.GetUtcNow().AddSeconds(lifetime),
             TimeSpan.FromSeconds(interval));
     }
 

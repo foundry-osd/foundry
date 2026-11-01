@@ -34,6 +34,9 @@
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>Пропустить регистрацию в Autopilot? Установка Windows продолжится без регистрации этого устройства.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Выполняется регистрация. Если остановить её сейчас, это устройство всё равно может появиться в Windows Autopilot. Прекратить ожидание и продолжить установку Windows?</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>Пропустить регистрацию</value>
   </data>

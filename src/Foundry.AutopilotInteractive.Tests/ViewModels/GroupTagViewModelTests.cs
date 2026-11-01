@@ -2,10 +2,12 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Net;
 using Foundry.AutopilotInteractive.Services;
 using Foundry.AutopilotInteractive.Services.Authentication;
 using Foundry.AutopilotInteractive.Services.Registration;
 using Foundry.AutopilotInteractive.Services.Simulation;
+using Foundry.AutopilotInteractive.Tests.Authentication;
 using Foundry.AutopilotInteractive.Tests.Support;
 using Foundry.AutopilotInteractive.ViewModels;
 using Foundry.Core.Models.Autopilot;
@@ -24,6 +26,48 @@ public sealed class GroupTagViewModelTests
     public GroupTagViewModelTests()
     {
         SynchronizationContext.SetSynchronizationContext(null);
+    }
+
+    [Fact]
+    public async Task StatusKeyForProgress_MapsEveryMessageTheSharedGraphClientReports()
+    {
+        // Drives the real client through an import, a visible device with another tag, the update and its confirmation, so a
+        // renamed or new progress text in Core fails here instead of silently freezing the step shown to the technician.
+        int deviceListCalls = 0;
+        FakeHttpMessageHandler handler = new((request, _) => request.RequestUri!.AbsolutePath switch
+        {
+            string path when path.EndsWith("/import", StringComparison.Ordinal) => FakeHttpMessageHandler.Json(
+                HttpStatusCode.OK,
+                """{ "value": [ { "id": "imported-1", "state": { "deviceImportStatus": "complete" } } ] }"""),
+            string path when path.EndsWith("/updateDeviceProperties", StringComparison.Ordinal) => new HttpResponseMessage(HttpStatusCode.NoContent),
+            _ => FakeHttpMessageHandler.Json(
+                HttpStatusCode.OK,
+                Interlocked.Increment(ref deviceListCalls) == 1
+                    ? """{ "value": [ { "id": "d1", "serialNumber": "SER1", "groupTag": "Sales" } ] }"""
+                    : """{ "value": [ { "id": "d1", "serialNumber": "SER1", "groupTag": "Marketing" } ] }""")
+        });
+        AutopilotGraphImportClient client = new(
+            new HttpClient(handler) { BaseAddress = new Uri("https://graph.microsoft.com/") },
+            NullLogger<AutopilotGraphImportClient>.Instance,
+            new AutopilotGraphImportClientOptions { RetryCount = 0, RetryDelay = TimeSpan.Zero, PollInterval = TimeSpan.Zero });
+        List<string> messages = [];
+
+        AutopilotHardwareHashUploadResult result = await client.ImportHardwareHashAsync(
+            new AutopilotGraphImportRequest("token", "SER1", "aGFzaA==", "Marketing", null, "import-1"),
+            new SyncProgress(report => messages.Add(report.Message)),
+            TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsCompleted);
+        Dictionary<string, string?> mapping = messages.Distinct().ToDictionary(message => message, GroupTagViewModel.StatusKeyForProgress);
+        Assert.Equal(
+            new Dictionary<string, string?>
+            {
+                ["Uploading Autopilot hardware hash..."] = "Registration.Status.Uploading",
+                ["Waiting for Autopilot device visibility..."] = "Registration.Status.WaitingForRegistration",
+                ["Updating Autopilot device..."] = "Registration.Status.Assigning",
+                ["Waiting for Autopilot device property update..."] = "Registration.Status.Assigning"
+            },
+            mapping);
     }
 
     [Fact]
@@ -81,5 +125,10 @@ public sealed class GroupTagViewModelTests
             RegistrationRequest request,
             IProgress<AutopilotHardwareHashUploadProgress> progress,
             CancellationToken ct) => Task.FromResult(_outcomes.Dequeue());
+    }
+
+    private sealed class SyncProgress(Action<AutopilotHardwareHashUploadProgress> report) : IProgress<AutopilotHardwareHashUploadProgress>
+    {
+        public void Report(AutopilotHardwareHashUploadProgress value) => report(value);
     }
 }

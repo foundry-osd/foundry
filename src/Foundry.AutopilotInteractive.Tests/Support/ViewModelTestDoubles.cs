@@ -39,9 +39,12 @@ internal sealed class FakeSkipConfirmation : ISkipConfirmation
 
     public bool WasCancelled { get; private set; }
 
-    public Task<bool> ConfirmAsync(CancellationToken ct)
+    public bool? LastRegistrationInProgress { get; private set; }
+
+    public Task<bool> ConfirmAsync(bool registrationInProgress, CancellationToken ct)
     {
         Calls++;
+        LastRegistrationInProgress = registrationInProgress;
         if (!KeepOpen)
         {
             return Task.FromResult(Result);

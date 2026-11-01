@@ -62,6 +62,26 @@ public sealed class MainWindowViewModelTests
         Assert.True(await harness.ViewModel.ConfirmCloseAsync());
 
         Assert.Equal(2, harness.Confirmation.Calls);
+        Assert.False(harness.Confirmation.LastRegistrationInProgress);
+        Assert.Equal(1, harness.ViewModel.ExitCode);
+        Assert.Equal(RegistrationResult.StatusSkipped, harness.ReadResult().GetProperty("status").GetString());
+    }
+
+    [Fact]
+    public async Task Close_DuringUpload_WarnsThatTheDeviceMayAppear_AndWritesSkippedWithExitCode1()
+    {
+        using AutopilotHarness harness = new();
+        harness.Start(DebugScenario.ProfileAssigned);
+        harness.ReachGroupTagPage();
+        Task register = harness.ViewModel.GroupTag.RegisterCommand.ExecuteAsync(null);
+        harness.Clock.Advance(SimulatedRegistrationService.StepDuration);
+        Assert.True(harness.ViewModel.GroupTag.IsBusy);
+        harness.Confirmation.Result = true;
+
+        Assert.True(await harness.ViewModel.ConfirmCloseAsync());
+        await register;
+
+        Assert.True(harness.Confirmation.LastRegistrationInProgress);
         Assert.Equal(1, harness.ViewModel.ExitCode);
         Assert.Equal(RegistrationResult.StatusSkipped, harness.ReadResult().GetProperty("status").GetString());
     }

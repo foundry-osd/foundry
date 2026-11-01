@@ -34,6 +34,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>Autopilot-Registrierung überspringen? Die Windows-Einrichtung wird fortgesetzt, ohne dieses Gerät zu registrieren.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Die Registrierung läuft. Wenn Sie jetzt abbrechen, kann dieses Gerät trotzdem in Windows Autopilot erscheinen. Warten beenden und Windows-Einrichtung fortsetzen?</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>Registrierung überspringen</value>
   </data>

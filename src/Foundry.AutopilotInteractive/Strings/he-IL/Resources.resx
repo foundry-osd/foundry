@@ -34,6 +34,9 @@
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>לדלג על רישום Autopilot? התקנת Windows תמשיך מבלי לרשום מכשיר זה.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>הרישום מתבצע. אם תעצור עכשיו, מכשיר זה עשוי עדיין להופיע ב-Windows Autopilot. להפסיק להמתין ולהמשיך בהתקנת Windows?</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>דלג על הרישום</value>
   </data>

@@ -43,6 +43,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
     <value>Interaktīvo Autopilot reģistrācijas palīgu neizdevās instalēt šajā ierīcē. Pārbaudiet savienojumu un atkārtojiet izvietošanu. Sīkāku informāciju skatiet izvietošanas žurnālā.</value>
   </data>
+  <data name="Autopilot.InteractiveRuntimeRateLimited" xml:space="preserve">
+    <value>GitHub īslaicīgi ierobežoja lejupielādes no šī tīkla. Uzgaidiet dažas minūtes un pēc tam vēlreiz sāciet izvietošanu.</value>
+  </data>
   <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
     <value>Interaktīvais Autopilot reģistrācijas palīgs nav pieejams šai Foundry versijai. Pārbaudiet savienojumu un mēģiniet vēlreiz vai izveidojiet sāknēšanas datu nesēju no jauna. Sīkāku informāciju skatiet izvietošanas žurnālā.</value>
   </data>

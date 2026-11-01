@@ -63,10 +63,10 @@ public sealed class PreflightDeploymentStep(
                 Serilog.Log.ForContext<PreflightDeploymentStep>().Error(exception, "Post-installation readiness validation failed.");
                 return Failed("PostInstall.PreflightFailed", "postinstall_preflight_failed");
             }
-            if (!await TryResolveAutopilotInteractiveRuntimeAsync(context, cancellationToken).ConfigureAwait(false))
+            if (await TryResolveAutopilotInteractiveRuntimeAsync(context, cancellationToken).ConfigureAwait(false) is { } runtimeFailure)
             {
                 context.ClearDomainJoinInput();
-                return Failed("Autopilot.InteractiveRuntimeUnavailable", "autopilot_interactive_runtime_unavailable");
+                return runtimeFailure;
             }
             await EnsureCustomDriverSetOnMediaAsync(context, cancellationToken).ConfigureAwait(false);
             if (context.Request.OperatingSystem is CustomImageSelection custom)
@@ -274,24 +274,29 @@ public sealed class PreflightDeploymentStep(
     /// When interactive Autopilot is selected, confirms before any disk operation that the runtime archive exists with a trusted
     /// SHA256 (a release asset, or the media archive Bootstrap forwarded) and keeps its origin for the Autopilot step.
     /// </summary>
-    /// <returns><see langword="false"/> when the runtime is unavailable; the cause is logged.</returns>
-    private async Task<bool> TryResolveAutopilotInteractiveRuntimeAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+    /// <returns>
+    /// <see langword="null"/> when the runtime is available or not needed; otherwise the failure, with a distinct message when
+    /// GitHub limited the release lookup. The cause is logged.
+    /// </returns>
+    private async Task<DeploymentStepResult?> TryResolveAutopilotInteractiveRuntimeAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
         context.AutopilotInteractiveRuntime = null;
-        if (!StagePreOobeCustomizationStep.ShouldRunAutopilotRegistration(context.Request)) return true;
+        if (!StagePreOobeCustomizationStep.ShouldRunAutopilotRegistration(context.Request)) return null;
         try
         {
             string runtimeIdentifier = PreOobe.PreOobeContentResolver.ResolveRid(context.Request.OperatingSystem.Architecture);
             context.AutopilotInteractiveRuntime = await (AutopilotInteractiveRuntimeSource ?? new Autopilot.AutopilotInteractiveRuntimeSource())
                 .ResolveAsync(runtimeIdentifier, cancellationToken).ConfigureAwait(false);
-            return true;
+            return null;
         }
         catch (Exception exception) when (!cancellationToken.IsCancellationRequested && exception is InvalidDataException or IOException
             or UnauthorizedAccessException or InvalidOperationException or HttpRequestException or global::System.Text.Json.JsonException
             or OperationCanceledException or TimeoutException)
         {
             Serilog.Log.ForContext<PreflightDeploymentStep>().Error(exception, "Foundry.AutopilotInteractive runtime is unavailable.");
-            return false;
+            return Autopilot.AutopilotInteractiveRuntimeSource.IsRateLimited(exception)
+                ? Failed("Autopilot.InteractiveRuntimeRateLimited", "autopilot_interactive_runtime_rate_limited")
+                : Failed("Autopilot.InteractiveRuntimeUnavailable", "autopilot_interactive_runtime_unavailable");
         }
     }
 

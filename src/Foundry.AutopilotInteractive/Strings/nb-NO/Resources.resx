@@ -34,6 +34,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>Hoppe over Autopilot-registreringen? Windows-installasjonen fortsetter uten å registrere denne enheten.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Registreringen pågår. Hvis du stopper nå, kan denne enheten likevel vises i Windows Autopilot. Vil du slutte å vente og fortsette Windows-installasjonen?</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>Hopp over registrering</value>
   </data>

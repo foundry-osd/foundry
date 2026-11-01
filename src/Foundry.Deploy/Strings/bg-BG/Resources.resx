@@ -43,6 +43,9 @@
   <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
     <value>Интерактивният помощник за регистрация на Autopilot не можа да бъде инсталиран на това устройство. Проверете връзката си и опитайте разполагането отново. Вижте дневника на разполагането за подробности.</value>
   </data>
+  <data name="Autopilot.InteractiveRuntimeRateLimited" xml:space="preserve">
+    <value>GitHub временно ограничи изтеглянията от тази мрежа. Изчакайте няколко минути и стартирайте разполагането отново.</value>
+  </data>
   <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
     <value>Интерактивният помощник за регистрация на Autopilot не е наличен за тази версия на Foundry. Проверете връзката си и опитайте отново или създайте отново носителя за стартиране. Вижте дневника на разполагането за подробности.</value>
   </data>

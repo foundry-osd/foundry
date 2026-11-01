@@ -24,7 +24,11 @@ public sealed record AutopilotInteractiveRuntimeConfiguration
     /// <summary>Name of the configuration file inside the staged runtime directory.</summary>
     public const string FileName = "autopilot-interactive.json";
 
-    /// <summary>Schema version of the document; the reader rejects any value other than <see cref="CurrentSchemaVersion"/>.</summary>
+    /// <summary>
+    /// Schema version of the document. Required: the reader rejects a document without it and any value other than
+    /// <see cref="CurrentSchemaVersion"/>.
+    /// </summary>
+    [JsonRequired]
     public int SchemaVersion { get; init; } = CurrentSchemaVersion;
 
     /// <summary>Computer name the registration assigns to the device, or <see langword="null"/> when none is configured.</summary>
@@ -71,7 +75,7 @@ public static class AutopilotInteractiveRuntimeConfigurationSerializer
     /// <param name="json">The JSON document.</param>
     /// <returns>The validated configuration.</returns>
     /// <exception cref="InvalidDataException">
-    /// The JSON is malformed, holds an unknown theme, declares a schema version other than
+    /// The JSON is malformed, holds an unknown theme, has no <c>schemaVersion</c> or declares one other than
     /// <see cref="AutopilotInteractiveRuntimeConfiguration.CurrentSchemaVersion"/>, or has an empty culture name.
     /// </exception>
     public static AutopilotInteractiveRuntimeConfiguration Deserialize(string json)
@@ -83,7 +87,7 @@ public static class AutopilotInteractiveRuntimeConfigurationSerializer
         }
         catch (Exception exception) when (exception is JsonException or ArgumentNullException or NotSupportedException)
         {
-            throw new InvalidDataException("The Autopilot interactive configuration is not valid JSON.", exception);
+            throw new InvalidDataException("The Autopilot interactive configuration is not valid JSON or lacks schemaVersion.", exception);
         }
 
         if (value is null)

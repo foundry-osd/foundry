@@ -34,6 +34,9 @@
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>Παράλειψη της εγγραφής στο Autopilot; Η ρύθμιση των Windows θα συνεχιστεί χωρίς την εγγραφή αυτής της συσκευής.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Η εγγραφή βρίσκεται σε εξέλιξη. Αν σταματήσετε τώρα, αυτή η συσκευή ενδέχεται να εμφανιστεί παρ' όλα αυτά στο Windows Autopilot. Διακοπή της αναμονής και συνέχιση της ρύθμισης των Windows;</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>Παράλειψη εγγραφής</value>
   </data>

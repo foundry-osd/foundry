@@ -34,6 +34,9 @@ Licenciado sob a licença MIT.</value>
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>Ignorar o registro no Autopilot? A configuração do Windows continuará sem registrar este dispositivo.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>O registro está em andamento. Se você parar agora, este dispositivo ainda poderá aparecer no Windows Autopilot. Parar de aguardar e continuar a configuração do Windows?</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>Ignorar registro</value>
   </data>

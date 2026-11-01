@@ -37,6 +37,13 @@ public sealed class AutopilotInteractiveRuntimeConfigurationTests
             """{"schemaVersion":2,"cultureName":"en-US"}"""));
     }
 
+    [Fact]
+    public void Deserialize_Throws_WhenSchemaVersionIsMissing()
+    {
+        Assert.Throws<InvalidDataException>(() => AutopilotInteractiveRuntimeConfigurationSerializer.Deserialize(
+            """{"cultureName":"en-US"}"""));
+    }
+
     [Theory]
     [InlineData("""{"schemaVersion":1}""")]
     [InlineData("""{"schemaVersion":1,"cultureName":""}""")]

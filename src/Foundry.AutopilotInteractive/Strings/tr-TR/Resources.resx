@@ -34,6 +34,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>Autopilot kaydı atlansın mı? Windows kurulumu bu cihaz kaydedilmeden devam edecek.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Kayıt devam ediyor. Şimdi durdurursanız bu cihaz yine de Windows Autopilot hizmetinde görünebilir. Beklemeyi bırakıp Windows kurulumuna devam edilsin mi?</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>Kaydı atla</value>
   </data>

@@ -34,6 +34,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>Vai izlaist Autopilot reģistrēšanu? Windows iestatīšana turpināsies, nereģistrējot šo ierīci.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Notiek reģistrēšana. Ja pārtrauksiet tagad, šī ierīce tik un tā var parādīties pakalpojumā Windows Autopilot. Vai pārtraukt gaidīšanu un turpināt Windows iestatīšanu?</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>Izlaist reģistrēšanu</value>
   </data>

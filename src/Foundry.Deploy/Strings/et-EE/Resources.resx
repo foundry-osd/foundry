@@ -43,6 +43,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
     <value>Interaktiivset Autopiloti registreerimisabilist ei saanud sellesse seadmesse installida. Kontrollige ühendust ja proovige juurutamist uuesti. Üksikasju vaadake juurutuslogist.</value>
   </data>
+  <data name="Autopilot.InteractiveRuntimeRateLimited" xml:space="preserve">
+    <value>GitHub piiras ajutiselt allalaadimisi sellest võrgust. Oodake mõni minut ja käivitage juurutamine uuesti.</value>
+  </data>
   <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
     <value>Interaktiivne Autopiloti registreerimisabiline pole selle Foundry versiooni jaoks saadaval. Kontrollige ühendust ja proovige uuesti või looge alglaadimiskandja uuesti. Üksikasju vaadake juurutuslogist.</value>
   </data>

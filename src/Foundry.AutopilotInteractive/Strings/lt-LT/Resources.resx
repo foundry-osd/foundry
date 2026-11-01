@@ -34,6 +34,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>Praleisti Autopilot registravimą? Windows sąranka bus tęsiama neregistravus šio įrenginio.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Registravimas vykdomas. Jei sustabdysite dabar, šis įrenginys vis tiek gali atsirasti Windows Autopilot paslaugoje. Nustoti laukti ir tęsti Windows sąranką?</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>Praleisti registravimą</value>
   </data>

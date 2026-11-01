@@ -265,7 +265,8 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
     /// <remarks>
     /// No question is asked once the run decided to end, during the success countdown (exit 0) or during the profile wait
     /// (the device is registered: <c>completed</c> with the wait skipped, exit 0). Otherwise a confirmed close writes
-    /// <c>skipped</c> and keeps exit code 1. An open question is closed with a "no" answer when the device becomes registered,
+    /// <c>skipped</c> and keeps exit code 1; while a registration runs, the question warns that the upload may already have
+    /// been sent, so the device can still appear in Windows Autopilot. An open question is closed with a "no" answer when the device becomes registered,
     /// the deadline arrives or the run ends, so it never blocks a graceful exit.
     /// </remarks>
     /// <returns><see langword="true"/> when the window may close.</returns>
@@ -292,13 +293,15 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
             return true;
         }
 
+        // The upload request may already be sent once a registration runs; the profile wait was handled above.
+        bool registrationInProgress = GroupTag.IsBusy;
         bool confirmed;
         using (CancellationTokenSource confirmation = new())
         {
             _confirmationCts = confirmation;
             try
             {
-                confirmed = await _skipConfirmation.ConfirmAsync(confirmation.Token);
+                confirmed = await _skipConfirmation.ConfirmAsync(registrationInProgress, confirmation.Token);
             }
             finally
             {
@@ -324,7 +327,10 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
             return false;
         }
 
-        _logger.LogInformation("Autopilot registration skipped by the technician. Exiting with code {ExitCode}.", IncompleteExitCode);
+        _logger.LogInformation(
+            "Autopilot registration skipped by the technician. RegistrationInProgress={RegistrationInProgress}. Exiting with code {ExitCode}.",
+            registrationInProgress,
+            IncompleteExitCode);
         CancelWork();
         WriteResult(new RegistrationResult(RegistrationResult.StatusSkipped, null, null, null, null, _timeProvider.GetUtcNow()));
         EndRun(IncompleteExitCode);

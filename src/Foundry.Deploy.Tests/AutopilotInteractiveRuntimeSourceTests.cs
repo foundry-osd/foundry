@@ -48,6 +48,27 @@ public sealed class AutopilotInteractiveRuntimeSourceTests
         await Assert.ThrowsAsync<InvalidDataException>(() => fixture.Source.ResolveAsync("win-x64", TestContext.Current.CancellationToken));
     }
 
+    [Theory]
+    [InlineData(HttpStatusCode.Forbidden, true)]
+    [InlineData(HttpStatusCode.NotFound, false)]
+    public async Task Resolve_ThrowsWithStatus_WhenReleaseLookupIsRejected(HttpStatusCode status, bool rateLimited)
+    {
+        using var fixture = new Fixture { ReleaseStatus = status };
+
+        HttpRequestException exception = await Assert.ThrowsAsync<HttpRequestException>(
+            () => fixture.Source.ResolveAsync("win-x64", TestContext.Current.CancellationToken));
+
+        Assert.Equal(status, exception.StatusCode);
+        Assert.Equal(rateLimited, AutopilotInteractiveRuntimeSource.IsRateLimited(exception));
+    }
+
+    [Fact]
+    public void IsRateLimited_RecognizesTooManyRequests()
+    {
+        Assert.True(AutopilotInteractiveRuntimeSource.IsRateLimited(new HttpRequestException("x", null, HttpStatusCode.TooManyRequests)));
+        Assert.False(AutopilotInteractiveRuntimeSource.IsRateLimited(new HttpRequestException("x")));
+    }
+
     [Fact]
     public async Task Resolve_Throws_WhenDigestMissing()
     {
@@ -191,6 +212,7 @@ public sealed class AutopilotInteractiveRuntimeSourceTests
         public Dictionary<string, string> EnvironmentValues { get; } = [];
         public string PublishedAssetRid { get; init; } = "win-x64";
         public bool PublishDigest { get; init; } = true;
+        public HttpStatusCode ReleaseStatus { get; init; } = HttpStatusCode.OK;
         public HttpClient Client { get; }
         public AutopilotInteractiveRuntimeSource Source { get; }
 
@@ -203,6 +225,10 @@ public sealed class AutopilotInteractiveRuntimeSourceTests
             Client = new HttpClient(new Handler(request =>
             {
                 Requests.Add(request.RequestUri!.AbsoluteUri);
+                if (request.RequestUri.Host == "api.github.com" && ReleaseStatus != HttpStatusCode.OK)
+                {
+                    return new(ReleaseStatus);
+                }
                 if (request.RequestUri.Host == "api.github.com")
                 {
                     return new(HttpStatusCode.OK)

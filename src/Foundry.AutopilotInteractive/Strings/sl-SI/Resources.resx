@@ -34,6 +34,9 @@ Licencirano pod licenco MIT.</value>
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>Želite preskočiti registracijo v storitvi Autopilot? Namestitev sistema Windows se bo nadaljevala brez registracije te naprave.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Registracija poteka. Če zdaj prekinete, se lahko ta naprava kljub temu prikaže v storitvi Windows Autopilot. Želite prenehati čakati in nadaljevati namestitev sistema Windows?</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>Preskoči registracijo</value>
   </data>

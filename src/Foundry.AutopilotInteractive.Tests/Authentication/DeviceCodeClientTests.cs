@@ -55,6 +55,21 @@ public sealed class DeviceCodeClientTests
         Assert.Equal(TimeSpan.FromSeconds(5), session.Interval);
     }
 
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-30)]
+    [InlineData(10)]
+    public async Task Request_FloorsCodeLifetimeToOneMinute(int expiresIn)
+    {
+        DeviceCodeClient client = CreateClient(new FakeHttpMessageHandler((_, _) => FakeHttpMessageHandler.Json(
+            HttpStatusCode.OK,
+            $$"""{"device_code":"dc","user_code":"UC-123","verification_uri":"https://microsoft.com/devicelogin","expires_in":{{expiresIn}},"interval":5}""")));
+
+        DeviceCodeSession session = await client.RequestAsync(CancellationToken.None);
+
+        Assert.Equal(Now.AddSeconds(60), session.ExpiresAtUtc);
+    }
+
     [Fact]
     public async Task Request_ThrowsTransient_OnNetworkFailure()
     {

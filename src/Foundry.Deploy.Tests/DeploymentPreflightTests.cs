@@ -294,6 +294,20 @@ public sealed class DeploymentPreflightTests
         Assert.Empty(fixture.Events);
     }
 
+    [Fact]
+    public async Task Preflight_ReportsRateLimit_WhenGitHubLimitsTheReleaseLookup()
+    {
+        using var fixture = new PipelineFixture { InteractiveAutopilot = true, Failure = "github_rate_limited" };
+
+        DeploymentStepResult result = await fixture.RunAsync();
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal("autopilot_interactive_runtime_rate_limited", result.Failure?.Code);
+        Assert.Equal(LocalizationText.GetString("Autopilot.InteractiveRuntimeRateLimited"), result.Message);
+        Assert.Null(fixture.Context!.AutopilotInteractiveRuntime);
+        Assert.DoesNotContain("partition", fixture.Events);
+    }
+
     [Theory]
     [InlineData(false, false)]
     [InlineData(true, false)]
@@ -1249,6 +1263,8 @@ public sealed class DeploymentPreflightTests
             protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
             {
                 fixture.Events.Add(request.Headers.Range is null ? "download" : "probe");
+                if (fixture.Failure == "github_rate_limited" && request.RequestUri?.Host == "api.github.com")
+                    return Task.FromResult(new HttpResponseMessage(HttpStatusCode.Forbidden));
                 if (fixture.Failure == "cancel")
                 {
                     fixture._cancellation.Cancel();

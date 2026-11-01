@@ -34,6 +34,9 @@
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>要略過 Autopilot 註冊嗎？Windows 安裝將在不註冊此裝置的情況下繼續。</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>正在註冊。如果現在停止，此裝置仍可能出現在 Windows Autopilot 中。要停止等待並繼續 Windows 安裝嗎？</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>略過註冊</value>
   </data>

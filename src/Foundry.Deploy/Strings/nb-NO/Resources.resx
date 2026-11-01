@@ -43,6 +43,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
     <value>Den interaktive Autopilot-registreringsassistenten kunne ikke installeres på denne enheten. Kontroller tilkoblingen og prøv distribusjonen på nytt. Se distribusjonsloggen for detaljer.</value>
   </data>
+  <data name="Autopilot.InteractiveRuntimeRateLimited" xml:space="preserve">
+    <value>GitHub har midlertidig begrenset nedlastinger fra dette nettverket. Vent noen minutter, og start distribusjonen på nytt.</value>
+  </data>
   <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
     <value>Den interaktive Autopilot-registreringsassistenten er ikke tilgjengelig for denne versjonen av Foundry. Kontroller tilkoblingen og prøv igjen, eller opprett oppstartsmediet på nytt. Se distribusjonsloggen for detaljer.</value>
   </data>

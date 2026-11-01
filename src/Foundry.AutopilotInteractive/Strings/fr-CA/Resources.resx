@@ -34,6 +34,9 @@ Sous licence MIT.</value>
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>Ignorer l'enregistrement Autopilot ? L'installation de Windows se poursuivra sans enregistrer cet appareil.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>L'enregistrement est en cours. Si vous arrêtez maintenant, cet appareil peut quand même apparaître dans Windows Autopilot. Arrêter d'attendre et poursuivre l'installation de Windows ?</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>Ignorer l'enregistrement</value>
   </data>

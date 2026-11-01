@@ -34,6 +34,9 @@ Licențiat sub licența MIT.</value>
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>Omiteți înregistrarea în Autopilot? Configurarea Windows va continua fără înregistrarea acestui dispozitiv.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Înregistrarea este în curs. Dacă vă opriți acum, acest dispozitiv poate apărea totuși în Windows Autopilot. Opriți așteptarea și continuați configurarea Windows?</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>Omitere înregistrare</value>
   </data>

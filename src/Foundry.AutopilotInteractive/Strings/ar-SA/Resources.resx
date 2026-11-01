@@ -34,6 +34,9 @@
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>هل تريد تخطي تسجيل Autopilot؟ سيستمر إعداد Windows دون تسجيل هذا الجهاز.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>التسجيل قيد التقدم. إذا توقفت الآن، فقد يظل هذا الجهاز يظهر في Windows Autopilot. هل تريد إيقاف الانتظار ومتابعة إعداد Windows؟</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>تخطي التسجيل</value>
   </data>

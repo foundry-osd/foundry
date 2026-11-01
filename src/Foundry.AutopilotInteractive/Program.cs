@@ -4,6 +4,7 @@
 
 using System.IO;
 using System.Windows;
+using System.Windows.Threading;
 using Foundry.AutopilotInteractive.DependencyInjection;
 using Foundry.AutopilotInteractive.Services.Registration;
 using Foundry.AutopilotInteractive.Startup;
@@ -37,6 +38,7 @@ public static class Program
     private const int CompletedExitCode = 0;
     private const int StartupFailureExitCode = 1;
     private static readonly TimeSpan LogFlushTimeout = TimeSpan.FromSeconds(2);
+    private static readonly TimeSpan MaxTimerInterval = TimeSpan.FromMilliseconds(int.MaxValue);
 
     /// <summary>
     /// Parses the arguments, starts logging, loads the configuration, then runs the window on the original STA thread.
@@ -106,7 +108,7 @@ public static class Program
             if (configuration is null)
             {
                 logger.Error(configurationFailure, "The configuration is missing or invalid. Exiting with code {ExitCode}.", StartupFailureExitCode);
-                ShowConfigurationError();
+                ShowConfigurationError(commandLine.DeadlineUtc, logger);
                 return StartupFailureExitCode;
             }
 
@@ -194,8 +196,19 @@ public static class Program
     /// Shows a blocking message in the operating system language: the configuration that carries the language is the one
     /// that failed. The window cannot come from the container, which needs the configuration.
     /// </summary>
-    private static void ShowConfigurationError()
+    /// <remarks>
+    /// With a deadline, the message closes itself at <see cref="DeadlinePolicy.StopAt"/> (or is not shown when that instant
+    /// has passed), so an unattended setup is never held until PostInstall stops the process.
+    /// </remarks>
+    private static void ShowConfigurationError(DateTimeOffset? deadlineUtc, Serilog.ILogger logger)
     {
+        TimeSpan? timeLeft = DeadlinePolicy.StopAt(deadlineUtc) - DateTimeOffset.UtcNow;
+        if (timeLeft <= TimeSpan.Zero)
+        {
+            logger.Warning("The configuration error is not shown: the setup deadline is too close.");
+            return;
+        }
+
         App app = new();
         app.InitializeComponent();
         ResourceLocalizationService localization = ServiceCollectionExtensions.CreateLocalizationService();
@@ -207,7 +220,35 @@ public static class Program
             WindowStartupLocation = WindowStartupLocation.CenterScreen,
             Topmost = true
         };
-        _ = dialog.ShowDialog();
+
+        DispatcherTimer? deadlineTimer = null;
+        if (timeLeft is { } delay)
+        {
+            // DispatcherTimer accepts at most int.MaxValue milliseconds.
+            deadlineTimer = new DispatcherTimer(DispatcherPriority.Normal, dialog.Dispatcher)
+            {
+                Interval = delay < MaxTimerInterval ? delay : MaxTimerInterval
+            };
+            deadlineTimer.Tick += (_, _) =>
+            {
+                deadlineTimer.Stop();
+                if (dialog.IsVisible)
+                {
+                    logger.Warning("The setup deadline is near: the configuration error closes itself.");
+                    dialog.DialogResult = false;
+                }
+            };
+            deadlineTimer.Start();
+        }
+
+        try
+        {
+            _ = dialog.ShowDialog();
+        }
+        finally
+        {
+            deadlineTimer?.Stop();
+        }
     }
 
     private static IHost BuildHost(
@@ -263,7 +304,12 @@ public static class Program
     private static void RegisterGlobalExceptionHandlers()
     {
         AppDomain.CurrentDomain.UnhandledException += (_, eventArgs) =>
+        {
             Log.ForContext(typeof(Program)).Error(eventArgs.ExceptionObject as Exception, "Unhandled exception terminating the process.");
+
+            // The process ends right after this handler and the finally block of Main never runs.
+            Log.CloseAndFlush();
+        };
         TaskScheduler.UnobservedTaskException += (_, eventArgs) =>
         {
             Log.ForContext(typeof(Program)).Error(eventArgs.Exception, "Unobserved task exception.");

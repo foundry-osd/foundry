@@ -43,6 +43,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
     <value>Interaktivni pomoćnik za registraciju Autopilota nije moguće instalirati na ovaj uređaj. Proverite vezu i ponovite primenu. Detalje potražite u evidenciji primene.</value>
   </data>
+  <data name="Autopilot.InteractiveRuntimeRateLimited" xml:space="preserve">
+    <value>GitHub je privremeno ograničio preuzimanja sa ove mreže. Sačekajte nekoliko minuta, a zatim ponovo pokrenite primenu.</value>
+  </data>
   <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
     <value>Interaktivni pomoćnik za registraciju Autopilota nije dostupan za ovu verziju programa Foundry. Proverite vezu i pokušajte ponovo ili ponovo napravite medijum za pokretanje. Detalje potražite u evidenciji primene.</value>
   </data>

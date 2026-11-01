@@ -535,17 +535,26 @@ public sealed partial class GroupTagViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(ProfileWaitText));
     }
 
-    // The shared Graph client reports English texts; they are mapped to the localized step names.
-    private void ApplyProgress(AutopilotHardwareHashUploadProgress report)
-    {
-        string message = report.Message;
-        string? key = message.StartsWith("Uploading", StringComparison.OrdinalIgnoreCase)
+    /// <summary>
+    /// Maps a progress message of the shared Graph client to the resource key of the localized step name.
+    /// </summary>
+    /// <remarks>
+    /// The client reports English texts; a test pins the mapping against the messages it actually emits.
+    /// </remarks>
+    /// <param name="message">The <see cref="AutopilotHardwareHashUploadProgress.Message"/> reported by the client.</param>
+    /// <returns>The step resource key, or <see langword="null"/> when the message names no known step.</returns>
+    internal static string? StatusKeyForProgress(string message) =>
+        message.StartsWith("Uploading", StringComparison.OrdinalIgnoreCase)
             ? "Registration.Status.Uploading"
             : message.Contains("visibility", StringComparison.OrdinalIgnoreCase)
                 ? "Registration.Status.WaitingForRegistration"
                 : message.StartsWith("Updating", StringComparison.OrdinalIgnoreCase) || message.Contains("property", StringComparison.OrdinalIgnoreCase)
                     ? "Registration.Status.Assigning"
                     : null;
+
+    private void ApplyProgress(AutopilotHardwareHashUploadProgress report)
+    {
+        string? key = StatusKeyForProgress(report.Message);
         if (key is not null && key != _statusKey)
         {
             _statusKey = key;

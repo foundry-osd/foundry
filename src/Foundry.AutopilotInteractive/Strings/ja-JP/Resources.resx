@@ -34,6 +34,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>Autopilot の登録をスキップしますか? Windows セットアップは、このデバイスを登録せずに続行されます。</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>登録の処理中です。ここで中止しても、このデバイスが Windows Autopilot に表示される場合があります。待機を中止して Windows セットアップを続行しますか?</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>登録をスキップ</value>
   </data>

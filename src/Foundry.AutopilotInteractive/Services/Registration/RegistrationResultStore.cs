@@ -11,10 +11,12 @@ using Foundry.Core.Models.Autopilot;
 namespace Foundry.AutopilotInteractive.Services.Registration;
 
 /// <summary>
-/// Outcome of the registration step, as read by Foundry.PostInstall and by the next start of the application.
+/// Outcome of the registration step, read by the next start of the application (the completed guard) and kept for
+/// diagnostics.
 /// </summary>
 /// <remarks>
-/// Deliberately carries no hardware hash, serial number, group tag or user name.
+/// Foundry.PostInstall does not read this file: it maps only the process exit code. Deliberately carries no hardware hash,
+/// serial number, group tag or user name.
 /// </remarks>
 /// <param name="Status"><c>completed</c>, <c>failed</c> or <c>skipped</c>.</param>
 /// <param name="FailureCode">Stable token from <see cref="RegistrationFailureCodes"/>, or <see langword="null"/>.</param>

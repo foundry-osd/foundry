@@ -34,6 +34,9 @@ public static class ServiceCollectionExtensions
 
     private static readonly TimeSpan DeviceCodeRequestTimeout = TimeSpan.FromSeconds(30);
 
+    // Bounds each Graph request (one page or one update); the shared client's retry policy retries a timed-out request.
+    private static readonly TimeSpan GraphRequestTimeout = TimeSpan.FromSeconds(30);
+
     /// <summary>
     /// Registers the application, its window and view models, and the services they use.
     /// </summary>
@@ -95,7 +98,11 @@ public static class ServiceCollectionExtensions
             new HttpClient { Timeout = DeviceCodeRequestTimeout },
             sp.GetRequiredService<TimeProvider>()));
         services.AddSingleton(sp => new AutopilotGraphImportClient(
-            new HttpClient { BaseAddress = new Uri("https://graph.microsoft.com/", UriKind.Absolute) },
+            new HttpClient
+            {
+                BaseAddress = new Uri("https://graph.microsoft.com/", UriKind.Absolute),
+                Timeout = GraphRequestTimeout
+            },
             sp.GetRequiredService<ILogger<AutopilotGraphImportClient>>(),
             RegistrationService.GraphClientOptions));
         services.AddSingleton<IRegistrationService, RegistrationService>();

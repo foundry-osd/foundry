@@ -43,6 +43,9 @@
   <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
     <value>تعذر تثبيت مساعد تسجيل Autopilot التفاعلي على هذا الجهاز. تحقق من الاتصال وأعد محاولة النشر. راجع سجل النشر للحصول على التفاصيل.</value>
   </data>
+  <data name="Autopilot.InteractiveRuntimeRateLimited" xml:space="preserve">
+    <value>قيّد GitHub التنزيلات من هذه الشبكة مؤقتًا. انتظر بضع دقائق، ثم ابدأ النشر مرة أخرى.</value>
+  </data>
   <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
     <value>مساعد تسجيل Autopilot التفاعلي غير متوفر لهذا الإصدار من Foundry. تحقق من الاتصال وأعد المحاولة، أو أعد إنشاء وسائط التمهيد. راجع سجل النشر للحصول على التفاصيل.</value>
   </data>

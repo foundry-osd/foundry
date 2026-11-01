@@ -34,6 +34,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>Pominąć rejestrację w usłudze Autopilot? Instalacja systemu Windows będzie kontynuowana bez rejestrowania tego urządzenia.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>Trwa rejestracja. Jeśli zatrzymasz ją teraz, to urządzenie może mimo to pojawić się w usłudze Windows Autopilot. Przestać czekać i kontynuować instalację systemu Windows?</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>Pomiń rejestrację</value>
   </data>

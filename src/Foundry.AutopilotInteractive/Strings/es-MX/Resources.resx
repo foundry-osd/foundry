@@ -34,6 +34,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>¿Omitir el registro en Autopilot? La configuración de Windows continuará sin registrar este dispositivo.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>El registro está en curso. Si lo detiene ahora, es posible que este dispositivo aparezca de todos modos en Windows Autopilot. ¿Dejar de esperar y continuar con la configuración de Windows?</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>Omitir registro</value>
   </data>

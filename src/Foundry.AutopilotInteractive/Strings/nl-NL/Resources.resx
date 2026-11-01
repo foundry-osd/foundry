@@ -34,6 +34,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>Autopilot-registratie overslaan? De Windows-installatie wordt voortgezet zonder dit apparaat te registreren.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>De registratie wordt uitgevoerd. Als u nu stopt, kan dit apparaat toch in Windows Autopilot verschijnen. Stoppen met wachten en de Windows-installatie voortzetten?</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>Registratie overslaan</value>
   </data>

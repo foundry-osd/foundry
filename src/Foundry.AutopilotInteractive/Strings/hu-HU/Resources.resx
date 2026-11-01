@@ -34,6 +34,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Close.ConfirmMessage" xml:space="preserve">
     <value>Kihagyja az Autopilot-regisztrációt? A Windows telepítése az eszköz regisztrálása nélkül folytatódik.</value>
   </data>
+  <data name="Close.ConfirmMessageDuringUpload" xml:space="preserve">
+    <value>A regisztráció folyamatban van. Ha most leállítja, az eszköz ennek ellenére megjelenhet a Windows Autopilot szolgáltatásban. Abbahagyja a várakozást, és folytatja a Windows telepítését?</value>
+  </data>
   <data name="Close.ConfirmSkip" xml:space="preserve">
     <value>Regisztráció kihagyása</value>
   </data>

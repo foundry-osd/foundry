@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 using Foundry.Core.Models.Autopilot;
@@ -54,7 +55,9 @@ internal sealed class AutopilotInteractiveRuntimeSource(string winPeRoot, string
     /// <param name="cancellationToken">Cancels the lookup.</param>
     /// <returns>The archive origin to hand to <see cref="InstallAsync"/>.</returns>
     /// <exception cref="InvalidDataException">The forwarded archive is incomplete, debug media have none, or the release asset is missing or untrusted.</exception>
-    /// <exception cref="HttpRequestException">The release metadata could not be read.</exception>
+    /// <exception cref="HttpRequestException">
+    /// The release metadata could not be read; <see cref="IsRateLimited"/> tells whether GitHub limited the requests.
+    /// </exception>
     internal async Task<AutopilotInteractiveRuntimeOrigin> ResolveAsync(string runtimeIdentifier, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -170,6 +173,15 @@ internal sealed class AutopilotInteractiveRuntimeSource(string winPeRoot, string
         }
     }
 
+    /// <summary>
+    /// Tells whether the release lookup failed because GitHub limited the requests of this network: the unauthenticated
+    /// API answers 403 or 429 when its hourly quota is spent, which is not a missing release.
+    /// </summary>
+    /// <param name="exception">The failure of <see cref="ResolveAsync"/>.</param>
+    /// <returns><see langword="true"/> for HTTP 403 or 429.</returns>
+    internal static bool IsRateLimited(Exception exception) =>
+        exception is HttpRequestException { StatusCode: HttpStatusCode.Forbidden or HttpStatusCode.TooManyRequests };
+
     private Task<RuntimeReleaseAsset> ReadReleaseAssetAsync(string tag, string runtimeIdentifier, CancellationToken cancellationToken) =>
         HttpRetryPolicy.ExecuteAsync(async token =>
         {
@@ -178,7 +190,13 @@ internal sealed class AutopilotInteractiveRuntimeSource(string winPeRoot, string
             request.Headers.UserAgent.ParseAdd("FoundryDeploy/1.0");
             request.Headers.Accept.ParseAdd("application/vnd.github+json");
             using HttpResponseMessage response = await client.SendAsync(request, token).ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
+            if (!response.IsSuccessStatusCode)
+            {
+                Logger.LogWarning("The Foundry.AutopilotInteractive release lookup returned HTTP {StatusCode}. ReleaseTag={ReleaseTag}",
+                    (int)response.StatusCode, tag);
+                throw new HttpRequestException(
+                    $"The Foundry.AutopilotInteractive release lookup returned HTTP {(int)response.StatusCode}.", null, response.StatusCode);
+            }
             using JsonDocument release = JsonDocument.Parse(await response.Content.ReadAsStringAsync(token).ConfigureAwait(false));
             return RuntimeReleaseAsset.Parse(release.RootElement, AutopilotInteractiveLayout.ApplicationName, runtimeIdentifier);
         }, Logger, "Foundry.AutopilotInteractive release lookup", cancellationToken, retryCount: 2, retryDelay: TimeSpan.FromSeconds(2));
