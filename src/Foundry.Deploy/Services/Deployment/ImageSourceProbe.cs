@@ -5,6 +5,7 @@
 using System.Net.Http;
 using System.Net;
 using System.Net.Http.Headers;
+using Foundry.Core.Services.Http;
 using Foundry.Deploy.Services.Http;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Utilities.Networking;

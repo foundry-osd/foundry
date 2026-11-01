@@ -9,11 +9,10 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Foundry.Deploy.Services.Deployment;
-using Foundry.Deploy.Services.Http;
+using Foundry.Core.Services.Http;
 using Microsoft.Extensions.Logging;
 
-namespace Foundry.Deploy.Services.Autopilot;
+namespace Foundry.Core.Services.Autopilot;
 
 /// <summary>
 /// Imports hardware hashes through Microsoft Graph and waits for Intune Autopilot visibility.

@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using Foundry.Core.Models.Configuration;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Services.DriverPacks;
-using Foundry.Deploy.Services.Http;
+using Foundry.Core.Services.Http;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Logging;
 

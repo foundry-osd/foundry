@@ -5,7 +5,7 @@
 using System.Globalization;
 using System.Resources;
 using Foundry.Deploy.Services.Deployment;
-using Foundry.Deploy.Services.Http;
+using Foundry.Core.Services.Http;
 using Foundry.Deploy.Services.Localization;
 
 namespace Foundry.Deploy.Tests;

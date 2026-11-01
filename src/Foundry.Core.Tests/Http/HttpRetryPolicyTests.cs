@@ -3,10 +3,10 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Net;
-using Foundry.Deploy.Services.Http;
+using Foundry.Core.Services.Http;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Foundry.Deploy.Tests;
+namespace Foundry.Core.Tests.Http;
 
 public sealed class HttpRetryPolicyTests
 {

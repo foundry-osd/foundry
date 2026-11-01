@@ -5,7 +5,7 @@
 using System.Net;
 using System.Net.Http.Headers;
 using Foundry.Deploy.Services.Deployment;
-using Foundry.Deploy.Services.Http;
+using Foundry.Core.Services.Http;
 
 namespace Foundry.Deploy.Tests;
 
