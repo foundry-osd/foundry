@@ -25,9 +25,9 @@ public sealed record RegistrationContext(
 /// The technician's choices for one registration.
 /// </summary>
 /// <param name="AccessToken">Graph access token of the signed-in account.</param>
-/// <param name="GroupTag">Group tag to set, or <see langword="null"/> to leave it unchanged.</param>
-/// <param name="AssignedUserPrincipalName">User to assign, or <see langword="null"/> to leave it unchanged.</param>
-/// <param name="AssignedComputerName">Computer name to assign, or <see langword="null"/> to leave it unchanged.</param>
+/// <param name="GroupTag">Group tag to set; <see langword="null"/> means no tag and clears any tag already on the device (None is an explicit choice).</param>
+/// <param name="AssignedUserPrincipalName">User to assign; <see langword="null"/> never clears a user already assigned.</param>
+/// <param name="AssignedComputerName">Computer name to assign; <see langword="null"/> preserves any name already assigned.</param>
 public sealed record RegistrationRequest(
     string AccessToken,
     string? GroupTag,
@@ -80,7 +80,8 @@ public interface IRegistrationService
 /// </summary>
 /// <remarks>
 /// The client must be created with <see cref="GraphClientOptions"/> so the visibility wait is long enough for an interactive
-/// registration. Neither the hardware hash, the serial number, the group tag nor the user name is logged.
+/// registration. This class never logs the hardware hash, the serial number, the group tag or the user name; the Graph client logs
+/// only a masked serial number and whether a group tag is set.
 /// </remarks>
 public sealed class RegistrationService : IRegistrationService
 {

@@ -293,7 +293,7 @@ public sealed class AutopilotGraphImportClient(
         logger.LogInformation(
             "Waiting up to {Timeout} for Windows Autopilot device visibility. SerialNumber={SerialNumber}, ImportId={ImportId}.",
             options.VisibilityTimeout,
-            request.SerialNumber,
+            MaskSerial(request.SerialNumber),
             request.ImportId);
         while (true)
         {
@@ -322,7 +322,7 @@ public sealed class AutopilotGraphImportClient(
             {
                 logger.LogInformation(
                     "Windows Autopilot device became visible. SerialNumber={SerialNumber}, ImportId={ImportId}, AutopilotDeviceId={AutopilotDeviceId}.",
-                    request.SerialNumber,
+                    MaskSerial(request.SerialNumber),
                     request.ImportId,
                     visibleDeviceLookup.Device.Id);
                 WindowsAutopilotDeviceIdentity? reconciledDevice;
@@ -366,7 +366,7 @@ public sealed class AutopilotGraphImportClient(
             {
                 logger.LogWarning(
                     "Autopilot import entered error state before device visibility. SerialNumber={SerialNumber}, ImportId={ImportId}, ImportedIdentityId={ImportedIdentityId}, ErrorCode={ErrorCode}, ErrorName={ErrorName}.",
-                    request.SerialNumber,
+                    MaskSerial(request.SerialNumber),
                     request.ImportId,
                     importedIdentity.Id,
                     importedIdentity.State?.DeviceErrorCode,
@@ -378,7 +378,7 @@ public sealed class AutopilotGraphImportClient(
             {
                 logger.LogWarning(
                     "Windows Autopilot device visibility timed out. SerialNumber={SerialNumber}, ImportId={ImportId}, ImportedIdentityId={ImportedIdentityId}, ImportStatus={ImportStatus}.",
-                    request.SerialNumber,
+                    MaskSerial(request.SerialNumber),
                     request.ImportId,
                     importedIdentity.Id,
                     importedIdentity.State?.DeviceImportStatus);
@@ -424,11 +424,11 @@ public sealed class AutopilotGraphImportClient(
     {
         DateTimeOffset deadline = DateTimeOffset.UtcNow.Add(options.VisibilityTimeout);
         logger.LogInformation(
-            "Waiting up to {Timeout} for Windows Autopilot device property update. SerialNumber={SerialNumber}, ImportId={ImportId}, GroupTag={GroupTag}.",
+            "Waiting up to {Timeout} for Windows Autopilot device property update. SerialNumber={SerialNumber}, ImportId={ImportId}, HasGroupTag={HasGroupTag}.",
             options.VisibilityTimeout,
-            request.SerialNumber,
+            MaskSerial(request.SerialNumber),
             request.ImportId,
-            NormalizeGroupTagForGraph(request.GroupTag));
+            NormalizeGroupTagForGraph(request.GroupTag) is not null);
         while (true)
         {
             TimeSpan remaining = deadline - DateTimeOffset.UtcNow;
@@ -446,7 +446,7 @@ public sealed class AutopilotGraphImportClient(
             {
                 logger.LogWarning(
                     "Windows Autopilot device property update could not be verified because device lookup failed. SerialNumber={SerialNumber}, ImportId={ImportId}, FailureCode={FailureCode}.",
-                    request.SerialNumber,
+                    MaskSerial(request.SerialNumber),
                     request.ImportId,
                     deviceLookup.FailureCode);
                 return null;
@@ -458,7 +458,7 @@ public sealed class AutopilotGraphImportClient(
             {
                 logger.LogInformation(
                     "Windows Autopilot device property update confirmed. SerialNumber={SerialNumber}, ImportId={ImportId}, AutopilotDeviceId={AutopilotDeviceId}.",
-                    request.SerialNumber,
+                    MaskSerial(request.SerialNumber),
                     request.ImportId,
                     deviceLookup.Device.Id);
                 return deviceLookup.Device;
@@ -467,10 +467,10 @@ public sealed class AutopilotGraphImportClient(
             if (DateTimeOffset.UtcNow >= deadline)
             {
                 logger.LogWarning(
-                    "Windows Autopilot device property update timed out. SerialNumber={SerialNumber}, ImportId={ImportId}, ExpectedGroupTag={ExpectedGroupTag}.",
-                    request.SerialNumber,
+                    "Windows Autopilot device property update timed out. SerialNumber={SerialNumber}, ImportId={ImportId}, HasExpectedGroupTag={HasExpectedGroupTag}.",
+                    MaskSerial(request.SerialNumber),
                     request.ImportId,
-                    NormalizeGroupTagForGraph(request.GroupTag));
+                    NormalizeGroupTagForGraph(request.GroupTag) is not null);
                 return null;
             }
 
@@ -543,7 +543,7 @@ public sealed class AutopilotGraphImportClient(
 
         logger.LogWarning(
             "Multiple Windows Autopilot devices matched the captured serial number. SerialNumber={SerialNumber}, MatchCount={MatchCount}.",
-            request.SerialNumber,
+            MaskSerial(request.SerialNumber),
             matches.Count);
         return AutopilotDeviceLookupResult.Failed(
             AutopilotHardwareHashUploadState.UploadFailed,
@@ -682,6 +682,12 @@ public sealed class AutopilotGraphImportClient(
             cancellationToken,
             options.RetryCount,
             options.RetryDelay).ConfigureAwait(false);
+    }
+
+    /// <summary>Masks a serial number for logs: the full value identifies the device.</summary>
+    private static string MaskSerial(string serialNumber)
+    {
+        return serialNumber.Length <= 4 ? "***" : "***" + serialNumber[^4..];
     }
 
     private Task DelayAsync(TimeSpan delay, CancellationToken cancellationToken)

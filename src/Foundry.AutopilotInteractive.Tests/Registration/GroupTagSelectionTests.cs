@@ -66,6 +66,14 @@ public sealed class GroupTagSelectionTests
     }
 
     [Fact]
+    public void Resolve_UsesNone_ForAmbiguousDevice_WhenOptionOn()
+    {
+        GroupTagInitialSelection selection = GroupTagSelection.Resolve(["Sales"], Ambiguous, preselectCustom: true);
+
+        Assert.Equal(new GroupTagInitialSelection(GroupTagChoice.None, null, null, false), selection);
+    }
+
+    [Fact]
     public void ToRequestedTag_ReturnsNull_ForBlankCustom()
     {
         Assert.Null(GroupTagSelection.ToRequestedTag(GroupTagChoice.Custom, null, "   "));

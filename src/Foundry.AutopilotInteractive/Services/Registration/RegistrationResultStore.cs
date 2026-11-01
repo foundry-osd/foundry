@@ -38,6 +38,21 @@ public sealed record RegistrationResult(
 
     /// <summary>Status of a registration the technician skipped.</summary>
     public const string StatusSkipped = "skipped";
+
+    /// <summary>
+    /// Converts a profile wait outcome to the value stored in <see cref="ProfileAssignment"/>.
+    /// </summary>
+    /// <param name="outcome">How the profile wait ended.</param>
+    /// <returns><c>assigned</c>, <c>failed</c>, <c>timedOut</c>, <c>skipped</c> or <c>unavailable</c>.</returns>
+    public static string ToResultValue(ProfileAssignmentOutcome outcome) => outcome switch
+    {
+        ProfileAssignmentOutcome.Assigned => "assigned",
+        ProfileAssignmentOutcome.Failed => "failed",
+        ProfileAssignmentOutcome.TimedOut => "timedOut",
+        ProfileAssignmentOutcome.Skipped => "skipped",
+        ProfileAssignmentOutcome.Unavailable => "unavailable",
+        _ => throw new ArgumentOutOfRangeException(nameof(outcome), outcome, null)
+    };
 }
 
 /// <summary>

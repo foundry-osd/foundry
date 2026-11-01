@@ -2,8 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Net.Http;
 using Foundry.Core.Services.Autopilot;
+using Microsoft.Extensions.Logging;
 
 namespace Foundry.AutopilotInteractive.Services.Registration;
 
@@ -30,16 +30,20 @@ public enum ProfileAssignmentOutcome
 /// Polls Graph until the registered device has a deployment profile, the wait is skipped, or the stop time is reached.
 /// </summary>
 /// <remarks>
-/// The wait is informational: the caller reports the outcome but never fails the registration because of it. The clock and
-/// the delay are injected so the loop can be tested without real time.
+/// The wait is informational: it never fails the registration. Any failure to read the status ends the wait as
+/// <see cref="ProfileAssignmentOutcome.Unavailable"/>, and each read is bounded by the stop time so the deadline margin holds
+/// even when the shared client would otherwise retry for minutes. The clock and the delay are injected so the loop can be
+/// tested without real time.
 /// </remarks>
 /// <param name="client">Graph client shared with the registration.</param>
 /// <param name="delay">Waits for the given duration; throws <see cref="OperationCanceledException"/> when the token is cancelled.</param>
 /// <param name="utcNow">Current UTC instant.</param>
+/// <param name="logger">Receives a warning when the status cannot be read; optional.</param>
 public sealed class ProfileAssignmentWaiter(
     AutopilotGraphImportClient client,
     Func<TimeSpan, CancellationToken, Task> delay,
-    Func<DateTimeOffset> utcNow)
+    Func<DateTimeOffset> utcNow,
+    ILogger<ProfileAssignmentWaiter>? logger = null)
 {
     /// <summary>Interval between two status reads.</summary>
     public static readonly TimeSpan PollInterval = TimeSpan.FromSeconds(30);
@@ -65,8 +69,8 @@ public sealed class ProfileAssignmentWaiter(
     /// </summary>
     /// <param name="accessToken">Graph access token.</param>
     /// <param name="deviceId">Autopilot device identity.</param>
-    /// <param name="stopAtUtc">Instant at which the wait gives up.</param>
-    /// <param name="skip">Cancelled when the technician skips the wait.</param>
+    /// <param name="stopAtUtc">Instant at which the wait gives up, including a read still in progress.</param>
+    /// <param name="skip">Cancelled when the technician skips the wait; wins over every other outcome.</param>
     /// <returns>How the wait ended.</returns>
     public async Task<ProfileAssignmentOutcome> WaitAsync(
         string accessToken,
@@ -87,35 +91,58 @@ public sealed class ProfileAssignmentWaiter(
                 return ProfileAssignmentOutcome.TimedOut;
             }
 
+            using CancellationTokenSource readLimit = CancellationTokenSource.CreateLinkedTokenSource(skip);
+            readLimit.CancelAfter(stopAtUtc - now);
+
+            string? status;
             try
             {
-                string? status = await client.GetDeploymentProfileAssignmentStatusAsync(accessToken, deviceId, skip).ConfigureAwait(false);
-                if (status is null)
-                {
-                    return ProfileAssignmentOutcome.Unavailable;
-                }
-
-                if (status.StartsWith("assigned", StringComparison.OrdinalIgnoreCase))
-                {
-                    return ProfileAssignmentOutcome.Assigned;
-                }
-
-                if (status.StartsWith("failed", StringComparison.OrdinalIgnoreCase))
-                {
-                    return ProfileAssignmentOutcome.Failed;
-                }
-
-                // The last interval is shortened so the wait ends at the stop time instead of up to one interval later.
-                TimeSpan remaining = stopAtUtc - now;
-                await delay(remaining < PollInterval ? remaining : PollInterval, skip).ConfigureAwait(false);
+                status = await client.GetDeploymentProfileAssignmentStatusAsync(accessToken, deviceId, readLimit.Token).ConfigureAwait(false);
             }
             catch (OperationCanceledException) when (skip.IsCancellationRequested)
             {
                 return ProfileAssignmentOutcome.Skipped;
             }
-            catch (HttpRequestException)
+            catch (OperationCanceledException) when (readLimit.IsCancellationRequested)
+            {
+                return ProfileAssignmentOutcome.TimedOut;
+            }
+            catch (Exception exception)
+            {
+                // An HTTP timeout, a Graph error or an unreadable payload: the status is informational only.
+                logger?.LogWarning("The deployment profile status could not be read. FailureType={FailureType}", exception.GetType().Name);
+                return ProfileAssignmentOutcome.Unavailable;
+            }
+
+            if (status is null)
             {
                 return ProfileAssignmentOutcome.Unavailable;
+            }
+
+            if (status.StartsWith("assigned", StringComparison.OrdinalIgnoreCase))
+            {
+                return ProfileAssignmentOutcome.Assigned;
+            }
+
+            if (status.StartsWith("failed", StringComparison.OrdinalIgnoreCase))
+            {
+                return ProfileAssignmentOutcome.Failed;
+            }
+
+            // The last interval is shortened so the wait ends at the stop time instead of up to one interval later.
+            TimeSpan remaining = stopAtUtc - utcNow();
+            if (remaining <= TimeSpan.Zero)
+            {
+                return ProfileAssignmentOutcome.TimedOut;
+            }
+
+            try
+            {
+                await delay(remaining < PollInterval ? remaining : PollInterval, skip).ConfigureAwait(false);
+            }
+            catch (OperationCanceledException) when (skip.IsCancellationRequested)
+            {
+                return ProfileAssignmentOutcome.Skipped;
             }
         }
     }

@@ -38,7 +38,8 @@ public static class GroupTagSelection
     /// </summary>
     /// <remarks>
     /// A registered device always shows its own tag (matched to the list ignoring case and surrounding spaces) and ignores
-    /// <paramref name="preselectCustom"/>. A device that is new or ambiguous follows the configured preselection.
+    /// <paramref name="preselectCustom"/>. A device that is not registered follows the configured preselection; an ambiguous
+    /// lookup always gives <see cref="GroupTagChoice.None"/>.
     /// </remarks>
     /// <param name="tags">Tags discovered in the tenant.</param>
     /// <param name="lookup">Result of the serial number lookup.</param>
@@ -63,7 +64,8 @@ public static class GroupTagSelection
                 : new GroupTagInitialSelection(GroupTagChoice.Custom, null, registeredTag, false);
         }
 
-        return preselectCustom
+        // Only a device that is not registered honors the preselection; an ambiguous one offers no default at all.
+        return lookup.Status == AutopilotDeviceLookupStatus.NotFound && preselectCustom
             ? new GroupTagInitialSelection(GroupTagChoice.Custom, null, string.Empty, true)
             : new GroupTagInitialSelection(GroupTagChoice.None, null, null, false);
     }

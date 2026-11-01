@@ -69,6 +69,21 @@ public sealed class RegistrationResultStoreTests : IDisposable
     }
 
     [Fact]
+    public void ToResultValue_UsesTheDocumentedProfileValues()
+    {
+        Assert.Equal(
+            ["assigned", "failed", "timedOut", "skipped", "unavailable"],
+            new[]
+            {
+                ProfileAssignmentOutcome.Assigned,
+                ProfileAssignmentOutcome.Failed,
+                ProfileAssignmentOutcome.TimedOut,
+                ProfileAssignmentOutcome.Skipped,
+                ProfileAssignmentOutcome.Unavailable
+            }.Select(RegistrationResult.ToResultValue));
+    }
+
+    [Fact]
     public void ResolveStateDirectory_UsesTheWindowsFolderInProductionAndTempInDebug()
     {
         string windows = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
