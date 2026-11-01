@@ -141,33 +141,51 @@
             Visibility="{Binding HasDeadlineMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
         <!--
-            No title bar means no close button: this secondary button runs the same confirmation as Alt+F4. It is hidden during
-            the success countdown and once the run is ending.
+            No title bar means no close button: this secondary button runs the same confirmation as Alt+F4. Placement copied from
+            the Foundry Deploy wizard command bar (WizardView.xaml): a content-width grid with a 12 px top margin and the buttons
+            right-aligned, default button style, MinWidth 120. The width follows the page content (760 on page 1, 640 on page 2)
+            so the button lines up with the content edge, like Deploy's cap on its card. Hidden, not Collapsed, once the run no
+            longer allows skipping (success countdown, ending): the row keeps its height so the centered page does not jump.
         -->
-        <Button
+        <Grid
             Grid.Row="2"
-            Margin="16,0,16,12"
-            HorizontalAlignment="Center"
-            Command="{Binding SkipRegistrationCommand}"
-            Content="{Binding Strings[Registration.Skip]}"
-            Foreground="{DynamicResource TextFillColorSecondaryBrush}">
-            <!--  Hidden, not Collapsed: the row keeps its height so the centered page does not jump when the button goes away.  -->
-            <Button.Style>
-                <Style
-                    BasedOn="{StaticResource {x:Type Button}}"
-                    TargetType="Button">
+            MaxWidth="760"
+            Margin="16,12,16,12">
+            <Grid.Style>
+                <Style TargetType="Grid">
                     <Style.Triggers>
                         <DataTrigger
-                            Binding="{Binding CanSkipRegistration}"
-                            Value="False">
+                            Binding="{Binding IsGroupTagPage}"
+                            Value="True">
                             <Setter
-                                Property="Visibility"
-                                Value="Hidden" />
+                                Property="MaxWidth"
+                                Value="640" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </Button.Style>
-        </Button>
+            </Grid.Style>
+            <Button
+                MinWidth="120"
+                HorizontalAlignment="Right"
+                Command="{Binding SkipRegistrationCommand}"
+                Content="{Binding Strings[Registration.Skip]}">
+                <Button.Style>
+                    <Style
+                        BasedOn="{StaticResource {x:Type Button}}"
+                        TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger
+                                Binding="{Binding CanSkipRegistration}"
+                                Value="False">
+                                <Setter
+                                    Property="Visibility"
+                                    Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
 
         <Border
             Grid.Row="3"
