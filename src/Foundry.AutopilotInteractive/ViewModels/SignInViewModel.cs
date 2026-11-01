@@ -125,9 +125,6 @@ public sealed partial class SignInViewModel : LocalizedViewModelBase
     /// <summary>Gets whether Retry is offered: only after a blocking error.</summary>
     public bool IsRetryVisible => _errorKey is not null;
 
-    /// <summary>Gets the running sign-in, for tests.</summary>
-    internal Task? PendingSignIn { get; private set; }
-
     /// <summary>
     /// Maps an error code of <see cref="SignInFailedException"/> to the resource key of its message.
     /// </summary>
@@ -172,7 +169,7 @@ public sealed partial class SignInViewModel : LocalizedViewModelBase
         RaiseStateChanged();
 
         _runCts = new CancellationTokenSource();
-        PendingSignIn = RunAsync(client, _runCts.Token);
+        _ = RunAsync(client, _runCts.Token);
     }
 
     /// <summary>Cancels the running sign-in and hides the code and the address. Idempotent.</summary>

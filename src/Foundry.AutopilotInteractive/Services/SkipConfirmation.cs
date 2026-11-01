@@ -8,7 +8,7 @@ using Foundry.Wpf.Localization;
 namespace Foundry.AutopilotInteractive.Services;
 
 /// <summary>
-/// Asks the technician to confirm that closing the window skips the Autopilot registration.
+/// Asks the technician to confirm that the "Skip registration" button or Alt+F4 skips the Autopilot registration.
 /// </summary>
 public interface ISkipConfirmation
 {
