@@ -352,6 +352,9 @@
   <data name="Registration.ProfileWaitFormat" xml:space="preserve">
     <value>正在等待 Autopilot 配置文件分配 ({0})</value>
   </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>跳过注册</value>
+  </data>
   <data name="Registration.Status.Assigning" xml:space="preserve">
     <value>正在分配组标签、计算机名称和用户…</value>
   </data>

@@ -352,6 +352,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="Registration.ProfileWaitFormat" xml:space="preserve">
     <value>Oczekiwanie na przypisanie profilu Autopilot ({0})</value>
   </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>Pomiń rejestrację</value>
+  </data>
   <data name="Registration.Status.Assigning" xml:space="preserve">
     <value>Przypisywanie tagu grupy, nazwy komputera i użytkownika…</value>
   </data>

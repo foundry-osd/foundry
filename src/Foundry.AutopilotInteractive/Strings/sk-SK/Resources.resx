@@ -352,6 +352,9 @@ Licencované podľa licencie MIT.</value>
   <data name="Registration.ProfileWaitFormat" xml:space="preserve">
     <value>Čaká sa na priradenie profilu Autopilot ({0})</value>
   </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>Preskočiť registráciu</value>
+  </data>
   <data name="Registration.Status.Assigning" xml:space="preserve">
     <value>Priraďuje sa značka skupiny, názov počítača a používateľ…</value>
   </data>

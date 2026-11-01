@@ -352,6 +352,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Registration.ProfileWaitFormat" xml:space="preserve">
     <value>Čekanje na dodelu profila Autopilot ({0})</value>
   </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>Preskoči registraciju</value>
+  </data>
   <data name="Registration.Status.Assigning" xml:space="preserve">
     <value>Dodela oznake grupe, naziva računara i korisnika…</value>
   </data>

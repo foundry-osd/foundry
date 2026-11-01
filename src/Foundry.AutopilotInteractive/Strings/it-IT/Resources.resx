@@ -352,6 +352,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Registration.ProfileWaitFormat" xml:space="preserve">
     <value>In attesa dell'assegnazione del profilo Autopilot ({0})</value>
   </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>Ignora registrazione</value>
+  </data>
   <data name="Registration.Status.Assigning" xml:space="preserve">
     <value>Assegnazione di tag di gruppo, nome del computer e utente in corso…</value>
   </data>

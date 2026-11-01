@@ -352,6 +352,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Registration.ProfileWaitFormat" xml:space="preserve">
     <value>Várakozás az Autopilot-profil hozzárendelésére ({0})</value>
   </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>Regisztráció kihagyása</value>
+  </data>
   <data name="Registration.Status.Assigning" xml:space="preserve">
     <value>Csoportcímke, számítógépnév és felhasználó hozzárendelése…</value>
   </data>

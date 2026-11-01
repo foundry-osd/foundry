@@ -352,6 +352,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Registration.ProfileWaitFormat" xml:space="preserve">
     <value>Wachten op de toewijzing van het Autopilot-profiel ({0})</value>
   </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>Registratie overslaan</value>
+  </data>
   <data name="Registration.Status.Assigning" xml:space="preserve">
     <value>Groepstag, computernaam en gebruiker toewijzen…</value>
   </data>

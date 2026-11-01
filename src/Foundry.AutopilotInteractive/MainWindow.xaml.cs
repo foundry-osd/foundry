@@ -14,7 +14,7 @@ namespace Foundry.AutopilotInteractive;
 /// Full-screen shell window: menu, version, page host and device footer.
 /// </summary>
 /// <remarks>
-/// Code-behind is limited to window glue: the page transition, the close confirmation and the exit code handed to the
+/// Code-behind is limited to window glue: the page transition, the Alt+F4 close confirmation and the exit code handed to the
 /// application when the window closes.
 /// </remarks>
 public partial class MainWindow : Window
@@ -48,8 +48,9 @@ public partial class MainWindow : Window
     }
 
     /// <summary>
-    /// Asks the view model before closing (close button, Alt+F4). The close is cancelled and the question runs after the
-    /// Closing event, because a window cannot be closed again from inside its own Closing event.
+    /// Asks the view model before closing (Alt+F4: the borderless window has no close button; the "Skip registration" button
+    /// goes through the view model command). The close is cancelled and the question runs after the Closing event, because a
+    /// window cannot be closed again from inside its own Closing event.
     /// </summary>
     protected override void OnClosing(CancelEventArgs e)
     {

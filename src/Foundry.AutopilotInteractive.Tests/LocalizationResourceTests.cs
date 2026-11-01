@@ -51,12 +51,12 @@ public sealed class LocalizationResourceTests
         "zh-TW"
     ];
 
-    // Texts of the shell, the About dialog and the configuration error: the parity tests keep the key sets equal, this keeps them filled.
+    // Texts of the shell (including the Skip registration button), the About dialog and the configuration error: the parity tests keep the key sets equal, this keeps them filled.
     private static readonly string[] ShellKeys =
     [
         "About.DescriptionLine1", "About.DescriptionLine2", "About.Footer", "About.Title", "App.Name", "Common.Close",
         "Common.VersionFormat", "Config.LoadFailed", "Footer.Unknown", "Menu.About", "Menu.Debug", "Menu.Language", "Menu.Theme",
-        "Theme.Dark", "Theme.Light", "Theme.System"
+        "Registration.Skip", "Theme.Dark", "Theme.Light", "Theme.System"
     ];
 
     public static TheoryData<string> SupportedCultures => new(CultureNames);

@@ -10,11 +10,13 @@
     ResizeMode="NoResize"
     Topmost="True"
     WindowState="Maximized"
+    WindowStyle="None"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -138,8 +140,21 @@
             Severity="Warning"
             Visibility="{Binding HasDeadlineMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-        <Border
+        <!--
+            No title bar means no close button: this secondary button runs the same confirmation as Alt+F4. It is hidden during
+            the success countdown and once the run is ending.
+        -->
+        <Button
             Grid.Row="2"
+            Margin="16,0,16,12"
+            HorizontalAlignment="Center"
+            Command="{Binding SkipRegistrationCommand}"
+            Content="{Binding Strings[Registration.Skip]}"
+            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+            Visibility="{Binding CanSkipRegistration, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+        <Border
+            Grid.Row="3"
             Padding="16,8"
             BorderBrush="{DynamicResource DividerStrokeColorDefaultBrush}"
             BorderThickness="0,1,0,0">

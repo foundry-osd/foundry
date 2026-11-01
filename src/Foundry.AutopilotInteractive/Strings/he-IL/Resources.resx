@@ -352,6 +352,9 @@
   <data name="Registration.ProfileWaitFormat" xml:space="preserve">
     <value>ממתין להקצאת פרופיל Autopilot ({0})</value>
   </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>דלג על הרישום</value>
+  </data>
   <data name="Registration.Status.Assigning" xml:space="preserve">
     <value>מקצה את תג הקבוצה, שם המחשב והמשתמש…</value>
   </data>

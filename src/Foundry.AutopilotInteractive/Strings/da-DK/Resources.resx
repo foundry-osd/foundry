@@ -352,6 +352,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Registration.ProfileWaitFormat" xml:space="preserve">
     <value>Venter på tildeling af Autopilot-profilen ({0})</value>
   </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>Spring registrering over</value>
+  </data>
   <data name="Registration.Status.Assigning" xml:space="preserve">
     <value>Tildeler gruppetag, computernavn og bruger…</value>
   </data>

@@ -231,6 +231,12 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
     public string DeviceFooter { get; private set; } = string.Empty;
 
     /// <summary>
+    /// Gets whether the "Skip registration" button is shown and usable: false during the success countdown and once the run
+    /// is ending (deadline message, exit requested).
+    /// </summary>
+    public bool CanSkipRegistration => !_isCompleted && !_isEnding && !_isExitRequested && !_isDisposed;
+
+    /// <summary>
     /// Starts the run (unless a debug scenario already did), then reads the device identity off the UI thread for the
     /// footer. Later calls do nothing.
     /// </summary>
@@ -364,6 +370,26 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         base.Dispose();
     }
 
+    /// <summary>
+    /// The "Skip registration" button: the same decision as closing the window (Alt+F4), through
+    /// <see cref="ConfirmCloseAsync"/>. A confirmed skip, or the profile wait / success countdown shortcuts, end the run, which
+    /// closes the window through <see cref="ExitRequested"/>. The command cannot run twice at once, so one question is open at a time.
+    /// </summary>
+    /// <returns>A task that completes when the question was answered.</returns>
+    [RelayCommand(CanExecute = nameof(CanSkipRegistration))]
+    private async Task SkipRegistrationAsync()
+    {
+        try
+        {
+            await ConfirmCloseAsync();
+        }
+        catch (Exception exception)
+        {
+            // Same policy as the window's close path: a failed question leaves the window open and usable.
+            _logger.LogError("The skip confirmation failed. FailureType={FailureType}", exception.GetType().Name);
+        }
+    }
+
     [RelayCommand]
     private void SetSystemTheme() => SetTheme(ThemeMode.System);
 
@@ -425,6 +451,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(ExitCode));
         OnPropertyChanged(nameof(DeadlineMessage));
         OnPropertyChanged(nameof(HasDeadlineMessage));
+        RefreshSkipAvailability();
 
         _isSessionStarted = true;
         _services = _serviceSetFactory.Create(IsDebugMenuVisible ? ActiveDebugScenario : null);
@@ -543,6 +570,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         _isCompleted = true;
         ExitCode = CompletedExitCode;
         OnPropertyChanged(nameof(ExitCode));
+        RefreshSkipAvailability();
     }
 
     private void OnContinueRequested(object? sender, EventArgs e)
@@ -591,6 +619,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(ExitCode));
         OnPropertyChanged(nameof(DeadlineMessage));
         OnPropertyChanged(nameof(HasDeadlineMessage));
+        RefreshSkipAvailability();
         _exitTimer = _timeProvider.CreateTimer(
             _ => _dispatcher.Run(() => EndRun(IncompleteExitCode)),
             null,
@@ -612,6 +641,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         _isExitRequested = true;
         ExitCode = exitCode;
         OnPropertyChanged(nameof(ExitCode));
+        RefreshSkipAvailability();
         _logger.LogInformation("Foundry.AutopilotInteractive is ending. ExitCode={ExitCode}", exitCode);
         ExitRequested?.Invoke(this, EventArgs.Empty);
 
@@ -622,6 +652,12 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
     private void CancelConfirmation()
     {
         _confirmationCts?.Cancel();
+    }
+
+    private void RefreshSkipAvailability()
+    {
+        OnPropertyChanged(nameof(CanSkipRegistration));
+        SkipRegistrationCommand.NotifyCanExecuteChanged();
     }
 
     private void CancelWork()

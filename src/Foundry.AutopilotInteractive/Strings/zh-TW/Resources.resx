@@ -352,6 +352,9 @@
   <data name="Registration.ProfileWaitFormat" xml:space="preserve">
     <value>正在等候 Autopilot 設定檔指派 ({0})</value>
   </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>略過註冊</value>
+  </data>
   <data name="Registration.Status.Assigning" xml:space="preserve">
     <value>正在指派群組標籤、電腦名稱和使用者…</value>
   </data>

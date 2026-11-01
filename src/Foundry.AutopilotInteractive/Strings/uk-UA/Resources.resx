@@ -352,6 +352,9 @@
   <data name="Registration.ProfileWaitFormat" xml:space="preserve">
     <value>Очікування призначення профілю Autopilot ({0})</value>
   </data>
+  <data name="Registration.Skip" xml:space="preserve">
+    <value>Пропустити реєстрацію</value>
+  </data>
   <data name="Registration.Status.Assigning" xml:space="preserve">
     <value>Призначення тегу групи, імені комп’ютера та користувача…</value>
   </data>
