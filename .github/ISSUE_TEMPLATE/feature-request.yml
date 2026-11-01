@@ -18,6 +18,7 @@ body:
         - Foundry Connect
         - Foundry Deploy
         - Foundry PostInstall
+        - Foundry Autopilot Interactive
         - Documentation
         - Other or not sure
     validations:

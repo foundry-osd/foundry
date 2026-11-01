@@ -58,6 +58,15 @@
           - 'src/Foundry.PostInstall.Tests/**'
           - 'scripts/Publish-FoundryPostInstall.ps1'
 
+# Foundry interactive Autopilot registration application
+'project: foundry-autopilot-interactive':
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'src/Foundry.AutopilotInteractive/**'
+          - 'src/Foundry.AutopilotInteractive.Tests/**'
+          - 'src/Foundry.Wpf/**'
+          - 'src/Foundry.Wpf.Tests/**'
+
 # UI assets and views
 ui:
   - changed-files:
@@ -69,6 +78,7 @@ ui:
           - 'src/Foundry.Deploy/ViewModels/**'
           - 'src/Foundry.Deploy/Converters/**'
           - 'src/Foundry.Connect/ViewModels/**'
+          - 'src/Foundry.AutopilotInteractive/ViewModels/**'
           - 'src/Foundry.Wpf/**'
           - 'src/Foundry.Wpf.Tests/**'
 

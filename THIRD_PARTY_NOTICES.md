@@ -1,6 +1,6 @@
 # Third-party notices
 
-This repository-level notice covers third-party binary assets committed directly to the Foundry source tree. Managed .NET dependencies and their license links are listed in the application's **About > Licenses** view.
+This repository-level notice covers third-party binary assets committed directly to the Foundry source tree, and the QR code libraries bundled with Foundry.AutopilotInteractive. Other managed .NET dependencies and their license links are listed in the application's **About > Licenses** view.
 
 ## 7-Zip Extra
 
@@ -25,5 +25,13 @@ The Foundry OSD Home page header, the README banner, the documentation home bann
 - Upstream: [Photo by Dima Solomin](https://unsplash.com/photos/eJ6uQ2pIE4Y) on [Unsplash](https://unsplash.com)
 - License: [Unsplash License](https://unsplash.com/license)
 - Included files: `src/Foundry/Assets/Cover/Cover.png`, `Assets/GitHub/readme-logo.png`, and `Assets/GitHub/social-preview.png`
+
+## QRCoder
+
+Foundry.AutopilotInteractive uses QRCoder 1.8.1 and QRCoder.Xaml 1.8.1 to render the device code sign-in QR code. Both packages are distributed with the Foundry.AutopilotInteractive release archive.
+
+- Upstream: [QRCoder](https://github.com/Shane32/QRCoder) by Raffael Herrmann and Shane Krueger
+- License: [MIT](https://licenses.nuget.org/MIT)
+- Copyright: Copyright (c) 2013-2025 Raffael Herrmann. Copyright (c) 2024-2025 Shane Krueger.
 
 This file supplements, and does not replace, the license files distributed with each bundled asset.

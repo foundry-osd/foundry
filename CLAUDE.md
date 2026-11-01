@@ -51,7 +51,8 @@ You must speak and write code exclusively in English.
 - `Foundry.Bootstrap` is the .NET console runtime for WinPE boot orchestration. It owns runtime payload resolution, cache recovery, system preparation, child process supervision, the deployment key relay between Foundry Connect and Foundry Deploy, console progress, and local boot diagnostics. It must not reference UI projects or replace PowerShell workflows owned by other applications.
 - `Foundry.Connect` is the WPF network provisioning runtime included in boot media. It owns runtime networking, configuration loading, application lifecycle, and the Connect-specific UI.
 - `Foundry.Deploy` is the WPF deployment runtime included in boot media. It owns deployment workflows, hardware discovery, downloads, driver packs, caching, runtime configuration, startup validation, and the Deploy-specific UI.
-- `Foundry.PostInstall` is the .NET console runtime for Windows setup before OOBE. It owns built-in and custom action execution, process supervision, durable restart/resume, and owned cleanup. Deploy owns target staging and answer-file integration; PostInstall runs the interactive Autopilot assistant as a built-in action, while the assistant script remains a separate Deploy-staged runtime.
+- `Foundry.AutopilotInteractive` is the WPF interactive Autopilot registration runtime that Deploy installs into the target OS and PostInstall runs during specialize. It owns device code sign-in, the QR code, group tag selection and the registration UI.
+- `Foundry.PostInstall` is the .NET console runtime for Windows setup before OOBE. It owns built-in and custom action execution, process supervision, durable restart/resume, and owned cleanup. Deploy owns target staging and answer-file integration; PostInstall runs Foundry.AutopilotInteractive as a built-in action; Deploy installs it in the target OS.
 - `Foundry.Localization` provides shared culture definitions and resource-based localization services used by the applications.
 - `Foundry.Telemetry` provides shared telemetry contracts, event definitions, context, privacy rules, PostHog integration, and the no-op telemetry implementation.
 - `Foundry.Wpf` contains WPF building blocks shared by WPF runtime applications: styles, controls, dialogs, motion, theme and WPF localization services. It contains no business rules, configuration schemas or workflow logic.
@@ -63,6 +64,7 @@ You must speak and write code exclusively in English.
 - Keep WinUI 3 concerns in `Foundry`.
 - Keep shared WPF building blocks in `Foundry.Wpf` and application-specific WPF concerns in the WPF application that owns them.
 - Keep `Foundry.PostInstall` independent of UI projects; shared execution contracts belong in `Foundry.Core`.
+- `Foundry.AutopilotInteractive` may reference `Foundry.Core`, `Foundry.Wpf`, `Foundry.Localization` and `Foundry.Utilities`; it must not reference another application project.
 - Put reusable business rules and configuration contracts in `Foundry.Core` when they are shared or independent from a specific UI framework.
 - Put runtime-specific behavior in the runtime project that owns it.
 - Do not move Connect- or Deploy-specific workflows into `Foundry.Core` solely for reuse convenience.
@@ -71,7 +73,7 @@ You must speak and write code exclusively in English.
 - Use `Foundry.Telemetry` for shared telemetry behavior instead of creating application-specific telemetry implementations.
 - `Foundry.Utilities` is a leaf project and must not reference another Foundry project.
 - `Foundry.Wpf` may reference `Foundry.Localization`, `Foundry.Telemetry` and `Foundry.Utilities`; it must not reference `Foundry.Core` or an application project. Only WPF applications reference `Foundry.Wpf`.
-- `Foundry.Core`, `Foundry`, `Foundry.Bootstrap`, `Foundry.Connect`, `Foundry.Deploy`, `Foundry.PostInstall`, `Foundry.Localization`, `Foundry.Telemetry`, and `Foundry.Wpf` may consume `Foundry.Utilities` when a capability has a stable cross-project contract.
+- `Foundry.Core`, `Foundry`, `Foundry.Bootstrap`, `Foundry.Connect`, `Foundry.Deploy`, `Foundry.AutopilotInteractive`, `Foundry.PostInstall`, `Foundry.Localization`, `Foundry.Telemetry`, and `Foundry.Wpf` may consume `Foundry.Utilities` when a capability has a stable cross-project contract.
 - A type belongs in `Foundry.Utilities` only when it is technical, independently testable, and either has multiple consumers or replaces proven duplication.
 - Destructive deployment and media operations remain in the project that owns the workflow even when they use shared utility primitives.
 
@@ -136,6 +138,7 @@ You must speak and write code exclusively in English.
 - `Foundry.Bootstrap.Tests` owns tests for boot sequencing, runtime selection, cache rollback, process observation, cancellation, the deployment key relay, and best-effort system preparation and diagnostics in `Foundry.Bootstrap`.
 - `Foundry.Connect.Tests` owns tests for `Foundry.Connect` runtime behavior and its integration with shared `Foundry.Core` contracts.
 - `Foundry.Deploy.Tests` owns tests for `Foundry.Deploy` runtime behavior.
+- `Foundry.AutopilotInteractive.Tests` owns tests for `Foundry.AutopilotInteractive` runtime behavior, including sign-in flow, group tag handling, QR code generation and deadline handling.
 - `Foundry.PostInstall.Tests` owns tests for action execution, process supervision, checkpoint integrity, restart/resume, and owned cleanup in `Foundry.PostInstall`; run Windows Setup and native servicing acceptance only in disposable test environments.
 - `Foundry.Localization.Tests` owns tests for shared localization behavior.
 - `Foundry.Telemetry.Tests` owns tests for shared telemetry behavior and privacy rules.
@@ -148,7 +151,7 @@ You must speak and write code exclusively in English.
 
 ## Logging rules
 
-- Use `FoundryLogConfiguration` for application file sinks so Foundry.OSD, Foundry.Bootstrap, Foundry.Connect, Foundry.Deploy, and Foundry.PostInstall share the same structured text contract
+- Use `FoundryLogConfiguration` for application file sinks so Foundry.OSD, Foundry.Bootstrap, Foundry.Connect, Foundry.Deploy, Foundry.AutopilotInteractive, and Foundry.PostInstall share the same structured text contract
 - Foundry.PostInstall uses Verbose local file logging and preserves the diagnostic session ID staged by Deploy; do not assume a remote telemetry sink during Windows setup
 - Emit UTC timestamps with milliseconds and the Application, Session, and Component context on every application log event
 - Keep one stable active log filename with 10 MB size-based rolling and bounded retention

@@ -70,6 +70,10 @@
   color: '8d5524'
   description: Changes in the Foundry.PostInstall post-installation runtime
 
+- name: 'project: foundry-autopilot-interactive'
+  color: '0284c7'
+  description: Changes in the Foundry.AutopilotInteractive Autopilot registration application
+
 - name: ui
   color: 'db2777'
   description: User interface or XAML changes

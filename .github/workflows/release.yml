@@ -286,6 +286,7 @@ jobs:
           $releaseRoot = Join-Path $workspace 'artifacts\release'
           $publishRoot = Join-Path $releaseRoot 'publish'
           $connectProject = Join-Path $workspace 'src\Foundry.Connect\Foundry.Connect.csproj'
+          $autopilotInteractiveProject = Join-Path $workspace 'src\Foundry.AutopilotInteractive\Foundry.AutopilotInteractive.csproj'
           $deployProject = Join-Path $workspace 'src\Foundry.Deploy\Foundry.Deploy.csproj'
           $bootstrapProject = Join-Path $workspace 'src\Foundry.Bootstrap\Foundry.Bootstrap.csproj'
           $postInstallProject = Join-Path $workspace 'src\Foundry.PostInstall\Foundry.PostInstall.csproj'
@@ -380,6 +381,17 @@ jobs:
               $connectAssetPath = Join-Path $releaseRoot "Foundry.Connect-$runtimeIdentifier.zip"
               Compress-Archive -Path (Join-Path $connectPublishPath '*') -DestinationPath $connectAssetPath -CompressionLevel Optimal -Force
 
+              $autopilotInteractivePublishPath = Join-Path $publishRoot (Join-Path 'Foundry.AutopilotInteractive' $runtimeIdentifier)
+              Invoke-Publish -ProjectPath $autopilotInteractiveProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $autopilotInteractivePublishPath
+
+              $autopilotInteractiveExecutable = Join-Path $autopilotInteractivePublishPath 'Foundry.AutopilotInteractive.exe'
+              if (-not (Test-Path -Path $autopilotInteractiveExecutable -PathType Leaf)) {
+                  throw "Expected Foundry.AutopilotInteractive executable not found: '$autopilotInteractiveExecutable'."
+              }
+
+              $autopilotInteractiveAssetPath = Join-Path $releaseRoot "Foundry.AutopilotInteractive-$runtimeIdentifier.zip"
+              Compress-Archive -Path (Join-Path $autopilotInteractivePublishPath '*') -DestinationPath $autopilotInteractiveAssetPath -CompressionLevel Optimal -Force
+
               $bootstrapPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.Bootstrap' $runtimeIdentifier)
               Invoke-Publish -ProjectPath $bootstrapProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $bootstrapPublishPath
 
@@ -459,6 +471,8 @@ jobs:
           }
 
           $assets = @(
+              (Join-Path $releaseRoot 'Foundry.AutopilotInteractive-win-x64.zip'),
+              (Join-Path $releaseRoot 'Foundry.AutopilotInteractive-win-arm64.zip'),
               (Join-Path $releaseRoot 'Foundry.Bootstrap-win-x64.zip'),
               (Join-Path $releaseRoot 'Foundry.Bootstrap-win-arm64.zip'),
               (Join-Path $releaseRoot 'Foundry.Connect-win-x64.zip'),
