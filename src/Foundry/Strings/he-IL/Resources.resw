@@ -685,6 +685,18 @@
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>העלאה אינטראקטיבית של גיבוב חומרה</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>הטכנאי יכול להזין את המשתמש שה-UPN שלו ימולא מראש במהלך OOBE.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>הצעת המשתמש המוקצה</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>חל על מכשירים שעדיין לא נרשמו ב-Autopilot. הטכנאי מקליד תג מותאם אישית ישירות.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>בחירה מראש של «מותאם אישית» עבור תג הקבוצה</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>ייבא או הורד את פרופיל Autopilot המוטמע במדיית הפריסה.</value>
   </data>

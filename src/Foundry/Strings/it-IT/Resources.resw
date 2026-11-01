@@ -685,6 +685,18 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Caricamento interattivo dell'hash hardware</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>Il tecnico può immettere l'utente il cui UPN viene precompilato durante l'OOBE.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>Offri utente assegnato</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>Si applica ai dispositivi non ancora registrati in Autopilot. Il tecnico digita direttamente un tag personalizzato.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>Preseleziona Personalizzato per il tag di gruppo</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Importa o scarica il profilo Autopilot incorporato nel supporto di distribuzione.</value>
   </data>

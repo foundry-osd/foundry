@@ -685,6 +685,18 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>대화형 하드웨어 해시 업로드</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>기술자가 OOBE 중에 UPN이 미리 채워질 사용자를 입력할 수 있습니다.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>할당된 사용자 입력 제공</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>아직 Autopilot에 등록되지 않은 디바이스에 적용됩니다. 기술자가 사용자 지정 태그를 직접 입력합니다.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>그룹 태그에 대해 [사용자 지정] 미리 선택</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>배포 미디어에 포함되는 Autopilot 프로필을 가져오거나 다운로드합니다.</value>
   </data>

@@ -685,6 +685,18 @@ Licensed under the MIT License.</value>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interactive hardware hash upload</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>The technician can enter the user whose UPN is prefilled at OOBE.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>Offer assigned user</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>Applies to devices not yet registered in Autopilot. The technician types a custom tag directly.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>Preselect Custom for the group tag</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Import or download the Autopilot profile embedded in deployment media.</value>
   </data>

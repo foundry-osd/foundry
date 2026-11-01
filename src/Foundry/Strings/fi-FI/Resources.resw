@@ -685,6 +685,18 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Vuorovaikutteinen laitteiston hajautusarvon lataus palvelimeen</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>Teknikko voi syöttää käyttäjän, jonka UPN täytetään valmiiksi OOBE:n aikana.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>Tarjoa määritetty käyttäjä</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>Koskee laitteita, joita ei ole vielä rekisteröity Autopilot-palveluun. Teknikko kirjoittaa mukautetun tunnisteen suoraan.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>Esivalitse Mukautettu ryhmän tunnisteeksi</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Tuo tai lataa käyttöönottomediaan upotettava Autopilot-profiili.</value>
   </data>

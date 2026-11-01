@@ -685,6 +685,18 @@ Licențiat sub licența MIT.</value>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Încărcare interactivă a hashului hardware</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>Tehnicianul poate introduce utilizatorul al cărui UPN este precompletat în timpul OOBE.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>Oferă utilizatorul atribuit</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>Se aplică dispozitivelor care nu sunt încă înregistrate în Autopilot. Tehnicianul introduce direct o etichetă personalizată.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>Preselectează Personalizat pentru eticheta de grup</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Importați sau descărcați profilul Autopilot încorporat în mediul de implementare.</value>
   </data>

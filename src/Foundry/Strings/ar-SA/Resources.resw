@@ -685,6 +685,18 @@
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>تحميل تجزئة الأجهزة التفاعلي</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>يمكن للفني إدخال المستخدم الذي يتم ملء UPN الخاص به مسبقًا أثناء OOBE.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>عرض المستخدم المعيّن</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>ينطبق على الأجهزة غير المسجلة بعد في Autopilot. يكتب الفني علامة مخصصة مباشرةً.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>تحديد الخيار «مخصص» مسبقًا لعلامة المجموعة</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>استورد ملف تعريف Autopilot المضمّن في وسائط النشر أو قم بتنزيله.</value>
   </data>

@@ -685,6 +685,18 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Etkileşimli donanım karması karşıya yükleme</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>Teknisyen, UPN'si OOBE sırasında önceden doldurulacak kullanıcıyı girebilir.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>Atanan kullanıcıyı sun</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>Henüz Autopilot'a kaydedilmemiş cihazlar için geçerlidir. Teknisyen özel bir etiketi doğrudan yazar.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>Grup etiketi için Özel seçeneğini önceden seç</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Dağıtım medyasına gömülü Autopilot profilini içe aktarın veya indirin.</value>
   </data>

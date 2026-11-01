@@ -685,6 +685,18 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktīva aparatūras jaucējkoda augšupielāde</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>Tehniķis var ievadīt lietotāju, kura UPN tiek iepriekš aizpildīts OOBE laikā.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>Piedāvāt piešķirto lietotāju</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>Attiecas uz ierīcēm, kas vēl nav reģistrētas pakalpojumā Autopilot. Tehniķis tieši ievada pielāgotu atzīmi.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>Iepriekš atlasīt Pielāgots grupas atzīmei</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Importējiet vai lejupielādējiet izvietošanas datu nesējā iegulto Autopilot profilu.</value>
   </data>

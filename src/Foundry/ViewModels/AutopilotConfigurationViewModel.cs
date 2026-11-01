@@ -223,6 +223,12 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     }
 
     [ObservableProperty]
+    public partial bool PreselectCustomGroupTag { get; set; }
+
+    [ObservableProperty]
+    public partial bool OfferAssignedUser { get; set; }
+
+    [ObservableProperty]
     public partial string JsonProfileHeader { get; set; }
 
     [ObservableProperty]
@@ -936,6 +942,9 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                 ? settings.ProvisioningMode
                 : AutopilotProvisioningMode.JsonProfile;
             hardwareHashUploadSettings = settings.HardwareHashUpload ?? new AutopilotHardwareHashUploadSettings();
+            AutopilotInteractiveSettings interactive = settings.Interactive ?? new AutopilotInteractiveSettings();
+            PreselectCustomGroupTag = interactive.PreselectCustomGroupTag;
+            OfferAssignedUser = interactive.OfferAssignedUser;
             if (previousCertificate != hardwareHashUploadSettings.BootMediaCertificate)
             {
                 ResetBootMediaCertificateValidationState();
@@ -1017,7 +1026,12 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
                 ProvisioningMode = provisioningMode,
                 DefaultProfileId = SelectedDefaultProfile?.Id,
                 Profiles = Profiles.Select(profile => profile.ToSettings()).ToArray(),
-                HardwareHashUpload = hardwareHashUploadSettings
+                HardwareHashUpload = hardwareHashUploadSettings,
+                Interactive = new AutopilotInteractiveSettings
+                {
+                    PreselectCustomGroupTag = PreselectCustomGroupTag,
+                    OfferAssignedUser = OfferAssignedUser
+                }
             });
         }
         finally
@@ -1523,6 +1537,16 @@ public sealed partial class AutopilotConfigurationViewModel : ObservableObject, 
     private void OnSelectedCertificatesCollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
     {
         RetireActiveCertificateCommand.NotifyCanExecuteChanged();
+    }
+
+    partial void OnPreselectCustomGroupTagChanged(bool value)
+    {
+        SaveState();
+    }
+
+    partial void OnOfferAssignedUserChanged(bool value)
+    {
+        SaveState();
     }
 
     partial void OnSelectedDefaultGroupTagChanged(AutopilotGroupTagEntryViewModel? value)

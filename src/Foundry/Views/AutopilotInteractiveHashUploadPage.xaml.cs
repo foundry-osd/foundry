@@ -36,8 +36,9 @@ public sealed partial class AutopilotInteractiveHashUploadPage : Page
         InteractiveImage.MaxHeight = Math.Max(
             0,
             InteractiveContentScrollView.ActualHeight
+                - InteractiveOptions.ActualHeight
                 - InteractiveDescription.ActualHeight
-                - InteractivePresentation.RowSpacing);
+                - (2 * InteractivePresentation.RowSpacing));
     }
 
 }

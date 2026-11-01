@@ -685,6 +685,18 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktiver Hardware-Hash-Upload</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>Der Techniker kann den Benutzer eingeben, dessen UPN bei OOBE vorausgefüllt wird.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>Zugewiesenen Benutzer anbieten</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>Gilt für Geräte, die noch nicht in Autopilot registriert sind. Der Techniker gibt ein benutzerdefiniertes Tag direkt ein.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>„Benutzerdefiniert“ für das Gruppen-Tag vorauswählen</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Importieren Sie das in Bereitstellungsmedien eingebettete Autopilot-Profil, oder laden Sie es herunter.</value>
   </data>

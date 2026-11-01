@@ -685,6 +685,18 @@ Licenciran prema MIT licenci.</value>
   <data name="AutopilotInteractiveHashUploadPageHeader.Title" xml:space="preserve">
     <value>Interaktivni prijenos hardverskog hasha</value>
   </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Description" xml:space="preserve">
+    <value>Tehničar može unijeti korisnika čiji se UPN unaprijed popunjava tijekom OOBE-a.</value>
+  </data>
+  <data name="AutopilotInteractiveOfferAssignedUserCard.Header" xml:space="preserve">
+    <value>Ponudi dodijeljenog korisnika</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Description" xml:space="preserve">
+    <value>Odnosi se na uređaje koji još nisu registrirani u Autopilotu. Tehničar izravno upisuje prilagođenu oznaku.</value>
+  </data>
+  <data name="AutopilotInteractivePreselectCustomCard.Header" xml:space="preserve">
+    <value>Unaprijed odaberi Prilagođeno za oznaku grupe</value>
+  </data>
   <data name="AutopilotJsonProfilePageHeader.Description" xml:space="preserve">
     <value>Uvezite ili preuzmite Autopilot profil ugrađen u medij za implementaciju.</value>
   </data>
