@@ -63,13 +63,45 @@ public sealed class AutopilotRegistrationActionTests : IDisposable
     {
         ActionStepOutcome completed = await Execute(new RecordingProcesses(new(0, "")));
         ActionStepOutcome incomplete = await Execute(new RecordingProcesses(new(1, "")));
+        ActionStepOutcome unknown = await Execute(new RecordingProcesses(new(3, "")));
 
         Assert.True(completed.Succeeded);
         Assert.Null(completed.FailureCode);
+        Assert.False(completed.HasWarnings);
         Assert.False(incomplete.Succeeded);
         Assert.Equal(1, incomplete.ExitCode);
         Assert.Equal("autopilot_registration_incomplete", incomplete.FailureCode);
         Assert.False(incomplete.TerminationUncertain);
+        Assert.False(incomplete.HasWarnings);
+        Assert.False(unknown.Succeeded);
+        Assert.Equal(3, unknown.ExitCode);
+        Assert.Equal("autopilot_registration_incomplete", unknown.FailureCode);
+    }
+
+    [Fact]
+    public async Task Execute_ReportsSkippedRegistrationAsSucceededWithWarning()
+    {
+        ActionStepOutcome outcome = await Execute(new RecordingProcesses(new(2, "")));
+
+        Assert.True(outcome.Succeeded);
+        Assert.Equal(2, outcome.ExitCode);
+        Assert.Equal("autopilot_registration_skipped", outcome.FailureCode);
+        Assert.True(outcome.HasWarnings);
+        Assert.False(outcome.TerminationUncertain);
+        Assert.False(outcome.RestartRequested);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(2)]
+    public async Task Execute_ReportsIncomplete_WhenTerminationIsUncertain(int exitCode)
+    {
+        ActionStepOutcome outcome = await Execute(new RecordingProcesses(new(exitCode, "", TerminationUncertain: true)));
+
+        Assert.False(outcome.Succeeded);
+        Assert.Equal(exitCode, outcome.ExitCode);
+        Assert.Equal("autopilot_registration_incomplete", outcome.FailureCode);
+        Assert.False(outcome.HasWarnings);
     }
 
     [Fact]

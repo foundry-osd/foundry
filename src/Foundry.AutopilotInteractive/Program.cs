@@ -27,16 +27,15 @@ namespace Foundry.AutopilotInteractive;
 /// Entry point of Foundry.AutopilotInteractive, started by Foundry.PostInstall during the Windows setup specialize pass.
 /// </summary>
 /// <remarks>
-/// The application writes a local log file only: it has no telemetry and no remote diagnostics. Exit code 0 means the
-/// registration step finished; any other code lets Windows setup continue without it.
+/// The application writes a local log file only: it has no telemetry and no remote diagnostics. The process exit code is
+/// one of <see cref="AutopilotInteractiveExitCodes"/>, the contract read by Foundry.PostInstall; every code lets Windows
+/// setup continue.
 /// </remarks>
 public static class Program
 {
     private const string ApplicationName = "Foundry.AutopilotInteractive";
     private const string LogFileName = "Foundry.AutopilotInteractive.log";
     private const int RetainedLogFileCount = 5;
-    private const int CompletedExitCode = 0;
-    private const int StartupFailureExitCode = 1;
     private static readonly TimeSpan LogFlushTimeout = TimeSpan.FromSeconds(2);
     private static readonly TimeSpan MaxTimerInterval = TimeSpan.FromMilliseconds(int.MaxValue);
 
@@ -94,22 +93,22 @@ public static class Program
             }
             else if (resultStore.IsCompleted())
             {
-                logger.Information("Registration already completed by an earlier run. Exiting with code {ExitCode}.", CompletedExitCode);
-                return CompletedExitCode;
+                logger.Information("Registration already completed by an earlier run. Exiting with code {ExitCode}.", AutopilotInteractiveExitCodes.Registered);
+                return AutopilotInteractiveExitCodes.Registered;
             }
 
             if (DeadlinePolicy.IsReached(commandLine.DeadlineUtc, DateTimeOffset.UtcNow))
             {
-                logger.Warning("The setup deadline was already reached at startup. Exiting with code {ExitCode}.", StartupFailureExitCode);
+                logger.Warning("The setup deadline was already reached at startup. Exiting with code {ExitCode}.", AutopilotInteractiveExitCodes.Incomplete);
                 WriteDeadlineResult(resultStore, logger);
-                return StartupFailureExitCode;
+                return AutopilotInteractiveExitCodes.Incomplete;
             }
 
             if (configuration is null)
             {
-                logger.Error(configurationFailure, "The configuration is missing or invalid. Exiting with code {ExitCode}.", StartupFailureExitCode);
+                logger.Error(configurationFailure, "The configuration is missing or invalid. Exiting with code {ExitCode}.", AutopilotInteractiveExitCodes.Incomplete);
                 ShowConfigurationError(commandLine.DeadlineUtc, logger);
-                return StartupFailureExitCode;
+                return AutopilotInteractiveExitCodes.Incomplete;
             }
 
             LogConfiguration(configuration, logger);
@@ -118,9 +117,9 @@ public static class Program
             App app = host.Services.GetRequiredService<App>();
             app.DispatcherUnhandledException += (_, eventArgs) =>
             {
-                logger.Error(eventArgs.Exception, "Unhandled UI exception. Exiting with code {ExitCode}.", StartupFailureExitCode);
+                logger.Error(eventArgs.Exception, "Unhandled UI exception. Exiting with code {ExitCode}.", AutopilotInteractiveExitCodes.Incomplete);
                 eventArgs.Handled = true;
-                app.Shutdown(StartupFailureExitCode);
+                app.Shutdown(AutopilotInteractiveExitCodes.Incomplete);
             };
             app.InitializeComponent();
             RuntimePreferencesApplier.Apply(
@@ -137,8 +136,8 @@ public static class Program
         }
         catch (Exception exception)
         {
-            logger.Error(exception, "Foundry.AutopilotInteractive failed to start or run. Exiting with code {ExitCode}.", StartupFailureExitCode);
-            return StartupFailureExitCode;
+            logger.Error(exception, "Foundry.AutopilotInteractive failed to start or run. Exiting with code {ExitCode}.", AutopilotInteractiveExitCodes.Incomplete);
+            return AutopilotInteractiveExitCodes.Incomplete;
         }
         finally
         {

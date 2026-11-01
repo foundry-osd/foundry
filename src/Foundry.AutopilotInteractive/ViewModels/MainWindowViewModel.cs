@@ -47,8 +47,10 @@ public enum AutopilotPage
 /// <c>failed</c>/<c>deadline_reached</c> when the deadline arrives before the registration.
 /// </para>
 /// <para>
-/// <see cref="ExitCode"/> is 1 until the registration completes, then 0. When the run decides to end (countdown, Continue now,
-/// deadline) it raises <see cref="ExitRequested"/>; the window then closes without asking. The Debug menu exists only in
+/// <see cref="ExitCode"/> is <see cref="AutopilotInteractiveExitCodes.Incomplete"/> until the registration completes, then
+/// <see cref="AutopilotInteractiveExitCodes.Registered"/>; a confirmed skip ends the run with
+/// <see cref="AutopilotInteractiveExitCodes.Skipped"/>. When the run decides to end (countdown, Continue now, deadline, skip)
+/// it raises <see cref="ExitRequested"/>; the window then closes without asking. The Debug menu exists only in
 /// debug safety mode, where the service factory is the simulation. Every member runs on the UI thread.
 /// </para>
 /// </remarks>
@@ -56,9 +58,6 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
 {
     /// <summary>How long the deadline message stays on screen before the application exits.</summary>
     public static readonly TimeSpan DeadlineMessageDuration = TimeSpan.FromSeconds(5);
-
-    private const int CompletedExitCode = 0;
-    private const int IncompleteExitCode = 1;
 
     private readonly IThemeService _themeService;
     private readonly IApplicationShellService _applicationShellService;
@@ -192,7 +191,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         RefreshDebugScenarios();
     }
 
-    /// <summary>Raised when the run ends by itself (countdown, Continue now, deadline): the window closes with <see cref="ExitCode"/>.</summary>
+    /// <summary>Raised when the run ends (countdown, Continue now, deadline, confirmed skip): the window closes with <see cref="ExitCode"/>.</summary>
     public event EventHandler? ExitRequested;
 
     /// <summary>Gets page 1.</summary>
@@ -210,8 +209,11 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
     /// <summary>Gets whether page 2 is shown.</summary>
     public bool IsGroupTagPage => CurrentPage == AutopilotPage.GroupTag;
 
-    /// <summary>Gets the process exit code: 0 once the registration completed, 1 otherwise.</summary>
-    public int ExitCode { get; private set; } = IncompleteExitCode;
+    /// <summary>
+    /// Gets the process exit code, one of <see cref="AutopilotInteractiveExitCodes"/>: <c>Registered</c> once the registration
+    /// completed, <c>Skipped</c> after a confirmed skip, <c>Incomplete</c> otherwise.
+    /// </summary>
+    public int ExitCode { get; private set; } = AutopilotInteractiveExitCodes.Incomplete;
 
     /// <summary>Gets the message shown when the deadline ended the run, empty otherwise.</summary>
     public string DeadlineMessage => _deadlineMessageKey is null ? string.Empty : LocalizationService.GetString(_deadlineMessageKey);
@@ -327,11 +329,12 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
     /// Decides whether the window may close, and records the outcome when it does.
     /// </summary>
     /// <remarks>
-    /// No question is asked once the run decided to end, during the success countdown (exit 0) or during the profile wait
-    /// (the device is registered: <c>completed</c> with the wait skipped, exit 0). Otherwise a confirmed close writes
-    /// <c>skipped</c> and keeps exit code 1; while a registration runs, the question warns that the upload may already have
-    /// been sent, so the device can still appear in Windows Autopilot. An open question is closed with a "no" answer when the device becomes registered,
-    /// the deadline arrives or the run ends, so it never blocks a graceful exit.
+    /// No question is asked once the run decided to end, during the success countdown or during the profile wait (the device
+    /// is registered: <c>completed</c> with the wait skipped); both end with <see cref="AutopilotInteractiveExitCodes.Registered"/>.
+    /// Otherwise a confirmed close writes <c>skipped</c> and ends with <see cref="AutopilotInteractiveExitCodes.Skipped"/>;
+    /// while a registration runs, the question warns that the upload may already have been sent, so the device can still
+    /// appear in Windows Autopilot. An open question is closed with a "no" answer when the device becomes registered, the
+    /// deadline arrives or the run ends, so it never blocks a graceful exit.
     /// </remarks>
     /// <returns><see langword="true"/> when the window may close.</returns>
     public async Task<bool> ConfirmCloseAsync()
@@ -343,8 +346,8 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
 
         if (_isCompleted)
         {
-            _logger.LogInformation("Window closed during the success countdown. Exiting with code {ExitCode}.", CompletedExitCode);
-            EndRun(CompletedExitCode);
+            _logger.LogInformation("Window closed during the success countdown. Exiting with code {ExitCode}.", AutopilotInteractiveExitCodes.Registered);
+            EndRun(AutopilotInteractiveExitCodes.Registered);
             return true;
         }
 
@@ -353,7 +356,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
             _logger.LogInformation("Window closed during the profile assignment wait; Windows setup continues.");
             CancelWork();
             WriteCompleted(registration, ProfileAssignmentOutcome.Skipped);
-            EndRun(CompletedExitCode);
+            EndRun(AutopilotInteractiveExitCodes.Registered);
             return true;
         }
 
@@ -394,10 +397,10 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         _logger.LogInformation(
             "Autopilot registration skipped by the technician. RegistrationInProgress={RegistrationInProgress}. Exiting with code {ExitCode}.",
             registrationInProgress,
-            IncompleteExitCode);
+            AutopilotInteractiveExitCodes.Skipped);
         CancelWork();
         WriteResult(new RegistrationResult(RegistrationResult.StatusSkipped, null, null, null, null, _timeProvider.GetUtcNow()));
-        EndRun(IncompleteExitCode);
+        EndRun(AutopilotInteractiveExitCodes.Skipped);
         return true;
     }
 
@@ -508,8 +511,8 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         {
             // What the startup guard does when an earlier run completed: exit 0 without showing anything.
             CancelWork();
-            _logger.LogInformation("Simulated completed result; exiting with code {ExitCode}.", CompletedExitCode);
-            EndRun(CompletedExitCode);
+            _logger.LogInformation("Simulated completed result; exiting with code {ExitCode}.", AutopilotInteractiveExitCodes.Registered);
+            EndRun(AutopilotInteractiveExitCodes.Registered);
             return;
         }
 
@@ -527,7 +530,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         _isCompleted = false;
         _isEnding = false;
         _deadlineMessageKey = null;
-        ExitCode = IncompleteExitCode;
+        ExitCode = AutopilotInteractiveExitCodes.Incomplete;
         OnPropertyChanged(nameof(ExitCode));
         OnPropertyChanged(nameof(DeadlineMessage));
         OnPropertyChanged(nameof(HasDeadlineMessage));
@@ -648,7 +651,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
 
         WriteCompleted(registration, profile);
         _isCompleted = true;
-        ExitCode = CompletedExitCode;
+        ExitCode = AutopilotInteractiveExitCodes.Registered;
         OnPropertyChanged(nameof(ExitCode));
         RefreshSkipAvailability();
     }
@@ -657,7 +660,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
     {
         if (_isCompleted)
         {
-            EndRun(CompletedExitCode);
+            EndRun(AutopilotInteractiveExitCodes.Registered);
         }
     }
 
@@ -670,21 +673,21 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
 
         if (_isCompleted)
         {
-            _logger.LogInformation("The setup deadline is near; the registration is complete. Exiting with code {ExitCode}.", CompletedExitCode);
-            EndRun(CompletedExitCode);
+            _logger.LogInformation("The setup deadline is near; the registration is complete. Exiting with code {ExitCode}.", AutopilotInteractiveExitCodes.Registered);
+            EndRun(AutopilotInteractiveExitCodes.Registered);
             return;
         }
 
         if (_registration is { } registration)
         {
-            _logger.LogInformation("The setup deadline is near during the profile assignment wait. Exiting with code {ExitCode}.", CompletedExitCode);
+            _logger.LogInformation("The setup deadline is near during the profile assignment wait. Exiting with code {ExitCode}.", AutopilotInteractiveExitCodes.Registered);
             CancelWork();
             WriteCompleted(registration, ProfileAssignmentOutcome.TimedOut);
-            EndRun(CompletedExitCode);
+            EndRun(AutopilotInteractiveExitCodes.Registered);
             return;
         }
 
-        _logger.LogWarning("The setup deadline is near and the device is not registered. Exiting with code {ExitCode}.", IncompleteExitCode);
+        _logger.LogWarning("The setup deadline is near and the device is not registered. Exiting with code {ExitCode}.", AutopilotInteractiveExitCodes.Incomplete);
         CancelWork();
         WriteResult(new RegistrationResult(
             RegistrationResult.StatusFailed,
@@ -694,14 +697,14 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
             null,
             _timeProvider.GetUtcNow()));
         _isEnding = true;
-        ExitCode = IncompleteExitCode;
+        ExitCode = AutopilotInteractiveExitCodes.Incomplete;
         _deadlineMessageKey = "Deadline.Reached";
         OnPropertyChanged(nameof(ExitCode));
         OnPropertyChanged(nameof(DeadlineMessage));
         OnPropertyChanged(nameof(HasDeadlineMessage));
         RefreshSkipAvailability();
         _exitTimer = _timeProvider.CreateTimer(
-            _ => _dispatcher.Run(() => EndRun(IncompleteExitCode)),
+            _ => _dispatcher.Run(() => EndRun(AutopilotInteractiveExitCodes.Incomplete)),
             null,
             DeadlineMessageDuration,
             Timeout.InfiniteTimeSpan);

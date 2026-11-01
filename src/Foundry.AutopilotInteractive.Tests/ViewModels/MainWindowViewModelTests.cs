@@ -7,6 +7,7 @@ using Foundry.AutopilotInteractive.Services.Registration;
 using Foundry.AutopilotInteractive.Services.Simulation;
 using Foundry.AutopilotInteractive.Tests.Support;
 using Foundry.AutopilotInteractive.ViewModels;
+using Foundry.Core.Models.Autopilot;
 using Foundry.Wpf.Controls;
 
 namespace Foundry.AutopilotInteractive.Tests.ViewModels;
@@ -49,7 +50,7 @@ public sealed class MainWindowViewModelTests
     }
 
     [Fact]
-    public async Task Close_AfterConfirmation_WritesSkippedAndExitCode1()
+    public async Task Close_AfterConfirmation_WritesSkippedAndExitsSkipped()
     {
         using AutopilotHarness harness = new();
         harness.Start(DebugScenario.SignInCode);
@@ -63,12 +64,12 @@ public sealed class MainWindowViewModelTests
 
         Assert.Equal(2, harness.Confirmation.Calls);
         Assert.False(harness.Confirmation.LastRegistrationInProgress);
-        Assert.Equal(1, harness.ViewModel.ExitCode);
+        Assert.Equal(AutopilotInteractiveExitCodes.Skipped, harness.ViewModel.ExitCode);
         Assert.Equal(RegistrationResult.StatusSkipped, harness.ReadResult().GetProperty("status").GetString());
     }
 
     [Fact]
-    public async Task Close_DuringUpload_WarnsThatTheDeviceMayAppear_AndWritesSkippedWithExitCode1()
+    public async Task Close_DuringUpload_WarnsThatTheDeviceMayAppear_AndWritesSkippedAndExitsSkipped()
     {
         using AutopilotHarness harness = new();
         harness.Start(DebugScenario.ProfileAssigned);
@@ -82,7 +83,7 @@ public sealed class MainWindowViewModelTests
         await register;
 
         Assert.True(harness.Confirmation.LastRegistrationInProgress);
-        Assert.Equal(1, harness.ViewModel.ExitCode);
+        Assert.Equal(AutopilotInteractiveExitCodes.Skipped, harness.ViewModel.ExitCode);
         Assert.Equal(RegistrationResult.StatusSkipped, harness.ReadResult().GetProperty("status").GetString());
     }
 
@@ -100,7 +101,7 @@ public sealed class MainWindowViewModelTests
         Assert.True(await harness.ViewModel.ConfirmCloseAsync());
 
         Assert.Equal(0, harness.Confirmation.Calls);
-        Assert.Equal(0, harness.ViewModel.ExitCode);
+        Assert.Equal(AutopilotInteractiveExitCodes.Registered, harness.ViewModel.ExitCode);
         JsonElement result = harness.ReadResult();
         Assert.Equal(RegistrationResult.StatusCompleted, result.GetProperty("status").GetString());
         Assert.Equal("assigned", result.GetProperty("profileAssignment").GetString());
@@ -119,7 +120,7 @@ public sealed class MainWindowViewModelTests
         await register;
 
         Assert.Equal(0, harness.Confirmation.Calls);
-        Assert.Equal(0, harness.ViewModel.ExitCode);
+        Assert.Equal(AutopilotInteractiveExitCodes.Registered, harness.ViewModel.ExitCode);
         Assert.Equal(1, harness.ExitRequests);
         JsonElement result = harness.ReadResult();
         Assert.Equal(RegistrationResult.StatusCompleted, result.GetProperty("status").GetString());
@@ -127,7 +128,7 @@ public sealed class MainWindowViewModelTests
     }
 
     [Fact]
-    public async Task SkipRegistration_OpensTheConfirmation_AndWritesSkippedWithExitCode1WhenConfirmed()
+    public async Task SkipRegistration_OpensTheConfirmation_AndWritesSkippedAndExitsSkippedWhenConfirmed()
     {
         using AutopilotHarness harness = new();
         harness.Start(DebugScenario.SignInCode);
@@ -146,7 +147,7 @@ public sealed class MainWindowViewModelTests
         Assert.Equal(2, harness.Confirmation.Calls);
         Assert.False(harness.Confirmation.LastRegistrationInProgress);
         Assert.Equal(1, harness.ExitRequests);
-        Assert.Equal(1, harness.ViewModel.ExitCode);
+        Assert.Equal(AutopilotInteractiveExitCodes.Skipped, harness.ViewModel.ExitCode);
         Assert.Equal(RegistrationResult.StatusSkipped, harness.ReadResult().GetProperty("status").GetString());
     }
 
@@ -164,11 +165,31 @@ public sealed class MainWindowViewModelTests
         await register;
 
         Assert.Equal(0, harness.Confirmation.Calls);
-        Assert.Equal(0, harness.ViewModel.ExitCode);
+        Assert.Equal(AutopilotInteractiveExitCodes.Registered, harness.ViewModel.ExitCode);
         Assert.Equal(1, harness.ExitRequests);
         JsonElement result = harness.ReadResult();
         Assert.Equal(RegistrationResult.StatusCompleted, result.GetProperty("status").GetString());
         Assert.Equal("skipped", result.GetProperty("profileAssignment").GetString());
+    }
+
+    [Fact]
+    public async Task SkipRegistration_AfterARegistrationFailure_WritesSkippedAndExitsSkipped()
+    {
+        using AutopilotHarness harness = new();
+        harness.Start(DebugScenario.UploadFailureGeneric);
+        harness.ReachGroupTagPage();
+        await harness.RegisterAndUpload();
+        Assert.Equal(RegistrationResult.StatusFailed, harness.ReadResult().GetProperty("status").GetString());
+        Assert.Equal(AutopilotInteractiveExitCodes.Incomplete, harness.ViewModel.ExitCode);
+        Assert.Equal(0, harness.ExitRequests);
+
+        harness.Confirmation.Result = true;
+        await harness.ViewModel.SkipRegistrationCommand.ExecuteAsync(null);
+
+        Assert.False(harness.Confirmation.LastRegistrationInProgress);
+        Assert.Equal(1, harness.ExitRequests);
+        Assert.Equal(AutopilotInteractiveExitCodes.Skipped, harness.ViewModel.ExitCode);
+        Assert.Equal(RegistrationResult.StatusSkipped, harness.ReadResult().GetProperty("status").GetString());
     }
 
     [Fact]
@@ -226,7 +247,7 @@ public sealed class MainWindowViewModelTests
         harness.Clock.Advance(MainWindowViewModel.DeadlineMessageDuration);
 
         Assert.Equal(1, harness.ExitRequests);
-        Assert.Equal(1, harness.ViewModel.ExitCode);
+        Assert.Equal(AutopilotInteractiveExitCodes.Incomplete, harness.ViewModel.ExitCode);
         Assert.Equal(RegistrationResult.StatusFailed, harness.ReadResult().GetProperty("status").GetString());
     }
 
@@ -251,7 +272,7 @@ public sealed class MainWindowViewModelTests
 
         Assert.Equal(1, harness.Confirmation.Calls);
         Assert.Equal(1, harness.ExitRequests);
-        Assert.Equal(0, harness.ViewModel.ExitCode);
+        Assert.Equal(AutopilotInteractiveExitCodes.Registered, harness.ViewModel.ExitCode);
         Assert.Equal(RegistrationResult.StatusCompleted, harness.ReadResult().GetProperty("status").GetString());
     }
 
@@ -279,7 +300,7 @@ public sealed class MainWindowViewModelTests
         }
 
         Assert.Equal(1, harness.ExitRequests);
-        Assert.Equal(0, harness.ViewModel.ExitCode);
+        Assert.Equal(AutopilotInteractiveExitCodes.Registered, harness.ViewModel.ExitCode);
         Assert.Equal(RegistrationResult.StatusCompleted, harness.ReadResult().GetProperty("status").GetString());
     }
 
@@ -300,14 +321,14 @@ public sealed class MainWindowViewModelTests
         JsonElement result = harness.ReadResult();
         Assert.Equal(RegistrationResult.StatusFailed, result.GetProperty("status").GetString());
         Assert.Equal(RegistrationFailureCodes.DeadlineReached, result.GetProperty("failureCode").GetString());
-        Assert.Equal(1, harness.ViewModel.ExitCode);
+        Assert.Equal(AutopilotInteractiveExitCodes.Incomplete, harness.ViewModel.ExitCode);
         Assert.Equal(harness.Text("Deadline.Reached"), harness.ViewModel.DeadlineMessage);
         Assert.Equal(0, harness.ExitRequests);
 
         harness.Clock.Advance(MainWindowViewModel.DeadlineMessageDuration);
 
         Assert.Equal(1, harness.ExitRequests);
-        Assert.Equal(1, harness.ViewModel.ExitCode);
+        Assert.Equal(AutopilotInteractiveExitCodes.Incomplete, harness.ViewModel.ExitCode);
     }
 
     [Fact]
@@ -324,7 +345,7 @@ public sealed class MainWindowViewModelTests
         await register;
 
         Assert.Equal(1, harness.ExitRequests);
-        Assert.Equal(0, harness.ViewModel.ExitCode);
+        Assert.Equal(AutopilotInteractiveExitCodes.Registered, harness.ViewModel.ExitCode);
         JsonElement result = harness.ReadResult();
         Assert.Equal(RegistrationResult.StatusCompleted, result.GetProperty("status").GetString());
         Assert.Equal("timedOut", result.GetProperty("profileAssignment").GetString());
