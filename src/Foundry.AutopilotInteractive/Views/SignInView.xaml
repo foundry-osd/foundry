@@ -88,9 +88,9 @@
                         Visibility="{Binding IsCodeVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Grid HorizontalAlignment="Center">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="260" />
+                                <ColumnDefinition Width="320" />
                                 <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="260" />
+                                <ColumnDefinition Width="320" />
                             </Grid.ColumnDefinitions>
 
                             <StackPanel

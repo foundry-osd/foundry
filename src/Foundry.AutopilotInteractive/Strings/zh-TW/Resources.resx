@@ -23,10 +23,10 @@
 依據 MIT 授權條款授權。</value>
   </data>
   <data name="About.Title" xml:space="preserve">
-    <value>關於 Foundry Autopilot</value>
+    <value>關於 Foundry Autopilot Interactive</value>
   </data>
   <data name="App.Name" xml:space="preserve">
-    <value>Foundry Autopilot</value>
+    <value>Foundry Autopilot Interactive</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
     <value>關閉</value>

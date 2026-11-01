@@ -23,10 +23,10 @@
 MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="About.Title" xml:space="preserve">
-    <value>Foundry Autopilotについて</value>
+    <value>Foundry Autopilot Interactiveについて</value>
   </data>
   <data name="App.Name" xml:space="preserve">
-    <value>Foundry Autopilot</value>
+    <value>Foundry Autopilot Interactive</value>
   </data>
   <data name="Common.Close" xml:space="preserve">
     <value>閉じる</value>

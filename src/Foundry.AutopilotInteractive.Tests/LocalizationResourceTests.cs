@@ -67,7 +67,7 @@ public sealed class LocalizationResourceTests
     {
         ResourceSet resourceSet = GetResourceSet(cultureName);
 
-        Assert.Equal("Foundry Autopilot", resourceSet.GetString("App.Name"));
+        Assert.Equal("Foundry Autopilot Interactive", resourceSet.GetString("App.Name"));
         foreach (string key in ShellKeys)
         {
             Assert.False(string.IsNullOrWhiteSpace(resourceSet.GetString(key)), $"{cultureName} {key}");
