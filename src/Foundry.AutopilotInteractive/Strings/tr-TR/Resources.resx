@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Bu uygulama, Windows kurulumu sırasında cihazı Windows Autopilot'a kaydeder.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Bu yazılım olduğu gibi sağlanır.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Mickaël CHAVE ve Foundry Project'e katkıda bulunanlar.
+MIT Lisansı kapsamında lisanslanmıştır.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Foundry Autopilot Hakkında</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Autopilot</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Kapat</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Sürüm: {0}</value>
+  </data>
+  <data name="Config.LoadFailed" xml:space="preserve">
+    <value>Autopilot yapılandırması eksik veya geçersiz olduğundan bu cihaz kaydedilemiyor.</value>
+  </data>
+  <data name="Footer.Unknown" xml:space="preserve">
+    <value>Bilinmiyor</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>Arapça (Suudi Arabistan)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>Bulgarca (Bulgaristan)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Basitleştirilmiş Çince (Çin)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Geleneksel Çince (Tayvan)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Hırvatça (Hırvatistan)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Çekçe (Çekya)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>Danca (Danimarka)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Felemenkçe (Hollanda)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>İngilizce (Birleşik Krallık)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>İngilizce (Amerika Birleşik Devletleri)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Estonca (Estonya)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>Fince (Finlandiya)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>Fransızca (Kanada)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>Fransızca (Fransa)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>Almanca (Almanya)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>Yunanca (Yunanistan)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>İbranice (İsrail)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>Macarca (Macaristan)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>İtalyanca (İtalya)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>Japonca (Japonya)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>Korece (Kore)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>Letonca (Letonya)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Litvanyaca (Litvanya)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Norveççe Bokmål (Norveç)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>Lehçe (Polonya)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>Portekizce (Brezilya)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>Portekizce (Portekiz)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>Rumence (Romanya)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>Rusça (Rusya)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Sırpça, Latin (Sırbistan)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Slovakça (Slovakya)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>Slovence (Slovenya)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>İspanyolca (Meksika)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>İspanyolca (İspanya)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>İsveççe (İsveç)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>Tay dili (Tayland)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>Türkçe (Türkiye)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>Ukraynaca (Ukrayna)</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_Hakkında</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_Hata ayıklama</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_Dil</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_Tema</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Koyu</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Açık</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>Sistem</value>
+  </data>
+</root>

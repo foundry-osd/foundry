@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>此应用程序会在 Windows 安装期间将设备注册到 Windows Autopilot。</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>本软件按现状提供。</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Mickaël CHAVE 和 Foundry Project 贡献者。
+根据 MIT 许可证获得许可。</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>关于Foundry Autopilot</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Autopilot</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>版本：{0}</value>
+  </data>
+  <data name="Config.LoadFailed" xml:space="preserve">
+    <value>Autopilot 配置缺失或无效，因此无法注册此设备。</value>
+  </data>
+  <data name="Footer.Unknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>阿拉伯语（沙特阿拉伯）</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>保加利亚语（保加利亚）</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>简体中文（中国）</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>繁体中文（台湾）</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>克罗地亚语（克罗地亚）</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>捷克语（捷克）</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>丹麦语（丹麦）</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>荷兰语（荷兰）</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>英语（英国）</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>英语（美国）</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>爱沙尼亚语（爱沙尼亚）</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>芬兰语（芬兰）</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>法语（加拿大）</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>法语（法国）</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>德语（德国）</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>希腊语（希腊）</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>希伯来语（以色列）</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>匈牙利语（匈牙利）</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>意大利语（意大利）</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>日语（日本）</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>韩语（韩国）</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>拉脱维亚语（拉脱维亚）</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>立陶宛语（立陶宛）</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>挪威博克马尔语（挪威）</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>波兰语（波兰）</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>葡萄牙语（巴西）</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>葡萄牙语（葡萄牙）</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>罗马尼亚语（罗马尼亚）</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>俄语（俄罗斯）</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>塞尔维亚语拉丁文（塞尔维亚）</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>斯洛伐克语（斯洛伐克）</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>斯洛文尼亚语（斯洛文尼亚）</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>西班牙语（墨西哥）</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>西班牙语（西班牙）</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>瑞典语（瑞典）</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>泰语（泰国）</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>土耳其语（土耳其）</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>乌克兰语（乌克兰）</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_关于</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_调试</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_语言</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_主题</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>浅色</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>系统</value>
+  </data>
+</root>

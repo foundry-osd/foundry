@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>Ця програма реєструє пристрій у Windows Autopilot під час налаштування Windows.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>Це програмне забезпечення надається «як є».</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Mickaël CHAVE та учасники Foundry Project.
+Ліцензовано згідно з ліцензією MIT.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Про Foundry Autopilot</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Autopilot</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Закрити</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>Версія: {0}</value>
+  </data>
+  <data name="Config.LoadFailed" xml:space="preserve">
+    <value>Конфігурація Autopilot відсутня або недійсна, тому цей пристрій неможливо зареєструвати.</value>
+  </data>
+  <data name="Footer.Unknown" xml:space="preserve">
+    <value>Невідомо</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>Арабська (Саудівська Аравія)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>Болгарська (Болгарія)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>Китайська спрощена (Китай)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>Китайська традиційна (Тайвань)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>Хорватська (Хорватія)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>Чеська (Чехія)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>Датська (Данія)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>Нідерландська (Нідерланди)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>Англійська (Великобританія)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>Англійська (Сполучені Штати)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>Естонська (Естонія)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>Фінська (Фінляндія)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>Французька (Канада)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>Французька (Франція)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>Німецька (Німеччина)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>Грецька (Греція)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>Іврит (Ізраїль)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>Угорська (Угорщина)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>Італійська (Італія)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>Японська (Японія)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>Корейська (Корея)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>Латиська (Латвія)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>Литовська (Литва)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>Норвезька букмол (Норвегія)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>Польська (Польща)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>Португальська (Бразилія)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>Португальська (Португалія)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>Румунська (Румунія)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>Російська (Росія)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>Сербська, латиниця (Сербія)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>Словацька (Словаччина)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>Словенська (Словенія)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>Іспанська (Мексика)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>Іспанська (Іспанія)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>Шведська (Швеція)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>Тайська (Таїланд)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>Турецька (Туреччина)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>Українська (Україна)</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_Про програму</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_Налагодження</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_Мова</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_Тема</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>Темний</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>Світлий</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>система</value>
+  </data>
+</root>

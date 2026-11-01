@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>يسجّل هذا التطبيق الجهاز في Windows Autopilot أثناء إعداد Windows.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>يتم توفير هذا البرنامج كما هو.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Mickaël CHAVE والمساهمون في Foundry Project.
+مرخص بموجب ترخيص MIT.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>حول Foundry Autopilot</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Autopilot</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>الإصدار: {0}</value>
+  </data>
+  <data name="Config.LoadFailed" xml:space="preserve">
+    <value>تكوين Autopilot مفقود أو غير صالح، لذا لا يمكن تسجيل هذا الجهاز.</value>
+  </data>
+  <data name="Footer.Unknown" xml:space="preserve">
+    <value>غير معروف</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>العربية (المملكة العربية السعودية)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>البلغارية (بلغاريا)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>الصينية المبسطة (الصين)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>الصينية التقليدية (تايوان)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>الكرواتية (كرواتيا)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>التشيكية (التشيك)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>الدنماركية (الدنمارك)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>الهولندية (هولندا)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>الإنجليزية (المملكة المتحدة)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>الإنجليزية (الولايات المتحدة)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>الإستونية (إستونيا)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>الفنلندية (فنلندا)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>الفرنسية (كندا)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>الفرنسية (فرنسا)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>الألمانية (ألمانيا)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>اليونانية (اليونان)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>العبرية (إسرائيل)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>المجرية (المجر)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>الإيطالية (إيطاليا)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>اليابانية (اليابان)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>الكورية (كوريا)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>اللاتفية (لاتفيا)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>الليتوانية (ليتوانيا)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>النرويجية بوكمال (النرويج)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>البولندية (بولندا)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>البرتغالية (البرازيل)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>البرتغالية (البرتغال)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>الرومانية (رومانيا)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>الروسية (روسيا)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>الصربية اللاتينية (صربيا)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>السلوفاكية (سلوفاكيا)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>السلوفينية (سلوفينيا)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>الإسبانية (المكسيك)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>الإسبانية (إسبانيا)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>السويدية (السويد)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>التايلاندية (تايلاند)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>التركية (تركيا)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>الأوكرانية (أوكرانيا)</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_حول</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_تصحيح</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_اللغة</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_النسق</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>داكن</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>فاتح</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>النظام</value>
+  </data>
+</root>

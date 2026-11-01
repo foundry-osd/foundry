@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About.DescriptionLine1" xml:space="preserve">
+    <value>이 애플리케이션은 Windows 설정 중에 장치를 Windows Autopilot에 등록합니다.</value>
+  </data>
+  <data name="About.DescriptionLine2" xml:space="preserve">
+    <value>이 소프트웨어는 있는 그대로 제공됩니다.</value>
+  </data>
+  <data name="About.Footer" xml:space="preserve">
+    <value>Copyright (c) 2026 Mickaël CHAVE 및 Foundry Project 기여자.
+MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
+  </data>
+  <data name="About.Title" xml:space="preserve">
+    <value>Foundry Autopilot 소개</value>
+  </data>
+  <data name="App.Name" xml:space="preserve">
+    <value>Foundry Autopilot</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>닫기</value>
+  </data>
+  <data name="Common.VersionFormat" xml:space="preserve">
+    <value>버전: {0}</value>
+  </data>
+  <data name="Config.LoadFailed" xml:space="preserve">
+    <value>Autopilot 구성이 없거나 올바르지 않으므로 이 장치를 등록할 수 없습니다.</value>
+  </data>
+  <data name="Footer.Unknown" xml:space="preserve">
+    <value>알 수 없음</value>
+  </data>
+  <data name="Language.ArabicSaudiArabia" xml:space="preserve">
+    <value>아랍어(사우디아라비아)</value>
+  </data>
+  <data name="Language.BulgarianBulgaria" xml:space="preserve">
+    <value>불가리아어(불가리아)</value>
+  </data>
+  <data name="Language.ChineseSimplifiedChina" xml:space="preserve">
+    <value>중국어 간체(중국)</value>
+  </data>
+  <data name="Language.ChineseTraditionalTaiwan" xml:space="preserve">
+    <value>중국어 번체(대만)</value>
+  </data>
+  <data name="Language.CroatianCroatia" xml:space="preserve">
+    <value>크로아티아어(크로아티아)</value>
+  </data>
+  <data name="Language.CzechCzechia" xml:space="preserve">
+    <value>체코어(체코)</value>
+  </data>
+  <data name="Language.DanishDenmark" xml:space="preserve">
+    <value>덴마크어(덴마크)</value>
+  </data>
+  <data name="Language.DutchNetherlands" xml:space="preserve">
+    <value>네덜란드어(네덜란드)</value>
+  </data>
+  <data name="Language.EnglishUnitedKingdom" xml:space="preserve">
+    <value>영어(영국)</value>
+  </data>
+  <data name="Language.EnglishUnitedStates" xml:space="preserve">
+    <value>영어(미국)</value>
+  </data>
+  <data name="Language.EstonianEstonia" xml:space="preserve">
+    <value>에스토니아어(에스토니아)</value>
+  </data>
+  <data name="Language.FinnishFinland" xml:space="preserve">
+    <value>핀란드어(핀란드)</value>
+  </data>
+  <data name="Language.FrenchCanada" xml:space="preserve">
+    <value>프랑스어(캐나다)</value>
+  </data>
+  <data name="Language.FrenchFrance" xml:space="preserve">
+    <value>프랑스어(프랑스)</value>
+  </data>
+  <data name="Language.GermanGermany" xml:space="preserve">
+    <value>독일어(독일)</value>
+  </data>
+  <data name="Language.GreekGreece" xml:space="preserve">
+    <value>그리스어(그리스)</value>
+  </data>
+  <data name="Language.HebrewIsrael" xml:space="preserve">
+    <value>히브리어(이스라엘)</value>
+  </data>
+  <data name="Language.HungarianHungary" xml:space="preserve">
+    <value>헝가리어(헝가리)</value>
+  </data>
+  <data name="Language.ItalianItaly" xml:space="preserve">
+    <value>이탈리아어(이탈리아)</value>
+  </data>
+  <data name="Language.JapaneseJapan" xml:space="preserve">
+    <value>일본어(일본)</value>
+  </data>
+  <data name="Language.KoreanKorea" xml:space="preserve">
+    <value>한국어(한국)</value>
+  </data>
+  <data name="Language.LatvianLatvia" xml:space="preserve">
+    <value>라트비아어(라트비아)</value>
+  </data>
+  <data name="Language.LithuanianLithuania" xml:space="preserve">
+    <value>리투아니아어(리투아니아)</value>
+  </data>
+  <data name="Language.NorwegianBokmalNorway" xml:space="preserve">
+    <value>노르웨이어 복말(노르웨이)</value>
+  </data>
+  <data name="Language.PolishPoland" xml:space="preserve">
+    <value>폴란드어(폴란드)</value>
+  </data>
+  <data name="Language.PortugueseBrazil" xml:space="preserve">
+    <value>포르투갈어(브라질)</value>
+  </data>
+  <data name="Language.PortuguesePortugal" xml:space="preserve">
+    <value>포르투갈어(포르투갈)</value>
+  </data>
+  <data name="Language.RomanianRomania" xml:space="preserve">
+    <value>루마니아어(루마니아)</value>
+  </data>
+  <data name="Language.RussianRussia" xml:space="preserve">
+    <value>러시아어(러시아)</value>
+  </data>
+  <data name="Language.SerbianLatinSerbia" xml:space="preserve">
+    <value>세르비아어 라틴 문자(세르비아)</value>
+  </data>
+  <data name="Language.SlovakSlovakia" xml:space="preserve">
+    <value>슬로바키아어(슬로바키아)</value>
+  </data>
+  <data name="Language.SlovenianSlovenia" xml:space="preserve">
+    <value>슬로베니아어(슬로베니아)</value>
+  </data>
+  <data name="Language.SpanishMexico" xml:space="preserve">
+    <value>스페인어(멕시코)</value>
+  </data>
+  <data name="Language.SpanishSpain" xml:space="preserve">
+    <value>스페인어(스페인)</value>
+  </data>
+  <data name="Language.SwedishSweden" xml:space="preserve">
+    <value>스웨덴어(스웨덴)</value>
+  </data>
+  <data name="Language.ThaiThailand" xml:space="preserve">
+    <value>태국어(태국)</value>
+  </data>
+  <data name="Language.TurkishTurkiye" xml:space="preserve">
+    <value>튀르키예어(튀르키예)</value>
+  </data>
+  <data name="Language.UkrainianUkraine" xml:space="preserve">
+    <value>우크라이나어(우크라이나)</value>
+  </data>
+  <data name="Menu.About" xml:space="preserve">
+    <value>_정보</value>
+  </data>
+  <data name="Menu.Debug" xml:space="preserve">
+    <value>_디버그</value>
+  </data>
+  <data name="Menu.Language" xml:space="preserve">
+    <value>_언어</value>
+  </data>
+  <data name="Menu.Theme" xml:space="preserve">
+    <value>_테마</value>
+  </data>
+  <data name="Theme.Dark" xml:space="preserve">
+    <value>어둡게</value>
+  </data>
+  <data name="Theme.Light" xml:space="preserve">
+    <value>밝게</value>
+  </data>
+  <data name="Theme.System" xml:space="preserve">
+    <value>시스템</value>
+  </data>
+</root>
