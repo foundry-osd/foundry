@@ -145,6 +145,23 @@ public sealed class PostInstallRuntimeRecoveryTests
         Assert.EndsWith("/tags/v26.9.14.1", fixture.Requests[0]);
     }
 
+    [Fact]
+    public async Task DeployReleaseTag_KeepsPostInstallOverrideOrder()
+    {
+        using var fixture = new Fixture();
+        fixture.EnvironmentValues["FOUNDRY_RELEASE_TAG"] = "v26.9.1.1";
+        fixture.EnvironmentValues["FOUNDRY_DEPLOY_RELEASE_TAG"] = "v26.9.2.1";
+        fixture.EnvironmentValues["FOUNDRY_POSTINSTALL_RELEASE_TAG"] = "v26.9.3.1";
+        using (await fixture.RecoverAsync()) { }
+        fixture.EnvironmentValues.Remove("FOUNDRY_POSTINSTALL_RELEASE_TAG");
+        using (await fixture.RecoverAsync()) { }
+        fixture.EnvironmentValues.Remove("FOUNDRY_DEPLOY_RELEASE_TAG");
+        using (await fixture.RecoverAsync()) { }
+
+        Assert.Equal(["/tags/v26.9.3.1", "/tags/v26.9.2.1", "/tags/v26.9.1.1"],
+            fixture.Requests.Where(request => request.Contains("api.github.com", StringComparison.Ordinal)).Select(request => request[request.LastIndexOf("/tags/", StringComparison.Ordinal)..]));
+    }
+
     internal sealed class Fixture : IDisposable
     {
         public string Root { get; } = Path.Combine(Path.GetTempPath(), "Foundry.Deploy.Tests", Guid.NewGuid().ToString("N"));

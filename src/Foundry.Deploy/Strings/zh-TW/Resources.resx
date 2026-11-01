@@ -40,6 +40,12 @@
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>在部署期間將此裝置的硬體雜湊上傳至 Windows Autopilot。</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>無法在此裝置上安裝互動式 Autopilot 註冊助理。請檢查連線並重試部署。如需詳細資訊，請參閱部署記錄。</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>此 Foundry 版本未提供互動式 Autopilot 註冊助理。請檢查連線並重試，或重新建立開機媒體。如需詳細資訊，請參閱部署記錄。</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>在 Windows 安裝中暫存離線 Autopilot 設定檔。</value>
   </data>

@@ -40,6 +40,12 @@
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>מעלה את גיבוב החומרה של המכשיר ל-Windows Autopilot במהלך הפריסה.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>לא ניתן היה להתקין את מסייע הרישום האינטראקטיבי של Autopilot במכשיר זה. יש לבדוק את החיבור ולנסות שוב את הפריסה. לפרטים, יש לעיין ביומן הפריסה.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>מסייע הרישום האינטראקטיבי של Autopilot אינו זמין עבור גרסה זו של Foundry. יש לבדוק את החיבור ולנסות שוב, או ליצור מחדש את מדיית האתחול. לפרטים, יש לעיין ביומן הפריסה.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>מוסיף פרופיל Autopilot לא מקוון להתקנת Windows.</value>
   </data>

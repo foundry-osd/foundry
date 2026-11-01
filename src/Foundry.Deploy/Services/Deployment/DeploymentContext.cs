@@ -106,6 +106,11 @@ public sealed record DeploymentContext
     public DeployAutopilotHardwareHashUploadSettings AutopilotHardwareHashUpload { get; init; } = new();
 
     /// <summary>
+    /// Gets the options handed to Foundry.AutopilotInteractive when interactive hardware hash upload mode is selected.
+    /// </summary>
+    public DeployAutopilotInteractiveSettings AutopilotInteractive { get; init; } = new();
+
+    /// <summary>
     /// Gets network settings used by late deployment steps.
     /// </summary>
     public CoreDeployNetworkSettings Network { get; init; } = new();

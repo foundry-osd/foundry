@@ -40,6 +40,12 @@ Licențiat sub licența MIT.</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>Încarcă hashul hardware al acestui dispozitiv în Windows Autopilot în timpul implementării.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>Asistentul de înregistrare interactivă Autopilot nu a putut fi instalat pe acest dispozitiv. Verificați conexiunea și reîncercați implementarea. Consultați jurnalul de implementare pentru detalii.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>Asistentul de înregistrare interactivă Autopilot nu este disponibil pentru această versiune Foundry. Verificați conexiunea și reîncercați sau creați din nou suportul de pornire. Consultați jurnalul de implementare pentru detalii.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Adaugă un profil Autopilot offline la instalarea Windows.</value>
   </data>

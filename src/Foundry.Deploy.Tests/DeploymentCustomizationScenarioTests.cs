@@ -105,6 +105,7 @@ public sealed class DeploymentCustomizationScenarioTests
             new ScenarioDiskService(fixture.WorkspaceRoot, fixture.WindowsRoot), _ => { });
         // Start at the validated snapshot boundary; encryption validation has its own adversarial tests.
         context.PostInstallContent = NativeRuntimeFixture.Create(fixture.WorkspaceRoot);
+        context.AutopilotInteractiveRuntime = AutopilotInteractiveTestRuntime.CreateLocalOrigin(fixture.WorkspaceRoot);
         context.UnattendSnapshot = new UnattendSnapshot(answer.ToArray(), UnattendFileService.Inspect(answer, "amd64"));
         var forbidden = new ForbiddenExternalServices();
         context.NetworkProfileRoamingPayload = await new NetworkProfileRoamingArtifactService(
@@ -122,8 +123,8 @@ public sealed class DeploymentCustomizationScenarioTests
             new ConfigureWindowsOptionalFeaturesStep(windows),
             new StagePreOobeCustomizationStep(new DriverPackStrategyResolver(),
                 new PreOobeTargetStagingService(path => Directory.CreateDirectory(path))),
-            new ProvisionAutopilotStep(forbidden, forbidden,
-                new AutopilotInteractiveRegistrationProvisioningService(), forbidden),
+            new ProvisionAutopilotStep(forbidden, forbidden, new AutopilotInteractiveProvisioningService(), forbidden,
+                new AutopilotInteractiveTestRuntime.FixedTheme(Foundry.Wpf.Theme.ThemeMode.System), new AutopilotInteractiveTestRuntime.FixedCulture("en-US")),
             new FinalizeDeploymentAndWriteLogsStep()
         ];
         IReadOnlyList<DeploymentPlanEntry> plan = DeploymentPlan.Build(request, state,
@@ -172,7 +173,7 @@ public sealed class DeploymentCustomizationScenarioTests
         Assert.Equal(new[] { "driver-pack", "network-profile-roaming", "remove-ai-components", "remove-appx", "autopilot-registration", "cleanup" },
             executionPlan.RootElement.GetProperty("actions").EnumerateArray().Select(action => action.GetProperty("id").GetString()));
         Assert.True(File.Exists(state.StagedAutopilotConfigurationPath));
-        Assert.True(File.Exists(Path.Combine(retainedRoot, "Runtime", "AutopilotRegistration", "Start-FoundryAutopilotRegistration.ps1")));
+        Assert.True(File.Exists(Path.Combine(retainedRoot, "Runtime", "AutopilotInteractive", "Foundry.AutopilotInteractive.exe")));
     }
 
     private sealed class ScenarioDiskService(string workspaceRoot, string windowsRoot) : ITargetDiskService

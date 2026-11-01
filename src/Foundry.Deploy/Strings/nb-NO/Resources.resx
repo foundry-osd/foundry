@@ -40,6 +40,12 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>Laster opp maskinvarehashen for denne enheten til Windows Autopilot under distribusjonen.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>Den interaktive Autopilot-registreringsassistenten kunne ikke installeres på denne enheten. Kontroller tilkoblingen og prøv distribusjonen på nytt. Se distribusjonsloggen for detaljer.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>Den interaktive Autopilot-registreringsassistenten er ikke tilgjengelig for denne versjonen av Foundry. Kontroller tilkoblingen og prøv igjen, eller opprett oppstartsmediet på nytt. Se distribusjonsloggen for detaljer.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Legger til en frakoblet Autopilot-profil i Windows-installasjonen.</value>
   </data>

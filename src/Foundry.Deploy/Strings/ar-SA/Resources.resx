@@ -40,6 +40,12 @@
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>يحمّل تجزئة أجهزة هذا الجهاز إلى Windows Autopilot أثناء النشر.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>تعذر تثبيت مساعد تسجيل Autopilot التفاعلي على هذا الجهاز. تحقق من الاتصال وأعد محاولة النشر. راجع سجل النشر للحصول على التفاصيل.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>مساعد تسجيل Autopilot التفاعلي غير متوفر لهذا الإصدار من Foundry. تحقق من الاتصال وأعد المحاولة، أو أعد إنشاء وسائط التمهيد. راجع سجل النشر للحصول على التفاصيل.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>يضيف ملف تعريف Autopilot غير متصل إلى تثبيت Windows.</value>
   </data>

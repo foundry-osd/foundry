@@ -40,6 +40,12 @@ Sous licence MIT.</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>Téléverse le hachage matériel de cet appareil vers Windows Autopilot pendant le déploiement.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>L'assistant d'enregistrement Autopilot interactif n'a pas pu être installé sur cet appareil. Vérifiez votre connexion et relancez le déploiement. Consultez le journal de déploiement pour plus de détails.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>L'assistant d'enregistrement Autopilot interactif n'est pas disponible pour cette version de Foundry. Vérifiez votre connexion et réessayez, ou recréez le support de démarrage. Consultez le journal de déploiement pour plus de détails.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Ajoute un profil Autopilot hors connexion à l'installation de Windows.</value>
   </data>

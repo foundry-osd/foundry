@@ -40,6 +40,12 @@
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>Αποστέλλει τον κατακερματισμό υλικού αυτής της συσκευής στο Windows Autopilot κατά την ανάπτυξη.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η εγκατάσταση του διαδραστικού βοηθού εγγραφής Autopilot σε αυτήν τη συσκευή. Ελέγξτε τη σύνδεσή σας και επαναλάβετε την ανάπτυξη. Ανατρέξτε στο αρχείο καταγραφής ανάπτυξης για λεπτομέρειες.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>Ο διαδραστικός βοηθός εγγραφής Autopilot δεν είναι διαθέσιμος για αυτήν την έκδοση του Foundry. Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά ή δημιουργήστε ξανά το μέσο εκκίνησης. Ανατρέξτε στο αρχείο καταγραφής ανάπτυξης για λεπτομέρειες.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Προσθέτει ένα προφίλ Autopilot χωρίς σύνδεση στην εγκατάσταση των Windows.</value>
   </data>

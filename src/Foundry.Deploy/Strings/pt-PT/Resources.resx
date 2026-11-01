@@ -40,6 +40,12 @@ Licenciado sob a licença MIT.</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>Carrega o hash de hardware deste dispositivo para o Windows Autopilot durante a implementação.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>Não foi possível instalar o assistente de registo interativo do Autopilot neste dispositivo. Verifique a ligação e tente novamente a implementação. Consulte o registo de implementação para obter detalhes.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>O assistente de registo interativo do Autopilot não está disponível para esta versão do Foundry. Verifique a ligação e tente novamente ou volte a criar o suporte de arranque. Consulte o registo de implementação para obter detalhes.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Adiciona um perfil offline do Autopilot à instalação do Windows.</value>
   </data>

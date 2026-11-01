@@ -194,12 +194,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Assets\AutopilotRegistration\*.ps1">
-      <LogicalName>Foundry.Deploy.AutopilotRegistration.%(Filename)%(Extension)</LogicalName>
-    </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>Foundry.Deploy.Tests</_Parameter1>
     </AssemblyAttribute>

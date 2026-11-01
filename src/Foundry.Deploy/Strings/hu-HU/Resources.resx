@@ -40,6 +40,12 @@ Licenc az MIT licenc alatt.</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>A telepítés során feltölti az eszköz hardverkivonatát a Windows Autopilotba.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>Az interaktív Autopilot regisztrációs segédet nem sikerült telepíteni erre az eszközre. Ellenőrizze a kapcsolatot, és próbálja újra az üzembe helyezést. A részleteket az üzembe helyezési naplóban találja.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>Az interaktív Autopilot regisztrációs segéd nem érhető el a Foundry ezen kiadásához. Ellenőrizze a kapcsolatot, és próbálja újra, vagy hozza létre újra a rendszerindító adathordozót. A részleteket az üzembe helyezési naplóban találja.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Offline Autopilot-profilt ad a Windows-telepítéshez.</value>
   </data>

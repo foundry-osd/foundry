@@ -40,6 +40,12 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>Lädt den Hardware-Hash dieses Geräts während der Bereitstellung in Windows Autopilot hoch.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>Der interaktive Autopilot-Registrierungsassistent konnte auf diesem Gerät nicht installiert werden. Überprüfen Sie Ihre Verbindung und wiederholen Sie die Bereitstellung. Weitere Informationen finden Sie im Bereitstellungsprotokoll.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>Der interaktive Autopilot-Registrierungsassistent ist für diese Foundry-Version nicht verfügbar. Überprüfen Sie Ihre Verbindung und versuchen Sie es erneut, oder erstellen Sie das Startmedium neu. Weitere Informationen finden Sie im Bereitstellungsprotokoll.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Fügt der Windows-Installation ein Offline-Autopilot-Profil hinzu.</value>
   </data>

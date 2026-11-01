@@ -40,6 +40,12 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>Lataa tämän laitteen laitteiston hajautusarvon Windows Autopilotiin käyttöönoton aikana.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>Vuorovaikutteista Autopilot-rekisteröintiavustajaa ei voitu asentaa tähän laitteeseen. Tarkista yhteys ja yritä käyttöönottoa uudelleen. Lisätietoja on käyttöönoton lokissa.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>Vuorovaikutteinen Autopilot-rekisteröintiavustaja ei ole käytettävissä tälle Foundry-versiolle. Tarkista yhteys ja yritä uudelleen tai luo käynnistystietoväline uudelleen. Lisätietoja on käyttöönoton lokissa.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Lisää offline-tilassa olevan Autopilot-profiilin Windows-asennukseen.</value>
   </data>

@@ -40,6 +40,12 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>Diegimo metu įkelia šio įrenginio aparatinės įrangos maišą į „Windows Autopilot“.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>Nepavyko įdiegti interaktyvaus Autopilot registracijos pagalbininko šiame įrenginyje. Patikrinkite ryšį ir pakartokite diegimą. Išsamios informacijos rasite diegimo žurnale.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>Interaktyvus Autopilot registracijos pagalbininkas šiai Foundry versijai nepasiekiamas. Patikrinkite ryšį ir bandykite dar kartą arba iš naujo sukurkite paleidimo laikmeną. Išsamios informacijos rasite diegimo žurnale.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Prideda autonominį „Autopilot“ profilį prie „Windows“ diegimo.</value>
   </data>

@@ -40,6 +40,12 @@
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>อัปโหลดแฮชฮาร์ดแวร์ของอุปกรณ์นี้ไปยัง Windows Autopilot ระหว่างการปรับใช้</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>ไม่สามารถติดตั้งผู้ช่วยลงทะเบียน Autopilot แบบโต้ตอบบนอุปกรณ์นี้ได้ ตรวจสอบการเชื่อมต่อแล้วลองปรับใช้อีกครั้ง ดูรายละเอียดในบันทึกการปรับใช้</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>ผู้ช่วยลงทะเบียน Autopilot แบบโต้ตอบไม่พร้อมใช้งานสำหรับ Foundry รุ่นนี้ ตรวจสอบการเชื่อมต่อแล้วลองอีกครั้ง หรือสร้างสื่อสำหรับบูตใหม่ ดูรายละเอียดในบันทึกการปรับใช้</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>เพิ่มโปรไฟล์ Autopilot แบบออฟไลน์ลงในการติดตั้ง Windows</value>
   </data>

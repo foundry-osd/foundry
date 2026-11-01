@@ -274,6 +274,27 @@ public sealed class DeploymentPreflightTests
     }
 
     [Theory]
+    [InlineData(DeploymentMode.Iso)]
+    [InlineData(DeploymentMode.Usb)]
+    public async Task Preflight_Fails_WhenInteractiveRuntimeUnavailable(DeploymentMode mode)
+    {
+        // Debug media without a forwarded archive cannot provide the app, so resolution fails without any network request.
+        using var fixture = new PipelineFixture { Mode = mode, InteractiveAutopilot = true };
+        Directory.CreateDirectory(Path.Combine(fixture.AutopilotWinPeRoot, "Config"));
+        File.WriteAllText(Path.Combine(fixture.AutopilotWinPeRoot, "Config", "foundry.deploy.provisioning-source.txt"), "debug");
+
+        DeploymentStepResult result = await fixture.RunAsync();
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal("autopilot_interactive_runtime_unavailable", result.Failure?.Code);
+        Assert.Equal(LocalizationText.GetString("Autopilot.InteractiveRuntimeUnavailable"), result.Message);
+        Assert.Null(fixture.Context!.AutopilotInteractiveRuntime);
+        Assert.Empty(fixture.Events);
+        Assert.Equal(DeploymentStepState.Failed, (await fixture.Prepare.ExecuteAsync(fixture.Context, TestContext.Current.CancellationToken)).State);
+        Assert.Empty(fixture.Events);
+    }
+
+    [Theory]
     [InlineData(false, false)]
     [InlineData(true, false)]
     [InlineData(false, true)]
@@ -984,6 +1005,8 @@ public sealed class DeploymentPreflightTests
         public string? OptionalFeatureId { get; init; }
         public bool OptionalFeatureEnable { get; init; } = true;
         public string Failure { get; set; } = "";
+        public bool InteractiveAutopilot { get; init; }
+        public string AutopilotWinPeRoot => Path.Combine(Root, "WinPE");
         /// <summary>Paths under this prefix map to no disk, like content on a network share.</summary>
         public string? UnmappedPathPrefix { get; set; }
         public string? AppliedEdition { get; init; } = "Professional";
@@ -1013,7 +1036,11 @@ public sealed class DeploymentPreflightTests
             var windows = new PipelineWindows(this);
             var probe = new ImageSourceProbe(_client);
             Preflight = new PreflightDeploymentStep(Storage, probe, postInstallResolver: new FixturePostInstall(this), nativeService: NativeService,
-                deviceArchitecture: deviceArchitecture, customDriverSetCatalog: new CustomDriverSetCatalogService(new DriverVolumes(this)));
+                deviceArchitecture: deviceArchitecture, customDriverSetCatalog: new CustomDriverSetCatalogService(new DriverVolumes(this)))
+            {
+                AutopilotInteractiveRuntimeSource = new Services.Autopilot.AutopilotInteractiveRuntimeSource(AutopilotWinPeRoot, "26.11.3.1",
+                    _client, artifact, _ => null)
+            };
             Prepare = new PrepareTargetDiskLayoutStep(windows, probe);
             Download = new DownloadOperatingSystemImageStep(artifact);
             CheckImage = new CheckWindowsImageStep(windows, Storage, deviceArchitecture);
@@ -1042,6 +1069,8 @@ public sealed class DeploymentPreflightTests
                 TargetDiskNumber = 1,
                 TargetDiskIdentity = Identity,
                 TargetComputerName = "LAB01",
+                IsAutopilotEnabled = InteractiveAutopilot,
+                AutopilotProvisioningMode = InteractiveAutopilot ? AutopilotProvisioningMode.InteractiveHardwareHashUpload : AutopilotProvisioningMode.JsonProfile,
                 PreOobe = PostInstall,
                 DomainJoinRequest = DomainJoinRequest,
                 DomainJoinIntent = DomainJoinIntent,

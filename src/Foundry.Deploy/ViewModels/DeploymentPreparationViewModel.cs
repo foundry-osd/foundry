@@ -33,6 +33,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
     private readonly bool _isDebugSafeMode;
     private HardwareProfile? _detectedHardware;
     private DeployMachineNamingSettings _machineNamingConfiguration = new();
+    private DeployAutopilotInteractiveSettings _autopilotInteractive = new();
     private MachineNamePreparationResult? _machineNamePreparationFailure;
     private string _detectedHardwareSummaryRaw = "Detecting hardware...";
     private bool _isApplyingComputerName;
@@ -217,6 +218,17 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         };
     }
 
+    /// <summary>
+    /// Builds the interactive Autopilot options to carry into a deployment launch request.
+    /// </summary>
+    /// <returns>The configured options when interactive hardware hash upload is enabled; otherwise the defaults.</returns>
+    public DeployAutopilotInteractiveSettings CreateAutopilotInteractiveForLaunch()
+    {
+        return IsAutopilotEnabled && AutopilotProvisioningMode == AutopilotProvisioningMode.InteractiveHardwareHashUpload
+            ? _autopilotInteractive
+            : new DeployAutopilotInteractiveSettings();
+    }
+
     /// <summary>Gets the media preference without exposing another deployment-time control.</summary>
     public bool UploadComputerNameToAutopilot => _machineNamingConfiguration.IsEnabled
         && _machineNamingConfiguration.UploadComputerNameToAutopilot;
@@ -252,6 +264,7 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
 
         AutopilotProvisioningMode = settings.ProvisioningMode;
         AutopilotHardwareHashUpload = settings.HardwareHashUpload ?? new DeployAutopilotHardwareHashUploadSettings();
+        _autopilotInteractive = settings.Interactive ?? new DeployAutopilotInteractiveSettings();
         SelectedAutopilotProfile = settings.IsEnabled && settings.ProvisioningMode == AutopilotProvisioningMode.JsonProfile
             ? ResolveDefaultAutopilotProfile(settings.DefaultProfileFolderName)
             : null;

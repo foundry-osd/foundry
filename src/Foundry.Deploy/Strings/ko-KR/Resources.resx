@@ -40,6 +40,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>배포 중에 이 디바이스의 하드웨어 해시를 Windows Autopilot에 업로드합니다.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>이 디바이스에 대화형 Autopilot 등록 도우미를 설치하지 못했습니다. 연결을 확인하고 배포를 다시 시도하세요. 자세한 내용은 배포 로그를 확인하세요.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>이 Foundry 릴리스에서는 대화형 Autopilot 등록 도우미를 사용할 수 없습니다. 연결을 확인하고 다시 시도하거나 부팅 미디어를 다시 만드세요. 자세한 내용은 배포 로그를 확인하세요.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>오프라인 Autopilot 프로필을 Windows 설치에 추가합니다.</value>
   </data>

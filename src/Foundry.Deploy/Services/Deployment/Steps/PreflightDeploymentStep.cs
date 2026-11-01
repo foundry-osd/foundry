@@ -26,6 +26,9 @@ public sealed class PreflightDeploymentStep(
 {
     public override string Name => DeploymentStepNames.PreflightDeployment;
 
+    /// <summary>Locates the interactive Autopilot runtime; replaced by tests, otherwise the production source.</summary>
+    internal Autopilot.AutopilotInteractiveRuntimeSource? AutopilotInteractiveRuntimeSource { get; init; }
+
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
         context.Preflight?.Dispose();
@@ -59,6 +62,11 @@ public sealed class PreflightDeploymentStep(
                 context.ClearDomainJoinInput();
                 Serilog.Log.ForContext<PreflightDeploymentStep>().Error(exception, "Post-installation readiness validation failed.");
                 return Failed("PostInstall.PreflightFailed", "postinstall_preflight_failed");
+            }
+            if (!await TryResolveAutopilotInteractiveRuntimeAsync(context, cancellationToken).ConfigureAwait(false))
+            {
+                context.ClearDomainJoinInput();
+                return Failed("Autopilot.InteractiveRuntimeUnavailable", "autopilot_interactive_runtime_unavailable");
             }
             await EnsureCustomDriverSetOnMediaAsync(context, cancellationToken).ConfigureAwait(false);
             if (context.Request.OperatingSystem is CustomImageSelection custom)
@@ -260,6 +268,31 @@ public sealed class PreflightDeploymentStep(
         if (!listed || !await ExtractDriverPackStep.IsCustomDriverSourceSeparateAsync(context,
                 Drivers.CustomDriverSetStagingService.ResolveSourceRoot(selected), cancellationToken).ConfigureAwait(false))
             throw CustomDriversGuard(DeploymentFailureReasons.InvalidInput, "custom_driver_integrity");
+    }
+
+    /// <summary>
+    /// When interactive Autopilot is selected, confirms before any disk operation that the runtime archive exists with a trusted
+    /// SHA256 (a release asset, or the media archive Bootstrap forwarded) and keeps its origin for the Autopilot step.
+    /// </summary>
+    /// <returns><see langword="false"/> when the runtime is unavailable; the cause is logged.</returns>
+    private async Task<bool> TryResolveAutopilotInteractiveRuntimeAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+    {
+        context.AutopilotInteractiveRuntime = null;
+        if (!StagePreOobeCustomizationStep.ShouldRunAutopilotRegistration(context.Request)) return true;
+        try
+        {
+            string runtimeIdentifier = PreOobe.PreOobeContentResolver.ResolveRid(context.Request.OperatingSystem.Architecture);
+            context.AutopilotInteractiveRuntime = await (AutopilotInteractiveRuntimeSource ?? new Autopilot.AutopilotInteractiveRuntimeSource())
+                .ResolveAsync(runtimeIdentifier, cancellationToken).ConfigureAwait(false);
+            return true;
+        }
+        catch (Exception exception) when (!cancellationToken.IsCancellationRequested && exception is InvalidDataException or IOException
+            or UnauthorizedAccessException or InvalidOperationException or HttpRequestException or global::System.Text.Json.JsonException
+            or OperationCanceledException or TimeoutException)
+        {
+            Serilog.Log.ForContext<PreflightDeploymentStep>().Error(exception, "Foundry.AutopilotInteractive runtime is unavailable.");
+            return false;
+        }
     }
 
     private static DeploymentOperationException CustomDriversGuard(string reason, string code) => new(

@@ -40,6 +40,12 @@ Licencované podľa licencie MIT.</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>Počas nasadenia nahrá hardvérový hash tohto zariadenia do služby Windows Autopilot.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>Interaktívneho asistenta registrácie Autopilotu sa nepodarilo nainštalovať do tohto zariadenia. Skontrolujte pripojenie a zopakujte nasadenie. Podrobnosti nájdete v denníku nasadenia.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>Interaktívny asistent registrácie Autopilotu nie je pre túto verziu Foundry k dispozícii. Skontrolujte pripojenie a skúste to znova alebo znova vytvorte zavádzacie médium. Podrobnosti nájdete v denníku nasadenia.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Pridá offline profil Autopilotu do inštalácie systému Windows.</value>
   </data>

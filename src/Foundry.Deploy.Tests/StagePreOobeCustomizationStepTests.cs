@@ -533,7 +533,7 @@ public sealed class StagePreOobeCustomizationStepTests
     }
 
     [Fact]
-    public async Task StagePreOobeCustomizationStep_WhenInteractiveAutopilot_StagesAssistantAfterActivation()
+    public async Task Staging_WritesExecutableAndConfigPaths()
     {
         using var tempDirectory = new TemporaryDirectory();
         using DeploymentStepExecutionContext context = CreateContext(tempDirectory, licenseChannel: "RET",
@@ -548,8 +548,9 @@ public sealed class StagePreOobeCustomizationStepTests
         JsonElement[] actions = plan.RootElement.GetProperty("actions").EnumerateArray().ToArray();
         Assert.Equal(new[] { "windows-oem-activation", "autopilot-registration", "cleanup" }, actions.Select(action => action.GetProperty("id").GetString()));
         JsonElement parameters = actions[1].GetProperty("parameters");
-        Assert.Equal("Runtime/AutopilotRegistration/Start-FoundryAutopilotRegistration.ps1", parameters.GetProperty("scriptPath").GetString());
-        Assert.Equal("Runtime/AutopilotRegistration/config.json", parameters.GetProperty("configPath").GetString());
+        Assert.Equal("Runtime/AutopilotInteractive/Foundry.AutopilotInteractive.exe", parameters.GetProperty("executablePath").GetString());
+        Assert.Equal("Runtime/AutopilotInteractive/autopilot-interactive.json", parameters.GetProperty("configPath").GetString());
+        Assert.False(parameters.TryGetProperty("scriptPath", out _));
     }
 
     [Fact]

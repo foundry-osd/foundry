@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using Foundry.Core.Models.Autopilot;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -25,8 +26,8 @@ public sealed class DeploymentStorageLayout
     /// <summary>Gets the PreOobe runtime directory.</summary>
     public string RuntimePreOobe => Path.Combine(Root, "Runtime", "PreOobe");
 
-    /// <summary>Gets the AutopilotRegistration runtime directory.</summary>
-    public string RuntimeAutopilotRegistration => Path.Combine(Root, "Runtime", "AutopilotRegistration");
+    /// <summary>Gets the Foundry.AutopilotInteractive runtime directory, holding its executable and configuration.</summary>
+    public string RuntimeAutopilotInteractive => Combine(AutopilotInteractiveLayout.RuntimeRelativePath);
 
     /// <summary>Gets the Drivers payloads directory.</summary>
     public string PayloadsDrivers => Path.Combine(Root, "Payloads", "Drivers");
@@ -40,8 +41,8 @@ public sealed class DeploymentStorageLayout
     /// <summary>Gets the PreOobe state directory.</summary>
     public string StatePreOobe => Path.Combine(Root, "State", "PreOobe");
 
-    /// <summary>Gets the AutopilotRegistration state directory.</summary>
-    public string StateAutopilotRegistration => Path.Combine(Root, "State", "AutopilotRegistration");
+    /// <summary>Gets the Foundry.AutopilotInteractive state directory, holding its registration result.</summary>
+    public string StateAutopilotInteractive => Combine(AutopilotInteractiveLayout.StateRelativePath);
 
     /// <summary>Gets the Deployment logs directory.</summary>
     public string LogsDeployment => Path.Combine(Root, "Logs", "Deployment");
@@ -49,12 +50,11 @@ public sealed class DeploymentStorageLayout
     /// <summary>Gets the PreOobe logs directory.</summary>
     public string LogsPreOobe => Path.Combine(Root, "Logs", "PreOobe");
 
-    /// <summary>Gets the AutopilotRegistration logs directory.</summary>
-    public string LogsAutopilotRegistration => Path.Combine(Root, "Logs", "AutopilotRegistration");
+    /// <summary>Gets the Foundry.AutopilotInteractive logs directory.</summary>
+    public string LogsAutopilotInteractive => Combine(AutopilotInteractiveLayout.LogsRelativePath);
 
     /// <summary>Gets the AutopilotHash logs directory.</summary>
     public string LogsAutopilotHash => Path.Combine(Root, "Logs", "AutopilotHash");
 
-    /// <summary>Builds a CMD environment-variable path resolved only in the installed OS.</summary>
-    public static string RuntimePath(string relativePath) => @"%SystemRoot%\Temp\Foundry\" + relativePath;
+    private string Combine(string relativePath) => Path.Combine(Root, relativePath.Replace('/', Path.DirectorySeparatorChar));
 }

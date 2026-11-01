@@ -188,6 +188,7 @@ public sealed class DeploymentLaunchPreparationService : IDeploymentLaunchPrepar
             AutopilotProvisioningMode = request.AutopilotProvisioningMode,
             SelectedAutopilotProfile = request.SelectedAutopilotProfile,
             AutopilotHardwareHashUpload = request.AutopilotHardwareHashUpload,
+            AutopilotInteractive = request.AutopilotInteractive,
             Network = request.Network,
             Oobe = request.UsesCustomUnattend ? new DeployOobeSettings() : request.Oobe,
             PreOobe = request.PreOobe,

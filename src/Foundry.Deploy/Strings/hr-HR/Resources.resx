@@ -40,6 +40,12 @@ Licenciran prema MIT licenci.</value>
   <data name="Autopilot.HardwareHashUploadMethodDescription" xml:space="preserve">
     <value>Prenosi hardverski hash ovog uređaja u Windows Autopilot tijekom implementacije.</value>
   </data>
+  <data name="Autopilot.InteractiveInstallFailed" xml:space="preserve">
+    <value>Interaktivni pomoćnik za registraciju Autopilota nije moguće instalirati na ovaj uređaj. Provjerite vezu i ponovite implementaciju. Pojedinosti potražite u zapisniku implementacije.</value>
+  </data>
+  <data name="Autopilot.InteractiveRuntimeUnavailable" xml:space="preserve">
+    <value>Interaktivni pomoćnik za registraciju Autopilota nije dostupan za ovu verziju programa Foundry. Provjerite vezu i pokušajte ponovno ili ponovno izradite medij za pokretanje. Pojedinosti potražite u zapisniku implementacije.</value>
+  </data>
   <data name="Autopilot.JsonProfileMethodDescription" xml:space="preserve">
     <value>Dodaje izvanmrežni Autopilot profil u instalaciju sustava Windows.</value>
   </data>
