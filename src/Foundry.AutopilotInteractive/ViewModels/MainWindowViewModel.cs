@@ -70,7 +70,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly IUiDispatcher _dispatcher;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
-    private readonly string? _assignedComputerName;
+    private readonly string? _footerComputerName;
     private readonly string? _inheritedKeyboardLayoutId;
     private AutopilotServiceSet? _services;
     private CancellationTokenSource? _loadCts;
@@ -174,7 +174,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
         _dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _keyboardLayoutSwitcher = keyboardLayoutSwitcher ?? throw new ArgumentNullException(nameof(keyboardLayoutSwitcher));
-        _assignedComputerName = configuration.AssignedComputerName;
+        _footerComputerName = DeviceFooterFormatter.ResolveComputerName(configuration);
         _inheritedKeyboardLayoutId = configuration.KeyboardLayoutId;
         IsDebugMenuVisible = isDebugSafeMode;
 
@@ -847,7 +847,7 @@ public sealed partial class MainWindowViewModel : LocalizedViewModelBase
     {
         DeviceFooter = DeviceFooterFormatter.Format(
             _deviceInformation,
-            _assignedComputerName,
+            _footerComputerName,
             LocalizationService.GetString("Footer.Unknown"));
         OnPropertyChanged(nameof(DeviceFooter));
     }

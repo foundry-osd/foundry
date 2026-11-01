@@ -49,8 +49,10 @@ public sealed class ProvisionAutopilotStepTests
         }
         else
         {
-            Assert.Null(AutopilotInteractiveRuntimeConfigurationSerializer.Deserialize(
-                File.ReadAllText(context.RuntimeState.StagedAutopilotConfigurationPath!)).AssignedComputerName);
+            AutopilotInteractiveRuntimeConfiguration configuration = AutopilotInteractiveRuntimeConfigurationSerializer.Deserialize(
+                File.ReadAllText(context.RuntimeState.StagedAutopilotConfigurationPath!));
+            Assert.Null(configuration.AssignedComputerName);
+            Assert.Null(configuration.ComputerName);
         }
         string logs = string.Join("\n", Directory.EnumerateFiles(workspace.RootPath, "*.log", SearchOption.AllDirectories).Select(File.ReadAllText));
         Assert.Contains("computer name assignment skipped", logs, StringComparison.OrdinalIgnoreCase);
@@ -83,7 +85,31 @@ public sealed class ProvisionAutopilotStepTests
             using JsonDocument config = JsonDocument.Parse(File.ReadAllText(context.RuntimeState.StagedAutopilotConfigurationPath!));
             string? actual = config.RootElement.TryGetProperty("assignedComputerName", out var name) ? name.GetString() : null;
             Assert.Equal(expected, actual);
+            // The display-only name is written whether or not the name is uploaded.
+            string? display = config.RootElement.TryGetProperty("computerName", out var displayName) ? displayName.GetString() : null;
+            Assert.Equal("Edited-042", display);
         }
+    }
+
+    [Theory]
+    [InlineData(false, "Edited-042")]
+    [InlineData(true, null)]
+    public async Task Provision_WritesDisplayComputerNameRegardlessOfUploadOption_ExceptWithCustomUnattend(bool customUnattend, string? expected)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var unattend = customUnattend
+            ? new UnattendSelection(new Foundry.Core.Models.Configuration.Deploy.DeployUnattendFile(), "custom.xml")
+            : null;
+        using DeploymentStepExecutionContext context = CreateContext(workspace, false, AutopilotProvisioningMode.InteractiveHardwareHashUpload,
+            uploadComputerName: false, computerName: "Edited-042", unattend: unattend);
+
+        DeploymentStepResult result = await CreateStep().ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        AutopilotInteractiveRuntimeConfiguration configuration = AutopilotInteractiveRuntimeConfigurationSerializer.Deserialize(
+            await File.ReadAllTextAsync(context.RuntimeState.StagedAutopilotConfigurationPath!, TestContext.Current.CancellationToken));
+        Assert.Equal(expected, configuration.ComputerName);
+        Assert.Null(configuration.AssignedComputerName);
     }
 
     [Fact]
@@ -250,6 +276,7 @@ public sealed class ProvisionAutopilotStepTests
         Assert.Equal(new AutopilotInteractiveRuntimeConfiguration
         {
             AssignedComputerName = "FINAL-PC",
+            ComputerName = "FINAL-PC",
             PreselectCustomGroupTag = true,
             OfferAssignedUser = true,
             Theme = RuntimeThemePreference.Dark,

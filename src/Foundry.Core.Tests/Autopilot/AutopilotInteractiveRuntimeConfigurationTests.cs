@@ -15,6 +15,7 @@ public sealed class AutopilotInteractiveRuntimeConfigurationTests
         var configuration = new AutopilotInteractiveRuntimeConfiguration
         {
             AssignedComputerName = "FND-0001",
+            ComputerName = "FND-0002",
             PreselectCustomGroupTag = true,
             OfferAssignedUser = true,
             Theme = RuntimeThemePreference.Dark,
@@ -29,11 +30,12 @@ public sealed class AutopilotInteractiveRuntimeConfigurationTests
         Assert.Contains("\"schemaVersion\": 1", json, StringComparison.Ordinal);
         Assert.Contains("\"theme\": \"Dark\"", json, StringComparison.Ordinal);
         Assert.Contains("\"keyboardLayoutId\": \"0000080C\"", json, StringComparison.Ordinal);
+        Assert.Contains("\"computerName\": \"FND-0002\"", json, StringComparison.Ordinal);
         Assert.Equal(configuration, result);
     }
 
     [Fact]
-    public void Serializer_RoundTripsWithoutKeyboardLayout()
+    public void Serializer_RoundTripsWithoutOptionalNames()
     {
         var configuration = new AutopilotInteractiveRuntimeConfiguration { CultureName = "en-US" };
 
@@ -41,6 +43,7 @@ public sealed class AutopilotInteractiveRuntimeConfigurationTests
         AutopilotInteractiveRuntimeConfiguration result = AutopilotInteractiveRuntimeConfigurationSerializer.Deserialize(json);
 
         Assert.Null(result.KeyboardLayoutId);
+        Assert.Null(result.ComputerName);
         Assert.Equal(configuration, result);
     }
 
@@ -83,6 +86,7 @@ public sealed class AutopilotInteractiveRuntimeConfigurationTests
             """{"schemaVersion":1,"cultureName":"en-US"}""");
 
         Assert.Null(result.AssignedComputerName);
+        Assert.Null(result.ComputerName);
         Assert.False(result.PreselectCustomGroupTag);
         Assert.False(result.OfferAssignedUser);
         Assert.Null(result.DiagnosticSessionId);

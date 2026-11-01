@@ -31,8 +31,17 @@ public sealed record AutopilotInteractiveRuntimeConfiguration
     [JsonRequired]
     public int SchemaVersion { get; init; } = CurrentSchemaVersion;
 
-    /// <summary>Computer name the registration assigns to the device, or <see langword="null"/> when none is configured.</summary>
+    /// <summary>
+    /// Computer name the registration sends to Autopilot, or <see langword="null"/> when none is configured. Deploy sets it only
+    /// when the upload computer name option is on.
+    /// </summary>
     public string? AssignedComputerName { get; init; }
+
+    /// <summary>
+    /// Final computer name of the deployment, shown in the footer only; it is never sent to Autopilot. <see langword="null"/>
+    /// when Deploy does not know a reliable name (for example with a custom unattend) or in configurations that predate it.
+    /// </summary>
+    public string? ComputerName { get; init; }
 
     /// <summary>Whether the group tag page opens with the custom group tag entry preselected.</summary>
     public bool PreselectCustomGroupTag { get; init; }

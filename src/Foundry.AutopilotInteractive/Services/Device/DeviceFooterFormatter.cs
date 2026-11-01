@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Models.Autopilot;
+
 namespace Foundry.AutopilotInteractive.Services.Device;
 
 /// <summary>
@@ -12,7 +14,23 @@ public static class DeviceFooterFormatter
     private const string Separator = " · ";
 
     /// <summary>
-    /// Joins manufacturer, model and serial number, then the computer name when one is configured.
+    /// Picks the computer name the footer shows: the display-only <see cref="AutopilotInteractiveRuntimeConfiguration.ComputerName"/>,
+    /// falling back to <see cref="AutopilotInteractiveRuntimeConfiguration.AssignedComputerName"/> for older configurations.
+    /// </summary>
+    /// <param name="configuration">Runtime configuration read at startup.</param>
+    /// <returns>The trimmed name, or <see langword="null"/> when neither value is set.</returns>
+    public static string? ResolveComputerName(AutopilotInteractiveRuntimeConfiguration configuration)
+    {
+        ArgumentNullException.ThrowIfNull(configuration);
+
+        string? name = string.IsNullOrWhiteSpace(configuration.ComputerName)
+            ? configuration.AssignedComputerName
+            : configuration.ComputerName;
+        return string.IsNullOrWhiteSpace(name) ? null : name.Trim();
+    }
+
+    /// <summary>
+    /// Joins manufacturer, model and serial number, then the computer name when one is known.
     /// </summary>
     /// <param name="info">Device identity; blank members are replaced by <paramref name="unknownText"/>.</param>
     /// <param name="computerName">Final computer name, appended only when it is not blank.</param>

@@ -258,7 +258,8 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
     }
 
     /// <summary>
-    /// Builds the configuration Foundry.AutopilotInteractive reads at startup: the confirmed computer name, the interactive options,
+    /// Builds the configuration Foundry.AutopilotInteractive reads at startup: the computer name to assign (upload option only), the
+    /// display-only final computer name, the interactive options,
     /// the theme, culture and keyboard layout currently active in Deploy (the layout chosen in Connect or in Deploy's Keyboard
     /// menu, otherwise the WinPE layout), and the diagnostic session that correlates its logs with this deployment.
     /// </summary>
@@ -268,6 +269,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
         return new AutopilotInteractiveRuntimeConfiguration
         {
             AssignedComputerName = assignedComputerName,
+            ComputerName = ResolveFinalComputerName(context),
             PreselectCustomGroupTag = context.Request.AutopilotInteractive.PreselectCustomGroupTag,
             OfferAssignedUser = context.Request.AutopilotInteractive.OfferAssignedUser,
             Theme = ToRuntimeTheme(_themeService.CurrentTheme),
@@ -406,6 +408,9 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             : DeploymentStepResult.Skipped(uploadResult.Message);
     }
 
+    /// <summary>
+    /// Resolves the name sent to Autopilot: the final computer name, only when the upload option is enabled.
+    /// </summary>
     private static async Task<string?> ResolveAssignedComputerNameAsync(
         DeploymentStepExecutionContext context,
         CancellationToken cancellationToken)
@@ -415,17 +420,28 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             return null;
         }
 
-        if (context.Request.UsesCustomUnattend ||
-            !Foundry.Core.Services.Configuration.ComputerNameRules.IsValid(context.Request.TargetComputerName))
+        string? finalComputerName = ResolveFinalComputerName(context);
+        if (finalComputerName is null)
         {
             await context.AppendLogAsync(
                 DeploymentLogLevel.Warning,
                 "Autopilot computer name assignment skipped because no final Foundry Deploy computer name is available. Hardware hash upload continues.",
                 cancellationToken).ConfigureAwait(false);
-            return null;
         }
 
-        return context.Request.TargetComputerName;
+        return finalComputerName;
+    }
+
+    /// <summary>
+    /// Returns the deployment's final computer name when it is known and reliable, independent of the upload option.
+    /// A custom unattend may rename the device, so no name is reliable then; an invalid target name is never reported.
+    /// </summary>
+    private static string? ResolveFinalComputerName(DeploymentStepExecutionContext context)
+    {
+        return !context.Request.UsesCustomUnattend &&
+            Foundry.Core.Services.Configuration.ComputerNameRules.IsValid(context.Request.TargetComputerName)
+            ? context.Request.TargetComputerName
+            : null;
     }
 
     private static async Task<DeploymentStepResult> WriteDryRunHardwareHashManifestAsync(
