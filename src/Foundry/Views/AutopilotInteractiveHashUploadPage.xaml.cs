@@ -8,6 +8,8 @@ namespace Foundry.Views;
 
 public sealed partial class AutopilotInteractiveHashUploadPage : Page
 {
+    private const double MinimumInteractiveImageHeight = 240;
+
     public AutopilotConfigurationViewModel ViewModel { get; }
 
     /// <summary>Gets the read-only state of a managed configuration.</summary>
@@ -33,12 +35,13 @@ public sealed partial class AutopilotInteractiveHashUploadPage : Page
 
     private void OnInteractiveContentSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        InteractiveImage.MaxHeight = Math.Max(
-            0,
-            InteractiveContentScrollView.ActualHeight
-                - InteractiveOptions.ActualHeight
-                - InteractiveDescription.ActualHeight
-                - (2 * InteractivePresentation.RowSpacing));
-    }
+        // The image gets the space left below the option cards; below the minimum the page scrolls instead.
+        double availableHeight = InteractiveContentScrollView.ActualHeight
+            - InteractiveOptions.ActualHeight
+            - InteractiveLayout.RowSpacing
+            - InteractiveDescription.ActualHeight
+            - InteractivePresentation.RowSpacing;
 
+        InteractiveImage.MaxHeight = Math.Max(MinimumInteractiveImageHeight, availableHeight);
+    }
 }
