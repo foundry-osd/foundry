@@ -5,6 +5,7 @@
 using System.IO;
 using System.Windows;
 using Foundry.AutopilotInteractive.DependencyInjection;
+using Foundry.AutopilotInteractive.Services.Registration;
 using Foundry.AutopilotInteractive.Startup;
 using Foundry.Core.Models.Autopilot;
 using Foundry.Utilities.Diagnostics;
@@ -33,6 +34,7 @@ public static class Program
     private const string ApplicationName = "Foundry.AutopilotInteractive";
     private const string LogFileName = "Foundry.AutopilotInteractive.log";
     private const int RetainedLogFileCount = 5;
+    private const int CompletedExitCode = 0;
     private const int StartupFailureExitCode = 1;
     private static readonly TimeSpan LogFlushTimeout = TimeSpan.FromSeconds(2);
 
@@ -80,7 +82,22 @@ public static class Program
                 logger.Warning("Command line: {Warning}", warning);
             }
 
-            // The completed-registration guard runs here, once logging is available.
+            // Both startup guards run before any UI and before the configuration is needed: a device that is already
+            // registered or a setup window that already closed must not show the application.
+            RegistrationResultStore resultStore = new(RegistrationResultStore.ResolveStateDirectory(DebugSafetyMode.IsEnabled));
+            if (resultStore.IsCompleted())
+            {
+                logger.Information("Registration already completed by an earlier run. Exiting with code {ExitCode}.", CompletedExitCode);
+                return CompletedExitCode;
+            }
+
+            if (DeadlinePolicy.IsReached(commandLine.DeadlineUtc, DateTimeOffset.UtcNow))
+            {
+                logger.Warning("The setup deadline was already reached at startup. Exiting with code {ExitCode}.", StartupFailureExitCode);
+                WriteDeadlineResult(resultStore, logger);
+                return StartupFailureExitCode;
+            }
+
             if (configuration is null)
             {
                 logger.Error(configurationFailure, "The configuration is missing or invalid. Exiting with code {ExitCode}.", StartupFailureExitCode);
@@ -133,6 +150,25 @@ public static class Program
             {
                 // A log that cannot be flushed must not replace the exit code.
             }
+        }
+    }
+
+    private static void WriteDeadlineResult(RegistrationResultStore resultStore, Serilog.ILogger logger)
+    {
+        try
+        {
+            resultStore.Write(new RegistrationResult(
+                RegistrationResult.StatusFailed,
+                RegistrationFailureCodes.DeadlineReached,
+                ImportId: null,
+                AutopilotDeviceId: null,
+                ProfileAssignment: null,
+                DateTimeOffset.UtcNow));
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            // The exit code already tells PostInstall to continue; a missing result file only costs a later attempt.
+            logger.Warning("The deadline result could not be written. FailureType={FailureType}, ErrorCode={ErrorCode}", exception.GetType().Name, exception.HResult);
         }
     }
 
