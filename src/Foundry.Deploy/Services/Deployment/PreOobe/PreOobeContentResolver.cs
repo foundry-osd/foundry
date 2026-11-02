@@ -69,16 +69,25 @@ public class PreOobeContentResolver
         PreOobePreparedContent prepared;
         if (string.IsNullOrWhiteSpace(RuntimeExecutablePath))
         {
-            string message = Services.Localization.LocalizationText.GetString("PostInstall.RuntimePreparing");
-            context.EmitCurrentStepIndeterminate(message, message, DeploymentOperationNames.PreflightDeployment);
-            string? cacheRoot = context.Request.Mode == Models.DeploymentMode.Usb ? context.RuntimeState.ResolvedCache?.RootPath : null;
-            if (cacheRoot is not null && !await context.IsExternalStorageAsync(cacheRoot, cancellationToken).ConfigureAwait(false)) cacheRoot = null;
-            prepared = await RuntimeRecovery.AcquireAsync(rid, cacheRoot, cancellationToken,
-                context.CreateDownloadProgressReporter("Foundry.PostInstall", DeploymentOperationNames.PreflightDeployment)).ConfigureAwait(false);
+            prepared = await RecoverRuntimeAsync(context, rid, cancellationToken).ConfigureAwait(false);
         }
         else
         {
-            prepared = await PostInstallRuntimeSource.AcquireAsync(RuntimeExecutablePath, rid, cancellationToken).ConfigureAwait(false);
+            try
+            {
+                prepared = await PostInstallRuntimeSource.AcquireAsync(RuntimeExecutablePath, rid,
+                    RuntimeRecovery.ResolveExpectedReleaseTag(), cancellationToken).ConfigureAwait(false);
+            }
+            catch (InvalidDataException exception) when (PostInstallRuntimeSource.IsReleaseMismatch(exception))
+            {
+                // Boot media created by an older Foundry OSD may pair this Deploy with a PostInstall of another release;
+                // the recovered runtime comes from the release of this Deploy. This runs before the target disk is erased.
+                (string? releaseTag, string? expectedReleaseTag) = PostInstallRuntimeSource.ReadReleaseMismatch(exception);
+                Serilog.Log.ForContext<PreOobeContentResolver>().Warning(
+                    "Bootstrap PostInstall runtime comes from another release; recovering the runtime of this Deploy release. ReleaseTag={ReleaseTag}; ExpectedReleaseTag={ExpectedReleaseTag}",
+                    releaseTag, expectedReleaseTag);
+                prepared = await RecoverRuntimeAsync(context, rid, cancellationToken).ConfigureAwait(false);
+            }
         }
         try
         {
@@ -142,6 +151,17 @@ public class PreOobeContentResolver
             return prepared;
         }
         catch { prepared.Dispose(); throw; }
+    }
+
+    /// <summary>Downloads the PostInstall runtime of this Deploy release, reusing a verified USB cache archive when allowed.</summary>
+    private async Task<PreOobePreparedContent> RecoverRuntimeAsync(DeploymentStepExecutionContext context, string rid, CancellationToken cancellationToken)
+    {
+        string message = Services.Localization.LocalizationText.GetString("PostInstall.RuntimePreparing");
+        context.EmitCurrentStepIndeterminate(message, message, DeploymentOperationNames.PreflightDeployment);
+        string? cacheRoot = context.Request.Mode == Models.DeploymentMode.Usb ? context.RuntimeState.ResolvedCache?.RootPath : null;
+        if (cacheRoot is not null && !await context.IsExternalStorageAsync(cacheRoot, cancellationToken).ConfigureAwait(false)) cacheRoot = null;
+        return await RuntimeRecovery.AcquireAsync(rid, cacheRoot, cancellationToken,
+            context.CreateDownloadProgressReporter("Foundry.PostInstall", DeploymentOperationNames.PreflightDeployment)).ConfigureAwait(false);
     }
 
     internal static async Task RevalidateAsync(DeploymentStepExecutionContext context, PreOobePreparedContent content, CancellationToken cancellationToken)

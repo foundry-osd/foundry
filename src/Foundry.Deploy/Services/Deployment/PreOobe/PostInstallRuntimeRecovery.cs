@@ -16,7 +16,9 @@ using Serilog.Extensions.Logging;
 
 namespace Foundry.Deploy.Services.Deployment.PreOobe;
 
-/// <summary>Recovers a missing Bootstrap payload into WinPE storage, with optional verified USB archive reuse.</summary>
+/// <summary>
+/// Recovers a missing Bootstrap payload, or one from another release, into WinPE storage, with optional verified USB archive reuse.
+/// </summary>
 internal sealed class PostInstallRuntimeRecovery(string winPeRoot, string deployVersion, HttpClient client,
     IArtifactDownloadService downloadService, Func<string, string?> environment)
 {
@@ -46,6 +48,8 @@ internal sealed class PostInstallRuntimeRecovery(string winPeRoot, string deploy
             string archiveOverride = ReadEnvironment("FOUNDRY_POSTINSTALL_ARCHIVE");
             string? cacheArchive = string.IsNullOrWhiteSpace(cacheRoot) ? null :
                 Path.Combine(cacheRoot, ApplicationName, runtimeIdentifier, "current.zip");
+            // An authenticated archive override is an explicit operator choice, so its release is not checked.
+            string? expectedReleaseTag = null;
             if (archiveOverride.Length > 0)
             {
                 await PrepareOverrideAsync(archiveOverride, archive, cancellationToken, progress).ConfigureAwait(false);
@@ -53,13 +57,16 @@ internal sealed class PostInstallRuntimeRecovery(string winPeRoot, string deploy
             }
             else
             {
-                string provisioning = Path.Combine(winPeRoot, "Config", "foundry.deploy.provisioning-source.txt");
-                if (File.Exists(provisioning) && File.ReadAllText(provisioning).Trim().Equals("debug", StringComparison.OrdinalIgnoreCase))
+                if (IsDebugMedia())
                     throw new InvalidDataException("Debug media must provide PostInstall through Bootstrap or an authenticated archive override.");
 
-                string tag = ResolveReleaseTag();
-                Logger.LogInformation("Recovering missing PostInstall runtime. ReleaseTag={ReleaseTag}; RuntimeIdentifier={RuntimeIdentifier}", tag, runtimeIdentifier);
-                RuntimeReleaseAsset asset = await ReadReleaseAssetAsync(tag, runtimeIdentifier, cancellationToken).ConfigureAwait(false);
+                FoundryReleaseSelection release = ResolveRelease();
+                if (release.IsLatest)
+                    Logger.LogWarning("Unpublished Deploy build; using the latest release for {Component}", ApplicationName);
+                expectedReleaseTag = release.Tag;
+                Logger.LogInformation("Recovering PostInstall runtime. ReleaseTag={ReleaseTag}; RuntimeIdentifier={RuntimeIdentifier}",
+                    release.Tag ?? "latest", runtimeIdentifier);
+                RuntimeReleaseAsset asset = await ReadReleaseAssetAsync(release, runtimeIdentifier, cancellationToken).ConfigureAwait(false);
                 if (cacheArchive is not null)
                     await TryCopyCacheAsync(cacheArchive, archive, cancellationToken).ConfigureAwait(false);
                 await downloadService.DownloadAsync(asset.DownloadUrl, archive, asset.Sha256,
@@ -68,7 +75,7 @@ internal sealed class PostInstallRuntimeRecovery(string winPeRoot, string deploy
 
             await RuntimeArchive.ExtractAsync(archive, payload, cancellationToken).ConfigureAwait(false);
             prepared = await PostInstallRuntimeSource.AcquireAsync(Path.Combine(payload, ApplicationName + ".exe"),
-                runtimeIdentifier, cancellationToken).ConfigureAwait(false);
+                runtimeIdentifier, expectedReleaseTag, cancellationToken).ConfigureAwait(false);
             if (cacheArchive is not null)
             {
                 try { await RuntimeArchiveCache.StoreAsync(archive, cacheArchive, cancellationToken).ConfigureAwait(false); }
@@ -117,14 +124,28 @@ internal sealed class PostInstallRuntimeRecovery(string winPeRoot, string deploy
             throw new InvalidDataException("PostInstall archive override does not match the trusted SHA256 digest.");
     }
 
-    private string ResolveReleaseTag() => DeployReleaseTag.Resolve(deployVersion, environment,
-        "FOUNDRY_POSTINSTALL_RELEASE_TAG", "FOUNDRY_DEPLOY_RELEASE_TAG", "FOUNDRY_RELEASE_TAG");
+    /// <summary>
+    /// Returns the release tag a PostInstall runtime must declare to run with this Deploy: the tag recovery downloads from, or
+    /// <see langword="null"/> when the check does not apply because Deploy runs from debug media, whose runtimes are built locally
+    /// without a tag, or is an unpublished build that follows the latest release.
+    /// </summary>
+    /// <exception cref="InvalidDataException">No override is set and the Deploy version is not a four-part version.</exception>
+    internal string? ResolveExpectedReleaseTag() => IsDebugMedia() ? null : ResolveRelease().Tag;
 
-    private Task<RuntimeReleaseAsset> ReadReleaseAssetAsync(string tag, string runtimeIdentifier, CancellationToken cancellationToken) =>
+    /// <summary>Returns whether Deploy runs from debug media, which never download a published PostInstall runtime.</summary>
+    internal bool IsDebugMedia()
+    {
+        string provisioning = Path.Combine(winPeRoot, "Config", "foundry.deploy.provisioning-source.txt");
+        return File.Exists(provisioning) && File.ReadAllText(provisioning).Trim().Equals("debug", StringComparison.OrdinalIgnoreCase);
+    }
+
+    private FoundryReleaseSelection ResolveRelease() => FoundryReleaseTag.Resolve(deployVersion, environment,
+        "FOUNDRY_POSTINSTALL_RELEASE_TAG", "FOUNDRY_DEPLOY_RELEASE_TAG", FoundryReleaseTag.ReleaseTagVariable);
+
+    private Task<RuntimeReleaseAsset> ReadReleaseAssetAsync(FoundryReleaseSelection selection, string runtimeIdentifier, CancellationToken cancellationToken) =>
         HttpRetryPolicy.ExecuteAsync(async token =>
         {
-            using var request = new HttpRequestMessage(HttpMethod.Get,
-                "https://api.github.com/repos/foundry-osd/foundry/releases/tags/" + Uri.EscapeDataString(tag));
+            using var request = new HttpRequestMessage(HttpMethod.Get, selection.ApiUrl);
             request.Headers.UserAgent.ParseAdd("FoundryDeploy/1.0");
             request.Headers.Accept.ParseAdd("application/vnd.github+json");
             using HttpResponseMessage response = await client.SendAsync(request, token).ConfigureAwait(false);

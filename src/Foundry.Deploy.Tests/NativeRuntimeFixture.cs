@@ -13,8 +13,11 @@ namespace Foundry.Deploy.Tests;
 
 internal static class NativeRuntimeFixture
 {
+    /// <summary>Release of the fixture runtime; matches the Deploy version of <see cref="PostInstallRuntimeRecoveryTests.Fixture"/>.</summary>
+    public const string ReleaseTag = "v26.9.29.1";
+
     public static PreOobePreparedContent Create(string root) =>
-        PostInstallRuntimeSource.AcquireAsync(CreateFiles(root), "win-x64", CancellationToken.None).GetAwaiter().GetResult();
+        PostInstallRuntimeSource.AcquireAsync(CreateFiles(root), "win-x64", ReleaseTag, CancellationToken.None).GetAwaiter().GetResult();
 
     public static string CreateFiles(string root)
     {
@@ -27,7 +30,7 @@ internal static class NativeRuntimeFixture
             File.WriteAllBytes(Path.Combine(directory, name), bytes);
             files.Add(new() { RelativePath = name, Length = bytes.Length, Sha256 = Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant() });
         }
-        WriteManifest(directory, new() { RuntimeIdentifier = "win-x64", Files = files });
+        WriteManifest(directory, new() { RuntimeIdentifier = "win-x64", ReleaseTag = ReleaseTag, Files = files });
         return Path.Combine(directory, "Foundry.PostInstall.exe");
     }
 

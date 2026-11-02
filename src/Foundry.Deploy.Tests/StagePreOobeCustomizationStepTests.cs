@@ -199,6 +199,28 @@ public sealed class StagePreOobeCustomizationStepTests
     }
 
     [Fact]
+    public async Task OtherReleaseBootstrapRuntime_IsReplacedByRecoveredRuntime()
+    {
+        using var temp = new TemporaryDirectory();
+        using var recovery = new PostInstallRuntimeRecoveryTests.Fixture();
+        using var context = CreateContext(temp, licenseChannel: "RET");
+        string bootstrapRuntime = NativeRuntimeFixture.CreateFiles(temp.RootPath);
+        string bootstrapDirectory = Path.GetDirectoryName(bootstrapRuntime)!;
+        var manifest = JsonSerializer.Deserialize<PostInstallRuntimeManifest>(
+            File.ReadAllText(Path.Combine(bootstrapDirectory, PostInstallRuntimeManifest.FileName)),
+            Foundry.Deploy.Services.Configuration.ConfigurationJsonDefaults.SerializerOptions)!;
+        NativeRuntimeFixture.WriteManifest(bootstrapDirectory, manifest with { ReleaseTag = "v26.9.1.1" });
+        var resolver = new PreOobeContentResolver { RuntimeExecutablePath = bootstrapRuntime, RuntimeRecovery = recovery.Recovery };
+
+        using var prepared = await resolver.PrepareAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.NotNull(prepared);
+        Assert.Equal(2, recovery.Requests.Count);
+        Assert.NotEqual(bootstrapDirectory, prepared.RuntimeDirectory);
+        Assert.Equal(NativeRuntimeFixture.ReleaseTag, prepared.RuntimeManifest.ReleaseTag);
+    }
+
+    [Fact]
     public async Task NoPostInstallTasks_DoesNotResolveRuntime()
     {
         using var temp = new TemporaryDirectory();
