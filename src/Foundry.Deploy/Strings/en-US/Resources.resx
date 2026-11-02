@@ -1155,9 +1155,6 @@ Continue with deployment?</value>
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>Copying from the network cache...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Copying interactive registration files...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Creating simulated partitions...</value>
   </data>
@@ -1166,6 +1163,9 @@ Continue with deployment?</value>
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>Detecting hardware profile...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>Downloading Foundry Autopilot Interactive...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>Downloading driver pack...</value>

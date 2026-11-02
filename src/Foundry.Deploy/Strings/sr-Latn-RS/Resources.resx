@@ -1155,9 +1155,6 @@ Operativni sistem: {4}
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>Kopiranje iz mrežnog keša...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Kopiraju se datoteke interaktivne registracije...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Pravljenje simuliranih particija...</value>
   </data>
@@ -1166,6 +1163,9 @@ Operativni sistem: {4}
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>Otkrivanje hardverskog profila...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>Preuzimanje Foundry Autopilot Interactive...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>Preuzimanje paketa drajvera...</value>

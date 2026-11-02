@@ -1155,9 +1155,6 @@ Vai turpināt izvietošanu?</value>
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>Kopē no tīkla kešatmiņas...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Tiek kopēti interaktīvās reģistrācijas faili...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Notiek simulētu nodalījumu izveide...</value>
   </data>
@@ -1166,6 +1163,9 @@ Vai turpināt izvietošanu?</value>
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>Notiek aparatūras profila noteikšana...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>Notiek Foundry Autopilot Interactive lejupielāde...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>Notiek draivera pakotnes lejupielāde...</value>

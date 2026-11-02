@@ -1155,9 +1155,6 @@ Kontynuować wdrażanie?</value>
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>Kopiowanie z sieciowej pamięci podręcznej...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Kopiowanie plików rejestracji interaktywnej...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Tworzenie symulowanych partycji...</value>
   </data>
@@ -1166,6 +1163,9 @@ Kontynuować wdrażanie?</value>
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>Wykrywanie profilu sprzętowego...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>Pobieram Foundry Autopilot Interactive...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>Pobieram pakiet sterowników...</value>

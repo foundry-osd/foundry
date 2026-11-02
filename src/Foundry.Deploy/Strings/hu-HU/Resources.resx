@@ -1155,9 +1155,6 @@ Folytatja a telepítést?</value>
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>Másolás a hálózati gyorsítótárból...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Interaktív regisztrációs fájlok másolása...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Szimulált partíciók létrehozása...</value>
   </data>
@@ -1166,6 +1163,9 @@ Folytatja a telepítést?</value>
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>Hardverprofil észlelése...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>A Foundry Autopilot Interactive letöltése...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>Illesztőprogram-csomag letöltése...</value>

@@ -1155,9 +1155,6 @@ Vil du fortsætte med implementeringen?</value>
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>Kopierer fra netværkscachen...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Kopierer interaktive registreringsfiler...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Opretter simulerede partitioner...</value>
   </data>
@@ -1166,6 +1163,9 @@ Vil du fortsætte med implementeringen?</value>
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>Registrerer hardwareprofil...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>Downloader Foundry Autopilot Interactive...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>Downloader driverpakke...</value>

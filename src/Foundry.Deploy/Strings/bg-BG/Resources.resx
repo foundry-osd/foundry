@@ -1155,9 +1155,6 @@
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>Копиране от мрежовия кеш...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Копират се файловете за интерактивна регистрация...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Създаване на симулирани дялове...</value>
   </data>
@@ -1166,6 +1163,9 @@
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>Хардуерен профил се открива...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>Изтегля се Foundry Autopilot Interactive...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>Изтегля се пакет драйвери...</value>

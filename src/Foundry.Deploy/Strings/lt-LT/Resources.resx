@@ -1155,9 +1155,6 @@ Tęsti diegimą?</value>
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>Kopijuojama iš tinklo talpyklos...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Kopijuojami interaktyvios registracijos failai...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Kuriami modeliuojami skaidiniai...</value>
   </data>
@@ -1166,6 +1163,9 @@ Tęsti diegimą?</value>
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>Aptinkamas aparatinės įrangos profilis...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>Atsisiunčiama Foundry Autopilot Interactive...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>Atsisiunčiamas tvarkyklių paketas...</value>

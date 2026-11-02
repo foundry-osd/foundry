@@ -1155,9 +1155,6 @@
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>جارٍ النسخ من ذاكرة التخزين المؤقت للشبكة...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>جارٍ نسخ ملفات التسجيل التفاعلي...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>جارٍ إنشاء أقسام محاكاة...</value>
   </data>
@@ -1166,6 +1163,9 @@
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>يتم الكشف عن ملف تعريف الأجهزة...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>جارٍ تنزيل Foundry Autopilot Interactive...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>جارٍ تنزيل حزمة برامج التشغيل...</value>

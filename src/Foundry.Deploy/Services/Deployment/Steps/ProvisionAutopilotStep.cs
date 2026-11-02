@@ -219,7 +219,7 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
                     "missing_target_partition"));
         }
 
-        context.EmitCurrentStepIndeterminate("Staging Autopilot registration assistant...", "Copying interactive registration files...", DeploymentOperationNames.StageAutopilotAssistant);
+        context.EmitCurrentStepIndeterminate("Staging Autopilot registration assistant...", "Downloading Foundry Autopilot Interactive...", DeploymentOperationNames.StageAutopilotAssistant);
         string? assignedComputerName = await ResolveAssignedComputerNameAsync(context, cancellationToken).ConfigureAwait(false);
         AutopilotInteractiveRuntimeConfiguration configuration = CreateInteractiveConfiguration(context, assignedComputerName);
         AutopilotInteractiveProvisioningResult provisioningResult;

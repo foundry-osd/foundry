@@ -1155,9 +1155,6 @@ Continuar com a implantação?</value>
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>Copiando do cache de rede...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Copiando arquivos de registro interativo...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Criando partições simuladas...</value>
   </data>
@@ -1166,6 +1163,9 @@ Continuar com a implantação?</value>
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>Detectando perfil de hardware...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>Baixando o Foundry Autopilot Interactive...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>Baixando pacote de drivers...</value>

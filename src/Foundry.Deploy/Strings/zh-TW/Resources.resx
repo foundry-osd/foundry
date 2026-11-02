@@ -1155,9 +1155,6 @@ ErrorCode=0x80070005
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>正在從網路快取複製...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>正在複製互動式註冊檔案...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>正在建立模擬磁碟分割...</value>
   </data>
@@ -1166,6 +1163,9 @@ ErrorCode=0x80070005
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>正在偵測硬體設定檔...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>正在下載 Foundry Autopilot Interactive...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>正在下載驅動程式套件...</value>
