@@ -212,6 +212,19 @@ if ($null -eq $msi) {
     throw "Velopack did not create an MSI in '$releaseDir'."
 }
 
+# Velopack removes the previous MSI product after file costing, so a major upgrade drops every file whose
+# version goes backwards (for example Microsoft.WinUI.dll in a Windows App SDK update). Forcing all files
+# to be reinstalled keeps them. The MSI must not be signed before this edit.
+$windowsInstaller = New-Object -ComObject WindowsInstaller.Installer
+$msiDatabase = $windowsInstaller.OpenDatabase($msi.FullName, 1)
+$msiView = $msiDatabase.OpenView("INSERT INTO ``Property`` (``Property``, ``Value``) VALUES ('REINSTALLMODE', 'amus')")
+$msiView.Execute()
+$msiView.Close()
+$msiDatabase.Commit()
+# Release both handles so the MSI is closed before it is copied to the release assets.
+[void][System.Runtime.InteropServices.Marshal]::ReleaseComObject($msiView)
+[void][System.Runtime.InteropServices.Marshal]::ReleaseComObject($msiDatabase)
+
 $msiArtifact = Join-Path $releaseAssetsDir "FoundrySetup-$artifactArchitecture.msi"
 Copy-Item -Path $msi.FullName -Destination $msiArtifact -Force
 
