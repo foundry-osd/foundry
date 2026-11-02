@@ -11,7 +11,13 @@ namespace Foundry.PostInstall.Actions;
 internal sealed record DriverSettings(string CommandKind, string PackagePath);
 internal sealed record AppxSettings(IReadOnlyList<string> PackageNames);
 internal sealed record NetworkSettings(string SettingsPath);
-internal sealed record AutopilotRegistrationSettings(string ExecutablePath, string ConfigPath);
+/// <summary>Owned paths of the staged Autopilot assistant and its configuration.</summary>
+/// <param name="ExecutablePath">Foundry.AutopilotInteractive executable staged by current Deploy; wins when both paths are set.</param>
+/// <param name="ScriptPath">
+/// PowerShell assistant staged by Deploy from boot media created before the media-pinned runtimes release.
+/// </param>
+/// <param name="ConfigPath">Assistant configuration file.</param>
+internal sealed record AutopilotRegistrationSettings(string? ExecutablePath, string? ScriptPath, string ConfigPath);
 
 internal static class BuiltInSettings
 {
