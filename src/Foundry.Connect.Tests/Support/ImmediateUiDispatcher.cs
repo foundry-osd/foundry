@@ -2,7 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Connect.ViewModels;
+using Foundry.Wpf.Threading;
 
 namespace Foundry.Connect.Tests.Support;
 

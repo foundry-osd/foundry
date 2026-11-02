@@ -7,6 +7,7 @@ using Foundry.Connect.Network;
 using Foundry.Connect.Security;
 using Foundry.Localization;
 using Foundry.Wpf.Localization;
+using Foundry.Wpf.Threading;
 using Foundry.Wpf.ViewModels;
 using Microsoft.Extensions.Logging;
 

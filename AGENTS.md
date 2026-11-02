@@ -45,7 +45,7 @@ Solution architecture and project ownership:
 - `Foundry.PostInstall` is the .NET console runtime for Windows setup before OOBE. It owns built-in and custom action execution, process supervision, durable restart/resume, and owned cleanup. Deploy owns target staging and answer-file integration; PostInstall runs Foundry.AutopilotInteractive as a built-in action; Deploy installs it in the target OS.
 - `Foundry.Localization` provides shared culture definitions and resource-based localization services used by the applications.
 - `Foundry.Telemetry` provides shared telemetry contracts, event definitions, context, privacy rules, PostHog integration, and the no-op telemetry implementation.
-- `Foundry.Wpf` contains WPF building blocks shared by WPF runtime applications: styles, controls, dialogs, motion, theme and WPF localization services. It contains no business rules, configuration schemas or workflow logic.
+- `Foundry.Wpf` contains WPF building blocks shared by WPF runtime applications: styles, controls, dialogs, motion, theme, UI-thread dispatching and WPF localization services. It contains no business rules, configuration schemas or workflow logic.
 - `Foundry.Utilities` contains reusable technical mechanisms that are independent of a Foundry-specific workflow, UI framework, configuration schema, or telemetry taxonomy.
 
 Project dependency rules:

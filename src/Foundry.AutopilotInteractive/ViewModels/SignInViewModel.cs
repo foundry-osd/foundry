@@ -10,6 +10,7 @@ using Foundry.AutopilotInteractive.Services.QrCode;
 using Foundry.Localization;
 using Foundry.Wpf.Controls;
 using Foundry.Wpf.Localization;
+using Foundry.Wpf.Threading;
 using Foundry.Wpf.ViewModels;
 using Microsoft.Extensions.Logging;
 
