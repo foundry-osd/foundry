@@ -87,7 +87,7 @@ public sealed record ConfigurationOverviewContext
     public required FoundryConfigurationDocument Configuration { get; init; }
 
     /// <summary>
-    /// Gets where referenced network files can be read and the session-only network passwords.
+    /// Gets where referenced network files can be read and the network passwords kept outside the configuration.
     /// </summary>
     public required MediaInputs NetworkInputs { get; init; }
 

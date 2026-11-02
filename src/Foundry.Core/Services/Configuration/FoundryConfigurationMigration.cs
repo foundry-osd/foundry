@@ -68,7 +68,7 @@ public static class FoundryConfigurationMigration
         migrated = migrated with { PreOobe = migrated.PreOobe ?? new PreOobeSettings() };
         migrated = migrated with { NetworkCache = WithoutNullLists(migrated.NetworkCache ?? new NetworkCacheSettings()) };
         migrated = migrated with { DomainJoin = WithoutNullLists(migrated.DomainJoin ?? new DomainJoinSettings()) };
-        migrated = MigrateLegacyCertificates(migrated);
+        migrated = WithoutNullTrustedRoots(migrated);
         DomainJoinConfigurationValidator.ThrowIfProvisioningModesConflict(migrated.Autopilot, migrated.DomainJoin);
         if (!DomainJoinConfigurationValidator.ValidateMetadata(migrated.DomainJoin).IsValid)
         {
@@ -94,12 +94,10 @@ public static class FoundryConfigurationMigration
     }
 
     /// <summary>
-    /// Moves the single <c>certificate</c> written by configuration sharing builds into the separate fields by shape, whatever the
-    /// schema number: a PFX/P12 becomes the client certificate (its vault password stays keyed by the same content hash), any
-    /// other file the single trusted root. The legacy member is cleared so it is never written again.
+    /// A file edited by hand may carry <c>null</c> for the 802.1X or Wi-Fi trusted root list, which means none, or null items in
+    /// it, which are dropped.
     /// </summary>
-    /// <remarks>A trusted root list read as <c>null</c> means none; null items of a hand-edited file are dropped.</remarks>
-    private static FoundryConfigurationDocument MigrateLegacyCertificates(FoundryConfigurationDocument document)
+    private static FoundryConfigurationDocument WithoutNullTrustedRoots(FoundryConfigurationDocument document)
     {
         Dot1xSettings dot1x = document.Network.Dot1x;
         WifiSettings wifi = document.Network.Wifi;
@@ -107,12 +105,8 @@ public static class FoundryConfigurationMigration
         {
             Network = document.Network with
             {
-                Dot1x = NetworkCertificateShapes.WithCertificate(
-                    dot1x with { LegacyCertificate = null, TrustedRootCertificates = WithoutNullItems(dot1x.TrustedRootCertificates) },
-                    dot1x.LegacyCertificate),
-                Wifi = NetworkCertificateShapes.WithCertificate(
-                    wifi with { LegacyCertificate = null, TrustedRootCertificates = WithoutNullItems(wifi.TrustedRootCertificates) },
-                    wifi.LegacyCertificate)
+                Dot1x = dot1x with { TrustedRootCertificates = WithoutNullItems(dot1x.TrustedRootCertificates) },
+                Wifi = wifi with { TrustedRootCertificates = WithoutNullItems(wifi.TrustedRootCertificates) }
             }
         };
 

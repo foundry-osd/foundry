@@ -2,8 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Text.Json.Serialization;
-
 namespace Foundry.Core.Models.Configuration;
 
 /// <summary>
@@ -66,12 +64,4 @@ public sealed record WifiSettings
     /// Gets the public trusted root CA certificates held in the authoring file library.
     /// </summary>
     public IReadOnlyList<AuthoringFileReference> TrustedRootCertificates { get; init; } = [];
-
-    /// <summary>
-    /// Gets the single certificate written by configuration sharing before separate fields existed. Read only: migration moves it
-    /// by shape and clears it, so it is never written.
-    /// </summary>
-    [JsonPropertyName("certificate")]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public AuthoringFileReference? LegacyCertificate { get; init; }
 }

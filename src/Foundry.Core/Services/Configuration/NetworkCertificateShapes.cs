@@ -12,7 +12,7 @@ namespace Foundry.Core.Services.Configuration;
 /// </summary>
 /// <remarks>
 /// The shape rule is <see cref="NetworkProfileRoamingArtifacts.IsPfxPath"/>, the one PFX rule shared with Foundry.Connect. It
-/// moves the single certificate of older configurations into the separate fields and imports legacy certificate paths.
+/// places the single certificate of legacy certificate paths and retired profiles into the separate fields.
 /// </remarks>
 public static class NetworkCertificateShapes
 {
