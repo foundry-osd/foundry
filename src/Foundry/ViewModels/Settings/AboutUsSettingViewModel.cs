@@ -139,41 +139,47 @@ namespace Foundry.ViewModels
                 "https://github.com/microsoft/CsWinRT",
                 false),
             CreateThirdPartyLicenseItem(
+                "PostHog",
+                "MIT",
+                "https://github.com/PostHog/posthog-dotnet/blob/main/LICENSE",
+                "https://github.com/PostHog/posthog-dotnet",
+                true),
+            CreateThirdPartyLicenseItem(
                 "Serilog core and sinks",
                 "Apache-2.0",
                 "https://github.com/serilog/serilog/blob/dev/LICENSE",
                 "https://serilog.net/",
-                true),
+                false),
             CreateThirdPartyLicenseItem(
                 "Serilog.Extensions.Logging",
                 "Apache-2.0",
                 "https://github.com/serilog/serilog-extensions-logging/blob/dev/LICENSE",
                 "https://github.com/serilog/serilog-extensions-logging",
-                false),
+                true),
             CreateThirdPartyLicenseItem(
                 "Velopack",
                 "MIT",
                 "https://github.com/velopack/velopack/blob/develop/LICENSE",
                 "https://velopack.io/",
-                true),
+                false),
             CreateThirdPartyLicenseItem(
                 "Windows ADK / Windows PE",
                 "Microsoft",
                 "https://learn.microsoft.com/windows-hardware/get-started/adk-install",
                 "https://learn.microsoft.com/windows-hardware/get-started/adk-install",
-                false),
+                true),
             CreateThirdPartyLicenseItem(
                 "Windows App SDK / WinUI 3",
                 "MIT",
                 "https://github.com/microsoft/WindowsAppSDK/blob/main/LICENSE",
                 "https://github.com/microsoft/WindowsAppSDK",
-                true),
+                false),
             CreateThirdPartyLicenseItem(
                 "WinUI.TableView",
                 "MIT",
                 "https://github.com/w-ahmad/WinUI.TableView/blob/master/LICENSE.md",
                 "https://github.com/w-ahmad/WinUI.TableView",
-                false)
+                true)
         };
 
         public ObservableCollection<ContributorItemViewModel> ContributorItems { get; } = [];
