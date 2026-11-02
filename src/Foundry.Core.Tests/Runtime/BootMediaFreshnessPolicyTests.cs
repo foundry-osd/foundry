@@ -34,6 +34,28 @@ public sealed class BootMediaFreshnessPolicyTests
     }
 
     [Theory]
+    [InlineData("26.10.3.1", "26.10.3.1", true, "26.11.2.1", BootMediaUpdateReason.NewerRelease)]
+    [InlineData("26.10.3.1", "26.10.3.1", true, "26.10.3.1", BootMediaUpdateReason.None)]
+    [InlineData("26.10.3.1", "26.10.3.1", true, "26.10.2.9", BootMediaUpdateReason.None)]
+    [InlineData("26.10.3.1", "26.10.3.1", true, null, BootMediaUpdateReason.None)]
+    [InlineData("26.10.3.1", "26.10.3.1", true, "v26.11.2.1", BootMediaUpdateReason.None)]
+    [InlineData("26.10.3.1", "26.10.3.2", true, "26.10.3.1", BootMediaUpdateReason.NewerRelease)]
+    [InlineData(null, "26.10.3.1", true, "26.11.2.1", BootMediaUpdateReason.UnknownAuthoringVersion)]
+    [InlineData("26.10.3.1", "26.10.3.1", false, "26.11.2.1", BootMediaUpdateReason.None)]
+    [InlineData("26.10.3.1", "1.0.0.0", true, "26.11.2.1", BootMediaUpdateReason.None)]
+    public void Evaluate_ComparesAuthoringReleaseWithLatestRelease(
+        string? authoringVersion,
+        string? runtimeVersion,
+        bool isEligibleRuntime,
+        string? latestReleaseVersion,
+        BootMediaUpdateReason expectedReason)
+    {
+        Assert.Equal(
+            expectedReason,
+            BootMediaFreshnessPolicy.Evaluate(authoringVersion, runtimeVersion, isEligibleRuntime, latestReleaseVersion));
+    }
+
+    [Theory]
     [InlineData(null)]
     [InlineData("")]
     [InlineData("26.2.29.1")]

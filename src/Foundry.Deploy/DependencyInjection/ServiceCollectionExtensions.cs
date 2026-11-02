@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Runtime.InteropServices;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.DomainJoin;
+using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Wpf.Shell;
 using Foundry.Deploy.Services.Autopilot;
@@ -22,6 +23,7 @@ using Foundry.Deploy.Services.Network;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Hardware;
+using Foundry.Deploy.Services.Http;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Operations;
@@ -67,6 +69,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IVolumeDiscovery, WindowsVolumeDiscovery>();
         services.AddSingleton<IDeploymentRuntimeContextService, DeploymentRuntimeContextService>();
         services.AddSingleton<IDeployConfigurationService, DeployConfigurationService>();
+        services.AddSingleton(CreateLatestReleaseVersionReader);
         services.AddSingleton<IDeploymentSecretKeySession, DeploymentSecretKeySession>();
         services.AddSingleton<IDeploymentSecretKeyProvider, DeploymentSecretKeyProvider>();
         services.AddSingleton<IDeploymentProtectionUnlockService, DeploymentProtectionUnlockService>();
@@ -204,6 +207,14 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentOrchestrator, DeploymentOrchestrator>();
 
         return services;
+    }
+
+    /// <summary>Reads the latest published Foundry release through the Deploy HTTPS client, bounded by the reader timeout.</summary>
+    private static LatestReleaseVersionReader CreateLatestReleaseVersionReader(IServiceProvider serviceProvider)
+    {
+        HttpClient client = DeploymentHttpClientFactory.Create(LatestFoundryRelease.RequestTimeout);
+        ILogger logger = serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger(typeof(LatestFoundryRelease));
+        return cancellationToken => LatestFoundryRelease.ReadVersionAsync(client, logger, cancellationToken);
     }
 
     private static TelemetryOptions CreateTelemetryOptions(IServiceProvider serviceProvider)

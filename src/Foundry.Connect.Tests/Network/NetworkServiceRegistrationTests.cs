@@ -82,6 +82,8 @@ public sealed class NetworkServiceRegistrationTests
 
         public BootMediaUpdateReason BootMediaUpdateReason => BootMediaUpdateReason.None;
 
+        public BootMediaLatestReleaseCheck? LatestReleaseCheck => null;
+
         public ConnectConfigurationLoadResult Load() => ConnectConfigurationLoadResult.Success(configuration, ConnectRuntimeSecrets.None(), BootMediaUpdateReason.None);
     }
 }

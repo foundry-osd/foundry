@@ -75,9 +75,13 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     public BootMediaUpdateReason BootMediaUpdateReason { get; private set; }
 
     /// <inheritdoc />
+    public BootMediaLatestReleaseCheck? LatestReleaseCheck { get; private set; }
+
+    /// <inheritdoc />
     public ConnectConfigurationLoadResult Load()
     {
         BootMediaUpdateReason = BootMediaUpdateReason.None;
+        LatestReleaseCheck = null;
         try
         {
             return LoadCore();
@@ -135,11 +139,16 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
 
             secrets = ResolveSecrets(configuration, document.RootElement, fullPath);
             configuration = Normalize(configuration);
+            bool isEligibleRuntime = _runtimeContext.IsEligible(ReadProvisioningSource(fullPath)) &&
+                _runtimeContext.IsEligible(configuration.Telemetry.RuntimePayloadSource);
             BootMediaUpdateReason = BootMediaFreshnessPolicy.Evaluate(
                 configuration.AuthoringVersion,
                 _runtimeContext.RuntimeVersion,
-                _runtimeContext.IsEligible(ReadProvisioningSource(fullPath)) &&
-                _runtimeContext.IsEligible(configuration.Telemetry.RuntimePayloadSource));
+                isEligibleRuntime);
+            LatestReleaseCheck = BootMediaLatestReleaseCheck.Create(
+                configuration.AuthoringVersion,
+                _runtimeContext.RuntimeVersion,
+                isEligibleRuntime);
             ConfigurationPath = fullPath;
             IsLoadedFromDisk = true;
             _logger.LogInformation("Loaded Foundry.Connect configuration from disk. ConfigurationPath={ConfigurationPath}", fullPath);

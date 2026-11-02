@@ -115,6 +115,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
             DeployConfigurationDocument = deployConfigurationDocument,
             NetworkCacheFailure = networkCache?.Failure,
             BootMediaUpdateReason = deployConfigLoadResult.BootMediaUpdateReason,
+            LatestReleaseCheck = deployConfigLoadResult.LatestReleaseCheck,
             AutopilotProfiles = autopilotProfiles,
             MachineNamePreparation = machineName,
             DetectedHardware = hardwareTask.Result.Profile,
