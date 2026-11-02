@@ -45,6 +45,8 @@ Foundry uses one application for each stage of the deployment:
 
 All four applications are available in 38 languages.
 
+Boot media run the Foundry components of the Foundry OSD version that created them. To get newer components, update Foundry OSD, then recreate the media or use **Update USB**.
+
 Operating system, driver pack, firmware, and WinPE metadata come from the maintained [`foundry-osd/catalog`](https://github.com/foundry-osd/catalog).
 
 ## What you can configure
