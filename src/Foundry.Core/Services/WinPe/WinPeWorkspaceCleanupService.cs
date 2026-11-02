@@ -182,22 +182,33 @@ public sealed partial class WinPeWorkspaceCleanupService
     private readonly Func<IReadOnlyList<WinPeMountedImage>> _getMountedImages;
     private readonly IWinPeProcessRunner _processRunner;
     private readonly TimeProvider _timeProvider;
+    private readonly Func<IReadOnlyList<WinPeLoadedHive>> _getLoadedHives;
 
-    public WinPeWorkspaceCleanupService() : this(NativeWinPeMountedImageInventory.GetMountedImages)
+    public WinPeWorkspaceCleanupService()
+        : this(NativeWinPeMountedImageInventory.GetMountedImages, getLoadedHives: WinPeOfflineHiveInventory.GetLoadedHives)
     {
     }
 
     /// <summary>
-    /// Uses the supplied inventory, process runner, and clock so recovery can be exercised without DISM.
+    /// Uses the supplied inventories, process runner, and clock so recovery can be exercised without DISM or reg.exe.
     /// </summary>
+    /// <param name="getMountedImages">Reads the images Windows registers as mounted.</param>
+    /// <param name="processRunner">Runs DISM and reg.exe.</param>
+    /// <param name="timeProvider">Bounds the DISM discard and hive unload deadlines.</param>
+    /// <param name="getLoadedHives">
+    /// Reads the Foundry boot image hives that are still loaded; when omitted no hive is reported, so the registry is
+    /// never read.
+    /// </param>
     internal WinPeWorkspaceCleanupService(
         Func<IReadOnlyList<WinPeMountedImage>> getMountedImages,
         IWinPeProcessRunner? processRunner = null,
-        TimeProvider? timeProvider = null)
+        TimeProvider? timeProvider = null,
+        Func<IReadOnlyList<WinPeLoadedHive>>? getLoadedHives = null)
     {
         _getMountedImages = getMountedImages;
         _processRunner = processRunner ?? new WinPeProcessRunner();
         _timeProvider = timeProvider ?? TimeProvider.System;
+        _getLoadedHives = getLoadedHives ?? (static () => []);
     }
 
     public WinPeResult Delete(string workspacePath)

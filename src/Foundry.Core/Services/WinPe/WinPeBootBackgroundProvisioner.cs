@@ -14,6 +14,12 @@ namespace Foundry.Core.Services.WinPe;
 /// </remarks>
 internal static class WinPeBootBackgroundProvisioner
 {
+    /// <summary>
+    /// Prefix of the temporary <c>HKLM</c> key under which the offline SOFTWARE hive is loaded. Workspace cleanup
+    /// recovery uses it to find hives left loaded by a process that ended before unloading them.
+    /// </summary>
+    internal const string OfflineSoftwareHiveKeyPrefix = "FoundryWinPeSoftware_";
+
     internal const string BackgroundResourceName = "Foundry.Core.WinPe.Background";
     private const string BackgroundFileName = "winpe.jpg";
     private const string RuntimeBackgroundPath = @"X:\Windows\System32\winpe.jpg";
@@ -41,8 +47,8 @@ internal static class WinPeBootBackgroundProvisioner
                 exception: ex));
         }
 
-        string regPath = Path.Combine(Environment.GetEnvironmentVariable("WINDIR") ?? @"C:\Windows", "System32", "reg.exe");
-        string hiveKey = $@"HKLM\FoundryWinPeSoftware_{Guid.NewGuid():N}";
+        string regPath = GetRegPath();
+        string hiveKey = $@"HKLM\{OfflineSoftwareHiveKeyPrefix}{Guid.NewGuid():N}";
         string hivePath = Path.Combine(system32Path, "config", "SOFTWARE");
 
         WinPeProcessExecution load = await processRunner.RunAsync(
@@ -55,17 +61,21 @@ internal static class WinPeBootBackgroundProvisioner
             return ToFailure(load, "Failed to load the boot image SOFTWARE hive.");
         }
 
-        WinPeProcessExecution add = await processRunner.RunAsync(
-            regPath,
-            $"add {WinPeProcessRunner.Quote($@"{hiveKey}\{WinPeKeyRelativePath}")} /v CustomBackground /t REG_EXPAND_SZ /d {WinPeProcessRunner.Quote(RuntimeBackgroundPath)} /f",
-            workingDirectoryPath,
-            cancellationToken).ConfigureAwait(false);
-
-        WinPeProcessExecution unload = await processRunner.RunAsync(
-            regPath,
-            $"unload {WinPeProcessRunner.Quote(hiveKey)}",
-            workingDirectoryPath,
-            cancellationToken).ConfigureAwait(false);
+        WinPeProcessExecution add;
+        WinPeProcessExecution unload;
+        try
+        {
+            add = await processRunner.RunAsync(
+                regPath,
+                $"add {WinPeProcessRunner.Quote($@"{hiveKey}\{WinPeKeyRelativePath}")} /v CustomBackground /t REG_EXPAND_SZ /d {WinPeProcessRunner.Quote(RuntimeBackgroundPath)} /f",
+                workingDirectoryPath,
+                cancellationToken).ConfigureAwait(false);
+        }
+        finally
+        {
+            // Never canceled: a hive left loaded makes the DISM discard of the mounted image fail.
+            unload = await UnloadHiveAsync(processRunner, hiveKey, workingDirectoryPath, CancellationToken.None).ConfigureAwait(false);
+        }
 
         if (!add.IsSuccess)
         {
@@ -76,6 +86,23 @@ internal static class WinPeBootBackgroundProvisioner
             ? WinPeResult.Success()
             : ToFailure(unload, "Failed to unload the boot image SOFTWARE hive.");
     }
+
+    /// <summary>Unloads the hive loaded under <paramref name="hiveKey"/>, a full <c>HKLM\</c> key path, with reg.exe.</summary>
+    internal static Task<WinPeProcessExecution> UnloadHiveAsync(
+        IWinPeProcessRunner processRunner,
+        string hiveKey,
+        string workingDirectoryPath,
+        CancellationToken cancellationToken)
+    {
+        return processRunner.RunAsync(
+            GetRegPath(),
+            $"unload {WinPeProcessRunner.Quote(hiveKey)}",
+            workingDirectoryPath,
+            cancellationToken);
+    }
+
+    private static string GetRegPath() =>
+        Path.Combine(Environment.GetEnvironmentVariable("WINDIR") ?? @"C:\Windows", "System32", "reg.exe");
 
     private static async Task CopyBackgroundAsync(string destinationPath, CancellationToken cancellationToken)
     {

@@ -12,6 +12,8 @@ public sealed partial class WinPeWorkspaceCleanupService
     // A marker holds a single mount path, and Windows limits a path to 32,767 UTF-16 code units.
     private const long MaxCleanupMarkerBytes = 128 * 1024;
 
+    private static readonly TimeSpan HiveUnloadTimeout = TimeSpan.FromSeconds(30);
+
     private static readonly UTF8Encoding StrictUtf8 = new(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true);
 
     /// <summary>
@@ -33,6 +35,12 @@ public sealed partial class WinPeWorkspaceCleanupService
     /// Only operations that Foundry owns and whose lease can be opened exclusively are examined, so an operation that
     /// is still running in another Foundry instance is never touched. The lease is held for as long as the markers
     /// of that operation are examined. Reparse points are never followed.
+    /// </para>
+    /// <para>
+    /// Under the same lease, and before any discard, the pass unloads best effort the boot image SOFTWARE hives
+    /// (<see cref="WinPeBootBackgroundProvisioner.OfflineSoftwareHiveKeyPrefix"/>) whose file lies inside the
+    /// operation: a process that ended between loading and unloading one leaves it loaded, and DISM cannot discard
+    /// the mount while it is. A hive that cannot be listed or unloaded is logged and never fails the pass.
     /// </para>
     /// <para>
     /// The pass removes markers only and never deletes a workspace. Call it before stale-workspace deletion and
@@ -76,12 +84,13 @@ public sealed partial class WinPeWorkspaceCleanupService
             return;
         }
 
+        IReadOnlyList<WinPeLoadedHive> loadedHives = ReadLoadedHives(logger);
         foreach (string candidate in candidates)
         {
             cancellationToken.ThrowIfCancellationRequested();
             try
             {
-                await RecoverOperationAsync(root, candidate, dismPath, logger, cancellationToken, dismProgress).ConfigureAwait(false);
+                await RecoverOperationAsync(root, candidate, dismPath, loadedHives, logger, cancellationToken, dismProgress).ConfigureAwait(false);
             }
             catch (Exception exception) when (exception is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
             {
@@ -96,12 +105,15 @@ public sealed partial class WinPeWorkspaceCleanupService
         string root,
         string candidate,
         string dismPath,
+        IReadOnlyList<WinPeLoadedHive> loadedHives,
         ILogger logger,
         CancellationToken cancellationToken,
         IProgress<WinPeDismProgress>? dismProgress)
     {
         string? operationPath = ResolveOwnedOperation(root, candidate);
-        if (operationPath is null || !EnumerateCleanupMarkers(operationPath).Any()) return;
+        if (operationPath is null) return;
+        WinPeLoadedHive[] operationHives = [.. loadedHives.Where(hive => IsHiveInOperation(hive, operationPath))];
+        if (operationHives.Length == 0 && !EnumerateCleanupMarkers(operationPath).Any()) return;
 
         FileStream lease;
         try
@@ -118,6 +130,12 @@ public sealed partial class WinPeWorkspaceCleanupService
 
         using (lease)
         {
+            // Unloaded first because DISM cannot discard a mounted image while one of its hives is still loaded.
+            foreach (WinPeLoadedHive hive in operationHives)
+            {
+                await UnloadLeftoverHiveAsync(hive, operationPath, logger).ConfigureAwait(false);
+            }
+
             // A mount gets at most one discard attempt per pass, even when several markers name it.
             var attemptedMounts = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             foreach (string markerPath in EnumerateCleanupMarkers(operationPath).ToArray())
@@ -125,6 +143,64 @@ public sealed partial class WinPeWorkspaceCleanupService
                 cancellationToken.ThrowIfCancellationRequested();
                 await RecoverMarkerAsync(operationPath, markerPath, dismPath, attemptedMounts, logger, dismProgress).ConfigureAwait(false);
             }
+        }
+    }
+
+    /// <summary>Reads the Foundry boot image hives that are still loaded; an unreadable hive list reports none.</summary>
+    private IReadOnlyList<WinPeLoadedHive> ReadLoadedHives(ILogger logger)
+    {
+        try
+        {
+            return _getLoadedHives();
+        }
+        catch (Exception exception)
+        {
+            logger.Warning(exception, "Loaded boot image registry hives could not be listed; leftover hives are not unloaded in this pass.");
+            return [];
+        }
+    }
+
+    /// <summary>
+    /// Reports whether a hive file lies inside an operation. Windows reports hive files as NT device paths
+    /// (<c>\Device\HarddiskVolume3\...</c>), so the operation path is matched without its drive root; the operation
+    /// directory name is a GUID, which keeps the match from reaching another directory.
+    /// </summary>
+    private static bool IsHiveInOperation(WinPeLoadedHive hive, string operationPath)
+    {
+        string relativePath = operationPath[(Path.GetPathRoot(operationPath)?.Length ?? 0)..];
+        return relativePath.Length > 0 && hive.FilePath.Contains(
+            Path.DirectorySeparatorChar + relativePath + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase);
+    }
+
+    /// <summary>
+    /// Unloads, best effort, a boot image hive that an earlier process of this inactive operation left loaded after
+    /// it ended between loading and unloading it. A failure is logged and never stops the recovery pass.
+    /// </summary>
+    private async Task UnloadLeftoverHiveAsync(WinPeLoadedHive hive, string operationPath, ILogger logger)
+    {
+        string hiveKey = $@"HKLM\{hive.KeyName}";
+        try
+        {
+            using var timeout = new CancellationTokenSource(HiveUnloadTimeout, _timeProvider);
+            WinPeProcessExecution unload = await WinPeBootBackgroundProvisioner.UnloadHiveAsync(
+                _processRunner, hiveKey, operationPath, timeout.Token).ConfigureAwait(false);
+            if (unload.IsSuccess)
+            {
+                logger.Warning(
+                    "A boot image registry hive left loaded by an earlier media operation was unloaded. HiveKey={HiveKey}, OperationPath={OperationPath}",
+                    hiveKey, operationPath);
+                return;
+            }
+
+            logger.Warning(
+                "A boot image registry hive left loaded by an earlier media operation could not be unloaded. HiveKey={HiveKey}, OperationPath={OperationPath}, ExitCode={ExitCode}",
+                hiveKey, operationPath, unload.ExitCode);
+        }
+        catch (Exception exception)
+        {
+            logger.Warning(exception,
+                "A boot image registry hive left loaded by an earlier media operation could not be unloaded. HiveKey={HiveKey}, OperationPath={OperationPath}",
+                hiveKey, operationPath);
         }
     }
 
