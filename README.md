@@ -18,7 +18,7 @@
   <a href="https://github.com/foundry-osd/catalog/commits/main"><img src="https://img.shields.io/github/last-commit/foundry-osd/catalog?style=flat&label=Catalog%20updated&labelColor=24292F" alt="Date of the last catalog update"></a>
 </p>
 
-Foundry is an open-source Windows 11 deployment solution for enterprise IT teams. Build bootable USB or ISO media on an administrator workstation, start the target device from it, and Foundry guides the technician through network setup and Windows installation.
+Foundry is an open-source Windows 11 deployment solution for enterprise IT teams. Build bootable USB or ISO media or PXE boot files on an administrator workstation, start the target device from them, and Foundry guides the technician through network setup and Windows installation.
 
 <p>
   <a href="https://github.com/foundry-osd/foundry/releases/latest/download/Foundry-win-x64.msi"><img src="https://img.shields.io/badge/Download-x64-0078D4?style=for-the-badge&logo=windows11&logoColor=white" alt="Download Foundry OSD for Windows x64"></a>
@@ -36,23 +36,24 @@ Foundry is an open-source Windows 11 deployment solution for enterprise IT teams
 
 ## How it works
 
-Foundry uses three applications, one for each stage of the deployment:
+Foundry uses one application for each stage of the deployment:
 
-1. **Foundry OSD** — configure the deployment and build bootable ISO or USB media from an administrator workstation.
+1. **Foundry OSD** — configure the deployment on an administrator workstation, then create an ISO file, a USB drive with or without cache, or [PXE boot files](https://docs.foundryosd.com/foundry-osd/media/pxe-deployment).
 2. **Foundry Connect** — start the target device in WinPE and validate Ethernet, Wi-Fi, or enterprise connectivity.
 3. **Foundry Deploy** — choose the Windows content, target disk, drivers, firmware, and provisioning options, then run the deployment.
+4. **Foundry Autopilot Interactive** — installed into Windows by Foundry Deploy for [interactive Autopilot registration](https://docs.foundryosd.com/foundry-osd/autopilot/interactive-hardware-hash): the technician signs in and registers the device during Windows setup, before OOBE.
 
-All three applications are available in 38 languages.
+All four applications are available in 38 languages.
 
 Operating system, driver pack, firmware, and WinPE metadata come from the maintained [`foundry-osd/catalog`](https://github.com/foundry-osd/catalog).
 
 ## What you can configure
 
-- **Windows** — [release, edition, language, and licensing channel](https://docs.foundryosd.com/foundry-osd/customization/operating-system) from the catalog, or [your own ISO/WIM image](https://docs.foundryosd.com/foundry-osd/customization/custom-windows-images).
+- **Windows** — [release, edition, language, and licensing channel](https://docs.foundryosd.com/foundry-osd/customization/operating-system) from the catalog, or [your own ISO/WIM image](https://docs.foundryosd.com/foundry-osd/customization/custom-windows-images), with manufacturer driver packs or [your own driver sets](https://docs.foundryosd.com/foundry-osd/customization/custom-drivers).
 - **Setup experience** — [computer naming](https://docs.foundryosd.com/foundry-osd/customization/machine-naming), [OOBE, privacy, and local accounts](https://docs.foundryosd.com/foundry-osd/customization/oobe), [optional features](https://docs.foundryosd.com/foundry-osd/customization/optional-features), and removal of [AppX packages](https://docs.foundryosd.com/foundry-osd/customization/appx-removals) and [AI components](https://docs.foundryosd.com/foundry-osd/customization/ai-components).
 - **Post-installation** — [scripts, commands, and EXE/MSI packages](https://docs.foundryosd.com/foundry-osd/customization/post-installation) run in order before OOBE.
 - **Custom answer files** — [import your own Unattend file](https://docs.foundryosd.com/foundry-osd/customization/unattend) for anything beyond the built-in options.
-- **Network** — [Ethernet, Wi-Fi, and enterprise 802.1X](https://docs.foundryosd.com/foundry-osd/network) in WinPE.
+- **Network** — [Ethernet, Wi-Fi, and enterprise 802.1X](https://docs.foundryosd.com/foundry-osd/network) in WinPE, and a [network cache](https://docs.foundryosd.com/foundry-osd/network-cache) on SMB shares that devices read Windows images, driver packs, and imported content from.
 - **Provisioning** — [Windows Autopilot](https://docs.foundryosd.com/foundry-osd/autopilot) or [Active Directory domain join](https://docs.foundryosd.com/foundry-osd/domain-join).
 - **Sharing and protection** — [export your configuration to an encrypted file, or publish it to a shared folder](https://docs.foundryosd.com/foundry-osd/configuration-sharing) that other PCs follow, and optionally [require a technician password](https://docs.foundryosd.com/foundry-osd/general#password-protection) before deployment starts.
 
@@ -60,7 +61,7 @@ Operating system, driver pack, firmware, and WinPE metadata come from the mainta
 
 1. Install the MSI matching the architecture of your administrator workstation.
 2. Open Foundry OSD and use the **ADK** page to install the Windows ADK and Windows PE add-on if they are missing.
-3. Configure the deployment, then create ISO or USB media.
+3. Configure the deployment, then create an ISO file, a USB drive, or PXE boot files.
 4. Boot a representative test device and continue through Foundry Connect and Foundry Deploy.
 
 [Follow the complete quick start →](https://docs.foundryosd.com/start-here/quick-start)
