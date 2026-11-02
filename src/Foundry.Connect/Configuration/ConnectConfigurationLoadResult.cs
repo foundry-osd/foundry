@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using Foundry.Core.Models.Configuration;
 
 namespace Foundry.Connect.Configuration;
@@ -26,8 +27,9 @@ public sealed record ConnectConfigurationLoadResult(
     public ConnectRuntimeSecrets? Secrets { get; init; }
 
     /// <summary>
-    /// Gets the original exception that made loading fail, or <see langword="null"/> on success. Startup diagnostics
-    /// report this exception so the failure record keeps its type, inner exception and stack trace.
+    /// Gets the original exception that made loading fail, or <see langword="null"/> on success. Its message and inner
+    /// exceptions can carry the configuration file path, so startup diagnostics report
+    /// <see cref="CreateDiagnosticFailure"/> instead of this exception.
     /// </summary>
     public Exception? FailureException { get; init; }
 
@@ -54,4 +56,20 @@ public sealed record ConnectConfigurationLoadResult(
     /// <param name="failureException">The original exception that made loading fail.</param>
     public static ConnectConfigurationLoadResult Failure(string failureMessage, Exception failureException) =>
         new(null, failureMessage, BootMediaUpdateReason.None) { FailureException = failureException };
+
+    /// <summary>
+    /// Creates the exception that startup diagnostics report for a failed load. It keeps the failure kind (the type
+    /// and error code of the underlying cause) but drops the message, inner exception and stack trace of
+    /// <see cref="FailureException"/>, because startup diagnostics mirror the record to the remote Logs stream and
+    /// error tracking and those parts can carry the configuration file path.
+    /// </summary>
+    /// <exception cref="InvalidOperationException">Loading succeeded.</exception>
+    public Exception CreateDiagnosticFailure()
+    {
+        Exception failure = FailureException ?? throw new InvalidOperationException("The configuration was loaded successfully.");
+        Exception cause = failure.InnerException ?? failure;
+        return new FoundryConnectConfigurationException(string.Create(
+            CultureInfo.InvariantCulture,
+            $"Foundry.Connect configuration could not be loaded. FailureType={cause.GetType().Name}, ErrorCode={cause.HResult}"));
+    }
 }

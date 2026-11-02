@@ -178,6 +178,26 @@ public sealed class ConnectConfigurationServiceTests
     }
 
     [Fact]
+    public void CreateDiagnosticFailure_WhenConfigurationFails_KeepsTheFailureKindWithoutThePath()
+    {
+        using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
+        using var directory = new TemporaryDirectory();
+        string path = Path.Combine(directory.Path, "contoso-site.json");
+        File.WriteAllText(path, "{ not json");
+        var service = new ConnectConfigurationService(["--config", path], NullLogger<ConnectConfigurationService>.Instance);
+
+        ConnectConfigurationLoadResult result = service.Load();
+
+        Assert.False(result.IsSuccess);
+        Assert.Contains("contoso-site", result.FailureException!.Message, StringComparison.Ordinal);
+        Exception failure = result.CreateDiagnosticFailure();
+        Assert.IsType<FoundryConnectConfigurationException>(failure);
+        Assert.Null(failure.InnerException);
+        Assert.Contains($"FailureType={result.FailureException.InnerException!.GetType().Name}", failure.Message, StringComparison.Ordinal);
+        Assert.DoesNotContain("contoso-site", failure.Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public void Load_WhenConfigurationContainsTelemetry_PreservesTelemetrySettings()
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);

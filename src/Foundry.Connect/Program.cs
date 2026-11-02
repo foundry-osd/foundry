@@ -92,7 +92,7 @@ public static class Program
             ConnectConfigurationLoadResult loadResult = configurationService.Load();
             if (!loadResult.IsSuccess)
             {
-                ReportFailure(startup, loadResult.FailureException, category);
+                ReportFailure(startup, loadResult.CreateDiagnosticFailure(), category);
                 return (int)ConnectStartupFailurePolicy.Map(ConnectStartupStage.Configuration);
             }
 
@@ -174,7 +174,11 @@ public static class Program
         catch { }
         try
         {
-            Log.ForContext(typeof(Program)).Fatal(exception, "Application initialization failed at {StartupCategory}.", category);
+            // Without startup diagnostics the failure can come from configuration path resolution, whose message
+            // carries the path; log only the failure kind.
+            Log.ForContext(typeof(Program)).Fatal(
+                "Application initialization failed at {StartupCategory}. FailureType={FailureType}, ErrorCode={ErrorCode}",
+                category, exception.GetType().Name, exception.HResult);
         }
         catch { }
     }
@@ -278,6 +282,8 @@ public static class Program
             startup.RecordTerminatingException(eventArgs.ExceptionObject as Exception);
         TaskScheduler.UnobservedTaskException += (_, eventArgs) =>
         {
+            // Kept with its exception object so error tracking receives the stack trace of this unexpected failure;
+            // configuration failures never reach this handler because loading reports them as a result.
             Log.ForContext(typeof(Program)).Error(eventArgs.Exception, "Unobserved task exception.");
             eventArgs.SetObserved();
         };
