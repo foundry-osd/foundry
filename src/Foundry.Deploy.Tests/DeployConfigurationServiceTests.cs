@@ -174,6 +174,7 @@ public sealed class DeployConfigurationServiceTests
         DeployConfigurationLoadResult result = service.LoadOptional();
 
         Assert.Equal(BootMediaUpdateReason.NewerRelease, result.BootMediaUpdateReason);
+        Assert.Null(result.LatestReleaseCheck);
     }
 
     [Fact]
@@ -204,6 +205,7 @@ public sealed class DeployConfigurationServiceTests
         DeployConfigurationLoadResult result = service.LoadOptional();
 
         Assert.Equal(BootMediaUpdateReason.None, result.BootMediaUpdateReason);
+        Assert.Null(result.LatestReleaseCheck);
     }
 
     [Theory]
@@ -232,6 +234,8 @@ public sealed class DeployConfigurationServiceTests
         DeployConfigurationLoadResult result = service.LoadOptional();
 
         Assert.Equal(BootMediaUpdateReason.None, result.BootMediaUpdateReason);
+        // Only the latest published release can still reveal newer boot media.
+        Assert.Equal(new BootMediaLatestReleaseCheck(author, ProductionRuntime.RuntimeVersion!), result.LatestReleaseCheck);
     }
 
     [Fact]

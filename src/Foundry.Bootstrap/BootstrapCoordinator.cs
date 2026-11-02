@@ -82,7 +82,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
                 BootstrapOutcome.Cancelled => "Boot was cancelled. Deployment will not continue.",
                 _ when result.FailureCategory == "readiness_timeout" => "Application readiness was not confirmed within two minutes. The application may still be running.",
                 _ when result.ChildExitCode is int code => ChildExitMessages.Describe(result.Stage, code),
-                _ when result.FailureCategory == "capability_invalid" => "Application startup metadata is invalid. Recreate the boot media or refresh the runtime cache.",
+                _ when result.FailureCategory == "capability_invalid" => "Application startup metadata is invalid. Recreate the boot media or use Update USB.",
                 _ => "This boot stage could not be completed. Check the session log for details."
             };
             Report(status, message);
@@ -159,12 +159,6 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
 
         stage = BootstrapStage.DeploymentPreparation;
         Report(BootstrapStatus.Running, "Preparing the deployment application");
-        if (context.IsUsb && !context.ConnectIsDebug)
-        {
-            await BestEffortAsync(() => runtime.RefreshAsync("Foundry.Connect", cancellationToken),
-                "Foundry Connect could not be updated. Continuing.").ConfigureAwait(false);
-        }
-
         string deploy = await runtime.ResolveAsync("Foundry.Deploy", context.DeployIsDebug, cancellationToken).ConfigureAwait(false);
         payloadVersion = readPayloadVersion(deploy);
         Report(BootstrapStatus.Running, "Preparing Foundry PostInstall");

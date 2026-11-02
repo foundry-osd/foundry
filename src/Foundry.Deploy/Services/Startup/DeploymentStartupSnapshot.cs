@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
@@ -31,6 +32,12 @@ public sealed record DeploymentStartupSnapshot
 
     /// <summary>Gets why rebuilding this boot media is recommended.</summary>
     public BootMediaUpdateReason BootMediaUpdateReason { get; init; }
+
+    /// <summary>
+    /// Gets the comparison with the latest published release that the window runs in the background, or
+    /// <see langword="null"/> when it cannot change <see cref="BootMediaUpdateReason"/>.
+    /// </summary>
+    public BootMediaLatestReleaseCheck? LatestReleaseCheck { get; init; }
     public required IReadOnlyList<AutopilotProfileCatalogItem> AutopilotProfiles { get; init; }
     public required MachineNamePreparationResult MachineNamePreparation { get; init; }
     public required HardwareProfile? DetectedHardware { get; init; }

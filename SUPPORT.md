@@ -6,7 +6,7 @@ Foundry is maintained as an open-source project. Support is provided by the comm
 
 Start with the [documentation](https://docs.foundryosd.com) and [troubleshooting guides](https://docs.foundryosd.com/troubleshooting). Search [existing issues](https://github.com/foundry-osd/foundry/issues) before opening a new one.
 
-After updating Foundry OSD, recreate your ISO media, PXE files, or USB drives without cache, and update or recreate USB drives with cache, to pick up Bootstrap fixes for insufficient space on the WinPE `X:` drive. Runtime updates do not replace Bootstrap embedded in existing boot media. Bootstrap releases Connect's verified executable and extracted files after Connect exits. A USB drive with cache retains verified update archives on its cache volume; ISO media, USB drives without cache, and PXE files avoid retaining duplicate update archives on `X:`.
+Boot media run the Foundry Bootstrap, Connect, Deploy, and PostInstall versions of the Foundry OSD release that created them and do not download newer versions at startup. After updating Foundry OSD, recreate your ISO media, PXE files, or USB drives without cache, and use **Update USB** on USB drives with cache, to get newer components and fixes, including Bootstrap fixes. A USB drive with cache keeps the Foundry Deploy copy of its release on its cache volume; ISO media, USB drives without cache, and PXE files download it at each start. A missing or damaged component stored on the media is downloaded again from the same release. Media created with older Foundry OSD versions keep downloading newer components at startup until they are recreated. Bootstrap releases Connect's verified executable and extracted files after Connect exits.
 
 ## Choose the right channel
 

@@ -59,6 +59,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly ITelemetryService _telemetryService;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
+    private readonly LatestReleaseVersionReader _readLatestReleaseVersion;
     private readonly Dispatcher _dispatcher;
     private readonly DeploymentRuntimeContext _deploymentRuntimeContext;
     private readonly DeploymentWizardContext _wizardContext;
@@ -217,6 +218,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IZeroTouchDomainCredentialCheck zeroTouchDomainCredentialCheck,
         INetworkCacheStartupDialogService networkCacheStartupDialog,
         ITelemetryService telemetryService,
+        LatestReleaseVersionReader readLatestReleaseVersion,
         ILogger<MainWindowViewModel> logger,
         INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)
         : base(localizationService)
@@ -235,6 +237,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _zeroTouchDomainCredentialCheck = zeroTouchDomainCredentialCheck;
         _networkCacheStartupDialog = networkCacheStartupDialog;
         _telemetryService = telemetryService;
+        _readLatestReleaseVersion = readLatestReleaseVersion;
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
         _deploymentRuntimeContext = deploymentRuntimeContextService.Resolve();
@@ -333,6 +336,50 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             ApplyStartupSnapshot(startupSnapshot);
             _isInitialized = true;
         });
+
+        if (startupSnapshot.LatestReleaseCheck is { } latestReleaseCheck)
+        {
+            _ = ShowNewerReleaseNoticeAsync(latestReleaseCheck, cancellationToken);
+        }
+    }
+
+    /// <summary>
+    /// Shows the newer release notice when the latest published Foundry release is newer than the boot media. Runs after
+    /// the wizard opens and never delays it; any failure leaves the notice hidden.
+    /// </summary>
+    private async Task ShowNewerReleaseNoticeAsync(BootMediaLatestReleaseCheck latestReleaseCheck, CancellationToken cancellationToken)
+    {
+        try
+        {
+            BootMediaUpdateReason reason = await latestReleaseCheck
+                .EvaluateAsync(_readLatestReleaseVersion, cancellationToken)
+                .ConfigureAwait(false);
+            if (reason != BootMediaUpdateReason.NewerRelease)
+            {
+                return;
+            }
+
+            _logger.LogInformation(
+                "A newer Foundry release than the boot media is published. AuthoringVersion={AuthoringVersion}",
+                latestReleaseCheck.AuthoringVersion);
+            RunOnUi(() =>
+            {
+                if (_isDisposed || _bootMediaUpdateReason != BootMediaUpdateReason.None)
+                {
+                    return;
+                }
+
+                _bootMediaUpdateReason = reason;
+                RaiseBootMediaUpdatePropertiesChanged();
+            });
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+        }
+        catch (Exception exception)
+        {
+            _logger.LogDebug("The newer release notice could not be shown. FailureType={FailureType}", exception.GetType().Name);
+        }
     }
 
     private Task<DeploymentStartupSnapshot> RunStartupCoordinatorAsync(CancellationToken cancellationToken) =>

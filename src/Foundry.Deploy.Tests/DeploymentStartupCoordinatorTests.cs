@@ -7,6 +7,7 @@ using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateR
 using System.Net.Http;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.NetworkCache;
+using Foundry.Core.Services.Runtime;
 using Foundry.Core.Services.Sharing;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
@@ -40,6 +41,19 @@ public sealed class DeploymentStartupCoordinatorTests
         DeploymentStartupSnapshot snapshot = await coordinator.InitializeAsync(CreateRequest(), TestContext.Current.CancellationToken);
 
         Assert.Equal(reason, snapshot.BootMediaUpdateReason);
+    }
+
+    [Fact]
+    public async Task InitializeAsync_HandsTheLatestReleaseCheckToTheWindow()
+    {
+        var check = new BootMediaLatestReleaseCheck("26.10.3.1", "26.10.3.1");
+        var dependencies = new StartupDependencies(enabled: false, latestReleaseCheck: check);
+        var discovery = new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start."));
+        var coordinator = new DeploymentStartupCoordinator(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies, discovery, new RecordingLogger());
+
+        DeploymentStartupSnapshot snapshot = await coordinator.InitializeAsync(CreateRequest(), TestContext.Current.CancellationToken);
+
+        Assert.Same(check, snapshot.LatestReleaseCheck);
     }
 
     [Theory]
@@ -423,12 +437,14 @@ public sealed class DeploymentStartupCoordinatorTests
 
     // Replace machine/tenant I/O; exercise the real startup coordinator and its returned configuration.
     private sealed class StartupDependencies(bool enabled = true, BootMediaUpdateReason reason = BootMediaUpdateReason.None,
-        Foundry.Core.Models.Configuration.Deploy.DeployNetworkCacheSettings? networkCache = null) : IDeployConfigurationService, IAutopilotProfileCatalogService,
+        Foundry.Core.Models.Configuration.Deploy.DeployNetworkCacheSettings? networkCache = null,
+        BootMediaLatestReleaseCheck? latestReleaseCheck = null) : IDeployConfigurationService, IAutopilotProfileCatalogService,
         IHardwareProfileService, IOfflineWindowsComputerNameService, ITargetDiskService, IDeploymentCatalogLoadService
     {
         public DeployConfigurationLoadResult LoadOptional() => new()
         {
             BootMediaUpdateReason = reason,
+            LatestReleaseCheck = latestReleaseCheck,
             Document = new FoundryDeployConfigurationDocument
             {
                 NetworkCache = networkCache ?? new(),

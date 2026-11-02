@@ -282,6 +282,7 @@ jobs:
               throw "FoundryPostHogProjectToken secret is required for release assets."
           }
 
+          $releaseTag = '${{ needs.prepare-release.outputs.release_tag }}'
           $workspace = $env:GITHUB_WORKSPACE
           $releaseRoot = Join-Path $workspace 'artifacts\release'
           $publishRoot = Join-Path $releaseRoot 'publish'
@@ -415,7 +416,8 @@ jobs:
                   $path = Join-Path $postInstallPublishPath $_
                   [ordered]@{ relativePath = $_; length = (Get-Item -LiteralPath $path).Length; sha256 = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() }
               })
-              $postInstallManifest = [ordered]@{ schemaVersion = 1; contractVersion = 1; runtimeIdentifier = $runtimeIdentifier; files = $postInstallFiles } | ConvertTo-Json -Depth 10
+              # Foundry.Deploy accepts only the PostInstall runtime whose releaseTag matches its own release.
+              $postInstallManifest = [ordered]@{ schemaVersion = 1; contractVersion = 1; runtimeIdentifier = $runtimeIdentifier; releaseTag = $releaseTag; files = $postInstallFiles } | ConvertTo-Json -Depth 10
               Set-Content -LiteralPath (Join-Path $postInstallPublishPath 'foundry.postinstall.json') -Value $postInstallManifest -Encoding utf8NoBOM
 
               $postInstallAssetPath = Join-Path $releaseRoot "Foundry.PostInstall-$runtimeIdentifier.zip"

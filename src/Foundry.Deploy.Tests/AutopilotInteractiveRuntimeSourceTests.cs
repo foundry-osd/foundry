@@ -4,8 +4,8 @@
 
 using System.Net;
 using System.Text.Json;
+using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.Services.Autopilot;
-using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Download;
 using Microsoft.Extensions.Logging.Abstractions;
 
@@ -115,10 +115,32 @@ public sealed class AutopilotInteractiveRuntimeSourceTests
     }
 
     [Fact]
-    public void ReleaseTag_Throws_WhenDeployVersionIsNotFourPart()
+    public async Task Resolve_Throws_WhenDeployVersionIsNotFourPart()
     {
-        Assert.Throws<InvalidDataException>(() => DeployReleaseTag.Resolve("26.11.3", _ => null, "FOUNDRY_RELEASE_TAG"));
-        Assert.Equal("v26.11.3.1", DeployReleaseTag.Resolve("26.11.3.1+abcdef", _ => null, "FOUNDRY_RELEASE_TAG"));
+        using var fixture = new Fixture("26.11.3");
+
+        await Assert.ThrowsAsync<InvalidDataException>(() => fixture.Source.ResolveAsync("win-x64", TestContext.Current.CancellationToken));
+        Assert.Empty(fixture.Requests);
+    }
+
+    [Fact]
+    public async Task Resolve_IgnoresBuildMetadataOfDeployVersion()
+    {
+        using var fixture = new Fixture("26.11.3.1+abcdef");
+
+        await fixture.Source.ResolveAsync("win-x64", TestContext.Current.CancellationToken);
+
+        Assert.EndsWith("releases/tags/v26.11.3.1", Assert.Single(fixture.Requests));
+    }
+
+    [Fact]
+    public async Task Resolve_UnpublishedDeploy_UsesLatestRelease()
+    {
+        using var fixture = new Fixture(FoundryReleaseTag.UnpublishedVersion);
+
+        await fixture.Source.ResolveAsync("win-x64", TestContext.Current.CancellationToken);
+
+        Assert.Equal("https://api.github.com/repos/foundry-osd/foundry/releases/latest", Assert.Single(fixture.Requests));
     }
 
     [Fact]
@@ -216,7 +238,7 @@ public sealed class AutopilotInteractiveRuntimeSourceTests
         public HttpClient Client { get; }
         public AutopilotInteractiveRuntimeSource Source { get; }
 
-        public Fixture()
+        public Fixture(string deployVersion = "26.11.3.1")
         {
             Directory.CreateDirectory(WinPeRoot);
             Directory.CreateDirectory(TargetRuntime);
@@ -249,7 +271,7 @@ public sealed class AutopilotInteractiveRuntimeSourceTests
                 }
                 return new(HttpStatusCode.OK) { Content = new ByteArrayContent(archive) };
             }));
-            Source = new AutopilotInteractiveRuntimeSource(WinPeRoot, "26.11.3.1", Client,
+            Source = new AutopilotInteractiveRuntimeSource(WinPeRoot, deployVersion, Client,
                 new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, Client), name => EnvironmentValues.GetValueOrDefault(name))
             {
                 Delay = (_, _) => Task.CompletedTask

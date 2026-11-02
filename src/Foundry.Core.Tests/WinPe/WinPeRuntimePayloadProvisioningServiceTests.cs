@@ -13,6 +13,75 @@ namespace Foundry.Core.Tests.WinPe;
 
 public sealed class WinPeRuntimePayloadProvisioningServiceTests
 {
+    private const string TestReleaseVersion = "26.11.2.1";
+
+    [Fact]
+    public async Task Provision_ReadsTheReleaseOfTheFoundryVersion()
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        var handler = new FakeReleaseHttpMessageHandler("Foundry.Connect-win-x64.zip", File.ReadAllBytes(workspace.CreateArchive("connect.zip", "Foundry.Connect.exe")));
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler), NoEnvironment);
+
+        WinPeResult result = await service.ProvisionAsync(CreateReleaseConnectOptions(workspace, TestReleaseVersion), cancellationToken: TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal("https://api.github.com/repos/foundry-osd/foundry/releases/tags/v26.11.2.1", handler.RequestUris[0]);
+        Assert.DoesNotContain(handler.RequestUris, uri => uri.Contains("/latest", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public async Task Provision_UnpublishedVersion_ReadsLatest()
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        var handler = new FakeReleaseHttpMessageHandler("Foundry.Connect-win-x64.zip", File.ReadAllBytes(workspace.CreateArchive("connect.zip", "Foundry.Connect.exe")));
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler), NoEnvironment);
+
+        WinPeResult result = await service.ProvisionAsync(CreateReleaseConnectOptions(workspace, FoundryReleaseTag.UnpublishedVersion), cancellationToken: TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(FakeReleaseHttpMessageHandler.LatestReleaseUri, handler.RequestUris[0]);
+    }
+
+    [Fact]
+    public async Task Provision_ReleaseTagOverride_Wins()
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        var handler = new FakeReleaseHttpMessageHandler("Foundry.Connect-win-x64.zip", File.ReadAllBytes(workspace.CreateArchive("connect.zip", "Foundry.Connect.exe")));
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler),
+            name => name == FoundryReleaseTag.ReleaseTagVariable ? "v26.10.18.1" : null);
+
+        WinPeResult result = await service.ProvisionAsync(CreateReleaseConnectOptions(workspace, TestReleaseVersion), cancellationToken: TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal("https://api.github.com/repos/foundry-osd/foundry/releases/tags/v26.10.18.1", handler.RequestUris[0]);
+    }
+
+    [Fact]
+    public async Task Provision_WithoutReleaseVersion_FailsBeforeReadingAnyRelease()
+    {
+        using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
+        var handler = new FakeReleaseHttpMessageHandler("Foundry.Connect-win-x64.zip", File.ReadAllBytes(workspace.CreateArchive("connect.zip", "Foundry.Connect.exe")));
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler), NoEnvironment);
+
+        WinPeResult result = await service.ProvisionAsync(CreateReleaseConnectOptions(workspace, string.Empty), cancellationToken: TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.ValidationFailed, result.Error!.Code);
+        Assert.Contains("ReleaseVersion", result.Error.Details, StringComparison.Ordinal);
+        Assert.Empty(handler.RequestUris);
+        Assert.False(Directory.Exists(Path.Combine(workspace.MountedImagePath, "Foundry")));
+    }
+
+    private static WinPeRuntimePayloadProvisioningOptions CreateReleaseConnectOptions(TempRuntimeWorkspace workspace, string releaseVersion) => new()
+    {
+        WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+        MountedImagePath = workspace.MountedImagePath,
+        ReleaseVersion = releaseVersion,
+        Connect = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
+    };
+
+    private static string? NoEnvironment(string _) => null;
+
     [Theory]
     [InlineData("missing", false)]
     [InlineData("duplicate", false)]
@@ -246,13 +315,14 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
         byte[] connect = File.ReadAllBytes(workspace.CreateArchive("connect.zip", "Foundry.Connect.exe"));
         var handler = new FakeReleaseHttpMessageHandler($"Foundry.Connect-{runtime}.zip", connect);
-        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler));
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler), NoEnvironment);
         var options = new WinPeRuntimePayloadProvisioningOptions
         {
             Architecture = architecture,
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
             MountedImagePath = workspace.MountedImagePath,
             UsbCacheRootPath = workspace.UsbCacheRootPath,
+            ReleaseVersion = TestReleaseVersion,
             Connect = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
         };
 
@@ -278,15 +348,16 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
         byte[] bytes = File.ReadAllBytes(workspace.CreateArchive("connect.zip", "Foundry.Connect.exe"));
         var handler = new FakeReleaseHttpMessageHandler("Foundry.Connect-win-x64.zip", bytes) { OverrideDigest = true, Digest = digest };
-        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler));
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler), NoEnvironment);
         var result = await service.PrepareAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            ReleaseVersion = TestReleaseVersion,
             Connect = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
         }, TestContext.Current.CancellationToken);
         Assert.False(result.IsSuccess);
         Assert.Contains("SHA256", result.Error!.Details, StringComparison.OrdinalIgnoreCase);
-        Assert.Equal(FakeReleaseHttpMessageHandler.LatestReleaseUri, Assert.Single(handler.RequestUris));
+        Assert.Equal(FakeReleaseHttpMessageHandler.ReleaseUri, Assert.Single(handler.RequestUris));
     }
 
     [Theory]
@@ -324,10 +395,11 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
             OverrideDigest = true,
             Digest = "sha256:" + new string('0', 64)
         };
-        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler));
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler), NoEnvironment);
         var result = await service.PrepareAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            ReleaseVersion = TestReleaseVersion,
             Connect = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
         }, TestContext.Current.CancellationToken);
         Assert.False(result.IsSuccess);
@@ -342,11 +414,12 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         byte[] bytes = File.ReadAllBytes(workspace.CreateArchive("connect.zip", "Foundry.Connect.exe"));
         using var cancellation = new CancellationTokenSource();
         var handler = new FakeReleaseHttpMessageHandler("Foundry.Connect-win-x64.zip", bytes) { OnDownload = cancellation.Cancel };
-        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler));
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler), NoEnvironment);
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.ProvisionAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
             MountedImagePath = workspace.MountedImagePath,
+            ReleaseVersion = TestReleaseVersion,
             Connect = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
         }, cancellationToken: cancellation.Token));
         Assert.False(Directory.Exists(Path.Combine(workspace.MountedImagePath, "Foundry")));
@@ -633,7 +706,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         var httpHandler = new FakeReleaseHttpMessageHandler("Foundry.Connect-win-x64.zip", archiveBytes);
         var service = new WinPeRuntimePayloadProvisioningService(
             new FakeRuntimeProcessRunner(),
-            new HttpClient(httpHandler));
+            new HttpClient(httpHandler), NoEnvironment);
         var progress = new CapturingProgress<WinPeDownloadProgress>();
 
         WinPeResult result = await service.ProvisionAsync(
@@ -642,6 +715,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
                 Architecture = WinPeArchitecture.X64,
                 WorkingDirectoryPath = workspace.WorkingDirectoryPath,
                 MountedImagePath = workspace.MountedImagePath,
+                ReleaseVersion = TestReleaseVersion,
                 Connect = new WinPeRuntimePayloadApplicationOptions
                 {
                     IsEnabled = true,
@@ -652,7 +726,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
             cancellationToken: CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.Contains(FakeReleaseHttpMessageHandler.LatestReleaseUri, httpHandler.RequestUris);
+        Assert.Contains(FakeReleaseHttpMessageHandler.ReleaseUri, httpHandler.RequestUris);
         Assert.Contains(FakeReleaseHttpMessageHandler.DownloadUri, httpHandler.RequestUris);
         Assert.Contains(progress.Items, item => item is { Percent: 0, ItemName: "Foundry.Connect" }
             && item.Status == WinPeProgressStatuses.DownloadingRuntimePayload);
@@ -710,16 +784,17 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
     {
         using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
         var handler = new FakeReleaseHttpMessageHandler("Foundry.Bootstrap-win-x64.zip", []);
-        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler));
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler), NoEnvironment);
         var result = await service.ProvisionAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
             MountedImagePath = workspace.MountedImagePath,
+            ReleaseVersion = TestReleaseVersion,
             Bootstrap = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release },
             Connect = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
         }, cancellationToken: TestContext.Current.CancellationToken);
         Assert.False(result.IsSuccess);
-        Assert.Equal(FakeReleaseHttpMessageHandler.LatestReleaseUri, Assert.Single(handler.RequestUris));
+        Assert.Equal(FakeReleaseHttpMessageHandler.ReleaseUri, Assert.Single(handler.RequestUris));
     }
 
     [Theory]
@@ -748,12 +823,13 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         };
         var handler = new FakeReleaseHttpMessageHandler("unused", []);
         var runner = new FakeRuntimeProcessRunner { ExitCode = failure == "publish-failed" ? 1 : 0, CreateOutput = false };
-        var service = new WinPeRuntimePayloadProvisioningService(runner, new HttpClient(handler));
+        var service = new WinPeRuntimePayloadProvisioningService(runner, new HttpClient(handler), NoEnvironment);
         var result = await service.ProvisionAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
             MountedImagePath = workspace.MountedImagePath,
             Bootstrap = bootstrap with { IsEnabled = true },
+            ReleaseVersion = TestReleaseVersion,
             Connect = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
         }, cancellationToken: TestContext.Current.CancellationToken);
         Assert.False(result.IsSuccess);
@@ -773,11 +849,12 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
             [$"Foundry.PostInstall-{runtime}.zip"] = File.ReadAllBytes(workspace.CreateArchive("postinstall-release.zip", "Foundry.PostInstall.exe", runtimeIdentifier: runtime))
         };
         var handler = new MovingReleaseHttpMessageHandler(payloads);
-        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler));
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler), NoEnvironment);
         var original = new WinPeRuntimePayloadProvisioningOptions
         {
             Architecture = architecture,
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            ReleaseVersion = FoundryReleaseTag.UnpublishedVersion,
             Bootstrap = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release },
             Connect = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
         }.WithDomainJoinRuntime(true);
@@ -813,11 +890,12 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
         byte[] connect = File.ReadAllBytes(workspace.CreateArchive("connect.zip", "Foundry.Connect.exe"));
         var handler = new FakeReleaseHttpMessageHandler("Foundry.Connect-win-x64.zip", connect);
-        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler));
+        var service = new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner(), new HttpClient(handler), NoEnvironment);
         var result = await service.ProvisionAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
             MountedImagePath = workspace.MountedImagePath,
+            ReleaseVersion = TestReleaseVersion,
             Bootstrap = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release, ArchivePath = workspace.CreateArchive("bootstrap.zip", "Foundry.Bootstrap.exe") },
             Connect = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
         }, cancellationToken: TestContext.Current.CancellationToken);
@@ -855,7 +933,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         {
             string uri = request.RequestUri!.AbsoluteUri;
             RequestUris.Add(uri);
-            if (uri == FakeReleaseHttpMessageHandler.LatestReleaseUri)
+            if (uri.StartsWith(FakeReleaseHttpMessageHandler.ReleasesApiUri, StringComparison.Ordinal))
             {
                 MetadataRequests++;
                 string tag = $"v{MetadataRequests}";
@@ -881,7 +959,9 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
 
     private sealed class FakeReleaseHttpMessageHandler(string assetName, byte[] archiveBytes) : HttpMessageHandler
     {
-        public const string LatestReleaseUri = "https://api.github.com/repos/foundry-osd/foundry/releases/latest";
+        public const string ReleasesApiUri = "https://api.github.com/repos/foundry-osd/foundry/releases/";
+        public const string LatestReleaseUri = ReleasesApiUri + "latest";
+        public const string ReleaseUri = ReleasesApiUri + "tags/v" + TestReleaseVersion;
         public const string DownloadUri = "https://example.test/Foundry.Connect-win-x64.zip";
         public bool OverrideDigest { get; init; }
         public string? Digest { get; init; }
@@ -894,7 +974,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
             string requestUri = request.RequestUri?.AbsoluteUri ?? string.Empty;
             RequestUris.Add(requestUri);
 
-            if (string.Equals(requestUri, LatestReleaseUri, StringComparison.Ordinal))
+            if (requestUri.StartsWith(ReleasesApiUri, StringComparison.Ordinal))
             {
                 string digest = Convert.ToHexString(SHA256.HashData(archiveBytes)).ToLowerInvariant();
                 string json = $$"""

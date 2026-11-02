@@ -95,11 +95,12 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
                     ConfigurationSchemaVersions.DeployCurrent);
             }
 
+            bool isEligibleRuntime = _runtimeContext.IsEligible(ReadProvisioningSource(_configurationPath)) &&
+                _runtimeContext.IsEligible(document.Telemetry?.RuntimePayloadSource);
             BootMediaUpdateReason reason = BootMediaFreshnessPolicy.Evaluate(
                 document.AuthoringVersion,
                 _runtimeContext.RuntimeVersion,
-                _runtimeContext.IsEligible(ReadProvisioningSource(_configurationPath)) &&
-                _runtimeContext.IsEligible(document.Telemetry?.RuntimePayloadSource));
+                isEligibleRuntime);
 
             _logger.LogInformation(
                 "Loaded deploy configuration from '{ConfigurationPath}' (SchemaVersion={SchemaVersion}).",
@@ -111,7 +112,11 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
                 ConfigurationPath = _configurationPath,
                 Exists = true,
                 Document = document,
-                BootMediaUpdateReason = reason
+                BootMediaUpdateReason = reason,
+                LatestReleaseCheck = BootMediaLatestReleaseCheck.Create(
+                    document.AuthoringVersion,
+                    _runtimeContext.RuntimeVersion,
+                    isEligibleRuntime)
             };
         }
         catch (Exception ex) when (ex is InvalidDataException or IOException or UnauthorizedAccessException or JsonException or InvalidOperationException or ArgumentException)

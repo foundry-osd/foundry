@@ -2,7 +2,9 @@ param(
     [ValidateSet('Debug', 'Release')][string]$Configuration = 'Release',
     [ValidateSet('win-x64', 'win-arm64')][string]$RuntimeIdentifier = 'win-x64',
     [switch]$AllRuntimes,
-    [string]$OutputRoot
+    [string]$OutputRoot,
+    # Release tag recorded in the manifest, for example v26.11.2.1. Foundry.Deploy of that release accepts only a runtime with its tag.
+    [string]$ReleaseTag
 )
 
 $ErrorActionPreference = 'Stop'
@@ -20,7 +22,9 @@ foreach ($rid in $(if ($AllRuntimes) { @('win-x64', 'win-arm64') } else { @($Run
         $path = Join-Path $publish $_
         [ordered]@{ relativePath = $_; length = (Get-Item -LiteralPath $path).Length; sha256 = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() }
     })
-    $manifest = [ordered]@{ schemaVersion = 1; contractVersion = 1; runtimeIdentifier = $rid; files = $files }
+    $manifest = [ordered]@{ schemaVersion = 1; contractVersion = 1; runtimeIdentifier = $rid }
+    if (-not [string]::IsNullOrWhiteSpace($ReleaseTag)) { $manifest.releaseTag = $ReleaseTag.Trim() }
+    $manifest.files = $files
     [IO.File]::WriteAllText((Join-Path $publish 'foundry.postinstall.json'), ($manifest | ConvertTo-Json -Depth 10), [Text.UTF8Encoding]::new($false))
     $archive = Join-Path $OutputRoot "Foundry.PostInstall-$rid.zip"
     Compress-Archive -Path (Join-Path $publish '*') -DestinationPath $archive -CompressionLevel Optimal -Force

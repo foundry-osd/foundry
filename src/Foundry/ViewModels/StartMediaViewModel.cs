@@ -3440,6 +3440,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             workingDirectoryPath,
             mountedImagePath,
             usbCacheRootPath,
+            FoundryApplicationInfo.Version,
             Debugger.IsAttached,
             projectDiscoveryStartPath: FindRepositoryRoot());
     }

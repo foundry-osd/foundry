@@ -35,6 +35,13 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
     public bool IncludePayloadsInImage { get; init; } = true;
 
     /// <summary>
+    /// Gets the informational version of the Foundry OSD build creating the media. It selects the GitHub release that
+    /// release runtimes come from, so the media run the runtimes of that Foundry OSD version; it is required whenever a
+    /// runtime is provisioned from a release.
+    /// </summary>
+    public string ReleaseVersion { get; init; } = string.Empty;
+
+    /// <summary>
     /// Gets the Bootstrap payload staged only into the mounted image.
     /// </summary>
     public WinPeRuntimePayloadApplicationOptions Bootstrap { get; init; } = new();
@@ -78,6 +85,7 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
     /// <param name="workingDirectoryPath">The working directory used for payload preparation.</param>
     /// <param name="mountedImagePath">The mounted image root path.</param>
     /// <param name="usbCacheRootPath">The USB cache root path.</param>
+    /// <param name="releaseVersion">The informational version of the Foundry OSD build creating the media.</param>
     /// <param name="isDebuggerAttached">Whether a debugger is attached to the app process.</param>
     /// <param name="getEnvironmentVariable">An optional environment variable accessor for tests.</param>
     /// <param name="projectDiscoveryStartPath">An optional path used to discover sibling project files.</param>
@@ -87,6 +95,7 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
         string workingDirectoryPath,
         string mountedImagePath,
         string usbCacheRootPath,
+        string releaseVersion,
         bool isDebuggerAttached,
         Func<string, string?>? getEnvironmentVariable = null,
         string? projectDiscoveryStartPath = null)
@@ -99,6 +108,7 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
             WorkingDirectoryPath = workingDirectoryPath,
             MountedImagePath = mountedImagePath,
             UsbCacheRootPath = usbCacheRootPath,
+            ReleaseVersion = releaseVersion,
             Bootstrap = CreateApplicationOptions(
                 "Foundry.Bootstrap",
                 WinPeRuntimePayloadEnvironmentVariables.DebugBootstrapEnable,

@@ -33,8 +33,23 @@ public static class BootMediaFreshnessPolicy
         return true;
     }
 
-    /// <summary>Recommends rebuilding eligible boot media when its authoring release is unknown or older.</summary>
-    public static BootMediaUpdateReason Evaluate(string? authoringVersion, string? runtimeVersion, bool isEligibleRuntime)
+    /// <summary>
+    /// Recommends rebuilding eligible boot media when its authoring release is unknown, older than the running runtime,
+    /// or older than the latest published Foundry release.
+    /// </summary>
+    /// <param name="authoringVersion">Foundry release that created the boot media, read from its configuration.</param>
+    /// <param name="runtimeVersion">Release of the running runtime; an unpublished build never receives advice.</param>
+    /// <param name="isEligibleRuntime">Whether the runtime environment can receive advice at all.</param>
+    /// <param name="latestReleaseVersion">
+    /// Latest published Foundry release, or <see langword="null"/> when it is unknown. Boot media run the release that
+    /// created them, so only this input reveals that a newer release exists. It never replaces
+    /// <see cref="BootMediaUpdateReason.UnknownAuthoringVersion"/>.
+    /// </param>
+    public static BootMediaUpdateReason Evaluate(
+        string? authoringVersion,
+        string? runtimeVersion,
+        bool isEligibleRuntime,
+        string? latestReleaseVersion = null)
     {
         if (!isEligibleRuntime || !TryParseReleaseVersion(runtimeVersion, out Version? runtimeRelease))
         {
@@ -46,7 +61,9 @@ public static class BootMediaFreshnessPolicy
             return BootMediaUpdateReason.UnknownAuthoringVersion;
         }
 
-        return runtimeRelease!.CompareTo(authoringRelease) > 0
+        bool isLatestReleaseNewer = TryParseReleaseVersion(latestReleaseVersion, out Version? latestRelease) &&
+            latestRelease!.CompareTo(authoringRelease) > 0;
+        return isLatestReleaseNewer || runtimeRelease!.CompareTo(authoringRelease) > 0
             ? BootMediaUpdateReason.NewerRelease
             : BootMediaUpdateReason.None;
     }

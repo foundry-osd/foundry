@@ -9,7 +9,6 @@ using System.Text.Json;
 using Foundry.Core.Models.Autopilot;
 using Foundry.Core.Services.Http;
 using Foundry.Core.Services.Runtime;
-using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.Download;
 using Foundry.Deploy.Services.Http;
 using Foundry.Deploy.Services.Images;
@@ -24,8 +23,8 @@ namespace Foundry.Deploy.Services.Autopilot;
 /// </summary>
 /// <remarks>
 /// Production media download the archive of release <c>v&lt;Deploy version&gt;</c> (or the <c>FOUNDRY_DEPLOY_RELEASE_TAG</c>, then
-/// <c>FOUNDRY_RELEASE_TAG</c> override), never <c>latest</c>. Debug media never download: Bootstrap forwards the media archive and
-/// its SHA256 through <see cref="AutopilotInteractiveLayout.ArchiveEnvironmentVariable"/> and
+/// <c>FOUNDRY_RELEASE_TAG</c> override), never <c>latest</c>; only an unpublished local build reads <c>latest</c>, with a warning.
+/// Debug media never download: Bootstrap forwards the media archive and its SHA256 through <see cref="AutopilotInteractiveLayout.ArchiveEnvironmentVariable"/> and
 /// <see cref="AutopilotInteractiveLayout.ArchiveSha256EnvironmentVariable"/>, and this class verifies the hash while copying.
 /// The archive only ever lands in the target runtime folder: never in WinPE storage, the USB cache or the network cache.
 /// </remarks>
@@ -69,10 +68,14 @@ internal sealed class AutopilotInteractiveRuntimeSource(string winPeRoot, string
         if (File.Exists(provisioning) && File.ReadAllText(provisioning).Trim().Equals("debug", StringComparison.OrdinalIgnoreCase))
             throw new InvalidDataException("Debug media must provide Foundry.AutopilotInteractive through Bootstrap.");
 
-        string tag = DeployReleaseTag.Resolve(deployVersion, environment, "FOUNDRY_DEPLOY_RELEASE_TAG", "FOUNDRY_RELEASE_TAG");
+        FoundryReleaseSelection release = FoundryReleaseTag.Resolve(deployVersion, environment, "FOUNDRY_DEPLOY_RELEASE_TAG",
+            FoundryReleaseTag.ReleaseTagVariable);
+        if (release.IsLatest)
+            Logger.LogWarning("Unpublished Deploy build; using the latest release for {Component}", AutopilotInteractiveLayout.ApplicationName);
+        string tag = release.Tag ?? "latest";
         Logger.LogInformation("Resolving the Foundry.AutopilotInteractive release asset. ReleaseTag={ReleaseTag}; RuntimeIdentifier={RuntimeIdentifier}",
             tag, runtimeIdentifier);
-        RuntimeReleaseAsset asset = await ReadReleaseAssetAsync(tag, runtimeIdentifier, cancellationToken).ConfigureAwait(false);
+        RuntimeReleaseAsset asset = await ReadReleaseAssetAsync(release, runtimeIdentifier, cancellationToken).ConfigureAwait(false);
         Logger.LogInformation("Foundry.AutopilotInteractive release asset resolved. ReleaseTag={ReleaseTag}; RuntimeIdentifier={RuntimeIdentifier}",
             tag, runtimeIdentifier);
         return new AutopilotInteractiveRuntimeOrigin(asset.DownloadUrl, asset.Sha256, IsLocalArchive: false);
@@ -182,11 +185,11 @@ internal sealed class AutopilotInteractiveRuntimeSource(string winPeRoot, string
     internal static bool IsRateLimited(Exception exception) =>
         exception is HttpRequestException { StatusCode: HttpStatusCode.Forbidden or HttpStatusCode.TooManyRequests };
 
-    private Task<RuntimeReleaseAsset> ReadReleaseAssetAsync(string tag, string runtimeIdentifier, CancellationToken cancellationToken) =>
+    private Task<RuntimeReleaseAsset> ReadReleaseAssetAsync(FoundryReleaseSelection selection, string runtimeIdentifier, CancellationToken cancellationToken) =>
         HttpRetryPolicy.ExecuteAsync(async token =>
         {
-            using var request = new HttpRequestMessage(HttpMethod.Get,
-                "https://api.github.com/repos/foundry-osd/foundry/releases/tags/" + Uri.EscapeDataString(tag));
+            string tag = selection.Tag ?? "latest";
+            using var request = new HttpRequestMessage(HttpMethod.Get, selection.ApiUrl);
             request.Headers.UserAgent.ParseAdd("FoundryDeploy/1.0");
             request.Headers.Accept.ParseAdd("application/vnd.github+json");
             using HttpResponseMessage response = await client.SendAsync(request, token).ConfigureAwait(false);

@@ -14,7 +14,22 @@ namespace Foundry.Deploy.Services.Deployment.PreOobe;
 /// <summary>Checks and holds the authenticated runtime prepared by Bootstrap or Deploy until target staging.</summary>
 internal static class PostInstallRuntimeSource
 {
-    internal static async Task<PreOobePreparedContent> AcquireAsync(string? executablePath, string expectedRid, CancellationToken cancellationToken)
+    private const string ReleaseTagDataKey = "PostInstall.ReleaseTag";
+    private const string ExpectedReleaseTagDataKey = "PostInstall.ExpectedReleaseTag";
+
+    /// <summary>Verifies the runtime next to <paramref name="executablePath"/> and locks its files until the result is disposed.</summary>
+    /// <param name="executablePath">Absolute path of <c>Foundry.PostInstall.exe</c>.</param>
+    /// <param name="expectedRid">Runtime identifier of the deployed Windows image.</param>
+    /// <param name="expectedReleaseTag">
+    /// Release tag the runtime manifest must declare, compared ignoring case, or <see langword="null"/> to skip the release check
+    /// for unpublished Deploy builds and debug media, whose runtimes are built locally without a tag.
+    /// </param>
+    /// <param name="cancellationToken">Cancels the verification.</param>
+    /// <exception cref="InvalidDataException">
+    /// The runtime is invalid; <see cref="IsReleaseMismatch"/> tells whether it is otherwise valid but comes from another release.
+    /// </exception>
+    internal static async Task<PreOobePreparedContent> AcquireAsync(string? executablePath, string expectedRid, string? expectedReleaseTag,
+        CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(executablePath) || !Path.IsPathFullyQualified(executablePath) ||
             !Path.GetFileName(executablePath).Equals("Foundry.PostInstall.exe", StringComparison.OrdinalIgnoreCase))
@@ -37,6 +52,8 @@ internal static class PostInstallRuntimeSource
             }
             catch (JsonException exception) { throw new InvalidDataException("PostInstall runtime metadata is invalid.", exception); }
             Validate(manifest, expectedRid);
+            if (expectedReleaseTag is not null && !string.Equals(manifest.ReleaseTag, expectedReleaseTag, StringComparison.OrdinalIgnoreCase))
+                throw ReleaseMismatch(manifest.ReleaseTag, expectedReleaseTag);
             prepared = new() { RuntimeIdentifier = expectedRid, RuntimeDirectory = directory, RuntimeManifest = manifest };
             prepared.Files.Add((manifestPath, manifestStream));
             foreach (var file in manifest.Files)
@@ -74,6 +91,26 @@ internal static class PostInstallRuntimeSource
         }
         if (!paths.Contains("Foundry.PostInstall.exe") || !paths.Contains("Launch.cmd"))
             throw new InvalidDataException("PostInstall runtime is missing required launch files.");
+    }
+
+    /// <summary>
+    /// Returns whether <paramref name="exception"/> reports a valid runtime published by another release, or without a release
+    /// tag, typically a boot media runtime paired with a Deploy of another release. Callers may replace that runtime with the
+    /// one of the Deploy release; every other validation failure stays fatal.
+    /// </summary>
+    internal static bool IsReleaseMismatch(Exception exception) =>
+        exception is InvalidDataException && exception.Data.Contains(ExpectedReleaseTagDataKey);
+
+    /// <summary>Reads the release tag found in the runtime manifest and the expected one recorded by a release mismatch.</summary>
+    internal static (string? Found, string? Expected) ReadReleaseMismatch(Exception exception) =>
+        (exception.Data[ReleaseTagDataKey] as string, exception.Data[ExpectedReleaseTagDataKey] as string);
+
+    private static InvalidDataException ReleaseMismatch(string? releaseTag, string expectedReleaseTag)
+    {
+        var exception = new InvalidDataException("PostInstall runtime does not come from the release of this Deploy.");
+        exception.Data[ReleaseTagDataKey] = releaseTag;
+        exception.Data[ExpectedReleaseTagDataKey] = expectedReleaseTag;
+        return exception;
     }
 
     /// <summary>Copies exactly <paramref name="expected"/> bytes; <paramref name="onBytes"/> receives the bytes copied so far after each chunk.</summary>

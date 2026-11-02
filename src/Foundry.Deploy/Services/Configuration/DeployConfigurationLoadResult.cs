@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.Models.Configuration;
 using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 
@@ -15,6 +16,12 @@ public sealed record DeployConfigurationLoadResult
 
     /// <summary>Gets why rebuilding this boot media is recommended.</summary>
     public BootMediaUpdateReason BootMediaUpdateReason { get; init; }
+
+    /// <summary>
+    /// Gets the comparison with the latest published release to run after startup, or <see langword="null"/> when it
+    /// cannot change <see cref="BootMediaUpdateReason"/>.
+    /// </summary>
+    public BootMediaLatestReleaseCheck? LatestReleaseCheck { get; init; }
     public string? FailureMessage { get; init; }
 
     /// <summary>Preserves the original parse or validation exception for protected startup diagnostics.</summary>

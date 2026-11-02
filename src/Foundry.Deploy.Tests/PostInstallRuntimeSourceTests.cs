@@ -15,7 +15,7 @@ public sealed class PostInstallRuntimeSourceTests
     public async Task BootstrapHandoff_VerifiesAndLocksFilesUntilDisposedWithoutDeletingRuntime()
     {
         using var fixture = new Fixture();
-        using (var prepared = await PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", TestContext.Current.CancellationToken))
+        using (var prepared = await PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", NativeRuntimeFixture.ReleaseTag, TestContext.Current.CancellationToken))
         {
             Assert.Equal(fixture.Directory, prepared.RuntimeDirectory);
             Assert.Equal(fixture.Manifest.Files.Sum(file => file.Length), prepared.TargetBytes);
@@ -37,7 +37,60 @@ public sealed class PostInstallRuntimeSourceTests
     {
         using var fixture = new Fixture();
         fixture.Write(fixture.Manifest with { SchemaVersion = schema, ContractVersion = contract, RuntimeIdentifier = rid });
-        await Assert.ThrowsAsync<InvalidDataException>(() => PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", TestContext.Current.CancellationToken));
+        await Assert.ThrowsAsync<InvalidDataException>(() => PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", NativeRuntimeFixture.ReleaseTag, TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task RuntimeFromAnotherRelease_IsRejectedAsReleaseMismatch()
+    {
+        using var fixture = new Fixture();
+        fixture.Write(fixture.Manifest with { ReleaseTag = "v26.9.1.1" });
+        var exception = await Assert.ThrowsAsync<InvalidDataException>(
+            () => PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", NativeRuntimeFixture.ReleaseTag, TestContext.Current.CancellationToken));
+        Assert.True(PostInstallRuntimeSource.IsReleaseMismatch(exception));
+        Assert.Equal(("v26.9.1.1", NativeRuntimeFixture.ReleaseTag), PostInstallRuntimeSource.ReadReleaseMismatch(exception));
+        // A rejected runtime releases its files before recovery runs.
+        foreach (string file in Directory.GetFiles(fixture.Directory)) File.Delete(file);
+    }
+
+    [Fact]
+    public async Task RuntimeWithoutReleaseTag_IsRejectedAsReleaseMismatch()
+    {
+        using var fixture = new Fixture();
+        fixture.Write(fixture.Manifest with { ReleaseTag = null });
+        var exception = await Assert.ThrowsAsync<InvalidDataException>(
+            () => PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", NativeRuntimeFixture.ReleaseTag, TestContext.Current.CancellationToken));
+        Assert.True(PostInstallRuntimeSource.IsReleaseMismatch(exception));
+        Assert.Null(PostInstallRuntimeSource.ReadReleaseMismatch(exception).Found);
+    }
+
+    [Fact]
+    public async Task RuntimeFromSameRelease_IsAccepted()
+    {
+        using var fixture = new Fixture();
+        fixture.Write(fixture.Manifest with { ReleaseTag = NativeRuntimeFixture.ReleaseTag.ToUpperInvariant() });
+        using var prepared = await PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", NativeRuntimeFixture.ReleaseTag,
+            TestContext.Current.CancellationToken);
+        Assert.Equal(fixture.Directory, prepared.RuntimeDirectory);
+    }
+
+    [Fact]
+    public async Task NullExpectedTag_SkipsReleaseCheck()
+    {
+        using var fixture = new Fixture();
+        fixture.Write(fixture.Manifest with { ReleaseTag = null });
+        using var prepared = await PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", null, TestContext.Current.CancellationToken);
+        Assert.Null(prepared.RuntimeManifest.ReleaseTag);
+    }
+
+    [Fact]
+    public async Task IncompatibleRuntime_IsNotReportedAsReleaseMismatch()
+    {
+        using var fixture = new Fixture();
+        fixture.Write(fixture.Manifest with { ContractVersion = 2, ReleaseTag = "v26.9.1.1" });
+        var exception = await Assert.ThrowsAsync<InvalidDataException>(
+            () => PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", NativeRuntimeFixture.ReleaseTag, TestContext.Current.CancellationToken));
+        Assert.False(PostInstallRuntimeSource.IsReleaseMismatch(exception));
     }
 
     [Theory]
@@ -53,7 +106,7 @@ public sealed class PostInstallRuntimeSourceTests
         if (truncated) bytes = bytes[..^1];
         else bytes[0] ^= 1;
         File.WriteAllBytes(path, bytes);
-        await Assert.ThrowsAsync<InvalidDataException>(() => PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", TestContext.Current.CancellationToken));
+        await Assert.ThrowsAsync<InvalidDataException>(() => PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", NativeRuntimeFixture.ReleaseTag, TestContext.Current.CancellationToken));
         foreach (string file in Directory.GetFiles(fixture.Directory)) File.Delete(file);
     }
 
@@ -65,7 +118,7 @@ public sealed class PostInstallRuntimeSourceTests
     {
         using var fixture = new Fixture();
         File.Delete(Path.Combine(fixture.Directory, name));
-        await Assert.ThrowsAnyAsync<IOException>(() => PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", TestContext.Current.CancellationToken));
+        await Assert.ThrowsAnyAsync<IOException>(() => PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", NativeRuntimeFixture.ReleaseTag, TestContext.Current.CancellationToken));
     }
 
     [Theory]
@@ -75,7 +128,7 @@ public sealed class PostInstallRuntimeSourceTests
     {
         using var fixture = new Fixture();
         fixture.Write(fixture.Manifest with { Files = fixture.Manifest.Files.Where(file => file.RelativePath != name).ToArray() });
-        await Assert.ThrowsAsync<InvalidDataException>(() => PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", TestContext.Current.CancellationToken));
+        await Assert.ThrowsAsync<InvalidDataException>(() => PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", NativeRuntimeFixture.ReleaseTag, TestContext.Current.CancellationToken));
     }
 
     [Theory]
@@ -86,7 +139,7 @@ public sealed class PostInstallRuntimeSourceTests
     {
         using var fixture = new Fixture();
         fixture.Write(fixture.Manifest with { Files = [.. fixture.Manifest.Files, fixture.Manifest.Files[0] with { RelativePath = path }] });
-        await Assert.ThrowsAsync<InvalidDataException>(() => PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", TestContext.Current.CancellationToken));
+        await Assert.ThrowsAsync<InvalidDataException>(() => PostInstallRuntimeSource.AcquireAsync(fixture.Executable, "win-x64", NativeRuntimeFixture.ReleaseTag, TestContext.Current.CancellationToken));
     }
 
     [Theory]
@@ -94,7 +147,7 @@ public sealed class PostInstallRuntimeSourceTests
     [InlineData("")]
     public async Task MissingBootstrapHandoff_IsRejected(string? executable)
     {
-        await Assert.ThrowsAsync<InvalidDataException>(() => PostInstallRuntimeSource.AcquireAsync(executable, "win-x64", TestContext.Current.CancellationToken));
+        await Assert.ThrowsAsync<InvalidDataException>(() => PostInstallRuntimeSource.AcquireAsync(executable, "win-x64", NativeRuntimeFixture.ReleaseTag, TestContext.Current.CancellationToken));
     }
 
     [Theory]

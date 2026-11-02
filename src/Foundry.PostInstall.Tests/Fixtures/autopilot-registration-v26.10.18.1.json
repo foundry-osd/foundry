@@ -1,0 +1,4 @@
+{
+  "scriptPath": "Runtime/AutopilotRegistration/Start-FoundryAutopilotRegistration.ps1",
+  "configPath": "Runtime/AutopilotRegistration/config.json"
+}

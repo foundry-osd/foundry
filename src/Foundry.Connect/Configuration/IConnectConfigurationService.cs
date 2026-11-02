@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Runtime;
 
 namespace Foundry.Connect.Configuration;
 
@@ -28,6 +29,12 @@ public interface IConnectConfigurationService
 
     /// <summary>Gets why rebuilding this boot media is recommended.</summary>
     BootMediaUpdateReason BootMediaUpdateReason { get; }
+
+    /// <summary>
+    /// Gets the comparison with the latest published release to run after startup, or <see langword="null"/> when it
+    /// cannot change <see cref="BootMediaUpdateReason"/>.
+    /// </summary>
+    BootMediaLatestReleaseCheck? LatestReleaseCheck { get; }
 
     /// <summary>
     /// Loads configuration from command-line, environment, or WinPE media locations.

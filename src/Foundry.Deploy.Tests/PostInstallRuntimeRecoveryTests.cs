@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text.Json;
+using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.Download;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -109,8 +110,7 @@ public sealed class PostInstallRuntimeRecoveryTests
     public async Task DebugMedia_DoesNotFetchAnUnrelatedPublishedRuntime()
     {
         using var fixture = new Fixture();
-        Directory.CreateDirectory(Path.Combine(fixture.WinPeRoot, "Config"));
-        File.WriteAllText(Path.Combine(fixture.WinPeRoot, "Config", "foundry.deploy.provisioning-source.txt"), "debug");
+        fixture.MarkDebugMedia();
         await Assert.ThrowsAsync<PostInstallRuntimeUnavailableException>(() => fixture.RecoverAsync());
         Assert.Empty(fixture.Requests);
     }
@@ -139,27 +139,60 @@ public sealed class PostInstallRuntimeRecoveryTests
     [InlineData("FOUNDRY_POSTINSTALL_RELEASE_TAG")]
     public async Task ExplicitReleaseOverride_IsUsedInsteadOfLatest(string variable)
     {
-        using var fixture = new Fixture();
+        using var fixture = new Fixture { ArchiveReleaseTag = "v26.9.14.1" };
         fixture.EnvironmentValues[variable] = "v26.9.14.1";
         using var prepared = await fixture.RecoverAsync();
         Assert.EndsWith("/tags/v26.9.14.1", fixture.Requests[0]);
+        Assert.Equal("v26.9.14.1", fixture.Recovery.ResolveExpectedReleaseTag());
     }
 
     [Fact]
-    public async Task DeployReleaseTag_KeepsPostInstallOverrideOrder()
+    public async Task ReleaseOverrides_KeepPostInstallOrder()
     {
         using var fixture = new Fixture();
         fixture.EnvironmentValues["FOUNDRY_RELEASE_TAG"] = "v26.9.1.1";
         fixture.EnvironmentValues["FOUNDRY_DEPLOY_RELEASE_TAG"] = "v26.9.2.1";
         fixture.EnvironmentValues["FOUNDRY_POSTINSTALL_RELEASE_TAG"] = "v26.9.3.1";
+        fixture.ArchiveReleaseTag = "v26.9.3.1";
         using (await fixture.RecoverAsync()) { }
         fixture.EnvironmentValues.Remove("FOUNDRY_POSTINSTALL_RELEASE_TAG");
+        fixture.ArchiveReleaseTag = "v26.9.2.1";
         using (await fixture.RecoverAsync()) { }
         fixture.EnvironmentValues.Remove("FOUNDRY_DEPLOY_RELEASE_TAG");
+        fixture.ArchiveReleaseTag = "v26.9.1.1";
         using (await fixture.RecoverAsync()) { }
 
         Assert.Equal(["/tags/v26.9.3.1", "/tags/v26.9.2.1", "/tags/v26.9.1.1"],
             fixture.Requests.Where(request => request.Contains("api.github.com", StringComparison.Ordinal)).Select(request => request[request.LastIndexOf("/tags/", StringComparison.Ordinal)..]));
+    }
+
+    [Theory]
+    [InlineData("v26.9.1.1")]
+    [InlineData(null)]
+    public async Task RecoveredRuntimeFromAnotherRelease_IsUnavailable(string? releaseTag)
+    {
+        using var fixture = new Fixture { ArchiveReleaseTag = releaseTag };
+        var exception = await Assert.ThrowsAsync<PostInstallRuntimeUnavailableException>(() => fixture.RecoverAsync());
+        Assert.True(PostInstallRuntimeSource.IsReleaseMismatch(exception.InnerException!));
+        Assert.False(File.Exists(fixture.CacheArchive));
+    }
+
+    [Fact]
+    public async Task UnpublishedDeploy_RecoversLatestReleaseWithoutReleaseCheck()
+    {
+        using var fixture = new Fixture("win-x64", FoundryReleaseTag.UnpublishedVersion) { ArchiveReleaseTag = null };
+        using var prepared = await fixture.RecoverAsync();
+        Assert.Equal("https://api.github.com/repos/foundry-osd/foundry/releases/latest", fixture.Requests[0]);
+        Assert.Null(fixture.Recovery.ResolveExpectedReleaseTag());
+    }
+
+    [Fact]
+    public void DebugMedia_SkipsTheReleaseCheck()
+    {
+        using var fixture = new Fixture();
+        Assert.Equal(NativeRuntimeFixture.ReleaseTag, fixture.Recovery.ResolveExpectedReleaseTag());
+        fixture.MarkDebugMedia();
+        Assert.Null(fixture.Recovery.ResolveExpectedReleaseTag());
     }
 
     internal sealed class Fixture : IDisposable
@@ -169,7 +202,10 @@ public sealed class PostInstallRuntimeRecoveryTests
         public string CacheRoot => Path.Combine(Root, "USB", "Runtime");
         public string CacheArchive => Path.Combine(CacheRoot, "Foundry.PostInstall", runtimeIdentifier, "current.zip");
         public string OriginalArchive => Path.Combine(Path.GetDirectoryName(CacheArchive)!, "original.zip");
-        public byte[] Archive { get; }
+
+        /// <summary>Gets or sets the release tag declared by the runtime the fake release publishes.</summary>
+        public string? ArchiveReleaseTag { get; set; } = NativeRuntimeFixture.ReleaseTag;
+        public byte[] Archive => ArchiveFor(ArchiveReleaseTag);
         public List<string> Requests { get; } = [];
         public Dictionary<string, string> EnvironmentValues { get; } = [];
         public bool CorruptDownload { get; init; }
@@ -178,22 +214,15 @@ public sealed class PostInstallRuntimeRecoveryTests
         public PostInstallRuntimeRecovery Recovery { get; }
         private readonly HttpClient client;
         private readonly string runtimeIdentifier;
+        private readonly string runtimeDirectory;
+        private readonly Dictionary<string, byte[]> archives = [];
 
-        public Fixture(string rid = "win-x64")
+        public Fixture(string rid = "win-x64", string? deployVersion = null)
         {
             runtimeIdentifier = rid;
             Directory.CreateDirectory(WinPeRoot);
-            string executable = NativeRuntimeFixture.CreateFiles(Root);
-            if (rid != "win-x64")
-            {
-                string directory = Path.GetDirectoryName(executable)!;
-                var manifest = JsonSerializer.Deserialize<Foundry.Core.Models.PreOobe.PostInstallRuntimeManifest>(
-                    File.ReadAllText(Path.Combine(directory, "foundry.postinstall.json")), Services.Configuration.ConfigurationJsonDefaults.SerializerOptions)!;
-                NativeRuntimeFixture.WriteManifest(directory, manifest with { RuntimeIdentifier = rid });
-            }
-            string archive = Path.Combine(Root, "runtime.zip");
-            ZipFile.CreateFromDirectory(Path.GetDirectoryName(executable)!, archive);
-            Archive = File.ReadAllBytes(archive);
+            runtimeDirectory = Path.GetDirectoryName(NativeRuntimeFixture.CreateFiles(Root))!;
+            File.WriteAllBytes(Path.Combine(Root, "runtime.zip"), Archive);
             Directory.CreateDirectory(Path.GetDirectoryName(CacheArchive)!);
             File.WriteAllText(OriginalArchive, "original");
             client = new HttpClient(new Handler(request =>
@@ -217,8 +246,28 @@ public sealed class PostInstallRuntimeRecoveryTests
                 if (DownloadTimeout) throw new TimeoutException("The payload transfer timed out.");
                 return new(HttpStatusCode.OK) { Content = new ByteArrayContent(CorruptDownload ? [9] : Archive) };
             }));
-            Recovery = new PostInstallRuntimeRecovery(WinPeRoot, "26.9.29.1", client,
+            Recovery = new PostInstallRuntimeRecovery(WinPeRoot, deployVersion ?? NativeRuntimeFixture.ReleaseTag[1..], client,
                 new ArtifactDownloadService(NullLogger<ArtifactDownloadService>.Instance, client), name => EnvironmentValues.GetValueOrDefault(name));
+        }
+
+        /// <summary>Returns the archive of the fixture runtime declaring <paramref name="releaseTag"/>, built once per tag.</summary>
+        private byte[] ArchiveFor(string? releaseTag)
+        {
+            string key = releaseTag ?? string.Empty;
+            if (archives.TryGetValue(key, out byte[]? bytes)) return bytes;
+            var manifest = JsonSerializer.Deserialize<Foundry.Core.Models.PreOobe.PostInstallRuntimeManifest>(
+                File.ReadAllText(Path.Combine(runtimeDirectory, "foundry.postinstall.json")), Services.Configuration.ConfigurationJsonDefaults.SerializerOptions)!;
+            NativeRuntimeFixture.WriteManifest(runtimeDirectory, manifest with { RuntimeIdentifier = runtimeIdentifier, ReleaseTag = releaseTag });
+            string archive = Path.Combine(Root, "archives", Guid.NewGuid().ToString("N") + ".zip");
+            Directory.CreateDirectory(Path.GetDirectoryName(archive)!);
+            ZipFile.CreateFromDirectory(runtimeDirectory, archive);
+            return archives[key] = File.ReadAllBytes(archive);
+        }
+
+        public void MarkDebugMedia()
+        {
+            Directory.CreateDirectory(Path.Combine(WinPeRoot, "Config"));
+            File.WriteAllText(Path.Combine(WinPeRoot, "Config", "foundry.deploy.provisioning-source.txt"), "debug");
         }
 
         public Task<PreOobePreparedContent> RecoverAsync(string rid = "win-x64") =>

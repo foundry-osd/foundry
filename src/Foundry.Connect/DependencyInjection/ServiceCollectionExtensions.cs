@@ -20,6 +20,7 @@ using Foundry.Connect.Services.Runtime;
 using Foundry.Wpf.Theme;
 using Foundry.Connect.ViewModels;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Runtime;
 using Foundry.Telemetry;
 using Foundry.Utilities.Globalization;
 using Foundry.Utilities.Networking;
@@ -50,6 +51,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<App>();
         services.AddSingleton<MainWindow>();
         services.AddSingleton<MainWindowViewModel>();
+        services.AddSingleton(CreateLatestReleaseVersionReader);
         AddPageViewModels(services);
         services.AddSingleton(args ?? Array.Empty<string>());
 
@@ -166,6 +168,14 @@ public static class ServiceCollectionExtensions
     /// stalled send cannot linger. The exit path stops waiting after its own, shorter budget.
     /// </summary>
     internal static HttpClient CreateTelemetryHttpClient() => new() { Timeout = TelemetryHttpTimeout };
+
+    /// <summary>Reads the latest published Foundry release with a client bounded by the reader timeout.</summary>
+    private static LatestReleaseVersionReader CreateLatestReleaseVersionReader(IServiceProvider serviceProvider)
+    {
+        var client = new HttpClient { Timeout = LatestFoundryRelease.RequestTimeout };
+        ILogger logger = serviceProvider.GetRequiredService<ILoggerFactory>().CreateLogger(typeof(LatestFoundryRelease));
+        return cancellationToken => LatestFoundryRelease.ReadVersionAsync(client, logger, cancellationToken);
+    }
 
     /// <summary>Shuts the WPF application down on its UI thread; exit requests may come from background work.</summary>
     private static void ShutdownApplication(int exitCode)
