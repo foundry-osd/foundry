@@ -4000,6 +4000,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Otro equipo publica en esta carpeta. Al tomar el control, su publicación continúa con la clave de este equipo; los equipos que la siguen deben aceptar una vez este equipo como nueva referencia.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Los medios de arranque creados antes de la toma de control siguen implementando el contenido ya publicado hasta que los vuelva a crear.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>No se pudieron leer las claves de publicación de este equipo. Al tomar el control con la contraseña de publicación actual, la publicación continúa con claves nuevas; los equipos que la siguen deben aceptar una vez este equipo como nueva referencia.</value>
   </data>

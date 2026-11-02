@@ -4000,6 +4000,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Drugi računar objavljuje u ovu fasciklu. Preuzimanje nastavlja njegovu objavu sa ključem ovog računara; računari koji prate fasciklu moraju jednom da prihvate ovaj računar kao novu referencu.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Mediji za pokretanje kreirani pre preuzimanja nastavljaju da primenjuju već objavljeni sadržaj dok ih ponovo ne kreirate.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Ključeve objave ovog računara nije bilo moguće pročitati. Preuzimanje sa trenutnom lozinkom objave nastavlja objavu sa novim ključevima; računari koji prate fasciklu moraju jednom da prihvate ovaj računar kao novu referencu.</value>
   </data>

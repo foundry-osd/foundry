@@ -4000,6 +4000,9 @@ Licensed under the MIT License.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Another PC publishes to this folder. Taking over continues its publication with the key of this PC; followers must accept this PC as the new reference once.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Boot media created before the takeover keep deploying the content already published until you recreate them.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>The publication keys of this PC could not be read. Taking over with the current publication password continues the publication with new keys; followers must accept this PC as the new reference once.</value>
   </data>

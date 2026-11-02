@@ -19,6 +19,10 @@
         <TextBlock
             Text="{x:Bind ViewModel.DescriptionText, Mode=OneWay}"
             TextWrapping="WrapWholeWords" />
+        <TextBlock
+            Text="{x:Bind ViewModel.MediaNoticeText, Mode=OneWay}"
+            TextWrapping="WrapWholeWords"
+            Visibility="{x:Bind ViewModel.HasMediaNotice}" />
         <Grid
             ColumnSpacing="{ThemeResource FoundryInlineControlSpacing}"
             RowSpacing="{ThemeResource FoundryTextGroupSpacing}">

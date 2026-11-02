@@ -4000,6 +4000,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>別の PC がこのフォルダーに発行しています。引き継ぐと、この PC のキーで発行が継続されます。フォルダーをフォローしている PC は、この PC を新しい参照 PC として 1 回承認する必要があります。</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>引き継ぎの前に作成したブート メディアは、再作成するまで、既に発行されたコンテンツを展開し続けます。</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>この PC の発行キーを読み取れませんでした。現在の発行パスワードで引き継ぐと、新しいキーで発行が継続されます。フォルダーをフォローしている PC は、この PC を新しい参照 PC として 1 回承認する必要があります。</value>
   </data>

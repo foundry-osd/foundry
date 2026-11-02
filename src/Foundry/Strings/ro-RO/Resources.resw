@@ -4000,6 +4000,9 @@ Licențiat sub licența MIT.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Un alt PC publică în acest folder. Preluarea continuă publicarea sa cu cheia acestui PC; PC-urile care urmăresc folderul trebuie să accepte o singură dată acest PC ca nouă referință.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Mediile de pornire create înainte de preluare continuă să implementeze conținutul deja publicat până când le creați din nou.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Cheile de publicare ale acestui PC nu au putut fi citite. Preluarea cu parola de publicare curentă continuă publicarea cu chei noi; PC-urile care urmăresc folderul trebuie să accepte o singură dată acest PC ca nouă referință.</value>
   </data>

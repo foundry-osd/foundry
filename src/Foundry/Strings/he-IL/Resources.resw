@@ -4000,6 +4000,9 @@
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>מחשב אחר מפרסם לתיקייה זו. ההשתלטות ממשיכה את הפרסום שלו עם המפתח של מחשב זה; המחשבים העוקבים אחר התיקייה חייבים לקבל פעם אחת את מחשב זה כמחשב ההפניה החדש.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>מדיית אתחול שנוצרה לפני ההשתלטות ממשיכה לפרוס את התוכן שכבר פורסם, עד שתיצור אותה מחדש.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>לא ניתן היה לקרוא את מפתחות הפרסום של מחשב זה. השתלטות עם סיסמת הפרסום הנוכחית ממשיכה את הפרסום עם מפתחות חדשים; המחשבים העוקבים אחר התיקייה חייבים לקבל פעם אחת את מחשב זה כמחשב ההפניה החדש.</value>
   </data>

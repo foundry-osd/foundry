@@ -4000,6 +4000,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Egy másik számítógép tesz közzé ebbe a mappába. Az átvétel ennek a számítógépnek a kulcsával folytatja a közzétételt; a mappát követő számítógépeknek egyszer el kell fogadniuk ezt a számítógépet új referenciaként.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Az átvétel előtt létrehozott rendszerindító adathordozók továbbra is a már közzétett tartalmat helyezik üzembe, amíg újra létre nem hozza őket.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>A számítógép közzétételi kulcsait nem sikerült beolvasni. Az aktuális közzétételi jelszóval végzett átvétel új kulcsokkal folytatja a közzétételt; a mappát követő számítógépeknek egyszer el kell fogadniuk ezt a számítógépet új referenciaként.</value>
   </data>

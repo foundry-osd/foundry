@@ -4000,6 +4000,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Toinen tietokone julkaisee tähän kansioon. Haltuunotto jatkaa sen julkaisua tämän tietokoneen avaimella. Kansiota seuraavien tietokoneiden on hyväksyttävä tämä tietokone kerran uudeksi viitteeksi.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Ennen haltuunottoa luodut käynnistysmediat ottavat edelleen käyttöön jo julkaistun sisällön, kunnes luot ne uudelleen.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Tämän tietokoneen julkaisuavaimia ei voitu lukea. Haltuunotto julkaisun nykyisellä salasanalla jatkaa julkaisua uusilla avaimilla. Kansiota seuraavien tietokoneiden on hyväksyttävä tämä tietokone kerran uudeksi viitteeksi.</value>
   </data>

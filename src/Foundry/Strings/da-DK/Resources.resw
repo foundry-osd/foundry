@@ -4000,6 +4000,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>En anden pc publicerer til denne mappe. En overtagelse fortsætter dens publicering med denne pc's nøgle. Pc'er, der følger mappen, skal godkende denne pc som ny reference én gang.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Bootmedier, der er oprettet før overtagelsen, bliver ved med at installere det allerede publicerede indhold, indtil du opretter dem igen.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Publiceringsnøglerne på denne pc kunne ikke læses. En overtagelse med den aktuelle publiceringsadgangskode fortsætter publiceringen med nye nøgler. Pc'er, der følger mappen, skal godkende denne pc som ny reference én gang.</value>
   </data>

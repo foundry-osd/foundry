@@ -4000,6 +4000,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Sellesse kausta avaldab teine arvuti. Ülevõtmine jätkab selle avaldamist selle arvuti võtmega; kausta jälgivad arvutid peavad selle arvutiga ühe korra uue võrdlusarvutina nõustuma.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Enne ülevõtmist loodud alglaadimismeediumid juurutavad jätkuvalt juba avaldatud sisu, kuni te need uuesti loote.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Selle arvuti avaldamisvõtmeid ei saanud lugeda. Ülevõtmine avaldise praeguse parooliga jätkab avaldamist uute võtmetega; kausta jälgivad arvutid peavad selle arvutiga ühe korra uue võrdlusarvutina nõustuma.</value>
   </data>

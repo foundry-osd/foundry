@@ -4000,6 +4000,9 @@ Licenciran prema MIT licenci.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Drugo računalo objavljuje u ovu mapu. Preuzimanje nastavlja njegovu objavu s ključem ovog računala; računala koja prate mapu moraju jednom prihvatiti ovo računalo kao novu referencu.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Mediji za pokretanje stvoreni prije preuzimanja i dalje implementiraju već objavljeni sadržaj dok ih ponovno ne stvorite.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Ključeve objave ovog računala nije bilo moguće pročitati. Preuzimanje s trenutačnom lozinkom objave nastavlja objavu s novim ključevima; računala koja prate mapu moraju jednom prihvatiti ovo računalo kao novu referencu.</value>
   </data>

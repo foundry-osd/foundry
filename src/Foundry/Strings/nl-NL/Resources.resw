@@ -4000,6 +4000,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Een andere pc publiceert in deze map. Bij overnemen wordt de publicatie voortgezet met de sleutel van deze pc; pc's die de map volgen moeten deze pc eenmaal als nieuwe referentie accepteren.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Bootmedia die vóór de overname zijn gemaakt, blijven de al gepubliceerde inhoud implementeren totdat u ze opnieuw maakt.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>De publicatiesleutels van deze pc konden niet worden gelezen. Overnemen met het huidige publicatiewachtwoord zet de publicatie voort met nieuwe sleutels; pc's die de map volgen moeten deze pc eenmaal als nieuwe referentie accepteren.</value>
   </data>

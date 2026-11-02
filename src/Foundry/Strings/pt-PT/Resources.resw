@@ -4000,6 +4000,9 @@ Licenciado sob a licença MIT.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Outro PC publica nesta pasta. Ao assumir, a sua publicação continua com a chave deste PC; os PCs que seguem a pasta precisam de aceitar este PC uma vez como a nova referência.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Os suportes de arranque criados antes da assunção continuam a implementar o conteúdo já publicado até que os crie novamente.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Não foi possível ler as chaves de publicação deste PC. Ao assumir com a palavra-passe de publicação atual, a publicação continua com novas chaves; os PCs que seguem a pasta precisam de aceitar este PC uma vez como a nova referência.</value>
   </data>

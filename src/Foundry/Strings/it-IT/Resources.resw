@@ -4000,6 +4000,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Un altro PC pubblica in questa cartella. L'acquisizione prosegue la sua pubblicazione con la chiave di questo PC; i PC che seguono la cartella devono accettare una volta questo PC come nuovo riferimento.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>I supporti di avvio creati prima dell'acquisizione continuano a distribuire il contenuto già pubblicato finché non li ricrei.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Non è stato possibile leggere le chiavi di pubblicazione di questo PC. L'acquisizione con la password di pubblicazione corrente prosegue la pubblicazione con nuove chiavi; i PC che seguono la cartella devono accettare una volta questo PC come nuovo riferimento.</value>
   </data>
