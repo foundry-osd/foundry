@@ -29,6 +29,32 @@ public sealed class ContentPackagePathPolicyTests
     }
 
     [Fact]
+    public void ReparsePointCheckSkipsMissingFoldersWithoutRaisingExceptions()
+    {
+        string root = Path.Combine(Path.GetTempPath(), "foundry-cppp-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(root);
+        int raised = 0;
+        void Count(object? sender, System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs args)
+        {
+            if (args.Exception is IOException && args.Exception.Message.Contains(root, StringComparison.OrdinalIgnoreCase))
+                Interlocked.Increment(ref raised);
+        }
+
+        AppDomain.CurrentDomain.FirstChanceException += Count;
+        try
+        {
+            ContentPackagePathPolicy.ValidateNoReparsePoints(Path.Combine(root, "not", "created", "yet", "file.inf"));
+        }
+        finally
+        {
+            AppDomain.CurrentDomain.FirstChanceException -= Count;
+            Directory.Delete(root, recursive: true);
+        }
+
+        Assert.Equal(0, raised);
+    }
+
+    [Fact]
     public void ResolveLexically_NormalizesFutureRoot()
     {
         string resolved = ContentPackagePathPolicy.PostInstallation.ResolveLexically(@"C:\Future\unused\..\Payloads\", "package/script.ps1");
