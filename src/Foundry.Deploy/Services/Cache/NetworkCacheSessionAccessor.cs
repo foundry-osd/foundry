@@ -4,10 +4,15 @@
 
 namespace Foundry.Deploy.Services.Cache;
 
-/// <summary>Shares the session resolved by the cache strategy step with the download and content services.</summary>
+/// <summary>
+/// Shares the session that the startup coordinator selects before the wizard opens with the download and content services.
+/// </summary>
 public interface INetworkCacheSessionAccessor
 {
-    /// <summary>Gets or sets the session of the running deployment; <see langword="null"/> before the cache strategy step.</summary>
+    /// <summary>
+    /// Gets or sets the session of the running deployment; only the startup coordinator sets it. <see langword="null"/> before
+    /// startup resolves the network cache, while a Retry resolves it again, and in debug-safe mode.
+    /// </summary>
     NetworkCacheSession? Current { get; set; }
 }
 
