@@ -73,7 +73,7 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     {
         byte[] original = RemoveOriginal(SeedOriginal(application));
         // Another application's override must not select the release of this one.
-        environment[(prefix == "FOUNDRY_DEPLOY" ? "FOUNDRY_POSTINSTALL" : "FOUNDRY_DEPLOY") + "_RELEASE_TAG"] = "v-other";
+        environment[(prefix == "FOUNDRY_CONNECT" ? "FOUNDRY_DEPLOY" : "FOUNDRY_CONNECT") + "_RELEASE_TAG"] = "v-other";
         using var client = Client(Release(Hash(original), application: application), Payload(original));
         using var logger = new LoggerConfiguration().CreateLogger();
         var warnings = new List<string>();
@@ -84,6 +84,19 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         Assert.EndsWith("/releases/tags/v26.11.2.1", requests[0].AbsoluteUri, StringComparison.Ordinal);
         Assert.Equal("example.test", requests[1].Host);
         Assert.Equal([$"{application} was repaired from release v26.11.2.1."], warnings);
+    }
+
+    [Fact]
+    public async Task Resolve_PostInstall_FollowsTheDeployReleaseOverride()
+    {
+        byte[] original = RemoveOriginal(SeedOriginal("Foundry.PostInstall"));
+        environment["FOUNDRY_DEPLOY_RELEASE_TAG"] = "v26.9.14.1";
+        using var client = Client(Release(Hash(original), application: "Foundry.PostInstall"), Payload(original));
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        await Resolver(client, logger).ResolveAsync("Foundry.PostInstall", false, TestContext.Current.CancellationToken);
+
+        Assert.EndsWith("/releases/tags/v26.9.14.1", requests[0].AbsoluteUri, StringComparison.Ordinal);
     }
 
     [Fact]

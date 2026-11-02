@@ -27,6 +27,7 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
     Action<string>? activity = null, string? releaseVersion = null) : IRuntimeResolver
 {
     private const string ConnectApplication = "Foundry.Connect";
+    private const string PostInstallApplication = "Foundry.PostInstall";
     private static readonly TimeSpan ConnectLookupDeadline = TimeSpan.FromSeconds(5);
 
     private readonly RuntimeTransfer transfer = new(httpClient, progress);
@@ -46,7 +47,7 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
         {
             ConnectApplication => "FOUNDRY_CONNECT",
             "Foundry.Deploy" => "FOUNDRY_DEPLOY",
-            "Foundry.PostInstall" => "FOUNDRY_POSTINSTALL",
+            PostInstallApplication => "FOUNDRY_POSTINSTALL",
             _ => throw new ArgumentOutOfRangeException(nameof(applicationName))
         };
         string archiveOverride = ReadEnvironment(prefix + "_ARCHIVE");
@@ -183,8 +184,11 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
     private async Task<(RuntimeReleaseAsset Asset, string Tag)> ReadReleaseAssetAsync(string applicationName, string prefix,
         CancellationToken cancellationToken)
     {
-        FoundryReleaseSelection release = FoundryReleaseTag.Resolve(mediaReleaseVersion, environment,
-            prefix + "_RELEASE_TAG", FoundryReleaseTag.ReleaseTagVariable);
+        // PostInstall follows Deploy's override order, so Deploy accepts the runtime Bootstrap prepared for it.
+        string[] overrides = applicationName == PostInstallApplication
+            ? [prefix + "_RELEASE_TAG", "FOUNDRY_DEPLOY_RELEASE_TAG", FoundryReleaseTag.ReleaseTagVariable]
+            : [prefix + "_RELEASE_TAG", FoundryReleaseTag.ReleaseTagVariable];
+        FoundryReleaseSelection release = FoundryReleaseTag.Resolve(mediaReleaseVersion, environment, overrides);
         if (release.IsLatest)
             logger.Warning("Unpublished Bootstrap build uses the latest release for {PayloadApplication}", applicationName);
 
