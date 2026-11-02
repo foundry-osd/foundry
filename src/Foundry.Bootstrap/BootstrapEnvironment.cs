@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Runtime.InteropServices;
+using Foundry.Core.Services.Media;
 using Foundry.Utilities.Diagnostics;
 
 namespace Foundry.Bootstrap;
@@ -46,7 +47,7 @@ internal static class BootstrapEnvironment
     internal static BootstrapVolume? ResolveCacheVolume(IEnumerable<BootstrapVolume> volumes)
     {
         BootstrapVolume[] candidates = volumes.Where(volume => volume.IsReady &&
-            string.Equals(volume.Label, "Foundry Cache", StringComparison.OrdinalIgnoreCase)).Take(2).ToArray();
+            string.Equals(volume.Label, FoundryMediaVolumeLabels.Cache, StringComparison.OrdinalIgnoreCase)).Take(2).ToArray();
         if (candidates.Length > 1)
             throw new InvalidDataException("Multiple Foundry Cache volumes are connected. Disconnect the other deployment media and restart.");
         return candidates.SingleOrDefault();

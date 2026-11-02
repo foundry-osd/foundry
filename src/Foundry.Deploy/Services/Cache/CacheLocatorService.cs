@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
+using Foundry.Core.Services.Media;
 using Foundry.Deploy.Models;
 using Foundry.Utilities.Storage;
 using Microsoft.Extensions.Logging;
@@ -13,7 +14,7 @@ public sealed class CacheLocatorService : ICacheLocatorService
 {
     private const string WinPeTransientRoot = @"X:\Foundry";
     private const string WinPeTransientRuntimeRoot = @"X:\Foundry\Runtime";
-    private const string CacheVolumeLabel = "Foundry Cache";
+    private const string CacheVolumeLabel = FoundryMediaVolumeLabels.Cache;
     private const string RuntimeFolderName = "Runtime";
     private readonly ILogger<CacheLocatorService> _logger;
     private readonly IVolumeDiscovery _volumeDiscovery;

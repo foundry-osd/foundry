@@ -94,7 +94,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         // The storage CIM classes are queried directly instead of through Get-Disk, Get-Partition and Get-Volume:
         // those cmdlets wrap the same classes but importing the Storage module costs about a second in every new
         // PowerShell process, and this query runs right before the erase confirmation is shown.
-        const string script = """
+        const string script = $$"""
                               $foundryStorageNamespace = 'root/Microsoft/Windows/Storage'
                               # MSFT_Disk reports BusType as a number; 7 is USB.
                               $foundryUsbBusType = 7
@@ -183,7 +183,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                                   $hasBootVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq 'BOOT' -and $_.FileSystem -eq 'FAT32' }).Count -gt 0
                                   $hasGptBootPartition = @($partitions | Where-Object { [string]$_.GptType -eq $foundryGptBootPartitionType }).Count -gt 0
                                   $hasMbrBootPartition = @($partitions | Where-Object { $_.MbrType -in $foundryMbrBootPartitionTypes -and [bool]$_.IsActive }).Count -gt 0
-                                  $hasCacheVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq 'Foundry Cache' -and $_.FileSystem -eq 'NTFS' }).Count -gt 0
+                                  $hasCacheVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq '{{FoundryMediaVolumeLabels.Cache}}' -and $_.FileSystem -eq 'NTFS' }).Count -gt 0
                                   $isFoundryMedia = ($hasBootVolume -or $hasGptBootPartition -or $hasMbrBootPartition) -and $hasCacheVolume
                                   # The BOOT partition of Foundry media is an EFI system partition that exposes no volume; it only holds
                                   # Foundry boot files, so it is not reported as a partition that may hold data.
@@ -660,6 +660,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
             .Replace("{{MEDIA_SIZE_BYTES}}", mediaSizeBytes.ToString(System.Globalization.CultureInfo.InvariantCulture))
             .Replace("{{MEDIA_ALLOCATION_BYTES}}", WinPeUsbSingleVolumePolicy.GetAllocationUnitSizeBytes(mediaSizeBytes).ToString(System.Globalization.CultureInfo.InvariantCulture))
             .Replace("{{MEDIA_LABEL}}", FoundryMediaVolumeLabels.SingleVolume)
+            .Replace("{{CACHE_LABEL}}", FoundryMediaVolumeLabels.Cache)
             .Replace("{{BOOT_SIZE_BYTES}}", WinPeUsbCapacityPolicy.NewBootPartitionSizeBytes.ToString(System.Globalization.CultureInfo.InvariantCulture))
             .Replace("{{BOOT_ALLOCATION_BYTES}}", WinPeUsbCapacityPolicy.NewBootAllocationUnitSizeBytes.ToString(System.Globalization.CultureInfo.InvariantCulture))
             .ReplaceLineEndings(Environment.NewLine);
@@ -981,9 +982,9 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                           $volumes = @($partitions | ForEach-Object { Get-FoundryUsbPartitionVolume $_ })
 
                           $bootVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq 'BOOT' -and $_.FileSystem -eq 'FAT32' } | Select-Object -First 1)
-                          $cacheVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq 'Foundry Cache' -and $_.FileSystem -eq 'NTFS' } | Select-Object -First 1)
+                          $cacheVolume = @($volumes | Where-Object { $_.FileSystemLabel -eq '{{FoundryMediaVolumeLabels.Cache}}' -and $_.FileSystem -eq 'NTFS' } | Select-Object -First 1)
                           if ($cacheVolume.Count -eq 0) {
-                              throw "Disk $diskNumber is not a Foundry USB media. Expected Foundry Cache NTFS volume."
+                              throw "Disk $diskNumber is not a Foundry USB media. Expected {{FoundryMediaVolumeLabels.Cache}} NTFS volume."
                           }
 
                           if ($bootVolume.Count -gt 0) {
