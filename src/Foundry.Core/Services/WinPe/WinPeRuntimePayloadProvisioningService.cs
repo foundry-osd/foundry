@@ -11,15 +11,15 @@ using Foundry.Core.Services.Runtime;
 using Foundry.Utilities.IO;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Progress;
+using Serilog;
 
 namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloadProvisioningService
 {
-    private const string ReleaseApiUrl = "https://api.github.com/repos/foundry-osd/foundry/releases/latest";
-
     private readonly IWinPeProcessRunner _processRunner;
     private readonly HttpClient _httpClient;
+    private readonly Func<string, string?> _environment;
 
     public WinPeRuntimePayloadProvisioningService()
         : this(new WinPeProcessRunner(), CreateHttpClient())
@@ -31,10 +31,18 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
     {
     }
 
-    internal WinPeRuntimePayloadProvisioningService(IWinPeProcessRunner processRunner, HttpClient httpClient)
+    /// <summary>Creates the service with injected dependencies.</summary>
+    /// <param name="processRunner">Runs local debug publishes.</param>
+    /// <param name="httpClient">Reads release metadata and downloads release archives.</param>
+    /// <param name="environment">Reads the release override variables; the process environment when omitted.</param>
+    internal WinPeRuntimePayloadProvisioningService(
+        IWinPeProcessRunner processRunner,
+        HttpClient httpClient,
+        Func<string, string?>? environment = null)
     {
         _processRunner = processRunner;
         _httpClient = httpClient;
+        _environment = environment ?? Environment.GetEnvironmentVariable;
     }
 
     /// <inheritdoc />
@@ -81,7 +89,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             if (releaseApplications.Length > 0)
             {
                 WinPeRuntimeReleaseSnapshot snapshot = options.ReleaseSnapshot ??
-                    await GetReleaseSnapshotAsync(cancellationToken).ConfigureAwait(false);
+                    await GetReleaseSnapshotAsync(options.ReleaseVersion, cancellationToken).ConfigureAwait(false);
                 foreach (var application in releaseApplications)
                 {
                     WinPeRuntimeReleaseAsset asset = snapshot.GetAsset(ResolveReleaseAssetName(application.Name, runtimeIdentifier));
@@ -552,9 +560,21 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         return archivePath;
     }
 
-    private async Task<WinPeRuntimeReleaseSnapshot> GetReleaseSnapshotAsync(CancellationToken cancellationToken)
+    /// <summary>
+    /// Reads the release of the Foundry OSD version creating the media, so the media carry the runtimes of that version.
+    /// Only an unpublished local build reads the latest release.
+    /// </summary>
+    private async Task<WinPeRuntimeReleaseSnapshot> GetReleaseSnapshotAsync(string releaseVersion, CancellationToken cancellationToken)
     {
-        using HttpRequestMessage request = CreateGitHubRequest(ReleaseApiUrl);
+        FoundryReleaseSelection release = FoundryReleaseTag.Resolve(releaseVersion, _environment, FoundryReleaseTag.ReleaseTagVariable);
+        if (release.IsLatest)
+        {
+            Log.ForContext<WinPeRuntimePayloadProvisioningService>().Warning(
+                "Unpublished Foundry OSD build; using the latest release for boot media runtimes. ReleaseVersion={ReleaseVersion}",
+                releaseVersion);
+        }
+
+        using HttpRequestMessage request = CreateGitHubRequest(release.ApiUrl);
         using HttpResponseMessage response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
         response.EnsureSuccessStatusCode();
         await using Stream stream = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
@@ -737,6 +757,18 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 WinPeErrorCodes.ValidationFailed,
                 "At least one runtime payload destination is required.",
                 "Set MountedImagePath, UsbCacheRootPath, or both.");
+        }
+
+        // An empty version must not fall back to the latest release: only the unpublished local version selects it.
+        if (options.ReleaseSnapshot is null && string.IsNullOrWhiteSpace(options.ReleaseVersion) &&
+            new[] { options.Bootstrap, options.Connect, options.Deploy, options.PostInstall }.Any(application =>
+                application.IsEnabled && application.ProvisioningSource == WinPeProvisioningSource.Release &&
+                string.IsNullOrWhiteSpace(application.ArchivePath)))
+        {
+            return new WinPeDiagnostic(
+                WinPeErrorCodes.ValidationFailed,
+                "The Foundry OSD release version is required to provision release runtimes.",
+                "Set WinPeRuntimePayloadProvisioningOptions.ReleaseVersion.");
         }
 
         return null;
