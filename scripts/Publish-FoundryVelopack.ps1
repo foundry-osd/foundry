@@ -54,6 +54,92 @@ if (-not ($PackVersion -match '^(?<year>\d{2})\.(?<month>\d{1,2})\.(?<day>\d{1,2
 
 $applicationVersion = '{0}.{1}.{2}.{3}' -f $Matches['year'], $Matches['month'], $Matches['day'], $Matches['build']
 
+function Set-MsiProperty {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$MsiPath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$Name,
+
+        [Parameter(Mandatory = $true)]
+        [string]$Value
+    )
+
+    if (-not ('FoundryMsiDatabase' -as [type])) {
+        Add-Type -TypeDefinition @'
+using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+
+public static class FoundryMsiDatabase
+{
+    private const int MsiDbOpenTransact = 1;
+
+    [DllImport("msi.dll", CharSet = CharSet.Unicode)]
+    private static extern uint MsiOpenDatabase(string databasePath, IntPtr persist, out IntPtr database);
+
+    [DllImport("msi.dll", CharSet = CharSet.Unicode)]
+    private static extern uint MsiDatabaseOpenView(IntPtr database, string query, out IntPtr view);
+
+    [DllImport("msi.dll")]
+    private static extern uint MsiViewExecute(IntPtr view, IntPtr record);
+
+    [DllImport("msi.dll")]
+    private static extern uint MsiViewClose(IntPtr view);
+
+    [DllImport("msi.dll")]
+    private static extern uint MsiDatabaseCommit(IntPtr database);
+
+    [DllImport("msi.dll")]
+    private static extern uint MsiCloseHandle(IntPtr handle);
+
+    public static void Execute(string databasePath, string[] queries)
+    {
+        IntPtr database;
+        Check(MsiOpenDatabase(databasePath, new IntPtr(MsiDbOpenTransact), out database), "MsiOpenDatabase");
+        try
+        {
+            foreach (string query in queries)
+            {
+                IntPtr view;
+                Check(MsiDatabaseOpenView(database, query, out view), "MsiDatabaseOpenView");
+                try
+                {
+                    Check(MsiViewExecute(view, IntPtr.Zero), "MsiViewExecute");
+                    MsiViewClose(view);
+                }
+                finally
+                {
+                    MsiCloseHandle(view);
+                }
+            }
+
+            Check(MsiDatabaseCommit(database), "MsiDatabaseCommit");
+        }
+        finally
+        {
+            MsiCloseHandle(database);
+        }
+    }
+
+    private static void Check(uint result, string operation)
+    {
+        if (result != 0)
+        {
+            throw new Win32Exception((int)result, operation + " failed with error " + result + ".");
+        }
+    }
+}
+'@
+    }
+
+    [FoundryMsiDatabase]::Execute($MsiPath, @(
+            "DELETE FROM ``Property`` WHERE ``Property`` = '$Name'",
+            "INSERT INTO ``Property`` (``Property``, ``Value``) VALUES ('$Name', '$Value')"
+        ))
+}
+
 $installerInputPaths = @(
     $installerWelcomePath,
     $installerLicenseSourcePath,
@@ -211,6 +297,11 @@ $msi = Get-ChildItem -Path $releaseDir -Filter '*.msi' -File | Select-Object -Fi
 if ($null -eq $msi) {
     throw "Velopack did not create an MSI in '$releaseDir'."
 }
+
+# Velopack removes the previous MSI product after file costing, so a major upgrade drops every file whose
+# version goes backwards (for example Microsoft.WinUI.dll in a Windows App SDK update). Forcing all files
+# to be reinstalled keeps them. The MSI must not be signed before this edit.
+Set-MsiProperty -MsiPath $msi.FullName -Name 'REINSTALLMODE' -Value 'amus'
 
 $msiArtifact = Join-Path $releaseAssetsDir "FoundrySetup-$artifactArchitecture.msi"
 Copy-Item -Path $msi.FullName -Destination $msiArtifact -Force
