@@ -16,6 +16,7 @@ using Foundry.Localization;
 using Foundry.Utilities.Globalization;
 using Foundry.Wpf.Localization;
 using Foundry.Wpf.Runtime;
+using Foundry.Wpf.Threading;
 using Foundry.Wpf.ViewModels;
 using Microsoft.Extensions.Logging;
 using ConnectThemeMode = Foundry.Wpf.Theme.ThemeMode;
