@@ -15,8 +15,8 @@ public interface IApplicationShellService
 
     /// <summary>Shuts the WPF application down.</summary>
     /// <remarks>
-    /// The application ends with exit code 0. Foundry.Connect returns a meaningful exit code to Foundry.Bootstrap, so it must
-    /// exit only through its lifetime service (<c>TryExit</c>), never through this method.
+    /// The application ends with exit code 0. An application that reports a meaningful exit code to its parent process must
+    /// exit through its own exit path instead of this method.
     /// </remarks>
     void Shutdown();
 }
