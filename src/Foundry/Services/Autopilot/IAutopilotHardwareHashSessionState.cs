@@ -8,7 +8,8 @@ using Foundry.Core.Services.Autopilot;
 namespace Foundry.Services.Autopilot;
 
 /// <summary>
-/// Stores Autopilot hardware hash state that is valid only for the current app session.
+/// Stores Autopilot hardware hash state kept in memory: the tenant connection and Graph certificate table, valid only for the
+/// current app session, and the boot media PFX password, which the secret vault bridge saves in the local vault.
 /// </summary>
 public interface IAutopilotHardwareHashSessionState
 {
