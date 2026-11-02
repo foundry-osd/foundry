@@ -10,7 +10,7 @@ using Foundry.Utilities.IO;
 namespace Foundry.Core.Services.Media;
 
 /// <summary>
-/// Evaluates whether the current media configuration can produce ISO or USB output.
+/// Evaluates whether the current media configuration can produce ISO media, USB media with or without cache, or PXE boot files.
 /// </summary>
 public static class MediaPreflightService
 {
