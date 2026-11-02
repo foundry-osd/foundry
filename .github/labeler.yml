@@ -31,6 +31,7 @@
       - any-glob-to-any-file:
           - 'src/Foundry.Deploy/**'
           - 'src/Foundry.Deploy.Tests/**'
+          - 'scripts/Publish-FoundryDeploy.ps1'
           - 'src/Foundry.Wpf/**'
           - 'src/Foundry.Wpf.Tests/**'
 
@@ -40,6 +41,7 @@
       - any-glob-to-any-file:
           - 'src/Foundry.Connect/**'
           - 'src/Foundry.Connect.Tests/**'
+          - 'scripts/Publish-FoundryConnect.ps1'
           - 'src/Foundry.Wpf/**'
           - 'src/Foundry.Wpf.Tests/**'
 
@@ -64,6 +66,7 @@
       - any-glob-to-any-file:
           - 'src/Foundry.AutopilotInteractive/**'
           - 'src/Foundry.AutopilotInteractive.Tests/**'
+          - 'scripts/Publish-FoundryAutopilotInteractive.ps1'
           - 'src/Foundry.Wpf/**'
           - 'src/Foundry.Wpf.Tests/**'
 
@@ -87,24 +90,20 @@ tests:
   - changed-files:
       - any-glob-to-any-file:
           - 'src/**/*.Tests/**'
-          - 'src/**/TestInfrastructure/**'
-          - 'src/**/Integration/**'
-          - 'src/**/Unit/**'
 
 # Documentation
 documentation:
   - changed-files:
       - any-glob-to-any-file:
           - '**/*.md'
-          - 'docs/**'
 
 # Dependencies and project metadata
 dependencies:
   - changed-files:
       - any-glob-to-any-file:
           - 'src/Directory.Build.props'
-          - 'src/Directory.Build.targets'
           - 'src/**/*.csproj'
+          - '.config/dotnet-tools.json'
 
 # CI / automation
 ci:
@@ -118,9 +117,8 @@ config:
       - any-glob-to-any-file:
           - '.editorconfig'
           - '.gitignore'
-          - 'src/.editorconfig'
-          - 'src/settings.xamlstyler'
+          - '.gitattributes'
+          - '.xamlstyler'
           - 'src/Foundry.slnx'
           - 'src/Directory.Build.props'
           - 'src/Directory.Solution.props'
-          - '.vscode/**'

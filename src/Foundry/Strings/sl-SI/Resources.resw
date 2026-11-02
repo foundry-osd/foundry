@@ -4000,6 +4000,9 @@ Licencirano pod licenco MIT.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>V to mapo objavlja drug računalnik. Prevzem nadaljuje njegovo objavo s ključem tega računalnika; računalniki, ki spremljajo mapo, morajo ta računalnik enkrat sprejeti kot novo referenco.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Zagonski mediji, ustvarjeni pred prevzemom, še naprej nameščajo že objavljeno vsebino, dokler jih znova ne ustvarite.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Ključev objave tega računalnika ni bilo mogoče prebrati. Prevzem s trenutnim geslom objave nadaljuje objavo z novimi ključi; računalniki, ki spremljajo mapo, morajo ta računalnik enkrat sprejeti kot novo referenco.</value>
   </data>

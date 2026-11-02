@@ -25,6 +25,7 @@ using Foundry.Utilities.Globalization;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Runtime;
 using Foundry.Wpf.Localization;
+using Foundry.Wpf.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 

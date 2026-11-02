@@ -4000,6 +4000,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Šiame aplanke publikuoja kitas kompiuteris. Perėmimas tęsia jo publikavimą su šio kompiuterio raktu; aplanką sekantys kompiuteriai turi vieną kartą priimti šį kompiuterį kaip naują etaloninį.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Prieš perėmimą sukurtos įkrovos laikmenos ir toliau diegia jau publikuotą turinį, kol jų nesukursite iš naujo.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Nepavyko nuskaityti šio kompiuterio publikavimo raktų. Perėmimas naudojant dabartinį publikavimo slaptažodį tęsia publikavimą su naujais raktais; aplanką sekantys kompiuteriai turi vieną kartą priimti šį kompiuterį kaip naują etaloninį.</value>
   </data>

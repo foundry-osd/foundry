@@ -4,6 +4,7 @@
 
 using Azure.Core;
 using Azure.Identity;
+using Foundry.Core.Services.Autopilot;
 
 namespace Foundry.Services.Autopilot;
 
@@ -71,7 +72,7 @@ public sealed class AutopilotHardwareHashGraphSessionService : IAutopilotHardwar
     private static TokenCredential CreateCredential()
     {
         string clientId = Environment.GetEnvironmentVariable(AutopilotGraphAuthenticationDefaults.ClientIdEnvironmentVariableName)?.Trim()
-            ?? AutopilotGraphAuthenticationDefaults.FoundryBootstrapClientId;
+            ?? FoundryGraphPublicClient.ClientId;
         string? tenantId = Environment.GetEnvironmentVariable(AutopilotGraphAuthenticationDefaults.TenantIdEnvironmentVariableName);
 
         return new InteractiveBrowserCredential(new InteractiveBrowserCredentialOptions

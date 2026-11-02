@@ -4000,6 +4000,9 @@ Sous licence MIT.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Un autre PC publie dans ce dossier. La reprise poursuit sa publication avec la clé de ce PC ; les PC qui suivent doivent accepter une fois ce PC comme nouvelle référence.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Les supports de démarrage créés avant la reprise continuent de déployer le contenu déjà publié jusqu'à ce que vous les recréiez.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Les clés de publication de ce PC n'ont pas pu être lues. La reprise avec le mot de passe de publication actuel poursuit la publication avec de nouvelles clés ; les PC qui suivent doivent accepter une fois ce PC comme nouvelle référence.</value>
   </data>

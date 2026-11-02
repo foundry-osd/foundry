@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Services.Files;
+
 namespace Foundry.Core.Services.Packages;
 
 /// <summary>Limits imported and staged paths to ordinary Windows files, using the length limits of one <see cref="ContentPackageKind"/>.</summary>
@@ -80,17 +82,10 @@ public sealed class ContentPackagePathPolicy
         return exception;
     }
 
+    /// <summary>Rejects a path when it or an existing ancestor is a reparse point; missing components are skipped.</summary>
     public static void ValidateNoReparsePoints(string path)
     {
-        for (string? current = Path.GetFullPath(path); current is not null; current = Path.GetDirectoryName(current))
-        {
-            try
-            {
-                if ((File.GetAttributes(current) & FileAttributes.ReparsePoint) != 0)
-                    throw new InvalidDataException("ContentPackage.RedirectedPackagePath");
-            }
-            catch (FileNotFoundException) { }
-            catch (DirectoryNotFoundException) { }
-        }
+        if (RedirectedPathDetector.ContainsReparsePoint(path))
+            throw new InvalidDataException("ContentPackage.RedirectedPackagePath");
     }
 }

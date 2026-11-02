@@ -77,6 +77,35 @@ public sealed class WinPeWorkspaceCleanupRecoveryTests
     }
 
     [Fact]
+    public async Task Recover_WhenAnOperationHiveIsStillLoaded_UnloadsOnlyThatHiveBeforeTheDiscard()
+    {
+        using var temp = new TemporaryDirectory();
+        RetainedOperation operation = CreateRetainedOperation(temp.Path);
+        // Windows lists hive files as NT device paths, without the drive letter.
+        string operationDevicePath = @"\Device\HarddiskVolume9" + operation.Path[(Path.GetPathRoot(operation.Path)!.Length - 1)..];
+        string operationHive = "FoundryWinPeSoftware_" + Guid.NewGuid().ToString("N");
+        string foreignHive = "FoundryWinPeSoftware_" + Guid.NewGuid().ToString("N");
+        WinPeLoadedHive[] hives =
+        [
+            new(foreignHive, @"\Device\HarddiskVolume9\Elsewhere\" + Guid.NewGuid().ToString("N") + @"\mount\Windows\System32\config\SOFTWARE"),
+            new(operationHive, operationDevicePath + @"\WinPe\mount\Windows\System32\config\SOFTWARE")
+        ];
+        var runner = new FakeWinPeProcessRunner();
+        var service = new WinPeWorkspaceCleanupService(() => [Mounted(operation)], runner, getLoadedHives: () => hives);
+
+        await service.RecoverUnresolvedMountCleanupsAsync(temp.Path, DismPath, TestContext.Current.CancellationToken);
+
+        Assert.Collection(
+            runner.Executions,
+            unload =>
+            {
+                Assert.Equal("reg.exe", Path.GetFileName(unload.FileName), ignoreCase: true);
+                Assert.Equal($@"unload HKLM\{operationHive}", unload.Arguments);
+            },
+            discard => Assert.Equal(DismPath, discard.FileName));
+    }
+
+    [Fact]
     public async Task Recover_WhenProgressIsSupplied_ReportsTheDismPercentOfTheDiscardRetry()
     {
         using var temp = new TemporaryDirectory();

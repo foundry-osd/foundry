@@ -4000,6 +4000,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Inny komputer publikuje w tym folderze. Przejęcie kontynuuje jego publikację z kluczem tego komputera; komputery obserwujące folder muszą jeden raz zaakceptować ten komputer jako nowe odniesienie.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Nośniki startowe utworzone przed przejęciem nadal wdrażają już opublikowaną zawartość, dopóki nie utworzysz ich ponownie.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Nie można odczytać kluczy publikacji tego komputera. Przejęcie przy użyciu bieżącego hasła publikacji kontynuuje publikację z nowymi kluczami; komputery obserwujące folder muszą jeden raz zaakceptować ten komputer jako nowe odniesienie.</value>
   </data>

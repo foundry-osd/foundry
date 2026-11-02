@@ -4000,6 +4000,9 @@
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>另一部電腦正在發佈到此資料夾。接管後會使用此電腦的金鑰繼續其發佈；追蹤此資料夾的電腦必須接受一次此電腦作為新的參考電腦。</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>在接管之前建立的啟動媒體會繼續部署已發佈的內容，直到你重新建立它們。</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>無法讀取此電腦的發佈金鑰。使用目前的發佈密碼接管後，會使用新金鑰繼續發佈；追蹤此資料夾的電腦必須接受一次此電腦作為新的參考電腦。</value>
   </data>

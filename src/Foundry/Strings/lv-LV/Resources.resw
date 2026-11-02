@@ -4000,6 +4000,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Šajā mapē publicē cits dators. Pārņemšana turpina tā publikāciju ar šī datora atslēgu; mapei sekojošajiem datoriem vienreiz ir jāpieņem šis dators kā jaunais atsauces dators.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Sāknēšanas multivide, kas izveidota pirms pārņemšanas, turpina izvietot jau publicēto saturu, līdz to izveidosiet no jauna.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Šī datora publikācijas atslēgas nevarēja nolasīt. Pārņemšana ar pašreizējo publikācijas paroli turpina publikāciju ar jaunām atslēgām; mapei sekojošajiem datoriem vienreiz ir jāpieņem šis dators kā jaunais atsauces dators.</value>
   </data>

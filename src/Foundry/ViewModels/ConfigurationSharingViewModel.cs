@@ -4,6 +4,7 @@
 
 using System.Globalization;
 using Foundry.Core.Services.Application;
+using Foundry.Core.Services.NetworkCache;
 using Foundry.Core.Services.Sharing;
 using Foundry.Services.Configuration;
 using Foundry.Services.Localization;
@@ -287,7 +288,8 @@ public sealed partial class ConfigurationSharingViewModel(
 
     private async Task ShowTakeOverAsync(string folder, bool includePasswords, bool isRecovery)
     {
-        using var dialog = new TakeOverDialogViewModel(sharing, localization, folder, includePasswords, Engine?.ForeignPublication, isRecovery);
+        using var dialog = new TakeOverDialogViewModel(sharing, localization, folder, includePasswords, Engine?.ForeignPublication, isRecovery,
+            NetworkCacheContentPublisher.IsActive(configuration.Current.NetworkCache));
         await ShowAsync(dialog);
     }
 

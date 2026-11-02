@@ -243,7 +243,7 @@ public static partial class DeploymentUiTextLocalizer
             "Running OA3Tool..." => LocalizationText.GetString("StepMessage.RunningOa3Tool"),
             "Uploading Autopilot hardware hash..." => LocalizationText.GetString("StepMessage.UploadingAutopilotHardwareHash"),
             "Staging Autopilot registration assistant..." => LocalizationText.GetString("StepMessage.StagingAutopilotRegistrationAssistant"),
-            "Copying interactive registration files..." => LocalizationText.GetString("StepMessage.CopyingInteractiveRegistrationFiles"),
+            "Downloading Foundry Autopilot Interactive..." => LocalizationText.GetString("StepMessage.DownloadingAutopilotInteractive"),
             "Writing dry-run interactive registration manifest..." => LocalizationText.GetString("StepMessage.WritingDryRunInteractiveRegistrationManifest"),
             "Preparing Microsoft Graph import..." => LocalizationText.GetString("StepMessage.PreparingMicrosoftGraphImport"),
             "Submitting import request to Microsoft Graph..." => LocalizationText.GetString("StepMessage.SubmittingMicrosoftGraphImport"),

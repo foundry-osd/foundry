@@ -1155,9 +1155,6 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>Aus dem Netzwerkcache wird kopiert...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Interaktive Registrierungsdateien werden kopiert...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Simulierte Partitionen erstellen...</value>
   </data>
@@ -1166,6 +1163,9 @@ Mit der Bereitstellung fortfahren?</value>
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>Hardwareprofil wird erkannt...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>Foundry Autopilot Interactive wird heruntergeladen...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>Treiberpaket wird heruntergeladen...</value>

@@ -17,8 +17,8 @@ public static class AutopilotInteractiveAuthentication
     /// <summary>Tenant segment of the authority; <c>common</c> lets the technician sign in with any work account.</summary>
     public const string Tenant = "common";
 
-    /// <summary>Application (client) identifier of the Foundry public client.</summary>
-    public const string ClientId = "83eb3a92-030d-49b7-881b-32a1eb3e110a";
+    /// <summary>Application (client) identifier of the Foundry public client, shared with Foundry OSD.</summary>
+    public const string ClientId = FoundryGraphPublicClient.ClientId;
 
     /// <summary>Space-separated scopes requested at sign-in.</summary>
     public const string Scopes = "openid profile DeviceManagementServiceConfig.ReadWrite.All";

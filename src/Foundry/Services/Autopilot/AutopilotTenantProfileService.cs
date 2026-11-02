@@ -9,6 +9,7 @@ using System.Text.Json.Serialization.Metadata;
 using Azure.Core;
 using Azure.Identity;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Serilog;
 
@@ -133,7 +134,7 @@ public sealed class AutopilotTenantProfileService(ILogger logger) : IAutopilotTe
     private static TokenCredential CreateCredential()
     {
         string clientId = Environment.GetEnvironmentVariable(AutopilotGraphAuthenticationDefaults.ClientIdEnvironmentVariableName)?.Trim()
-            ?? AutopilotGraphAuthenticationDefaults.FoundryBootstrapClientId;
+            ?? FoundryGraphPublicClient.ClientId;
         string? tenantId = Environment.GetEnvironmentVariable(AutopilotGraphAuthenticationDefaults.TenantIdEnvironmentVariableName);
 
         return new InteractiveBrowserCredential(new InteractiveBrowserCredentialOptions

@@ -1155,9 +1155,6 @@ Dağıtıma devam edilsin mi?</value>
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>Ağ önbelleğinden kopyalanıyor...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Etkileşimli kayıt dosyaları kopyalanıyor...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Simüle edilmiş bölümler oluşturuluyor...</value>
   </data>
@@ -1166,6 +1163,9 @@ Dağıtıma devam edilsin mi?</value>
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>Donanım profili algılanıyor...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>Foundry Autopilot Interactive indiriliyor...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>Sürücü paketi indiriliyor...</value>

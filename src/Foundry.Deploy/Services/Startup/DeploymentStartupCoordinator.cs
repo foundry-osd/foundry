@@ -145,10 +145,12 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
 
     /// <summary>
     /// Connects the network cache share before the wizard opens, so content imported to the share is offered with the
-    /// media content and the deployment reuses the same session, then checks the published index and its content. The
-    /// resolver never throws for share problems. Returns <see langword="null"/> when no session is resolved or no
-    /// configuration is loaded. A debug-safe session never touches the share: it neither maps the UNC path nor writes the
-    /// probe file, and the session stays unset, so the deployment runs without a network cache.
+    /// media content and the deployment reuses the same session. The published index and its content are checked as part of
+    /// share selection: a share whose index is missing, too old or incomplete is skipped for the next share of the scope,
+    /// and startup is blocked only when no share passes. Retry runs this whole selection again. The resolver never throws
+    /// for share problems. Returns <see langword="null"/> when no session is resolved or no configuration is loaded. A
+    /// debug-safe session never touches the share: it neither maps the UNC path nor writes the probe file, and the session
+    /// stays unset, so the deployment runs without a network cache.
     /// </summary>
     private async Task<NetworkCacheStartupResult?> ResolveNetworkCacheAsync(DeploymentStartupRequest request, string cacheRootPath,
         FoundryDeployConfigurationDocument? document, CancellationToken cancellationToken)
@@ -170,12 +172,27 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         _networkCacheAccessor.Current = null;
 
         string workspaceRootPath = ResolveWorkspaceRootPath(cacheRootPath);
+        NetworkCacheStartupResult? selectedShareResult = null;
+        Func<NetworkCacheSession, CancellationToken, Task<NetworkCacheStartupFailure?>>? validateShare = document is null
+            ? null
+            : async (candidate, token) =>
+            {
+                selectedShareResult = await _networkCacheStartupCheck.RunAsync(document, candidate, token).ConfigureAwait(false);
+                return selectedShareResult.Failure;
+            };
         NetworkCacheSession session = await _networkCacheResolver
-            .ResolveAsync(workspaceRootPath, DiagnosticSessionContext.CurrentSessionId, cancellationToken)
+            .ResolveAsync(workspaceRootPath, DiagnosticSessionContext.CurrentSessionId, validateShare, cancellationToken)
             .ConfigureAwait(false);
         _networkCacheAccessor.Current = session;
-        return document is null
-            ? null
+        if (document is null)
+        {
+            return null;
+        }
+
+        // The selected share's result carries the index sections. Without one, the check reports why the session is
+        // unusable, or passes a configuration that does not use a content index.
+        return session.IsAvailable && selectedShareResult is { Failure: null }
+            ? selectedShareResult
             : await _networkCacheStartupCheck.RunAsync(document, session, cancellationToken).ConfigureAwait(false);
     }
 

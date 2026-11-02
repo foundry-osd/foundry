@@ -182,20 +182,6 @@ public static class ConfigurationPackageCodec
         }
     }
 
-    /// <summary>Returns whether the bytes are a configuration package envelope (any version), as opposed to a legacy profile or another file.</summary>
-    public static bool IsPackage(ReadOnlySpan<byte> bytes)
-    {
-        if (bytes.Length > MaximumPackageBytes || !TryParseJson(bytes, out JsonDocument? document))
-        {
-            return false;
-        }
-
-        using (document)
-        {
-            return HasFormat(document!.RootElement);
-        }
-    }
-
     /// <summary>
     /// Returns the signature key id of a well-formed envelope of a supported version without the passphrase, or
     /// <see langword="null"/> when the bytes are not such an envelope or carry no signature. The value is not authenticated.

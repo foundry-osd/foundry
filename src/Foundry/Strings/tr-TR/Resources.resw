@@ -4000,6 +4000,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Bu klasöre başka bir bilgisayar yayımlıyor. Devralma, yayını bu bilgisayarın anahtarıyla sürdürür; klasörü izleyen bilgisayarların bu bilgisayarı bir kez yeni başvuru olarak kabul etmesi gerekir.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Devralmadan önce oluşturulan önyükleme ortamları, siz onları yeniden oluşturana kadar önceden yayımlanmış içeriği dağıtmaya devam eder.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Bu bilgisayarın yayın anahtarları okunamadı. Geçerli yayın parolasıyla devralma, yayını yeni anahtarlarla sürdürür; klasörü izleyen bilgisayarların bu bilgisayarı bir kez yeni başvuru olarak kabul etmesi gerekir.</value>
   </data>

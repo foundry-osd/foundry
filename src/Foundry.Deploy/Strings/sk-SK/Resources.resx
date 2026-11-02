@@ -1155,9 +1155,6 @@ Pokračovať v nasadzovaní?</value>
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>Kopíruje sa zo sieťovej vyrovnávacej pamäte...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Kopírujú sa súbory interaktívnej registrácie...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Vytvára sa simulované oddiely...</value>
   </data>
@@ -1166,6 +1163,9 @@ Pokračovať v nasadzovaní?</value>
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>Zisťuje sa hardvérový profil...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>Sťahuje sa Foundry Autopilot Interactive...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>Sťahuje sa balík ovládačov...</value>

@@ -4000,6 +4000,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>En annen PC publiserer til denne mappen. En overtakelse fortsetter publiseringen med nøkkelen til denne PC-en. PC-er som følger mappen, må godta denne PC-en som ny referanse én gang.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Oppstartsmedier som ble opprettet før overtakelsen, fortsetter å distribuere innholdet som allerede er publisert, til du oppretter dem på nytt.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Publiseringsnøklene på denne PC-en kunne ikke leses. En overtakelse med det gjeldende publiseringspassordet fortsetter publiseringen med nye nøkler. PC-er som følger mappen, må godta denne PC-en som ny referanse én gang.</value>
   </data>

@@ -4000,6 +4000,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>En annan dator publicerar till den här mappen. Ett övertagande fortsätter dess publicering med den här datorns nyckel. Datorer som följer mappen måste godkänna den här datorn som ny referens en gång.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Startmedia som skapades före övertagandet fortsätter att distribuera det redan publicerade innehållet tills du skapar dem igen.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Publiceringsnycklarna för den här datorn kunde inte läsas. Ett övertagande med det aktuella publiceringslösenordet fortsätter publiceringen med nya nycklar. Datorer som följer mappen måste godkänna den här datorn som ny referens en gång.</value>
   </data>

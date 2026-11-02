@@ -21,10 +21,20 @@ namespace Foundry.Deploy.Services.Cache;
 public interface INetworkCacheSessionResolver
 {
     /// <summary>
-    /// Tries the shares of the device's most specific scope in order and returns the first one that connects and
-    /// answers. Never throws for share problems: an unusable cache is an unavailable session.
+    /// Tries the shares of the device's most specific scope in order and returns the first one that connects, answers and,
+    /// when <paramref name="validateShare"/> is given, passes it. A share that fails the validation is disconnected and the
+    /// next one is tried. Never throws for share problems: an unusable cache is an unavailable session whose failure is the
+    /// first validation failure, because that share was reachable, or else the last connection failure.
     /// </summary>
-    Task<NetworkCacheSession> ResolveAsync(string workspaceRootPath, string sessionId, CancellationToken cancellationToken);
+    /// <param name="workspaceRootPath">The workspace that holds the deployment key used to decrypt share credentials.</param>
+    /// <param name="sessionId">The diagnostic session, used to name the write probe file.</param>
+    /// <param name="validateShare">
+    /// Checks a connected share, for example its signed content index; returns <see langword="null"/> to select it or the
+    /// failure that rejects it. <see langword="null"/> selects the first share that connects and answers.
+    /// </param>
+    /// <param name="cancellationToken">Cancels the resolution.</param>
+    Task<NetworkCacheSession> ResolveAsync(string workspaceRootPath, string sessionId,
+        Func<NetworkCacheSession, CancellationToken, Task<NetworkCacheStartupFailure?>>? validateShare, CancellationToken cancellationToken);
 }
 
 public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
@@ -69,11 +79,12 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
         this.logger = logger;
     }
 
-    public async Task<NetworkCacheSession> ResolveAsync(string workspaceRootPath, string sessionId, CancellationToken cancellationToken)
+    public async Task<NetworkCacheSession> ResolveAsync(string workspaceRootPath, string sessionId,
+        Func<NetworkCacheSession, CancellationToken, Task<NetworkCacheStartupFailure?>>? validateShare, CancellationToken cancellationToken)
     {
         try
         {
-            return await ResolveCoreAsync(workspaceRootPath, sessionId, cancellationToken).ConfigureAwait(false);
+            return await ResolveCoreAsync(workspaceRootPath, sessionId, validateShare, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception exception) when (exception is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
         {
@@ -85,7 +96,8 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
         }
     }
 
-    private async Task<NetworkCacheSession> ResolveCoreAsync(string workspaceRootPath, string sessionId, CancellationToken cancellationToken)
+    private async Task<NetworkCacheSession> ResolveCoreAsync(string workspaceRootPath, string sessionId,
+        Func<NetworkCacheSession, CancellationToken, Task<NetworkCacheStartupFailure?>>? validateShare, CancellationToken cancellationToken)
     {
         DeployNetworkCacheSettings settings = configuration.LoadOptional().Document?.NetworkCache ?? new();
         if (!settings.IsEnabled)
@@ -105,22 +117,55 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
                 new(NetworkCacheStartupFailureKind.NoScope, DeviceAddress: deviceAddress));
         }
 
-        NetworkCacheStartupFailure? lastFailure = null;
-        foreach (DeployNetworkCacheShare share in candidates)
+        NetworkCacheStartupFailure? connectionFailure = null;
+        NetworkCacheStartupFailure? validationFailure = null;
+        for (int index = 0; index < candidates.Count; index++)
         {
+            DeployNetworkCacheShare share = candidates[index];
             (NetworkCacheSession? session, NetworkCacheStartupFailure? failure) = await TryShareAsync(share, workspaceRootPath, sessionId, cancellationToken).ConfigureAwait(false);
-            if (session is not null)
+            if (session is null)
+            {
+                connectionFailure = failure;
+                continue;
+            }
+
+            NetworkCacheStartupFailure? rejection = validateShare is null
+                ? null
+                : await ValidateShareAsync(session, validateShare, cancellationToken).ConfigureAwait(false);
+            if (rejection is null)
             {
                 logger.LogInformation("Network cache connected. SharePath={SharePath}, CanWrite={CanWrite}", session.SharePath, session.CanWrite);
                 return session;
             }
 
-            lastFailure = failure;
+            logger.LogInformation("Network cache share not used: its content check failed. SharePath={SharePath}, FailureKind={FailureKind}, RemainingShares={RemainingShares}",
+                share.Path, rejection.Kind, candidates.Count - index - 1);
+            validationFailure ??= rejection;
         }
 
+        // A share that connected but failed validation explains the block better than one that could not be reached: the
+        // administrator then republishes or completes that share instead of chasing a network problem.
+        NetworkCacheStartupFailure? reportedFailure = validationFailure ?? connectionFailure;
         logger.LogWarning("Network cache unavailable; startup stops when the boot media use its content index. Outcome={Outcome}, FailureKind={FailureKind}, SharePath={SharePath}",
-            NetworkCacheOutcome.Unavailable, lastFailure?.Kind, lastFailure?.SharePath);
-        return NetworkCacheSession.Unavailable(NetworkCacheOutcome.Unavailable, lastFailure);
+            NetworkCacheOutcome.Unavailable, reportedFailure?.Kind, reportedFailure?.SharePath);
+        return NetworkCacheSession.Unavailable(NetworkCacheOutcome.Unavailable, reportedFailure);
+    }
+
+    /// <summary>Runs the caller's check on a connected share and disconnects the share unless it is selected.</summary>
+    private static async Task<NetworkCacheStartupFailure?> ValidateShareAsync(NetworkCacheSession session,
+        Func<NetworkCacheSession, CancellationToken, Task<NetworkCacheStartupFailure?>> validateShare, CancellationToken cancellationToken)
+    {
+        try
+        {
+            NetworkCacheStartupFailure? rejection = await validateShare(session, cancellationToken).ConfigureAwait(false);
+            if (rejection is not null) session.Dispose();
+            return rejection;
+        }
+        catch
+        {
+            session.Dispose();
+            throw;
+        }
     }
 
     private async Task<(NetworkCacheSession? Session, NetworkCacheStartupFailure? Failure)> TryShareAsync(

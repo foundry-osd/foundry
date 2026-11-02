@@ -4000,6 +4000,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Ein anderer PC veröffentlicht in diesem Ordner. Durch die Übernahme wird seine Veröffentlichung mit dem Schlüssel dieses PCs fortgesetzt; PCs, die dem Ordner folgen, müssen diesen PC einmal als neue Referenz akzeptieren.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Boot-Medien, die vor der Übernahme erstellt wurden, stellen weiterhin die bereits veröffentlichten Inhalte bereit, bis Sie sie neu erstellen.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Die Veröffentlichungsschlüssel dieses PCs konnten nicht gelesen werden. Die Übernahme mit dem aktuellen Veröffentlichungskennwort setzt die Veröffentlichung mit neuen Schlüsseln fort; PCs, die dem Ordner folgen, müssen diesen PC einmal als neue Referenz akzeptieren.</value>
   </data>

@@ -11,6 +11,7 @@ using Foundry.Connect.Tests.Support;
 using Foundry.Connect.ViewModels;
 using Foundry.Core.Models.Configuration;
 using Foundry.Wpf.Localization;
+using Foundry.Wpf.Threading;
 using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Tests.ViewModels;

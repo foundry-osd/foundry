@@ -1155,9 +1155,6 @@
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>正在从网络缓存复制...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>正在复制交互式注册文件...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>创建模拟分区...</value>
   </data>
@@ -1166,6 +1163,9 @@
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>正在检测硬件配置文件...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>正在下载 Foundry Autopilot Interactive...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>正在下载驱动程序包...</value>

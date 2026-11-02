@@ -4,7 +4,7 @@
 
 using System.Windows.Threading;
 
-namespace Foundry.Connect.ViewModels;
+namespace Foundry.Wpf.Threading;
 
 /// <summary>
 /// <see cref="IUiDispatcher"/> backed by the WPF dispatcher of the UI thread.
@@ -13,7 +13,7 @@ namespace Foundry.Connect.ViewModels;
 /// The instance runs work on the dispatcher it is given, so it must be given the UI thread's dispatcher:
 /// <c>Application.Current.Dispatcher</c>, or <see cref="Dispatcher.CurrentDispatcher"/> read on the UI thread.
 /// <see cref="Dispatcher.CurrentDispatcher"/> read on a worker thread would create a dispatcher for that thread that
-/// never runs, and every queued action would be lost. The DI registration passes <c>Application.Current.Dispatcher</c>.
+/// never runs, and every queued action would be lost.
 /// </remarks>
 /// <param name="dispatcher">The UI thread's dispatcher.</param>
 public sealed class WpfUiDispatcher(Dispatcher dispatcher) : IUiDispatcher
@@ -30,6 +30,6 @@ public sealed class WpfUiDispatcher(Dispatcher dispatcher) : IUiDispatcher
             return;
         }
 
-        _dispatcher.BeginInvoke(action);
+        _ = _dispatcher.BeginInvoke(action);
     }
 }

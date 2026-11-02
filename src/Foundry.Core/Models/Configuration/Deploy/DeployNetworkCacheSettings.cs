@@ -16,7 +16,11 @@ public sealed record DeployNetworkCacheSettings
     /// section is active: custom images, driver sets and post-installation settings then come from that index, not the boot image.
     /// </summary>
     public string? PublisherPublicKey { get; init; }
-    /// <summary>Gets the fingerprint of <see cref="PublisherPublicKey"/>, which names the index file on each share.</summary>
+    /// <summary>
+    /// Gets the fingerprint of <see cref="PublisherPublicKey"/>, informational only so the generated configuration can be
+    /// matched to a publisher key when diagnosing it. Deploy does not read it: it derives the key id that names the index file
+    /// from the public key itself, so a wrong value here can never select another index file.
+    /// </summary>
     public string? PublisherKeyId { get; init; }
     /// <summary>Gets the lowest index sequence Deploy accepts, so a stale index published before this media cannot be replayed.</summary>
     public long MinimumIndexSequence { get; init; }

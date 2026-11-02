@@ -1155,9 +1155,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>ネットワーク キャッシュからコピーしています...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>対話型登録ファイルをコピーしています...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>シミュレートされたパーティションを作成しています...</value>
   </data>
@@ -1166,6 +1163,9 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>ハードウェア プロファイルを検出しています...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>Foundry Autopilot Interactive をダウンロード中...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>ドライバー パックをダウンロードしています...</value>

@@ -4000,6 +4000,9 @@
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>另一台电脑正在发布到此文件夹。接管后将使用此电脑的密钥继续其发布；关注此文件夹的电脑必须接受一次此电脑作为新的参考电脑。</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>在接管之前创建的启动介质会继续部署已发布的内容，直到你重新创建它们。</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>无法读取此电脑的发布密钥。使用当前发布密码接管后，将使用新密钥继续发布；关注此文件夹的电脑必须接受一次此电脑作为新的参考电脑。</value>
   </data>

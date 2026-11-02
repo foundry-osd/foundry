@@ -10,6 +10,10 @@ namespace Foundry.Connect.Lifetime;
 /// The single exit authority of Foundry.Connect: every exit path (success, user close, failure) requests its exit code
 /// here, and only the first request decides the process exit code returned to Foundry.Bootstrap.
 /// </summary>
+/// <remarks>
+/// Never exit through <see cref="Foundry.Wpf.Shell.IApplicationShellService.Shutdown"/>: it always ends with exit code 0,
+/// which Foundry.Bootstrap would read as a successful network step.
+/// </remarks>
 public interface IApplicationLifetimeService
 {
     /// <summary>

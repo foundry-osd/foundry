@@ -2477,7 +2477,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             ? GetBlockingReasonText(sharedContentReason)
             : localizationService.GetString(!options.IsFinalExecutionEnabled
                 ? "StartMedia.FinalExecution.Deferred"
-                : evaluation.CanCreateIso || evaluation.CanCreateUsb || evaluation.CanCreatePxe || evaluation.CanCreateUsbWithoutCache
+                : CanCreateAnyMedia(evaluation)
                     ? "StartMedia.FinalExecution.ReadyNow"
                     : "StartMedia.FinalExecution.Ready");
         ConfigurationOverviewEvaluation overview = configurationOverviewService.Evaluate();
@@ -2640,7 +2640,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return localizationService.GetString($"StartMedia.Readiness.Status.{sharedContentReason}");
         }
 
-        if (evaluation.CanCreateIso && evaluation.CanCreateUsb)
+        bool canCreateAnyUsb = CanCreateAnyUsb(evaluation);
+        if (evaluation.CanCreateIso && canCreateAnyUsb)
         {
             return localizationService.GetString("StartMedia.Readiness.Status.ReadyIsoAndUsb");
         }
@@ -2650,7 +2651,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             return localizationService.GetString("StartMedia.Readiness.Status.ReadyIso");
         }
 
-        if (evaluation.CanCreateUsb)
+        if (canCreateAnyUsb)
         {
             return localizationService.GetString("StartMedia.Readiness.Status.ReadyUsb");
         }
@@ -2675,12 +2676,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 return InfoBarSeverity.Error;
         }
 
-        if (evaluation.CanCreateIso && evaluation.CanCreateUsb)
+        // PXE files only need the rules shared by every target, so they are available whenever ISO or USB is.
+        if (evaluation.CanCreateIso && CanCreateAnyUsb(evaluation))
         {
             return InfoBarSeverity.Success;
         }
 
-        if (evaluation.CanCreateIso || evaluation.CanCreateUsb)
+        if (CanCreateAnyMedia(evaluation))
         {
             return InfoBarSeverity.Informational;
         }
@@ -2691,6 +2693,18 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         }
 
         return InfoBarSeverity.Error;
+    }
+
+    /// <summary>Returns whether a USB drive can be written now, with or without cache.</summary>
+    private static bool CanCreateAnyUsb(MediaPreflightEvaluation evaluation)
+    {
+        return evaluation.CanCreateUsb || evaluation.CanCreateUsbWithoutCache;
+    }
+
+    /// <summary>Returns whether at least one media output (ISO, USB with or without cache, or PXE files) can be created now.</summary>
+    private static bool CanCreateAnyMedia(MediaPreflightEvaluation evaluation)
+    {
+        return evaluation.CanCreateIso || CanCreateAnyUsb(evaluation) || evaluation.CanCreatePxe;
     }
 
     /// <summary>Returns the shared content reason that blocks every media action on a follower, or null when the content is synced.</summary>
@@ -3159,6 +3173,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     {
         return evaluation.IsoBlockingReasons
             .Concat(evaluation.UsbBlockingReasons)
+            .Concat(evaluation.PxeBlockingReasons)
+            .Concat(evaluation.UsbWithoutCacheBlockingReasons)
             .Where(reason => reason != MediaPreflightBlockingReason.NoUsbTarget)
             .Distinct()
             .ToList();

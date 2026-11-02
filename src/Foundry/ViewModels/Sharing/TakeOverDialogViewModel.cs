@@ -28,13 +28,18 @@ public sealed partial class TakeOverDialogViewModel : ObservableObject, IDisposa
     /// <param name="includePasswords">Initial "Include passwords" choice.</param>
     /// <param name="foreign">The foreign publication the last publish found, or null when none was read.</param>
     /// <param name="isRecovery">Whether this is the recovery after the publication keys could not be read.</param>
+    /// <param name="hasNetworkCache">
+    /// Whether the configuration publishes content to network cache shares: the take over signs their index with a new key, while
+    /// boot media created before keep trusting the previous key.
+    /// </param>
     public TakeOverDialogViewModel(ConfigurationSharingService sharing, IApplicationLocalizationService localization, string folder, bool includePasswords,
-        SharingForeignPublication? foreign, bool isRecovery)
+        SharingForeignPublication? foreign, bool isRecovery, bool hasNetworkCache)
     {
         this.sharing = sharing;
         this.localization = localization;
         this.foreign = foreign;
         this.isRecovery = isRecovery;
+        HasMediaNotice = hasNetworkCache;
         Folder = folder;
         IncludePasswords = includePasswords;
         Progress = new PublishProgressIndicator(sharing, localization);
@@ -67,6 +72,9 @@ public sealed partial class TakeOverDialogViewModel : ObservableObject, IDisposa
     public bool HasError => ErrorMessage.Length > 0;
     public bool HasForeign => foreign is not null;
 
+    /// <summary>Gets whether the dialog explains that boot media created before the take over keep the content already published.</summary>
+    public bool HasMediaNotice { get; }
+
     /// <summary>Gets whether the take over published.</summary>
     public bool IsCompleted { get; private set; }
 
@@ -75,6 +83,7 @@ public sealed partial class TakeOverDialogViewModel : ObservableObject, IDisposa
 
     public string Title => Text("TakeOverTitle");
     public string DescriptionText => Text(isRecovery ? "TakeOverRecoveryDescription" : "TakeOverDescription");
+    public string MediaNoticeText => Text("TakeOverMediaNotice");
     public string FolderLabel => Text("FolderLabel");
     public string ForeignVersionLabel => Text("ForeignVersionLabel");
     public string ForeignKeyLabel => Text("ForeignKeyLabel");

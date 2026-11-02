@@ -104,7 +104,6 @@ internal sealed class LegacyMigrationRunner(
         fileCleanup.RequestCleanup();
     }
 
-
     private (LegacyConfigurationSnapshot? Profile, bool Locked, bool Shared) ReadActiveProfile()
     {
         string root = Constants.LegacyProfilesDirectoryPath;

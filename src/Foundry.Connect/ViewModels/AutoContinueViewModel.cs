@@ -7,6 +7,7 @@ using Foundry.Connect.Lifetime;
 using Foundry.Connect.Network;
 using Foundry.Connect.Network.Policy;
 using Foundry.Wpf.Localization;
+using Foundry.Wpf.Threading;
 using Foundry.Wpf.ViewModels;
 using Microsoft.Extensions.Logging;
 

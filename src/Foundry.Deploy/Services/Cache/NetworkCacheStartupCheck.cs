@@ -23,10 +23,11 @@ namespace Foundry.Deploy.Services.Cache;
 public sealed record NetworkCacheStartupResult(FoundryDeployConfigurationDocument Document, NetworkCacheStartupFailure? Failure);
 
 /// <summary>
-/// Verifies, before the wizard opens, that the share of a network cache with a publisher key holds a trusted index and the
+/// Verifies, before the wizard opens, that a share of a network cache with a publisher key holds a trusted index and the
 /// content it references, then applies the custom image, custom driver and post-installation sections of that index to the
-/// configuration. A configuration without a publisher key keeps its own sections and the share is never read. With a key,
-/// nothing falls back to the sections of the boot image: any problem is a startup failure.
+/// configuration. The startup coordinator runs it on each candidate share until one passes. A configuration without a
+/// publisher key keeps its own sections and the share is never read. With a key, nothing falls back to the sections of the
+/// boot image: a problem on every candidate share is a startup failure.
 /// </summary>
 public sealed class NetworkCacheStartupCheck
 {

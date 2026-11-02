@@ -20,6 +20,7 @@ using Foundry.Wpf.Localization;
 using Foundry.Wpf.Runtime;
 using Foundry.Wpf.Shell;
 using Foundry.Wpf.Theme;
+using Foundry.Wpf.Threading;
 using Foundry.Wpf.ViewModels;
 using Microsoft.Extensions.Logging;
 

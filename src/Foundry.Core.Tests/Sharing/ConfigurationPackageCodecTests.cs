@@ -292,15 +292,6 @@ public sealed class ConfigurationPackageCodecTests
         Assert.Throws<ArgumentException>(() => ConfigurationPackageCodec.Write(CreateExport(), new string('x', 16)));
     }
 
-    [Fact]
-    public void IsPackage_LegacyMagic_ReturnsFalse()
-    {
-        byte[] legacy = [.. "FNDRYPRF"u8, 1, 1, 0, 0, 0, 0];
-
-        Assert.False(ConfigurationPackageCodec.IsPackage(legacy));
-        Assert.True(ConfigurationPackageCodec.IsPackage(ConfigurationPackageCodec.Write(CreateExport(), Passphrase)));
-    }
-
     private static ConfigurationPackagePayload CreateExport() => new()
     {
         Kind = PackageKind.Export,

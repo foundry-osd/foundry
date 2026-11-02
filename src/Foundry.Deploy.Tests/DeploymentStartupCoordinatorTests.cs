@@ -292,6 +292,42 @@ public sealed class DeploymentStartupCoordinatorTests
     }
 
     [Fact]
+    public async Task InitializeAsync_WithAPublisherKey_SkipsAShareWithoutIndexForTheNextValidShare()
+    {
+        string root = Path.Combine(Path.GetTempPath(), "Fstartupcache", Guid.NewGuid().ToString("N"));
+        using PublicationSigningKey signer = PublicationSigningKey.Create();
+        try
+        {
+            string staleShare = Path.Combine(root, "stale");
+            string currentShare = Path.Combine(root, "current");
+            Directory.CreateDirectory(NetworkCacheLayout.ContentRoot(staleShare));
+            var index = new NetworkCacheContentIndex { KeyId = signer.KeyId, Sequence = 7, PublishedAtUtc = DateTimeOffset.UtcNow };
+            await NetworkCacheIndexStore.WriteAsync(NetworkCacheLayout.ContentRoot(currentShare), signer.KeyId,
+                NetworkCacheContentIndexCodec.Write(index, signer), TestContext.Current.CancellationToken);
+            var dependencies = new StartupDependencies(enabled: false,
+                networkCache: new() { IsEnabled = true, PublisherPublicKey = Convert.ToBase64String(signer.PublicKey) });
+            var connector = new RecordingConnector();
+            var resolver = new ValidatingNetworkCacheResolver(
+                [NetworkCacheSession.Connected(staleShare, canWrite: false, connector), NetworkCacheSession.Connected(currentShare, canWrite: false, connector)]);
+            var accessor = new NetworkCacheSessionAccessor();
+            var coordinator = new DeploymentStartupCoordinator(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies,
+                new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start.")), new RecordingLogger(),
+                networkCacheResolver: resolver, networkCacheAccessor: accessor);
+
+            DeploymentStartupSnapshot snapshot = await coordinator.InitializeAsync(CreateLiveRequest(), TestContext.Current.CancellationToken);
+
+            Assert.Null(snapshot.NetworkCacheFailure);
+            Assert.Equal(currentShare, accessor.Current?.SharePath);
+            Assert.Equal([staleShare], connector.Disconnected);
+            accessor.Current?.Dispose();
+        }
+        finally
+        {
+            if (Directory.Exists(root)) Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
     public async Task InitializeAsync_InDebugSafeMode_NeverResolvesTheShare()
     {
         // A developer machine must not map a real share or write its probe file, even with a publisher key configured.
@@ -350,12 +386,32 @@ public sealed class DeploymentStartupCoordinatorTests
         public List<string> WorkspaceRoots { get; } = [];
         public List<string> SessionIds { get; } = [];
 
-        public Task<NetworkCacheSession> ResolveAsync(string workspaceRootPath, string sessionId, CancellationToken cancellationToken)
+        public Task<NetworkCacheSession> ResolveAsync(string workspaceRootPath, string sessionId,
+            Func<NetworkCacheSession, CancellationToken, Task<NetworkCacheStartupFailure?>>? validateShare, CancellationToken cancellationToken)
         {
             onResolve?.Invoke();
             WorkspaceRoots.Add(workspaceRootPath);
             SessionIds.Add(sessionId);
             return Task.FromResult(session);
+        }
+    }
+
+    /// <summary>Selects the first candidate session the coordinator's validation accepts, as the real resolver does.</summary>
+    private sealed class ValidatingNetworkCacheResolver(IReadOnlyList<NetworkCacheSession> candidates) : INetworkCacheSessionResolver
+    {
+        public async Task<NetworkCacheSession> ResolveAsync(string workspaceRootPath, string sessionId,
+            Func<NetworkCacheSession, CancellationToken, Task<NetworkCacheStartupFailure?>>? validateShare, CancellationToken cancellationToken)
+        {
+            NetworkCacheStartupFailure? firstFailure = null;
+            foreach (NetworkCacheSession candidate in candidates)
+            {
+                NetworkCacheStartupFailure? failure = validateShare is null ? null : await validateShare(candidate, cancellationToken);
+                if (failure is null) return candidate;
+                candidate.Dispose();
+                firstFailure ??= failure;
+            }
+
+            return NetworkCacheSession.Unavailable(NetworkCacheOutcome.Unavailable, firstFailure);
         }
     }
 

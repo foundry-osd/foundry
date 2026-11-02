@@ -216,6 +216,48 @@ public sealed class NetworkCacheSessionResolverTests
     }
 
     [Fact]
+    public async Task Resolve_FirstShareIndexStale_SelectsSecondShare()
+    {
+        var harness = new Harness(Settings());
+        var validated = new List<string?>();
+
+        using NetworkCacheSession session = await harness.ResolveAsync((candidate, _) =>
+        {
+            validated.Add(candidate.SharePath);
+            return Task.FromResult(candidate.SharePath == FirstShare ? NotPublished(FirstShare) : null);
+        });
+
+        Assert.Equal(NetworkCacheOutcome.Connected, session.Outcome);
+        Assert.Equal(SecondShare, session.SharePath);
+        Assert.Equal([FirstShare, SecondShare], validated);
+        Assert.Equal([FirstShare], harness.Connector.Disconnected);
+    }
+
+    [Fact]
+    public async Task Resolve_EveryShareIndexStale_ReportsFirstContentFailure()
+    {
+        var harness = new Harness(Settings());
+
+        using NetworkCacheSession session = await harness.ResolveAsync((candidate, _) => Task.FromResult(NotPublished(candidate.SharePath!)));
+
+        Assert.Equal(NetworkCacheOutcome.Unavailable, session.Outcome);
+        Assert.Null(session.SharePath);
+        Assert.Equal(NotPublished(FirstShare), session.Failure);
+        Assert.Equal([FirstShare, SecondShare], harness.Connector.Disconnected);
+    }
+
+    [Fact]
+    public async Task Resolve_ReachableShareWithStaleIndex_IsReportedOverUnreachableShare()
+    {
+        var harness = new Harness(Settings());
+        harness.Connector.Results[SecondShare] = new(SmbConnectStatus.NotFound, 67);
+
+        using NetworkCacheSession session = await harness.ResolveAsync((candidate, _) => Task.FromResult(NotPublished(candidate.SharePath!)));
+
+        Assert.Equal(NotPublished(FirstShare), session.Failure);
+    }
+
+    [Fact]
     public async Task Resolve_Connected_HasNoFailure()
     {
         var harness = new Harness(Settings());
@@ -306,6 +348,10 @@ public sealed class NetworkCacheSessionResolverTests
         Assert.Equal([FirstShare], harness.Connector.Disconnected);
     }
 
+    /// <summary>The failure the content check reports for a share whose index is missing or older than the media accept.</summary>
+    private static NetworkCacheStartupFailure? NotPublished(string sharePath) =>
+        new(NetworkCacheStartupFailureKind.NotPublished, sharePath);
+
     private static DeployNetworkCacheSettings Settings(bool withAccount = true) => new()
     {
         IsEnabled = true,
@@ -343,7 +389,7 @@ public sealed class NetworkCacheSessionResolverTests
         public FakeConnector Connector { get; } = new();
         public FakeProbe Probe { get; } = new();
 
-        public Task<NetworkCacheSession> ResolveAsync()
+        public Task<NetworkCacheSession> ResolveAsync(Func<NetworkCacheSession, CancellationToken, Task<NetworkCacheStartupFailure?>>? validateShare = null)
         {
             var resolver = new NetworkCacheSessionResolver(
                 new StaticConfiguration(settings),
@@ -354,7 +400,7 @@ public sealed class NetworkCacheSessionResolverTests
                 connectTimeout,
                 probeTimeout: TimeSpan.FromMilliseconds(100),
                 NullLogger<NetworkCacheSessionResolver>.Instance);
-            return resolver.ResolveAsync(@"X:\Foundry", "session01", TestContext.Current.CancellationToken);
+            return resolver.ResolveAsync(@"X:\Foundry", "session01", validateShare, TestContext.Current.CancellationToken);
         }
 
         public Task WaitForHangAsync() => Probe.HangStarted.Task.WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);

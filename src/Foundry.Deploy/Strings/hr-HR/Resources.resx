@@ -1155,9 +1155,6 @@ Nastaviti s implementacijom?</value>
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>Kopiranje iz mrežne predmemorije...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Kopiraju se datoteke interaktivne registracije...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Stvaranje simuliranih particija...</value>
   </data>
@@ -1166,6 +1163,9 @@ Nastaviti s implementacijom?</value>
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>Otkrivanje hardverskog profila...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>Preuzimanje Foundry Autopilot Interactive...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>Preuzimanje paketa upravljačkih programa...</value>

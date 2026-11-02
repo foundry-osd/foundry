@@ -6,7 +6,7 @@ Foundry is maintained as an open-source project. Support is provided by the comm
 
 Start with the [documentation](https://docs.foundryosd.com) and [troubleshooting guides](https://docs.foundryosd.com/troubleshooting). Search [existing issues](https://github.com/foundry-osd/foundry/issues) before opening a new one.
 
-After updating Foundry OSD, recreate ISO or USB media to pick up Bootstrap fixes for insufficient space on the WinPE `X:` drive. Runtime updates do not replace Bootstrap embedded in existing boot media. Bootstrap releases Connect's verified executable and extracted files after Connect exits. USB media retains verified update archives on its persistent cache volume; ISO media avoids retaining duplicate update archives on `X:`.
+After updating Foundry OSD, recreate your ISO media, PXE files, or USB drives without cache, and update or recreate USB drives with cache, to pick up Bootstrap fixes for insufficient space on the WinPE `X:` drive. Runtime updates do not replace Bootstrap embedded in existing boot media. Bootstrap releases Connect's verified executable and extracted files after Connect exits. A USB drive with cache retains verified update archives on its cache volume; ISO media, USB drives without cache, and PXE files avoid retaining duplicate update archives on `X:`.
 
 ## Choose the right channel
 

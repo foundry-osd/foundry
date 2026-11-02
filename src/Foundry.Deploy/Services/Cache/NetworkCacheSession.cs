@@ -38,7 +38,8 @@ public sealed class NetworkCacheSession : IDisposable
     public NetworkCacheOutcome Outcome { get; }
 
     /// <summary>
-    /// Gets why no share is used when the cache is enabled but unusable (no scope, or the last candidate share failed);
+    /// Gets why no share is used when the cache is enabled but unusable (no scope, or no candidate share connected and
+    /// passed the content check);
     /// <see langword="null"/> when the cache is disabled or connected.
     /// </summary>
     public NetworkCacheStartupFailure? Failure { get; }

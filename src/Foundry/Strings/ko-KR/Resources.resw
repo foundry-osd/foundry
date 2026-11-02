@@ -4000,6 +4000,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>다른 PC가 이 폴더에 게시하고 있습니다. 인계하면 이 PC의 키로 게시가 계속됩니다. 폴더를 팔로우하는 PC는 이 PC를 새 참조 PC로 한 번 수락해야 합니다.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>인계 전에 만든 부팅 미디어는 다시 만들 때까지 이미 게시된 콘텐츠를 계속 배포합니다.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>이 PC의 게시 키를 읽을 수 없습니다. 현재 게시 암호로 인계하면 새 키로 게시가 계속됩니다. 폴더를 팔로우하는 PC는 이 PC를 새 참조 PC로 한 번 수락해야 합니다.</value>
   </data>

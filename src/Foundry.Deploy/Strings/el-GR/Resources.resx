@@ -1155,9 +1155,6 @@
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>Αντιγραφή από την προσωρινή μνήμη δικτύου...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Αντιγραφή αρχείων διαδραστικής εγγραφής...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Δημιουργία προσομοιωμένων κατατμήσεων...</value>
   </data>
@@ -1166,6 +1163,9 @@
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>Ανίχνευση προφίλ υλικού...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>Λήψη του Foundry Autopilot Interactive...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>Λήψη πακέτου προγραμμάτων οδήγησης...</value>

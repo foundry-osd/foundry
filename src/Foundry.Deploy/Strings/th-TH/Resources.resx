@@ -1155,9 +1155,6 @@
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>กำลังคัดลอกจากแคชเครือข่าย...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>กำลังคัดลอกไฟล์การลงทะเบียนแบบโต้ตอบ...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>กำลังสร้างพาร์ติชันจำลอง...</value>
   </data>
@@ -1166,6 +1163,9 @@
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>กำลังตรวจหาโปรไฟล์ฮาร์ดแวร์...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>กำลังดาวน์โหลด Foundry Autopilot Interactive...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>กำลังดาวน์โหลดชุดไดรเวอร์...</value>

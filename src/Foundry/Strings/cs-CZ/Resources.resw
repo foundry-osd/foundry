@@ -4000,6 +4000,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Sharing.TakeOverDescription" xml:space="preserve">
     <value>Do této složky publikuje jiný počítač. Převzetí pokračuje v jeho publikaci s klíčem tohoto počítače; počítače, které složku sledují, musí jednou přijmout tento počítač jako novou referenci.</value>
   </data>
+  <data name="Sharing.TakeOverMediaNotice" xml:space="preserve">
+    <value>Spouštěcí média vytvořená před převzetím nasazují dál již publikovaný obsah, dokud je znovu nevytvoříte.</value>
+  </data>
   <data name="Sharing.TakeOverRecoveryDescription" xml:space="preserve">
     <value>Klíče publikace tohoto počítače nebylo možné přečíst. Převzetí s aktuálním heslem publikace pokračuje v publikaci s novými klíči; počítače, které složku sledují, musí jednou přijmout tento počítač jako novou referenci.</value>
   </data>

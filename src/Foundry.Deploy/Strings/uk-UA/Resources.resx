@@ -1155,9 +1155,6 @@ ErrorCode=0x80070005
   <data name="StepMessage.CopyingFromNetworkCache" xml:space="preserve">
     <value>Копіювання з мережевого кешу...</value>
   </data>
-  <data name="StepMessage.CopyingInteractiveRegistrationFiles" xml:space="preserve">
-    <value>Копіюються файли інтерактивної реєстрації...</value>
-  </data>
   <data name="StepMessage.CreatingSimulatedPartitions" xml:space="preserve">
     <value>Створення імітованих розділів...</value>
   </data>
@@ -1166,6 +1163,9 @@ ErrorCode=0x80070005
   </data>
   <data name="StepMessage.DetectingHardwareProfile" xml:space="preserve">
     <value>Виявлення профілю обладнання...</value>
+  </data>
+  <data name="StepMessage.DownloadingAutopilotInteractive" xml:space="preserve">
+    <value>Завантаження Foundry Autopilot Interactive...</value>
   </data>
   <data name="StepMessage.DownloadingDriverPack" xml:space="preserve">
     <value>Завантаження пакета драйверів...</value>

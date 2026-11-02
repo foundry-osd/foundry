@@ -5,11 +5,11 @@
 using System.Resources;
 using Foundry.AutopilotInteractive.Services;
 using Foundry.AutopilotInteractive.Services.Device;
-using Foundry.AutopilotInteractive.ViewModels;
 using Foundry.Utilities.Globalization;
 using Foundry.Wpf.Localization;
 using Foundry.Wpf.Shell;
 using Foundry.Wpf.Theme;
+using Foundry.Wpf.Threading;
 
 namespace Foundry.AutopilotInteractive.Tests.Support;
 

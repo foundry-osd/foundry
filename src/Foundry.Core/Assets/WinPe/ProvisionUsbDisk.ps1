@@ -198,14 +198,14 @@ Write-FoundryUsbProgress 53 'Formatting cache partition.'
 $cacheFormatArguments = @{
     DriveLetter = $cacheDriveLetter
     FileSystem = 'NTFS'
-    NewFileSystemLabel = 'Foundry Cache'
+    NewFileSystemLabel = '{{CACHE_LABEL}}'
     Confirm = $false
     Force = $true
     ErrorAction = 'Stop'
 }
 if ($fullFormat) { $cacheFormatArguments['Full'] = $true }
 Format-Volume @cacheFormatArguments | Out-Null
-Write-FoundryUsbVerbose "Cache partition formatted. DriveLetter=$cacheDriveLetter, FileSystem=NTFS, Label=Foundry Cache."
+Write-FoundryUsbVerbose "Cache partition formatted. DriveLetter=$cacheDriveLetter, FileSystem=NTFS, Label={{CACHE_LABEL}}."
 
 Write-FoundryUsbProgress 55 'USB partitions formatted.'
 [pscustomobject]@{
