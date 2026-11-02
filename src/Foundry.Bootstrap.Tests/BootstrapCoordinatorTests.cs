@@ -67,12 +67,12 @@ public sealed class BootstrapCoordinatorTests
     }
 
     [Fact]
-    public async Task UsbRefreshesConnectOnlyAfterNetworkProvisioningAndTimePreparation()
+    public async Task UsbResolvesEachApplicationOnceInBootOrder()
     {
         using var fixture = new Fixture();
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(BootstrapOutcome.Succeeded, result.Outcome);
-        Assert.Equal(["network", "clock", "Foundry.Connect:False", "connect", "system", "Foundry.Connect:Refresh",
+        Assert.Equal(["network", "clock", "Foundry.Connect:False", "connect", "system",
             "Foundry.Deploy:False", "Foundry.PostInstall:False", "deploy", "persist"], fixture.Calls);
         Assert.Equal("Foundry.PostInstall.exe", fixture.DeployEnvironment!["FOUNDRY_POSTINSTALL_PATH"]);
         Assert.Equal("TEST", fixture.DeployEnvironment["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
@@ -115,13 +115,12 @@ public sealed class BootstrapCoordinatorTests
     }
 
     [Fact]
-    public async Task DebugAndIsoProvisioningNeverRefreshConnect()
+    public async Task DebugProvisioningSkipsReleaseLookups()
     {
         using var fixture = new Fixture();
         fixture.Context = fixture.Context with { PersistenceDirectory = null, ConnectIsDebug = true, DeployIsDebug = true };
         Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
         Assert.DoesNotContain("Foundry.Connect:False", fixture.Calls);
-        Assert.DoesNotContain("Foundry.Connect:Refresh", fixture.Calls);
         Assert.Contains("Foundry.Deploy:True", fixture.Calls);
         Assert.Contains("Foundry.PostInstall:True", fixture.Calls);
         Assert.DoesNotContain("Foundry.PostInstall:False", fixture.Calls);
@@ -431,12 +430,6 @@ public sealed class BootstrapCoordinatorTests
                 throw new FileNotFoundException();
             }
             return Task.FromResult(applicationName + ".exe");
-        }
-
-        public Task RefreshAsync(string applicationName, CancellationToken cancellationToken)
-        {
-            Calls.Add(applicationName + ":Refresh");
-            return Task.CompletedTask;
         }
 
         public (string ArchivePath, string Sha256)? TryGetDebugArchive(string applicationName)

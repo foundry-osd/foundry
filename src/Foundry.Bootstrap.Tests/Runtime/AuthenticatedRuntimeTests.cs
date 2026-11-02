@@ -19,6 +19,9 @@ namespace Foundry.Bootstrap.Tests.Runtime;
 
 public sealed class AuthenticatedRuntimeTests : IDisposable
 {
+    private const string MediaVersion = "26.11.2.1";
+    private const string UnavailableMessage = "No authenticated original Foundry.Connect payload is available.";
+
     private readonly string root = Path.Combine(Path.GetTempPath(), "FoundryAuthenticatedRuntime-" + Guid.NewGuid().ToString("N"));
     private readonly List<Uri> requests = [];
     private readonly Dictionary<string, string> environment = [];
@@ -26,37 +29,346 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     private string CacheRoot => Path.Combine(root, "Usb", "Runtime");
 
     [Fact]
-    public async Task CoordinatorLaunchesVerifiedConnectUpdatesOnlineAndOriginalConnectOffline()
+    public async Task CoordinatorLaunchesTheOriginalConnectWithoutTheNetwork()
     {
         SeedOriginal();
-        byte[] update = ArchiveBytes("updated");
-        using var online = Client(Release(Hash(update)), Payload(update), Release(Hash(update)));
-        using var offline = Client();
+        using var client = new HttpClient(new NoNetworkHandler(requests));
         using var logger = new LoggerConfiguration().CreateLogger();
         var boundary = new ConnectBoundary();
         var context = new BootstrapContext(BootRoot, CacheRoot, "win-x64", "TEST", null, false, false);
 
-        foreach (HttpClient client in new[] { online, online, offline })
-        {
-            var coordinator = new BootstrapCoordinator(context, Resolver(client, logger), boundary, boundary, boundary, logger, _ => { },
-                createKeyRelay: () => new NoOpKeyRelay());
-            Assert.Equal(BootstrapOutcome.Cancelled, (await coordinator.RunAsync(TestContext.Current.CancellationToken)).Outcome);
-        }
+        var coordinator = new BootstrapCoordinator(context, Resolver(client, logger), boundary, boundary, boundary, logger, _ => { },
+            createKeyRelay: () => new NoOpKeyRelay());
+        Assert.Equal(BootstrapOutcome.Cancelled, (await coordinator.RunAsync(TestContext.Current.CancellationToken)).Outcome);
 
-        Assert.Equal(["updated", "updated", "original"], boundary.LaunchedContent);
-        Assert.Equal(3, requests.Count(request => request.Host == "api.github.com"));
-        Assert.Equal(update, File.ReadAllBytes(CurrentArchive));
+        Assert.Equal(["original"], boundary.LaunchedContent);
+        Assert.Empty(requests);
+    }
+
+    [Theory]
+    [InlineData("Foundry.Connect")]
+    [InlineData("Foundry.Deploy")]
+    [InlineData("Foundry.PostInstall")]
+    public async Task Resolve_ValidMediaPayload_DoesNotCallTheNetwork(string application)
+    {
+        string original = SeedOriginal(application);
+        // A cached update written by an older Bootstrap is ignored.
+        File.WriteAllBytes(Path.Combine(Path.GetDirectoryName(original)!, "current.zip"), ArchiveBytes("updated", application));
+        using var client = new HttpClient(new NoNetworkHandler(requests));
+        using var logger = new LoggerConfiguration().CreateLogger();
+        var warnings = new List<string>();
+
+        string executable = await Resolver(client, logger, warnings: warnings).ResolveAsync(application, false, TestContext.Current.CancellationToken);
+
+        Assert.Equal("original", File.ReadAllText(executable));
+        Assert.Empty(requests);
+        Assert.Empty(warnings);
+    }
+
+    [Theory]
+    [InlineData("Foundry.Connect", "FOUNDRY_CONNECT")]
+    [InlineData("Foundry.Deploy", "FOUNDRY_DEPLOY")]
+    [InlineData("Foundry.PostInstall", "FOUNDRY_POSTINSTALL")]
+    public async Task Resolve_MissingMediaPayload_RepairsFromTheMediaRelease(string application, string prefix)
+    {
+        byte[] original = RemoveOriginal(SeedOriginal(application));
+        // Another application's override must not select the release of this one.
+        environment[(prefix == "FOUNDRY_DEPLOY" ? "FOUNDRY_POSTINSTALL" : "FOUNDRY_DEPLOY") + "_RELEASE_TAG"] = "v-other";
+        using var client = Client(Release(Hash(original), application: application), Payload(original));
+        using var logger = new LoggerConfiguration().CreateLogger();
+        var warnings = new List<string>();
+
+        string executable = await Resolver(client, logger, warnings: warnings).ResolveAsync(application, false, TestContext.Current.CancellationToken);
+
+        Assert.Equal("original", File.ReadAllText(executable));
+        Assert.EndsWith("/releases/tags/v26.11.2.1", requests[0].AbsoluteUri, StringComparison.Ordinal);
+        Assert.Equal("example.test", requests[1].Host);
+        Assert.Equal([$"{application} was repaired from release v26.11.2.1."], warnings);
     }
 
     [Fact]
-    public async Task StalledConnectLookupYieldsToOriginalWithoutCancellingBoot()
+    public async Task Resolve_TamperedMediaPayload_RepairsFromTheMediaRelease()
+    {
+        string archive = SeedOriginal();
+        byte[] original = File.ReadAllBytes(archive);
+        byte[] tampered = ArchiveBytes("substituted");
+        File.WriteAllBytes(archive, tampered);
+        using var client = Client(Release(Hash(original)), Payload(original));
+        using var logger = new LoggerConfiguration().CreateLogger();
+        var warnings = new List<string>();
+
+        string executable = await Resolver(client, logger, warnings: warnings).ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken);
+
+        Assert.Equal("original", File.ReadAllText(executable));
+        Assert.Equal(["Foundry.Connect was repaired from release v26.11.2.1."], warnings);
+        // A repair lives only in boot-owned storage; the media is never rewritten.
+        Assert.Equal(tampered, File.ReadAllBytes(archive));
+    }
+
+    [Fact]
+    public async Task Resolve_ReleaseAssetHashDiffersFromMedia_Fails()
+    {
+        RemoveOriginal(SeedOriginal());
+        byte[] other = ArchiveBytes("other release");
+        using var client = Client(Release(Hash(other)), Payload(other));
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        var exception = await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(client, logger).ResolveAsync(
+            "Foundry.Connect", false, TestContext.Current.CancellationToken));
+
+        Assert.StartsWith(UnavailableMessage, exception.Message, StringComparison.Ordinal);
+        Assert.Equal("The release asset does not match the boot media.", exception.InnerException?.Message);
+        Assert.Single(requests);
+        AssertNoPreparedPayload();
+    }
+
+    [Theory]
+    [InlineData("Foundry.Deploy")]
+    [InlineData("Foundry.PostInstall")]
+    public async Task Resolve_NoTrustHash_DownloadsFromTheMediaReleaseWithoutRepairWarning(string application)
+    {
+        // Release media embed only Connect (and PostInstall with Domain Join); other runtimes are downloaded at every start.
+        SeedOriginal();
+        byte[] release = ArchiveBytes("released", application);
+        using var client = Client(Release(Hash(release), application: application), Payload(release));
+        using var logger = new LoggerConfiguration().CreateLogger();
+        var warnings = new List<string>();
+
+        string executable = await Resolver(client, logger, warnings: warnings).ResolveAsync(application, false, TestContext.Current.CancellationToken);
+
+        Assert.Equal("released", File.ReadAllText(executable));
+        Assert.EndsWith("/releases/tags/v26.11.2.1", requests[0].AbsoluteUri, StringComparison.Ordinal);
+        Assert.Equal("example.test", requests[1].Host);
+        Assert.Empty(warnings);
+        Assert.Equal(release, File.ReadAllBytes(CurrentArchive(application)));
+    }
+
+    [Fact]
+    public async Task Resolve_CachedArchiveOfTheMediaRelease_IsReusedWithoutDownload()
     {
         SeedOriginal();
+        byte[] release = ArchiveBytes("released", "Foundry.Deploy");
+        Directory.CreateDirectory(Path.GetDirectoryName(CurrentArchive("Foundry.Deploy"))!);
+        File.WriteAllBytes(CurrentArchive("Foundry.Deploy"), release);
+        using var client = Client(Release(Hash(release), application: "Foundry.Deploy"));
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        string executable = await Resolver(client, logger).ResolveAsync("Foundry.Deploy", false, TestContext.Current.CancellationToken);
+
+        Assert.Equal("released", File.ReadAllText(executable));
+        Assert.EndsWith("/releases/tags/v26.11.2.1", Assert.Single(requests).AbsoluteUri, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task Resolve_CachedArchiveOfAnotherRelease_IsReplaced()
+    {
+        SeedOriginal();
+        Directory.CreateDirectory(Path.GetDirectoryName(CurrentArchive("Foundry.Deploy"))!);
+        File.WriteAllBytes(CurrentArchive("Foundry.Deploy"), ArchiveBytes("newer latest", "Foundry.Deploy"));
+        byte[] release = ArchiveBytes("released", "Foundry.Deploy");
+        using var client = Client(Release(Hash(release), application: "Foundry.Deploy"), Payload(release));
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        string executable = await Resolver(client, logger).ResolveAsync("Foundry.Deploy", false, TestContext.Current.CancellationToken);
+
+        Assert.Equal("released", File.ReadAllText(executable));
+        Assert.Equal(release, File.ReadAllBytes(CurrentArchive("Foundry.Deploy")));
+        Assert.Equal(2, requests.Count);
+    }
+
+    [Fact]
+    public async Task RuntimeCacheBesideWinPeRootRemainsPersistentAndReusable()
+    {
+        string runtimeRoot = BootRoot + "-Usb";
+        SeedOriginal(runtimeRoot: runtimeRoot);
+        byte[] release = ArchiveBytes("released", "Foundry.Deploy");
+        using var client = Client(Release(Hash(release), application: "Foundry.Deploy"), Payload(release),
+            Release(Hash(release), application: "Foundry.Deploy"));
+        using var logger = new LoggerConfiguration().CreateLogger();
+        var resolver = Resolver(client, logger, runtimeRoot: runtimeRoot);
+
+        for (int attempt = 0; attempt < 2; attempt++)
+        {
+            string executable = await resolver.ResolveAsync("Foundry.Deploy", false, TestContext.Current.CancellationToken);
+            Assert.Equal("released", File.ReadAllText(executable));
+        }
+
+        Assert.Equal(release, File.ReadAllBytes(Path.Combine(runtimeRoot, "Foundry.Deploy", "win-x64", "current.zip")));
+        Assert.Equal(1, requests.Count(request => request.Host == "example.test"));
+    }
+
+    [Theory]
+    [InlineData("", false)]
+    [InlineData("Runtime", false)]
+    [InlineData("Runtime/../Runtime", false)]
+    [InlineData("Runtime", true)]
+    public async Task Resolve_BootOwnedRuntime_NeitherReadsNorWritesCurrentArchive(string relativeRuntimeRoot, bool seedCache)
+    {
+        string runtimeRoot = Path.Combine(BootRoot, relativeRuntimeRoot);
+        SeedOriginal(runtimeRoot: runtimeRoot);
+        string current = Path.Combine(runtimeRoot, "Foundry.Deploy", "win-x64", "current.zip");
+        byte[] release = ArchiveBytes("released", "Foundry.Deploy");
+        if (seedCache)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(current)!);
+            File.WriteAllBytes(current, release);
+        }
+        using var client = Client(Release(Hash(release), application: "Foundry.Deploy"), Payload(release));
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        string executable = await Resolver(client, logger, runtimeRoot: runtimeRoot).ResolveAsync(
+            "Foundry.Deploy", false, TestContext.Current.CancellationToken);
+
+        Assert.Equal("released", File.ReadAllText(executable));
+        Assert.Equal("example.test", requests[1].Host);
+        Assert.Equal(seedCache, File.Exists(current));
+        Assert.Empty(Directory.EnumerateFiles(Path.Combine(BootRoot, "Execution"), "*.zip", SearchOption.AllDirectories));
+    }
+
+    [Fact]
+    public async Task FailedCachePublicationDoesNotPreventUsingTheAuthenticatedDownload()
+    {
+        SeedOriginal();
+        Directory.CreateDirectory(CurrentArchive("Foundry.Deploy"));
+        byte[] release = ArchiveBytes("released", "Foundry.Deploy");
+        using var client = Client(Release(Hash(release), application: "Foundry.Deploy"), Payload(release));
+        using var logger = new LoggerConfiguration().CreateLogger();
+        var warnings = new List<string>();
+
+        string executable = await Resolver(client, logger, warnings: warnings).ResolveAsync("Foundry.Deploy", false, TestContext.Current.CancellationToken);
+
+        Assert.Equal("released", File.ReadAllText(executable));
+        Assert.Contains(warnings, value => value.Contains("saved to the cache", StringComparison.Ordinal));
+        Assert.Empty(Directory.GetFiles(Path.GetDirectoryName(CurrentArchive("Foundry.Deploy"))!, "*.download"));
+    }
+
+    [Fact]
+    public async Task Resolve_ReleaseWithoutAsset_FailsWithRecreateMessage()
+    {
+        byte[] original = RemoveOriginal(SeedOriginal());
+        using var client = Client(Release(Hash(original), rid: "win-arm64"));
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        var exception = await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(client, logger).ResolveAsync(
+            "Foundry.Connect", false, TestContext.Current.CancellationToken));
+
+        Assert.StartsWith(UnavailableMessage, exception.Message, StringComparison.Ordinal);
+        Assert.Contains("Recreate the boot media", exception.Message, StringComparison.Ordinal);
+        Assert.Single(requests);
+        AssertNoPreparedPayload();
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("sha256:abc")]
+    [InlineData("sha512:1234")]
+    public async Task MissingOrUnsupportedReleaseDigestCannotAuthorizeCachedOrDownloadedCode(string? digest)
+    {
+        SeedOriginal();
+        Directory.CreateDirectory(Path.GetDirectoryName(CurrentArchive("Foundry.Deploy"))!);
+        File.WriteAllBytes(CurrentArchive("Foundry.Deploy"), ArchiveBytes("cached", "Foundry.Deploy"));
+        using var client = Client(Release(digest, addPrefix: false, application: "Foundry.Deploy"), Payload(ArchiveBytes("substituted", "Foundry.Deploy")));
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(client, logger).ResolveAsync(
+            "Foundry.Deploy", false, TestContext.Current.CancellationToken));
+
+        Assert.Single(requests);
+    }
+
+    [Fact]
+    public async Task Resolve_ConnectRepair_StopsAfterDeadline()
+    {
+        RemoveOriginal(SeedOriginal());
         using var client = new HttpClient(new StalledHandler());
         using var logger = new LoggerConfiguration().CreateLogger();
-        string executable = await Resolver(client, logger).ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken);
-        Assert.Equal("original", File.ReadAllText(executable));
+
+        var exception = await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(client, logger).ResolveAsync(
+            "Foundry.Connect", false, TestContext.Current.CancellationToken));
+
+        Assert.StartsWith(UnavailableMessage, exception.Message, StringComparison.Ordinal);
+        Assert.IsAssignableFrom<OperationCanceledException>(exception.InnerException);
         Assert.False(TestContext.Current.CancellationToken.IsCancellationRequested);
+    }
+
+    [Theory]
+    [InlineData("26.11.2.1", "Foundry.Connect")]
+    [InlineData("26.11.2.1+0123abcd", "Foundry.Connect")]
+    [InlineData("26.11.2.1", "Foundry.Deploy")]
+    public async Task Resolve_PublishedVersion_NeverRequestsLatest(string version, string application)
+    {
+        // Connect is embedded and missing (repair); Deploy has no trust hash (normal download).
+        RemoveOriginal(SeedOriginal());
+        using var client = Client();
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(client, logger, releaseVersion: version).ResolveAsync(
+            application, false, TestContext.Current.CancellationToken));
+
+        Assert.NotEmpty(requests);
+        Assert.All(requests, request => Assert.EndsWith("/releases/tags/v26.11.2.1", request.AbsoluteUri, StringComparison.Ordinal));
+    }
+
+    [Theory]
+    [InlineData("Foundry.Connect", "FOUNDRY_CONNECT")]
+    [InlineData("Foundry.PostInstall", "FOUNDRY_POSTINSTALL")]
+    public async Task SpecificReleaseTagTakesPrecedenceOverTheGlobalTag(string application, string prefix)
+    {
+        byte[] original = RemoveOriginal(SeedOriginal(application));
+        environment[prefix + "_RELEASE_TAG"] = " v-specific ";
+        environment["FOUNDRY_RELEASE_TAG"] = "v-global";
+        using var client = Client(Release(Hash(original), application: application), Payload(original));
+        using var logger = new LoggerConfiguration().CreateLogger();
+        var warnings = new List<string>();
+
+        string executable = await Resolver(client, logger, warnings: warnings).ResolveAsync(application, false, TestContext.Current.CancellationToken);
+
+        Assert.Equal("original", File.ReadAllText(executable));
+        Assert.EndsWith("/tags/v-specific", requests[0].AbsoluteUri, StringComparison.Ordinal);
+        Assert.Equal([$"{application} was repaired from release v-specific."], warnings);
+    }
+
+    [Theory]
+    [InlineData("Usb/Runtime")]
+    [InlineData("BootImage")]
+    [InlineData("BootImage/Runtime")]
+    [InlineData("BootImage-Usb")]
+    public async Task Resolve_EmbeddedRepair_NeverWritesCurrentArchive(string relativeRuntimeRoot)
+    {
+        string runtimeRoot = Path.Combine(root, relativeRuntimeRoot);
+        string archive = SeedOriginal(runtimeRoot: runtimeRoot);
+        byte[] original = RemoveOriginal(archive);
+        using var client = Client(Release(Hash(original)), Payload(original));
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        string executable = await Resolver(client, logger, runtimeRoot: runtimeRoot).ResolveAsync(
+            "Foundry.Connect", false, TestContext.Current.CancellationToken);
+
+        Assert.Equal("original", File.ReadAllText(executable));
+        Assert.Empty(Directory.EnumerateFiles(root, "current.zip", SearchOption.AllDirectories));
+        Assert.False(File.Exists(archive));
+        Assert.Empty(Directory.EnumerateFiles(Path.Combine(BootRoot, "Execution"), "*.zip", SearchOption.AllDirectories));
+    }
+
+    [Theory]
+    [InlineData("missing")]
+    [InlineData("tampered")]
+    [InlineData("untrusted")]
+    public async Task Resolve_DebugApplication_DoesNotRepair(string state)
+    {
+        string archive = SeedOriginal();
+        byte[] original = File.ReadAllBytes(archive);
+        if (state == "tampered") File.WriteAllBytes(archive, ArchiveBytes("substituted"));
+        else if (state == "missing") File.Delete(archive);
+        else File.Delete(Path.Combine(BootRoot, "Config", "foundry.runtime-trust.json"));
+        using var client = Client(Release(Hash(original)), Payload(original));
+        using var logger = new LoggerConfiguration().CreateLogger();
+
+        await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(client, logger).ResolveAsync(
+            "Foundry.Connect", true, TestContext.Current.CancellationToken));
+
+        Assert.Empty(requests);
+        AssertNoPreparedPayload();
     }
 
     [Theory]
@@ -108,66 +420,10 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     }
 
     [Fact]
-    public async Task OfflineRebootUsesOriginalEvenAfterAnOnlineUpdate()
+    public async Task OriginalArchiveIsVerifiedAndExecutedFromTheCopiedBytes()
     {
-        string original = SeedOriginal();
-        byte[] update = ArchiveBytes("updated");
-        using var online = Client(Release(Hash(update)), Payload(update));
-        using var logger = new LoggerConfiguration().CreateLogger();
-        string updatedExecutable = await Resolver(online, logger).ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken);
-        Assert.Equal("updated", File.ReadAllText(updatedExecutable));
-        Assert.Equal(update, File.ReadAllBytes(CurrentArchive));
-        Assert.Equal("original", ReadArchiveEntry(original, "Foundry.Connect.exe"));
-
-        using var offline = Client();
-        var warnings = new List<string>();
-        string offlineExecutable = await Resolver(offline, logger, warnings: warnings).ResolveAsync(
-            "Foundry.Connect", false, TestContext.Current.CancellationToken);
-
-        Assert.Equal("original", File.ReadAllText(offlineExecutable));
-        Assert.Contains(warnings, warning => warning.Contains("original", StringComparison.OrdinalIgnoreCase));
-        Assert.NotEqual(updatedExecutable, offlineExecutable);
-        Assert.True(File.Exists(updatedExecutable));
-    }
-
-    [Theory]
-    [InlineData("win-x64")]
-    [InlineData("win-arm64")]
-    public async Task PostInstallUpdatesAndReusesItsOwnCacheAndRequiresAuthenticatedOriginalOffline(string rid)
-    {
-        const string application = "Foundry.PostInstall";
-        string original = SeedOriginal(application, rid);
-        string current = Path.Combine(CacheRoot, application, rid, "current.zip");
-        byte[] update = ArchiveBytes("updated", application);
-        environment["FOUNDRY_DEPLOY_RELEASE_TAG"] = "must-not-select-deploy-release";
-        using var online = Client(Release(Hash(update), application: application, rid: rid), Payload(update),
-            Release(Hash(update), application: application, rid: rid));
-        using var logger = new LoggerConfiguration().CreateLogger();
-
-        for (int attempt = 0; attempt < 2; attempt++)
-        {
-            string executable = await Resolver(online, logger, rid).ResolveAsync(application, false, TestContext.Current.CancellationToken);
-            Assert.Equal("updated", File.ReadAllText(executable));
-        }
-
-        Assert.Equal(update, File.ReadAllBytes(current));
-        Assert.Equal(2, requests.Count(request => request.AbsolutePath.EndsWith("/releases/latest", StringComparison.Ordinal)));
-        Assert.Equal(1, requests.Count(request => request.Host == "example.test"));
-        using var offline = Client();
-        string fallback = await Resolver(offline, logger, rid).ResolveAsync(application, false, TestContext.Current.CancellationToken);
-        Assert.Equal("original", File.ReadAllText(fallback));
-        File.Delete(original);
-        await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(offline, logger, rid).ResolveAsync(
-            application, false, TestContext.Current.CancellationToken));
-    }
-
-    [Fact]
-    public async Task CurrentArchiveIsRehashedAgainstFreshMetadataAndExecutionUsesTheCopiedBytes()
-    {
-        SeedOriginal();
-        byte[] update = ArchiveBytes("updated");
-        File.WriteAllBytes(CurrentArchive, update);
-        using var client = Client(Release(Hash(update)));
+        string archive = SeedOriginal();
+        using var client = Client();
         using var logger = new LoggerConfiguration().CreateLogger();
         bool mutated = false;
         var resolver = Resolver(client, logger, progress: value =>
@@ -175,76 +431,15 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
             if (!mutated && value.Phase == RuntimeProgressPhase.Verification && value.BytesReceived > 0)
             {
                 mutated = true;
-                File.WriteAllBytes(CurrentArchive, ArchiveBytes("substituted"));
+                File.WriteAllBytes(archive, ArchiveBytes("substituted"));
             }
         });
 
         string executable = await resolver.ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken);
 
         Assert.True(mutated);
-        Assert.Equal("updated", File.ReadAllText(executable));
-        Assert.Single(requests);
-        Assert.Equal("api.github.com", requests[0].Host);
-    }
-
-    [Theory]
-    [InlineData("")]
-    [InlineData("Runtime")]
-    [InlineData("Runtime/../Runtime")]
-    public async Task OnlineIsoUpdateDoesNotCreateACurrentArchive(string relativeRuntimeRoot)
-    {
-        string runtimeRoot = Path.Combine(BootRoot, relativeRuntimeRoot);
-        string original = SeedOriginal(runtimeRoot: runtimeRoot);
-        byte[] update = ArchiveBytes("updated");
-        using var client = Client(Release(Hash(update)), Payload(update));
-        using var logger = new LoggerConfiguration().CreateLogger();
-
-        string executable = await Resolver(client, logger, runtimeRoot: runtimeRoot).ResolveAsync(
-            "Foundry.Connect", false, TestContext.Current.CancellationToken);
-
-        Assert.Equal("updated", File.ReadAllText(executable));
-        Assert.False(File.Exists(Path.Combine(runtimeRoot, "Foundry.Connect", "win-x64", "current.zip")));
-        Assert.Equal("original", ReadArchiveEntry(original, "Foundry.Connect.exe"));
-        Assert.Empty(Directory.EnumerateFiles(Path.Combine(BootRoot, "Execution"), "*.zip", SearchOption.AllDirectories));
-    }
-
-    [Fact]
-    public async Task OnlineIsoUpdateDoesNotReadAnExistingCurrentArchive()
-    {
-        string runtimeRoot = Path.Combine(BootRoot, "Runtime");
-        SeedOriginal(runtimeRoot: runtimeRoot);
-        string current = Path.Combine(runtimeRoot, "Foundry.Connect", "win-x64", "current.zip");
-        byte[] update = ArchiveBytes("updated");
-        File.WriteAllBytes(current, update);
-        using var client = Client(Release(Hash(update)), Payload(update));
-        using var logger = new LoggerConfiguration().CreateLogger();
-
-        string executable = await Resolver(client, logger, runtimeRoot: runtimeRoot).ResolveAsync(
-            "Foundry.Connect", false, TestContext.Current.CancellationToken);
-
-        Assert.Equal("updated", File.ReadAllText(executable));
-        Assert.Equal(2, requests.Count);
-        Assert.Equal("example.test", requests[1].Host);
-    }
-
-    [Fact]
-    public async Task RuntimeCacheBesideWinPeRootRemainsPersistentAndReusable()
-    {
-        string runtimeRoot = BootRoot + "-Usb";
-        SeedOriginal(runtimeRoot: runtimeRoot);
-        byte[] update = ArchiveBytes("updated");
-        using var client = Client(Release(Hash(update)), Payload(update), Release(Hash(update)));
-        using var logger = new LoggerConfiguration().CreateLogger();
-        var resolver = Resolver(client, logger, runtimeRoot: runtimeRoot);
-
-        for (int attempt = 0; attempt < 2; attempt++)
-        {
-            string executable = await resolver.ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken);
-            Assert.Equal("updated", File.ReadAllText(executable));
-        }
-
-        Assert.Equal(update, File.ReadAllBytes(Path.Combine(runtimeRoot, "Foundry.Connect", "win-x64", "current.zip")));
-        Assert.Equal(1, requests.Count(request => request.Host == "example.test"));
+        Assert.Equal("original", File.ReadAllText(executable));
+        Assert.Empty(requests);
     }
 
     [Fact]
@@ -252,9 +447,7 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     {
         string original = SeedOriginal();
         byte[] originalBytes = File.ReadAllBytes(original);
-        byte[] update = ArchiveBytes("updated");
-        File.WriteAllBytes(CurrentArchive, update);
-        using var client = Client(Release(Hash(update)));
+        using var client = Client();
         using var logger = new LoggerConfiguration().CreateLogger();
         var resolver = Resolver(client, logger);
         string executable = await resolver.ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken);
@@ -271,7 +464,6 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         Assert.False(Directory.Exists(workspace));
         Assert.True(File.Exists(otherExecutable));
         Assert.Equal(originalBytes, File.ReadAllBytes(original));
-        Assert.Equal(update, File.ReadAllBytes(CurrentArchive));
     }
 
     [Fact]
@@ -315,57 +507,6 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
             entry.Exception is IOException or UnauthorizedAccessException);
     }
 
-    [Theory]
-    [InlineData(null)]
-    [InlineData("sha256:abc")]
-    [InlineData("sha512:1234")]
-    public async Task MissingOrUnsupportedReleaseDigestCannotAuthorizeCachedOrDownloadedCode(string? digest)
-    {
-        SeedOriginal();
-        File.WriteAllBytes(CurrentArchive, ArchiveBytes("substituted"));
-        using var client = Client(Release(digest, addPrefix: false));
-        using var logger = new LoggerConfiguration().CreateLogger();
-
-        string executable = await Resolver(client, logger).ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken);
-
-        Assert.Equal("original", File.ReadAllText(executable));
-        Assert.Single(requests);
-    }
-
-    [Fact]
-    public async Task FailedDownloadValidationPreservesTheOriginalAndPreviousUpdate()
-    {
-        string original = SeedOriginal();
-        string originalHash = Hash(original);
-        byte[] previous = ArchiveBytes("previous");
-        File.WriteAllBytes(CurrentArchive, previous);
-        using var client = Client(Release(new string('0', 64)), Payload(ArchiveBytes("corrupt candidate")));
-        using var logger = new LoggerConfiguration().CreateLogger();
-
-        string executable = await Resolver(client, logger).ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken);
-
-        Assert.Equal("original", File.ReadAllText(executable));
-        Assert.Equal(originalHash, Hash(original));
-        Assert.Equal(previous, File.ReadAllBytes(CurrentArchive));
-        Assert.Equal(2, requests.Count);
-    }
-
-    [Fact]
-    public async Task CorruptCurrentArchiveDownloadsAndVerifiesAReplacement()
-    {
-        SeedOriginal();
-        File.WriteAllBytes(CurrentArchive, ArchiveBytes("substituted"));
-        byte[] update = ArchiveBytes("updated");
-        using var client = Client(Release(Hash(update)), Payload(update));
-        using var logger = new LoggerConfiguration().CreateLogger();
-
-        string executable = await Resolver(client, logger).ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken);
-
-        Assert.Equal("updated", File.ReadAllText(executable));
-        Assert.Equal(update, File.ReadAllBytes(CurrentArchive));
-        Assert.Equal(2, requests.Count);
-    }
-
     [Fact]
     public async Task CancellationDuringExtractionNeverFallsBackAndRemovesIncompletePayload()
     {
@@ -378,7 +519,7 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
             if (value.Phase == RuntimeProgressPhase.Extraction && value.BytesReceived > 0) cancellation.Cancel();
         });
 
-        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => resolver.ResolveAsync("Foundry.Connect", true, cancellation.Token));
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => resolver.ResolveAsync("Foundry.Connect", false, cancellation.Token));
 
         AssertNoPreparedPayload();
         Assert.True(File.Exists(original));
@@ -421,58 +562,6 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         Assert.StartsWith(Path.GetDirectoryName(executable)! + Path.DirectorySeparatorChar,
             start.Environment["DOTNET_BUNDLE_EXTRACT_BASE_DIR"]!);
         Assert.Equal(Path.GetDirectoryName(executable), start.WorkingDirectory);
-    }
-
-    private string CurrentArchive => Path.Combine(CacheRoot, "Foundry.Connect", "win-x64", "current.zip");
-
-    [Fact]
-    public async Task BackgroundRefreshKeepsTheVerifiedArchiveWithoutRetainingUnusedRamPayloads()
-    {
-        SeedOriginal();
-        byte[] update = ArchiveBytes("updated");
-        using var client = Client(Release(Hash(update)), Payload(update));
-        using var logger = new LoggerConfiguration().CreateLogger();
-
-        await Resolver(client, logger).RefreshAsync("Foundry.Connect", TestContext.Current.CancellationToken);
-
-        Assert.Equal(update, File.ReadAllBytes(CurrentArchive));
-        AssertNoPreparedPayload();
-    }
-
-    [Theory]
-    [InlineData("Foundry.Connect", "FOUNDRY_CONNECT")]
-    [InlineData("Foundry.PostInstall", "FOUNDRY_POSTINSTALL")]
-    public async Task SpecificReleaseTagTakesPrecedenceOverTheGlobalTag(string application, string prefix)
-    {
-        string original = SeedOriginal(application);
-        byte[] update = ArchiveBytes("updated", application);
-        File.WriteAllBytes(Path.Combine(Path.GetDirectoryName(original)!, "current.zip"), update);
-        environment[prefix + "_RELEASE_TAG"] = " v-specific ";
-        environment["FOUNDRY_RELEASE_TAG"] = "v-global";
-        using var client = Client(Release(Hash(update), application: application));
-        using var logger = new LoggerConfiguration().CreateLogger();
-
-        string executable = await Resolver(client, logger).ResolveAsync(application, false, TestContext.Current.CancellationToken);
-
-        Assert.Equal("updated", File.ReadAllText(executable));
-        Assert.EndsWith("/tags/v-specific", Assert.Single(requests).AbsoluteUri);
-    }
-
-    [Fact]
-    public async Task FailedCachePublicationDoesNotPreventUsingTheAuthenticatedDownload()
-    {
-        SeedOriginal();
-        Directory.CreateDirectory(CurrentArchive);
-        byte[] update = ArchiveBytes("updated");
-        using var client = Client(Release(Hash(update)), Payload(update));
-        using var logger = new LoggerConfiguration().CreateLogger();
-        var warnings = new List<string>();
-
-        string executable = await Resolver(client, logger, warnings: warnings).ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken);
-
-        Assert.Equal("updated", File.ReadAllText(executable));
-        Assert.Contains(warnings, value => value.Contains("saved to the cache", StringComparison.Ordinal));
-        Assert.Empty(Directory.GetFiles(Path.GetDirectoryName(CurrentArchive)!, "*.download"));
     }
 
     [Theory]
@@ -563,6 +652,16 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         return path;
     }
 
+    private string CurrentArchive(string application) => Path.Combine(CacheRoot, application, "win-x64", "current.zip");
+
+    // Deletes the media archive while its trust manifest entry remains, and returns the bytes the release must serve.
+    private static byte[] RemoveOriginal(string path)
+    {
+        byte[] bytes = File.ReadAllBytes(path);
+        File.Delete(path);
+        return bytes;
+    }
+
     private static byte[] ArchiveBytes(string content, string application = "Foundry.Connect")
     {
         using var buffer = new MemoryStream();
@@ -575,16 +674,10 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         return buffer.ToArray();
     }
 
-    private static string ReadArchiveEntry(string path, string entry)
-    {
-        using var zip = ZipFile.OpenRead(path);
-        using var reader = new StreamReader(zip.GetEntry(entry)!.Open());
-        return reader.ReadToEnd();
-    }
-
     private RuntimeResolver Resolver(HttpClient client, Serilog.ILogger logger, string rid = "win-x64",
-        List<string>? warnings = null, Action<RuntimeDownloadProgress>? progress = null, string? runtimeRoot = null) => new(BootRoot, runtimeRoot ?? CacheRoot, rid, client,
-        logger, progress, key => environment.GetValueOrDefault(key), warning: value => warnings?.Add(value));
+        List<string>? warnings = null, Action<RuntimeDownloadProgress>? progress = null, string? runtimeRoot = null,
+        string releaseVersion = MediaVersion) => new(BootRoot, runtimeRoot ?? CacheRoot, rid, client,
+        logger, progress, key => environment.GetValueOrDefault(key), warning: value => warnings?.Add(value), releaseVersion: releaseVersion);
 
     private HttpClient Client(params HttpResponseMessage[] responses) => new(new Handler(requests, new(responses)));
     private static HttpResponseMessage Payload(byte[] bytes) => new(HttpStatusCode.OK) { Content = new ByteArrayContent(bytes) };
@@ -595,7 +688,7 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     {
         Content = new StringContent(JsonSerializer.Serialize(new
         {
-            tag_name = "v1.2.3",
+            tag_name = "v" + MediaVersion,
             assets = new[] { new { name = $"{application}-{rid}.zip", digest = addPrefix ? "sha256:" + digest : digest, browser_download_url = "https://example.test/payload.zip" } }
         }))
     };
@@ -617,6 +710,16 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         {
             requests.Add(request.RequestUri!);
             return Task.FromResult(responses.Count > 0 ? responses.Dequeue() : new HttpResponseMessage(HttpStatusCode.NotFound));
+        }
+    }
+
+    // Records the request before failing, so a resolver that swallows the failure still fails the test.
+    private sealed class NoNetworkHandler(List<Uri> requests) : HttpMessageHandler
+    {
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            requests.Add(request.RequestUri!);
+            throw new InvalidOperationException("A valid boot-media payload must not use the network.");
         }
     }
 

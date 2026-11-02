@@ -7,11 +7,13 @@ namespace Foundry.Bootstrap.Runtime;
 /// <summary>Resolves Connect, Deploy, and PostInstall payloads without launching them, and locates the debug-only AutopilotInteractive archive.</summary>
 internal interface IRuntimeResolver
 {
-    /// <summary>Resolves an executable, preserving explicit override failures and permitted offline fallback.</summary>
+    /// <summary>
+    /// Resolves an executable from an explicit archive override, else from the release of the boot media: an embedded runtime
+    /// runs from the media and is repaired from that release when missing or damaged; a runtime the media does not embed is
+    /// downloaded from that release (or reused from the USB cache when it matches). <paramref name="skipReleaseLookup"/>
+    /// (debug applications) allows the media payload only.
+    /// </summary>
     Task<string> ResolveAsync(string applicationName, bool skipReleaseLookup, CancellationToken cancellationToken);
-
-    /// <summary>Authenticates an online update, using persistent cache when available, without retaining an unused execution payload.</summary>
-    Task RefreshAsync(string applicationName, CancellationToken cancellationToken);
 
     /// <summary>
     /// Locates the original archive of a payload that exists only on debug media, with the SHA256 the boot-owned trust manifest
