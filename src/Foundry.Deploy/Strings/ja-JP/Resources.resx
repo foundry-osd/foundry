@@ -1336,10 +1336,10 @@ MITライセンスに基づいてライセンスされています。</value>
     <value>抽出中</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}: {1} ({2} 残り)</value>
+    <value>{0}: {1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}: {1}、ほか {2} 件 ({3} 残り)</value>
+    <value>{0}: {1}、ほか {2} 件</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

@@ -1336,10 +1336,10 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
     <value>추출</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}: {1}({2} 남음)</value>
+    <value>{0}: {1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}: {1}, {2}개 더({3} 남음)</value>
+    <value>{0}: {1}, {2}개 더</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

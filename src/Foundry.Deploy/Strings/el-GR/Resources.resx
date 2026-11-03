@@ -1336,10 +1336,10 @@
     <value>Εξαγωγή</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}: {1} (απομένουν {2})</value>
+    <value>{0}: {1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}: {1}, {2} ακόμη (απομένουν {3})</value>
+    <value>{0}: {1}, {2} ακόμη</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

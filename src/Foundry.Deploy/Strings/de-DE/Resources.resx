@@ -1336,10 +1336,10 @@ Mit der Bereitstellung fortfahren?</value>
     <value>Extrahieren</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}: {1} ({2} verbleibend)</value>
+    <value>{0}: {1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}: {1}, {2} weitere ({3} verbleibend)</value>
+    <value>{0}: {1}, {2} weitere</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

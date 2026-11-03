@@ -1336,10 +1336,10 @@
     <value>กำลังแยกไฟล์</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}: {1} (เหลือ {2})</value>
+    <value>{0}: {1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}: {1}, อีก {2} รายการ (เหลือ {3})</value>
+    <value>{0}: {1}, อีก {2} รายการ</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

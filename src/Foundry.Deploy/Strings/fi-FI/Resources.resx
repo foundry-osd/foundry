@@ -1336,10 +1336,10 @@ Jatketaanko käyttöönottoa?</value>
     <value>Purkaminen</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}: {1} ({2} jäljellä)</value>
+    <value>{0}: {1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}: {1}, {2} lisää ({3} jäljellä)</value>
+    <value>{0}: {1}, {2} lisää</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

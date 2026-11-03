@@ -14,13 +14,16 @@ public sealed class FinalizeDeploymentAndWriteLogsStep(
     INetworkCachePublisher? networkCachePublisher = null,
     INetworkCacheSessionAccessor? networkCacheAccessor = null) : DeploymentStepBase
 {
-    private static readonly TimeSpan NetworkCacheDrainLimit = TimeSpan.FromMinutes(2);
+    private static readonly TimeSpan NetworkCacheUploadStallLimit = TimeSpan.FromSeconds(30);
     private static readonly TimeSpan UploadProgressInterval = TimeSpan.FromMilliseconds(100);
 
     public override string Name => DeploymentStepNames.FinalizeDeploymentAndWriteLogs;
 
-    /// <summary>Gets the time queued network cache uploads get before the workspace is cleaned; two minutes outside tests.</summary>
-    internal TimeSpan DrainLimit { get; init; } = NetworkCacheDrainLimit;
+    /// <summary>
+    /// Gets how long queued network cache uploads may go without progress before they are abandoned and the workspace is
+    /// cleaned; thirty seconds outside tests.
+    /// </summary>
+    internal TimeSpan UploadStallLimit { get; init; } = NetworkCacheUploadStallLimit;
 
     protected override async Task<DeploymentStepResult> ExecuteLiveAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
@@ -33,34 +36,24 @@ public sealed class FinalizeDeploymentAndWriteLogsStep(
     }
 
     /// <summary>
-    /// Gives queued network cache uploads a bounded time before the target workspace, which holds the files being
-    /// published, is cleaned; then closes the share session.
+    /// Waits for queued network cache uploads while they make progress, before the target workspace, which holds the files
+    /// being published, is cleaned; then closes the share session.
     /// </summary>
     private async Task CompleteNetworkCacheAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
     {
         if (networkCachePublisher is not null)
         {
             context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Writing completion logs...", DeploymentOperationNames.WriteLogs);
-            DateTimeOffset deadline = DateTimeOffset.UtcNow + DrainLimit;
-            Task drain = networkCachePublisher.DrainAsync(DrainLimit, cancellationToken);
-            // While an upload is still running, the step says so with its progress and the time left, like the Autopilot upload.
-            // Running out of time is not shown: the next device downloads the file again, and the log records it. Once the
-            // deadline passes, the publisher only waits a short grace period for the abandoned upload, so the step goes back
-            // to its own status instead of showing a countdown at zero.
-            bool showsUpload = false;
+            Task drain = networkCachePublisher.DrainAsync(UploadStallLimit, cancellationToken);
+            // While an upload is still running, the step says so with its progress, like the Autopilot upload. An abandoned
+            // upload is not shown: the next device downloads the file again, and the log records it. The last upload shown
+            // stays between two files and during the short grace period after an abandon, so the line does not flicker.
             while (!drain.IsCompleted)
             {
-                TimeSpan remaining = deadline - DateTimeOffset.UtcNow;
-                if (remaining > TimeSpan.Zero && networkCachePublisher.CurrentUpload is { } upload)
+                if (networkCachePublisher.CurrentUpload is { } upload)
                 {
                     context.EmitCurrentStep(DeploymentStepState.Running, "Finishing the copy to the network cache...",
-                        Percent(upload), stepSubProgressIndeterminate: upload.TotalBytes <= 0, FormatUpload(upload, remaining));
-                    showsUpload = true;
-                }
-                else if (showsUpload && remaining <= TimeSpan.Zero)
-                {
-                    context.EmitCurrentStepIndeterminate("Finalizing deployment...", "Writing completion logs...", DeploymentOperationNames.WriteLogs);
-                    showsUpload = false;
+                        Percent(upload), stepSubProgressIndeterminate: upload.TotalBytes <= 0, FormatUpload(upload));
                 }
 
                 await Task.WhenAny(drain, Task.Delay(UploadProgressInterval, cancellationToken)).ConfigureAwait(false);
@@ -76,18 +69,16 @@ public sealed class FinalizeDeploymentAndWriteLogsStep(
         upload.TotalBytes > 0 ? Math.Min(100d, upload.BytesCopied * 100d / upload.TotalBytes) : null;
 
     /// <summary>
-    /// Formats the invariant upload line: progress of the current file, files still waiting, and the time left before Deploy
-    /// moves on. <see cref="Foundry.Deploy.Services.Localization.DeploymentUiTextLocalizer"/> parses this exact shape to show it in the UI language.
+    /// Formats the invariant upload line: progress of the current file and files still waiting.
+    /// <see cref="Foundry.Deploy.Services.Localization.DeploymentUiTextLocalizer"/> parses this exact shape to show it in the UI language.
     /// </summary>
-    internal static string FormatUpload(NetworkCacheUploadStatus upload, TimeSpan remaining)
+    internal static string FormatUpload(NetworkCacheUploadStatus upload)
     {
-        double seconds = Math.Max(0, Math.Ceiling(remaining.TotalSeconds));
-        string timeLeft = seconds == 1 ? "1 second" : $"{seconds:0} seconds";
         string progress = upload.TotalBytes > 0
             ? $"{Percent(upload):0.#}% ({DeploymentStepExecutionContext.FormatByteSize(upload.BytesCopied)} / {DeploymentStepExecutionContext.FormatByteSize(upload.TotalBytes)})"
             : DeploymentStepExecutionContext.FormatByteSize(upload.BytesCopied);
         string waiting = upload.FilesWaiting > 0 ? $", {upload.FilesWaiting} more" : string.Empty;
-        return $"{upload.FileName}: {progress}{waiting} ({timeLeft} remaining)";
+        return $"{upload.FileName}: {progress}{waiting}";
     }
 
     protected override Task<DeploymentStepResult> ExecuteDryRunAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)

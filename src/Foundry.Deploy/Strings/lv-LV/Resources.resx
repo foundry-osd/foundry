@@ -1336,10 +1336,10 @@ Vai turpināt izvietošanu?</value>
     <value>Izvilkšana</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}: {1} (atlikušas {2})</value>
+    <value>{0}: {1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}: {1}, vēl {2} (atlikušas {3})</value>
+    <value>{0}: {1}, vēl {2}</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

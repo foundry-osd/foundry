@@ -1336,10 +1336,10 @@ Kontynuować wdrażanie?</value>
     <value>Wyodrębnianie</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}: {1} (pozostało {2})</value>
+    <value>{0}: {1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}: {1}, jeszcze {2} (pozostało {3})</value>
+    <value>{0}: {1}, jeszcze {2}</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

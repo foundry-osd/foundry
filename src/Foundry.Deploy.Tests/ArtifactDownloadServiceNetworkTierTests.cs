@@ -216,7 +216,7 @@ public sealed class ArtifactDownloadServiceNetworkTierTests : IDisposable
 
         public void Enqueue(NetworkCachePublication publication) => Items.Add(publication);
 
-        public Task DrainAsync(TimeSpan limit, CancellationToken cancellationToken) => Task.CompletedTask;
+        public Task DrainAsync(TimeSpan stallLimit, CancellationToken cancellationToken) => Task.CompletedTask;
     }
 
     private Task<ArtifactDownloadResult> DownloadAsync(string? hash, string kind = "OperatingSystemImage", long? size = 5)

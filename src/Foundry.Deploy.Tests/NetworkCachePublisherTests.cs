@@ -50,7 +50,7 @@ public sealed class NetworkCachePublisherTests : IDisposable
     {
         var started = new TaskCompletionSource();
         var release = new TaskCompletionSource();
-        var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance, async (_, _, token) =>
+        var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance, async (_, _, _, token) =>
         {
             started.TrySetResult();
             await release.Task.WaitAsync(token);
@@ -96,12 +96,38 @@ public sealed class NetworkCachePublisherTests : IDisposable
     }
 
     [Fact]
-    public async Task Drain_TimesOut_CancelsPendingPublication()
+    public async Task Drain_WhileTheUploadKeepsCopying_WaitsPastTheStallLimit()
+    {
+        // A slow share must still receive a large file: only a copy that stops moving is abandoned.
+        int copiedChunks = 0;
+        var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance, async (_, _, onCopied, token) =>
+        {
+            for (int chunk = 1; chunk <= 15; chunk++)
+            {
+                await Task.Delay(20, token);
+                onCopied(chunk);
+                copiedChunks = chunk;
+            }
+
+            return NetworkCachePublishOutcome.Published;
+        });
+
+        publisher.Enqueue(new(local, "OperatingSystemImage", "c3", "install.esd", null, 15));
+        await publisher.DrainAsync(TimeSpan.FromMilliseconds(100), TestContext.Current.CancellationToken)
+            .WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
+
+        Assert.Equal(15, copiedChunks);
+    }
+
+    [Fact]
+    public async Task Drain_WhenTheUploadStopsCopying_CancelsItAndLogsHowFarItGot()
     {
         var started = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var logger = new RecordingLogger();
         bool cancelled = false;
-        var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance, async (item, directory, token) =>
+        var publisher = new NetworkCachePublisher(accessor, logger, async (item, directory, onCopied, token) =>
         {
+            onCopied(2);
             started.TrySetResult();
             try
             {
@@ -121,13 +147,16 @@ public sealed class NetworkCachePublisherTests : IDisposable
         await publisher.DrainAsync(TimeSpan.FromMilliseconds(100), TestContext.Current.CancellationToken);
 
         Assert.True(cancelled);
+        Assert.Null(publisher.CurrentUpload);
+        Assert.Contains(logger.Warnings, properties =>
+            Equals(properties.GetValueOrDefault("FileName"), "fw.cab") && Equals(properties.GetValueOrDefault("BytesCopied"), 2L));
     }
 
     [Fact]
     public async Task Drain_WhenPublicationIgnoresCancellation_DoesNotThrow()
     {
         var started = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-        var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance, async (item, directory, token) =>
+        var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance, async (item, directory, _, token) =>
         {
             started.TrySetResult();
             await Task.Delay(300, CancellationToken.None);
@@ -144,7 +173,7 @@ public sealed class NetworkCachePublisherTests : IDisposable
     public async Task Drain_UnexpectedPublicationError_DoesNotThrow()
     {
         var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance,
-            (item, directory, token) => throw new InvalidOperationException("unexpected"));
+            (item, directory, _, token) => throw new InvalidOperationException("unexpected"));
 
         publisher.Enqueue(new(local, "OemDriverPack", "e5", "fw.cab", null, 4));
 
@@ -154,7 +183,7 @@ public sealed class NetworkCachePublisherTests : IDisposable
     [Fact]
     public async Task Drain_WhenShareHangs_ReturnsAfterAbandonTimeout()
     {
-        var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance, async (item, directory, token) =>
+        var publisher = new NetworkCachePublisher(accessor, NullLogger<NetworkCachePublisher>.Instance, async (item, directory, _, token) =>
         {
             await Task.Delay(Timeout.InfiniteTimeSpan, CancellationToken.None);
             return NetworkCachePublishOutcome.Published;
@@ -172,7 +201,7 @@ public sealed class NetworkCachePublisherTests : IDisposable
         // The share is disconnected next, so the writer cannot delete its partial file; the log names it for the administrator.
         var started = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
         var logger = new RecordingLogger();
-        var publisher = new NetworkCachePublisher(accessor, logger, async (item, directory, token) =>
+        var publisher = new NetworkCachePublisher(accessor, logger, async (item, directory, _, token) =>
         {
             started.TrySetResult();
             await Task.Delay(Timeout.InfiniteTimeSpan, CancellationToken.None);

@@ -1336,10 +1336,10 @@
     <value>提取</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}：{1}（剩余 {2}）</value>
+    <value>{0}：{1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}：{1}，另有 {2} 个（剩余 {3}）</value>
+    <value>{0}：{1}，另有 {2} 个</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}：{1}%</value>
