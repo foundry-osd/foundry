@@ -705,6 +705,12 @@ Sistema operativo: {4}
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} rechazó este dispositivo. En Foundry OSD, en la página Caché de red, establezca una cuenta para este recurso compartido; en el servidor, compruebe los permisos del recurso compartido.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Continuar sin caché de red</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Para implementar de todos modos, seleccione Continuar sin caché de red: Windows y los controladores se descargan de Internet, y las imágenes de Windows personalizadas, los conjuntos de controladores y las acciones de posinstalación no están disponibles.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Conjuntos de controladores</value>
   </data>

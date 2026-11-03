@@ -300,13 +300,29 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         DeploymentStartupSnapshot startupSnapshot = await RunStartupCoordinatorAsync(cancellationToken).ConfigureAwait(false);
 
-        // The wizard never opens while the network cache blocks startup: the snapshot then still carries the boot image
-        // sections, which an active network cache no longer uses.
+        // The wizard never opens on the snapshot of a failed network cache start: it still carries the boot image sections,
+        // which an active network cache no longer uses. Continuing without the network cache removes them first.
         while (startupSnapshot.NetworkCacheFailure is { } failure)
         {
-            bool retry = false;
-            RunOnUi(() => retry = _networkCacheStartupDialog.ShowFailure(failure));
-            if (!retry)
+            NetworkCacheStartupChoice choice = NetworkCacheStartupChoice.Close;
+            RunOnUi(() => choice = _networkCacheStartupDialog.ShowFailure(failure));
+            if (choice == NetworkCacheStartupChoice.ContinueWithout)
+            {
+                // The failed session is already unavailable, so downloads neither read from nor publish to a share.
+                _logger.LogWarning(
+                    "Deployment continues without the network cache: custom images, custom driver sets and post-installation actions are not available. FailureKind={FailureKind}",
+                    failure.Kind);
+                startupSnapshot = startupSnapshot with
+                {
+                    DeployConfigurationDocument = startupSnapshot.DeployConfigurationDocument is { } document
+                        ? NetworkCacheStartupCheck.WithoutPublishedContent(document)
+                        : null,
+                    NetworkCacheFailure = null
+                };
+                break;
+            }
+
+            if (choice == NetworkCacheStartupChoice.Close)
             {
                 _logger.LogWarning("Deployment closed before the wizard because the network cache cannot be used. FailureKind={FailureKind}", failure.Kind);
                 // The blocked start ends the session: report it as one. The network is often what failed, so Close waits for the

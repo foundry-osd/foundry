@@ -705,6 +705,12 @@
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} ปฏิเสธอุปกรณ์นี้ ใน Foundry OSD ที่หน้า “แคชเครือข่าย” ให้ตั้งค่าบัญชีสำหรับโฟลเดอร์ที่แชร์นี้ และบนเซิร์ฟเวอร์ ให้ตรวจสอบสิทธิ์ของโฟลเดอร์ที่แชร์</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>ดำเนินการต่อโดยไม่ใช้แคชเครือข่าย</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>หากต้องการปรับใช้ต่อ ให้เลือก ดำเนินการต่อโดยไม่ใช้แคชเครือข่าย: Windows และไดรเวอร์จะดาวน์โหลดจากอินเทอร์เน็ต และอิมเมจ Windows แบบกำหนดเอง ชุดไดรเวอร์ และการดำเนินการหลังการติดตั้งจะไม่พร้อมใช้งาน</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>ชุดไดรเวอร์</value>
   </data>

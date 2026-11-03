@@ -705,6 +705,12 @@
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>Ο φάκελος {0} απέρριψε αυτήν τη συσκευή. Στο Foundry OSD, στη σελίδα «Προσωρινή μνήμη δικτύου», ορίστε έναν λογαριασμό για αυτόν τον κοινόχρηστο φάκελο· στον διακομιστή, ελέγξτε τα δικαιώματα του κοινόχρηστου φακέλου.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Συνέχεια χωρίς προσωρινή μνήμη δικτύου</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Για να γίνει ανάπτυξη παρ' όλα αυτά, επιλέξτε Συνέχεια χωρίς προσωρινή μνήμη δικτύου: τα Windows και τα προγράμματα οδήγησης λαμβάνονται από το Internet, ενώ οι προσαρμοσμένες εικόνες Windows, τα σύνολα προγραμμάτων οδήγησης και οι ενέργειες μετά την εγκατάσταση δεν είναι διαθέσιμα.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Σύνολα προγραμμάτων οδήγησης</value>
   </data>

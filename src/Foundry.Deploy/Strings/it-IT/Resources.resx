@@ -705,6 +705,12 @@ Continuare con la distribuzione?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} ha rifiutato questo dispositivo. In Foundry OSD, nella pagina Cache di rete, imposta un account per questa condivisione; sul server, verifica le autorizzazioni della condivisione.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Continua senza cache di rete</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Per distribuire comunque, seleziona Continua senza cache di rete: Windows e i driver vengono scaricati da Internet, mentre le immagini Windows personalizzate, i set di driver e le azioni di post-installazione non sono disponibili.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Set di driver</value>
   </data>

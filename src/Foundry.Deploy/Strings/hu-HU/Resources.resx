@@ -705,6 +705,12 @@ Folytatja a telepítést?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>A(z) {0} megosztás elutasította ezt az eszközt. A Foundry OSD Hálózati gyorsítótár lapján adjon meg egy fiókot ehhez a megosztáshoz; a kiszolgálón ellenőrizze a megosztás engedélyeit.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Folytatás hálózati gyorsítótár nélkül</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Ha mégis telepíteni szeretne, válassza a Folytatás hálózati gyorsítótár nélkül lehetőséget: a Windows és az illesztőprogramok az internetről töltődnek le, az egyéni Windows-lemezképek, az illesztőprogram-készletek és a telepítés utáni műveletek pedig nem érhetők el.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Illesztőprogram-készletek</value>
   </data>

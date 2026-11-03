@@ -705,6 +705,12 @@ Continuer le déploiement ?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} a refusé cet appareil. Dans Foundry OSD, sur la page Cache réseau, définissez un compte pour ce partage ; sur le serveur, vérifiez les autorisations du partage.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Continuer sans cache réseau</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Pour déployer quand même, sélectionnez Continuer sans cache réseau : Windows et les pilotes sont téléchargés depuis Internet, et les images Windows personnalisées, les ensembles de pilotes et les actions de post-installation ne sont pas disponibles.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Ensembles de pilotes</value>
   </data>

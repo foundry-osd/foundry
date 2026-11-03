@@ -705,6 +705,12 @@ Kontynuować wdrażanie?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>Udział {0} odrzucił to urządzenie. W programie Foundry OSD na stronie Sieciowa pamięć podręczna ustaw konto dla tego udziału; na serwerze sprawdź uprawnienia udziału.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Kontynuuj bez sieciowej pamięci podręcznej</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Aby mimo to wdrożyć, wybierz Kontynuuj bez sieciowej pamięci podręcznej: system Windows i sterowniki są pobierane z Internetu, a niestandardowe obrazy systemu Windows, zestawy sterowników i akcje po instalacji nie są dostępne.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Zestawy sterowników</value>
   </data>

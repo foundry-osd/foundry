@@ -705,6 +705,12 @@ Continuar com a implementação?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} recusou este dispositivo. No Foundry OSD, na página Cache de rede, defina uma conta para esta partilha; no servidor, verifique as permissões da partilha.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Continuar sem cache de rede</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Para implementar mesmo assim, selecione Continuar sem cache de rede: o Windows e os controladores são transferidos da Internet, e as imagens personalizadas do Windows, os conjuntos de controladores e as ações de pós-instalação não ficam disponíveis.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Conjuntos de controladores</value>
   </data>

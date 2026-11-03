@@ -705,6 +705,12 @@ Kas jätkata juurutamisega?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>Ühiskaust {0} keeldus sellest seadmest. Määrake rakenduse Foundry OSD lehel Võrguvahemälu sellele ühiskaustale konto; kontrollige serveris ühiskausta õigusi.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Jätka ilma võrguvahemäluta</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Juurutamiseks sellest hoolimata valige Jätka ilma võrguvahemäluta: Windows ja draiverid laaditakse alla Internetist ning kohandatud Windowsi tõmmised, draiverikomplektid ja installimisjärgsed toimingud pole saadaval.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Draiverikomplektid</value>
   </data>

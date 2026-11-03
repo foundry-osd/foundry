@@ -705,6 +705,12 @@ Continue with deployment?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} refused this device. In Foundry OSD, on the Network cache page, set an account for this share; on the server, check the share permissions.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Continue without network cache</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>To deploy anyway, select Continue without network cache: Windows and drivers are downloaded from the Internet, and custom Windows images, driver sets and post-installation actions are not available.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Driver sets</value>
   </data>

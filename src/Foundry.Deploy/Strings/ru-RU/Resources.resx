@@ -705,6 +705,12 @@
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>Общий ресурс {0} отклонил это устройство. В Foundry OSD на странице «Сетевой кэш» задайте учетную запись для этого общего ресурса; на сервере проверьте разрешения общего ресурса.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Продолжить без сетевого кэша</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Чтобы всё же выполнить развертывание, выберите «Продолжить без сетевого кэша»: Windows и драйверы скачиваются из Интернета, а пользовательские образы Windows, наборы драйверов и действия после установки недоступны.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Наборы драйверов</value>
   </data>

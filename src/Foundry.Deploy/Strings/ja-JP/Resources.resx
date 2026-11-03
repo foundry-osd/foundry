@@ -705,6 +705,12 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} がこのデバイスを拒否しました。Foundry OSD の [ネットワーク キャッシュ] ページでこの共有のアカウントを設定し、サーバーで共有のアクセス許可を確認してください。</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>ネットワーク キャッシュなしで続行</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>このまま展開するには、[ネットワーク キャッシュなしで続行] を選択します。Windows とドライバーはインターネットからダウンロードされ、カスタム Windows イメージ、ドライバー セット、インストール後のアクションは使用できません。</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>ドライバー セット</value>
   </data>

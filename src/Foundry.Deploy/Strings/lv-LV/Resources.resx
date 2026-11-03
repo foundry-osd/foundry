@@ -705,6 +705,12 @@ Vai turpināt izvietošanu?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>Koplietojums {0} noraidīja šo ierīci. Programmas Foundry OSD lapā Tīkla kešatmiņa iestatiet šim koplietojumam kontu; serverī pārbaudiet koplietojuma atļaujas.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Turpināt bez tīkla kešatmiņas</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Lai tomēr izvietotu, atlasiet Turpināt bez tīkla kešatmiņas: Windows un draiveri tiek lejupielādēti no interneta, bet pielāgoti Windows attēli, draiveru kopas un darbības pēc instalēšanas nav pieejamas.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Draiveru kopas</value>
   </data>

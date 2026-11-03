@@ -705,6 +705,12 @@ Mit der Bereitstellung fortfahren?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} hat dieses Gerät abgewiesen. Legen Sie in Foundry OSD auf der Seite „Netzwerkcache“ ein Konto für diese Freigabe fest; prüfen Sie auf dem Server die Berechtigungen der Freigabe.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Ohne Netzwerkcache fortfahren</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Um trotzdem bereitzustellen, wählen Sie „Ohne Netzwerkcache fortfahren“: Windows und Treiber werden aus dem Internet heruntergeladen, benutzerdefinierte Windows-Abbilder, Treibersätze und Aktionen nach der Installation sind nicht verfügbar.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Treibersätze</value>
   </data>

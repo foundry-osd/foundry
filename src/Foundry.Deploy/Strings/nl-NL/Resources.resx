@@ -705,6 +705,12 @@ Doorgaan met de implementatie?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} heeft dit apparaat geweigerd. Stel in Foundry OSD op de pagina Netwerkcache een account in voor deze share; controleer op de server de machtigingen van de share.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Doorgaan zonder netwerkcache</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Selecteer Doorgaan zonder netwerkcache om toch te implementeren: Windows en stuurprogramma's worden van internet gedownload, en aangepaste Windows-installatiekopieën, stuurprogrammasets en acties na de installatie zijn niet beschikbaar.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Stuurprogrammasets</value>
   </data>

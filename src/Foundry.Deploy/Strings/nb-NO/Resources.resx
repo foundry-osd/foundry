@@ -705,6 +705,12 @@ Vil du fortsette med distribusjonen?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} avviste denne enheten. I Foundry OSD, på Nettverksbuffer-siden, angir du en konto for denne delte ressursen; på serveren kontrollerer du tillatelsene for den delte ressursen.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Fortsett uten nettverksbuffer</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Velg Fortsett uten nettverksbuffer for å distribuere likevel: Windows og drivere lastes ned fra Internett, og tilpassede Windows-avbildninger, driversett og handlinger etter installasjonen er ikke tilgjengelige.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Driversett</value>
   </data>

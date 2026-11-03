@@ -27,7 +27,8 @@ public sealed record NetworkCacheStartupResult(FoundryDeployConfigurationDocumen
 /// content it references, then applies the custom image, custom driver and post-installation sections of that index to the
 /// configuration. The startup coordinator runs it on each candidate share until one passes. A configuration without a
 /// publisher key keeps its own sections and the share is never read. With a key, nothing falls back to the sections of the
-/// boot image: a problem on every candidate share is a startup failure.
+/// boot image: a problem on every candidate share is a startup failure, after which the operator may continue without the
+/// network cache and its content (see <see cref="WithoutPublishedContent"/>).
 /// </summary>
 public sealed class NetworkCacheStartupCheck
 {
@@ -53,6 +54,23 @@ public sealed class NetworkCacheStartupCheck
         _shareReadTimeout = shareReadTimeout;
         _findMissing = findMissing;
         _readIndex = readIndex ?? NetworkCacheIndexStore.ReadAsync;
+    }
+
+    /// <summary>
+    /// Returns the configuration a deployment uses when the operator continues without the network cache after a startup
+    /// failure: the custom image, custom driver and post-installation sections are emptied, because with a publisher key
+    /// their content is only on the share and the sections of the boot image never apply. Everything else is kept.
+    /// </summary>
+    /// <param name="document">The configuration that was checked.</param>
+    public static FoundryDeployConfigurationDocument WithoutPublishedContent(FoundryDeployConfigurationDocument document)
+    {
+        ArgumentNullException.ThrowIfNull(document);
+        return document with
+        {
+            CustomImages = new(),
+            CustomDrivers = new(),
+            PreOobe = new()
+        };
     }
 
     /// <summary>

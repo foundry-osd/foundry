@@ -705,6 +705,12 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>Mapa {0} je zavrnila to napravo. V aplikaciji Foundry OSD na strani Omrežni predpomnilnik nastavite račun za to skupno mapo; v strežniku preverite dovoljenja skupne mape.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Nadaljuj brez omrežnega predpomnilnika</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Če želite vseeno uvesti, izberite Nadaljuj brez omrežnega predpomnilnika: Windows in gonilniki se prenesejo iz interneta, prilagojene slike sistema Windows, nabori gonilnikov in dejanja po namestitvi pa niso na voljo.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Nabori gonilnikov</value>
   </data>
