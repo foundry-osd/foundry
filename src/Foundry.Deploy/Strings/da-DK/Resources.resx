@@ -705,6 +705,12 @@ Vil du fortsætte med implementeringen?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} afviste denne enhed. I Foundry OSD skal du på siden Netværkscache angive en konto for denne delte mappe; på serveren skal du kontrollere den delte mappes tilladelser.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Fortsæt uden netværkscache</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Vælg Fortsæt uden netværkscache for at udrulle alligevel: Windows og drivere hentes fra internettet, og brugerdefinerede Windows-afbildninger, driversæt og handlinger efter installationen er ikke tilgængelige.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Driversæt</value>
   </data>

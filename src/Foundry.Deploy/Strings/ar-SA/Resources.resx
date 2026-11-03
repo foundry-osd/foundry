@@ -705,6 +705,12 @@
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>رفض {0} هذا الجهاز. في Foundry OSD، في صفحة "ذاكرة التخزين المؤقت للشبكة"، عيّن حسابًا لهذه المشاركة؛ وعلى الخادم، تحقق من أذونات المشاركة.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>متابعة بدون ذاكرة التخزين المؤقت للشبكة</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>للنشر على أي حال، حدد متابعة بدون ذاكرة التخزين المؤقت للشبكة: يتم تنزيل Windows وبرامج التشغيل من الإنترنت، ولن تتوفر صور Windows المخصصة ومجموعات برامج التشغيل وإجراءات ما بعد التثبيت.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>مجموعات برامج التشغيل</value>
   </data>

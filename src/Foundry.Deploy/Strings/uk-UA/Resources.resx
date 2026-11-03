@@ -705,6 +705,12 @@ ErrorCode=0x80070005
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>Спільний ресурс {0} відхилив цей пристрій. У Foundry OSD на сторінці «Мережевий кеш» задайте обліковий запис для цього спільного ресурсу; на сервері перевірте дозволи спільного ресурсу.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Продовжити без мережевого кешу</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Щоб усе ж виконати розгортання, виберіть «Продовжити без мережевого кешу»: Windows і драйвери завантажуються з Інтернету, а користувацькі образи Windows, набори драйверів і дії після інсталяції недоступні.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Набори драйверів</value>
   </data>

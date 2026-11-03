@@ -70,6 +70,26 @@ public sealed class NetworkCacheStartupCheckTests : IDisposable
     }
 
     [Fact]
+    public void WithoutPublishedContent_EmptiesTheSectionsWhoseContentIsOnlyOnTheShare()
+    {
+        // The boot image sections reference content the media no longer carry, so continuing without the share drops them.
+        FoundryDeployConfigurationDocument document = CreateDocument() with
+        {
+            CustomImages = new() { IsEnabled = true, DefaultImageId = "image-1" },
+            CustomDrivers = new() { IsEnabled = true, DefaultSetId = "set-1" },
+            PreOobe = new() { IsEnabled = true, ManifestId = "manifest-1" }
+        };
+
+        FoundryDeployConfigurationDocument result = NetworkCacheStartupCheck.WithoutPublishedContent(document);
+
+        Assert.False(result.CustomImages.IsEnabled);
+        Assert.False(result.CustomDrivers.IsEnabled);
+        Assert.False(result.PreOobe.IsEnabled);
+        Assert.Null(result.PreOobe.ManifestId);
+        Assert.Same(document.NetworkCache, result.NetworkCache);
+    }
+
+    [Fact]
     public async Task RunAsync_WhenTheIndexIsMissing_ReportsNotPublished()
     {
         Directory.CreateDirectory(ContentRoot);

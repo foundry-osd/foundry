@@ -705,6 +705,12 @@ Nastaviti s implementacijom?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>Zajednički resurs {0} odbio je ovaj uređaj. U aplikaciji Foundry OSD na stranici Mrežna predmemorija postavite račun za ovaj zajednički resurs; na poslužitelju provjerite dozvole zajedničkog resursa.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Nastavi bez mrežne predmemorije</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Da biste ipak implementirali, odaberite Nastavi bez mrežne predmemorije: Windows i upravljački programi preuzimaju se s interneta, a prilagođene slike sustava Windows, skupovi upravljačkih programa i radnje nakon instalacije nisu dostupni.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Skupovi upravljačkih programa</value>
   </data>

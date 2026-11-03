@@ -8,8 +8,8 @@ using Foundry.Wpf.Localization;
 namespace Foundry.Deploy.Services.Cache;
 
 /// <summary>
-/// Turns a network cache startup failure into the blocking message shown before the wizard: one sentence of cause naming the
-/// share, account or device address when known, then where to fix it (Foundry OSD Network cache page or the server).
+/// Turns a network cache startup failure into the cause shown before the wizard: one sentence naming the share, account or
+/// device address when known, then where to fix it (Foundry OSD Network cache page or the server).
 /// </summary>
 public static class NetworkCacheStartupMessages
 {

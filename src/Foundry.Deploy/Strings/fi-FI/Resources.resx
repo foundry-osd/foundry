@@ -705,6 +705,12 @@ Jatketaanko käyttöönottoa?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} hylkäsi tämän laitteen. Määritä Foundry OSD:n Verkkovälimuisti-sivulla tälle jaolle tili; tarkista palvelimella jaon käyttöoikeudet.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Jatka ilman verkkovälimuistia</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Jos haluat silti ottaa käyttöön, valitse Jatka ilman verkkovälimuistia: Windows ja ohjaimet ladataan Internetistä, eivätkä mukautetut Windows-näköistiedostot, ohjainjoukot ja asennuksen jälkeiset toiminnot ole käytettävissä.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Ohjainjoukot</value>
   </data>

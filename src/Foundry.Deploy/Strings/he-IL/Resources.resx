@@ -705,6 +705,12 @@ ErrorCode=0x80070005
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} דחה מכשיר זה. ב-Foundry OSD, בדף 'מטמון רשת', הגדר חשבון עבור שיתוף זה; בשרת, בדוק את ההרשאות של השיתוף.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>המשך ללא מטמון רשת</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>כדי לפרוס בכל זאת, בחר המשך ללא מטמון רשת: Windows ומנהלי ההתקנים יורדו מהאינטרנט, ותמונות Windows מותאמות אישית, ערכות מנהלי התקנים ופעולות לאחר ההתקנה לא יהיו זמינות.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>ערכות מנהלי התקנים</value>
   </data>

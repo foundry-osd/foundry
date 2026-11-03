@@ -705,6 +705,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0}에서 이 장치를 거부했습니다. Foundry OSD의 [네트워크 캐시] 페이지에서 이 공유의 계정을 설정하고, 서버에서 공유 권한을 확인하세요.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>네트워크 캐시 없이 계속</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>그래도 배포하려면 [네트워크 캐시 없이 계속]을 선택하세요. Windows와 드라이버는 인터넷에서 다운로드되며 사용자 지정 Windows 이미지, 드라이버 세트 및 설치 후 작업은 사용할 수 없습니다.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>드라이버 세트</value>
   </data>

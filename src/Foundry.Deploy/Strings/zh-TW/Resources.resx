@@ -705,6 +705,12 @@ ErrorCode=0x80070005
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} 拒絕了此裝置。請在 Foundry OSD 的「網路快取」頁面上為此共用設定帳戶，並在伺服器上檢查共用的權限。</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>在沒有網路快取的情況下繼續</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>若仍要部署，請選取「在沒有網路快取的情況下繼續」：將從網際網路下載 Windows 和驅動程式，自訂 Windows 映像、驅動程式集和安裝後動作將無法使用。</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>驅動程式集</value>
   </data>

@@ -705,6 +705,12 @@ Continuați cu implementarea?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} a refuzat acest dispozitiv. În Foundry OSD, pe pagina Cache de rețea, setați un cont pentru această partajare; pe server, verificați permisiunile partajării.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Continuați fără cache-ul de rețea</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Pentru a implementa totuși, selectați Continuați fără cache-ul de rețea: Windows și driverele se descarcă de pe internet, iar imaginile Windows personalizate, seturile de drivere și acțiunile de după instalare nu sunt disponibile.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Seturi de drivere</value>
   </data>

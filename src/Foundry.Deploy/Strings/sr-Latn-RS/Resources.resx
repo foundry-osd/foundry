@@ -705,6 +705,12 @@ Operativni sistem: {4}
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>Deljeni resurs {0} je odbio ovaj uređaj. U aplikaciji Foundry OSD, na stranici Mrežni keš, podesite nalog za ovaj deljeni resurs; na serveru proverite dozvole deljenog resursa.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Nastavi bez mrežnog keša</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Da biste ipak primenili, izaberite Nastavi bez mrežnog keša: Windows i drajveri se preuzimaju sa interneta, a prilagođene Windows slike, skupovi drajvera i radnje posle instalacije nisu dostupni.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Skupovi drajvera</value>
   </data>

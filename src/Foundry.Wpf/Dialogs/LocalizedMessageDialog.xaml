@@ -19,23 +19,30 @@
             Text="{Binding Message, RelativeSource={RelativeSource AncestorType=Window}}"
             TextWrapping="Wrap" />
 
-        <StackPanel
+        <!--  Wraps so that long translated captions move to a new line instead of being clipped.  -->
+        <WrapPanel
             Grid.Row="1"
-            Margin="0,24,0,0"
-            HorizontalAlignment="Right"
-            Orientation="Horizontal">
+            Margin="0,16,0,0"
+            HorizontalAlignment="Right">
             <Button
                 MinWidth="96"
+                Margin="8,8,0,0"
                 Content="{Binding CancelButtonText, RelativeSource={RelativeSource AncestorType=Window}}"
                 IsCancel="True"
                 Visibility="{Binding CancelButtonVisibility, RelativeSource={RelativeSource AncestorType=Window}}" />
             <Button
                 MinWidth="96"
-                Margin="8,0,0,0"
+                Margin="8,8,0,0"
+                Click="SecondaryButton_OnClick"
+                Content="{Binding SecondaryButtonText, RelativeSource={RelativeSource AncestorType=Window}}"
+                Visibility="{Binding SecondaryButtonVisibility, RelativeSource={RelativeSource AncestorType=Window}}" />
+            <Button
+                MinWidth="96"
+                Margin="8,8,0,0"
                 Click="PrimaryButton_OnClick"
                 Content="{Binding PrimaryButtonText, RelativeSource={RelativeSource AncestorType=Window}}"
                 IsDefault="True"
                 Style="{DynamicResource AccentButtonStyle}" />
-        </StackPanel>
+        </WrapPanel>
     </Grid>
 </Window>

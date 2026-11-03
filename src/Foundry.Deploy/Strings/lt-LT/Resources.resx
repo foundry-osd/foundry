@@ -705,6 +705,12 @@ Tęsti diegimą?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>Aplankas {0} atmetė šį įrenginį. Foundry OSD puslapyje Tinklo talpykla nustatykite šio bendrinamo aplanko paskyrą; serveryje patikrinkite bendrinamo aplanko teises.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Tęsti be tinklo talpyklos</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Norėdami vis tiek diegti, pasirinkite Tęsti be tinklo talpyklos: Windows ir tvarkyklės atsisiunčiamos iš interneto, o pasirinktiniai Windows atvaizdai, tvarkyklių rinkiniai ir veiksmai po diegimo nepasiekiami.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Tvarkyklių rinkiniai</value>
   </data>

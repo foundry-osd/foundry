@@ -9,7 +9,9 @@ namespace Foundry.Wpf.Dialogs;
 /// <summary>
 /// Modal message window with caller-localized texts, used instead of <see cref="MessageBox"/> to keep the
 /// application styling. The primary button sets <c>DialogResult</c> to <see langword="true"/>; the cancel
-/// button is only shown when cancel text is supplied. The window is owned by the main window when one exists.
+/// button is only shown when cancel text is supplied. The secondary button, shown between them when its text is
+/// supplied, closes the window with <c>DialogResult</c> <see langword="false"/> and sets
+/// <see cref="IsSecondaryButtonSelected"/>. The window is owned by the main window when one exists.
 /// </summary>
 public partial class LocalizedMessageDialog : Window
 {
@@ -17,17 +19,21 @@ public partial class LocalizedMessageDialog : Window
     /// <param name="message">Message body.</param>
     /// <param name="primaryButtonText">Caption of the confirming button.</param>
     /// <param name="cancelButtonText">Caption of the cancel button; <see langword="null"/> hides the button.</param>
+    /// <param name="secondaryButtonText">Caption of the secondary button; <see langword="null"/> hides the button.</param>
     public LocalizedMessageDialog(
         string title,
         string message,
         string primaryButtonText,
-        string? cancelButtonText = null)
+        string? cancelButtonText = null,
+        string? secondaryButtonText = null)
     {
         DialogTitle = title;
         Message = message;
         PrimaryButtonText = primaryButtonText;
         CancelButtonText = cancelButtonText ?? string.Empty;
         CancelButtonVisibility = cancelButtonText is null ? Visibility.Collapsed : Visibility.Visible;
+        SecondaryButtonText = secondaryButtonText ?? string.Empty;
+        SecondaryButtonVisibility = secondaryButtonText is null ? Visibility.Collapsed : Visibility.Visible;
         InitializeComponent();
         // Without a main window yet, the application adopts this dialog as its main window; a window cannot own itself.
         Window? owner = Application.Current?.MainWindow;
@@ -44,8 +50,21 @@ public partial class LocalizedMessageDialog : Window
 
     public Visibility CancelButtonVisibility { get; }
 
+    public string SecondaryButtonText { get; }
+
+    public Visibility SecondaryButtonVisibility { get; }
+
+    /// <summary>Gets whether the window was closed with the secondary button.</summary>
+    public bool IsSecondaryButtonSelected { get; private set; }
+
     private void PrimaryButton_OnClick(object sender, RoutedEventArgs e)
     {
         DialogResult = true;
+    }
+
+    private void SecondaryButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        IsSecondaryButtonSelected = true;
+        DialogResult = false;
     }
 }

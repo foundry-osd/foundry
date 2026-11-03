@@ -705,6 +705,12 @@ Fortsätt med implementeringen?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} nekade den här enheten. Ange ett konto för den här resursen på sidan Nätverkscache i Foundry OSD; kontrollera resursens behörigheter på servern.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Fortsätt utan nätverkscache</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Välj Fortsätt utan nätverkscache om du vill distribuera ändå: Windows och drivrutiner hämtas från Internet, och anpassade Windows-avbildningar, drivrutinsuppsättningar och åtgärder efter installationen är inte tillgängliga.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Drivrutinsuppsättningar</value>
   </data>

@@ -705,6 +705,12 @@
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} отказа достъп на това устройство. Във Foundry OSD, на страницата „Мрежов кеш“, задайте акаунт за тази споделена папка; на сървъра проверете разрешенията на споделената папка.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Продължаване без мрежов кеш</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>За да продължите внедряването, изберете „Продължаване без мрежов кеш“: Windows и драйверите се изтеглят от интернет, а персонализираните образи на Windows, наборите драйвери и действията след инсталиране не са налични.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Набори драйвери</value>
   </data>

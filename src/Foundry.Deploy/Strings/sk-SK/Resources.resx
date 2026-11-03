@@ -705,6 +705,12 @@ Pokračovať v nasadzovaní?</value>
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>Priečinok {0} odmietol toto zariadenie. V aplikácii Foundry OSD na stránke Sieťová vyrovnávacia pamäť nastavte pre tento zdieľaný priečinok konto; na serveri skontrolujte povolenia zdieľaného priečinka.</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>Pokračovať bez sieťovej vyrovnávacej pamäte</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>Ak chcete aj tak nasadiť, vyberte Pokračovať bez sieťovej vyrovnávacej pamäte: Windows a ovládače sa stiahnu z internetu a vlastné obrazy systému Windows, sady ovládačov a akcie po inštalácii nebudú k dispozícii.</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>Sady ovládačov</value>
   </data>

@@ -705,6 +705,12 @@
   <data name="NetworkCacheStartup.AccessDeniedShareFormat" xml:space="preserve">
     <value>{0} 拒绝了此设备。请在 Foundry OSD 的“网络缓存”页上为此共享设置帐户，并在服务器上检查该共享的权限。</value>
   </data>
+  <data name="NetworkCacheStartup.ContinueWithout" xml:space="preserve">
+    <value>在没有网络缓存的情况下继续</value>
+  </data>
+  <data name="NetworkCacheStartup.ContinueWithoutNote" xml:space="preserve">
+    <value>若仍要部署，请选择“在没有网络缓存的情况下继续”：将从 Internet 下载 Windows 和驱动程序，自定义 Windows 映像、驱动程序集和安装后操作将不可用。</value>
+  </data>
   <data name="NetworkCacheStartup.CustomDriverSetsItem" xml:space="preserve">
     <value>驱动程序集</value>
   </data>
