@@ -1336,10 +1336,10 @@ Pokračovať v nasadzovaní?</value>
     <value>Extrakcia</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}: {1} (zostáva {2})</value>
+    <value>{0}: {1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}: {1}, ďalšie {2} (zostáva {3})</value>
+    <value>{0}: {1}, ďalšie {2}</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

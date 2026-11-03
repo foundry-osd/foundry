@@ -23,10 +23,11 @@ public interface INetworkCachePublisher
     void Enqueue(NetworkCachePublication publication);
 
     /// <summary>
-    /// Waits up to <paramref name="limit"/> for queued publications, then cancels and abandons the rest after a short
+    /// Waits for queued publications as long as they make progress, so a slow share still receives large files. When no
+    /// byte is copied and no file starts for <paramref name="stallLimit"/>, cancels and abandons the rest after a short
     /// grace period. Never throws: publication is an optimization and must not fail a deployment.
     /// </summary>
-    Task DrainAsync(TimeSpan limit, CancellationToken cancellationToken);
+    Task DrainAsync(TimeSpan stallLimit, CancellationToken cancellationToken);
 
     /// <summary>Gets the upload in progress and the files still waiting, or <see langword="null"/> when nothing is being uploaded.</summary>
     NetworkCacheUploadStatus? CurrentUpload => null;
@@ -43,7 +44,7 @@ public sealed class NetworkCachePublisher : INetworkCachePublisher
 {
     private readonly INetworkCacheSessionAccessor accessor;
     private readonly ILogger<NetworkCachePublisher> logger;
-    private readonly Func<NetworkCachePublication, string, CancellationToken, Task<NetworkCachePublishOutcome>> publish;
+    private readonly Func<NetworkCachePublication, string, Action<long>, CancellationToken, Task<NetworkCachePublishOutcome>> publish;
     private readonly TimeSpan abandonTimeout;
     private readonly Channel<NetworkCachePublication> queue = Channel.CreateUnbounded<NetworkCachePublication>(new() { SingleReader = true });
     private readonly CancellationTokenSource stopping = new();
@@ -51,6 +52,7 @@ public sealed class NetworkCachePublisher : INetworkCachePublisher
     private Task? consumer;
     private bool draining;
     private int queued;
+    private long progress;
     private NetworkCacheUploadStatus? current;
     private string? currentPartialPath;
 
@@ -59,10 +61,11 @@ public sealed class NetworkCachePublisher : INetworkCachePublisher
     {
     }
 
+    /// <summary>Creates a publisher with its own publication, which reports the total bytes copied so far after each chunk.</summary>
     internal NetworkCachePublisher(
         INetworkCacheSessionAccessor accessor,
         ILogger<NetworkCachePublisher> logger,
-        Func<NetworkCachePublication, string, CancellationToken, Task<NetworkCachePublishOutcome>>? publish,
+        Func<NetworkCachePublication, string, Action<long>, CancellationToken, Task<NetworkCachePublishOutcome>>? publish,
         TimeSpan? abandonTimeout = null)
     {
         this.accessor = accessor;
@@ -95,7 +98,7 @@ public sealed class NetworkCachePublisher : INetworkCachePublisher
     public NetworkCacheUploadStatus? CurrentUpload =>
         Volatile.Read(ref current) is { } status ? status with { FilesWaiting = Math.Max(0, Volatile.Read(ref queued)) } : null;
 
-    public async Task DrainAsync(TimeSpan limit, CancellationToken cancellationToken)
+    public async Task DrainAsync(TimeSpan stallLimit, CancellationToken cancellationToken)
     {
         Task? running;
         lock (gate)
@@ -106,35 +109,66 @@ public sealed class NetworkCachePublisher : INetworkCachePublisher
         }
 
         if (running is null) return;
-        logger.LogInformation("Waiting for network cache publications. LimitSeconds={LimitSeconds}", limit.TotalSeconds);
+        logger.LogInformation("Waiting for network cache publications. StallLimitSeconds={StallLimitSeconds}", stallLimit.TotalSeconds);
         try
         {
-            await running.WaitAsync(limit, cancellationToken).ConfigureAwait(false);
-            stopping.Dispose();
-            logger.LogInformation("Network cache publications completed.");
-        }
-        catch (TimeoutException)
-        {
-            await stopping.CancelAsync().ConfigureAwait(false);
-            try
+            if (await WaitWhileCopyingAsync(running, stallLimit, cancellationToken).ConfigureAwait(false))
             {
-                // Share calls that ignore cancellation can block for the SMB timeout; the deployment never waits for them.
-                await running.WaitAsync(abandonTimeout, CancellationToken.None).ConfigureAwait(false);
-            }
-            catch (TimeoutException)
-            {
+                stopping.Dispose();
+                logger.LogInformation("Network cache publications completed.");
+                return;
             }
 
-            logger.LogWarning("Network cache publication did not finish in time; remaining uploads are abandoned.");
-            // The share is disconnected next, so an upload still writing cannot delete its partial file; name it for the administrator.
-            if (!running.IsCompleted && Volatile.Read(ref currentPartialPath) is { } partialPath)
-            {
-                logger.LogWarning("Network cache upload abandoned while writing; its temporary file may remain on the share. PartialPath={PartialPath}", partialPath);
-            }
+            await AbandonAsync(running, stallLimit).ConfigureAwait(false);
         }
         catch (Exception exception) when (exception is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
         {
             logger.LogWarning("Network cache publication stopped unexpectedly. Reason={Reason}", exception.GetType().Name);
+        }
+    }
+
+    /// <summary>
+    /// Returns <see langword="true"/> when the publications finished, or <see langword="false"/> when a whole stall limit
+    /// passed without a copied byte or a started file.
+    /// </summary>
+    private async Task<bool> WaitWhileCopyingAsync(Task running, TimeSpan stallLimit, CancellationToken cancellationToken)
+    {
+        while (true)
+        {
+            long before = Interlocked.Read(ref progress);
+            if (await Task.WhenAny(running, Task.Delay(stallLimit, cancellationToken)).ConfigureAwait(false) == running)
+            {
+                await running.ConfigureAwait(false);
+                return true;
+            }
+
+            cancellationToken.ThrowIfCancellationRequested();
+            if (Interlocked.Read(ref progress) == before) return false;
+        }
+    }
+
+    private async Task AbandonAsync(Task running, TimeSpan stallLimit)
+    {
+        NetworkCacheUploadStatus? stalled = CurrentUpload;
+        // Nothing is uploaded once abandoned; the copy callback only updates a status that is set, so it never comes back.
+        Volatile.Write(ref current, null);
+        await stopping.CancelAsync().ConfigureAwait(false);
+        try
+        {
+            // Share calls that ignore cancellation can block for the SMB timeout; the deployment never waits for them.
+            await running.WaitAsync(abandonTimeout, CancellationToken.None).ConfigureAwait(false);
+        }
+        catch (TimeoutException)
+        {
+        }
+
+        logger.LogWarning(
+            "Network cache publication stopped making progress; remaining uploads are abandoned. StallLimitSeconds={StallLimitSeconds}, FileName={FileName}, BytesCopied={BytesCopied}, TotalBytes={TotalBytes}, FilesWaiting={FilesWaiting}",
+            stallLimit.TotalSeconds, stalled?.FileName, stalled?.BytesCopied, stalled?.TotalBytes, stalled?.FilesWaiting);
+        // The share is disconnected next, so an upload still writing cannot delete its partial file; name it for the administrator.
+        if (!running.IsCompleted && Volatile.Read(ref currentPartialPath) is { } partialPath)
+        {
+            logger.LogWarning("Network cache upload abandoned while writing; its temporary file may remain on the share. PartialPath={PartialPath}", partialPath);
         }
     }
 
@@ -151,9 +185,10 @@ public sealed class NetworkCachePublisher : INetworkCachePublisher
             long totalBytes = item.ExpectedSize ?? TryGetLength(item.LocalPath);
             Volatile.Write(ref current, new NetworkCacheUploadStatus(item.FileName, 0, totalBytes, 0));
             Volatile.Write(ref currentPartialPath, Path.Combine(directory, NetworkCacheLayout.PartialName(item.FileName, DiagnosticSessionContext.CurrentSessionId)));
+            Interlocked.Increment(ref progress);
             try
             {
-                NetworkCachePublishOutcome outcome = await publish(item, directory, stopping.Token).ConfigureAwait(false);
+                NetworkCachePublishOutcome outcome = await publish(item, directory, ReportCopied, stopping.Token).ConfigureAwait(false);
                 logger.LogInformation("Network cache publication finished. Kind={Kind}, FileName={FileName}, Outcome={Outcome}", item.Kind, item.FileName, outcome);
             }
             catch (OperationCanceledException) when (stopping.IsCancellationRequested)
@@ -172,11 +207,18 @@ public sealed class NetworkCachePublisher : INetworkCachePublisher
         }
     }
 
-    private Task<NetworkCachePublishOutcome> PublishToShareAsync(NetworkCachePublication item, string directory, CancellationToken cancellationToken) =>
+    private void ReportCopied(long copied)
+    {
+        Interlocked.Increment(ref progress);
+        Volatile.Write(ref current, Volatile.Read(ref current) is { } status ? status with { BytesCopied = copied } : null);
+    }
+
+    private static Task<NetworkCachePublishOutcome> PublishToShareAsync(NetworkCachePublication item, string directory, Action<long> onCopied,
+        CancellationToken cancellationToken) =>
         // The writer does synchronous share IO before its first await, so it always starts on the thread pool.
         Task.Run(() => NetworkCacheWriter.PublishFileAsync(item.LocalPath, directory, item.FileName,
             DiagnosticSessionContext.CurrentSessionId, item.ExpectedHash, item.ExpectedSize, TimeProvider.System, cancellationToken,
-            copied => Volatile.Write(ref current, Volatile.Read(ref current) is { } status ? status with { BytesCopied = copied } : null)), cancellationToken);
+            onCopied), cancellationToken);
 
     private static long TryGetLength(string path)
     {

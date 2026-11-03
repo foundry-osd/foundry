@@ -1336,10 +1336,10 @@ Vil du fortsætte med implementeringen?</value>
     <value>Udpakker</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}: {1} ({2} tilbage)</value>
+    <value>{0}: {1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}: {1}, {2} til ({3} tilbage)</value>
+    <value>{0}: {1}, {2} til</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

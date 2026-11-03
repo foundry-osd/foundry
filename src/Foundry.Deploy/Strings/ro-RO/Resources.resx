@@ -1336,10 +1336,10 @@ Continuați cu implementarea?</value>
     <value>Extragerea</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}: {1} ({2} rămase)</value>
+    <value>{0}: {1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}: {1}, încă {2} ({3} rămase)</value>
+    <value>{0}: {1}, încă {2}</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

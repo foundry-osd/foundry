@@ -1336,10 +1336,10 @@ ErrorCode=0x80070005
     <value>Видобування</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}: {1} (залишилося {2})</value>
+    <value>{0}: {1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}: {1}, ще {2} (залишилося {3})</value>
+    <value>{0}: {1}, ще {2}</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

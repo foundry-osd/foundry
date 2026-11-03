@@ -1336,10 +1336,10 @@ Vil du fortsette med distribusjonen?</value>
     <value>Trekker ut</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}: {1} ({2} gjenstår)</value>
+    <value>{0}: {1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}: {1}, {2} til ({3} gjenstår)</value>
+    <value>{0}: {1}, {2} til</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

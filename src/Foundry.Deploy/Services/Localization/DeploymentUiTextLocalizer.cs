@@ -416,24 +416,6 @@ public static partial class DeploymentUiTextLocalizer
                 LocalizeCompactRemainingDuration(match.Groups["remaining"].Value));
         }
 
-        match = NetworkCacheUploadRegex().Match(value);
-        if (match.Success)
-        {
-            string remaining = LocalizeCompactRemainingDuration(match.Groups["remaining"].Value);
-            return match.Groups["more"].Success
-                ? LocalizationText.Format(
-                    "StepProgress.NetworkCacheUploadQueuedFormat",
-                    match.Groups["file"].Value,
-                    match.Groups["progress"].Value,
-                    int.Parse(match.Groups["more"].Value),
-                    remaining)
-                : LocalizationText.Format(
-                    "StepProgress.NetworkCacheUploadFormat",
-                    match.Groups["file"].Value,
-                    match.Groups["progress"].Value,
-                    remaining);
-        }
-
         if (value.StartsWith("Debug preview: DISM apply failed because the target partition is read-only.", StringComparison.Ordinal))
         {
             return LocalizationText.GetString("Debug.ErrorPreviewMessage");
@@ -449,6 +431,22 @@ public static partial class DeploymentUiTextLocalizer
                 return LocalizationText.Format("StepProgress.PercentFormat", localizedLabel, match.Groups["percent"].Value)
                     + match.Groups["bytes"].Value;
             }
+        }
+
+        // After the percent labels: an upload line has the same shape, with a file name where they have a known label.
+        match = NetworkCacheUploadRegex().Match(value);
+        if (match.Success)
+        {
+            return match.Groups["more"].Success
+                ? LocalizationText.Format(
+                    "StepProgress.NetworkCacheUploadQueuedFormat",
+                    match.Groups["file"].Value,
+                    match.Groups["progress"].Value,
+                    int.Parse(match.Groups["more"].Value))
+                : LocalizationText.Format(
+                    "StepProgress.NetworkCacheUploadFormat",
+                    match.Groups["file"].Value,
+                    match.Groups["progress"].Value);
         }
 
         match = DownloadedBytesRegex().Match(value);
@@ -585,8 +583,9 @@ public static partial class DeploymentUiTextLocalizer
     [GeneratedRegex(@"^Checking Windows Autopilot group tag \((?<remaining>.+) remaining\)\.\.\.$")]
     private static partial Regex CheckingWindowsAutopilotGroupTagRegex();
 
-    // The network cache upload line of the finalize step, for example "install.wim: 50% (512 MB / 1 GB), 2 more (96 seconds remaining)".
-    [GeneratedRegex(@"^(?<file>[^:]+): (?<progress>.+?)(?:, (?<more>\d+) more)? \((?<remaining>\d+ seconds?) remaining\)$")]
+    // The network cache upload line of the finalize step, for example "install.wim: 50% (512.0 MB / 1.0 GB), 2 more" or "pack.cab: 1.0 KB".
+    // The progress shape is spelled out so that no other "name: text" message matches; percent labels share it and are tried first.
+    [GeneratedRegex(@"^(?<file>[^:]+): (?<progress>[\d.,]+% \([\d.,]+ [KMGT]?B / [\d.,]+ [KMGT]?B\)|[\d.,]+ [KMGT]?B)(?:, (?<more>\d+) more)?$")]
     private static partial Regex NetworkCacheUploadRegex();
 
     [GeneratedRegex(@"^wpeutil\.exe failed with exit code (?<code>\d+)\. (?<diagnostic>.+)$")]

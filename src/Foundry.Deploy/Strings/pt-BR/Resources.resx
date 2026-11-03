@@ -1336,10 +1336,10 @@ Continuar com a implantação?</value>
     <value>Extraindo</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}: {1} ({2} restantes)</value>
+    <value>{0}: {1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}: {1}, mais {2} ({3} restantes)</value>
+    <value>{0}: {1}, mais {2}</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

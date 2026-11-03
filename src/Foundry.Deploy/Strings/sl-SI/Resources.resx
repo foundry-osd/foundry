@@ -1336,10 +1336,10 @@ Ali želite nadaljevati z uvajanjem?</value>
     <value>Ekstrahiranje</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}: {1} ({2} preostalo)</value>
+    <value>{0}: {1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}: {1}, še {2} ({3} preostalo)</value>
+    <value>{0}: {1}, še {2}</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

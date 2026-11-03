@@ -1336,10 +1336,10 @@ Pokračovat v nasazování?</value>
     <value>Extrakce</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}: {1} (zbývá {2})</value>
+    <value>{0}: {1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}: {1}, další {2} (zbývá {3})</value>
+    <value>{0}: {1}, další {2}</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}: {1}%</value>

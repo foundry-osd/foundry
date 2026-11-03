@@ -1336,10 +1336,10 @@ ErrorCode=0x80070005
     <value>正在解壓縮</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadFormat" xml:space="preserve">
-    <value>{0}：{1}（剩餘 {2}）</value>
+    <value>{0}：{1}</value>
   </data>
   <data name="StepProgress.NetworkCacheUploadQueuedFormat" xml:space="preserve">
-    <value>{0}：{1}，另有 {2} 個（剩餘 {3}）</value>
+    <value>{0}：{1}，另有 {2} 個</value>
   </data>
   <data name="StepProgress.PercentFormat" xml:space="preserve">
     <value>{0}：{1}%</value>
