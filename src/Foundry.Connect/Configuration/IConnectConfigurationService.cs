@@ -31,12 +31,6 @@ public interface IConnectConfigurationService
     BootMediaUpdateReason BootMediaUpdateReason { get; }
 
     /// <summary>
-    /// Gets the comparison with the latest published release to run after startup, or <see langword="null"/> when it
-    /// cannot change <see cref="BootMediaUpdateReason"/>.
-    /// </summary>
-    BootMediaLatestReleaseCheck? LatestReleaseCheck { get; }
-
-    /// <summary>
     /// Loads configuration from command-line, environment, or WinPE media locations.
     /// </summary>
     /// <returns>

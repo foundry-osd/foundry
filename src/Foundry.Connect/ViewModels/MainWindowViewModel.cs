@@ -40,11 +40,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly IApplicationLifetimeService _applicationLifetimeService;
     private readonly IConnectConfigurationService _configurationService;
     private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
-    private readonly IUiDispatcher _dispatcher;
-    private readonly LatestReleaseVersionReader _readLatestReleaseVersion;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly CancellationTokenSource _disposeCts = new();
-    private BootMediaUpdateReason _latestReleaseUpdateReason;
     private bool _isInitialized;
     private bool _isDisposed;
 
@@ -59,8 +56,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// <param name="keyboardLayoutSwitcher">Lists and applies the keyboard layouts.</param>
     /// <param name="page">The single Connect page.</param>
     /// <param name="diagnostics">The Tools menu diagnostics.</param>
-    /// <param name="dispatcher">Marshals the newer release notice to the UI thread.</param>
-    /// <param name="readLatestReleaseVersion">Reads the latest published Foundry release for the newer release notice.</param>
     /// <param name="logger">Logger for keyboard layout changes and the window close.</param>
     public MainWindowViewModel(
         IThemeService themeService,
@@ -71,8 +66,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IKeyboardLayoutSwitcher keyboardLayoutSwitcher,
         ConnectPageViewModel page,
         DiagnosticsViewModel diagnostics,
-        IUiDispatcher dispatcher,
-        LatestReleaseVersionReader readLatestReleaseVersion,
         ILogger<MainWindowViewModel> logger)
         : this(
             themeService,
@@ -83,8 +76,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             keyboardLayoutSwitcher,
             page,
             diagnostics,
-            dispatcher,
-            readLatestReleaseVersion,
             logger,
             DebugSafetyMode.IsEnabled)
     {
@@ -102,8 +93,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IKeyboardLayoutSwitcher keyboardLayoutSwitcher,
         ConnectPageViewModel page,
         DiagnosticsViewModel diagnostics,
-        IUiDispatcher dispatcher,
-        LatestReleaseVersionReader readLatestReleaseVersion,
         ILogger<MainWindowViewModel> logger,
         bool isDebugSafeMode)
         : base(localizationService)
@@ -115,8 +104,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _keyboardLayoutSwitcher = keyboardLayoutSwitcher ?? throw new ArgumentNullException(nameof(keyboardLayoutSwitcher));
         Page = page ?? throw new ArgumentNullException(nameof(page));
         Diagnostics = diagnostics ?? throw new ArgumentNullException(nameof(diagnostics));
-        _dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
-        _readLatestReleaseVersion = readLatestReleaseVersion ?? throw new ArgumentNullException(nameof(readLatestReleaseVersion));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         IsDebugMenuVisible = isDebugSafeMode;
 
@@ -160,28 +147,19 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public string VersionDisplay => LocalizationService.Format("Common.VersionFormat", FoundryConnectApplicationInfo.Version);
 
     /// <summary>Gets whether the boot-media banner is shown.</summary>
-    public bool IsBootMediaUpdateRecommended => EffectiveBootMediaUpdateReason != BootMediaUpdateReason.None;
+    public bool IsBootMediaUpdateRecommended => _configurationService.BootMediaUpdateReason != BootMediaUpdateReason.None;
 
     /// <summary>Gets the boot-media banner caption for the update reason.</summary>
     public string BootMediaUpdateRecommendedText => LocalizationService.GetString(
-        EffectiveBootMediaUpdateReason == BootMediaUpdateReason.NewerRelease
+        _configurationService.BootMediaUpdateReason == BootMediaUpdateReason.NewerRelease
             ? "BootMedia.UpdateAvailable"
             : "BootMedia.UpdateRecommended");
 
     /// <summary>Gets the boot-media banner tooltip for the update reason.</summary>
     public string BootMediaUpdateRecommendedToolTip => LocalizationService.GetString(
-        EffectiveBootMediaUpdateReason == BootMediaUpdateReason.UnknownAuthoringVersion
+        _configurationService.BootMediaUpdateReason == BootMediaUpdateReason.UnknownAuthoringVersion
             ? "BootMedia.UnknownAuthoringVersionToolTip"
             : "BootMedia.UpdateRecommendedToolTip");
-
-    /// <summary>
-    /// Gets the configuration advice, or the newer release found by the latest release check when the configuration
-    /// recommends nothing.
-    /// </summary>
-    private BootMediaUpdateReason EffectiveBootMediaUpdateReason =>
-        _configurationService.BootMediaUpdateReason == BootMediaUpdateReason.None
-            ? _latestReleaseUpdateReason
-            : _configurationService.BootMediaUpdateReason;
 
     /// <summary>
     /// Gets whether the Debug menu is shown: only in debug safety mode, a Debug build with a debugger attached.
@@ -189,8 +167,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public bool IsDebugMenuVisible { get; }
 
     /// <summary>
-    /// Initializes the page once: provisioning, then the network monitor. Later calls do nothing. The latest release
-    /// check starts in the background and never delays the page.
+    /// Initializes the page once: provisioning, then the network monitor. Later calls do nothing. Connect never looks up
+    /// the latest release online: it often runs before the network is ready, and Foundry Deploy shows that notice.
     /// </summary>
     /// <returns>A task that completes once the page is initialized, or when the shell is disposed first.</returns>
     public async Task InitializeAsync()
@@ -204,53 +182,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         // Read before the first await: Dispose disposes the source.
         CancellationToken lifetime = _disposeCts.Token;
-        if (_configurationService.LatestReleaseCheck is { } latestReleaseCheck)
-        {
-            _ = ShowNewerReleaseNoticeAsync(latestReleaseCheck, lifetime);
-        }
-
         await Page.InitializeAsync(lifetime);
-    }
-
-    /// <summary>
-    /// Shows the newer release notice when the latest published Foundry release is newer than the boot media. Connect
-    /// often starts offline: the lookup then times out and the notice stays hidden, like after any other failure.
-    /// </summary>
-    private async Task ShowNewerReleaseNoticeAsync(BootMediaLatestReleaseCheck latestReleaseCheck, CancellationToken cancellationToken)
-    {
-        try
-        {
-            BootMediaUpdateReason reason = await latestReleaseCheck
-                .EvaluateAsync(_readLatestReleaseVersion, cancellationToken)
-                .ConfigureAwait(false);
-            if (reason != BootMediaUpdateReason.NewerRelease)
-            {
-                return;
-            }
-
-            _logger.LogInformation(
-                "A newer Foundry release than the boot media is published. AuthoringVersion={AuthoringVersion}",
-                latestReleaseCheck.AuthoringVersion);
-            _dispatcher.Run(() =>
-            {
-                if (_isDisposed)
-                {
-                    return;
-                }
-
-                _latestReleaseUpdateReason = reason;
-                OnPropertyChanged(nameof(IsBootMediaUpdateRecommended));
-                OnPropertyChanged(nameof(BootMediaUpdateRecommendedText));
-                OnPropertyChanged(nameof(BootMediaUpdateRecommendedToolTip));
-            });
-        }
-        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
-        {
-        }
-        catch (Exception exception)
-        {
-            _logger.LogDebug("The newer release notice could not be shown. FailureType={FailureType}", exception.GetType().Name);
-        }
     }
 
     /// <summary>

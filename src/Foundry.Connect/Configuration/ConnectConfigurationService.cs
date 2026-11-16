@@ -75,13 +75,9 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
     public BootMediaUpdateReason BootMediaUpdateReason { get; private set; }
 
     /// <inheritdoc />
-    public BootMediaLatestReleaseCheck? LatestReleaseCheck { get; private set; }
-
-    /// <inheritdoc />
     public ConnectConfigurationLoadResult Load()
     {
         BootMediaUpdateReason = BootMediaUpdateReason.None;
-        LatestReleaseCheck = null;
         try
         {
             return LoadCore();
@@ -142,10 +138,6 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             bool isEligibleRuntime = _runtimeContext.IsEligible(ReadProvisioningSource(fullPath)) &&
                 _runtimeContext.IsEligible(configuration.Telemetry.RuntimePayloadSource);
             BootMediaUpdateReason = BootMediaFreshnessPolicy.Evaluate(
-                configuration.AuthoringVersion,
-                _runtimeContext.RuntimeVersion,
-                isEligibleRuntime);
-            LatestReleaseCheck = BootMediaLatestReleaseCheck.Create(
                 configuration.AuthoringVersion,
                 _runtimeContext.RuntimeVersion,
                 isEligibleRuntime);

@@ -37,44 +37,6 @@ public sealed class MainWindowViewModelTests
         Assert.Equal(viewModel.Strings[toolTipKey], viewModel.BootMediaUpdateRecommendedToolTip);
     }
 
-    [Theory]
-    [InlineData("26.11.2.1", true)]
-    [InlineData("26.10.3.1", false)]
-    [InlineData(null, false)]
-    public async Task InitializeAsync_ShowsTheNewerReleaseNoticeOnlyForANewerLatestRelease(string? latestReleaseVersion, bool expected)
-    {
-        using MainWindowViewModel viewModel = CreateViewModel(
-            latestReleaseCheck: new BootMediaLatestReleaseCheck("26.10.3.1", "26.10.3.1"),
-            readLatestReleaseVersion: _ => Task.FromResult(latestReleaseVersion));
-        var changed = new List<string?>();
-        viewModel.PropertyChanged += (_, e) => changed.Add(e.PropertyName);
-
-        await viewModel.InitializeAsync();
-
-        Assert.Equal(expected, viewModel.IsBootMediaUpdateRecommended);
-        Assert.Equal(expected, changed.Contains(nameof(MainWindowViewModel.IsBootMediaUpdateRecommended)));
-        if (expected)
-        {
-            Assert.Equal(viewModel.Strings["BootMedia.UpdateAvailable"], viewModel.BootMediaUpdateRecommendedText);
-        }
-    }
-
-    [Fact]
-    public async Task InitializeAsync_DoesNotReadTheLatestReleaseWithoutACheck()
-    {
-        int reads = 0;
-        using MainWindowViewModel viewModel = CreateViewModel(readLatestReleaseVersion: _ =>
-        {
-            reads++;
-            return Task.FromResult<string?>("26.11.2.1");
-        });
-
-        await viewModel.InitializeAsync();
-
-        Assert.Equal(0, reads);
-        Assert.False(viewModel.IsBootMediaUpdateRecommended);
-    }
-
     [Fact]
     public void KeyboardMenu_ListsActiveLanguageFirst()
     {
@@ -186,9 +148,7 @@ public sealed class MainWindowViewModelTests
     private MainWindowViewModel CreateViewModel(
         BootMediaUpdateReason bootMediaUpdateReason = BootMediaUpdateReason.None,
         IKeyboardLayoutSwitcher? keyboardLayoutSwitcher = null,
-        bool? isDebugSafeMode = null,
-        BootMediaLatestReleaseCheck? latestReleaseCheck = null,
-        LatestReleaseVersionReader? readLatestReleaseVersion = null)
+        bool? isDebugSafeMode = null)
     {
         var configuration = new FoundryConnectConfigurationDocument
         {
@@ -209,14 +169,13 @@ public sealed class MainWindowViewModelTests
 
         var themeService = new FakeThemeService();
         var shell = new FakeApplicationShellService();
-        var configurationService = new FakeConnectConfigurationService(configuration, bootMediaUpdateReason, latestReleaseCheck);
+        var configurationService = new FakeConnectConfigurationService(configuration, bootMediaUpdateReason);
         IKeyboardLayoutSwitcher switcher = keyboardLayoutSwitcher ?? new FakeKeyboardLayoutSwitcher("0000040C");
-        LatestReleaseVersionReader reader = readLatestReleaseVersion ?? (_ => Task.FromResult<string?>(null));
         var logger = new RecordingLogger<MainWindowViewModel>();
 
         return isDebugSafeMode is bool debugSafeMode
-            ? new MainWindowViewModel(themeService, _localization, shell, _lifetime, configurationService, switcher, page, diagnostics, dispatcher, reader, logger, debugSafeMode)
-            : new MainWindowViewModel(themeService, _localization, shell, _lifetime, configurationService, switcher, page, diagnostics, dispatcher, reader, logger);
+            ? new MainWindowViewModel(themeService, _localization, shell, _lifetime, configurationService, switcher, page, diagnostics, logger, debugSafeMode)
+            : new MainWindowViewModel(themeService, _localization, shell, _lifetime, configurationService, switcher, page, diagnostics, logger);
     }
 
     private sealed class FakeKeyboardLayoutSwitcher(string activeLayoutId) : IKeyboardLayoutSwitcher
@@ -277,8 +236,7 @@ public sealed class MainWindowViewModelTests
 
     private sealed class FakeConnectConfigurationService(
         FoundryConnectConfigurationDocument configuration,
-        BootMediaUpdateReason bootMediaUpdateReason = BootMediaUpdateReason.None,
-        BootMediaLatestReleaseCheck? latestReleaseCheck = null) : IConnectConfigurationService
+        BootMediaUpdateReason bootMediaUpdateReason = BootMediaUpdateReason.None) : IConnectConfigurationService
     {
         public string? ConfigurationPath => null;
 
@@ -286,7 +244,6 @@ public sealed class MainWindowViewModelTests
 
         public bool IsBootMediaUpdateRecommended => bootMediaUpdateReason != BootMediaUpdateReason.None;
         public BootMediaUpdateReason BootMediaUpdateReason => bootMediaUpdateReason;
-        public BootMediaLatestReleaseCheck? LatestReleaseCheck => latestReleaseCheck;
 
         public ConnectConfigurationLoadResult Load()
         {
