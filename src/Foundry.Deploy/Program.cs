@@ -27,8 +27,7 @@ public static class Program
     private static readonly TimeSpan DiagnosticsShutdownTimeout = TimeSpan.FromSeconds(2);
 
     /// <summary>Starts configuration and services before entering the synchronous WPF dispatcher loop.</summary>
-    [STAThread]
-    public static int Main(string[] args)
+    public static int Run(string[] args)
     {
         if (Services.Deployment.Native.NativeDeploymentWorker.IsWorkerInvocation(args))
             return Services.Deployment.Native.NativeDeploymentWorker.Run(args);

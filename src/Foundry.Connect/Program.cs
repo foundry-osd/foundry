@@ -32,8 +32,7 @@ public static class Program
     private static readonly TimeSpan DiagnosticsShutdownTimeout = TimeSpan.FromSeconds(2);
 
     /// <summary>Starts configuration and services before entering the synchronous WPF dispatcher loop.</summary>
-    [STAThread]
-    public static int Main(string[] args)
+    public static int Run(string[] args)
     {
         DiagnosticClock.Current.InitializeRuntime(Environment.GetEnvironmentVariable(DiagnosticClock.EnvironmentVariableName));
         string startupLogFilePath = "<unavailable>";
