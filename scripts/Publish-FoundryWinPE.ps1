@@ -12,19 +12,22 @@ $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
 
 $repoRoot = Resolve-Path (Join-Path $PSScriptRoot '..')
-$projectPath = Join-Path $repoRoot 'src\Foundry.Connect\Foundry.Connect.csproj'
-$publishRoot = Join-Path $repoRoot 'artifacts\publish\Foundry.Connect'
+$projectPath = Join-Path $repoRoot 'src\Foundry.WinPE\Foundry.WinPE.csproj'
+$publishRoot = Join-Path $repoRoot 'artifacts\publish\Foundry.WinPE'
+# Foundry.WinPE runs as a folder from the boot image: no single-file bundle and nothing self-extracts into the WinPE RAM disk.
 $publishProperties = @(
-    'PublishSingleFile=true',
-    'EnableCompressionInSingleFile=true',
-    'IncludeNativeLibrariesForSelfExtract=true',
-    'IncludeAllContentForSelfExtract=true',
+    'PublishSingleFile=false',
     'DebugType=None',
     'GenerateDocumentationFile=false'
 )
+$requiredFiles = @(
+    'Foundry.WinPE.exe',
+    'foundry.startup.json',
+    'foundry.runtime-trust-capability.json'
+)
 
 if (-not (Test-Path -Path $projectPath -PathType Leaf)) {
-    throw "Foundry.Connect project not found: '$projectPath'."
+    throw "Foundry.WinPE project not found: '$projectPath'."
 }
 
 $runtimeIdentifiers = if ($AllRuntimes) { @('win-x64', 'win-arm64') } else { @($RuntimeIdentifier) }
@@ -38,7 +41,7 @@ foreach ($rid in $runtimeIdentifiers) {
 
     New-Item -Path $outputPath -ItemType Directory -Force | Out-Null
 
-    Write-Host "Publishing Foundry.Connect ($rid) to $outputPath..."
+    Write-Host "Publishing Foundry.WinPE ($rid) to $outputPath..."
     $publishArgs = @(
         'publish',
         $projectPath,
@@ -56,7 +59,13 @@ foreach ($rid in $runtimeIdentifiers) {
 
     dotnet @publishArgs
     if ($LASTEXITCODE -ne 0) {
-        throw "dotnet publish failed for Foundry.Connect ($rid) with exit code $LASTEXITCODE."
+        throw "dotnet publish failed for Foundry.WinPE ($rid) with exit code $LASTEXITCODE."
+    }
+
+    foreach ($file in $requiredFiles) {
+        if (-not (Test-Path -Path (Join-Path $outputPath $file) -PathType Leaf)) {
+            throw "Foundry.WinPE publish output ($rid) is missing '$file' at the folder root."
+        }
     }
 }
 

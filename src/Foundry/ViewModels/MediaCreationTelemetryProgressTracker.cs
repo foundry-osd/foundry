@@ -134,8 +134,7 @@ internal sealed class MediaCreationTelemetryProgressTracker : ILogEventEnricher
         {
             WinPeProgressStatuses.DownloadingDriverPackage => MediaCreationStepNames.DownloadWinPeDriverPackage,
             WinPeProgressStatuses.DownloadingWindowsSourcePackage => MediaCreationStepNames.DownloadWinReSourcePackage,
-            WinPeProgressStatuses.DownloadingRuntimePayload when progress.ItemName == "Foundry.Connect" => MediaCreationStepNames.DownloadConnectRuntimePayload,
-            WinPeProgressStatuses.DownloadingRuntimePayload when progress.ItemName == "Foundry.Deploy" => MediaCreationStepNames.DownloadDeployRuntimePayload,
+            WinPeProgressStatuses.DownloadingRuntimePayload when progress.ItemName == WinPeRuntimePayloadProvisioningOptions.WinPeApplicationName => MediaCreationStepNames.DownloadWinPeRuntimePayload,
             _ => MediaCreationStepNames.DownloadMediaDependency
         };
     }

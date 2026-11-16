@@ -1,101 +1,47 @@
 param(
-    [string]$ArchivePath = '',
-    [string]$BootstrapArchivePath = '',
-    [string]$ConnectArchivePath = '',
-    [string]$DeployArchivePath = '',
+    # Foundry.WinPE archive (Foundry.WinPE-<rid>.zip) used instead of publishing the project.
+    [Alias('ArchivePath')]
+    [string]$WinPeArchivePath = '',
     [switch]$RunFoundry
 )
 
 $ErrorActionPreference = 'Stop'
 
 $RepoRoot = Resolve-Path (Join-Path $PSScriptRoot '..')
-$BootstrapProjectPath = Join-Path $RepoRoot 'src\Foundry.Bootstrap\Foundry.Bootstrap.csproj'
-$ConnectProjectPath = Join-Path $RepoRoot 'src\Foundry.Connect\Foundry.Connect.csproj'
-$DeployProjectPath = Join-Path $RepoRoot 'src\Foundry.Deploy\Foundry.Deploy.csproj'
+$WinPeProjectPath = Join-Path $RepoRoot 'src\Foundry.WinPE\Foundry.WinPE.csproj'
 $AutopilotInteractiveProjectPath = Join-Path $RepoRoot 'src\Foundry.AutopilotInteractive\Foundry.AutopilotInteractive.csproj'
 $FoundryProjectPath = Join-Path $RepoRoot 'src\Foundry\Foundry.csproj'
 
-if (-not (Test-Path -Path $BootstrapProjectPath -PathType Leaf)) {
-    throw "Foundry.Bootstrap project not found: '$BootstrapProjectPath'."
-}
-
-if (-not (Test-Path -Path $ConnectProjectPath -PathType Leaf)) {
-    throw "Foundry.Connect project not found: '$ConnectProjectPath'."
-}
-
-if (-not (Test-Path -Path $DeployProjectPath -PathType Leaf)) {
-    throw "Foundry.Deploy project not found: '$DeployProjectPath'."
+if (-not (Test-Path -Path $WinPeProjectPath -PathType Leaf)) {
+    throw "Foundry.WinPE project not found: '$WinPeProjectPath'."
 }
 
 if (-not (Test-Path -Path $AutopilotInteractiveProjectPath -PathType Leaf)) {
     throw "Foundry.AutopilotInteractive project not found: '$AutopilotInteractiveProjectPath'."
 }
 
-if (-not [string]::IsNullOrWhiteSpace($ArchivePath) -and [string]::IsNullOrWhiteSpace($DeployArchivePath)) {
-    $DeployArchivePath = $ArchivePath
-}
-
-$env:FOUNDRY_WINPE_DEBUG_BOOTSTRAP = '1'
-$env:FOUNDRY_WINPE_DEBUG_BOOTSTRAP_PROJECT = $BootstrapProjectPath
-
-if ([string]::IsNullOrWhiteSpace($BootstrapArchivePath)) {
-    $env:FOUNDRY_WINPE_DEBUG_BOOTSTRAP_ARCHIVE = ''
-}
-else {
-    $resolvedBootstrapArchivePath = Resolve-Path $BootstrapArchivePath
-    if (-not (Test-Path -Path $resolvedBootstrapArchivePath -PathType Leaf)) {
-        throw "Foundry.Bootstrap archive not found: '$BootstrapArchivePath'."
-    }
-
-    $env:FOUNDRY_WINPE_DEBUG_BOOTSTRAP_ARCHIVE = $resolvedBootstrapArchivePath
-}
-
-$env:FOUNDRY_WINPE_DEBUG_CONNECT = '1'
-$env:FOUNDRY_WINPE_DEBUG_CONNECT_PROJECT = $ConnectProjectPath
-$env:FOUNDRY_WINPE_DEBUG_DEPLOY = '1'
-$env:FOUNDRY_WINPE_DEBUG_DEPLOY_PROJECT = $DeployProjectPath
+# PostInstall and AutopilotInteractive follow the WinPE debug flag.
+$env:FOUNDRY_WINPE_DEBUG_WINPE = '1'
+$env:FOUNDRY_WINPE_DEBUG_WINPE_PROJECT = $WinPeProjectPath
 $env:FOUNDRY_WINPE_DEBUG_AUTOPILOTINTERACTIVE_PROJECT = $AutopilotInteractiveProjectPath
 
-if ([string]::IsNullOrWhiteSpace($ConnectArchivePath)) {
-    $env:FOUNDRY_WINPE_DEBUG_CONNECT_ARCHIVE = ''
+if ([string]::IsNullOrWhiteSpace($WinPeArchivePath)) {
+    $env:FOUNDRY_WINPE_DEBUG_WINPE_ARCHIVE = ''
 }
 else {
-    $resolvedConnectArchivePath = Resolve-Path $ConnectArchivePath
-    if (-not (Test-Path -Path $resolvedConnectArchivePath -PathType Leaf)) {
-        throw "Foundry.Connect archive not found: '$ConnectArchivePath'."
+    $resolvedWinPeArchivePath = Resolve-Path $WinPeArchivePath
+    if (-not (Test-Path -Path $resolvedWinPeArchivePath -PathType Leaf)) {
+        throw "Foundry.WinPE archive not found: '$WinPeArchivePath'."
     }
 
-    $env:FOUNDRY_WINPE_DEBUG_CONNECT_ARCHIVE = $resolvedConnectArchivePath
+    $env:FOUNDRY_WINPE_DEBUG_WINPE_ARCHIVE = $resolvedWinPeArchivePath
 }
 
-if ([string]::IsNullOrWhiteSpace($DeployArchivePath)) {
-    $env:FOUNDRY_WINPE_DEBUG_DEPLOY_ARCHIVE = ''
-}
-else {
-    $resolvedDeployArchivePath = Resolve-Path $DeployArchivePath
-    if (-not (Test-Path -Path $resolvedDeployArchivePath -PathType Leaf)) {
-        throw "Foundry.Deploy archive not found: '$DeployArchivePath'."
-    }
-
-    $env:FOUNDRY_WINPE_DEBUG_DEPLOY_ARCHIVE = $resolvedDeployArchivePath
-}
-
-Write-Host "Local WinPE Bootstrap/Connect/Deploy/AutopilotInteractive mode enabled."
-Write-Host "FOUNDRY_WINPE_DEBUG_BOOTSTRAP=$($env:FOUNDRY_WINPE_DEBUG_BOOTSTRAP)"
-Write-Host "FOUNDRY_WINPE_DEBUG_BOOTSTRAP_PROJECT=$($env:FOUNDRY_WINPE_DEBUG_BOOTSTRAP_PROJECT)"
-if (-not [string]::IsNullOrWhiteSpace($env:FOUNDRY_WINPE_DEBUG_BOOTSTRAP_ARCHIVE)) {
-    Write-Host "FOUNDRY_WINPE_DEBUG_BOOTSTRAP_ARCHIVE=$($env:FOUNDRY_WINPE_DEBUG_BOOTSTRAP_ARCHIVE)"
-}
-Write-Host "FOUNDRY_WINPE_DEBUG_CONNECT=$($env:FOUNDRY_WINPE_DEBUG_CONNECT)"
-Write-Host "FOUNDRY_WINPE_DEBUG_CONNECT_PROJECT=$($env:FOUNDRY_WINPE_DEBUG_CONNECT_PROJECT)"
-if (-not [string]::IsNullOrWhiteSpace($env:FOUNDRY_WINPE_DEBUG_CONNECT_ARCHIVE)) {
-    Write-Host "FOUNDRY_WINPE_DEBUG_CONNECT_ARCHIVE=$($env:FOUNDRY_WINPE_DEBUG_CONNECT_ARCHIVE)"
-}
-
-Write-Host "FOUNDRY_WINPE_DEBUG_DEPLOY=$($env:FOUNDRY_WINPE_DEBUG_DEPLOY)"
-Write-Host "FOUNDRY_WINPE_DEBUG_DEPLOY_PROJECT=$($env:FOUNDRY_WINPE_DEBUG_DEPLOY_PROJECT)"
-if (-not [string]::IsNullOrWhiteSpace($env:FOUNDRY_WINPE_DEBUG_DEPLOY_ARCHIVE)) {
-    Write-Host "FOUNDRY_WINPE_DEBUG_DEPLOY_ARCHIVE=$($env:FOUNDRY_WINPE_DEBUG_DEPLOY_ARCHIVE)"
+Write-Host "Local WinPE/AutopilotInteractive mode enabled."
+Write-Host "FOUNDRY_WINPE_DEBUG_WINPE=$($env:FOUNDRY_WINPE_DEBUG_WINPE)"
+Write-Host "FOUNDRY_WINPE_DEBUG_WINPE_PROJECT=$($env:FOUNDRY_WINPE_DEBUG_WINPE_PROJECT)"
+if (-not [string]::IsNullOrWhiteSpace($env:FOUNDRY_WINPE_DEBUG_WINPE_ARCHIVE)) {
+    Write-Host "FOUNDRY_WINPE_DEBUG_WINPE_ARCHIVE=$($env:FOUNDRY_WINPE_DEBUG_WINPE_ARCHIVE)"
 }
 
 Write-Host "FOUNDRY_WINPE_DEBUG_AUTOPILOTINTERACTIVE_PROJECT=$($env:FOUNDRY_WINPE_DEBUG_AUTOPILOTINTERACTIVE_PROJECT)"

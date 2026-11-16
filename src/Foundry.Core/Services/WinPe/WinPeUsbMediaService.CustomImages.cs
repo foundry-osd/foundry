@@ -28,17 +28,15 @@ public sealed partial class WinPeUsbMediaService
             long runtimeBytes = 0;
             if (options.RuntimePayloadProvisioning is { } runtime)
             {
-                foreach (WinPeRuntimePayloadApplicationOptions application in new[] { runtime.Bootstrap, runtime.Connect, runtime.Deploy, runtime.PostInstall })
+                foreach (WinPeRuntimePayloadApplicationOptions application in new[] { runtime.WinPe, runtime.PostInstall })
                 {
                     if (!application.IsEnabled) continue;
                     if (string.IsNullOrWhiteSpace(application.ArchivePath))
                         throw new InvalidDataException("Runtime payloads must be prepared before custom-image USB creation.");
                     sourcePaths.Add(application.ArchivePath);
                 }
-                // Bootstrap is already embedded in boot.wim; the other runtimes use data-volume space.
-                runtimeBytes = new[] { runtime.Connect, runtime.Deploy, runtime.PostInstall }
-                    .Where(application => application.IsEnabled)
-                    .Sum(application => new FileInfo(application.ArchivePath).Length);
+                // Foundry.WinPE is embedded in boot.wim; only PostInstall uses data-volume space.
+                runtimeBytes = runtime.PostInstall.IsEnabled ? new FileInfo(runtime.PostInstall.ArchivePath).Length : 0;
             }
             await _customImagePublisher.ValidateInputDisksAsync(sourcePaths, options.TargetDiskNumber!.Value, cancellationToken).ConfigureAwait(false);
             if (options.CustomImages is not null)

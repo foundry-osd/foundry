@@ -85,10 +85,10 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.True(result.IsSuccess, result.Error?.Details);
 
         string foundryRoot = Path.Combine(image.MountedImagePath, "Foundry");
-        string launcherPath = Path.Combine(foundryRoot, "Bootstrap", "Launch.cmd");
+        string launcherPath = Path.Combine(foundryRoot, "WinPE", "Launch.cmd");
         string launcher = File.ReadAllText(launcherPath).Replace(@"X:\Foundry", foundryRoot, StringComparison.Ordinal);
         File.WriteAllText(launcherPath, launcher);
-        File.Delete(Path.Combine(foundryRoot, "Bootstrap", "Foundry.Bootstrap.exe"));
+        File.Delete(Path.Combine(foundryRoot, "WinPE", "Foundry.WinPE.exe"));
 
         using var process = Process.Start(new ProcessStartInfo("cmd.exe", $"/d /c \"\"{launcherPath}\"\"")
         {
@@ -104,27 +104,27 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
 
         Assert.NotEqual(0, process.ExitCode);
         string log = File.ReadAllText(Path.Combine(foundryRoot, "Logs", "FoundryBootstrap.Launcher.log"));
-        Assert.Contains("Starting Foundry.Bootstrap.exe", log, StringComparison.Ordinal);
+        Assert.Contains("Starting Foundry.WinPE.exe", log, StringComparison.Ordinal);
         Assert.Contains($"exited with code {process.ExitCode}", log, StringComparison.Ordinal);
     }
 
     [Fact]
-    public async Task ProvisionAsync_WhenBootstrapIsMissing_DoesNotCreateLauncher()
+    public async Task ProvisionAsync_WhenWinPeIsMissing_DoesNotCreateLauncher()
     {
         using TempMountedImage image = TempMountedImage.Create();
-        File.Delete(Path.Combine(image.MountedImagePath, "Foundry", "Bootstrap", "Foundry.Bootstrap.exe"));
+        File.Delete(Path.Combine(image.MountedImagePath, "Foundry", "WinPE", "Foundry.WinPE.exe"));
 
         WinPeResult result = await new WinPeMountedImageAssetProvisioningService().ProvisionAsync(
             new WinPeMountedImageAssetProvisioningOptions { MountedImagePath = image.MountedImagePath },
             TestContext.Current.CancellationToken);
 
         Assert.False(result.IsSuccess);
-        Assert.Contains("Foundry.Bootstrap", result.Error!.Message, StringComparison.Ordinal);
+        Assert.Contains("Foundry.WinPE", result.Error!.Message, StringComparison.Ordinal);
         Assert.False(File.Exists(Path.Combine(image.System32Path, "startnet.cmd")));
     }
 
     [Fact]
-    public async Task ProvisionAsync_WritesBootstrapStartnetAndCurl()
+    public async Task ProvisionAsync_WritesWinPeLauncherStartnetAndCurl()
     {
         using TempMountedImage image = TempMountedImage.Create();
         string curlSourcePath = Path.Combine(image.RootPath, "tools", "curl.exe");
@@ -148,18 +148,43 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         Assert.False(File.Exists(Path.Combine(image.System32Path, "FoundryBootstrap.ps1")));
-        string launcher = await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Bootstrap", "Launch.cmd"), TestContext.Current.CancellationToken);
-        Assert.Contains("Foundry.Bootstrap.exe", launcher, StringComparison.Ordinal);
+        string launcher = await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "WinPE", "Launch.cmd"), TestContext.Current.CancellationToken);
+        Assert.Contains(@"""X:\Foundry\WinPE\Foundry.WinPE.exe""", launcher, StringComparison.Ordinal);
         Assert.Equal("curl", await File.ReadAllTextAsync(Path.Combine(image.System32Path, "curl.exe"), TestContext.Current.CancellationToken));
 
         string[] startnetLines = await File.ReadAllLinesAsync(startnetPath, TestContext.Current.CancellationToken);
         Assert.Equal("@echo off", startnetLines[0]);
         Assert.Contains(startnetLines, line => line.Equals("wpeinit", StringComparison.OrdinalIgnoreCase));
         Assert.Contains(startnetLines, line => line.Equals("echo existing", StringComparison.OrdinalIgnoreCase));
-        Assert.Single(startnetLines, line => line.Equals(@"call X:\Foundry\Bootstrap\Launch.cmd", StringComparison.OrdinalIgnoreCase));
+        Assert.Single(startnetLines, line => line.Equals(@"call X:\Foundry\WinPE\Launch.cmd", StringComparison.OrdinalIgnoreCase));
         Assert.Single(startnetLines, line => line.Equals(HighPerformancePowerSchemeCommand, StringComparison.OrdinalIgnoreCase));
         Assert.True(Array.IndexOf(startnetLines, "wpeinit") < Array.IndexOf(startnetLines, HighPerformancePowerSchemeCommand));
-        Assert.True(Array.IndexOf(startnetLines, HighPerformancePowerSchemeCommand) < Array.IndexOf(startnetLines, @"call X:\Foundry\Bootstrap\Launch.cmd"));
+        Assert.True(Array.IndexOf(startnetLines, HighPerformancePowerSchemeCommand) < Array.IndexOf(startnetLines, @"call X:\Foundry\WinPE\Launch.cmd"));
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_ReplacesLegacyBootstrapInvocationWithWinPeLauncher()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+        string startnetPath = Path.Combine(image.System32Path, "startnet.cmd");
+        File.WriteAllLines(startnetPath, ["@echo off", "wpeinit", @"call X:\Foundry\Bootstrap\Launch.cmd"]);
+
+        WinPeResult result = await new WinPeMountedImageAssetProvisioningService().ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                CurlExecutableSourcePath = curlSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}"
+            },
+            TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        string[] startnetLines = await File.ReadAllLinesAsync(startnetPath, TestContext.Current.CancellationToken);
+        Assert.DoesNotContain(startnetLines, line => line.Contains(@"Foundry\Bootstrap", StringComparison.OrdinalIgnoreCase));
+        Assert.Equal(@"call X:\Foundry\WinPE\Launch.cmd", startnetLines[^1]);
+        Assert.Single(startnetLines, line => line.Equals(@"call X:\Foundry\WinPE\Launch.cmd", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]
@@ -185,7 +210,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         Assert.True(secondResult.IsSuccess, secondResult.Error?.Details);
 
         string[] startnetLines = await File.ReadAllLinesAsync(Path.Combine(image.System32Path, "startnet.cmd"), TestContext.Current.CancellationToken);
-        Assert.Single(startnetLines, line => line.Equals(@"call X:\Foundry\Bootstrap\Launch.cmd", StringComparison.OrdinalIgnoreCase));
+        Assert.Single(startnetLines, line => line.Equals(@"call X:\Foundry\WinPE\Launch.cmd", StringComparison.OrdinalIgnoreCase));
         Assert.Single(startnetLines, line => line.Equals(HighPerformancePowerSchemeCommand, StringComparison.OrdinalIgnoreCase));
     }
 
@@ -658,9 +683,9 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
             string rootPath = Path.Combine(Path.GetTempPath(), $"foundry-asset-provisioning-{Guid.NewGuid():N}");
             string mountedImagePath = Path.Combine(rootPath, "mount");
             Directory.CreateDirectory(Path.Combine(mountedImagePath, "Windows", "System32"));
-            string bootstrapDirectory = Path.Combine(mountedImagePath, "Foundry", "Bootstrap");
-            Directory.CreateDirectory(bootstrapDirectory);
-            File.WriteAllText(Path.Combine(bootstrapDirectory, "Foundry.Bootstrap.exe"), "bootstrap");
+            string winPeDirectory = Path.Combine(mountedImagePath, "Foundry", "WinPE");
+            Directory.CreateDirectory(winPeDirectory);
+            File.WriteAllText(Path.Combine(winPeDirectory, "Foundry.WinPE.exe"), "winpe");
             return new TempMountedImage(rootPath, mountedImagePath);
         }
 

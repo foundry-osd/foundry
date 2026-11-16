@@ -868,9 +868,9 @@ public sealed class WinPeUsbMediaServiceTests
             MountedImagePath = Path.Combine(workspace.RootPath, "mount"),
             UsbCacheRootPath = Path.Combine(workspace.RootPath, "old-cache"),
             WorkingDirectoryPath = Path.Combine(workspace.RootPath, "runtime-work"),
-            Bootstrap = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true },
-            Connect = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true },
-            Deploy = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
+            WinPe = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true },
+            PostInstall = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true },
+            AutopilotInteractive = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
         };
         var artifact = new WinPeBuildArtifact
         {
@@ -885,11 +885,11 @@ public sealed class WinPeUsbMediaServiceTests
             cacheRoot);
 
         Assert.Equal(cacheRoot, result.UsbCacheRootPath);
-        Assert.False(result.Bootstrap.IsEnabled);
+        Assert.False(result.WinPe.IsEnabled);
         Assert.Equal(string.Empty, result.MountedImagePath);
         Assert.Equal(WinPeArchitecture.Arm64, result.Architecture);
-        Assert.Same(runtimeOptions.Connect, result.Connect);
-        Assert.Same(runtimeOptions.Deploy, result.Deploy);
+        Assert.Same(runtimeOptions.PostInstall, result.PostInstall);
+        Assert.Same(runtimeOptions.AutopilotInteractive, result.AutopilotInteractive);
     }
 
     [Fact]
@@ -1211,8 +1211,8 @@ public sealed class WinPeUsbMediaServiceTests
             WorkingDirectoryPath = Path.Combine(workspace.RootPath, "runtime-work"),
             MountedImagePath = Path.Combine(workspace.RootPath, "mount"),
             UsbCacheRootPath = Path.Combine(workspace.RootPath, "old-cache"),
-            Connect = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true },
-            Deploy = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
+            WinPe = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true },
+            PostInstall = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
         };
 
         WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(
@@ -1244,8 +1244,8 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.Equal(string.Empty, capturedOptions.MountedImagePath);
         Assert.Equal(WinPeArchitecture.Arm64, capturedOptions.Architecture);
         Assert.Equal(runtimeOptions.WorkingDirectoryPath, capturedOptions.WorkingDirectoryPath);
-        Assert.Same(runtimeOptions.Connect, capturedOptions.Connect);
-        Assert.Same(runtimeOptions.Deploy, capturedOptions.Deploy);
+        Assert.False(capturedOptions.WinPe.IsEnabled);
+        Assert.Same(runtimeOptions.PostInstall, capturedOptions.PostInstall);
         Assert.Same(downloadProgress, Assert.Single(runtimeProvisioningService.DownloadProgress));
         Assert.Contains(progress.Reports, report => report is { Percent: 92, Status: "Provisioning USB runtime payloads." });
     }
@@ -1288,7 +1288,7 @@ public sealed class WinPeUsbMediaServiceTests
                 RuntimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions
                 {
                     WorkingDirectoryPath = Path.Combine(workspace.RootPath, "runtime-work"),
-                    Connect = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
+                    PostInstall = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
                 },
                 Progress = progress
             },

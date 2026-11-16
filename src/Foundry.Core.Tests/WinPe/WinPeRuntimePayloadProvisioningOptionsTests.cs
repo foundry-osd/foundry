@@ -11,7 +11,7 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
-    public void DomainMediaRetainsExplicitPostInstallSourceWithoutDeployDebug(bool archive)
+    public void DomainMediaRetainsExplicitPostInstallSourceWithoutWinPeDebug(bool archive)
     {
         var options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(WinPeArchitecture.X64, "work", "mount", "usb", "26.11.2.1", false,
             key => key == (archive ? WinPeRuntimePayloadEnvironmentVariables.DebugPostInstallArchive : WinPeRuntimePayloadEnvironmentVariables.DebugPostInstallProject)
@@ -26,9 +26,7 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
     public void CreateDeveloperOptions_WhenDebuggerAttachedAndProjectsExist_EnablesDebugRuntimes()
     {
         using TempProjectRoot root = TempProjectRoot.Create();
-        string bootstrapProjectPath = root.CreateProject("Foundry.Bootstrap");
-        string connectProjectPath = root.CreateProject("Foundry.Connect");
-        string deployProjectPath = root.CreateProject("Foundry.Deploy");
+        string winPeProjectPath = root.CreateProject("Foundry.WinPE");
         string postInstallProjectPath = root.CreateProject("Foundry.PostInstall");
 
         WinPeRuntimePayloadProvisioningOptions options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
@@ -42,15 +40,9 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
             projectDiscoveryStartPath: root.RootPath);
 
         Assert.Equal("26.11.2.1", options.ReleaseVersion);
-        Assert.True(options.Connect.IsEnabled);
-        Assert.True(options.Deploy.IsEnabled);
-        Assert.Equal(WinPeProvisioningSource.Debug, options.Connect.ProvisioningSource);
-        Assert.Equal(WinPeProvisioningSource.Debug, options.Deploy.ProvisioningSource);
-        Assert.True(options.Bootstrap.IsEnabled);
-        Assert.Equal(WinPeProvisioningSource.Debug, options.Bootstrap.ProvisioningSource);
-        Assert.Equal(bootstrapProjectPath, options.Bootstrap.ProjectPath);
-        Assert.Equal(connectProjectPath, options.Connect.ProjectPath);
-        Assert.Equal(deployProjectPath, options.Deploy.ProjectPath);
+        Assert.True(options.WinPe.IsEnabled);
+        Assert.Equal(WinPeProvisioningSource.Debug, options.WinPe.ProvisioningSource);
+        Assert.Equal(winPeProjectPath, options.WinPe.ProjectPath);
         Assert.True(options.PostInstall.IsEnabled);
         Assert.Equal(WinPeProvisioningSource.Debug, options.PostInstall.ProvisioningSource);
         Assert.Equal(postInstallProjectPath, options.PostInstall.ProjectPath);
@@ -60,9 +52,9 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
     public void CreateDeveloperOptions_WhenDebuggerIsNotAttached_DoesNotAutoEnableDebugRuntimes()
     {
         using TempProjectRoot root = TempProjectRoot.Create();
-        root.CreateProject("Foundry.Bootstrap");
-        root.CreateProject("Foundry.Connect");
-        root.CreateProject("Foundry.Deploy");
+        root.CreateProject("Foundry.WinPE");
+        root.CreateProject("Foundry.PostInstall");
+        root.CreateProject("Foundry.AutopilotInteractive");
 
         WinPeRuntimePayloadProvisioningOptions options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
             WinPeArchitecture.X64,
@@ -74,98 +66,98 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
             getEnvironmentVariable: _ => null,
             projectDiscoveryStartPath: root.RootPath);
 
-        Assert.False(options.Bootstrap.IsEnabled);
-        Assert.False(options.Connect.IsEnabled);
-        Assert.False(options.Deploy.IsEnabled);
+        Assert.False(options.WinPe.IsEnabled);
         Assert.False(options.PostInstall.IsEnabled);
-    }
-
-    [Fact]
-    public void CreateDeveloperOptions_WhenArchiveOverrideIsSet_PrefersArchiveOverProject()
-    {
-        using TempProjectRoot root = TempProjectRoot.Create();
-        root.CreateProject("Foundry.Connect");
-        string archivePath = Path.Combine(root.RootPath, "connect.zip");
-
-        WinPeRuntimePayloadProvisioningOptions options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
-            WinPeArchitecture.X64,
-            workingDirectoryPath: Path.Combine(root.RootPath, "work"),
-            mountedImagePath: Path.Combine(root.RootPath, "mount"),
-            usbCacheRootPath: Path.Combine(root.RootPath, "usb"),
-            releaseVersion: "26.11.2.1",
-            isDebuggerAttached: true,
-            getEnvironmentVariable: key => key switch
-            {
-                WinPeRuntimePayloadEnvironmentVariables.DebugConnectArchive => archivePath,
-                _ => null
-            },
-            projectDiscoveryStartPath: root.RootPath);
-
-        Assert.True(options.Connect.IsEnabled);
-        Assert.Equal(WinPeProvisioningSource.Debug, options.Connect.ProvisioningSource);
-        Assert.Equal(archivePath, options.Connect.ArchivePath);
-        Assert.Empty(options.Connect.ProjectPath);
+        Assert.False(options.AutopilotInteractive.IsEnabled);
     }
 
     [Theory]
     [InlineData("1")]
     [InlineData("true")]
     [InlineData("YES")]
-    public void CreateDeveloperOptions_WhenBootstrapIsExplicitlyEnabled_PreservesDebugSourceWithoutProject(string flag)
+    public void CreateDeveloperOptions_WhenWinPeIsExplicitlyEnabled_PreservesDebugSourceWithoutProject(string flag)
     {
         var options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
             WinPeArchitecture.X64, "work", "mount", "usb", "26.11.2.1", false,
-            key => key == WinPeRuntimePayloadEnvironmentVariables.DebugBootstrapEnable ? flag : null);
-        Assert.True(options.Bootstrap.IsEnabled);
-        Assert.Equal(WinPeProvisioningSource.Debug, options.Bootstrap.ProvisioningSource);
-        Assert.Empty(options.Bootstrap.ProjectPath);
+            key => key == WinPeRuntimePayloadEnvironmentVariables.DebugWinPeEnable ? flag : null);
+        Assert.True(options.WinPe.IsEnabled);
+        Assert.Equal(WinPeProvisioningSource.Debug, options.WinPe.ProvisioningSource);
+        Assert.Empty(options.WinPe.ProjectPath);
     }
 
     [Fact]
-    public void CreateDeveloperOptions_WhenBootstrapArchiveIsSet_PrefersArchiveOverProject()
+    public void CreateDeveloperOptions_WhenWinPeArchiveIsSet_PrefersArchiveOverProject()
     {
         var options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
             WinPeArchitecture.Arm64, "work", "mount", "usb", "26.11.2.1", false,
             key => key switch
             {
-                WinPeRuntimePayloadEnvironmentVariables.DebugBootstrapArchive => "bootstrap.zip",
-                WinPeRuntimePayloadEnvironmentVariables.DebugBootstrapProject => "bootstrap.csproj",
+                WinPeRuntimePayloadEnvironmentVariables.DebugWinPeArchive => "winpe.zip",
+                WinPeRuntimePayloadEnvironmentVariables.DebugWinPeProject => "winpe.csproj",
                 _ => null
             });
-        Assert.True(options.Bootstrap.IsEnabled);
-        Assert.Equal("bootstrap.zip", options.Bootstrap.ArchivePath);
-        Assert.Empty(options.Bootstrap.ProjectPath);
-        Assert.Equal(WinPeProvisioningSource.Debug, options.Bootstrap.ProvisioningSource);
+        Assert.True(options.WinPe.IsEnabled);
+        Assert.Equal("winpe.zip", options.WinPe.ArchivePath);
+        Assert.Empty(options.WinPe.ProjectPath);
+        Assert.Equal(WinPeProvisioningSource.Debug, options.WinPe.ProvisioningSource);
     }
 
     [Fact]
-    public void CreateDeveloperOptions_WhenDebuggerHasNoBootstrapProject_KeepsBootstrapDebugEnabled()
+    public void CreateDeveloperOptions_WhenWinPeProjectIsSet_DiscoversDebugApplicationsBesideIt()
+    {
+        using TempProjectRoot root = TempProjectRoot.Create();
+        string winPeProjectPath = root.CreateProject("Foundry.WinPE");
+        string postInstallProjectPath = root.CreateProject("Foundry.PostInstall");
+        string autopilotProjectPath = root.CreateProject("Foundry.AutopilotInteractive");
+
+        var options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
+            WinPeArchitecture.X64, "work", "mount", "usb", "26.11.2.1", false,
+            key => key switch
+            {
+                WinPeRuntimePayloadEnvironmentVariables.DebugWinPeEnable => "1",
+                WinPeRuntimePayloadEnvironmentVariables.DebugWinPeProject => winPeProjectPath,
+                _ => null
+            });
+
+        Assert.Equal(winPeProjectPath, options.WinPe.ProjectPath);
+        Assert.Equal(postInstallProjectPath, options.PostInstall.ProjectPath);
+        Assert.Equal(autopilotProjectPath, options.AutopilotInteractive.ProjectPath);
+    }
+
+    [Fact]
+    public void CreateDeveloperOptions_WhenDebuggerHasNoWinPeProject_KeepsWinPeDebugEnabled()
     {
         using TempProjectRoot root = TempProjectRoot.Create();
         var options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
             WinPeArchitecture.X64, "work", "mount", "usb", "26.11.2.1", true,
             _ => null, root.RootPath);
-        Assert.True(options.Bootstrap.IsEnabled);
-        Assert.Equal(WinPeProvisioningSource.Debug, options.Bootstrap.ProvisioningSource);
-        Assert.Empty(options.Bootstrap.ProjectPath);
-        Assert.False(options.Connect.IsEnabled);
-        Assert.False(options.Deploy.IsEnabled);
-        Assert.False(options.PostInstall.IsEnabled);
+        Assert.True(options.WinPe.IsEnabled);
+        Assert.Equal(WinPeProvisioningSource.Debug, options.WinPe.ProvisioningSource);
+        Assert.Empty(options.WinPe.ProjectPath);
+        Assert.False(options.AutopilotInteractive.IsEnabled);
     }
 
-    [Fact]
-    public void CreateDeveloperOptions_EnablesAutopilotInteractive_WhenDeployIsDebugAndProjectExists()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void CreateDeveloperOptions_PostInstallAndAutopilotInteractiveFollowTheWinPeDebugFlag(bool winPeDebug)
     {
         using TempProjectRoot root = TempProjectRoot.Create();
-        root.CreateProject("Foundry.Deploy");
+        string postInstallProjectPath = root.CreateProject("Foundry.PostInstall");
         string autopilotProjectPath = root.CreateProject("Foundry.AutopilotInteractive");
 
         var options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
-            WinPeArchitecture.X64, "work", "mount", "usb", "26.11.2.1", true, _ => null, root.RootPath);
+            WinPeArchitecture.X64, "work", "mount", "usb", "26.11.2.1", false,
+            key => winPeDebug && key == WinPeRuntimePayloadEnvironmentVariables.DebugWinPeEnable ? "1" : null,
+            root.RootPath);
 
-        Assert.True(options.AutopilotInteractive.IsEnabled);
-        Assert.Equal(WinPeProvisioningSource.Debug, options.AutopilotInteractive.ProvisioningSource);
-        Assert.Equal(autopilotProjectPath, options.AutopilotInteractive.ProjectPath);
+        Assert.Equal(winPeDebug, options.WinPe.IsEnabled);
+        Assert.Equal(winPeDebug, options.PostInstall.IsEnabled);
+        Assert.Equal(winPeDebug, options.AutopilotInteractive.IsEnabled);
+        Assert.Equal(WinPeProvisioningSource.Debug, options.PostInstall.ProvisioningSource);
+        Assert.Equal(winPeDebug ? postInstallProjectPath : string.Empty, options.PostInstall.ProjectPath);
+        Assert.Equal(winPeDebug ? autopilotProjectPath : string.Empty, options.AutopilotInteractive.ProjectPath);
+        Assert.Equal(winPeDebug, options.WithDomainJoinRuntime(true).PostInstall.ProvisioningSource == WinPeProvisioningSource.Debug);
     }
 
     [Fact]
@@ -175,7 +167,7 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
             WinPeArchitecture.X64, "work", "mount", "usb", "26.11.2.1", false,
             key => key switch
             {
-                WinPeRuntimePayloadEnvironmentVariables.DebugDeployEnable => "1",
+                WinPeRuntimePayloadEnvironmentVariables.DebugWinPeEnable => "1",
                 WinPeRuntimePayloadEnvironmentVariables.DebugAutopilotInteractiveArchive => "autopilot.zip",
                 WinPeRuntimePayloadEnvironmentVariables.DebugAutopilotInteractiveProject => "autopilot.csproj",
                 _ => null
@@ -186,23 +178,17 @@ public sealed class WinPeRuntimePayloadProvisioningOptionsTests
         Assert.Empty(options.AutopilotInteractive.ProjectPath);
     }
 
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public void CreateDeveloperOptions_KeepsAutopilotInteractiveDisabled_WhenDeployIsNotDebugOrNoSourceExists(bool deployDebug)
+    [Fact]
+    public void CreateDeveloperOptions_KeepsAutopilotInteractiveDisabled_WhenWinPeIsDebugButNoSourceExists()
     {
         using TempProjectRoot root = TempProjectRoot.Create();
-        if (!deployDebug)
-        {
-            root.CreateProject("Foundry.AutopilotInteractive");
-        }
 
         var options = WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
             WinPeArchitecture.X64, "work", "mount", "usb", "26.11.2.1", false,
-            key => deployDebug && key == WinPeRuntimePayloadEnvironmentVariables.DebugDeployEnable ? "1" : null,
+            key => key == WinPeRuntimePayloadEnvironmentVariables.DebugWinPeEnable ? "1" : null,
             root.RootPath);
 
-        Assert.Equal(deployDebug, options.Deploy.IsEnabled);
+        Assert.True(options.WinPe.IsEnabled);
         Assert.False(options.AutopilotInteractive.IsEnabled);
     }
 

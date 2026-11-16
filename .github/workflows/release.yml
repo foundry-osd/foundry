@@ -286,21 +286,26 @@ jobs:
           $workspace = $env:GITHUB_WORKSPACE
           $releaseRoot = Join-Path $workspace 'artifacts\release'
           $publishRoot = Join-Path $releaseRoot 'publish'
-          $connectProject = Join-Path $workspace 'src\Foundry.Connect\Foundry.Connect.csproj'
+          $winPeProject = Join-Path $workspace 'src\Foundry.WinPE\Foundry.WinPE.csproj'
           $autopilotInteractiveProject = Join-Path $workspace 'src\Foundry.AutopilotInteractive\Foundry.AutopilotInteractive.csproj'
-          $deployProject = Join-Path $workspace 'src\Foundry.Deploy\Foundry.Deploy.csproj'
-          $bootstrapProject = Join-Path $workspace 'src\Foundry.Bootstrap\Foundry.Bootstrap.csproj'
           $postInstallProject = Join-Path $workspace 'src\Foundry.PostInstall\Foundry.PostInstall.csproj'
           $velopackScript = Join-Path $workspace 'scripts\Publish-FoundryVelopack.ps1'
-          $publishProperties = @(
-              'PublishSingleFile=true',
-              'EnableCompressionInSingleFile=true',
-              'IncludeNativeLibrariesForSelfExtract=true',
-              'IncludeAllContentForSelfExtract=true',
+          $commonPublishProperties = @(
               'DebugType=None',
               'GenerateDocumentationFile=false',
               "FoundryPostHogProjectToken=$env:FoundryPostHogProjectToken"
           )
+          # Runtimes started from the cache or the target OS ship as one self-extracting executable.
+          $singleFilePublishProperties = @(
+              'PublishSingleFile=true',
+              'EnableCompressionInSingleFile=true',
+              'IncludeNativeLibrariesForSelfExtract=true',
+              'IncludeAllContentForSelfExtract=true'
+          ) + $commonPublishProperties
+          # Foundry.WinPE runs as a folder from the boot image, so nothing self-extracts into the WinPE RAM disk.
+          $folderPublishProperties = @(
+              'PublishSingleFile=false'
+          ) + $commonPublishProperties
 
           function Invoke-Publish {
               param(
@@ -311,7 +316,9 @@ jobs:
                   [Parameter(Mandatory = $true)]
                   [string]$Platform,
                   [Parameter(Mandatory = $true)]
-                  [string]$OutputPath
+                  [string]$OutputPath,
+                  [Parameter(Mandatory = $true)]
+                  [string[]]$Properties
               )
 
               if (Test-Path -Path $OutputPath) {
@@ -331,7 +338,7 @@ jobs:
                   "-p:Platform=$Platform"
               )
 
-              foreach ($property in $publishProperties) {
+              foreach ($property in $Properties) {
                   $publishArgs += "-p:$property"
               }
 
@@ -360,30 +367,19 @@ jobs:
                   throw "Velopack packaging failed for Foundry ($runtimeIdentifier)."
               }
 
-              $deployPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.Deploy' $runtimeIdentifier)
-              Invoke-Publish -ProjectPath $deployProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $deployPublishPath
+              $winPePublishPath = Join-Path $publishRoot (Join-Path 'Foundry.WinPE' $runtimeIdentifier)
+              Invoke-Publish -ProjectPath $winPeProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $winPePublishPath -Properties $folderPublishProperties
 
-              $deployExecutable = Join-Path $deployPublishPath 'Foundry.Deploy.exe'
-              if (-not (Test-Path -Path $deployExecutable -PathType Leaf)) {
-                  throw "Expected Foundry.Deploy executable not found: '$deployExecutable'."
+              $winPeExecutable = Join-Path $winPePublishPath 'Foundry.WinPE.exe'
+              if (-not (Test-Path -Path $winPeExecutable -PathType Leaf)) {
+                  throw "Expected Foundry.WinPE executable not found: '$winPeExecutable'."
               }
 
-              $deployAssetPath = Join-Path $releaseRoot "Foundry.Deploy-$runtimeIdentifier.zip"
-              Compress-Archive -Path (Join-Path $deployPublishPath '*') -DestinationPath $deployAssetPath -CompressionLevel Optimal -Force
-
-              $connectPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.Connect' $runtimeIdentifier)
-              Invoke-Publish -ProjectPath $connectProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $connectPublishPath
-
-              $connectExecutable = Join-Path $connectPublishPath 'Foundry.Connect.exe'
-              if (-not (Test-Path -Path $connectExecutable -PathType Leaf)) {
-                  throw "Expected Foundry.Connect executable not found: '$connectExecutable'."
-              }
-
-              $connectAssetPath = Join-Path $releaseRoot "Foundry.Connect-$runtimeIdentifier.zip"
-              Compress-Archive -Path (Join-Path $connectPublishPath '*') -DestinationPath $connectAssetPath -CompressionLevel Optimal -Force
+              $winPeAssetPath = Join-Path $releaseRoot "Foundry.WinPE-$runtimeIdentifier.zip"
+              Compress-Archive -Path (Join-Path $winPePublishPath '*') -DestinationPath $winPeAssetPath -CompressionLevel Optimal -Force
 
               $autopilotInteractivePublishPath = Join-Path $publishRoot (Join-Path 'Foundry.AutopilotInteractive' $runtimeIdentifier)
-              Invoke-Publish -ProjectPath $autopilotInteractiveProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $autopilotInteractivePublishPath
+              Invoke-Publish -ProjectPath $autopilotInteractiveProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $autopilotInteractivePublishPath -Properties $singleFilePublishProperties
 
               $autopilotInteractiveExecutable = Join-Path $autopilotInteractivePublishPath 'Foundry.AutopilotInteractive.exe'
               if (-not (Test-Path -Path $autopilotInteractiveExecutable -PathType Leaf)) {
@@ -393,19 +389,8 @@ jobs:
               $autopilotInteractiveAssetPath = Join-Path $releaseRoot "Foundry.AutopilotInteractive-$runtimeIdentifier.zip"
               Compress-Archive -Path (Join-Path $autopilotInteractivePublishPath '*') -DestinationPath $autopilotInteractiveAssetPath -CompressionLevel Optimal -Force
 
-              $bootstrapPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.Bootstrap' $runtimeIdentifier)
-              Invoke-Publish -ProjectPath $bootstrapProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $bootstrapPublishPath
-
-              $bootstrapExecutable = Join-Path $bootstrapPublishPath 'Foundry.Bootstrap.exe'
-              if (-not (Test-Path -Path $bootstrapExecutable -PathType Leaf)) {
-                  throw "Expected Foundry.Bootstrap executable not found: '$bootstrapExecutable'."
-              }
-
-              $bootstrapAssetPath = Join-Path $releaseRoot "Foundry.Bootstrap-$runtimeIdentifier.zip"
-              Compress-Archive -Path (Join-Path $bootstrapPublishPath '*') -DestinationPath $bootstrapAssetPath -CompressionLevel Optimal -Force
-
               $postInstallPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.PostInstall' $runtimeIdentifier)
-              Invoke-Publish -ProjectPath $postInstallProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $postInstallPublishPath
+              Invoke-Publish -ProjectPath $postInstallProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $postInstallPublishPath -Properties $singleFilePublishProperties
 
               $postInstallExecutable = Join-Path $postInstallPublishPath 'Foundry.PostInstall.exe'
               if (-not (Test-Path -Path $postInstallExecutable -PathType Leaf)) {
@@ -475,14 +460,10 @@ jobs:
           $assets = @(
               (Join-Path $releaseRoot 'Foundry.AutopilotInteractive-win-x64.zip'),
               (Join-Path $releaseRoot 'Foundry.AutopilotInteractive-win-arm64.zip'),
-              (Join-Path $releaseRoot 'Foundry.Bootstrap-win-x64.zip'),
-              (Join-Path $releaseRoot 'Foundry.Bootstrap-win-arm64.zip'),
-              (Join-Path $releaseRoot 'Foundry.Connect-win-x64.zip'),
-              (Join-Path $releaseRoot 'Foundry.Connect-win-arm64.zip'),
-              (Join-Path $releaseRoot 'Foundry.Deploy-win-x64.zip'),
-              (Join-Path $releaseRoot 'Foundry.Deploy-win-arm64.zip'),
               (Join-Path $releaseRoot 'Foundry.PostInstall-win-x64.zip'),
-              (Join-Path $releaseRoot 'Foundry.PostInstall-win-arm64.zip')
+              (Join-Path $releaseRoot 'Foundry.PostInstall-win-arm64.zip'),
+              (Join-Path $releaseRoot 'Foundry.WinPE-win-x64.zip'),
+              (Join-Path $releaseRoot 'Foundry.WinPE-win-arm64.zip')
           )
 
           foreach ($asset in $assets) {

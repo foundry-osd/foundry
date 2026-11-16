@@ -22,7 +22,7 @@ public sealed class WinPeWorkspacePreparationServiceTests
         var runtimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = Path.Combine(temp.RootPath, "runtime-work"),
-            Connect = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
+            WinPe = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
         };
         var service = new WinPeWorkspacePreparationService(
             driverResolution,

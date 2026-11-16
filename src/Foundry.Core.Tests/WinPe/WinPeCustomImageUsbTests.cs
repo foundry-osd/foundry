@@ -23,15 +23,13 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
     [InlineData(false, true)]
     [InlineData(true, false)]
     [InlineData(true, true)]
-    public async Task Update_PublishesDataBeforeFormattingAndStopsOnDataFailure(bool failPublication, bool deployEnabled)
+    public async Task Update_PublishesDataBeforeFormattingAndStopsOnDataFailure(bool failPublication, bool postInstallEnabled)
     {
         WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
-        string bootstrapArchive = Path.Combine(root, "bootstrap.zip");
-        string connectArchive = Path.Combine(root, "connect.zip");
-        string deployArchive = Path.Combine(root, "deploy.zip");
-        await File.WriteAllBytesAsync(bootstrapArchive, new byte[11], TestContext.Current.CancellationToken);
-        await File.WriteAllBytesAsync(connectArchive, new byte[17], TestContext.Current.CancellationToken);
-        await File.WriteAllBytesAsync(deployArchive, new byte[23], TestContext.Current.CancellationToken);
+        string winPeArchive = Path.Combine(root, "winpe.zip");
+        string postInstallArchive = Path.Combine(root, "postinstall.zip");
+        await File.WriteAllBytesAsync(winPeArchive, new byte[11], TestContext.Current.CancellationToken);
+        await File.WriteAllBytesAsync(postInstallArchive, new byte[17], TestContext.Current.CancellationToken);
         var publisher = new Publisher(failPublication);
         var runner = new Runner(publisher);
         var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher);
@@ -52,9 +50,8 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             DeployConfigurationJson = config,
             RuntimePayloadProvisioning = new()
             {
-                Bootstrap = new() { IsEnabled = true, ArchivePath = bootstrapArchive },
-                Connect = new() { IsEnabled = true, ArchivePath = connectArchive },
-                Deploy = new() { IsEnabled = deployEnabled, ArchivePath = deployArchive }
+                WinPe = new() { IsEnabled = true, ArchivePath = winPeArchive },
+                PostInstall = new() { IsEnabled = postInstallEnabled, ArchivePath = postInstallArchive }
             }
         };
 
@@ -65,12 +62,12 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         Assert.False(result.IsSuccess);
         Assert.True(publisher.PublishAttempted);
         Assert.Equal(!failPublication, runner.FormattingAttempted);
-        Assert.Equal(deployEnabled ? 40L : 17L, publisher.AdditionalCapacityBytes);
+        // The WinPE runtime is embedded in boot.wim, so only PostInstall consumes data-volume space.
+        Assert.Equal(postInstallEnabled ? 17L : 0L, publisher.AdditionalCapacityBytes);
         Assert.Contains(root, publisher.ValidatedInputs);
-        Assert.Contains(bootstrapArchive, publisher.ValidatedInputs);
-        Assert.Contains(connectArchive, publisher.ValidatedInputs);
-        if (deployEnabled) Assert.Contains(deployArchive, publisher.ValidatedInputs);
-        else Assert.DoesNotContain(deployArchive, publisher.ValidatedInputs);
+        Assert.Contains(winPeArchive, publisher.ValidatedInputs);
+        if (postInstallEnabled) Assert.Contains(postInstallArchive, publisher.ValidatedInputs);
+        else Assert.DoesNotContain(postInstallArchive, publisher.ValidatedInputs);
     }
 
     public void Dispose() { if (Directory.Exists(root)) Directory.Delete(root, true); }

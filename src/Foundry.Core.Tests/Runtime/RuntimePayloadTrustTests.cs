@@ -16,16 +16,16 @@ public sealed class RuntimePayloadTrustTests : IDisposable
     [InlineData("win-arm64")]
     public void ReadArchiveHash_ResolvesOnlyMatchingApplicationAndRuntime(string runtime)
     {
-        WriteManifest($$"""{"schemaVersion":1,"archives":[{"application":"Foundry.Connect","runtimeIdentifier":"{{runtime}}","sha256":"{{Hash}}"}]}""");
-        Assert.Equal(Hash, RuntimePayloadTrust.ReadArchiveHash(_root, "Foundry.Connect", runtime));
-        Assert.Null(RuntimePayloadTrust.ReadArchiveHash(_root, "Foundry.Deploy", runtime));
-        Assert.Equal(Path.Combine(_root, "Foundry.Connect", runtime, "original.zip"), RuntimePayloadTrust.GetBaselineArchivePath(_root, "Foundry.Connect", runtime));
+        WriteManifest($$"""{"schemaVersion":1,"archives":[{"application":"Foundry.PostInstall","runtimeIdentifier":"{{runtime}}","sha256":"{{Hash}}"}]}""");
+        Assert.Equal(Hash, RuntimePayloadTrust.ReadArchiveHash(_root, "Foundry.PostInstall", runtime));
+        Assert.Null(RuntimePayloadTrust.ReadArchiveHash(_root, "Foundry.AutopilotInteractive", runtime));
+        Assert.Equal(Path.Combine(_root, "Foundry.PostInstall", runtime, "original.zip"), RuntimePayloadTrust.GetBaselineArchivePath(_root, "Foundry.PostInstall", runtime));
     }
 
     [Fact]
     public void ReadArchiveHash_WhenManifestIsMissing_ReturnsNull()
     {
-        Assert.Null(RuntimePayloadTrust.ReadArchiveHash(_root, "Foundry.Connect", "win-x64"));
+        Assert.Null(RuntimePayloadTrust.ReadArchiveHash(_root, "Foundry.PostInstall", "win-x64"));
     }
 
     [Theory]
@@ -35,13 +35,22 @@ public sealed class RuntimePayloadTrustTests : IDisposable
     [InlineData("{\"schemaVersion\":1,\"schemaVersion\":1,\"archives\":[]}")]
     [InlineData("{\"schemaVersion\":1,\"archives\":[{}]}")]
     [InlineData("{\"schemaVersion\":1,\"archives\":[{\"application\":\"../evil\",\"runtimeIdentifier\":\"win-x64\",\"sha256\":\"HASH\"}]}")]
-    [InlineData("{\"schemaVersion\":1,\"archives\":[{\"application\":\"Foundry.Connect\",\"runtimeIdentifier\":\"../evil\",\"sha256\":\"HASH\"}]}")]
-    [InlineData("{\"schemaVersion\":1,\"archives\":[{\"application\":\"Foundry.Connect\",\"runtimeIdentifier\":\"win-x64\",\"sha256\":\"invalid\"}]}")]
-    [InlineData("{\"schemaVersion\":1,\"archives\":[{\"application\":\"Foundry.Connect\",\"runtimeIdentifier\":\"win-x64\",\"sha256\":\"HASH\"},{\"application\":\"Foundry.Connect\",\"runtimeIdentifier\":\"win-x64\",\"sha256\":\"HASH\"}]}")]
+    [InlineData("{\"schemaVersion\":1,\"archives\":[{\"application\":\"Foundry.PostInstall\",\"runtimeIdentifier\":\"../evil\",\"sha256\":\"HASH\"}]}")]
+    [InlineData("{\"schemaVersion\":1,\"archives\":[{\"application\":\"Foundry.PostInstall\",\"runtimeIdentifier\":\"win-x64\",\"sha256\":\"invalid\"}]}")]
+    [InlineData("{\"schemaVersion\":1,\"archives\":[{\"application\":\"Foundry.PostInstall\",\"runtimeIdentifier\":\"win-x64\",\"sha256\":\"HASH\"},{\"application\":\"Foundry.PostInstall\",\"runtimeIdentifier\":\"win-x64\",\"sha256\":\"HASH\"}]}")]
     public void ReadArchiveHash_WhenManifestIsInvalid_FailsClosed(string json)
     {
         WriteManifest(json.Replace("HASH", Hash, StringComparison.Ordinal));
-        Assert.Throws<InvalidDataException>(() => RuntimePayloadTrust.ReadArchiveHash(_root, "Foundry.Deploy", "win-x64"));
+        Assert.Throws<InvalidDataException>(() => RuntimePayloadTrust.ReadArchiveHash(_root, "Foundry.AutopilotInteractive", "win-x64"));
+    }
+
+    [Theory]
+    [InlineData("Foundry.Connect")]
+    [InlineData("Foundry.Deploy")]
+    [InlineData("Foundry.WinPE")]
+    public void GetBaselineArchivePath_WhenApplicationRunsFromTheBootImage_Rejects(string application)
+    {
+        Assert.Throws<InvalidDataException>(() => RuntimePayloadTrust.GetBaselineArchivePath(_root, application, "win-x64"));
     }
 
     [Fact]
@@ -53,7 +62,7 @@ public sealed class RuntimePayloadTrustTests : IDisposable
 
     [Theory]
     [InlineData("../evil", "win-x64")]
-    [InlineData("Foundry.Connect", "../evil")]
+    [InlineData("Foundry.PostInstall", "../evil")]
     public void GetBaselineArchivePath_WhenIdentityIsInvalid_Rejects(string application, string runtime)
     {
         Assert.Throws<InvalidDataException>(() => RuntimePayloadTrust.GetBaselineArchivePath(_root, application, runtime));

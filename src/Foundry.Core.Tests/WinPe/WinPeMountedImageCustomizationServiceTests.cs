@@ -70,7 +70,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
         var runtimePayloadOptions = new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = Path.Combine(temp.RootPath, "runtime-work"),
-            Connect = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
+            WinPe = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
         };
 
         WinPeResult result = await service.CustomizeAsync(
@@ -97,7 +97,7 @@ public sealed class WinPeMountedImageCustomizationServiceTests
         Assert.Single(runtimePayloadProvisioning.Options);
         Assert.Equal(temp.Artifact.MountDirectoryPath, runtimePayloadProvisioning.Options[0].MountedImagePath);
         Assert.Equal(temp.Artifact.Architecture, runtimePayloadProvisioning.Options[0].Architecture);
-        Assert.Same(runtimePayloadOptions.Connect, runtimePayloadProvisioning.Options[0].Connect);
+        Assert.Same(runtimePayloadOptions.WinPe, runtimePayloadProvisioning.Options[0].WinPe);
         Assert.Single(driverInjection.Options);
         Assert.Equal(driverDirectory, Assert.Single(driverInjection.Options[0].DriverPackagePaths));
         Assert.Single(internationalization.Options);

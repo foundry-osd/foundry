@@ -163,9 +163,9 @@ public sealed class UnattendMediaTests
         {
             string mounted = Path.Combine(root, "mount");
             Directory.CreateDirectory(Path.Combine(mounted, "Windows", "System32"));
-            string bootstrapDirectory = Path.Combine(mounted, "Foundry", "Bootstrap");
-            Directory.CreateDirectory(bootstrapDirectory);
-            File.WriteAllText(Path.Combine(bootstrapDirectory, "Foundry.Bootstrap.exe"), "bootstrap");
+            string winPeDirectory = Path.Combine(mounted, "Foundry", "WinPE");
+            Directory.CreateDirectory(winPeDirectory);
+            File.WriteAllText(Path.Combine(winPeDirectory, "Foundry.WinPE.exe"), "winpe");
             ConfigPath = Path.Combine(mounted, "Foundry", "Config");
             SourcePath = Path.Combine(root, "source.xml");
             File.WriteAllBytes(SourcePath, Content);
