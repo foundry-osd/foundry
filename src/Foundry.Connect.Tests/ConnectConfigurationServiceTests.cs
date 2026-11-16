@@ -45,7 +45,6 @@ public sealed class ConnectConfigurationServiceTests
 
         Assert.Equal(BootMediaUpdateReason.NewerRelease, service.BootMediaUpdateReason);
         Assert.True(service.IsBootMediaUpdateRecommended);
-        Assert.Null(service.LatestReleaseCheck);
     }
 
     [Fact]
@@ -80,7 +79,6 @@ public sealed class ConnectConfigurationServiceTests
 
         Assert.Equal(BootMediaUpdateReason.None, service.BootMediaUpdateReason);
         Assert.False(service.IsBootMediaUpdateRecommended);
-        Assert.Null(service.LatestReleaseCheck);
     }
 
     [Theory]
@@ -112,8 +110,6 @@ public sealed class ConnectConfigurationServiceTests
 
         Assert.Equal(BootMediaUpdateReason.None, service.BootMediaUpdateReason);
         Assert.False(service.IsBootMediaUpdateRecommended);
-        // Only the latest published release can still reveal newer boot media.
-        Assert.Equal(new BootMediaLatestReleaseCheck(author, ProductionRuntime.RuntimeVersion!), service.LatestReleaseCheck);
     }
 
     [Fact]

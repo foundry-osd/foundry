@@ -37,6 +37,15 @@ public sealed class NetworkServiceRegistrationTests
     }
 
     [Fact]
+    public void AddFoundryConnectApplicationServices_DoesNotLookUpTheLatestReleaseOnline()
+    {
+        // Connect often runs before the network is ready; Deploy owns the online newer-release notice.
+        using ServiceProvider provider = BuildProvider();
+
+        Assert.Null(provider.GetService<LatestReleaseVersionReader>());
+    }
+
+    [Fact]
     public async Task AddFoundryConnectApplicationServices_ComposesThePageAroundOneNetworkActions()
     {
         using ServiceProvider provider = BuildProvider();
@@ -81,8 +90,6 @@ public sealed class NetworkServiceRegistrationTests
         public bool IsBootMediaUpdateRecommended => false;
 
         public BootMediaUpdateReason BootMediaUpdateReason => BootMediaUpdateReason.None;
-
-        public BootMediaLatestReleaseCheck? LatestReleaseCheck => null;
 
         public ConnectConfigurationLoadResult Load() => ConnectConfigurationLoadResult.Success(configuration, ConnectRuntimeSecrets.None(), BootMediaUpdateReason.None);
     }
