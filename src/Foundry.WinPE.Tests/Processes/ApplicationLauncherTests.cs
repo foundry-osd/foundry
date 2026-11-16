@@ -307,6 +307,40 @@ public sealed class ApplicationLauncherTests
     }
 
     [Fact]
+    public async Task ChildModesRunWithoutTheGuardianConsoleWindow()
+    {
+        string directory = Directory.CreateTempSubdirectory("FoundryLaunchConsole-").FullName;
+        try
+        {
+            string executable = Path.Combine(directory, "Foundry.WinPE.exe");
+            var starts = new List<ProcessStartInfo>();
+            using var logger = new LoggerConfiguration().CreateLogger();
+            var launcher = new ApplicationLauncher(logger, startProcess: start =>
+            {
+                starts.Add(start);
+                return Process.Start(new ProcessStartInfo(Environment.GetEnvironmentVariable("ComSpec")!, "/d /c exit 0")
+                {
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                });
+            });
+
+            using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            await launcher.RunConnectAsync(executable, "missing.json", new Dictionary<string, string?>(), deadline.Token);
+            await launcher.StartDeployAsync(executable, new Dictionary<string, string?>(), deadline.Token);
+
+            // Sharing the startnet console would let Ctrl+C there terminate Connect or Deploy.
+            Assert.Equal(2, starts.Count);
+            Assert.All(starts, start =>
+            {
+                Assert.True(start.CreateNoWindow);
+                Assert.False(start.UseShellExecute);
+            });
+        }
+        finally { Directory.Delete(directory, recursive: true); }
+    }
+
+    [Fact]
     public async Task ChildArgumentsAndEnvironmentArePassedWithoutShellExpansion()
     {
         string directory = Directory.CreateTempSubdirectory("FoundryLaunchArguments-").FullName;

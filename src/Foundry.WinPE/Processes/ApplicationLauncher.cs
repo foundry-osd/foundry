@@ -158,6 +158,8 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
         var start = new ProcessStartInfo(executable)
         {
             UseShellExecute = false,
+            // Child modes never write to the console; sharing startnet's console would let Ctrl+C there terminate them.
+            CreateNoWindow = true,
             WorkingDirectory = Path.GetDirectoryName(Path.GetFullPath(executable))!
         };
         foreach (string argument in arguments) { start.ArgumentList.Add(argument); }
