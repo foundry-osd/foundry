@@ -5,7 +5,7 @@
 namespace Foundry.Telemetry;
 
 /// <summary>
-/// Defines stable categories for the PostInstall runtime payload source.
+/// Defines stable categories for the Foundry.WinPE runtime payload source.
 /// </summary>
 public static class TelemetryRuntimePayloadSources
 {
