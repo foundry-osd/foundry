@@ -43,8 +43,8 @@
           - 'src/Foundry.Wpf/**'
           - 'src/Foundry.Wpf.Tests/**'
 
-# Foundry WinPE boot orchestration runtime
-'project: foundry-bootstrap':
+# Foundry WinPE executable (guardian, Connect and Deploy hosting)
+'project: foundry-winpe':
   - changed-files:
       - any-glob-to-any-file:
           - 'src/Foundry.WinPE/**'
