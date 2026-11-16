@@ -4,14 +4,15 @@
 
 namespace Foundry.WinPE.Runtime;
 
-/// <summary>Resolves Connect, Deploy, and PostInstall payloads without launching them, and locates the debug-only AutopilotInteractive archive.</summary>
+/// <summary>Resolves the PostInstall payload without launching it, and locates the debug-only AutopilotInteractive archive.</summary>
 internal interface IRuntimeResolver
 {
     /// <summary>
     /// Resolves an executable from an explicit archive override, else from the release of the boot media: an embedded runtime
     /// runs from the media and is repaired from that release when missing or damaged; a runtime the media does not embed is
     /// downloaded from that release (or reused from the USB cache when it matches). <paramref name="skipReleaseLookup"/>
-    /// (debug applications) allows the media payload only.
+    /// (debug applications) allows the media payload only. Only <c>Foundry.PostInstall</c> is accepted; Connect and Deploy run
+    /// from the Foundry.WinPE executable.
     /// </summary>
     Task<string> ResolveAsync(string applicationName, bool skipReleaseLookup, CancellationToken cancellationToken);
 

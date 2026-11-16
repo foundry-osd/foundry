@@ -16,9 +16,11 @@ using Serilog;
 namespace Foundry.WinPE;
 
 /// <summary>
-/// Runs the finite, ordered WinPE boot workflow. Every result carries the version of the payload resolved for the
-/// current stage, or none when that stage has not resolved one yet. <paramref name="readPayloadVersion"/> defaults to
-/// the executable file version and must not throw.
+/// Runs the finite, ordered WinPE boot workflow. Foundry Connect and Foundry Deploy run from this guardian's own executable
+/// (<paramref name="executablePath"/>, default <see cref="Environment.ProcessPath"/>) in their <c>--connect</c> and
+/// <c>--deploy</c> modes; only Foundry PostInstall is resolved as a runtime payload. A result of the Connect, deployment
+/// preparation or Deploy stage carries the file version of that executable, other stages carry none.
+/// <paramref name="readPayloadVersion"/> defaults to the executable file version and must not throw.
 /// </summary>
 /// <remarks>
 /// The deployment key unlocked by Foundry Connect is relayed to Foundry Deploy through one
@@ -31,7 +33,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
     ISystemPreparation preparation, IApplicationLauncher launcher, IBootstrapLogPersistence persistence,
     ILogger logger, Action<BootstrapProgress> progress, Action? deliveryReady = null,
     Action<BootstrapResult, TimeSpan>? completed = null, Func<string, string?>? readPayloadVersion = null,
-    Func<IDeploymentKeyRelay>? createKeyRelay = null)
+    Func<IDeploymentKeyRelay>? createKeyRelay = null, string? executablePath = null)
 {
     private const string HandoffNotRequested = "not_requested";
     private const string HandoffReceived = "received";
@@ -43,6 +45,8 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
     private long stageStarted;
     private readonly Func<string, string?> readPayloadVersion = readPayloadVersion ?? ReadFileVersion;
     private readonly Func<IDeploymentKeyRelay> createKeyRelay = createKeyRelay ?? (() => new DeploymentKeyRelay(logger));
+    private readonly string executable = executablePath ?? Environment.ProcessPath ??
+        throw new InvalidOperationException("The Foundry.WinPE executable path is unavailable.");
     private string? payloadVersion;
     // Logged once per boot: not_requested (no key from Connect, including a boot that ended before Connect ran), received
     // (key held, never served), delivered or not_delivered (served to Deploy).
@@ -113,9 +117,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
             "Early clock synchronization was unavailable. Continuing to Foundry Connect.").ConfigureAwait(false);
 
         stage = BootstrapStage.Connect;
-        Report(BootstrapStatus.Running, "Preparing Foundry Connect");
-        string connect = await runtime.ResolveAsync("Foundry.Connect", context.ConnectIsDebug, cancellationToken).ConfigureAwait(false);
-        payloadVersion = readPayloadVersion(connect);
+        payloadVersion = readPayloadVersion(executable);
 
         // Disposal zeroes any held key on every exit path, including a Connect failure.
         using IDeploymentKeyRelay relay = createKeyRelay();
@@ -130,7 +132,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         };
 
         Report(BootstrapStatus.Running, "Waiting for Foundry Connect");
-        ApplicationLaunchResult connectResult = await launcher.RunConnectAsync(connect, context.ConnectConfigurationPath,
+        ApplicationLaunchResult connectResult = await launcher.RunConnectAsync(executable, context.ConnectConfigurationPath,
             connectEnvironment, cancellationToken, handoffEnabled ? relay.ExpectSender : null,
             handoffEnabled ? EndReceiveAsync : null).ConfigureAwait(false);
         // The launcher returned without starting Connect (for example invalid startup metadata), so the hook never ran.
@@ -148,7 +150,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
 
         cancellationToken.ThrowIfCancellationRequested();
         stage = BootstrapStage.System;
-        // A later failure must not be attributed to Connect; the next payload version is read once Deploy resolves.
+        // A system preparation outcome must not carry the version of the application that ran before it.
         payloadVersion = null;
         Report(BootstrapStatus.Running, "Preparing the system clock and time zone");
         await BestEffortAsync(() => preparation.PrepareSystemAsync(cancellationToken),
@@ -158,9 +160,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         catch { }
 
         stage = BootstrapStage.DeploymentPreparation;
-        Report(BootstrapStatus.Running, "Preparing the deployment application");
-        string deploy = await runtime.ResolveAsync("Foundry.Deploy", context.DeployIsDebug, cancellationToken).ConfigureAwait(false);
-        payloadVersion = readPayloadVersion(deploy);
+        payloadVersion = readPayloadVersion(executable);
         Report(BootstrapStatus.Running, "Preparing Foundry PostInstall");
         string postInstall = await runtime.ResolveAsync("Foundry.PostInstall", context.DeployIsDebug, cancellationToken).ConfigureAwait(false);
         var deployEnvironment = new Dictionary<string, string?>(context.ChildEnvironment)
@@ -187,7 +187,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         ApplicationLaunchResult deployResult;
         try
         {
-            deployResult = await launcher.StartDeployAsync(deploy, deployEnvironment, cancellationToken,
+            deployResult = await launcher.StartDeployAsync(executable, deployEnvironment, cancellationToken,
                 receivePipe is not null ? relay.ExpectReceiver : null,
                 receivePipe is not null ? EndServeAsync : null).ConfigureAwait(false);
         }

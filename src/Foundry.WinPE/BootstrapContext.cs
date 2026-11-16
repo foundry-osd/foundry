@@ -8,7 +8,7 @@ namespace Foundry.WinPE;
 
 /// <summary>Immutable media selection and diagnostic context shared by boot stages.</summary>
 internal sealed record BootstrapContext(string WinPeRoot, string RuntimeRoot, string RuntimeIdentifier,
-    string SessionId, string? PersistenceDirectory, bool ConnectIsDebug, bool DeployIsDebug)
+    string SessionId, string? PersistenceDirectory, bool DeployIsDebug)
 {
     internal bool IsUsb => PersistenceDirectory is not null;
 

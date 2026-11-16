@@ -29,13 +29,15 @@ internal static class BootstrapEnvironment
         return new BootstrapContext(winPeRoot,
             Path.Combine(cache?.Root ?? winPeRoot, "Runtime"), runtimeIdentifier, sessionId,
             cache is null ? null : Path.Combine(cache.Root, "Logs", sessionId),
-            IsDebug("connect"), IsDebug("deploy"));
+            IsDeployDebug());
 
-        bool IsDebug(string application)
+        // Debug media carry locally built PostInstall and AutopilotInteractive archives: PostInstall skips the release lookup
+        // and Deploy receives the AutopilotInteractive archive.
+        bool IsDeployDebug()
         {
             try
             {
-                string? source = readProvisioningSource(Path.Combine(winPeRoot, "Config", $"foundry.{application}.provisioning-source.txt"));
+                string? source = readProvisioningSource(Path.Combine(winPeRoot, "Config", "foundry.deploy.provisioning-source.txt"));
                 return string.Equals(source?.Trim(), "debug", StringComparison.OrdinalIgnoreCase);
             }
             catch (IOException) { return false; }

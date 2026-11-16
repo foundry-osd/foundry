@@ -20,14 +20,17 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
         IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken,
         Action<int>? processStarted = null, Func<Task>? processReleasing = null)
     {
-        string[] arguments = File.Exists(configurationPath) ? ["--config", configurationPath] : [];
+        string[] arguments = File.Exists(configurationPath)
+            ? [WinPeModes.ConnectArgument, "--config", configurationPath]
+            : [WinPeModes.ConnectArgument];
         return LaunchAsync(executable, "Foundry.Connect", environment, arguments, true, cancellationToken,
             processStarted, processReleasing);
     }
 
     public Task<ApplicationLaunchResult> StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment,
         CancellationToken cancellationToken, Action<int>? processStarted = null, Func<Task>? processReleasing = null) =>
-        LaunchAsync(executable, "Foundry.Deploy", environment, [], false, cancellationToken, processStarted, processReleasing);
+        LaunchAsync(executable, "Foundry.Deploy", environment, [WinPeModes.DeployArgument], false, cancellationToken,
+            processStarted, processReleasing);
 
     private async Task<ApplicationLaunchResult> LaunchAsync(string executable, string application,
         IReadOnlyDictionary<string, string?> environment, string[] arguments, bool waitForCompletion,
@@ -163,9 +166,6 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
             if (value is null) { start.Environment.Remove(key); }
             else { start.Environment[key] = value; }
         }
-
-        // The resolver supplies a fresh authenticated payload directory. Native bundle extraction must share that trust boundary.
-        start.Environment["DOTNET_BUNDLE_EXTRACT_BASE_DIR"] = Path.Combine(start.WorkingDirectory, ".bundle", Guid.NewGuid().ToString("N"));
 
         return start;
     }

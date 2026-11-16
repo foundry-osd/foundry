@@ -6,10 +6,7 @@ using System.IO.Compression;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text.Json;
-using Foundry.WinPE.Diagnostics;
-using Foundry.WinPE.Processes;
 using Foundry.WinPE.Runtime;
-using Foundry.WinPE.SystemPreparation;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
@@ -20,7 +17,10 @@ namespace Foundry.WinPE.Tests.Runtime;
 public sealed class AuthenticatedRuntimeTests : IDisposable
 {
     private const string MediaVersion = "26.11.2.1";
-    private const string UnavailableMessage = "No authenticated original Foundry.Connect payload is available.";
+    private const string Application = "Foundry.PostInstall";
+    // Seeds a trust manifest that does not list PostInstall, so PostInstall is a runtime the media does not embed.
+    private const string OtherEmbeddedApplication = "Foundry.AutopilotInteractive";
+    private const string UnavailableMessage = "No authenticated original Foundry.PostInstall payload is available.";
 
     private readonly string root = Path.Combine(Path.GetTempPath(), "FoundryAuthenticatedRuntime-" + Guid.NewGuid().ToString("N"));
     private readonly List<Uri> requests = [];
@@ -29,28 +29,9 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     private string CacheRoot => Path.Combine(root, "Usb", "Runtime");
 
     [Fact]
-    public async Task CoordinatorLaunchesTheOriginalConnectWithoutTheNetwork()
+    public async Task Resolve_ValidMediaPayload_DoesNotCallTheNetwork()
     {
-        SeedOriginal();
-        using var client = new HttpClient(new NoNetworkHandler(requests));
-        using var logger = new LoggerConfiguration().CreateLogger();
-        var boundary = new ConnectBoundary();
-        var context = new BootstrapContext(BootRoot, CacheRoot, "win-x64", "TEST", null, false, false);
-
-        var coordinator = new BootstrapCoordinator(context, Resolver(client, logger), boundary, boundary, boundary, logger, _ => { },
-            createKeyRelay: () => new NoOpKeyRelay());
-        Assert.Equal(BootstrapOutcome.Cancelled, (await coordinator.RunAsync(TestContext.Current.CancellationToken)).Outcome);
-
-        Assert.Equal(["original"], boundary.LaunchedContent);
-        Assert.Empty(requests);
-    }
-
-    [Theory]
-    [InlineData("Foundry.Connect")]
-    [InlineData("Foundry.Deploy")]
-    [InlineData("Foundry.PostInstall")]
-    public async Task Resolve_ValidMediaPayload_DoesNotCallTheNetwork(string application)
-    {
+        const string application = Application;
         string original = SeedOriginal(application);
         // A cached update written by an older Bootstrap is ignored.
         File.WriteAllBytes(Path.Combine(Path.GetDirectoryName(original)!, "current.zip"), ArchiveBytes("updated", application));
@@ -65,15 +46,11 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         Assert.Empty(warnings);
     }
 
-    [Theory]
-    [InlineData("Foundry.Connect", "FOUNDRY_CONNECT")]
-    [InlineData("Foundry.Deploy", "FOUNDRY_DEPLOY")]
-    [InlineData("Foundry.PostInstall", "FOUNDRY_POSTINSTALL")]
-    public async Task Resolve_MissingMediaPayload_RepairsFromTheMediaRelease(string application, string prefix)
+    [Fact]
+    public async Task Resolve_MissingMediaPayload_RepairsFromTheMediaRelease()
     {
+        const string application = Application;
         byte[] original = RemoveOriginal(SeedOriginal(application));
-        // Another application's override must not select the release of this one.
-        environment[(prefix == "FOUNDRY_CONNECT" ? "FOUNDRY_DEPLOY" : "FOUNDRY_CONNECT") + "_RELEASE_TAG"] = "v-other";
         using var client = Client(Release(Hash(original), application: application), Payload(original));
         using var logger = new LoggerConfiguration().CreateLogger();
         var warnings = new List<string>();
@@ -110,10 +87,10 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         using var logger = new LoggerConfiguration().CreateLogger();
         var warnings = new List<string>();
 
-        string executable = await Resolver(client, logger, warnings: warnings).ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken);
+        string executable = await Resolver(client, logger, warnings: warnings).ResolveAsync(Application, false, TestContext.Current.CancellationToken);
 
         Assert.Equal("original", File.ReadAllText(executable));
-        Assert.Equal(["Foundry.Connect was repaired from release v26.11.2.1."], warnings);
+        Assert.Equal(["Foundry.PostInstall was repaired from release v26.11.2.1."], warnings);
         // A repair lives only in boot-owned storage; the media is never rewritten.
         Assert.Equal(tampered, File.ReadAllBytes(archive));
     }
@@ -127,7 +104,7 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         using var logger = new LoggerConfiguration().CreateLogger();
 
         var exception = await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(client, logger).ResolveAsync(
-            "Foundry.Connect", false, TestContext.Current.CancellationToken));
+            Application, false, TestContext.Current.CancellationToken));
 
         Assert.StartsWith(UnavailableMessage, exception.Message, StringComparison.Ordinal);
         Assert.Equal("The release asset does not match the boot media.", exception.InnerException?.Message);
@@ -135,13 +112,12 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         AssertNoPreparedPayload();
     }
 
-    [Theory]
-    [InlineData("Foundry.Deploy")]
-    [InlineData("Foundry.PostInstall")]
-    public async Task Resolve_NoTrustHash_DownloadsFromTheMediaReleaseWithoutRepairWarning(string application)
+    [Fact]
+    public async Task Resolve_NoTrustHash_DownloadsFromTheMediaReleaseWithoutRepairWarning()
     {
-        // Release media embed only Connect (and PostInstall with Domain Join); other runtimes are downloaded at every start.
-        SeedOriginal();
+        // Release media embed PostInstall only with Domain Join; otherwise it is downloaded at every start.
+        const string application = Application;
+        SeedOriginal(OtherEmbeddedApplication);
         byte[] release = ArchiveBytes("released", application);
         using var client = Client(Release(Hash(release), application: application), Payload(release));
         using var logger = new LoggerConfiguration().CreateLogger();
@@ -159,14 +135,14 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     [Fact]
     public async Task Resolve_CachedArchiveOfTheMediaRelease_IsReusedWithoutDownload()
     {
-        SeedOriginal();
-        byte[] release = ArchiveBytes("released", "Foundry.Deploy");
-        Directory.CreateDirectory(Path.GetDirectoryName(CurrentArchive("Foundry.Deploy"))!);
-        File.WriteAllBytes(CurrentArchive("Foundry.Deploy"), release);
-        using var client = Client(Release(Hash(release), application: "Foundry.Deploy"));
+        SeedOriginal(OtherEmbeddedApplication);
+        byte[] release = ArchiveBytes("released", Application);
+        Directory.CreateDirectory(Path.GetDirectoryName(CurrentArchive(Application))!);
+        File.WriteAllBytes(CurrentArchive(Application), release);
+        using var client = Client(Release(Hash(release), application: Application));
         using var logger = new LoggerConfiguration().CreateLogger();
 
-        string executable = await Resolver(client, logger).ResolveAsync("Foundry.Deploy", false, TestContext.Current.CancellationToken);
+        string executable = await Resolver(client, logger).ResolveAsync(Application, false, TestContext.Current.CancellationToken);
 
         Assert.Equal("released", File.ReadAllText(executable));
         Assert.EndsWith("/releases/tags/v26.11.2.1", Assert.Single(requests).AbsoluteUri, StringComparison.Ordinal);
@@ -175,17 +151,17 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     [Fact]
     public async Task Resolve_CachedArchiveOfAnotherRelease_IsReplaced()
     {
-        SeedOriginal();
-        Directory.CreateDirectory(Path.GetDirectoryName(CurrentArchive("Foundry.Deploy"))!);
-        File.WriteAllBytes(CurrentArchive("Foundry.Deploy"), ArchiveBytes("newer latest", "Foundry.Deploy"));
-        byte[] release = ArchiveBytes("released", "Foundry.Deploy");
-        using var client = Client(Release(Hash(release), application: "Foundry.Deploy"), Payload(release));
+        SeedOriginal(OtherEmbeddedApplication);
+        Directory.CreateDirectory(Path.GetDirectoryName(CurrentArchive(Application))!);
+        File.WriteAllBytes(CurrentArchive(Application), ArchiveBytes("newer latest", Application));
+        byte[] release = ArchiveBytes("released", Application);
+        using var client = Client(Release(Hash(release), application: Application), Payload(release));
         using var logger = new LoggerConfiguration().CreateLogger();
 
-        string executable = await Resolver(client, logger).ResolveAsync("Foundry.Deploy", false, TestContext.Current.CancellationToken);
+        string executable = await Resolver(client, logger).ResolveAsync(Application, false, TestContext.Current.CancellationToken);
 
         Assert.Equal("released", File.ReadAllText(executable));
-        Assert.Equal(release, File.ReadAllBytes(CurrentArchive("Foundry.Deploy")));
+        Assert.Equal(release, File.ReadAllBytes(CurrentArchive(Application)));
         Assert.Equal(2, requests.Count);
     }
 
@@ -193,20 +169,20 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     public async Task RuntimeCacheBesideWinPeRootRemainsPersistentAndReusable()
     {
         string runtimeRoot = BootRoot + "-Usb";
-        SeedOriginal(runtimeRoot: runtimeRoot);
-        byte[] release = ArchiveBytes("released", "Foundry.Deploy");
-        using var client = Client(Release(Hash(release), application: "Foundry.Deploy"), Payload(release),
-            Release(Hash(release), application: "Foundry.Deploy"));
+        SeedOriginal(OtherEmbeddedApplication, runtimeRoot: runtimeRoot);
+        byte[] release = ArchiveBytes("released", Application);
+        using var client = Client(Release(Hash(release), application: Application), Payload(release),
+            Release(Hash(release), application: Application));
         using var logger = new LoggerConfiguration().CreateLogger();
         var resolver = Resolver(client, logger, runtimeRoot: runtimeRoot);
 
         for (int attempt = 0; attempt < 2; attempt++)
         {
-            string executable = await resolver.ResolveAsync("Foundry.Deploy", false, TestContext.Current.CancellationToken);
+            string executable = await resolver.ResolveAsync(Application, false, TestContext.Current.CancellationToken);
             Assert.Equal("released", File.ReadAllText(executable));
         }
 
-        Assert.Equal(release, File.ReadAllBytes(Path.Combine(runtimeRoot, "Foundry.Deploy", "win-x64", "current.zip")));
+        Assert.Equal(release, File.ReadAllBytes(Path.Combine(runtimeRoot, Application, "win-x64", "current.zip")));
         Assert.Equal(1, requests.Count(request => request.Host == "example.test"));
     }
 
@@ -218,19 +194,19 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     public async Task Resolve_BootOwnedRuntime_NeitherReadsNorWritesCurrentArchive(string relativeRuntimeRoot, bool seedCache)
     {
         string runtimeRoot = Path.Combine(BootRoot, relativeRuntimeRoot);
-        SeedOriginal(runtimeRoot: runtimeRoot);
-        string current = Path.Combine(runtimeRoot, "Foundry.Deploy", "win-x64", "current.zip");
-        byte[] release = ArchiveBytes("released", "Foundry.Deploy");
+        SeedOriginal(OtherEmbeddedApplication, runtimeRoot: runtimeRoot);
+        string current = Path.Combine(runtimeRoot, Application, "win-x64", "current.zip");
+        byte[] release = ArchiveBytes("released", Application);
         if (seedCache)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(current)!);
             File.WriteAllBytes(current, release);
         }
-        using var client = Client(Release(Hash(release), application: "Foundry.Deploy"), Payload(release));
+        using var client = Client(Release(Hash(release), application: Application), Payload(release));
         using var logger = new LoggerConfiguration().CreateLogger();
 
         string executable = await Resolver(client, logger, runtimeRoot: runtimeRoot).ResolveAsync(
-            "Foundry.Deploy", false, TestContext.Current.CancellationToken);
+            Application, false, TestContext.Current.CancellationToken);
 
         Assert.Equal("released", File.ReadAllText(executable));
         Assert.Equal("example.test", requests[1].Host);
@@ -241,18 +217,18 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     [Fact]
     public async Task FailedCachePublicationDoesNotPreventUsingTheAuthenticatedDownload()
     {
-        SeedOriginal();
-        Directory.CreateDirectory(CurrentArchive("Foundry.Deploy"));
-        byte[] release = ArchiveBytes("released", "Foundry.Deploy");
-        using var client = Client(Release(Hash(release), application: "Foundry.Deploy"), Payload(release));
+        SeedOriginal(OtherEmbeddedApplication);
+        Directory.CreateDirectory(CurrentArchive(Application));
+        byte[] release = ArchiveBytes("released", Application);
+        using var client = Client(Release(Hash(release), application: Application), Payload(release));
         using var logger = new LoggerConfiguration().CreateLogger();
         var warnings = new List<string>();
 
-        string executable = await Resolver(client, logger, warnings: warnings).ResolveAsync("Foundry.Deploy", false, TestContext.Current.CancellationToken);
+        string executable = await Resolver(client, logger, warnings: warnings).ResolveAsync(Application, false, TestContext.Current.CancellationToken);
 
         Assert.Equal("released", File.ReadAllText(executable));
         Assert.Contains(warnings, value => value.Contains("saved to the cache", StringComparison.Ordinal));
-        Assert.Empty(Directory.GetFiles(Path.GetDirectoryName(CurrentArchive("Foundry.Deploy"))!, "*.download"));
+        Assert.Empty(Directory.GetFiles(Path.GetDirectoryName(CurrentArchive(Application))!, "*.download"));
     }
 
     [Fact]
@@ -263,7 +239,7 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         using var logger = new LoggerConfiguration().CreateLogger();
 
         var exception = await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(client, logger).ResolveAsync(
-            "Foundry.Connect", false, TestContext.Current.CancellationToken));
+            Application, false, TestContext.Current.CancellationToken));
 
         Assert.StartsWith(UnavailableMessage, exception.Message, StringComparison.Ordinal);
         Assert.Contains("Recreate the boot media", exception.Message, StringComparison.Ordinal);
@@ -277,56 +253,41 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     [InlineData("sha512:1234")]
     public async Task MissingOrUnsupportedReleaseDigestCannotAuthorizeCachedOrDownloadedCode(string? digest)
     {
-        SeedOriginal();
-        Directory.CreateDirectory(Path.GetDirectoryName(CurrentArchive("Foundry.Deploy"))!);
-        File.WriteAllBytes(CurrentArchive("Foundry.Deploy"), ArchiveBytes("cached", "Foundry.Deploy"));
-        using var client = Client(Release(digest, addPrefix: false, application: "Foundry.Deploy"), Payload(ArchiveBytes("substituted", "Foundry.Deploy")));
+        SeedOriginal(OtherEmbeddedApplication);
+        Directory.CreateDirectory(Path.GetDirectoryName(CurrentArchive(Application))!);
+        File.WriteAllBytes(CurrentArchive(Application), ArchiveBytes("cached", Application));
+        using var client = Client(Release(digest, addPrefix: false, application: Application), Payload(ArchiveBytes("substituted", Application)));
         using var logger = new LoggerConfiguration().CreateLogger();
 
         await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(client, logger).ResolveAsync(
-            "Foundry.Deploy", false, TestContext.Current.CancellationToken));
+            Application, false, TestContext.Current.CancellationToken));
 
         Assert.Single(requests);
     }
 
-    [Fact]
-    public async Task Resolve_ConnectRepair_StopsAfterDeadline()
-    {
-        RemoveOriginal(SeedOriginal());
-        using var client = new HttpClient(new StalledHandler());
-        using var logger = new LoggerConfiguration().CreateLogger();
-
-        var exception = await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(client, logger).ResolveAsync(
-            "Foundry.Connect", false, TestContext.Current.CancellationToken));
-
-        Assert.StartsWith(UnavailableMessage, exception.Message, StringComparison.Ordinal);
-        Assert.IsAssignableFrom<OperationCanceledException>(exception.InnerException);
-        Assert.False(TestContext.Current.CancellationToken.IsCancellationRequested);
-    }
-
     [Theory]
-    [InlineData("26.11.2.1", "Foundry.Connect")]
-    [InlineData("26.11.2.1+0123abcd", "Foundry.Connect")]
-    [InlineData("26.11.2.1", "Foundry.Deploy")]
-    public async Task Resolve_PublishedVersion_NeverRequestsLatest(string version, string application)
+    [InlineData("26.11.2.1", false)]
+    [InlineData("26.11.2.1+0123abcd", false)]
+    [InlineData("26.11.2.1", true)]
+    public async Task Resolve_PublishedVersion_NeverRequestsLatest(string version, bool embedded)
     {
-        // Connect is embedded and missing (repair); Deploy has no trust hash (normal download).
-        RemoveOriginal(SeedOriginal());
+        // An embedded and missing payload is repaired; a payload without a trust hash is downloaded.
+        RemoveOriginal(SeedOriginal(embedded ? Application : OtherEmbeddedApplication));
         using var client = Client();
         using var logger = new LoggerConfiguration().CreateLogger();
 
         await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(client, logger, releaseVersion: version).ResolveAsync(
-            application, false, TestContext.Current.CancellationToken));
+            Application, false, TestContext.Current.CancellationToken));
 
         Assert.NotEmpty(requests);
         Assert.All(requests, request => Assert.EndsWith("/releases/tags/v26.11.2.1", request.AbsoluteUri, StringComparison.Ordinal));
     }
 
-    [Theory]
-    [InlineData("Foundry.Connect", "FOUNDRY_CONNECT")]
-    [InlineData("Foundry.PostInstall", "FOUNDRY_POSTINSTALL")]
-    public async Task SpecificReleaseTagTakesPrecedenceOverTheGlobalTag(string application, string prefix)
+    [Fact]
+    public async Task SpecificReleaseTagTakesPrecedenceOverTheGlobalTag()
     {
+        const string application = Application;
+        const string prefix = "FOUNDRY_POSTINSTALL";
         byte[] original = RemoveOriginal(SeedOriginal(application));
         environment[prefix + "_RELEASE_TAG"] = " v-specific ";
         environment["FOUNDRY_RELEASE_TAG"] = "v-global";
@@ -355,7 +316,7 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         using var logger = new LoggerConfiguration().CreateLogger();
 
         string executable = await Resolver(client, logger, runtimeRoot: runtimeRoot).ResolveAsync(
-            "Foundry.Connect", false, TestContext.Current.CancellationToken);
+            Application, false, TestContext.Current.CancellationToken);
 
         Assert.Equal("original", File.ReadAllText(executable));
         Assert.Empty(Directory.EnumerateFiles(root, "current.zip", SearchOption.AllDirectories));
@@ -378,15 +339,13 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         using var logger = new LoggerConfiguration().CreateLogger();
 
         await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(client, logger).ResolveAsync(
-            "Foundry.Connect", true, TestContext.Current.CancellationToken));
+            Application, true, TestContext.Current.CancellationToken));
 
         Assert.Empty(requests);
         AssertNoPreparedPayload();
     }
 
     [Theory]
-    [InlineData("win-x64", "Foundry.Connect")]
-    [InlineData("win-arm64", "Foundry.Deploy")]
     [InlineData("win-x64", "Foundry.PostInstall")]
     [InlineData("win-arm64", "Foundry.PostInstall")]
     public async Task OriginalArchiveAuthenticatesAllFilesWithoutImportingLooseCacheContent(string rid, string application)
@@ -410,7 +369,7 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     }
 
     [Theory]
-    [InlineData("Foundry.Connect.exe")]
+    [InlineData("Foundry.PostInstall.exe")]
     [InlineData("Foundry.Core.dll")]
     public async Task ChangedOriginalArchiveCannotBeAuthorizedByAdjacentMetadata(string changedFile)
     {
@@ -426,7 +385,7 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         using var logger = new LoggerConfiguration().CreateLogger();
 
         await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(client, logger).ResolveAsync(
-            "Foundry.Connect", true, TestContext.Current.CancellationToken));
+            Application, true, TestContext.Current.CancellationToken));
 
         AssertNoPreparedPayload();
         Assert.Empty(requests);
@@ -448,7 +407,7 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
             }
         });
 
-        string executable = await resolver.ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken);
+        string executable = await resolver.ResolveAsync(Application, false, TestContext.Current.CancellationToken);
 
         Assert.True(mutated);
         Assert.Equal("original", File.ReadAllText(executable));
@@ -463,8 +422,8 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         using var client = Client();
         using var logger = new LoggerConfiguration().CreateLogger();
         var resolver = Resolver(client, logger);
-        string executable = await resolver.ResolveAsync("Foundry.Connect", false, TestContext.Current.CancellationToken);
-        string otherExecutable = await resolver.ResolveAsync("Foundry.Connect", true, TestContext.Current.CancellationToken);
+        string executable = await resolver.ResolveAsync(Application, false, TestContext.Current.CancellationToken);
+        string otherExecutable = await resolver.ResolveAsync(Application, true, TestContext.Current.CancellationToken);
         string payload = Path.GetDirectoryName(executable)!;
         string workspace = Directory.GetParent(payload)!.FullName;
         string bundle = Path.Combine(payload, ".bundle", "launch", "native.dll");
@@ -486,8 +445,8 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         using var client = Client();
         using var logger = new LoggerConfiguration().CreateLogger();
         var resolver = Resolver(client, logger);
-        string executable = await resolver.ResolveAsync("Foundry.Connect", true, TestContext.Current.CancellationToken);
-        string otherExecutable = await Resolver(client, logger).ResolveAsync("Foundry.Connect", true, TestContext.Current.CancellationToken);
+        string executable = await resolver.ResolveAsync(Application, true, TestContext.Current.CancellationToken);
+        string otherExecutable = await Resolver(client, logger).ResolveAsync(Application, true, TestContext.Current.CancellationToken);
         string dependency = Path.Combine(Path.GetDirectoryName(executable)!, "Foundry.Core.dll");
         string unrelated = Path.Combine(root, "unrelated.exe");
         File.WriteAllText(unrelated, "unrelated executable");
@@ -510,7 +469,7 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         var sink = new CollectingSink();
         using var logger = new LoggerConfiguration().WriteTo.Sink(sink).CreateLogger();
         var resolver = Resolver(client, logger);
-        string executable = await resolver.ResolveAsync("Foundry.Connect", true, TestContext.Current.CancellationToken);
+        string executable = await resolver.ResolveAsync(Application, true, TestContext.Current.CancellationToken);
         using var lockedExecutable = new FileStream(executable, FileMode.Open, FileAccess.Read, FileShare.None);
 
         resolver.Release(executable);
@@ -532,18 +491,18 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
             if (value.Phase == RuntimeProgressPhase.Extraction && value.BytesReceived > 0) cancellation.Cancel();
         });
 
-        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => resolver.ResolveAsync("Foundry.Connect", false, cancellation.Token));
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => resolver.ResolveAsync(Application, false, cancellation.Token));
 
         AssertNoPreparedPayload();
         Assert.True(File.Exists(original));
         Assert.Empty(requests);
     }
 
-    [Theory]
-    [InlineData("Foundry.Connect", "FOUNDRY_CONNECT")]
-    [InlineData("Foundry.PostInstall", "FOUNDRY_POSTINSTALL")]
-    public async Task ExplicitOverrideRequiresItsOwnExpectedHashAndNeverFallsBack(string application, string prefix)
+    [Fact]
+    public async Task ExplicitOverrideRequiresItsOwnExpectedHashAndNeverFallsBack()
     {
+        const string application = Application;
+        const string prefix = "FOUNDRY_POSTINSTALL";
         SeedOriginal(application);
         string archive = Path.Combine(root, "custom.zip");
         File.WriteAllBytes(archive, ArchiveBytes("custom", application));
@@ -561,22 +520,6 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         Assert.Empty(requests);
     }
 
-    [Fact]
-    public async Task LauncherPinsBundleExtractionUnderThePreparedRuntime()
-    {
-        SeedOriginal();
-        using var client = Client();
-        using var logger = new LoggerConfiguration().CreateLogger();
-        string executable = await Resolver(client, logger).ResolveAsync("Foundry.Connect", true, TestContext.Current.CancellationToken);
-
-        var start = ApplicationLauncher.CreateStartInfo(executable,
-            new Dictionary<string, string?> { ["DOTNET_BUNDLE_EXTRACT_BASE_DIR"] = Path.Combine(root, "Usb", "malicious") }, []);
-
-        Assert.StartsWith(Path.GetDirectoryName(executable)! + Path.DirectorySeparatorChar,
-            start.Environment["DOTNET_BUNDLE_EXTRACT_BASE_DIR"]!);
-        Assert.Equal(Path.GetDirectoryName(executable), start.WorkingDirectory);
-    }
-
     [Theory]
     [InlineData("wrong.exe")]
     [InlineData("../escape.exe")]
@@ -589,13 +532,13 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
             using var writer = new StreamWriter(zip.CreateEntry(entry).Open());
             writer.Write("candidate");
         }
-        environment["FOUNDRY_CONNECT_ARCHIVE"] = archive;
-        environment["FOUNDRY_CONNECT_ARCHIVE_SHA256"] = Hash(archive);
+        environment["FOUNDRY_POSTINSTALL_ARCHIVE"] = archive;
+        environment["FOUNDRY_POSTINSTALL_ARCHIVE_SHA256"] = Hash(archive);
         using var client = Client();
         using var logger = new LoggerConfiguration().CreateLogger();
 
         await Assert.ThrowsAsync<InvalidDataException>(() => Resolver(client, logger).ResolveAsync(
-            "Foundry.Connect", false, TestContext.Current.CancellationToken));
+            Application, false, TestContext.Current.CancellationToken));
 
         AssertNoPreparedPayload();
         Assert.Empty(requests);
@@ -631,12 +574,12 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     public void TryGetDebugArchive_ReturnsNull_WhenTheTrustManifestOrTheArchiveIsMissing(bool deleteArchive)
     {
         string archive = SeedOriginal("Foundry.AutopilotInteractive");
-        string application = deleteArchive ? "Foundry.AutopilotInteractive" : "Foundry.Connect";
+        string application = deleteArchive ? "Foundry.AutopilotInteractive" : Application;
         if (deleteArchive) File.Delete(archive);
         using var client = Client();
         using var logger = new LoggerConfiguration().CreateLogger();
 
-        Assert.Null(Resolver(client, logger).TryGetDebugArchive(deleteArchive ? application : "Foundry.Deploy"));
+        Assert.Null(Resolver(client, logger).TryGetDebugArchive(deleteArchive ? application : Application));
         Assert.Empty(requests);
     }
 
@@ -651,7 +594,7 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         Assert.Null(Resolver(client, logger).TryGetDebugArchive("Foundry.AutopilotInteractive"));
     }
 
-    private string SeedOriginal(string application = "Foundry.Connect", string rid = "win-x64", string? runtimeRoot = null)
+    private string SeedOriginal(string application = Application, string rid = "win-x64", string? runtimeRoot = null)
     {
         string path = Path.Combine(runtimeRoot ?? CacheRoot, application, rid, "original.zip");
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
@@ -675,7 +618,7 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         return bytes;
     }
 
-    private static byte[] ArchiveBytes(string content, string application = "Foundry.Connect")
+    private static byte[] ArchiveBytes(string content, string application = Application)
     {
         using var buffer = new MemoryStream();
         using (var zip = new ZipArchive(buffer, ZipArchiveMode.Create, leaveOpen: true))
@@ -697,7 +640,7 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
     private static string Hash(string file) => Hash(File.ReadAllBytes(file));
     private static string Hash(byte[] bytes) => Convert.ToHexString(SHA256.HashData(bytes));
 
-    private static HttpResponseMessage Release(string? digest, bool addPrefix = true, string application = "Foundry.Connect", string rid = "win-x64") => new(HttpStatusCode.OK)
+    private static HttpResponseMessage Release(string? digest, bool addPrefix = true, string application = Application, string rid = "win-x64") => new(HttpStatusCode.OK)
     {
         Content = new StringContent(JsonSerializer.Serialize(new
         {
@@ -736,50 +679,9 @@ public sealed class AuthenticatedRuntimeTests : IDisposable
         }
     }
 
-    private sealed class StalledHandler : HttpMessageHandler
-    {
-        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
-            await Task.Delay(Timeout.Infinite, cancellationToken);
-            throw new InvalidOperationException("The metadata deadline should cancel this request.");
-        }
-    }
-
     private sealed class CollectingSink : ILogEventSink
     {
         internal List<LogEvent> Events { get; } = [];
         public void Emit(LogEvent logEvent) => Events.Add(logEvent);
-    }
-
-    // Keeps this runtime test away from real named pipes; the relay itself is covered by DeploymentKeyRelayTests.
-    private sealed class NoOpKeyRelay : IDeploymentKeyRelay
-    {
-        public string BeginReceive() => "Foundry.DeploymentKey.00000000000000000000000000000000";
-        public void ExpectSender(int processId) { }
-        public Task<bool> EndReceiveAsync() => Task.FromResult(false);
-        public string? BeginServe() => null;
-        public void ExpectReceiver(int processId) { }
-        public Task<bool> EndServeAsync() => Task.FromResult(false);
-        public void Dispose() { }
-    }
-
-    private sealed class ConnectBoundary : ISystemPreparation, IApplicationLauncher, IBootstrapLogPersistence
-    {
-        internal List<string> LaunchedContent { get; } = [];
-        public Task PrepareNetworkAsync(CancellationToken cancellationToken) => Task.CompletedTask;
-        public Task PrepareClockAsync(CancellationToken cancellationToken) => Task.CompletedTask;
-        public Task PrepareSystemAsync(CancellationToken cancellationToken) => Task.CompletedTask;
-        public Task PersistAsync(CancellationToken cancellationToken) => Task.CompletedTask;
-        public Task<ApplicationLaunchResult> RunConnectAsync(string executable, string configurationPath,
-            IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken,
-            Action<int>? processStarted = null, Func<Task>? processReleasing = null)
-        {
-            LaunchedContent.Add(File.ReadAllText(executable));
-            return Task.FromResult(new ApplicationLaunchResult(false, 20));
-        }
-        public Task<ApplicationLaunchResult> StartDeployAsync(string executable,
-            IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken,
-            Action<int>? processStarted = null, Func<Task>? processReleasing = null) =>
-            throw new InvalidOperationException("Connect cancellation must prevent deployment.");
     }
 }

@@ -13,8 +13,7 @@ namespace Foundry.WinPE.Tests.Runtime;
 public sealed class RuntimeHttpsSmokeTests
 {
     [Theory(Explicit = true)]
-    [InlineData("Foundry.Connect")]
-    [InlineData("Foundry.Deploy")]
+    [InlineData("Foundry.PostInstall")]
     public async Task PublishedRuntimeIsAuthenticatedAndPreparedWithoutExecutingIt(string application)
     {
         string root = Directory.CreateTempSubdirectory("FoundryRuntimeHttps-").FullName;

@@ -67,13 +67,13 @@ public sealed class BootstrapCoordinatorTests
     }
 
     [Fact]
-    public async Task UsbResolvesEachApplicationOnceInBootOrder()
+    public async Task ConnectAndDeployLaunchFromTheGuardianExecutableAndOnlyPostInstallIsResolved()
     {
         using var fixture = new Fixture();
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(BootstrapOutcome.Succeeded, result.Outcome);
-        Assert.Equal(["network", "clock", "Foundry.Connect:False", "connect", "system",
-            "Foundry.Deploy:False", "Foundry.PostInstall:False", "deploy", "persist"], fixture.Calls);
+        Assert.Equal(["network", "clock", "connect", "system", "Foundry.PostInstall:False", "deploy", "persist"], fixture.Calls);
+        Assert.Equal([GuardianPath, GuardianPath], fixture.LaunchedExecutables);
         Assert.Equal("Foundry.PostInstall.exe", fixture.DeployEnvironment!["FOUNDRY_POSTINSTALL_PATH"]);
         Assert.Equal("TEST", fixture.DeployEnvironment["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
         Assert.False(fixture.Context.ChildEnvironment.ContainsKey("FOUNDRY_POSTINSTALL_PATH"));
@@ -118,10 +118,8 @@ public sealed class BootstrapCoordinatorTests
     public async Task DebugProvisioningSkipsReleaseLookups()
     {
         using var fixture = new Fixture();
-        fixture.Context = fixture.Context with { PersistenceDirectory = null, ConnectIsDebug = true, DeployIsDebug = true };
+        fixture.Context = fixture.Context with { PersistenceDirectory = null, DeployIsDebug = true };
         Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
-        Assert.DoesNotContain("Foundry.Connect:False", fixture.Calls);
-        Assert.Contains("Foundry.Deploy:True", fixture.Calls);
         Assert.Contains("Foundry.PostInstall:True", fixture.Calls);
         Assert.DoesNotContain("Foundry.PostInstall:False", fixture.Calls);
     }
@@ -141,24 +139,6 @@ public sealed class BootstrapCoordinatorTests
         Assert.Contains($"Foundry.PostInstall:{debug}", fixture.Calls);
         Assert.DoesNotContain("deploy", fixture.Calls);
         Assert.Equal("persist", fixture.Calls[^1]);
-    }
-
-    [Fact]
-    public async Task ConnectChecksForVerifiedUpdatesBeforeLaunching()
-    {
-        using var fixture = new Fixture { MissingConnectCache = true };
-        Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
-        Assert.True(fixture.Calls.IndexOf("Foundry.Connect:False") < fixture.Calls.IndexOf("connect"));
-    }
-
-    [Fact]
-    public async Task MissingDebugConnectDoesNotFallBackToGithub()
-    {
-        using var fixture = new Fixture { MissingConnectCache = true };
-        fixture.Context = fixture.Context with { ConnectIsDebug = true };
-        Assert.Equal(BootstrapOutcome.Failed, (await fixture.RunAsync()).Outcome);
-        Assert.DoesNotContain("Foundry.Connect:False", fixture.Calls);
-        Assert.DoesNotContain("deploy", fixture.Calls);
     }
 
     [Fact]
@@ -200,41 +180,31 @@ public sealed class BootstrapCoordinatorTests
     }
 
     [Fact]
-    public async Task ConnectFailureCarriesTheConnectPayloadVersion()
+    public async Task ConnectFailureCarriesTheGuardianPayloadVersion()
     {
         using var fixture = new Fixture { ConnectExit = 7, ReadPayloadVersion = ReadTestPayloadVersion };
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(BootstrapOutcome.Failed, result.Outcome);
-        Assert.Equal("26.10.18.1", result.PayloadVersion);
+        Assert.Equal("26.11.16.1", result.PayloadVersion);
     }
 
     [Fact]
-    public async Task DeployFailureCarriesTheDeployPayloadVersion()
+    public async Task DeployFailureCarriesTheGuardianPayloadVersion()
     {
         using var fixture = new Fixture { DeployFails = true, ReadPayloadVersion = ReadTestPayloadVersion };
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(BootstrapOutcome.Failed, result.Outcome);
         Assert.Equal(BootstrapStage.Deploy, result.Stage);
-        Assert.Equal("26.10.20.3", result.PayloadVersion);
+        Assert.Equal("26.11.16.1", result.PayloadVersion);
     }
 
     [Fact]
-    public async Task ConnectResolutionFailureHasNoPayloadVersion()
+    public async Task SystemPreparationCancellationHasNoPayloadVersion()
     {
-        using var fixture = new Fixture { ConnectResolveFails = true, ReadPayloadVersion = ReadTestPayloadVersion };
+        using var fixture = new Fixture { CancelSystemPreparation = true, ReadPayloadVersion = ReadTestPayloadVersion };
         BootstrapResult result = await fixture.RunAsync();
-        Assert.Equal(BootstrapOutcome.Failed, result.Outcome);
-        Assert.Equal(BootstrapStage.Connect, result.Stage);
-        Assert.Null(result.PayloadVersion);
-    }
-
-    [Fact]
-    public async Task DeployResolutionFailureHasNoPayloadVersion()
-    {
-        using var fixture = new Fixture { DeployResolveFails = true, ReadPayloadVersion = ReadTestPayloadVersion };
-        BootstrapResult result = await fixture.RunAsync();
-        Assert.Equal(BootstrapOutcome.Failed, result.Outcome);
-        Assert.Equal(BootstrapStage.DeploymentPreparation, result.Stage);
+        Assert.Equal(BootstrapOutcome.Cancelled, result.Outcome);
+        Assert.Equal(BootstrapStage.System, result.Stage);
         Assert.Null(result.PayloadVersion);
     }
 
@@ -319,24 +289,13 @@ public sealed class BootstrapCoordinatorTests
         Assert.Equal(["not_delivered"], fixture.HandoffOutcomes());
     }
 
-    [Fact]
-    public async Task ConnectResolutionFailure_StillLogsOneHandoffOutcome()
-    {
-        using var fixture = new Fixture { ConnectResolveFails = true };
-
-        Assert.Equal(BootstrapOutcome.Failed, (await fixture.RunAsync()).Outcome);
-
-        Assert.Empty(fixture.Relay.Calls);
-        Assert.Equal(["not_requested"], fixture.HandoffOutcomes());
-    }
-
     private const string SendPipe = "Foundry.DeploymentKey.00000000000000000000000000000001";
     private const string ReceivePipe = "Foundry.DeploymentKey.00000000000000000000000000000002";
+    private const string GuardianPath = @"X:\Foundry\WinPE\Foundry.WinPE.exe";
 
     private static string? ReadTestPayloadVersion(string executable) => executable switch
     {
-        "Foundry.Connect.exe" => "26.10.18.1",
-        "Foundry.Deploy.exe" => "26.10.20.3",
+        GuardianPath => "26.11.16.1",
         _ => "1.0.0.0"
     };
 
@@ -365,11 +324,12 @@ public sealed class BootstrapCoordinatorTests
         private readonly Serilog.Core.Logger logger;
         internal Fixture() => logger = new LoggerConfiguration().MinimumLevel.Verbose().WriteTo.Sink(new DelegatingSink(events.Enqueue)).CreateLogger();
         private readonly CancellationTokenSource cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
-        internal BootstrapContext Context { get; set; } = new(@"X:\Foundry", @"D:\Runtime", "win-x64", "TEST", @"D:\Logs\TEST", false, false);
+        internal BootstrapContext Context { get; set; } = new(@"X:\Foundry", @"D:\Runtime", "win-x64", "TEST", @"D:\Logs\TEST", false);
         internal List<string> Calls { get; } = [];
+        internal List<string> LaunchedExecutables { get; } = [];
         internal List<BootstrapProgress> Progress { get; } = [];
         internal int ConnectExit { get; init; }
-        internal bool MissingConnectCache { get; init; }
+        internal bool CancelSystemPreparation { get; init; }
         internal bool PreparationFails { get; init; }
         internal bool PersistenceFails { get; init; }
         internal bool CancelConnect { get; init; }
@@ -381,8 +341,6 @@ public sealed class BootstrapCoordinatorTests
         internal bool ConnectTimeout { get; init; }
         internal bool ObserveDiagnostics { get; init; }
         internal bool EarlyClockFails { get; init; }
-        internal bool ConnectResolveFails { get; init; }
-        internal bool DeployResolveFails { get; init; }
         internal bool SkipLaunchHooks { get; init; }
         internal Func<string, string?>? ReadPayloadVersion { get; init; }
         internal List<BootstrapResult> Outcomes { get; } = [];
@@ -394,7 +352,7 @@ public sealed class BootstrapCoordinatorTests
         internal Task<BootstrapResult> RunAsync() => new BootstrapCoordinator(Context, this, this, this, this,
             logger, Progress.Add,
             ObserveDiagnostics ? () => Calls.Add("delivery") : null,
-            ObserveDiagnostics ? (result, _) => Outcomes.Add(result) : null, ReadPayloadVersion, () => Relay).RunAsync(cancellation.Token);
+            ObserveDiagnostics ? (result, _) => Outcomes.Add(result) : null, ReadPayloadVersion, () => Relay, GuardianPath).RunAsync(cancellation.Token);
 
         internal List<string> HandoffOutcomes() =>
             [.. events.Where(item => item.Properties.ContainsKey("HandoffOutcome"))
@@ -413,21 +371,9 @@ public sealed class BootstrapCoordinatorTests
         public Task<string> ResolveAsync(string applicationName, bool skipReleaseLookup, CancellationToken cancellationToken)
         {
             Calls.Add($"{applicationName}:{skipReleaseLookup}");
-            if (DeployResolveFails && applicationName == "Foundry.Deploy")
-            {
-                throw new InvalidDataException("No authenticated Deploy runtime is available.");
-            }
-            if (ConnectResolveFails && applicationName == "Foundry.Connect")
-            {
-                throw new InvalidDataException("No authenticated Connect runtime is available.");
-            }
             if (PostInstallFails && applicationName == "Foundry.PostInstall")
             {
                 throw new InvalidDataException("No authenticated PostInstall runtime is available.");
-            }
-            if (MissingConnectCache && applicationName == "Foundry.Connect" && skipReleaseLookup)
-            {
-                throw new FileNotFoundException();
             }
             return Task.FromResult(applicationName + ".exe");
         }
@@ -447,6 +393,7 @@ public sealed class BootstrapCoordinatorTests
         public Task PrepareSystemAsync(CancellationToken cancellationToken)
         {
             Calls.Add("system");
+            if (CancelSystemPreparation) { cancellation.Cancel(); cancellationToken.ThrowIfCancellationRequested(); }
             if (PreparationFails) { throw new IOException(); }
             return Task.CompletedTask;
         }
@@ -456,6 +403,7 @@ public sealed class BootstrapCoordinatorTests
             Action<int>? processStarted = null, Func<Task>? processReleasing = null)
         {
             Calls.Add("connect");
+            LaunchedExecutables.Add(executable);
             ConnectEnvironment = environment;
             Assert.Equal("TEST", environment["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
             if (CancelConnect) { cancellation.Cancel(); cancellationToken.ThrowIfCancellationRequested(); }
@@ -472,6 +420,7 @@ public sealed class BootstrapCoordinatorTests
             CancellationToken cancellationToken, Action<int>? processStarted = null, Func<Task>? processReleasing = null)
         {
             Calls.Add("deploy");
+            LaunchedExecutables.Add(executable);
             DeployEnvironment = environment;
             if (DeployFails) { throw new IOException(); }
             if (!SkipLaunchHooks)

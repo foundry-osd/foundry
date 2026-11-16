@@ -307,18 +307,45 @@ public sealed class ApplicationLauncherTests
     }
 
     [Fact]
-    public void ChildArgumentsAndEnvironmentArePassedWithoutShellExpansion()
+    public async Task ChildArgumentsAndEnvironmentArePassedWithoutShellExpansion()
     {
-        ProcessStartInfo start = ApplicationLauncher.CreateStartInfo(@"C:\Runtime\App.exe",
-            new Dictionary<string, string?> { ["FOUNDRY_DIAGNOSTIC_SESSION_ID"] = "TEST", ["TO_REMOVE"] = null },
-            ["--config", @"X:\Path with spaces\config.json"]);
+        string directory = Directory.CreateTempSubdirectory("FoundryLaunchArguments-").FullName;
+        try
+        {
+            string executable = Path.Combine(directory, "Foundry.WinPE.exe");
+            string configuration = Path.Combine(directory, "Path with spaces", "config.json");
+            Directory.CreateDirectory(Path.GetDirectoryName(configuration)!);
+            File.WriteAllText(configuration, "{}");
+            var starts = new List<ProcessStartInfo>();
+            using var logger = new LoggerConfiguration().CreateLogger();
+            var launcher = new ApplicationLauncher(logger, startProcess: start =>
+            {
+                starts.Add(start);
+                return Process.Start(new ProcessStartInfo(Environment.GetEnvironmentVariable("ComSpec")!, "/d /c exit 0")
+                {
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                });
+            });
+            var environment = new Dictionary<string, string?> { ["FOUNDRY_DIAGNOSTIC_SESSION_ID"] = "TEST", ["TO_REMOVE"] = null };
 
-        Assert.False(start.UseShellExecute);
-        Assert.False(start.RedirectStandardOutput);
-        Assert.Equal(@"C:\Runtime", start.WorkingDirectory);
-        Assert.Equal(@"X:\Path with spaces\config.json", start.ArgumentList[1]);
-        Assert.Equal("TEST", start.Environment["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
-        Assert.False(start.Environment.ContainsKey("TO_REMOVE"));
+            using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            await launcher.RunConnectAsync(executable, configuration, environment, deadline.Token);
+            await launcher.StartDeployAsync(executable, environment, deadline.Token);
+
+            Assert.Equal([["--connect", "--config", configuration], ["--deploy"]], starts.Select(start => start.ArgumentList.ToArray()));
+            Assert.All(starts, start =>
+            {
+                Assert.Equal(executable, start.FileName);
+                Assert.False(start.UseShellExecute);
+                Assert.False(start.RedirectStandardOutput);
+                Assert.Equal(directory, start.WorkingDirectory);
+                Assert.Equal("TEST", start.Environment["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
+                Assert.False(start.Environment.ContainsKey("TO_REMOVE"));
+                Assert.False(start.Environment.ContainsKey("DOTNET_BUNDLE_EXTRACT_BASE_DIR"));
+            });
+        }
+        finally { Directory.Delete(directory, recursive: true); }
     }
 
     [Fact]

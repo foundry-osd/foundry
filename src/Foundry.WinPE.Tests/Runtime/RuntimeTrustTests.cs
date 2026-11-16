@@ -22,19 +22,19 @@ public sealed class RuntimeTrustTests : IDisposable
     {
         string winPeRoot = Path.Combine(root, "BootImage");
         string runtimeRoot = Path.Combine(root, "RemovableCache", "Runtime");
-        string cache = Path.Combine(runtimeRoot, "Foundry.Connect", "win-x64");
+        string cache = Path.Combine(runtimeRoot, "Foundry.PostInstall", "win-x64");
         Directory.CreateDirectory(cache);
-        File.WriteAllText(Path.Combine(cache, "Foundry.Connect.exe"), "substituted executable");
+        File.WriteAllText(Path.Combine(cache, "Foundry.PostInstall.exe"), "substituted executable");
         File.WriteAllText(Path.Combine(cache, "Foundry.Core.dll"), "substituted dependency");
         File.WriteAllText(Path.Combine(cache, "manifest"),
-            "Asset=Foundry.Connect-win-x64.zip\nArchiveSha256=" + new string('A', 64));
+            "Asset=Foundry.PostInstall-win-x64.zip\nArchiveSha256=" + new string('A', 64));
         using var client = new HttpClient(new ReleaseHandler(forgeCurrentManifest));
         using var logger = new LoggerConfiguration().CreateLogger();
         var resolver = new RuntimeResolver(winPeRoot, runtimeRoot, "win-x64", client, logger,
             getEnvironmentVariable: _ => null);
 
         await Assert.ThrowsAsync<InvalidDataException>(() => resolver.ResolveAsync(
-            "Foundry.Connect", skipLookup, TestContext.Current.CancellationToken));
+            "Foundry.PostInstall", skipLookup, TestContext.Current.CancellationToken));
     }
 
     public void Dispose()
@@ -58,9 +58,9 @@ public sealed class RuntimeTrustTests : IDisposable
                     {
                         new
                         {
-                            name = "Foundry.Connect-win-x64.zip",
+                            name = "Foundry.PostInstall-win-x64.zip",
                             digest = "sha256:" + new string('A', 64),
-                            browser_download_url = "https://example.test/Foundry.Connect-win-x64.zip"
+                            browser_download_url = "https://example.test/Foundry.PostInstall-win-x64.zip"
                         }
                     }
                 }))

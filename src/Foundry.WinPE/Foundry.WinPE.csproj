@@ -1,12 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <!-- Console subsystem: the guardian writes to the startnet console and the Connect and Deploy modes inherit it. -->
     <OutputType>Exe</OutputType>
+    <UseWPF>true</UseWPF>
+    <StartupObject>Foundry.WinPE.Program</StartupObject>
+    <ApplicationIcon>..\..\Assets\Brand\Foundry.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <None Update="foundry.runtime-trust-capability.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+    <None Update="foundry.startup.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Update="foundry.runtime-trust-capability.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <ProjectReference Include="..\Foundry.Connect\Foundry.Connect.csproj" />
     <ProjectReference Include="..\Foundry.Core\Foundry.Core.csproj" />
+    <ProjectReference Include="..\Foundry.Deploy\Foundry.Deploy.csproj" />
     <ProjectReference Include="..\Foundry.Telemetry\Foundry.Telemetry.csproj" />
     <ProjectReference Include="..\Foundry.Utilities\Foundry.Utilities.csproj" />
     <InternalsVisibleTo Include="Foundry.WinPE.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- UseWPF drops these from the implicit usings the guardian code was written against. -->
+    <Using Include="System.IO" />
+    <Using Include="System.Net.Http" />
   </ItemGroup>
 </Project>

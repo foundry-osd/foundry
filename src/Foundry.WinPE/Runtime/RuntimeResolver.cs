@@ -26,9 +26,7 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
     Action<RuntimeDownloadProgress>? progress = null, Func<string, string?>? getEnvironmentVariable = null, Action<string>? warning = null,
     Action<string>? activity = null, string? releaseVersion = null) : IRuntimeResolver
 {
-    private const string ConnectApplication = "Foundry.Connect";
     private const string PostInstallApplication = "Foundry.PostInstall";
-    private static readonly TimeSpan ConnectLookupDeadline = TimeSpan.FromSeconds(5);
 
     private readonly RuntimeTransfer transfer = new(httpClient, progress);
     private readonly Func<string, string?> environment = getEnvironmentVariable ?? Environment.GetEnvironmentVariable;
@@ -43,13 +41,10 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
         cancellationToken.ThrowIfCancellationRequested();
         var preparation = new RuntimePayloadPreparation(winPeRoot, transfer, logger, progress, activity,
             (executable, workspace) => preparedWorkspaces.TryAdd(executable, workspace));
-        string prefix = applicationName switch
-        {
-            ConnectApplication => "FOUNDRY_CONNECT",
-            "Foundry.Deploy" => "FOUNDRY_DEPLOY",
-            PostInstallApplication => "FOUNDRY_POSTINSTALL",
-            _ => throw new ArgumentOutOfRangeException(nameof(applicationName))
-        };
+        // Foundry Connect and Foundry Deploy run from the Foundry.WinPE executable; only PostInstall is a runtime payload.
+        string prefix = applicationName == PostInstallApplication
+            ? "FOUNDRY_POSTINSTALL"
+            : throw new ArgumentOutOfRangeException(nameof(applicationName));
         string archiveOverride = ReadEnvironment(prefix + "_ARCHIVE");
         if (archiveOverride.Length > 0)
         {
@@ -185,17 +180,12 @@ internal sealed class RuntimeResolver(string winPeRoot, string runtimeRoot, stri
         CancellationToken cancellationToken)
     {
         // PostInstall follows Deploy's override order, so Deploy accepts the runtime Bootstrap prepared for it.
-        string[] overrides = applicationName == PostInstallApplication
-            ? [prefix + "_RELEASE_TAG", "FOUNDRY_DEPLOY_RELEASE_TAG", FoundryReleaseTag.ReleaseTagVariable]
-            : [prefix + "_RELEASE_TAG", FoundryReleaseTag.ReleaseTagVariable];
+        string[] overrides = [prefix + "_RELEASE_TAG", "FOUNDRY_DEPLOY_RELEASE_TAG", FoundryReleaseTag.ReleaseTagVariable];
         FoundryReleaseSelection release = FoundryReleaseTag.Resolve(mediaReleaseVersion, environment, overrides);
         if (release.IsLatest)
             logger.Warning("Unpublished Bootstrap build uses the latest release for {PayloadApplication}", applicationName);
 
-        using var lookupDeadline = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-        // Connect may be needed to establish networking, so its release lookup must give up promptly when offline.
-        if (applicationName == ConnectApplication) lookupDeadline.CancelAfter(ConnectLookupDeadline);
-        using JsonDocument metadata = await transfer.ReadReleaseAsync(release.ApiUrl, lookupDeadline.Token).ConfigureAwait(false);
+        using JsonDocument metadata = await transfer.ReadReleaseAsync(release.ApiUrl, cancellationToken).ConfigureAwait(false);
         return (RuntimeReleaseAsset.Parse(metadata.RootElement, applicationName, runtimeIdentifier), release.Tag ?? "latest");
     }
 

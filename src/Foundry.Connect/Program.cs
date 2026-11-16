@@ -24,7 +24,10 @@ using Serilog.Extensions.Logging;
 
 namespace Foundry.Connect;
 
-/// <summary>Runs the WPF application on its original STA thread and protects each startup boundary.</summary>
+/// <summary>
+/// Runs the WPF application on the calling thread, which must be the STA thread owned by the <c>[STAThread]</c> entry point of
+/// Foundry.WinPE, and protects each startup boundary.
+/// </summary>
 public static class Program
 {
     private const string DisableFluentBackdropSwitch = "Switch.System.Windows.Appearance.DisableFluentThemeWindowBackdrop";
