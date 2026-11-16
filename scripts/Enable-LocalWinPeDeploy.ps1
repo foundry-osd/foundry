@@ -1,6 +1,5 @@
 param(
     # Foundry.WinPE archive (Foundry.WinPE-<rid>.zip) used instead of publishing the project.
-    [Alias('ArchivePath')]
     [string]$WinPeArchivePath = '',
     [switch]$RunFoundry
 )

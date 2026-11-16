@@ -72,7 +72,7 @@ internal static class GuardianProgram
             {
                 Log.Warning("Bootstrap requires Windows PE; no boot operations were started");
                 presenter.Report(new BootstrapProgress(BootstrapStage.Environment, BootstrapStatus.Failed,
-                    "Foundry Bootstrap must run in Windows PE."));
+                    "Foundry WinPE must run in Windows PE."));
                 presenter.ShowDiagnostics(sessionId, logPath);
                 return 1;
             }

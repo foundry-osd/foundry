@@ -18,7 +18,7 @@ internal static class BootstrapEnvironment
     {
         Architecture.X64 => "win-x64",
         Architecture.Arm64 => "win-arm64",
-        _ => throw new PlatformNotSupportedException("Foundry Bootstrap requires x64 or ARM64 Windows PE.")
+        _ => throw new PlatformNotSupportedException("Foundry WinPE requires x64 or ARM64 Windows PE.")
     };
 
     internal static BootstrapContext Create(string winPeRoot, string sessionId, Architecture architecture,

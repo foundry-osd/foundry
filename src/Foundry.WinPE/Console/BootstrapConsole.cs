@@ -52,7 +52,7 @@ internal sealed class BootstrapConsole : IDisposable
             }
             catch (Exception exception) when (IsConsoleFailure(exception)) { RestoreConsole(); }
         }
-        if (!Render()) WriteLine("Foundry Bootstrap");
+        if (!Render()) WriteLine("Foundry WinPE");
         heartbeat = new Timer(_ => Refresh(), null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
     }
 
@@ -282,7 +282,7 @@ internal sealed class BootstrapConsole : IDisposable
                 }
                 lines.Add((text, color));
             }
-            Add("Foundry Bootstrap", ConsoleColor.White);
+            Add("Foundry WinPE", ConsoleColor.White);
             Add(Subtitle());
             Add("");
             foreach (BootstrapStage stage in Enum.GetValues<BootstrapStage>())
