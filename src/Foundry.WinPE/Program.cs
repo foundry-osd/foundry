@@ -1,0 +1,135 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using System.Reflection;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using Foundry.WinPE.Console;
+using Foundry.WinPE.Diagnostics;
+using Foundry.WinPE.Processes;
+using Foundry.WinPE.Runtime;
+using Foundry.WinPE.SystemPreparation;
+using Foundry.Telemetry;
+using Foundry.Utilities.Diagnostics;
+using Foundry.Utilities.IO;
+using Foundry.Utilities.Runtime;
+using Serilog;
+using Serilog.Events;
+
+namespace Foundry.WinPE;
+
+internal static class Program
+{
+    private const string WinPeRoot = @"X:\Foundry";
+
+    private static async Task<int> Main(string[] arguments)
+    {
+        if (arguments is ["--version"])
+        {
+            System.Console.WriteLine(typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion);
+            return 0;
+        }
+        if (arguments.Length != 0)
+        {
+            System.Console.WriteLine("Usage: Foundry.Bootstrap.exe [--help | --version]");
+            System.Console.WriteLine("Without arguments, runs the boot workflow in Windows PE.");
+            return arguments is ["--help"] ? 0 : 1;
+        }
+
+        DiagnosticClock.Current.InitializeRuntime(null);
+        string sessionId = DiagnosticSessionContext.CurrentSessionId;
+        string? logPath = null;
+        BootstrapLogPersistence? persistence = null;
+        bool coordinatorStarted = false;
+        long started = Stopwatch.GetTimestamp();
+        var telemetry = new BootstrapTelemetry();
+        using var presenter = new BootstrapConsole();
+        using var cancellation = new CancellationTokenSource();
+        ConsoleCancelEventHandler cancel = (_, args) => { args.Cancel = true; cancellation.Cancel(); };
+        System.Console.CancelKeyPress += cancel;
+        try
+        {
+            try
+            {
+                logPath = WritableFilePathResolver.Resolve([Path.Combine(WinPeRoot, "Logs"),
+                    Path.Combine(Path.GetTempPath(), "Foundry", "Logs")], "FoundryBootstrap.log");
+                RemoteDiagnosticsSink.SetLogDirectory(Path.Combine(Path.GetDirectoryName(logPath)!, "PendingLogs"));
+                Log.Logger = FoundryLogConfiguration.CreateFileLogger(logPath, "Foundry.Bootstrap", sessionId,
+                    LogEventLevel.Verbose, 5, additionalSink: telemetry);
+            }
+            catch
+            {
+                logPath = null;
+                Log.Logger = FoundryLogConfiguration.CreateDebugLogger("Foundry.Bootstrap", sessionId, LogEventLevel.Verbose, additionalSink: telemetry);
+            }
+
+            if (!WinPeRuntimeDetector.IsWinPeRuntime())
+            {
+                Log.Warning("Bootstrap requires Windows PE; no boot operations were started");
+                presenter.Report(new BootstrapProgress(BootstrapStage.Environment, BootstrapStatus.Failed,
+                    "Foundry Bootstrap must run in Windows PE."));
+                presenter.ShowDiagnostics(sessionId, logPath);
+                return 1;
+            }
+
+            BootstrapVolume[] volumes = BootstrapEnvironment.EnumerateVolumes().ToArray();
+            BootstrapVolume? cache = BootstrapEnvironment.ResolveCacheVolume(volumes);
+            telemetry.Configure(WinPeRoot, cache?.Root);
+            persistence = new BootstrapLogPersistence(Path.GetDirectoryName(logPath) ?? Path.Combine(WinPeRoot, "Logs"),
+                cache is null ? null : Path.Combine(cache.Root, "Logs", sessionId),
+                Log.ForContext<BootstrapLogPersistence>());
+            BootstrapContext context = BootstrapEnvironment.Create(WinPeRoot, sessionId,
+                RuntimeInformation.OSArchitecture, volumes,
+                path => File.Exists(path) ? File.ReadAllText(path) : null);
+            Log.Information("Bootstrap runtime initialized. Version={Version}; runtime {RuntimeIdentifier}; Connect source {ConnectSource}; Deploy and PostInstall source {DeploySource}; persistent logs {HasPersistentLogs}",
+                typeof(Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion,
+                context.RuntimeIdentifier, context.ConnectIsDebug ? "Debug" : "Release", context.DeployIsDebug ? "Debug" : "Release",
+                context.PersistenceDirectory is not null);
+            Log.Debug("Bootstrap storage selected. RuntimeRoot={RuntimeRoot}; LogPath={LogPath}; PersistenceDirectory={PersistenceDirectory}",
+                context.RuntimeRoot, logPath, context.PersistenceDirectory);
+            Directory.CreateDirectory(context.RuntimeRoot);
+            using var httpClient = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
+            var runtime = new RuntimeResolver(WinPeRoot, context.RuntimeRoot, context.RuntimeIdentifier,
+                httpClient, Log.ForContext<RuntimeResolver>(), presenter.ReportDownload,
+                warning: presenter.ReportWarning, activity: presenter.ReportActivity);
+            var preparation = new WinPeSystemPreparation(WinPeRoot, httpClient,
+                Log.ForContext<WinPeSystemPreparation>(), presenter.ReportWarning);
+            var launcher = new ApplicationLauncher(Log.ForContext<ApplicationLauncher>(),
+                context.PersistenceDirectory ?? Path.Combine(WinPeRoot, "Logs", sessionId),
+                presenter.ReportWarning, telemetry.RecoverChildFailure, releasePayload: runtime.Release);
+            var coordinator = new BootstrapCoordinator(context, runtime, preparation, launcher, persistence,
+                Log.ForContext<BootstrapCoordinator>(), presenter.Report,
+                () => telemetry.StartDelivery(preparation.IsClockUsable), telemetry.Complete);
+            coordinatorStarted = true;
+            BootstrapResult result = await coordinator.RunAsync(cancellation.Token).ConfigureAwait(false);
+            presenter.Complete(result, sessionId, logPath);
+            return result.ExitCode;
+        }
+        catch (Exception exception)
+        {
+            Log.Fatal(exception, "Bootstrap could not initialize");
+            telemetry.Complete(new BootstrapResult(BootstrapOutcome.Failed, BootstrapStage.Environment), Stopwatch.GetElapsedTime(started));
+            presenter.Report(new BootstrapProgress(BootstrapStage.Environment, BootstrapStatus.Failed,
+                "The boot environment could not be initialized."));
+            presenter.ShowDiagnostics(sessionId, logPath);
+            return 1;
+        }
+        finally
+        {
+            System.Console.CancelKeyPress -= cancel;
+            if (!coordinatorStarted && persistence is not null)
+            {
+                try { await persistence.PersistAsync(CancellationToken.None).ConfigureAwait(false); }
+                catch { }
+            }
+            using var shutdown = new CancellationTokenSource(TimeSpan.FromSeconds(2));
+            try
+            {
+                await Task.WhenAll(telemetry.ShutdownAsync(shutdown.Token), BootstrapLogShutdown.FlushAsync())
+                    .WaitAsync(shutdown.Token).ConfigureAwait(false);
+            }
+            catch { }
+        }
+    }
+}
