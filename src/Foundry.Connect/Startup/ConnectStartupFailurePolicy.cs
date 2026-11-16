@@ -7,7 +7,7 @@ using Foundry.Core.Models.Runtime;
 namespace Foundry.Connect.Startup;
 
 /// <summary>
-/// Chooses the process exit code Foundry.Connect returns to Foundry.Bootstrap when a stage fails.
+/// Chooses the process exit code Foundry.Connect returns to Foundry.WinPE when a stage fails.
 /// </summary>
 public static class ConnectStartupFailurePolicy
 {
@@ -15,7 +15,7 @@ public static class ConnectStartupFailurePolicy
     /// Maps the stage that failed to its exit code.
     /// </summary>
     /// <param name="stage">The stage that was running when the failure happened.</param>
-    /// <returns>The exit code that tells Foundry.Bootstrap which kind of failure stopped Foundry.Connect.</returns>
+    /// <returns>The exit code that tells Foundry.WinPE which kind of failure stopped Foundry.Connect.</returns>
     public static ChildRuntimeExitCode Map(ConnectStartupStage stage) => stage switch
     {
         ConnectStartupStage.Configuration => ChildRuntimeExitCode.ConfigurationFailure,
@@ -25,11 +25,11 @@ public static class ConnectStartupFailurePolicy
     };
 
     /// <summary>
-    /// Maps a failure to its exit code: once the UI reported readiness to Foundry.Bootstrap, every failure is a runtime failure.
+    /// Maps a failure to its exit code: once the UI reported readiness to Foundry.WinPE, every failure is a runtime failure.
     /// </summary>
     /// <param name="stage">The stage that was running when the failure happened.</param>
     /// <param name="isUiReady">Whether the UI already reported readiness; the deployment password prompt can report it before the main window.</param>
-    /// <returns>The exit code that tells Foundry.Bootstrap which kind of failure stopped Foundry.Connect.</returns>
+    /// <returns>The exit code that tells Foundry.WinPE which kind of failure stopped Foundry.Connect.</returns>
     public static ChildRuntimeExitCode MapFailure(ConnectStartupStage stage, bool isUiReady)
         => Map(isUiReady ? ConnectStartupStage.Running : stage);
 

@@ -49,7 +49,7 @@ Commands, arguments, action or software names and identifiers, hashes, paths, an
 - `osd:boot_media_finished` always sends `boot_media_failure_kind` on failure (`unknown` when no diagnostic classified it) and never on success. OOBE diagnostic level and location access, and machine naming separator and casing, are sent only when their page option is enabled.
 - `osd:boot_media_finished` sends `autopilot_interactive_preselect_custom` and `autopilot_interactive_offer_assigned_user` as Booleans for the interactive Autopilot authoring options. Both are `false` unless Autopilot is enabled in the interactive hardware hash upload mode, so another mode or a disabled Autopilot reports `false` even when the options were saved. No group tag, tenant or user value is ever sent.
 - `deploy:session_finished` sends the OOBE flags `deploy_oobe_enabled`, `deploy_oobe_administrator_enabled` and `deploy_oobe_account_creation_skipped` as Booleans, and `deploy_oobe_additional_account_count` as an integer from 0 through 100. No account names are sent.
-- `bootstrap:failed` sends `payload_version`, the file version of the Connect or Deploy payload resolved for the failed stage (absent before any payload is resolved), and `boot_media_target` (`iso` or `usb`).
+- `bootstrap:failed` sends `payload_version`, the file version of the Foundry.WinPE runtime that reported the failure, and `boot_media_target` (`iso` or `usb`).
 
 ## Canonical values
 

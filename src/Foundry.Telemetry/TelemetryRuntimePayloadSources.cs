@@ -5,7 +5,7 @@
 namespace Foundry.Telemetry;
 
 /// <summary>
-/// Defines stable categories for the Bootstrap, Connect, and Deploy runtime payload source.
+/// Defines stable categories for the PostInstall runtime payload source.
 /// </summary>
 public static class TelemetryRuntimePayloadSources
 {

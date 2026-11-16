@@ -8,11 +8,11 @@ namespace Foundry.Connect.Lifetime;
 
 /// <summary>
 /// The single exit authority of Foundry.Connect: every exit path (success, user close, failure) requests its exit code
-/// here, and only the first request decides the process exit code returned to Foundry.Bootstrap.
+/// here, and only the first request decides the process exit code returned to Foundry.WinPE.
 /// </summary>
 /// <remarks>
 /// Never exit through <see cref="Foundry.Wpf.Shell.IApplicationShellService.Shutdown"/>: it always ends with exit code 0,
-/// which Foundry.Bootstrap would read as a successful network step.
+/// which Foundry.WinPE would read as a successful network step.
 /// </remarks>
 public interface IApplicationLifetimeService
 {
@@ -20,7 +20,7 @@ public interface IApplicationLifetimeService
     /// Requests the application exit with <paramref name="exitCode"/>. The first request wins and shuts the application
     /// down; later requests are ignored.
     /// </summary>
-    /// <param name="exitCode">The process exit code to return to Foundry.Bootstrap.</param>
+    /// <param name="exitCode">The process exit code to return to Foundry.WinPE.</param>
     /// <returns><see langword="true"/> when this request decided the exit code; <see langword="false"/> when an exit was already requested.</returns>
     bool TryExit(ChildRuntimeExitCode exitCode);
 

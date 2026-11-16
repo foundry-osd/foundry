@@ -5,7 +5,7 @@
 namespace Foundry.Core.Models.Runtime;
 
 /// <summary>
-/// Process exit codes a boot-media child application returns to Foundry.Bootstrap. Bootstrap treats
+/// Process exit codes a boot-media child application returns to Foundry.WinPE. Bootstrap treats
 /// <see cref="UserAborted"/> as operator cancellation and maps the failure codes to specific console messages; any
 /// other value is reported generically. Numeric values are a cross-process contract and must not change.
 /// </summary>

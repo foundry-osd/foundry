@@ -239,7 +239,7 @@ public sealed class DeploymentKeyRelayTests
         Assert.Equal(0u, flags & HandleFlagInherit);
     }
 
-    // Feasibility: a real child process started like Bootstrap starts Connect reaches the pipe through the environment.
+    // Feasibility: a real child process started like the guardian starts Connect reaches the pipe through the environment.
     [Fact]
     public async Task ChildProcess_SendsTheKeyThroughTheEnvironmentVariable()
     {

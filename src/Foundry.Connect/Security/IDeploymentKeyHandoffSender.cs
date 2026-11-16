@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Foundry.Connect.Security;
 
-/// <summary>Hands the unlocked deployment key to Foundry Bootstrap, which serves it to Foundry Deploy.</summary>
+/// <summary>Hands the unlocked deployment key to Foundry WinPE, which serves it to Foundry Deploy.</summary>
 public interface IDeploymentKeyHandoffSender
 {
     /// <summary>Writes the deployment key to the Bootstrap hand-off pipe, at most once per process.</summary>

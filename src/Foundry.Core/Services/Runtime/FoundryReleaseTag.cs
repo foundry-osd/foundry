@@ -21,7 +21,7 @@ public readonly record struct FoundryReleaseSelection(string? Tag)
 }
 
 /// <summary>
-/// Resolves the release a Foundry program downloads runtimes from, so boot media, Bootstrap repairs and Deploy downloads
+/// Resolves the release a Foundry program downloads runtimes from, so boot media, PostInstall repairs and Deploy downloads
 /// always use the release of the running program.
 /// </summary>
 /// <remarks>

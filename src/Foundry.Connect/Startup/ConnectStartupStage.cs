@@ -16,7 +16,7 @@ public enum ConnectStartupStage
     /// <summary>Building the application host and starting its services.</summary>
     Services,
 
-    /// <summary>Constructing and initializing the UI until it reports readiness to Foundry.Bootstrap.</summary>
+    /// <summary>Constructing and initializing the UI until it reports readiness to Foundry.WinPE.</summary>
     UiStartup,
 
     /// <summary>The UI reported readiness; any later failure is a runtime failure.</summary>

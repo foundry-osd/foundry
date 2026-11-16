@@ -150,7 +150,7 @@ public static class Program
 
     /// <summary>
     /// Maps a failure to its exit code; failures before a policy stage keep the generic startup failure code, and once
-    /// the UI reported readiness to Foundry.Bootstrap every failure is a runtime failure.
+    /// the UI reported readiness to Foundry.WinPE every failure is a runtime failure.
     /// </summary>
     private static ChildRuntimeExitCode GetFailureExitCode(ConnectStartupStage? stage, RuntimeStartupDiagnostics? startup)
     {

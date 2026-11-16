@@ -13,7 +13,7 @@ namespace Foundry.Core.Services.Runtime;
 /// <summary>Contract of the one-shot deployment key hand-off Connect → Bootstrap → Deploy.</summary>
 /// <remarks>
 /// <para>
-/// Foundry Bootstrap owns two named pipes per boot: Foundry Connect writes the 32-byte deployment key once into the first
+/// Foundry WinPE owns two named pipes per boot: Foundry Connect writes the 32-byte deployment key once into the first
 /// one after a successful unlock, and Foundry Deploy reads it once from the second one. Each pipe has a random 128-bit name
 /// handed to exactly one child through one environment variable, accepts one connection from the launched child process
 /// only (the server checks the client process id), is created non-inheritable and grants access to the current user only.

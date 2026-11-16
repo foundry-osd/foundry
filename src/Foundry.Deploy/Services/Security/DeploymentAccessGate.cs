@@ -15,7 +15,7 @@ namespace Foundry.Deploy.Services.Security;
 /// the media's key check authenticates it, and otherwise prompts for the deployment password with a progressive retry delay.
 /// </summary>
 /// <remarks>
-/// The hand-off is read only when the media requires an unlock, and before the first prompt: Foundry Bootstrap serves the
+/// The hand-off is read only when the media requires an unlock, and before the first prompt: Foundry WinPE serves the
 /// key only until Deploy reports its UI ready, which the password dialog does when it renders. A handed-off key is zeroed
 /// on every path; it is never logged.
 /// </remarks>
