@@ -4,51 +4,90 @@
 
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using Foundry.Core.Services.Runtime;
 
 namespace Foundry.Core.Tests.Runtime;
 
 public sealed class LatestFoundryReleaseTests
 {
+    private const string TagUrl = "https://github.com/foundry-osd/foundry/releases/tag/v26.11.2.1";
+
     [Fact]
-    public async Task ReadVersionAsync_ReturnsTheLatestTagWithoutItsPrefix()
+    public async Task ReadVersionAsync_ReadsTheVersionFromTheRedirectLocation()
     {
         HttpRequestMessage? sent = null;
         using var client = new HttpClient(new StubHandler((request, _) =>
         {
             sent = request;
-            return Task.FromResult(Json("""{ "tag_name": "v26.11.2.1", "assets": [] }"""));
+            return Task.FromResult(Redirect(TagUrl));
         }));
 
         string? version = await LatestFoundryRelease.ReadVersionAsync(client, null, CancellationToken.None);
 
         Assert.Equal("26.11.2.1", version);
-        Assert.Equal("https://api.github.com/repos/foundry-osd/foundry/releases/latest", sent!.RequestUri!.AbsoluteUri);
-        Assert.Contains("application/vnd.github+json", sent.Headers.Accept.ToString(), StringComparison.Ordinal);
+        Assert.Equal(HttpMethod.Head, sent!.Method);
+        Assert.Equal(LatestFoundryRelease.LatestReleasePageUrl, sent.RequestUri!.AbsoluteUri);
         Assert.NotEmpty(sent.Headers.UserAgent);
     }
 
-    [Theory]
-    [InlineData(HttpStatusCode.NotFound)]
-    [InlineData(HttpStatusCode.InternalServerError)]
-    public async Task ReadVersionAsync_ReturnsNullForAnHttpFailure(HttpStatusCode statusCode)
+    [Fact]
+    public async Task ReadVersionAsync_ReadsTheVersionFromAFollowedRedirect()
     {
-        using var client = new HttpClient(new StubHandler((_, _) => Task.FromResult(new HttpResponseMessage(statusCode))));
+        // A redirect-following handler reports the final address on the response's request message.
+        using var client = new HttpClient(new StubHandler((_, _) => Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            RequestMessage = new HttpRequestMessage(HttpMethod.Head, TagUrl)
+        })));
+
+        Assert.Equal("26.11.2.1", await LatestFoundryRelease.ReadVersionAsync(client, null, CancellationToken.None));
+    }
+
+    [Fact]
+    public async Task ReadVersionAsync_ResolvesARelativeLocation()
+    {
+        using var client = new HttpClient(new StubHandler((_, _) =>
+            Task.FromResult(Redirect("/foundry-osd/foundry/releases/tag/v26.11.2.1"))));
+
+        Assert.Equal("26.11.2.1", await LatestFoundryRelease.ReadVersionAsync(client, null, CancellationToken.None));
+    }
+
+    [Theory]
+    [InlineData("https://github.com/foundry-osd/foundry/releases")]
+    [InlineData("https://github.com/foundry-osd/foundry/releases/tag/v26.11.2")]
+    [InlineData("https://github.com/foundry-osd/foundry/releases/tag/v1.0.0.0")]
+    [InlineData("https://github.com/foundry-osd/foundry/releases/tag/nightly")]
+    [InlineData("https://github.com/foundry-osd/foundry/releases/tag/v26.11.2.1/extra")]
+    [InlineData("https://github.com/other/repo/releases/tag/v26.11.2.1")]
+    [InlineData("https://example.com/foundry-osd/foundry/releases/tag/v26.11.2.1")]
+    [InlineData("http://github.com/foundry-osd/foundry/releases/tag/v26.11.2.1")]
+    public async Task ReadVersionAsync_ReturnsNullForAnUnexpectedTarget(string location)
+    {
+        using var client = new HttpClient(new StubHandler((_, _) => Task.FromResult(Redirect(location))));
+
+        Assert.Null(await LatestFoundryRelease.ReadVersionAsync(client, null, CancellationToken.None));
+    }
+
+    [Fact]
+    public async Task ReadVersionAsync_ReturnsNullWhenThePageIsNotRedirected()
+    {
+        // 200 on the original URL: a rate-limit or error page, with no release tag to read.
+        using var client = new HttpClient(new StubHandler((request, _) => Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+        {
+            RequestMessage = request
+        })));
 
         Assert.Null(await LatestFoundryRelease.ReadVersionAsync(client, null, CancellationToken.None));
     }
 
     [Theory]
-    [InlineData("{ not json")]
-    [InlineData("""["v26.11.2.1"]""")]
-    [InlineData("""{ "tag_name": 26 }""")]
-    [InlineData("""{ "tag_name": "v26.11.2" }""")]
-    [InlineData("""{ "tag_name": "v1.0.0.0" }""")]
-    [InlineData("""{ "tag_name": "nightly" }""")]
-    public async Task ReadVersionAsync_ReturnsNullForAMalformedRelease(string body)
+    [InlineData(HttpStatusCode.NotFound)]
+    [InlineData(HttpStatusCode.TooManyRequests)]
+    [InlineData(HttpStatusCode.InternalServerError)]
+    [InlineData(HttpStatusCode.Found)]
+    public async Task ReadVersionAsync_ReturnsNullForAnHttpFailure(HttpStatusCode statusCode)
     {
-        using var client = new HttpClient(new StubHandler((_, _) => Task.FromResult(Json(body))));
+        // Found without a Location header is a redirect that cannot be followed.
+        using var client = new HttpClient(new StubHandler((_, _) => Task.FromResult(new HttpResponseMessage(statusCode))));
 
         Assert.Null(await LatestFoundryRelease.ReadVersionAsync(client, null, CancellationToken.None));
     }
@@ -59,7 +98,7 @@ public sealed class LatestFoundryReleaseTests
         using var client = new HttpClient(new StubHandler(async (_, token) =>
         {
             await Task.Delay(Timeout.InfiniteTimeSpan, token);
-            return Json("""{ "tag_name": "v26.11.2.1" }""");
+            return Redirect(TagUrl);
         }));
 
         Assert.Null(await LatestFoundryRelease.ReadVersionAsync(client, null, TimeSpan.FromMilliseconds(50), CancellationToken.None));
@@ -73,15 +112,19 @@ public sealed class LatestFoundryReleaseTests
         using var client = new HttpClient(new StubHandler((_, token) =>
         {
             token.ThrowIfCancellationRequested();
-            return Task.FromResult(Json("""{ "tag_name": "v26.11.2.1" }"""));
+            return Task.FromResult(Redirect(TagUrl));
         }));
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(
             () => LatestFoundryRelease.ReadVersionAsync(client, null, cancellation.Token));
     }
 
-    private static HttpResponseMessage Json(string body) =>
-        new(HttpStatusCode.OK) { Content = new StringContent(body, Encoding.UTF8, "application/json") };
+    private static HttpResponseMessage Redirect(string location)
+    {
+        var response = new HttpResponseMessage(HttpStatusCode.Found);
+        response.Headers.Location = new Uri(location, UriKind.RelativeOrAbsolute);
+        return response;
+    }
 
     private sealed class StubHandler(Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> respond) : HttpMessageHandler
     {
