@@ -370,9 +370,16 @@ jobs:
               $winPePublishPath = Join-Path $publishRoot (Join-Path 'Foundry.WinPE' $runtimeIdentifier)
               Invoke-Publish -ProjectPath $winPeProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $winPePublishPath -Properties $folderPublishProperties
 
-              $winPeExecutable = Join-Path $winPePublishPath 'Foundry.WinPE.exe'
-              if (-not (Test-Path -Path $winPeExecutable -PathType Leaf)) {
-                  throw "Expected Foundry.WinPE executable not found: '$winPeExecutable'."
+              foreach ($winPeRequiredFile in @('Foundry.WinPE.exe', 'foundry.startup.json', 'foundry.runtime-trust-capability.json')) {
+                  $winPeRequiredPath = Join-Path $winPePublishPath $winPeRequiredFile
+                  if (-not (Test-Path -Path $winPeRequiredPath -PathType Leaf)) {
+                      throw "Expected Foundry.WinPE publish file not found: '$winPeRequiredPath'."
+                  }
+              }
+
+              $winPeStartupManifests = @(Get-ChildItem -Path $winPePublishPath -Filter 'foundry.startup.json' -File -Recurse)
+              if ($winPeStartupManifests.Count -ne 1) {
+                  throw "Expected exactly one foundry.startup.json in '$winPePublishPath'; found $($winPeStartupManifests.Count)."
               }
 
               $winPeAssetPath = Join-Path $releaseRoot "Foundry.WinPE-$runtimeIdentifier.zip"

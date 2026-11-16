@@ -67,6 +67,11 @@ foreach ($rid in $runtimeIdentifiers) {
             throw "Foundry.WinPE publish output ($rid) is missing '$file' at the folder root."
         }
     }
+
+    $startupManifests = @(Get-ChildItem -Path $outputPath -Filter 'foundry.startup.json' -File -Recurse)
+    if ($startupManifests.Count -ne 1) {
+        throw "Foundry.WinPE publish output ($rid) must contain exactly one 'foundry.startup.json'; found $($startupManifests.Count)."
+    }
 }
 
 Write-Host "Publish completed."
