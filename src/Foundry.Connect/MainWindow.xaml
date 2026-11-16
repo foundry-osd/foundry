@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:Foundry.Connect.Views"
     Title="{Binding WindowTitle}"
-    Icon="/Assets/Icons/app.ico"
+    Icon="/Foundry.Connect;component/Assets/Icons/app.ico"
     ResizeMode="NoResize"
     WindowState="Maximized"
     WindowStyle="None"
