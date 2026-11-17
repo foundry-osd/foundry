@@ -2,6 +2,10 @@ version: 2
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
+    # Dependabot pull requests are not path-labeled by the Auto Labeler workflow (read-only token).
+    labels:
+      - "dependencies"
+      - "ci"
     schedule:
       interval: "weekly"
       day: "monday"
