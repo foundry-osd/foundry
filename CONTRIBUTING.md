@@ -50,7 +50,7 @@ Keep WinUI 3 concerns in `Foundry`, shared WPF building blocks in `Foundry.Wpf`,
 - Update repository documentation when behavior, packaging, install paths, release assets, or user-facing workflows change.
 - Use English Conventional Commit titles, for example `fix(deploy): handle missing driver package`.
 
-The Foundry OSD authoring configuration and the single Foundry.WinPE runtime configuration (`foundry.winpe.config.json`, with shared root sections plus `connect` and `deploy` sections) are separate compatibility contracts, next to the separately versioned PostInstall contracts. Bump only a contract whose persisted or generated behavior changes. Use the latest published release as the production baseline and update the matching generator, runtime, and compatibility tests together.
+The Foundry OSD authoring configuration and the single Foundry.WinPE runtime configuration (`foundry.winpe.config.json`, with shared root sections plus `connect` and `deploy` sections) are separate compatibility contracts, next to the separately versioned PostInstall contracts. The file sits next to a single provisioning marker, `foundry.winpe.provisioning-source.txt`; Connect requires the file under WinPE or when `FOUNDRY_WINPE_CONFIG` is set, while Deploy starts with defaults when it is absent outside WinPE. Bump only a contract whose persisted or generated behavior changes. Use the latest published release as the production baseline and update the matching generator, runtime, and compatibility tests together.
 
 Foundry.PostInstall execution plans, checkpoints, and runtime manifests also have versioned contracts. Keep Core, Deploy, and PostInstall compatible when changing these contracts; preserve the binding between a checkpoint and its exact execution plan.
 
