@@ -390,6 +390,22 @@ jobs:
               $winPeAssetPath = Join-Path $releaseRoot "Foundry.WinPE-$runtimeIdentifier.zip"
               Compress-Archive -Path (Join-Path $winPePublishPath '*') -DestinationPath $winPeAssetPath -CompressionLevel Optimal -Force
 
+              # Launchers of boot media created by Foundry OSD v26.10.18.1 or earlier download these two assets and start
+              # the executable at their root. Foundry.WinPE renamed Foundry.Connect.exe or Foundry.Deploy.exe only shows
+              # the obsolete-media screen, so both are the same publish output under a legacy name.
+              foreach ($legacyApplication in @('Foundry.Connect', 'Foundry.Deploy')) {
+                  $legacyPublishPath = Join-Path $publishRoot (Join-Path $legacyApplication $runtimeIdentifier)
+                  if (Test-Path -Path $legacyPublishPath) {
+                      Remove-Item -Path $legacyPublishPath -Recurse -Force
+                  }
+
+                  New-Item -Path $legacyPublishPath -ItemType Directory -Force | Out-Null
+                  Copy-Item -Path (Join-Path $winPePublishPath '*') -Destination $legacyPublishPath -Recurse
+                  Rename-Item -LiteralPath (Join-Path $legacyPublishPath 'Foundry.WinPE.exe') -NewName "$legacyApplication.exe"
+                  $legacyAssetPath = Join-Path $releaseRoot "$legacyApplication-$runtimeIdentifier.zip"
+                  Compress-Archive -Path (Join-Path $legacyPublishPath '*') -DestinationPath $legacyAssetPath -CompressionLevel Optimal -Force
+              }
+
               $autopilotInteractivePublishPath = Join-Path $publishRoot (Join-Path 'Foundry.AutopilotInteractive' $runtimeIdentifier)
               Invoke-Publish -ProjectPath $autopilotInteractiveProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $autopilotInteractivePublishPath -Properties $singleFilePublishProperties
 
@@ -475,6 +491,10 @@ jobs:
           $assets = @(
               (Join-Path $releaseRoot 'Foundry.AutopilotInteractive-win-x64.zip'),
               (Join-Path $releaseRoot 'Foundry.AutopilotInteractive-win-arm64.zip'),
+              (Join-Path $releaseRoot 'Foundry.Connect-win-x64.zip'),
+              (Join-Path $releaseRoot 'Foundry.Connect-win-arm64.zip'),
+              (Join-Path $releaseRoot 'Foundry.Deploy-win-x64.zip'),
+              (Join-Path $releaseRoot 'Foundry.Deploy-win-arm64.zip'),
               (Join-Path $releaseRoot 'Foundry.PostInstall-win-x64.zip'),
               (Join-Path $releaseRoot 'Foundry.PostInstall-win-arm64.zip'),
               (Join-Path $releaseRoot 'Foundry.WinPE-win-x64.zip'),
