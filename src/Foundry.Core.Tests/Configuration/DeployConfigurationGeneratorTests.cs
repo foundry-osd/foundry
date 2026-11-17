@@ -94,7 +94,7 @@ public sealed class DeployConfigurationGeneratorTests
             using var emea = DomainJoinCredentialPayloadCodec.Decode(plaintext[1], new("emea.test", "EMEA\\join"));
             Assert.Equal(" exact password ", new string(corp.Password.Span));
             Assert.Equal("p2", new string(emea.Password.Span));
-            Assert.DoesNotContain("exact password", generator.Serialize(media));
+            Assert.DoesNotContain("exact password", SerializeSection(media));
         }
         finally { foreach (byte[] bytes in plaintext) System.Security.Cryptography.CryptographicOperations.ZeroMemory(bytes); }
     }
@@ -607,7 +607,7 @@ public sealed class DeployConfigurationGeneratorTests
                         MediaSecretEnvelopeProtector.DeploymentKeyId));
             });
 
-        string json = generator.Serialize(result);
+        string json = SerializeSection(result);
         Assert.DoesNotContain("AdminPassword123!", json, StringComparison.Ordinal);
         Assert.DoesNotContain("TechPassword123!", json, StringComparison.Ordinal);
     }
@@ -1113,7 +1113,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         });
 
-        string json = generator.Serialize(document);
+        string json = SerializeSection(document);
 
         using JsonDocument configuration = JsonDocument.Parse(json);
         Assert.Equal("Romance Standard Time", configuration.RootElement
@@ -1237,7 +1237,7 @@ public sealed class DeployConfigurationGeneratorTests
         Assert.Equal(expiration, result.Autopilot.HardwareHashUpload.ActiveCertificateExpiresOnUtc);
         Assert.Equal("Sales", result.Autopilot.HardwareHashUpload.DefaultGroupTag);
 
-        string json = generator.Serialize(result);
+        string json = SerializeSection(result);
         Assert.DoesNotContain("knownGroupTags", json, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -1270,7 +1270,7 @@ public sealed class DeployConfigurationGeneratorTests
         Assert.Null(result.Autopilot.HardwareHashUpload.CertificatePfxSecret);
         Assert.Null(result.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret);
 
-        string json = generator.Serialize(result);
+        string json = SerializeSection(result);
         Assert.Contains("\"provisioningMode\": \"interactiveHardwareHashUpload\"", json, StringComparison.Ordinal);
         Assert.DoesNotContain("certificatePfxSecret", json, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("certificatePfxPasswordSecret", json, StringComparison.OrdinalIgnoreCase);
@@ -1348,7 +1348,7 @@ public sealed class DeployConfigurationGeneratorTests
                     mediaKey,
                     MediaSecretEnvelopeProtector.DeploymentKeyId));
 
-            string json = generator.Serialize(result);
+            string json = SerializeSection(result);
             Assert.DoesNotContain(Convert.ToBase64String(pfxBytes), json, StringComparison.Ordinal);
             Assert.DoesNotContain("PfxPassword-DoNotLeak", json, StringComparison.Ordinal);
         }
@@ -1496,4 +1496,7 @@ public sealed class DeployConfigurationGeneratorTests
             DefaultGroupTag = "Sales"
         };
     }
+
+    private static string SerializeSection(Foundry.Core.Models.Configuration.Deploy.DeployRuntimeSettings section) =>
+        System.Text.Json.JsonSerializer.Serialize(section, ConfigurationJsonDefaults.SerializerOptions);
 }

@@ -18,12 +18,6 @@ internal static class WinPeConfigurationJson
 {
     private const string DeployPropertyName = "deploy";
 
-    /// <summary>Reads the whole document.</summary>
-    /// <exception cref="JsonException">The text is not a WinPE runtime configuration.</exception>
-    public static FoundryWinPeConfigurationDocument Read(string configurationJson) =>
-        JsonSerializer.Deserialize<FoundryWinPeConfigurationDocument>(configurationJson, ConfigurationJsonDefaults.SerializerOptions)
-        ?? throw new JsonException("The WinPE runtime configuration is empty.");
-
     /// <summary>
     /// Reads the <c>deploy</c> node; a document without that node has the default section, like any section the generator
     /// leaves at its default.

@@ -10,6 +10,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Network;
 using Foundry.Connect.Services.Runtime;
 using Microsoft.Extensions.Logging;
+using Foundry.Connect.Configuration;
 
 namespace Foundry.Connect.Services.Network;
 

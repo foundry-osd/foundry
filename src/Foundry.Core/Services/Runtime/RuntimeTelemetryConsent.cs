@@ -3,24 +3,38 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.Json;
+using Foundry.Core.Services.Configuration;
 using Foundry.Telemetry;
 
 namespace Foundry.Core.Services.Runtime;
 
-/// <summary>Reads only diagnostic preferences, without loading or decrypting child secrets.</summary>
+/// <summary>
+/// Reads only the diagnostic preferences of <c>foundry.winpe.config.json</c>, without loading or decrypting any other section.
+/// </summary>
 public static class RuntimeTelemetryConsent
 {
+    private const int MaximumConfigurationBytes = 1024 * 1024;
+
     private static readonly JsonSerializerOptions Options = new() { PropertyNameCaseInsensitive = true };
 
-    /// <summary>Requires explicit versioned Bootstrap consent before any early child diagnostics are authorized.</summary>
-    public static TelemetrySettings? ReadBootstrap(string? json)
+    private static readonly JsonDocumentOptions DocumentOptions = new() { CommentHandling = JsonCommentHandling.Skip };
+
+    /// <summary>
+    /// Requires a valid schema version and explicit usage and diagnostics preferences before any early diagnostics are
+    /// authorized; an ambiguous (repeated) property fails closed.
+    /// </summary>
+    /// <param name="json">The content of the WinPE runtime configuration, or <see langword="null"/> when it is missing.</param>
+    /// <returns>The telemetry settings, or <see langword="null"/> when nothing may be sent.</returns>
+    public static TelemetrySettings? Read(string? json)
     {
         try
         {
             if (json is null) { return null; }
-            using JsonDocument document = JsonDocument.Parse(json);
+            using JsonDocument document = JsonDocument.Parse(json, DocumentOptions);
             JsonElement root = document.RootElement;
-            if (!TryProperty(root, "schemaVersion", out var version) || !version.TryGetInt32(out int schema) || schema != 1 ||
+            if (!TryProperty(root, "schemaVersion", out var version) || version.ValueKind != JsonValueKind.Number ||
+                !version.TryGetInt32(out int schema) ||
+                WinPeConfigurationSchemaPolicy.Evaluate(schema) == WinPeConfigurationSchemaDecision.Invalid ||
                 !TryProperty(root, "telemetry", out var settings) ||
                 !TryBoolean(settings, "isEnabled", out _) || !TryBoolean(settings, "isRemoteDiagnosticsEnabled", out _))
             {
@@ -31,80 +45,24 @@ public static class RuntimeTelemetryConsent
         catch (Exception exception) when (exception is JsonException or InvalidOperationException) { return null; }
     }
 
-    /// <summary>Applies child opt-outs monotonically without reading encrypted configuration fields.</summary>
-    public static (bool Usage, bool Diagnostics) RestrictChild(string? json, bool required,
-        bool usage, bool diagnostics)
-    {
-        if (json is null) { return required ? (false, false) : (usage, diagnostics); }
-        try
-        {
-            using JsonDocument document = JsonDocument.Parse(json, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
-            if (document.RootElement.ValueKind != JsonValueKind.Object) { return (false, false); }
-            if (!TryProperty(document.RootElement, "telemetry", out var settings)) { return (usage, diagnostics); }
-            if (settings.ValueKind != JsonValueKind.Object) { return (false, false); }
-            if (TryProperty(settings, "isEnabled", out var enabled))
-            {
-                usage &= enabled.ValueKind == JsonValueKind.True;
-            }
-            if (TryProperty(settings, "isRemoteDiagnosticsEnabled", out var remote))
-            {
-                diagnostics &= remote.ValueKind == JsonValueKind.True;
-            }
-            return (usage, diagnostics);
-        }
-        catch (Exception exception) when (exception is JsonException or InvalidOperationException) { return (false, false); }
-    }
-
-    /// <summary>Reads bounded local configuration; unresolved paths and differing child destinations fail closed.</summary>
-    public static TelemetrySettings? ReadSettings(string bootstrapConfigPath, string childConfigPath, bool childRequired = true)
-    {
-        TelemetrySettings? settings = ReadBootstrap(ReadConfiguration(bootstrapConfigPath));
-        if (settings is null) return null;
-        string? childJson = ReadConfiguration(childConfigPath);
-        var consent = RestrictChild(childJson, childRequired,
-            settings.IsEnabled, settings.IsRemoteDiagnosticsEnabled);
-        if (!MatchesChildDestination(childJson, settings)) consent = (false, false);
-        return settings with { IsEnabled = consent.Usage, IsRemoteDiagnosticsEnabled = consent.Diagnostics };
-    }
-
-    private static bool MatchesChildDestination(string? json, TelemetrySettings settings)
-    {
-        if (json is null) return true;
-        try
-        {
-            using JsonDocument document = JsonDocument.Parse(json, new JsonDocumentOptions { CommentHandling = JsonCommentHandling.Skip });
-            if (!TryProperty(document.RootElement, "telemetry", out JsonElement telemetry)) return true;
-            return MatchesExplicitString(telemetry, "hostUrl", settings.HostUrl, MatchesHost) &&
-                MatchesExplicitString(telemetry, "projectToken", settings.ProjectToken, (left, right) => left.Equals(right, StringComparison.Ordinal)) &&
-                MatchesExplicitString(telemetry, "installId", settings.InstallId, (left, right) => left.Equals(right, StringComparison.Ordinal));
-        }
-        catch (Exception exception) when (exception is JsonException or InvalidOperationException) { return false; }
-    }
-
-    private static bool MatchesExplicitString(JsonElement settings, string name, string expected, Func<string, string, bool> matches) =>
-        !TryProperty(settings, name, out JsonElement property) ||
-        (property.ValueKind == JsonValueKind.String && matches(property.GetString()!, expected));
-
-    private static bool MatchesHost(string candidate, string expected) =>
-        Uri.TryCreate(candidate, UriKind.Absolute, out Uri? left) && Uri.TryCreate(expected, UriKind.Absolute, out Uri? right) &&
-        left.Scheme.Equals(right.Scheme, StringComparison.OrdinalIgnoreCase) &&
-        left.Authority.Equals(right.Authority, StringComparison.OrdinalIgnoreCase) &&
-        left.UserInfo.Equals(right.UserInfo, StringComparison.Ordinal) &&
-        left.AbsolutePath.TrimEnd('/').Equals(right.AbsolutePath.TrimEnd('/'), StringComparison.Ordinal) &&
-        left.Query.Equals(right.Query, StringComparison.Ordinal) && left.Fragment.Equals(right.Fragment, StringComparison.Ordinal);
+    /// <summary>Reads the preferences of a bounded local configuration file; a missing, relative or unreadable path fails closed.</summary>
+    /// <param name="configurationPath">The full path of <c>foundry.winpe.config.json</c>.</param>
+    /// <returns>The telemetry settings, or <see langword="null"/> when nothing may be sent.</returns>
+    public static TelemetrySettings? ReadSettings(string configurationPath) => Read(ReadConfiguration(configurationPath));
 
     private static string? ReadConfiguration(string path)
     {
         try
         {
-            ReadOnlySpan<byte> content = RuntimeStartupFile.Read(path, 1024 * 1024);
+            ReadOnlySpan<byte> content = RuntimeStartupFile.Read(path, MaximumConfigurationBytes);
             ReadOnlySpan<byte> preamble = System.Text.Encoding.UTF8.Preamble;
             if (content.StartsWith(preamble)) content = content[preamble.Length..];
             return System.Text.Encoding.UTF8.GetString(content);
         }
-        catch (FileNotFoundException) { return null; }
-        catch (DirectoryNotFoundException) { return null; }
-        catch (Exception exception) when (RuntimeStartupFile.IsExpectedFailure(exception)) { return "invalid"; }
+        catch (Exception exception) when (RuntimeStartupFile.IsExpectedFailure(exception))
+        {
+            return null;
+        }
     }
 
     private static bool TryBoolean(JsonElement element, string name, out bool value)

@@ -2,22 +2,16 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Core.Models.Network;
-
 namespace Foundry.Core.Models.Configuration;
 
-/// <summary>Effective certificates of one runtime 802.1X profile, whatever schema wrote it.</summary>
+/// <summary>Effective certificates of one runtime 802.1X profile, read the same way for wired 802.1X and enterprise Wi-Fi.</summary>
 /// <param name="ClientCertificatePath">The media-relative client certificate path, or <see langword="null"/> when none is staged.</param>
 /// <param name="IsClientCertificateContentProtected">Whether the client certificate file is a deployment-keyed <see cref="SecretEnvelope"/> JSON document.</param>
 /// <param name="ClientCertificatePasswordSecret">The encrypted client certificate password, or <see langword="null"/> when none is staged.</param>
 /// <param name="TrustedRootCertificatePaths">The media-relative trusted root certificate paths, in installation order.</param>
 /// <remarks>
-/// Schema 6 media describe the certificates with <c>clientCertificate</c> and <c>trustedRootCertificates</c>. Schema 5 media
-/// carry one <c>certificatePath</c>, classified by shape with <see cref="NetworkProfileRoamingArtifacts.IsPfxPath"/>: a PFX/P12
-/// is the client certificate with its password, any other file is the single trusted root. As soon as a schema 6 member
-/// names a file (a client certificate path or a non-blank trusted root), the schema 5 fields are ignored: a profile with trusted
-/// roots only drops a legacy PFX and its password, while a client certificate with a blank path counts as absent. Record
-/// equality compares <see cref="TrustedRootCertificatePaths"/> by reference.
+/// A client certificate with a blank path counts as absent, and blank trusted root paths are dropped, so a hand-edited file
+/// never makes Connect install an empty path. Record equality compares <see cref="TrustedRootCertificatePaths"/> by reference.
 /// </remarks>
 public sealed record ConnectCertificateSet(
     string? ClientCertificatePath,
@@ -34,7 +28,7 @@ public sealed record ConnectCertificateSet(
     public static ConnectCertificateSet From(ConnectDot1xSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
-        return Resolve(settings.ClientCertificate, settings.TrustedRootCertificates, settings.CertificatePath, settings.CertificatePfxPasswordSecret);
+        return Resolve(settings.ClientCertificate, settings.TrustedRootCertificates);
     }
 
     /// <summary>Resolves the effective certificates of the Wi-Fi settings.</summary>
@@ -43,34 +37,19 @@ public sealed record ConnectCertificateSet(
     public static ConnectCertificateSet From(ConnectWifiSettings settings)
     {
         ArgumentNullException.ThrowIfNull(settings);
-        return Resolve(settings.ClientCertificate, settings.TrustedRootCertificates, settings.CertificatePath, settings.CertificatePfxPasswordSecret);
+        return Resolve(settings.ClientCertificate, settings.TrustedRootCertificates);
     }
 
     private static ConnectCertificateSet Resolve(
         ConnectClientCertificateSettings? clientCertificate,
-        IReadOnlyList<string>? trustedRootCertificates,
-        string? legacyCertificatePath,
-        SecretEnvelope? legacyPasswordSecret)
+        IReadOnlyList<string>? trustedRootCertificates)
     {
         string[] trustedRoots = trustedRootCertificates?.Where(path => !string.IsNullOrWhiteSpace(path)).ToArray() ?? [];
-        bool hasClientCertificate = !string.IsNullOrWhiteSpace(clientCertificate?.Path);
-
-        // Any schema 6 member wins: the legacy schema 5 fields are then ignored.
-        if (hasClientCertificate || trustedRoots.Length > 0)
+        if (string.IsNullOrWhiteSpace(clientCertificate?.Path))
         {
-            return hasClientCertificate
-                ? new(clientCertificate!.Path, clientCertificate.IsContentProtected, clientCertificate.PasswordSecret, trustedRoots)
-                : new(null, false, null, trustedRoots);
+            return trustedRoots.Length == 0 ? Empty : new(null, false, null, trustedRoots);
         }
 
-        if (string.IsNullOrWhiteSpace(legacyCertificatePath))
-        {
-            return Empty;
-        }
-
-        // Schema 5: the single path is the client certificate when it is a PFX, otherwise the only trusted root (its password, if any, is ignored).
-        return NetworkProfileRoamingArtifacts.IsPfxPath(legacyCertificatePath)
-            ? new(legacyCertificatePath, false, legacyPasswordSecret, [])
-            : new(null, false, null, [legacyCertificatePath]);
+        return new(clientCertificate.Path, clientCertificate.IsContentProtected, clientCertificate.PasswordSecret, trustedRoots);
     }
 }

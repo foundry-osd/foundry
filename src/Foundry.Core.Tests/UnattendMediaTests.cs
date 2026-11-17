@@ -39,7 +39,7 @@ public sealed class UnattendMediaTests
         DeployRuntimeSettings generated = generator.Generate(authoring, media.Protection.DeploymentKey, media.Protection.Settings);
         Assert.Equal(MediaFixture.FileId, generated.Unattend.DefaultFileId);
         Assert.Equal(MediaFixture.FileId, Assert.Single(generated.Unattend.Files).Id);
-        string json = generator.Serialize(generated);
+        string json = JsonSerializer.Serialize(generated, ConfigurationJsonDefaults.SerializerOptions);
         Assert.DoesNotContain("sourcePath", json, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("private-test-value", json);
 

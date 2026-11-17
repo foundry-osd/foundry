@@ -64,7 +64,7 @@ internal sealed class AutopilotInteractiveRuntimeSource(string winPeRoot, string
         string sha256 = ReadEnvironment(AutopilotInteractiveLayout.ArchiveSha256EnvironmentVariable);
         if (archive.Length > 0 || sha256.Length > 0) return ResolveForwardedArchive(archive, sha256);
 
-        string provisioning = Path.Combine(winPeRoot, "Config", "foundry.deploy.provisioning-source.txt");
+        string provisioning = Path.Combine(winPeRoot, "Config", WinPeWorkspaceLayout.ProvisioningSourceFileName);
         if (File.Exists(provisioning) && File.ReadAllText(provisioning).Trim().Equals("debug", StringComparison.OrdinalIgnoreCase))
             throw new InvalidDataException("Debug media must provide Foundry.AutopilotInteractive through Bootstrap.");
 

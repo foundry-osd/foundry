@@ -67,7 +67,7 @@ public sealed class DeploymentAccessGateTests
     public async Task AuthorizeAsync_WhenEncryptedProfileRemainsWithoutProtectionMetadata_DeniesAccess()
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-access-gate-{Guid.NewGuid():N}");
-        string configurationPath = Path.Combine(root, "Config", "foundry.deploy.config.json");
+        string configurationPath = Path.Combine(root, "Config", "foundry.winpe.config.json");
         string profilePath = Path.Combine(root, "Config", "Autopilot", "Profile", "AutopilotConfigurationFile.json.encrypted");
         Directory.CreateDirectory(Path.GetDirectoryName(profilePath)!);
         await File.WriteAllTextAsync(profilePath, "encrypted", TestContext.Current.CancellationToken);
@@ -89,10 +89,34 @@ public sealed class DeploymentAccessGateTests
     }
 
     [Fact]
+    public async Task AuthorizeAsync_WhenUnprotectedMediaLacksTheDeploymentKeyFile_DoesNotPrompt()
+    {
+        // Protection comes from the protection block only: a missing key file no longer marks the media as protected.
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-access-gate-{Guid.NewGuid():N}");
+        string configurationPath = Path.Combine(root, "Config", "foundry.winpe.config.json");
+        Directory.CreateDirectory(Path.GetDirectoryName(configurationPath)!);
+        var dialog = new FakePasswordDialogService("unused");
+        var gate = new DeploymentAccessGate(
+            new FakeConfigurationService(new FoundryDeployConfigurationDocument(), configurationPath: configurationPath),
+            new FakeUnlockService(),
+            dialog,
+            new ImmediateRetryDelay(),
+            new FakeHandoff(),
+            new DeploymentSecretKeySession(),
+            NullLogger<DeploymentAccessGate>.Instance);
+
+        bool authorized = await gate.AuthorizeAsync(TestContext.Current.CancellationToken);
+
+        Assert.True(authorized);
+        Assert.Equal(0, dialog.PromptCount);
+        Directory.Delete(root, recursive: true);
+    }
+
+    [Fact]
     public async Task AuthorizeAsync_WhenConfigurationIsMissingButEncryptedProfileRemains_DeniesAccess()
     {
         string root = Path.Combine(Path.GetTempPath(), $"foundry-access-gate-{Guid.NewGuid():N}");
-        string configurationPath = Path.Combine(root, "Config", "foundry.deploy.config.json");
+        string configurationPath = Path.Combine(root, "Config", "foundry.winpe.config.json");
         string profilePath = Path.Combine(root, "Config", "Autopilot", "Profile", "AutopilotConfigurationFile.json.encrypted");
         Directory.CreateDirectory(Path.GetDirectoryName(profilePath)!);
         await File.WriteAllTextAsync(profilePath, "encrypted", TestContext.Current.CancellationToken);

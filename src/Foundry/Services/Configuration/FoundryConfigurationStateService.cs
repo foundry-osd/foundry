@@ -203,7 +203,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
             try
             {
-                _ = GenerateDeployConfigurationJson(
+                _ = GenerateDeploySection(
                     deploymentSecretsKey: deploymentSecretsKey,
                     protectionSettings: protectionSettings);
                 return true;
@@ -615,7 +615,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private string GenerateDeployConfigurationJson(
+    private DeployRuntimeSettings GenerateDeploySection(
         TelemetrySettings? telemetryOverride = null,
         byte[]? deploymentSecretsKey = null,
         DeployProtectionSettings? protectionSettings = null)
@@ -630,8 +630,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         using OobeAccountSecretState oobeAccountSecretState = CreateOobeAccountSecretStateForDeployGeneration(document.Customization.Oobe);
         using DomainJoinSecretState domainSecrets = CreateDomainJoinSecretState(document.DomainJoin);
 
-        return deployConfigurationGenerator.Serialize(
-            deployConfigurationGenerator.Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState, domainSecrets, MediaInputs));
+        return deployConfigurationGenerator.Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState, domainSecrets, MediaInputs);
     }
 
     /// <inheritdoc />

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.Json;
+using Foundry.Core.Services.Runtime;
 using Foundry.Utilities.Diagnostics;
 using Serilog;
 
@@ -26,7 +27,7 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
         new("geojs", new Uri("https://get.geojs.io/v1/ip/geo.json"), true)
     ];
 
-    private readonly string _deployConfigurationPath;
+    private readonly string _configurationPath;
     private readonly string _timeZoneMapPath;
     private readonly HttpClient _httpClient;
     private readonly ILogger _logger;
@@ -69,7 +70,8 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
             throw new ArgumentOutOfRangeException(nameof(requestTimeout));
         }
 
-        _deployConfigurationPath = Path.Combine(winPeRoot, "Config", "foundry.deploy.config.json");
+        _configurationPath = WinPeConfigurationPath.Resolve(
+            Path.Combine(winPeRoot, "Config", WinPeWorkspaceLayout.ConfigurationFileName)).Path;
         _timeZoneMapPath = Path.Combine(winPeRoot, "Config", "iana-windows-timezones.json");
         _httpClient = httpClient;
         _logger = logger.ForContext<WinPeSystemPreparation>();
@@ -219,18 +221,24 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
             cancellationToken).ConfigureAwait(false);
     }
 
+    /// <summary>
+    /// Reads <c>deploy.localization.defaultTimeZoneId</c> from <c>foundry.winpe.config.json</c>, matching names
+    /// case-insensitively; a missing file or value is no time zone, a malformed one is a warning.
+    /// </summary>
     private string? ReadDeployTimeZoneId()
     {
-        if (!File.Exists(_deployConfigurationPath))
+        if (!File.Exists(_configurationPath))
         {
             return null;
         }
 
         try
         {
-            using JsonDocument document = JsonDocument.Parse(File.ReadAllText(_deployConfigurationPath),
+            using JsonDocument document = JsonDocument.Parse(File.ReadAllText(_configurationPath),
                 new JsonDocumentOptions { AllowTrailingCommas = true, CommentHandling = JsonCommentHandling.Skip });
-            JsonElement localization = ReadOptionalProperty(document.RootElement, "localization");
+            JsonElement deploy = ReadOptionalProperty(document.RootElement, "deploy");
+            if (deploy.ValueKind is JsonValueKind.Undefined or JsonValueKind.Null) return null;
+            JsonElement localization = ReadOptionalProperty(deploy, "localization");
             if (localization.ValueKind is JsonValueKind.Undefined or JsonValueKind.Null) return null;
             JsonElement timeZone = ReadOptionalProperty(localization, "defaultTimeZoneId");
             return timeZone.ValueKind is JsonValueKind.Undefined or JsonValueKind.Null ? null : timeZone.GetString();

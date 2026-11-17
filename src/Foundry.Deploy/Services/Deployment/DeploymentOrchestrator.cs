@@ -454,7 +454,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         if (_networkProfileRoamingArtifactService is not null)
         {
             context.NetworkProfileRoamingPayload = await _networkProfileRoamingArtifactService.LoadAsync(
-                context.Request.Network.ProfileRoaming, context.RuntimeState.WorkspaceRoot, cancellationToken).ConfigureAwait(false);
+                context.Request.Network, context.RuntimeState.WorkspaceRoot, cancellationToken).ConfigureAwait(false);
         }
         context.NetworkProfileRoamingResolved = true;
         return DeploymentStepResult.Succeeded("Target configuration validated.");

@@ -47,7 +47,7 @@ public sealed class BootstrapEnvironmentTests
     public void IsoRemovesInheritedPersistenceAndHonorsDebugSource()
     {
         BootstrapContext context = BootstrapEnvironment.Create(@"X:\Foundry", "SESSION", Architecture.Arm64,
-            [new BootstrapVolume(@"D:\", false, "Foundry Cache")], path => path.Contains("deploy") ? " debug\r\n" : "release");
+            [new BootstrapVolume(@"D:\", false, "Foundry Cache")], path => path.EndsWith("foundry.winpe.provisioning-source.txt", StringComparison.Ordinal) ? " debug\r\n" : "release");
 
         Assert.Equal(@"X:\Foundry\Runtime", context.RuntimeRoot);
         Assert.Null(context.ChildEnvironment[DiagnosticSessionContext.PersistenceDirectoryEnvironmentVariableName]);

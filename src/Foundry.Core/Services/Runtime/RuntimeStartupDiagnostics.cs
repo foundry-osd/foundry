@@ -63,13 +63,17 @@ public sealed class RuntimeStartupDiagnostics
     /// <summary>Indicates that Bootstrap supplied a valid negotiated launch identity.</summary>
     public bool ProtocolEnabled { get; }
 
-    /// <summary>Loads only early diagnostic preferences; standalone startup never gains consent from Bootstrap files.</summary>
-    public static RuntimeStartupDiagnostics Create(RuntimeApplicationIdentity identity, string childConfigurationPath, bool configurationRequired = true)
+    /// <summary>
+    /// Loads only the early diagnostic preferences of <c>foundry.winpe.config.json</c>; standalone startup (without a guardian
+    /// launch identity) never gains consent from that file.
+    /// </summary>
+    /// <param name="identity">The application that starts.</param>
+    /// <param name="configurationPath">The full path of the WinPE runtime configuration.</param>
+    public static RuntimeStartupDiagnostics Create(RuntimeApplicationIdentity identity, string configurationPath)
     {
         RuntimeStartupReporter? reporter = RuntimeStartupReporter.FromEnvironment(identity.ApplicationId);
         reporter?.Report(StartupStage.ManagedStarted);
-        TelemetrySettings? settings = reporter is null ? null : RuntimeTelemetryConsent.ReadSettings(
-            WinPeWorkspaceLayout.BootstrapConfigurationPath, childConfigurationPath, configurationRequired);
+        TelemetrySettings? settings = reporter is null ? null : RuntimeTelemetryConsent.ReadSettings(configurationPath);
         return new RuntimeStartupDiagnostics(identity, reporter, settings);
     }
 

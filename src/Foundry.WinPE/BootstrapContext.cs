@@ -12,8 +12,6 @@ internal sealed record BootstrapContext(string WinPeRoot, string RuntimeRoot, st
 {
     internal bool IsUsb => PersistenceDirectory is not null;
 
-    internal string ConnectConfigurationPath => Path.Combine(WinPeRoot, "Config", "foundry.connect.config.json");
-
     /// <summary>Clears stale ISO persistence while preserving one session across all launched applications.</summary>
     internal IReadOnlyDictionary<string, string?> ChildEnvironment => new Dictionary<string, string?>
     {

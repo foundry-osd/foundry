@@ -346,13 +346,6 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
         } : null
     };
 
-    /// <inheritdoc />
-    public string Serialize(DeployRuntimeSettings document)
-    {
-        ArgumentNullException.ThrowIfNull(document);
-        return JsonSerializer.Serialize(document, ConfigurationJsonDefaults.SerializerOptions);
-    }
-
     private static DeployAutopilotHardwareHashUploadSettings CreateDeployHardwareHashUploadSettings(
         AutopilotSettings autopilot,
         byte[]? deploymentSecretsKey,

@@ -21,7 +21,7 @@ public sealed class PreOobeConfigurationTests
         var service = new FoundryConfigurationService();
         var source = service.Deserialize(service.Serialize(new() { PreOobe = new() { IsEnabled = true, Actions = [action] } }));
         var generator = new DeployConfigurationGenerator();
-        using var generated = JsonDocument.Parse(generator.Serialize(generator.Generate(source)));
+        using var generated = JsonDocument.Parse(SerializeSection(generator.Generate(source)));
         Assert.True(generated.RootElement.GetProperty("preOobe").GetProperty("actions")[0].TryGetProperty("restartDelaySeconds", out var delay));
         Assert.Equal(seconds, delay.GetInt32());
         Assert.Empty(PreOobeConfigurationValidator.Validate(source.PreOobe));
@@ -49,7 +49,7 @@ public sealed class PreOobeConfigurationTests
         var service = new FoundryConfigurationService();
         var source = service.Deserialize(service.Serialize(new() { PreOobe = new() { IsEnabled = true, Actions = [script, installer] } }));
         var generator = new DeployConfigurationGenerator();
-        var generated = JsonSerializer.Deserialize<DeployRuntimeSettings>(generator.Serialize(generator.Generate(source)), ConfigurationJsonDefaults.SerializerOptions)!;
+        var generated = JsonSerializer.Deserialize<DeployRuntimeSettings>(SerializeSection(generator.Generate(source)), ConfigurationJsonDefaults.SerializerOptions)!;
         Assert.Equal("-NoProfile", generated.PreOobe.Actions[0].PowerShellArguments);
         Assert.Equal("-Name Example", generated.PreOobe.Actions[0].Arguments);
         Assert.True(generated.PreOobe.Actions[1].GenerateInstallationLog);
@@ -176,4 +176,7 @@ public sealed class PreOobeConfigurationTests
         };
         Assert.Equal(valid, PreOobeConfigurationValidator.Validate(new() { Actions = [action] }).Count == 0);
     }
+
+    private static string SerializeSection(Foundry.Core.Models.Configuration.Deploy.DeployRuntimeSettings section) =>
+        System.Text.Json.JsonSerializer.Serialize(section, ConfigurationJsonDefaults.SerializerOptions);
 }

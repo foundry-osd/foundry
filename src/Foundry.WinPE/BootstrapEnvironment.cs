@@ -4,6 +4,7 @@
 
 using System.Runtime.InteropServices;
 using Foundry.Core.Services.Media;
+using Foundry.Core.Services.Runtime;
 using Foundry.Utilities.Diagnostics;
 
 namespace Foundry.WinPE;
@@ -37,7 +38,7 @@ internal static class BootstrapEnvironment
         {
             try
             {
-                string? source = readProvisioningSource(Path.Combine(winPeRoot, "Config", "foundry.deploy.provisioning-source.txt"));
+                string? source = readProvisioningSource(Path.Combine(winPeRoot, "Config", WinPeWorkspaceLayout.ProvisioningSourceFileName));
                 return string.Equals(source?.Trim(), "debug", StringComparison.OrdinalIgnoreCase);
             }
             catch (IOException) { return false; }

@@ -12,12 +12,17 @@ public sealed class RuntimeTelemetryConsentTests
     [Theory]
     [InlineData(null)]
     [InlineData("invalid")]
+    [InlineData("[]")]
     [InlineData("{}")]
+    [InlineData("{\"schemaVersion\":1}")]
     [InlineData("{\"schemaVersion\":1,\"telemetry\":{}}")]
-    [InlineData("{\"schemaVersion\":2,\"telemetry\":{\"isEnabled\":true,\"isRemoteDiagnosticsEnabled\":true}}")]
-    public void MissingOrInvalidBootstrapPreferencesNeverAuthorizeSending(string? json)
+    [InlineData("{\"schemaVersion\":1,\"telemetry\":{\"isEnabled\":true}}")]
+    [InlineData("{\"schemaVersion\":0,\"telemetry\":{\"isEnabled\":true,\"isRemoteDiagnosticsEnabled\":true}}")]
+    [InlineData("{\"telemetry\":{\"isEnabled\":true,\"isRemoteDiagnosticsEnabled\":true}}")]
+    [InlineData("{\"schemaVersion\":\"1\",\"telemetry\":{\"isEnabled\":true,\"isRemoteDiagnosticsEnabled\":true}}")]
+    public void MissingOrInvalidPreferencesNeverAuthorizeSending(string? json)
     {
-        Assert.Null(RuntimeTelemetryConsent.ReadBootstrap(json));
+        Assert.Null(RuntimeTelemetryConsent.Read(json));
     }
 
     [Theory]
@@ -25,37 +30,41 @@ public sealed class RuntimeTelemetryConsentTests
     [InlineData(false, true)]
     [InlineData(true, false)]
     [InlineData(true, true)]
-    public void PreferencesRemainIndependentBeforeSecretsAreDecrypted(bool usage, bool diagnostics)
+    public void PreferencesRemainIndependentWithoutReadingSecrets(bool usage, bool diagnostics)
     {
         string json = System.Text.Json.JsonSerializer.Serialize(new
         {
             schemaVersion = 1,
-            telemetry = new { isEnabled = usage, isRemoteDiagnosticsEnabled = diagnostics },
-            protection = new { unreadableSecret = "not-decrypted" }
+            telemetry = new { isEnabled = usage, isRemoteDiagnosticsEnabled = diagnostics, installId = "installation" },
+            protection = new { unreadableSecret = "not-decrypted" },
+            deploy = new { domainJoin = "not-a-section" }
         });
-        var settings = RuntimeTelemetryConsent.ReadBootstrap(json);
+
+        var settings = RuntimeTelemetryConsent.Read(json);
+
         Assert.NotNull(settings);
         Assert.Equal(usage, settings.IsEnabled);
         Assert.Equal(diagnostics, settings.IsRemoteDiagnosticsEnabled);
-        Assert.Equal((usage, diagnostics), RuntimeTelemetryConsent.RestrictChild(json, true, true, true));
-        Assert.Equal((false, false), RuntimeTelemetryConsent.RestrictChild(json, true, false, false));
+        Assert.Equal("installation", settings.InstallId);
     }
 
     [Fact]
-    public void UnknownOverrideAndMalformedPreferencesRestrictDelivery()
+    public void NewerSchemaKeepsItsPreferences()
     {
-        Assert.Equal((false, false), RuntimeTelemetryConsent.RestrictChild(null, true, true, true));
-        Assert.Equal((false, false), RuntimeTelemetryConsent.RestrictChild("invalid", false, true, true));
-        Assert.Equal((true, false), RuntimeTelemetryConsent.RestrictChild(null, false, true, false));
-        Assert.Equal((false, true), RuntimeTelemetryConsent.RestrictChild("{\"Telemetry\":{\"IsEnabled\":false}}", true, true, true));
+        var settings = RuntimeTelemetryConsent.Read(
+            "{\"schemaVersion\":2,\"Telemetry\":{\"IsEnabled\":true,\"IsRemoteDiagnosticsEnabled\":false}}");
+
+        Assert.NotNull(settings);
+        Assert.True(settings.IsEnabled);
+        Assert.False(settings.IsRemoteDiagnosticsEnabled);
     }
 
     [Theory]
-    [InlineData("{\"telemetry\":{\"isEnabled\":true,\"IsEnabled\":false}}")]
-    [InlineData("{\"telemetry\":{\"isRemoteDiagnosticsEnabled\":true,\"isRemoteDiagnosticsEnabled\":false}}")]
-    [InlineData("{\"telemetry\":{\"isEnabled\":true},\"Telemetry\":{\"isEnabled\":false}}")]
+    [InlineData("{\"schemaVersion\":1,\"telemetry\":{\"isEnabled\":true,\"IsEnabled\":false,\"isRemoteDiagnosticsEnabled\":true}}")]
+    [InlineData("{\"schemaVersion\":1,\"telemetry\":{\"isEnabled\":true,\"isRemoteDiagnosticsEnabled\":true},\"Telemetry\":{\"isEnabled\":false}}")]
+    [InlineData("{\"schemaVersion\":1,\"SchemaVersion\":1,\"telemetry\":{\"isEnabled\":true,\"isRemoteDiagnosticsEnabled\":true}}")]
     public void AmbiguousConsentFailsClosed(string json)
     {
-        Assert.Equal((false, false), RuntimeTelemetryConsent.RestrictChild(json, true, true, true));
+        Assert.Null(RuntimeTelemetryConsent.Read(json));
     }
 }

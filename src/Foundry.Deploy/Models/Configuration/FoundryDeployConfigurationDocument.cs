@@ -4,12 +4,13 @@
 
 using Foundry.Core.Models.Configuration;
 using Foundry.Telemetry;
-using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
 
 namespace Foundry.Deploy.Models.Configuration;
 
 /// <summary>
-/// Represents the runtime configuration consumed by Foundry.Deploy inside WinPE.
+/// The Deploy view of <c>foundry.winpe.config.json</c>: the shared root sections (schema, authoring version, telemetry,
+/// protection, network) and the properties of its <c>deploy</c> section, flattened by
+/// <see cref="Foundry.Core.Services.Configuration.WinPeConfigurationReader.ReadModeView"/>.
 /// </summary>
 public sealed record FoundryDeployConfigurationDocument
 {
@@ -21,14 +22,9 @@ public sealed record FoundryDeployConfigurationDocument
     public Foundry.Core.Models.Configuration.Deploy.DeployPreOobeSettings PreOobe { get; init; } = new();
 
     /// <summary>
-    /// Gets the current configuration schema version.
+    /// Gets the schema version of the WinPE runtime configuration.
     /// </summary>
-    public const int CurrentSchemaVersion = ConfigurationSchemaVersions.DeployCurrent;
-
-    /// <summary>
-    /// Gets the schema version of this configuration.
-    /// </summary>
-    public int SchemaVersion { get; init; } = CurrentSchemaVersion;
+    public int SchemaVersion { get; init; } = ConfigurationSchemaVersions.WinPeCurrent;
 
     /// <summary>Gets the OSD release that authored this media, when recorded.</summary>
     public string? AuthoringVersion { get; init; }
@@ -58,9 +54,9 @@ public sealed record FoundryDeployConfigurationDocument
     public Foundry.Core.Models.Configuration.Deploy.DeployCustomDriversSettings CustomDrivers { get; init; } = new();
 
     /// <summary>
-    /// Gets network profile roaming settings used during deployment.
+    /// Gets the network profile roaming shared with Connect: the transports to import and the captured artifact directory.
     /// </summary>
-    public CoreDeployNetworkSettings Network { get; init; } = new();
+    public WinPeNetworkSettings Network { get; init; } = new();
 
     /// <summary>
     /// Gets Windows customization settings applied during deployment.

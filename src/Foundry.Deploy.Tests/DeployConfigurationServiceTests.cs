@@ -6,6 +6,7 @@ using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Core.Services.Runtime;
 using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
+using ConfigurationSchemaVersions = Foundry.Core.Models.Configuration.ConfigurationSchemaVersions;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
@@ -25,12 +26,82 @@ public sealed class DeployConfigurationServiceTests
     public void LoadOptional_RejectsUnprotectedAutomaticOrMalformedDomainMetadata(string domain)
     {
         using var directory = new TemporaryDirectory();
-        string path = CreateJsonFile(directory.Path, "config.json", "{\"domainJoin\":" + domain + "}");
+        string path = CreateJsonFile(directory.Path, "config.json", WinPe("{\"domainJoin\":" + domain + "}"));
         DeployConfigurationLoadResult result = new DeployConfigurationService(
             NullLogger<DeployConfigurationService>.Instance, path).LoadOptional();
         Assert.Null(result.Document);
         Assert.NotEmpty(result.FailureMessage!);
         Assert.DoesNotContain("CORP", result.FailureMessage);
+    }
+
+    [Fact]
+    public void LoadOptional_ReadsTheSharedSectionsAndTheDeploySectionOnly()
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "foundry.winpe.config.json", """
+            {
+              // Hand-written casing and comments are accepted.
+              "SchemaVersion": 1,
+              "AuthoringVersion": "26.11.1.1",
+              "Telemetry": { "installId": "install-id" },
+              "Protection": { "isEnabled": false },
+              "Network": { "profileRoaming": { "wiredDot1x": { "isEnabled": true } }, "artifactRootPath": "Y:/Roaming" },
+              "Connect": { "wifi": "not a Deploy concern" },
+              "Deploy": { "completion": { "automaticRebootDelaySeconds": 42 } },
+              "operatingSystemSelection": "ignored: not inside the deploy section"
+            }
+            """);
+
+        DeployConfigurationLoadResult result = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path).LoadOptional();
+
+        Assert.NotNull(result.Document);
+        Assert.Equal("26.11.1.1", result.Document.AuthoringVersion);
+        Assert.Equal("install-id", result.Document.Telemetry.InstallId);
+        Assert.True(result.Document.Network.ProfileRoaming.WiredDot1x.IsEnabled);
+        Assert.Equal("Y:/Roaming", result.Document.Network.ArtifactRootPath);
+        Assert.Equal(42, result.Document.Completion.AutomaticRebootDelaySeconds);
+        Assert.False(result.Document.Protection.IsEnabled);
+    }
+
+    [Fact]
+    public void LoadOptional_IgnoresDeploySettingsWrittenAtTheRoot()
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "foundry.winpe.config.json",
+            """{"schemaVersion":1,"completion":{"automaticRebootDelaySeconds":42}}""");
+
+        DeployConfigurationLoadResult result = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path).LoadOptional();
+
+        Assert.Equal(10, result.Document!.Completion.AutomaticRebootDelaySeconds);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(-1)]
+    public void LoadOptional_InvalidSchema_FailsClosed(int schemaVersion)
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "foundry.winpe.config.json", "{\"schemaVersion\":" + schemaVersion + "}");
+
+        DeployConfigurationLoadResult result = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path).LoadOptional();
+
+        Assert.True(result.Exists);
+        Assert.Null(result.Document);
+        Assert.NotEmpty(result.FailureMessage!);
+    }
+
+    [Fact]
+    public void LoadOptional_NewerSchema_LoadsWithAWarning()
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "foundry.winpe.config.json",
+            $$"""{"schemaVersion":{{ConfigurationSchemaVersions.WinPeCurrent + 1}}}""");
+        var logger = new WarningCountingLogger();
+
+        DeployConfigurationLoadResult result = new DeployConfigurationService(logger, path).LoadOptional();
+
+        Assert.NotNull(result.Document);
+        Assert.Equal(1, logger.WarningCount);
     }
 
     [Theory]
@@ -43,8 +114,8 @@ public sealed class DeployConfigurationServiceTests
     {
         using var directory = new TemporaryDirectory();
         string path = CreateJsonFile(directory.Path, "config.json",
-            """{"protection":{"isEnabled":true},"domainJoin":{"isEnabled":true,"mode":1,"defaultDomainId":"a","domains":[""" +
-            """{"id":"a","domainName":"corp.test","accountName":"CORP\\join","encryptedCredentials":{}},""" + second + "]}}");
+            """{"protection":{"isEnabled":true},"deploy":{"domainJoin":{"isEnabled":true,"mode":1,"defaultDomainId":"a","domains":[""" +
+            """{"id":"a","domainName":"corp.test","accountName":"CORP\\join","encryptedCredentials":{}},""" + second + "]}}}");
 
         DeployConfigurationLoadResult result = new DeployConfigurationService(
             NullLogger<DeployConfigurationService>.Instance, path).LoadOptional();
@@ -57,7 +128,7 @@ public sealed class DeployConfigurationServiceTests
     {
         using var directory = new TemporaryDirectory();
         string path = CreateJsonFile(directory.Path, "config.json",
-            """{"domainJoin":{"isEnabled":true,"mode":0,"defaultDomainId":"a","domains":[{"id":"a","domainName":"corp.test"}]}}""");
+            WinPe("""{"domainJoin":{"isEnabled":true,"mode":0,"defaultDomainId":"a","domains":[{"id":"a","domainName":"corp.test"}]}}"""));
         DeployConfigurationLoadResult result = new DeployConfigurationService(
             NullLogger<DeployConfigurationService>.Instance, path).LoadOptional();
         Assert.NotNull(result.Document);
@@ -74,7 +145,7 @@ public sealed class DeployConfigurationServiceTests
     {
         using var directory = new TemporaryDirectory();
         string path = CreateJsonFile(directory.Path, "config.json",
-            """{"domainJoin":{"isEnabled":true},"autopilot":{"isEnabled":true}}""");
+            WinPe("""{"domainJoin":{"isEnabled":true},"autopilot":{"isEnabled":true}}"""));
         var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path);
 
         DeployConfigurationLoadResult result = service.LoadOptional();
@@ -106,7 +177,7 @@ public sealed class DeployConfigurationServiceTests
     {
         using var directory = new TemporaryDirectory();
         string path = CreateJsonFile(directory.Path, "config.json",
-            "{\"schemaVersion\":13,\"customization\":{\"machineNaming\":{\"isEnabled\":true" + property + "}}}");
+            WinPe("{\"customization\":{\"machineNaming\":{\"isEnabled\":true" + property + "}}}"));
         var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path);
 
         DeployConfigurationLoadResult result = service.LoadOptional();
@@ -126,7 +197,7 @@ public sealed class DeployConfigurationServiceTests
 
         Assert.Null(result.Document);
         Assert.Equal(BootMediaUpdateReason.None, result.BootMediaUpdateReason);
-        var exception = Assert.IsType<System.Text.Json.JsonException>(result.FailureException);
+        var exception = Assert.IsAssignableFrom<System.Text.Json.JsonException>(result.FailureException);
         Assert.NotEmpty(exception.StackTrace!);
         Assert.Equal(exception.Message, result.FailureMessage);
     }
@@ -137,7 +208,7 @@ public sealed class DeployConfigurationServiceTests
     public void LoadOptional_WhenUnattendManifestIsInvalid_FailsClosed(string manifest)
     {
         using var tempDirectory = new TemporaryDirectory();
-        string path = CreateJsonFile(tempDirectory.Path, "foundry.deploy.config.json", "{\"unattend\":" + manifest + "}");
+        string path = CreateJsonFile(tempDirectory.Path, "foundry.winpe.config.json", WinPe("{\"unattend\":" + manifest + "}"));
         var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path);
 
         DeployConfigurationLoadResult result = service.LoadOptional();
@@ -152,8 +223,8 @@ public sealed class DeployConfigurationServiceTests
         using var tempDirectory = new TemporaryDirectory();
         string configurationPath = CreateJsonFile(
             tempDirectory.Path,
-            "foundry.deploy.config.json",
-            """{ "schemaVersion": 11, "telemetry": { "isEnabled": true } }""");
+            "foundry.winpe.config.json",
+            """{ "schemaVersion": 1, "telemetry": { "isEnabled": true } }""");
         var service = new DeployConfigurationService(
             NullLogger<DeployConfigurationService>.Instance,
             configurationPath);
@@ -168,7 +239,7 @@ public sealed class DeployConfigurationServiceTests
     public void LoadOptional_RecommendsRebuildForOlderAuthoringReleaseWithCurrentSchema()
     {
         using var directory = new TemporaryDirectory();
-        string path = CreateJsonFile(directory.Path, "config.json", $$"""{"schemaVersion":{{FoundryDeployConfigurationDocument.CurrentSchemaVersion}},"authoringVersion":"26.10.3.1"}""");
+        string path = CreateJsonFile(directory.Path, "config.json", $$"""{"schemaVersion":{{ConfigurationSchemaVersions.WinPeCurrent}},"authoringVersion":"26.10.3.1"}""");
         var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path, ProductionRuntime);
 
         DeployConfigurationLoadResult result = service.LoadOptional();
@@ -181,7 +252,7 @@ public sealed class DeployConfigurationServiceTests
     public void LoadOptional_UsesLegacyFallbackWithoutAuthoringMetadata()
     {
         using var directory = new TemporaryDirectory();
-        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":15}""");
+        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":1}""");
         var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path, ProductionRuntime);
 
         DeployConfigurationLoadResult result = service.LoadOptional();
@@ -198,8 +269,8 @@ public sealed class DeployConfigurationServiceTests
     public void LoadOptional_SuppressesAdviceOutsideProductionWinPe(string version, bool winPe, bool debugger, bool debugBuild, string source)
     {
         using var directory = new TemporaryDirectory();
-        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":15,"authoringVersion":"26.10.3.1"}""");
-        File.WriteAllText(System.IO.Path.Combine(directory.Path, "foundry.deploy.provisioning-source.txt"), source);
+        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":1,"authoringVersion":"26.10.3.1"}""");
+        File.WriteAllText(System.IO.Path.Combine(directory.Path, WinPeWorkspaceLayout.ProvisioningSourceFileName), source);
         var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path, new BootMediaRuntimeContext(version, winPe, debugger, debugBuild));
 
         DeployConfigurationLoadResult result = service.LoadOptional();
@@ -228,7 +299,7 @@ public sealed class DeployConfigurationServiceTests
     public void LoadOptional_DoesNotRecommendRebuildForSameOrNewerAuthor(string author)
     {
         using var directory = new TemporaryDirectory();
-        string path = CreateJsonFile(directory.Path, "config.json", $$"""{"schemaVersion":15,"authoringVersion":"{{author}}"}""");
+        string path = CreateJsonFile(directory.Path, "config.json", $$"""{"schemaVersion":1,"authoringVersion":"{{author}}"}""");
         var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path, ProductionRuntime);
 
         DeployConfigurationLoadResult result = service.LoadOptional();
@@ -242,8 +313,8 @@ public sealed class DeployConfigurationServiceTests
     public void LoadOptional_UsesLegacyFallbackWhenProvisioningMarkerIsUnreadable()
     {
         using var directory = new TemporaryDirectory();
-        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":15}""");
-        Directory.CreateDirectory(System.IO.Path.Combine(directory.Path, "foundry.deploy.provisioning-source.txt"));
+        string path = CreateJsonFile(directory.Path, "config.json", """{"schemaVersion":1}""");
+        Directory.CreateDirectory(System.IO.Path.Combine(directory.Path, WinPeWorkspaceLayout.ProvisioningSourceFileName));
         var service = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path, ProductionRuntime);
 
         DeployConfigurationLoadResult result = service.LoadOptional();
@@ -257,10 +328,10 @@ public sealed class DeployConfigurationServiceTests
         using var tempDirectory = new TemporaryDirectory();
         string configurationPath = CreateJsonFile(
             tempDirectory.Path,
-            "foundry.deploy.config.json",
+            "foundry.winpe.config.json",
             $$"""
             {
-              "schemaVersion": {{FoundryDeployConfigurationDocument.CurrentSchemaVersion}}
+              "schemaVersion": {{ConfigurationSchemaVersions.WinPeCurrent}}
             }
             """);
 
@@ -276,161 +347,6 @@ public sealed class DeployConfigurationServiceTests
     }
 
     [Fact]
-    public void LoadOptional_WhenLegacyMachineNamingUsesGeneratedSuffix_MigratesToComposition()
-    {
-        using var tempDirectory = new TemporaryDirectory();
-        string configurationPath = CreateJsonFile(
-            tempDirectory.Path,
-            "foundry.deploy.config.json",
-            """
-            {
-              "schemaVersion": 11,
-              "customization": {
-                "machineNaming": {
-                  "isEnabled": true,
-                  "prefix": "LAB-",
-                  "autoGenerateName": true,
-                  "allowManualSuffixEdit": false
-                }
-              }
-            }
-            """);
-
-        var service = new DeployConfigurationService(
-            NullLogger<DeployConfigurationService>.Instance,
-            configurationPath);
-
-        DeployConfigurationLoadResult result = service.LoadOptional();
-
-        DeployMachineNamingSettings naming = Assert.IsType<FoundryDeployConfigurationDocument>(result.Document)
-            .Customization.MachineNaming;
-        Assert.Equal(Foundry.Core.Models.Configuration.MachineNamingMode.Composed, naming.Mode);
-        Assert.False(naming.AllowEditingDuringDeployment);
-        Assert.Collection(
-            naming.Components,
-            component =>
-            {
-                Assert.Equal(Foundry.Core.Models.Configuration.MachineNameComponentType.StaticText, component.Type);
-                Assert.Equal("LAB-", component.StaticText);
-            },
-            component =>
-            {
-                Assert.Equal(Foundry.Core.Models.Configuration.MachineNameComponentType.Random, component.Type);
-                Assert.Equal(6, component.MaximumLength);
-            });
-    }
-
-    [Fact]
-    public void LoadOptional_WhenLegacyConfigurationContainsNetworkProfileRoaming_MigratesBothTransports()
-    {
-        using var tempDirectory = new TemporaryDirectory();
-        string configurationPath = CreateJsonFile(
-            tempDirectory.Path,
-            "foundry.deploy.config.json",
-            $$"""
-            {
-              "schemaVersion": 11,
-              "network": {
-                "profileRoaming": {
-                  "isEnabled": true,
-                  "includePrivateKeyMaterial": true
-                }
-              }
-            }
-            """);
-
-        var service = new DeployConfigurationService(
-            NullLogger<DeployConfigurationService>.Instance,
-            configurationPath);
-
-        DeployConfigurationLoadResult result = service.LoadOptional();
-
-        Assert.NotNull(result.Document);
-        Assert.True(result.Document.Network.ProfileRoaming.WiredDot1x.IsEnabled);
-        Assert.True(result.Document.Network.ProfileRoaming.WiredDot1x.IncludePrivateKeyMaterial);
-        Assert.True(result.Document.Network.ProfileRoaming.Wifi.IsEnabled);
-        Assert.True(result.Document.Network.ProfileRoaming.Wifi.IncludePrivateKeyMaterial);
-    }
-
-    [Fact]
-    public void LoadOptional_WhenSplitRoamingSettingsArePartial_BackfillsOnlyMissingFieldsFromLegacySettings()
-    {
-        using var tempDirectory = new TemporaryDirectory();
-        string configurationPath = CreateJsonFile(
-            tempDirectory.Path,
-            "foundry.deploy.config.json",
-            """
-            {
-              "schemaVersion": 12,
-              "network": {
-                "profileRoaming": {
-                  "isEnabled": true,
-                  "includePrivateKeyMaterial": true,
-                  "wiredDot1x": {
-                    "isEnabled": true
-                  },
-                  "wifi": {
-                    "includePrivateKeyMaterial": false
-                  }
-                }
-              }
-            }
-            """);
-
-        var service = new DeployConfigurationService(
-            NullLogger<DeployConfigurationService>.Instance,
-            configurationPath);
-
-        DeployConfigurationLoadResult result = service.LoadOptional();
-
-        Assert.NotNull(result.Document);
-        Assert.True(result.Document.Network.ProfileRoaming.WiredDot1x.IsEnabled);
-        Assert.True(result.Document.Network.ProfileRoaming.WiredDot1x.IncludePrivateKeyMaterial);
-        Assert.True(result.Document.Network.ProfileRoaming.Wifi.IsEnabled);
-        Assert.False(result.Document.Network.ProfileRoaming.Wifi.IncludePrivateKeyMaterial);
-    }
-
-    [Fact]
-    public void LoadOptional_WhenSplitRoamingSettingsAreExplicit_DoesNotLetLegacyFallbackOverrideThem()
-    {
-        using var tempDirectory = new TemporaryDirectory();
-        string configurationPath = CreateJsonFile(
-            tempDirectory.Path,
-            "foundry.deploy.config.json",
-            """
-            {
-              "schemaVersion": 12,
-              "network": {
-                "profileRoaming": {
-                  "wiredDot1x": {
-                    "isEnabled": false,
-                    "includePrivateKeyMaterial": false
-                  },
-                  "wifi": {
-                    "isEnabled": false,
-                    "includePrivateKeyMaterial": false
-                  },
-                  "isEnabled": true,
-                  "includePrivateKeyMaterial": true
-                }
-              }
-            }
-            """);
-
-        var service = new DeployConfigurationService(
-            NullLogger<DeployConfigurationService>.Instance,
-            configurationPath);
-
-        DeployConfigurationLoadResult result = service.LoadOptional();
-
-        Assert.NotNull(result.Document);
-        Assert.False(result.Document.Network.ProfileRoaming.WiredDot1x.IsEnabled);
-        Assert.False(result.Document.Network.ProfileRoaming.WiredDot1x.IncludePrivateKeyMaterial);
-        Assert.False(result.Document.Network.ProfileRoaming.Wifi.IsEnabled);
-        Assert.False(result.Document.Network.ProfileRoaming.Wifi.IncludePrivateKeyMaterial);
-    }
-
-    [Fact]
     public void LoadOptional_ReadsTheProtectionKeyCheck()
     {
         using var directory = new TemporaryDirectory();
@@ -440,6 +356,26 @@ public sealed class DeployConfigurationServiceTests
         DeployConfigurationLoadResult result = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path).LoadOptional();
 
         Assert.Equal("deployment-key-check", result.Document!.Protection.KeyCheck!.KeyId);
+    }
+
+    // A WinPE runtime configuration whose deploy section is the given JSON object.
+    private static string WinPe(string deploySection) => "{\"schemaVersion\":1,\"deploy\":" + deploySection + "}";
+
+    private sealed class WarningCountingLogger : Microsoft.Extensions.Logging.ILogger<DeployConfigurationService>
+    {
+        public int WarningCount { get; private set; }
+
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+
+        public bool IsEnabled(Microsoft.Extensions.Logging.LogLevel logLevel) => true;
+
+        public void Log<TState>(Microsoft.Extensions.Logging.LogLevel logLevel, Microsoft.Extensions.Logging.EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
+        {
+            if (logLevel == Microsoft.Extensions.Logging.LogLevel.Warning)
+            {
+                WarningCount++;
+            }
+        }
     }
 
     private static string CreateJsonFile(string directoryPath, string fileName, string contents)

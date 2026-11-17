@@ -11,9 +11,8 @@ namespace Foundry.Connect.Configuration;
 /// Holds the session-only network secrets resolved while loading the Foundry.Connect configuration.
 /// </summary>
 /// <remarks>
-/// The Core runtime configuration carries secrets only as encrypted envelopes. Decrypted values and the legacy
-/// plaintext Wi-Fi passphrase of older media live here instead, so they never round-trip through the shared
-/// configuration contract. Each secret has its own availability: one that cannot be read disables only the feature
+/// The WinPE runtime configuration carries secrets only as deployment-keyed envelopes. Their decrypted values live here
+/// instead, so they never round-trip through the shared configuration contract. Each secret has its own availability: one that cannot be read disables only the feature
 /// that needs it. Secrets protected by the deployment key stay <see cref="ConnectSecretStatus.Locked"/> until one
 /// <see cref="Unlock"/> decrypts all of them. This is deliberately a class whose <c>ToString</c> prints no value.
 /// </remarks>
@@ -53,8 +52,8 @@ public sealed class ConnectRuntimeSecrets
     }
 
     /// <summary>
-    /// Gets the personal Wi-Fi passphrase: decrypted at load from a media-keyed envelope (schema 5) or read from legacy plaintext
-    /// media, or <see cref="ConnectSecretStatus.Locked"/> in a deployment-keyed envelope until <see cref="Unlock"/> decrypts it.
+    /// Gets the personal Wi-Fi passphrase, <see cref="ConnectSecretStatus.Locked"/> in a deployment-keyed envelope until
+    /// <see cref="Unlock"/> decrypts it.
     /// </summary>
     public ConnectSecret WifiPassphrase { get; }
 
@@ -70,7 +69,7 @@ public sealed class ConnectRuntimeSecrets
 
     /// <summary>
     /// Gets the wired 802.1X client PFX bytes when the media stages it encrypted; <see cref="ConnectSecretStatus.NotProvisioned"/>
-    /// when the certificate is absent or a plain file read through its path (schema 5).
+    /// when the certificate is absent or a plain file read through its path.
     /// </summary>
     public ConnectProtectedContent WiredClientCertificate { get; }
 

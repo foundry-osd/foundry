@@ -13,6 +13,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Wpf.Localization;
 using Foundry.Wpf.Threading;
 using Microsoft.Extensions.Logging;
+using Foundry.Connect.Configuration;
 
 namespace Foundry.Connect.Tests.ViewModels;
 

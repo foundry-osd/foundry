@@ -209,8 +209,6 @@ public sealed class ConnectConfigurationGeneratorTests
         Assert.Equal("wifi-pfx", Encoding.UTF8.GetString(DecryptStagedAsset(bundle, @"Foundry\Config\Network\Certificates\Wifi\wifi.pfx.encrypted", protection)));
         Assert.DoesNotContain("wired-password", ConnectJson(bundle), StringComparison.Ordinal);
         Assert.DoesNotContain("wifi-password", ConnectJson(bundle), StringComparison.Ordinal);
-        Assert.Null(bundle.Configuration.Dot1x.CertificatePath);
-        Assert.Null(bundle.Configuration.Wifi.CertificatePfxPasswordSecret);
     }
 
     [Fact]

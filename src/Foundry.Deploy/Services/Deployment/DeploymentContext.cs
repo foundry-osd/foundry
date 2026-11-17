@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 using Foundry.Deploy.Models;
 using Foundry.Utilities.Storage;
 using Foundry.Deploy.Models.Configuration;
-using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
+using WinPeNetworkSettings = Foundry.Core.Models.Configuration.WinPeNetworkSettings;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -113,7 +113,7 @@ public sealed record DeploymentContext
     /// <summary>
     /// Gets network settings used by late deployment steps.
     /// </summary>
-    public CoreDeployNetworkSettings Network { get; init; } = new();
+    public WinPeNetworkSettings Network { get; init; } = new();
 
     /// <summary>
     /// Gets Windows OOBE customization settings applied to the offline installation.

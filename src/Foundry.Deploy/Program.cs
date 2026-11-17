@@ -44,7 +44,7 @@ public static class Program
         string stage = "managed_startup";
         try
         {
-            startup = RuntimeStartupDiagnostics.Create(Identity, DeployConfigurationService.DefaultConfigurationPath, configurationRequired: false);
+            startup = RuntimeStartupDiagnostics.Create(Identity, WinPeConfigurationPath.Resolve().Path);
             RegisterGlobalExceptionHandlers(startup);
             try
             {

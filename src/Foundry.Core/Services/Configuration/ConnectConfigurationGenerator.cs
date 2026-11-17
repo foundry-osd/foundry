@@ -109,7 +109,7 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
     /// <summary>
     /// Maps authoring wired 802.1X settings to the Connect runtime record with staged media-relative paths.
     /// </summary>
-    /// <remarks>Plaintext passwords are never copied; the schema 5 <c>certificatePath</c> fields are not written.</remarks>
+    /// <remarks>Plaintext passwords are never copied.</remarks>
     /// <param name="authoring">The authoring settings.</param>
     /// <param name="profileTemplatePath">The media-relative staged profile path, or <see langword="null"/> when none is staged.</param>
     /// <param name="clientCertificate">The staged client certificate, or <see langword="null"/> when none is staged.</param>
@@ -135,7 +135,7 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
     /// </summary>
     /// <remarks>
     /// The security type is normalized only when Wi-Fi is provisioned, and the enterprise profile path is kept only for an enterprise
-    /// profile. Plaintext secrets are never copied; the schema 5 <c>certificatePath</c> fields are not written.
+    /// profile. Plaintext secrets are never copied.
     /// </remarks>
     /// <param name="authoring">The authoring settings.</param>
     /// <param name="isEnabled">Whether Wi-Fi is both provisioned on the media and enabled.</param>

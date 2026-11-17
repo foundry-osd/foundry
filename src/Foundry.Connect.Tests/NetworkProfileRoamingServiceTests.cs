@@ -9,8 +9,8 @@ using Foundry.Connect.Services.Network;
 using Foundry.Connect.Tests.Support;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
+using Foundry.Connect.Configuration;
 using CoreConnectNetworkProfileRoamingSettings = Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings;
-using CoreConnectNetworkSettings = Foundry.Core.Models.Configuration.ConnectNetworkSettings;
 
 namespace Foundry.Connect.Tests;
 
@@ -468,7 +468,7 @@ public sealed class NetworkProfileRoamingServiceTests
     {
         return new FoundryConnectConfigurationDocument
         {
-            Network = new CoreConnectNetworkSettings
+            Network = new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
                 ProfileRoaming = new CoreConnectNetworkProfileRoamingSettings
                 {

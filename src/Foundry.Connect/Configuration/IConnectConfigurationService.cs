@@ -31,11 +31,11 @@ public interface IConnectConfigurationService
     BootMediaUpdateReason BootMediaUpdateReason { get; }
 
     /// <summary>
-    /// Loads configuration from command-line, environment, or WinPE media locations.
+    /// Loads the Connect view of <c>foundry.winpe.config.json</c> from the override or the booted media.
     /// </summary>
     /// <returns>
-    /// The normalized runtime configuration with the session-only secrets decrypted from its envelopes or read
-    /// from legacy plaintext media, or a failure message. Configuration problems never throw.
+    /// The normalized runtime configuration with its session-only secrets, or a failure message. Configuration problems
+    /// never throw.
     /// </returns>
     ConnectConfigurationLoadResult Load();
 }

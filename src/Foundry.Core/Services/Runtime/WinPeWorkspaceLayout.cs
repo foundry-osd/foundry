@@ -33,9 +33,4 @@ public static class WinPeWorkspaceLayout
     /// <summary>Full path of the provisioning-source marker inside a booted WinPE image.</summary>
     public const string ProvisioningSourcePath = ConfigDirectory + @"\" + ProvisioningSourceFileName;
 
-    /// <summary>Bootstrap configuration read by child applications for early diagnostic preferences.</summary>
-    public const string BootstrapConfigurationPath = ConfigDirectory + @"\foundry.bootstrap.config.json";
-
-    /// <summary>Location of the media secrets key, relative to the configuration directory; the key exists on older (schema 5) media only.</summary>
-    public const string MediaSecretsKeyRelativePath = @"Secrets\media-secrets.key";
 }

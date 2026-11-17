@@ -77,13 +77,13 @@ public sealed class DeploymentCustomizationScenarioTests
                 IsEnabled = true,
                 Actions = [new DeployWindowsOptionalFeatureAction { Id = "wf:telnetclient", Enable = true }]
             },
-            Network = new Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings
+            Network = new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
-                ProfileRoaming = new Foundry.Core.Models.Configuration.Deploy.DeployNetworkProfileRoamingSettings
+                ProfileRoaming = new Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings
                 {
-                    ArtifactRootPath = networkRoot,
                     Wifi = new Foundry.Core.Models.Configuration.NetworkProfileRoamingTransportSettings { IsEnabled = true }
-                }
+                },
+                ArtifactRootPath = networkRoot
             }
         };
         var state = new DeploymentRuntimeState
@@ -109,8 +109,8 @@ public sealed class DeploymentCustomizationScenarioTests
         context.UnattendSnapshot = new UnattendSnapshot(answer.ToArray(), UnattendFileService.Inspect(answer, "amd64"));
         var forbidden = new ForbiddenExternalServices();
         context.NetworkProfileRoamingPayload = await new NetworkProfileRoamingArtifactService(
-            forbidden, forbidden, NullLogger<NetworkProfileRoamingArtifactService>.Instance)
-            .LoadAsync(request.Network.ProfileRoaming, fixture.WorkspaceRoot, cancellationToken);
+            forbidden, NullLogger<NetworkProfileRoamingArtifactService>.Instance)
+            .LoadAsync(request.Network, fixture.WorkspaceRoot, cancellationToken);
         context.NetworkProfileRoamingResolved = true;
         Assert.NotNull(context.NetworkProfileRoamingPayload);
 
@@ -213,7 +213,7 @@ public sealed class DeploymentCustomizationScenarioTests
         }
     }
 
-    private sealed class ForbiddenExternalServices : INetworkSecretKeyReader, IDeploymentSecretKeyProvider, IAutopilotHardwareHashCaptureService, IAutopilotHardwareHashUploadService, IAutopilotProfileContentService
+    private sealed class ForbiddenExternalServices : IDeploymentSecretKeyProvider, IAutopilotHardwareHashCaptureService, IAutopilotHardwareHashUploadService, IAutopilotProfileContentService
     {
         public Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default) => throw new NotSupportedException();
         public Task<AutopilotHardwareHashCaptureResult> CaptureAsync(AutopilotHardwareHashCaptureRequest request, CancellationToken cancellationToken = default) => throw new NotSupportedException();

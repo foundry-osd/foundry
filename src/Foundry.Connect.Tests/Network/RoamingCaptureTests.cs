@@ -8,6 +8,7 @@ using Foundry.Connect.Services.Network;
 using Foundry.Connect.Tests.Support;
 using Foundry.Core.Models.Configuration;
 using Microsoft.Extensions.Logging;
+using Foundry.Connect.Configuration;
 
 namespace Foundry.Connect.Tests.Network;
 
@@ -109,7 +110,7 @@ public sealed class RoamingCaptureTests
         _history.Add("Guest", WifiConnectionSource.Manual, minutesAgo: 1);
         FoundryConnectConfigurationDocument configuration = RoamingConfiguration() with
         {
-            Network = new ConnectNetworkSettings { ProfileRoaming = new ConnectNetworkProfileRoamingSettings() }
+            Network = new WinPeNetworkSettings { ProfileRoaming = new ConnectNetworkProfileRoamingSettings() }
         };
 
         await Create(configuration).CaptureAsync(WifiPathState("Guest", WifiConnectionSource.Manual), TestContext.Current.CancellationToken);
@@ -132,8 +133,7 @@ public sealed class RoamingCaptureTests
                 IsEnabled = true,
                 HasEnterpriseProfile = true,
                 EnterpriseProfileTemplatePath = "Network\\corp.xml",
-                EnterpriseAuthenticationMode = NetworkAuthenticationMode.MachineOnly,
-                CertificatePath = "Network\\root.cer"
+                TrustedRootCertificates = ["Network\\root.cer"]
             }
         };
 
@@ -144,7 +144,7 @@ public sealed class RoamingCaptureTests
         Assert.Null(request.ProfileXml);
         Assert.Equal([certificate], request.CertificatePaths);
         Assert.Equal(NetworkProfileRoamingProfileSource.ProvisionedWifi, request.Source);
-        Assert.Equal(NetworkProfileRoamingConnectivityExpectation.DependsOnMachineCredential, request.ConnectivityExpectation);
+        Assert.Equal(NetworkProfileRoamingConnectivityExpectation.ImportOnly, request.ConnectivityExpectation);
     }
 
     [Fact]
@@ -256,7 +256,7 @@ public sealed class RoamingCaptureTests
         string template = directory.CreateFile("Network\\wired.xml", "<LANProfile/>");
         FoundryConnectConfigurationDocument configuration = RoamingConfiguration() with
         {
-            Dot1x = new ConnectDot1xSettings { IsEnabled = true, ProfileTemplatePath = "Network\\wired.xml", AuthenticationMode = NetworkAuthenticationMode.MachineOnly }
+            Dot1x = new ConnectDot1xSettings { IsEnabled = true, ProfileTemplatePath = "Network\\wired.xml" }
         };
         NetworkState state = NetworkState.Initial(Now) with
         {
@@ -323,7 +323,7 @@ public sealed class RoamingCaptureTests
 
     private RoamingCapture Create(FoundryConnectConfigurationDocument configuration, TemporaryDirectory? directory = null, ProvisioningOutcome? provisioning = null) => new(
         configuration,
-        directory is null ? null : Path.Combine(directory.Path, "foundry.connect.config.json"),
+        directory is null ? null : Path.Combine(directory.Path, "foundry.winpe.config.json"),
         _history,
         _wlan,
         _roaming,
@@ -332,7 +332,7 @@ public sealed class RoamingCaptureTests
 
     private static FoundryConnectConfigurationDocument RoamingConfiguration() => new()
     {
-        Network = new ConnectNetworkSettings
+        Network = new WinPeNetworkSettings
         {
             ProfileRoaming = new ConnectNetworkProfileRoamingSettings
             {

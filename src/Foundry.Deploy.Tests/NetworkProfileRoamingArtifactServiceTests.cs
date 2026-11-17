@@ -38,14 +38,16 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             }
             """);
         var service = new NetworkProfileRoamingArtifactService(
-            new FakeMediaSecretKeyReader([]),
             new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
-            new DeployNetworkProfileRoamingSettings
+            new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
-                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                ProfileRoaming = new Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings
+                {
+                    Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true }
+                },
                 ArtifactRootPath = artifactRoot
             },
             Path.Combine(artifactRoot, "workspace"),
@@ -84,14 +86,16 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             }
             """);
         var service = new NetworkProfileRoamingArtifactService(
-            new FakeMediaSecretKeyReader([]),
             new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
-            new DeployNetworkProfileRoamingSettings
+            new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
-                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                ProfileRoaming = new Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings
+                {
+                    Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true }
+                },
                 ArtifactRootPath = artifactRoot
             },
             Path.Combine(artifactRoot, "workspace"),
@@ -134,14 +138,16 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             }
             """);
         var service = new NetworkProfileRoamingArtifactService(
-            new FakeMediaSecretKeyReader([]),
             new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
-            new DeployNetworkProfileRoamingSettings
+            new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
-                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                ProfileRoaming = new Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings
+                {
+                    Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true }
+                },
                 ArtifactRootPath = artifactRoot
             },
             Path.Combine(artifactRoot, "workspace"),
@@ -173,14 +179,16 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             }
             """);
         var service = new NetworkProfileRoamingArtifactService(
-            new FakeMediaSecretKeyReader([]),
             new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
-            new DeployNetworkProfileRoamingSettings
+            new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
-                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                ProfileRoaming = new Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings
+                {
+                    Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true }
+                },
                 ArtifactRootPath = artifactRoot
             },
             Path.Combine(artifactRoot, "workspace"),
@@ -220,14 +228,16 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             }
             """);
         var service = new NetworkProfileRoamingArtifactService(
-            new FakeMediaSecretKeyReader([]),
             new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
-            new DeployNetworkProfileRoamingSettings
+            new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
-                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                ProfileRoaming = new Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings
+                {
+                    Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true }
+                },
                 ArtifactRootPath = artifactRoot
             },
             Path.Combine(artifactRoot, "workspace"),
@@ -240,14 +250,14 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
     public async Task LoadAsync_WhenPrivateKeyRoamingEnabled_StagesProfilesCertificatesAndPfxPassword()
     {
         string artifactRoot = CreateArtifactRoot();
-        byte[] mediaSecretKey = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
+        byte[] deploymentKey = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
         WriteText(Path.Combine(artifactRoot, "wifi-profile.xml"), "<WLANProfile />");
         WriteText(Path.Combine(artifactRoot, "wired-dot1x-profile.xml"), "<LANProfile />");
         WriteBytes(Path.Combine(artifactRoot, "certificates", "Root", "root.cer"), [1, 2, 3]);
         WriteBytes(Path.Combine(artifactRoot, "certificates", "My", "client.pfx"), [4, 5, 6]);
         WriteSecret(
             Path.Combine(artifactRoot, "certificates", "My", "client.pfx.password.json"),
-            EncryptString("pfx-password", mediaSecretKey));
+            MediaSecretEnvelopeProtector.EncryptString("pfx-password", deploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
         WriteText(
             Path.Combine(artifactRoot, "manifest.json"),
             """
@@ -279,15 +289,17 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             }
             """);
         var service = new NetworkProfileRoamingArtifactService(
-            new FakeMediaSecretKeyReader(mediaSecretKey),
-            new FakeDeploymentSecretKeyProvider([]),
+            new FakeDeploymentSecretKeyProvider(deploymentKey),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
-            new DeployNetworkProfileRoamingSettings
+            new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
-                WiredDot1x = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true },
-                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true },
+                ProfileRoaming = new Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings
+                {
+                    WiredDot1x = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true },
+                    Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true }
+                },
                 ArtifactRootPath = artifactRoot
             },
             Path.Combine(artifactRoot, "workspace"),
@@ -346,14 +358,16 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             }
             """);
         var service = new NetworkProfileRoamingArtifactService(
-            new ThrowingMediaSecretKeyReader(),
             new FakeDeploymentSecretKeyProvider(deploymentKey),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
-            new DeployNetworkProfileRoamingSettings
+            new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
-                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true },
+                ProfileRoaming = new Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings
+                {
+                    Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true }
+                },
                 ArtifactRootPath = artifactRoot
             },
             Path.Combine(artifactRoot, "workspace"),
@@ -372,6 +386,7 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
     [InlineData("certificate-tampered", nameof(CryptographicException))]
     [InlineData("certificate-malformed", nameof(JsonException))]
     [InlineData("password-tampered", nameof(CryptographicException))]
+    [InlineData("password-not-deployment-keyed", nameof(CryptographicException))]
     public async Task LoadAsync_WhenAProtectedPfxIsDamaged_SkipsItAndItsPasswordAndStagesTheRest(string damage, string expectedFailureType)
     {
         string artifactRoot = CreateArtifactRoot();
@@ -390,7 +405,12 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
 
         WriteSecret(
             Path.Combine(artifactRoot, "certificates", "My", "contoso-client.pfx.encrypted.password.json"),
-            damage == "password-tampered" ? passwordEnvelope with { Tag = pfxEnvelope.Tag } : passwordEnvelope);
+            damage switch
+            {
+                "password-tampered" => passwordEnvelope with { Tag = pfxEnvelope.Tag },
+                "password-not-deployment-keyed" => passwordEnvelope with { KeyId = MediaSecretEnvelopeProtector.KeyId },
+                _ => passwordEnvelope
+            });
         WriteText(Path.Combine(artifactRoot, "certificates", "Root", "root.cer"), "root-certificate");
         WriteText(
             Path.Combine(artifactRoot, "manifest.json"),
@@ -415,14 +435,16 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             """);
         var logger = new CapturingLogger<NetworkProfileRoamingArtifactService>();
         var service = new NetworkProfileRoamingArtifactService(
-            new ThrowingMediaSecretKeyReader(),
             new FakeDeploymentSecretKeyProvider(deploymentKey),
             logger);
 
         var payload = await service.LoadAsync(
-            new DeployNetworkProfileRoamingSettings
+            new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
-                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true },
+                ProfileRoaming = new Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings
+                {
+                    Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true }
+                },
                 ArtifactRootPath = artifactRoot
             },
             Path.Combine(artifactRoot, "workspace"),
@@ -465,15 +487,17 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             }
             """);
         var service = new NetworkProfileRoamingArtifactService(
-            new FakeMediaSecretKeyReader([]),
             new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
-            new DeployNetworkProfileRoamingSettings
+            new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
-                WiredDot1x = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
-                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                ProfileRoaming = new Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings
+                {
+                    WiredDot1x = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                    Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true }
+                },
                 ArtifactRootPath = artifactRoot
             },
             Path.Combine(artifactRoot, "workspace"),
@@ -491,14 +515,16 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
         WriteText(Path.Combine(artifactRoot, "manifest.json"), "{");
         var logger = new CapturingLogger<NetworkProfileRoamingArtifactService>();
         var service = new NetworkProfileRoamingArtifactService(
-            new FakeMediaSecretKeyReader([]),
             new FakeDeploymentSecretKeyProvider([]),
             logger);
 
         var payload = await service.LoadAsync(
-            new DeployNetworkProfileRoamingSettings
+            new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
-                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                ProfileRoaming = new Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings
+                {
+                    Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true }
+                },
                 ArtifactRootPath = artifactRoot
             },
             Path.Combine(artifactRoot, "workspace"),
@@ -528,14 +554,16 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             }
             """);
         var service = new NetworkProfileRoamingArtifactService(
-            new FakeMediaSecretKeyReader([]),
             new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
-            new DeployNetworkProfileRoamingSettings
+            new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
-                WiredDot1x = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true },
+                ProfileRoaming = new Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings
+                {
+                    WiredDot1x = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true }
+                },
                 ArtifactRootPath = artifactRoot
             },
             Path.Combine(artifactRoot, "workspace"),
@@ -573,14 +601,16 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             }
             """);
         var service = new NetworkProfileRoamingArtifactService(
-            new FakeMediaSecretKeyReader([]),
             new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
-            new DeployNetworkProfileRoamingSettings
+            new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
-                Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                ProfileRoaming = new Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings
+                {
+                    Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true }
+                },
                 ArtifactRootPath = artifactRoot
             },
             Path.Combine(artifactRoot, "workspace"),
@@ -618,22 +648,24 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             }
             """);
         var service = new NetworkProfileRoamingArtifactService(
-            new FakeMediaSecretKeyReader([]),
             new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
-            new DeployNetworkProfileRoamingSettings
+            new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
-                WiredDot1x = new NetworkProfileRoamingTransportSettings
+                ProfileRoaming = new Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings
                 {
-                    IsEnabled = wiredDot1xEnabled,
-                    IncludePrivateKeyMaterial = includePrivateKeyMaterial
-                },
-                Wifi = new NetworkProfileRoamingTransportSettings
-                {
-                    IsEnabled = wifiEnabled,
-                    IncludePrivateKeyMaterial = includePrivateKeyMaterial
+                    WiredDot1x = new NetworkProfileRoamingTransportSettings
+                    {
+                        IsEnabled = wiredDot1xEnabled,
+                        IncludePrivateKeyMaterial = includePrivateKeyMaterial
+                    },
+                    Wifi = new NetworkProfileRoamingTransportSettings
+                    {
+                        IsEnabled = wifiEnabled,
+                        IncludePrivateKeyMaterial = includePrivateKeyMaterial
+                    }
                 },
                 ArtifactRootPath = artifactRoot
             },
@@ -665,18 +697,20 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
             }
             """);
         var service = new NetworkProfileRoamingArtifactService(
-            new FakeMediaSecretKeyReader([]),
             new FakeDeploymentSecretKeyProvider([]),
             NullLogger<NetworkProfileRoamingArtifactService>.Instance);
 
         var payload = await service.LoadAsync(
-            new DeployNetworkProfileRoamingSettings
+            new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
-                WiredDot1x = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
-                Wifi = new NetworkProfileRoamingTransportSettings
+                ProfileRoaming = new Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings
                 {
-                    IsEnabled = false,
-                    IncludePrivateKeyMaterial = true
+                    WiredDot1x = new NetworkProfileRoamingTransportSettings { IsEnabled = true },
+                    Wifi = new NetworkProfileRoamingTransportSettings
+                    {
+                        IsEnabled = false,
+                        IncludePrivateKeyMaterial = true
+                    }
                 },
                 ArtifactRootPath = artifactRoot
             },
@@ -712,45 +746,9 @@ public sealed class NetworkProfileRoamingArtifactServiceTests
         WriteText(path, JsonSerializer.Serialize(envelope, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }));
     }
 
-    private static SecretEnvelope EncryptString(string plaintext, byte[] key)
-    {
-        byte[] nonce = RandomNumberGenerator.GetBytes(12);
-        byte[] plaintextBytes = Encoding.UTF8.GetBytes(plaintext);
-        byte[] ciphertext = new byte[plaintextBytes.Length];
-        byte[] tag = new byte[16];
-        using var aes = new AesGcm(key, tag.Length);
-        aes.Encrypt(nonce, plaintextBytes, ciphertext, tag);
-        return new SecretEnvelope
-        {
-            Kind = MediaSecretEnvelopeProtector.Kind,
-            Algorithm = MediaSecretEnvelopeProtector.Algorithm,
-            KeyId = MediaSecretEnvelopeProtector.KeyId,
-            Nonce = Base64UrlEncode(nonce),
-            Tag = Base64UrlEncode(tag),
-            Ciphertext = Base64UrlEncode(ciphertext)
-        };
-    }
-
     private static string Base64UrlEncode(byte[] bytes)
     {
         return Convert.ToBase64String(bytes).TrimEnd('=').Replace('+', '-').Replace('/', '_');
-    }
-
-    private sealed class FakeMediaSecretKeyReader(byte[] key) : INetworkSecretKeyReader
-    {
-        public Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default)
-        {
-            return Task.FromResult(key);
-        }
-    }
-
-    // Proves the media key is never read: schema 6 media carry no media-secrets.key.
-    private sealed class ThrowingMediaSecretKeyReader : INetworkSecretKeyReader
-    {
-        public Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default)
-        {
-            throw new InvalidOperationException("The media secret key must not be read.");
-        }
     }
 
     private sealed class FakeDeploymentSecretKeyProvider(byte[] key) : IDeploymentSecretKeyProvider

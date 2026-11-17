@@ -159,7 +159,6 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IAutopilotProfileCatalogService, AutopilotProfileCatalogService>();
         services.AddSingleton<IAutopilotHardwareHashCaptureService, AutopilotHardwareHashCaptureService>();
         services.AddSingleton<IAutopilotInteractiveProvisioningService, AutopilotInteractiveProvisioningService>();
-        services.AddSingleton<INetworkSecretKeyReader, NetworkSecretKeyReader>();
         services.AddSingleton<IAutopilotGraphTokenService>(sp =>
             new AutopilotGraphTokenService(
                 new HttpClient(),

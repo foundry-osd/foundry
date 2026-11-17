@@ -17,7 +17,7 @@ public sealed class DeploymentPasswordPromptTests
     {
         // Without the Bootstrap startup protocol variables the diagnostics only track the state.
         RuntimeStartupDiagnostics startup = RuntimeStartupDiagnostics.Create(
-            new RuntimeApplicationIdentity("Foundry.Connect", TelemetryApps.FoundryConnect, "1.0.0.0"), "", configurationRequired: false);
+            new RuntimeApplicationIdentity("Foundry.Connect", TelemetryApps.FoundryConnect, "1.0.0.0"), "");
         var prompt = new DeploymentPasswordPrompt(TestLocalization.Create(), startup);
 
         prompt.OnDialogRendered();

@@ -72,11 +72,4 @@ public interface IDeployConfigurationGenerator
         OobeAccountSecretState? oobeAccountSecretState,
         DomainJoinSecretState? domainJoinSecretState,
         MediaInputs inputs);
-
-    /// <summary>
-    /// Serializes a <c>deploy</c> section to JSON.
-    /// </summary>
-    /// <param name="document">The <c>deploy</c> section.</param>
-    /// <returns>The JSON representation.</returns>
-    string Serialize(DeployRuntimeSettings document);
 }

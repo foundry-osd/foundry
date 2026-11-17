@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.Json;
-using System.Text.Json.Nodes;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Network;
 using Foundry.Core.Services.WinPe;
@@ -28,11 +27,6 @@ namespace Foundry.Core.Services.Configuration;
 /// </remarks>
 public sealed class WinPeConfigurationGenerator
 {
-    // Connect record fields the WinPE contract does not carry. The runtime records still read them from older media, where they
-    // hold the values the records default to, so they are removed only from the serialized output.
-    private static readonly string[] OmittedDot1xProperties = ["allowRuntimeCredentials", "authenticationMode", "requiresCertificate"];
-    private static readonly string[] OmittedWifiProperties = ["allowRuntimeCredentials", "enterpriseAuthenticationMode", "requiresCertificate"];
-
     private readonly ConnectConfigurationGenerator connectGenerator = new();
     private readonly DeployConfigurationGenerator deployGenerator = new();
 
@@ -84,31 +78,11 @@ public sealed class WinPeConfigurationGenerator
     }
 
     /// <summary>Serializes a WinPE runtime configuration as it is written to boot media.</summary>
-    /// <remarks>
-    /// The <c>connect</c> section omits <c>allowRuntimeCredentials</c>, <c>authenticationMode</c>,
-    /// <c>enterpriseAuthenticationMode</c> and <c>requiresCertificate</c>, which the WinPE contract does not carry.
-    /// </remarks>
     /// <param name="document">The WinPE runtime configuration.</param>
     /// <returns>The indented camelCase JSON.</returns>
     public static string Serialize(FoundryWinPeConfigurationDocument document)
     {
         ArgumentNullException.ThrowIfNull(document);
-        JsonObject root = JsonSerializer.SerializeToNode(document, ConfigurationJsonDefaults.SerializerOptions)!.AsObject();
-        RemoveProperties(root["connect"]?["dot1x"], OmittedDot1xProperties);
-        RemoveProperties(root["connect"]?["wifi"], OmittedWifiProperties);
-        return root.ToJsonString(ConfigurationJsonDefaults.SerializerOptions);
-    }
-
-    private static void RemoveProperties(JsonNode? node, string[] propertyNames)
-    {
-        if (node is not JsonObject element)
-        {
-            return;
-        }
-
-        foreach (string propertyName in propertyNames)
-        {
-            element.Remove(propertyName);
-        }
+        return JsonSerializer.Serialize(document, ConfigurationJsonDefaults.SerializerOptions);
     }
 }
