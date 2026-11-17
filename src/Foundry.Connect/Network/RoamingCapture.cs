@@ -199,7 +199,8 @@ public sealed class RoamingCapture : IRoamingCapture
             return new NetworkProfileRoamingCaptureRequest(
                 wifi.IsEnterpriseProfileTemplateProtected ? null : ResolveAssetPath(wifi.EnterpriseProfileTemplatePath),
                 source,
-                ResolveConnectivityExpectation(wifi.EnterpriseAuthenticationMode),
+                // Provisioned enterprise Wi-Fi authenticates as the user, so the profile is import-only before OOBE.
+                NetworkProfileRoamingConnectivityExpectation.ImportOnly,
                 ResolveCertificatePaths(certificates),
                 certificates.ClientCertificatePasswordSecret,
                 decryptedXml);
@@ -230,7 +231,8 @@ public sealed class RoamingCapture : IRoamingCapture
         return new NetworkProfileRoamingCaptureRequest(
             ResolveAssetPath(dot1x.ProfileTemplatePath),
             NetworkProfileRoamingProfileSource.ProvisionedWiredDot1x,
-            ResolveConnectivityExpectation(dot1x.AuthenticationMode),
+            // Provisioned wired 802.1X authenticates as the machine before sign-in.
+            NetworkProfileRoamingConnectivityExpectation.DependsOnMachineCredential,
             ResolveCertificatePaths(certificates),
             certificates.ClientCertificatePasswordSecret);
     }
@@ -245,12 +247,6 @@ public sealed class RoamingCapture : IRoamingCapture
             .Where(static path => path is not null && File.Exists(path))
             .Select(static path => path!)
             .ToArray();
-
-    // A machine-only profile authenticates before sign-in; any other mode needs a user and is import-only before OOBE.
-    private static NetworkProfileRoamingConnectivityExpectation ResolveConnectivityExpectation(NetworkAuthenticationMode mode) =>
-        mode == NetworkAuthenticationMode.MachineOnly
-            ? NetworkProfileRoamingConnectivityExpectation.DependsOnMachineCredential
-            : NetworkProfileRoamingConnectivityExpectation.ImportOnly;
 
     // WlanGetProfile returns the key in plain text only to an administrator; otherwise sharedKey/protected stays true
     // and the roamed profile could not be imported elsewhere. A profile without a shared key (open, OWE) is readable.

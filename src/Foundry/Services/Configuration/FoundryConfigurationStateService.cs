@@ -203,7 +203,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
 
             try
             {
-                _ = GenerateDeployConfigurationJson(
+                _ = GenerateDeploySection(
                     deploymentSecretsKey: deploymentSecretsKey,
                     protectionSettings: protectionSettings);
                 return true;
@@ -615,12 +615,11 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    private string GenerateDeployConfigurationJson(
-        TelemetrySettings? telemetryOverride = null,
+    private DeployRuntimeSettings GenerateDeploySection(
         byte[]? deploymentSecretsKey = null,
         DeployProtectionSettings? protectionSettings = null)
     {
-        FoundryConfigurationDocument document = CreateDocumentForDeployGeneration(telemetryOverride);
+        FoundryConfigurationDocument document = Current;
         OobeAccountConfigurationValidationResult validation = oobeAccountSecretStateService.Validate(document.Customization.Oobe);
         if (!validation.IsValid)
         {
@@ -630,8 +629,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         using OobeAccountSecretState oobeAccountSecretState = CreateOobeAccountSecretStateForDeployGeneration(document.Customization.Oobe);
         using DomainJoinSecretState domainSecrets = CreateDomainJoinSecretState(document.DomainJoin);
 
-        return deployConfigurationGenerator.Serialize(
-            deployConfigurationGenerator.Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState, domainSecrets, MediaInputs));
+        return deployConfigurationGenerator.Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState, domainSecrets, MediaInputs);
     }
 
     /// <inheritdoc />
@@ -641,7 +639,7 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
         CancellationToken cancellationToken = default)
     {
         string? authoringVersion = typeof(FoundryApplicationInfo).Assembly.GetName().Version?.ToString(4);
-        FoundryConfigurationDocument document = CreateDocumentForDeployGeneration(telemetryOverride: null);
+        FoundryConfigurationDocument document = Current;
         using OobeAccountSecretState accountSecrets = CreateOobeAccountSecretStateForDeployGeneration(document.Customization.Oobe);
         using DomainJoinSecretState domainSecrets = CreateDomainJoinSecretState(document.DomainJoin);
         char[] password = document.General.DeploymentProtection.IsEnabled
@@ -740,11 +738,6 @@ internal sealed class FoundryConfigurationStateService : IFoundryConfigurationSt
             }
             return CreateDefaultDocument();
         }
-    }
-
-    private FoundryConfigurationDocument CreateDocumentForDeployGeneration(TelemetrySettings? telemetryOverride)
-    {
-        return Current with { Telemetry = telemetryOverride ?? Current.Telemetry };
     }
 
     private OobeAccountSecretState CreateOobeAccountSecretStateForDeployGeneration(OobeSettings settings)

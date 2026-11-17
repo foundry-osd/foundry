@@ -89,14 +89,13 @@ public sealed class ProvisioningStepTests
             {
                 IsEnabled = true,
                 ProfileTemplatePath = "Network\\wired.xml",
-                CertificatePath = "Network\\client.pfx",
-                CertificatePfxPasswordSecret = new SecretEnvelope()
+                ClientCertificate = new ConnectClientCertificateSettings { Path = "Network\\client.pfx", PasswordSecret = new SecretEnvelope() }
             }
         };
         var secrets = new ConnectRuntimeSecrets(
             ConnectSecret.NotProvisioned(),
             ConnectSecret.NotProvisioned(),
-            ConnectSecret.Unavailable(ConnectSecretFailure.MediaKeyMissing));
+            ConnectSecret.Unavailable(ConnectSecretFailure.DecryptionFailed));
 
         ProvisioningOutcome outcome = await CreateStep(directory, configuration, secrets, wired: wired).RunAsync(TestContext.Current.CancellationToken);
 
@@ -121,8 +120,7 @@ public sealed class ProvisioningStepTests
             {
                 IsEnabled = true,
                 ProfileTemplatePath = "Network\\wired.xml",
-                CertificatePath = "Network\\client.pfx",
-                CertificatePfxPasswordSecret = new SecretEnvelope()
+                ClientCertificate = new ConnectClientCertificateSettings { Path = "Network\\client.pfx", PasswordSecret = new SecretEnvelope() }
             }
         };
 
@@ -613,7 +611,7 @@ public sealed class ProvisioningStepTests
         byte[] key = AesGcmEncryption.GenerateKey();
         var secrets = new ConnectRuntimeSecrets(
             ConnectSecret.NotProvisioned(),
-            ConnectSecret.Available("media-keyed-password".ToCharArray()),
+            ConnectSecret.Available("readable-password".ToCharArray()),
             ConnectSecret.NotProvisioned(),
             wifiEnterpriseProfile: ConnectProtectedContent.Locked(MediaSecretEnvelopeProtector.EncryptBytes([1], key, MediaSecretEnvelopeProtector.DeploymentKeyId)),
             protection: new DeployProtectionSettings { IsEnabled = true });
@@ -717,7 +715,7 @@ public sealed class ProvisioningStepTests
     {
         return new ProvisioningStep(
             configuration,
-            Path.Combine(directory.Path, "foundry.connect.config.json"),
+            Path.Combine(directory.Path, "foundry.winpe.config.json"),
             secrets,
             certificates ?? new RecordingCertificateInstaller(),
             wired ?? new RecordingWiredClient(),

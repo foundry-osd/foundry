@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Foundry.WinPE.SystemPreparation;
+using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Serilog;
 using Serilog.Core;
@@ -28,8 +29,8 @@ public sealed class WinPeSystemPreparationTests : IDisposable
     public async Task PrepareSystemAsync_UsesEnvironmentTimeZoneBeforeDeployConfiguration()
     {
         File.WriteAllText(
-            Path.Combine(_root, "Config", "foundry.deploy.config.json"),
-            """{"localization":{"defaultTimeZoneId":"UTC"}}""");
+            Path.Combine(_root, "Config", "foundry.winpe.config.json"),
+            """{"schemaVersion":1,"deploy":{"localization":{"defaultTimeZoneId":"UTC"}}}""");
         var platform = new RecordingPlatform
         {
             EnvironmentTimeZoneId = "Romance Standard Time",
@@ -46,8 +47,8 @@ public sealed class WinPeSystemPreparationTests : IDisposable
     public async Task PrepareSystemAsync_UsesDeployConfigurationBeforePublicIpLookup()
     {
         File.WriteAllText(
-            Path.Combine(_root, "Config", "foundry.deploy.config.json"),
-            """{"localization":{"defaultTimeZoneId":"Central Standard Time"}}""");
+            Path.Combine(_root, "Config", "foundry.winpe.config.json"),
+            """{"schemaVersion":1,"deploy":{"localization":{"defaultTimeZoneId":"Central Standard Time"}},"connect":{"localization":{"defaultTimeZoneId":"UTC"}}}""");
         var platform = new RecordingPlatform
         {
             ValidTimeZoneIds = ["Central Standard Time", "UTC"]
@@ -65,18 +66,21 @@ public sealed class WinPeSystemPreparationTests : IDisposable
     [InlineData(null, "UTC", false)]
     [InlineData("Central Standard Time", "Central Standard Time", false)]
     [InlineData("Central Standard Time", "Central Standard Time", true)]
-    public async Task PrepareSystemAsync_ReadsSerializedDeployConfigurationWithOptionalTimeZone(string? configuredTimeZone, string expectedTimeZone, bool pascalCase)
+    public async Task PrepareSystemAsync_ReadsTheSerializedWinPeConfigurationWithOptionalTimeZone(string? configuredTimeZone, string expectedTimeZone, bool pascalCase)
     {
-        var configuration = new FoundryDeployConfigurationDocument
+        var configuration = new FoundryWinPeConfigurationDocument
         {
-            Localization = new DeployLocalizationSettings { DefaultTimeZoneId = configuredTimeZone }
+            Deploy = new DeployRuntimeSettings
+            {
+                Localization = new DeployLocalizationSettings { DefaultTimeZoneId = configuredTimeZone }
+            }
         };
         string json = JsonSerializer.Serialize(configuration, new JsonSerializerOptions
         {
             PropertyNamingPolicy = pascalCase ? null : JsonNamingPolicy.CamelCase,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         });
-        File.WriteAllText(Path.Combine(_root, "Config", "foundry.deploy.config.json"), json);
+        File.WriteAllText(Path.Combine(_root, "Config", "foundry.winpe.config.json"), json);
         var warnings = new List<string>();
         var platform = new RecordingPlatform { ValidTimeZoneIds = ["UTC", "Central Standard Time"] };
         var preparation = CreatePreparation(platform, warningCallback: warnings.Add);
@@ -89,15 +93,18 @@ public sealed class WinPeSystemPreparationTests : IDisposable
 
     [Theory]
     [InlineData("{}", false)]
-    [InlineData("{\"localization\":null}", false)]
-    [InlineData("{\"localization\":{\"defaultTimeZoneId\":null}}", false)]
-    [InlineData("{\"Localization\":{/* optional */ \"DefaultTimeZoneId\":\"UTC\",},}", false)]
+    [InlineData("{\"deploy\":null}", false)]
+    [InlineData("{\"deploy\":{\"localization\":null}}", false)]
+    [InlineData("{\"deploy\":{\"localization\":{\"defaultTimeZoneId\":null}}}", false)]
+    [InlineData("{\"Deploy\":{\"Localization\":{/* optional */ \"DefaultTimeZoneId\":\"UTC\",},},}", false)]
+    [InlineData("{\"localization\":{\"defaultTimeZoneId\":\"Central Standard Time\"}}", false)]
     [InlineData("{", true)]
-    [InlineData("{\"localization\":42}", true)]
-    [InlineData("{\"localization\":{\"defaultTimeZoneId\":42}}", true)]
+    [InlineData("{\"deploy\":42}", true)]
+    [InlineData("{\"deploy\":{\"localization\":42}}", true)]
+    [InlineData("{\"deploy\":{\"localization\":{\"defaultTimeZoneId\":42}}}", true)]
     public async Task PrepareSystemAsync_WarnsOnlyForMalformedTimeZoneConfiguration(string json, bool expectedWarning)
     {
-        File.WriteAllText(Path.Combine(_root, "Config", "foundry.deploy.config.json"), json);
+        File.WriteAllText(Path.Combine(_root, "Config", "foundry.winpe.config.json"), json);
         var warnings = new List<string>();
         var platform = new RecordingPlatform { ValidTimeZoneIds = ["UTC"] };
         var preparation = CreatePreparation(platform, warningCallback: warnings.Add);

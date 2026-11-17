@@ -4,25 +4,30 @@
 
 using System.IO;
 using System.Text.Json;
+using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Runtime;
+using Foundry.Telemetry;
 using Microsoft.Extensions.Logging;
 using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using ConfigurationSchemaVersions = Foundry.Core.Models.Configuration.ConfigurationSchemaVersions;
 
 namespace Foundry.Deploy.Services.Configuration;
 
+/// <summary>
+/// Reads the Deploy view of <c>foundry.winpe.config.json</c>. A missing file is not a failure: Deploy then starts with its
+/// built-in defaults.
+/// </summary>
 public sealed class DeployConfigurationService : IDeployConfigurationService
 {
-    public const string DefaultConfigurationPath = @"X:\Foundry\Config\foundry.deploy.config.json";
-
     private readonly ILogger<DeployConfigurationService> _logger;
     private readonly BootMediaRuntimeContext _runtimeContext;
     private readonly string _configurationPath;
 
+    /// <summary>Reads the configuration of the booted media, or the <see cref="WinPeConfigurationPath.OverrideEnvironmentVariable"/> override.</summary>
     public DeployConfigurationService(ILogger<DeployConfigurationService> logger)
-        : this(logger, DefaultConfigurationPath)
+        : this(logger, WinPeConfigurationPath.Resolve().Path)
     {
     }
 
@@ -37,7 +42,7 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
         _runtimeContext = runtimeContext;
         _logger = logger;
         _configurationPath = string.IsNullOrWhiteSpace(configurationPath)
-            ? DefaultConfigurationPath
+            ? WinPeWorkspaceLayout.ConfigurationPath
             : configurationPath;
     }
 
@@ -58,10 +63,7 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
 
         try
         {
-            using FileStream stream = File.OpenRead(_configurationPath);
-            FoundryDeployConfigurationDocument? document = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(
-                stream,
-                ConfigurationJsonDefaults.SerializerOptions);
+            FoundryDeployConfigurationDocument? document = ReadDeployView(File.ReadAllText(_configurationPath));
 
             if (document is null)
             {
@@ -79,20 +81,24 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
                 };
             }
 
+            if (WinPeConfigurationSchemaPolicy.Evaluate(document.SchemaVersion) == WinPeConfigurationSchemaDecision.Invalid)
+            {
+                throw new InvalidDataException($"The configuration schema version {document.SchemaVersion} is not valid.");
+            }
+
             Foundry.Deploy.Services.Deployment.Unattend.UnattendCatalog.Validate(document.Unattend, document.Protection?.IsEnabled == true);
             ValidateDomainJoin(document);
 
-            document = DeployConfigurationMigration.ApplySchemaMigrations(document);
             Foundry.Core.Services.Configuration.PreOobeConfigurationValidator.ThrowIfInvalid(new Foundry.Core.Models.Configuration.PreOobeSettings
             { IsEnabled = document.PreOobe.IsEnabled, Actions = document.PreOobe.Actions });
 
-            if (document.SchemaVersion > ConfigurationSchemaVersions.DeployCurrent)
+            if (WinPeConfigurationSchemaPolicy.Evaluate(document.SchemaVersion) == WinPeConfigurationSchemaDecision.Newer)
             {
                 _logger.LogWarning(
                     "Deploy configuration at '{ConfigurationPath}' uses schema version {SchemaVersion}, newer than supported schema version {SupportedSchemaVersion}. Unknown properties will be ignored.",
                     _configurationPath,
                     document.SchemaVersion,
-                    ConfigurationSchemaVersions.DeployCurrent);
+                    ConfigurationSchemaVersions.WinPeCurrent);
             }
 
             bool isEligibleRuntime = _runtimeContext.IsEligible(ReadProvisioningSource(_configurationPath)) &&
@@ -138,7 +144,7 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
 
     private static string? ReadProvisioningSource(string configurationPath)
     {
-        string markerPath = Path.Combine(Path.GetDirectoryName(Path.GetFullPath(configurationPath))!, "foundry.deploy.provisioning-source.txt");
+        string markerPath = Path.Combine(Path.GetDirectoryName(Path.GetFullPath(configurationPath))!, WinPeWorkspaceLayout.ProvisioningSourceFileName);
         try
         {
             return File.ReadAllText(markerPath);
@@ -148,6 +154,14 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
             return null;
         }
     }
+
+    // The view keeps only the shared sections and the deploy section, so a Connect section never affects Deploy startup.
+    // An explicit "telemetry": null disables telemetry: no consent, no data.
+    private static FoundryDeployConfigurationDocument? ReadDeployView(string json) =>
+        WinPeConfigurationReader.ReadModeView(json, WinPeConfigurationReader.DeploySection)
+            .Deserialize<FoundryDeployConfigurationDocument>(ConfigurationJsonDefaults.SerializerOptions) is { } document
+            ? document with { Telemetry = document.Telemetry ?? TelemetrySettings.Disabled }
+            : null;
 
     private static void ValidateDomainJoin(FoundryDeployConfigurationDocument document)
     {

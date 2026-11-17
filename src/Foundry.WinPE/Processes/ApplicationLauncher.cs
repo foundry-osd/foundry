@@ -16,16 +16,11 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
     Action<string>? warning = null, Action<string, Guid, string>? recoverFailure = null,
     Func<ProcessStartInfo, Process?>? startProcess = null, Action<string>? releasePayload = null) : IApplicationLauncher
 {
-    public Task<ApplicationLaunchResult> RunConnectAsync(string executable, string configurationPath,
+    public Task<ApplicationLaunchResult> RunConnectAsync(string executable,
         IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken,
-        Action<int>? processStarted = null, Func<Task>? processReleasing = null)
-    {
-        string[] arguments = File.Exists(configurationPath)
-            ? [WinPeModes.ConnectArgument, "--config", configurationPath]
-            : [WinPeModes.ConnectArgument];
-        return LaunchAsync(executable, "Foundry.Connect", environment, arguments, true, cancellationToken,
+        Action<int>? processStarted = null, Func<Task>? processReleasing = null) =>
+        LaunchAsync(executable, "Foundry.Connect", environment, [WinPeModes.ConnectArgument], true, cancellationToken,
             processStarted, processReleasing);
-    }
 
     public Task<ApplicationLaunchResult> StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment,
         CancellationToken cancellationToken, Action<int>? processStarted = null, Func<Task>? processReleasing = null) =>

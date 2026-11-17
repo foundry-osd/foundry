@@ -1330,7 +1330,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     CustomImages = workspace.MediaCustomImages,
                     PostInstallation = workspace.MediaPostInstallation,
                     CustomDrivers = workspace.MediaCustomDrivers,
-                    DeployConfigurationJson = workspace.DeployConfigurationJson,
+                    WinPeConfigurationJson = workspace.WinPeConfigurationJson,
                     OutputIsoPath = options.IsoOutputPath,
                     IsoTempDirectoryPath = Path.Combine(workspace.Lease.OperationDirectoryPath, "Scratch", "Iso"),
                     Progress = telemetryProgressTracker.CreateFinalMediaProgress(
@@ -1500,7 +1500,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     CustomImages = workspace.MediaCustomImages,
                     PostInstallation = workspace.MediaPostInstallation,
                     CustomDrivers = workspace.MediaCustomDrivers,
-                    DeployConfigurationJson = workspace.DeployConfigurationJson,
+                    WinPeConfigurationJson = workspace.WinPeConfigurationJson,
                     DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
                         new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
                     Progress = telemetryProgressTracker.CreateFinalMediaProgress(
@@ -1571,7 +1571,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     CustomImages = workspace.MediaCustomImages,
                     PostInstallation = workspace.MediaPostInstallation,
                     CustomDrivers = workspace.MediaCustomDrivers,
-                    DeployConfigurationJson = workspace.DeployConfigurationJson,
+                    WinPeConfigurationJson = workspace.WinPeConfigurationJson,
                     DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
                         new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
                     Progress = telemetryProgressTracker.CreateFinalMediaProgress(
@@ -1636,9 +1636,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 Constants.WorkspacesDirectoryPath);
             runtimePayloadProvisioning = AddReleaseRuntimeProvisioning(runtimePayloadProvisioning);
             runtimePayloadProvisioning = runtimePayloadProvisioning.WithDomainJoinRuntime(snapshot.Configuration.DomainJoin.IsEnabled);
-            // Connect and Deploy run from the Foundry.WinPE payload, so both report its source.
-            TelemetrySettings connectTelemetrySettings = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.WinPe) };
-            TelemetrySettings deployTelemetrySettings = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.WinPe) };
+            // The guardian, Connect and Deploy all run from the Foundry.WinPE payload and read one telemetry section.
+            TelemetrySettings telemetrySettings = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.WinPe) };
 
             logger.Debug(
                 "Final media workspace preparation started. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, SignatureMode={SignatureMode}, IncludeWirelessSupport={IncludeWirelessSupport}, IncludeRuntimePayloadInImage={IncludeRuntimePayloadInImage}, DriverVendorCount={DriverVendorCount}, HasCustomDriverDirectory={HasCustomDriverDirectory}, IsAutopilotEnabled={IsAutopilotEnabled}, IsWinPeRuntimeProvisioningEnabled={IsWinPeRuntimeProvisioningEnabled}, WinPeRuntimeSource={WinPeRuntimeSource}, IsPostInstallRuntimeProvisioningEnabled={IsPostInstallRuntimeProvisioningEnabled}, PostInstallRuntimeSource={PostInstallRuntimeSource}",
@@ -1721,13 +1720,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             }
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.GenerateProvisioningPayloads);
-            FoundryConnectProvisioningBundle connectBundle = snapshot.CreateConnectProvisioningBundle(
+            WinPeConfigurationBundle configurationBundle = snapshot.CreateWinPeConfigurationBundle(
                 Path.Combine(operationLease.OperationDirectoryPath, "Provisioning"),
                 deploymentProtectionMaterial,
-                connectTelemetrySettings);
+                telemetrySettings);
             logger.Debug(
                 "Generated local provisioning payloads. ConnectAssetFileCount={ConnectAssetFileCount}, AutopilotProfileCount={AutopilotProfileCount}",
-                connectBundle.AssetFiles.Count,
+                configurationBundle.ConnectAssetFiles.Count,
                 options.IsAutopilotEnabled ? snapshot.Configuration.Autopilot.Profiles.Count : 0);
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.PrepareWinPeWorkspace);
@@ -1736,8 +1735,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     new Progress<WinPeWorkspacePreparationStage>(ReportWorkspacePreparationStage));
 
             ReportPhase(MediaCreationPhase.Preparing, 100);
-            WinPeMountedImageAssetProvisioningOptions assetProvisioning = CreateAssetProvisioningOptions(options, snapshot, tools, connectBundle,
-                deploymentProtectionMaterial, runtimePayloadProvisioning, deployTelemetrySettings, customImages, postInstallation, customDrivers,
+            WinPeMountedImageAssetProvisioningOptions assetProvisioning = CreateAssetProvisioningOptions(options, snapshot, tools, configurationBundle,
+                deploymentProtectionMaterial, runtimePayloadProvisioning, customImages, postInstallation, customDrivers,
                 out NetworkCacheContentSections networkCacheSections);
             WinPeResult<WinPeWorkspacePreparationResult> preparationResult = await workspacePreparationService.PrepareAsync(
                 new WinPeWorkspacePreparationOptions
@@ -1795,7 +1794,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 customImages,
                 postInstallation,
                 customDrivers,
-                assetProvisioning.DeployConfigurationJson!,
+                assetProvisioning.WinPeConfigurationJson,
                 networkCacheSections,
                 EmbedsImportedContent: !NetworkCacheContentPublisher.IsActive(snapshot.Configuration.NetworkCache));
         }
@@ -1810,10 +1809,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         MediaPreflightOptions options,
         BuildSnapshot snapshot,
         WinPeToolPaths tools,
-        FoundryConnectProvisioningBundle connectBundle,
+        WinPeConfigurationBundle configurationBundle,
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
         WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning,
-        TelemetrySettings deployTelemetrySettings,
         WinPeCustomImageMediaLease? customImages,
         WinPeContentPackageMediaLease postInstallation,
         WinPeContentPackageMediaLease? customDrivers,
@@ -1829,38 +1827,33 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             oa3ToolSourcePath = oa3ToolResult.Value;
         }
 
-        string deployConfigurationJson = snapshot.GenerateDeployConfigurationJson(
-            deployTelemetrySettings, deploymentProtectionMaterial.DeploymentKey, deploymentProtectionMaterial.Settings);
+        // The media services bind and split the deploy node only; the shared and Connect sections keep their generated bytes.
+        string configurationJson = configurationBundle.ConfigurationJson;
         if (customImages is not null)
         {
-            deployConfigurationJson = WinPeCustomImageMediaService.BindConfiguration(customImages, deployConfigurationJson);
+            configurationJson = WinPeCustomImageMediaService.BindConfiguration(customImages, configurationJson);
         }
-        deployConfigurationJson = WinPePreOobeMediaService.BindConfiguration(postInstallation, deployConfigurationJson);
+        configurationJson = WinPePreOobeMediaService.BindConfiguration(postInstallation, configurationJson);
         // Driver sets bind last so the configuration written into boot.wim carries all three media generations.
         if (customDrivers is not null)
         {
-            deployConfigurationJson = WinPeCustomDriverSetMediaService.BindConfiguration(customDrivers, deployConfigurationJson);
+            configurationJson = WinPeCustomDriverSetMediaService.BindConfiguration(customDrivers, configurationJson);
         }
 
         // With an active network cache the bound content sections leave the boot image and go into the signed index.
-        (deployConfigurationJson, networkCacheSections) = NetworkCacheBootConfiguration.Split(deployConfigurationJson);
+        (configurationJson, networkCacheSections) = NetworkCacheBootConfiguration.Split(configurationJson);
 
         return new WinPeMountedImageAssetProvisioningOptions
         {
             CurlExecutableSourcePath = ResolveCurlExecutablePath(),
             SevenZipSourceDirectoryPath = embeddedAssetService.GetSevenZipSourceDirectoryPath(),
             IanaWindowsTimeZoneMapJson = embeddedAssetService.GetIanaWindowsTimeZoneMapJson(),
-            FoundryBootstrapConfiguration = new FoundryBootstrapConfigurationDocument
-            {
-                Telemetry = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.WinPe) }
-            },
-            FoundryConnectConfigurationJson = connectBundle.ConfigurationJson,
-            DeployConfigurationJson = deployConfigurationJson,
+            WinPeConfigurationJson = configurationJson,
             DeploymentSecretsKey = deploymentProtectionMaterial.DeploymentKey,
             IsDeploymentProtectionEnabled = deploymentProtectionMaterial.Settings.IsEnabled,
             Unattend = snapshot.Configuration.Unattend,
             UnattendSourcePaths = snapshot.UnattendSourcePaths,
-            FoundryConnectAssetFiles = connectBundle.AssetFiles,
+            FoundryConnectAssetFiles = configurationBundle.ConnectAssetFiles,
             AutopilotProvisioningMode = options.IsAutopilotEnabled
                 ? options.AutopilotProvisioningMode
                 : AutopilotProvisioningMode.JsonProfile,
@@ -1868,9 +1861,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             AutopilotProfiles = options.IsAutopilotEnabled && options.AutopilotProvisioningMode == AutopilotProvisioningMode.JsonProfile
                 ? snapshot.Configuration.Autopilot.Profiles
                 : [],
-            // Both markers keep their runtime readers: the guardian reads Deploy's debug marker and each mode reports its source.
-            ConnectProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.WinPe),
-            DeployProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.WinPe)
+            ProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.WinPe)
         };
     }
 
@@ -2606,7 +2597,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             success,
             failedStepName,
             duration,
-            ResolveRuntimePayloadSource(runtimePayloadProvisioning.WinPe),
             ResolveRuntimePayloadSource(runtimePayloadProvisioning.WinPe),
             diagnostic,
             operationId,
@@ -3531,8 +3521,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     /// <summary>
     /// Holds a prepared media build. The imported content leases always feed the network cache publication; ISO and USB
     /// outputs carry them only when <paramref name="EmbedsImportedContent"/> is set, that is when no network cache serves them.
-    /// <paramref name="DeployConfigurationJson"/> is the boot configuration every output writes: with an active network cache it
-    /// lacks the content sections, which <paramref name="NetworkCacheSections"/> keeps, bound to their manifests, for the index.
+    /// <paramref name="WinPeConfigurationJson"/> is the boot configuration every output writes: with an active network cache its
+    /// <c>deploy</c> node lacks the content sections, which <paramref name="NetworkCacheSections"/> keeps, bound to their manifests, for the index.
     /// </summary>
     private sealed record PreparedMediaWorkspace(
         WinPeWorkspaceLease Lease,
@@ -3542,7 +3532,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeCustomImageMediaLease? CustomImages,
         WinPeContentPackageMediaLease PostInstallation,
         WinPeContentPackageMediaLease? CustomDrivers,
-        string DeployConfigurationJson,
+        string WinPeConfigurationJson,
         NetworkCacheContentSections NetworkCacheSections,
         bool EmbedsImportedContent)
     {

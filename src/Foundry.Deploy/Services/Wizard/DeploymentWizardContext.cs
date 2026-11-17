@@ -11,7 +11,7 @@ using Foundry.Deploy.Services.Startup;
 using Foundry.Deploy.ViewModels;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
+using WinPeNetworkSettings = Foundry.Core.Models.Configuration.WinPeNetworkSettings;
 
 namespace Foundry.Deploy.Services.Wizard;
 
@@ -60,7 +60,7 @@ public sealed class DeploymentWizardContext : IDisposable
     public Foundry.Core.Models.Configuration.Deploy.DeployCustomDriversSettings CustomDrivers { get; private set; } = new();
     public Foundry.Core.Models.Configuration.Deploy.DeployDomainJoinSettings DomainJoin { get; private set; } = new();
     public DeployCompletionSettings Completion { get; private set; } = new();
-    public CoreDeployNetworkSettings Network { get; private set; } = new();
+    public WinPeNetworkSettings Network { get; private set; } = new();
     public DeployOobeSettings Oobe { get; private set; } = new();
     public DeployAppxRemovalSettings AppxRemoval { get; private set; } = new();
     public DeployAiComponentRemovalSettings AiComponentRemoval { get; private set; } = new();
@@ -158,7 +158,7 @@ public sealed class DeploymentWizardContext : IDisposable
         _ = DiscoverCustomDriverSetsAsync(CustomDrivers);
         Preparation.ApplyMachineNamingConfiguration(
             document.Customization.MachineNaming ?? new DeployMachineNamingSettings());
-        Network = document.Network ?? new CoreDeployNetworkSettings();
+        Network = document.Network ?? new WinPeNetworkSettings();
         Oobe = document.Customization.Oobe ?? new DeployOobeSettings();
         AppxRemoval = document.Customization.AppxRemoval ?? new DeployAppxRemovalSettings();
         AiComponentRemoval = document.Customization.AiComponentRemoval ?? new DeployAiComponentRemovalSettings();

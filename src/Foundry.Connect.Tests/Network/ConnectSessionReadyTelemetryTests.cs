@@ -6,6 +6,7 @@ using Foundry.Connect.Network;
 using Foundry.Connect.Telemetry;
 using Foundry.Core.Models.Configuration;
 using Foundry.Telemetry;
+using Foundry.Connect.Configuration;
 
 namespace Foundry.Connect.Tests.Network;
 

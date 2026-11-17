@@ -118,8 +118,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.Equal(expected, result["boot_media_boot_image_source"]);
     }
@@ -135,8 +134,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.Equal("pxe", result["boot_media_target"]);
         Assert.Equal(TelemetryBootMediaUsbOperations.None, result["boot_media_usb_operation"]);
@@ -155,8 +153,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.Equal("usb", result["boot_media_target"]);
         Assert.Equal("create_without_cache", result["boot_media_usb_operation"]);
@@ -171,8 +168,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success,
             failedStepName: success ? null : "stage_post_installation",
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
     [Theory]
     [InlineData(false, CustomImageSource.Custom, true, 0, "catalog")]
@@ -214,8 +210,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success,
             failedStepName: success ? null : "stage_custom_images",
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.Equal(enabled, result["boot_media_custom_images_enabled"]);
         Assert.Equal(expectedCount, result["boot_media_custom_images_count"]);
@@ -252,8 +247,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.Equal(expectedCount, result["boot_media_custom_drivers_count"]);
         Assert.DoesNotContain(result.Values, value => value?.ToString()?.Contains("private-set", StringComparison.Ordinal) == true);
@@ -270,8 +264,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: false,
             failedStepName: "capture_configuration",
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.Equal(false, result["boot_media_custom_images_enabled"]);
         Assert.Equal(0, result["boot_media_custom_images_count"]);
@@ -318,8 +311,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.Equal(enabled, result["unattend_enabled"]);
         Assert.Equal(expectedMode, result["unattend_default_mode"]);
@@ -356,8 +348,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: false,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.Equal(expectedCount, result["unattend_file_count"]);
         Assert.Equal(enabled, result["customization_any_enabled"]);
@@ -382,8 +373,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: false,
             failedStepName: "Create ISO media",
             duration: TimeSpan.FromSeconds(3),
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None,
             diagnostic);
 
         Assert.Equal(WinPeFailureKinds.Process, result["boot_media_failure_kind"]);
@@ -519,8 +509,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: false,
             failedStepName: "Customize boot image",
             duration: TimeSpan.FromSeconds(42.25),
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.Release,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.Debug);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.Debug);
 
         Assert.Equal(TelemetryBootMediaTargets.Usb, result["boot_media_target"]);
         Assert.Equal(TelemetryBootMediaUsbOperations.Create, result["boot_media_usb_operation"]);
@@ -536,7 +525,8 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
         Assert.True((bool)result["boot_media_drivers_dell_enabled"]!);
         Assert.False((bool)result["boot_media_drivers_hp_enabled"]!);
         Assert.True((bool)result["boot_media_drivers_custom_enabled"]!);
-        Assert.Equal(TelemetryRuntimePayloadSources.Release, result["boot_media_connect_runtime_payload_source"]);
+        // The single WinPE runtime source keeps feeding both dashboard properties.
+        Assert.Equal(TelemetryRuntimePayloadSources.Debug, result["boot_media_connect_runtime_payload_source"]);
         Assert.Equal(TelemetryRuntimePayloadSources.Debug, result["boot_media_deploy_runtime_payload_source"]);
         Assert.True((bool)result["autopilot_enabled"]!);
         Assert.Equal("hardware_hash_upload", result["autopilot_provisioning_mode"]);
@@ -625,8 +615,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.False((bool)result["customization_windows_optional_features_enabled"]!);
         Assert.Equal(0, result["customization_windows_optional_features_configured_count"]);
@@ -661,8 +650,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.False((bool)result["customization_windows_optional_features_enabled"]!);
         Assert.Equal(0, result["customization_windows_optional_features_configured_count"]);
@@ -696,8 +684,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.True((bool)result["customization_windows_optional_features_enabled"]!);
         Assert.Equal(1, result["customization_windows_optional_features_disable_count"]);
@@ -732,8 +719,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.False((bool)result["os_selection_enabled"]!);
         Assert.False((bool)result["os_selection_any_configured"]!);
@@ -767,8 +753,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.True((bool)result["customization_any_enabled"]!);
         Assert.True((bool)result["os_selection_enabled"]!);
@@ -794,8 +779,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.Equal(expected, result["boot_media_winpe_keyboard_layout"]);
     }
@@ -819,8 +803,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.False((bool)result["os_selection_enabled"]!);
         Assert.False((bool)result["os_selection_any_configured"]!);
@@ -846,8 +829,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.False((bool)result["autopilot_enabled"]!);
         Assert.Equal("disabled", result["autopilot_provisioning_mode"]);
@@ -901,8 +883,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.Equal(enabled, result["domain_join_enabled"]);
         Assert.Equal(expectedMode, result["domain_join_mode"]);
@@ -931,8 +912,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.Equal("interactive_hardware_hash_upload", result["autopilot_provisioning_mode"]);
     }
@@ -977,8 +957,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.Equal(expectedPreselectCustom, result["autopilot_interactive_preselect_custom"]);
         Assert.Equal(expectedOfferAssignedUser, result["autopilot_interactive_offer_assigned_user"]);
@@ -995,8 +974,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.Release,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.Release);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.Release);
 
         Assert.Equal(TelemetryBootMediaTargets.Usb, result["boot_media_target"]);
         Assert.Equal(TelemetryBootMediaUsbOperations.Update, result["boot_media_usb_operation"]);
@@ -1030,8 +1008,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.True((bool)result["customization_appx_removal_enabled"]!);
         Assert.Equal(2, result["customization_appx_removal_package_count"]);
@@ -1069,8 +1046,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.False((bool)result["customization_ai_component_removal_enabled"]!);
         Assert.False((bool)result["customization_ai_remove_copilot_enabled"]!);
@@ -1113,8 +1089,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.True((bool)result["customization_appx_removal_enabled"]!);
         Assert.Equal(10, result["customization_appx_removal_package_count"]);
@@ -1150,8 +1125,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.False((bool)result["network_wifi_passphrase_configured"]!);
     }
@@ -1188,8 +1162,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.True((bool)result["network_wired_dot1x_certificate_configured"]!);
         Assert.True((bool)result["network_wifi_enterprise_certificate_configured"]!);
@@ -1216,8 +1189,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.True((bool)result["network_any_enabled"]!);
         Assert.True((bool)result["network_profile_roaming_enabled"]!);
@@ -1255,8 +1227,7 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success: true,
             failedStepName: null,
             duration: TimeSpan.Zero,
-            connectRuntimePayloadSource: TelemetryRuntimePayloadSources.None,
-            deployRuntimePayloadSource: TelemetryRuntimePayloadSources.None);
+            runtimePayloadSource: TelemetryRuntimePayloadSources.None);
 
         Assert.Equal(expectedMode, result["deployment_reboot_mode"]);
 
@@ -1373,7 +1344,6 @@ public sealed class BootMediaTelemetryPropertyBuilderTests
             success,
             failedStepName,
             TimeSpan.Zero,
-            TelemetryRuntimePayloadSources.None,
             TelemetryRuntimePayloadSources.None,
             diagnostic,
             adkStatus: adkStatus);

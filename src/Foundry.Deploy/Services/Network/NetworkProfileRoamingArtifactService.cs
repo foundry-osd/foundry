@@ -12,7 +12,6 @@ using Foundry.Core.Services.Autopilot;
 using Foundry.Deploy.Services.Deployment.PreOobe;
 using Foundry.Deploy.Services.Security;
 using Microsoft.Extensions.Logging;
-using CoreDeployNetworkProfileRoamingSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkProfileRoamingSettings;
 
 namespace Foundry.Deploy.Services.Network;
 
@@ -20,10 +19,9 @@ namespace Foundry.Deploy.Services.Network;
 /// Converts Connect-captured network profile roaming artifacts into pre-OOBE data files.
 /// </summary>
 /// <remarks>
-/// Each secret envelope's key identifier decides its key: deployment-keyed envelopes (a protected PFX and its
-/// password) decrypt with the unlocked deployment key, media-keyed ones (schema 5 media) with the media key. Each key is
-/// read lazily, at most once per load, only when an envelope needs it (schema 6 media have no media key file), and zeroed
-/// when the load ends. A damaged protected certificate or password (malformed JSON, an invalid or tampered envelope) skips
+/// Protected roaming material (a protected PFX and its password) is a deployment-keyed envelope: the deployment key is read
+/// lazily, at most once per load, only when an envelope needs it, and zeroed when the load ends. A damaged protected
+/// certificate or password (malformed JSON, an invalid or tampered envelope, or one not keyed to the deployment key) skips
 /// that certificate and its password with one Warning; the rest of roaming continues.
 /// </remarks>
 public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamingArtifactService
@@ -37,33 +35,31 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         WriteIndented = true
     };
 
-    private readonly INetworkSecretKeyReader _networkSecretKeyReader;
     private readonly IDeploymentSecretKeyProvider _deploymentSecretKeyProvider;
     private readonly ILogger<NetworkProfileRoamingArtifactService> _logger;
 
     public NetworkProfileRoamingArtifactService(
-        INetworkSecretKeyReader networkSecretKeyReader,
         IDeploymentSecretKeyProvider deploymentSecretKeyProvider,
         ILogger<NetworkProfileRoamingArtifactService> logger)
     {
-        _networkSecretKeyReader = networkSecretKeyReader;
         _deploymentSecretKeyProvider = deploymentSecretKeyProvider;
         _logger = logger;
     }
 
     public async Task<PreOobeNetworkProfileRoamingPayload?> LoadAsync(
-        CoreDeployNetworkProfileRoamingSettings settings,
+        WinPeNetworkSettings network,
         string workspaceRootPath,
         CancellationToken cancellationToken = default)
     {
-        ArgumentNullException.ThrowIfNull(settings);
+        ArgumentNullException.ThrowIfNull(network);
+        ConnectNetworkProfileRoamingSettings settings = network.ProfileRoaming;
 
         if (!settings.IsAnyEnabled)
         {
             return null;
         }
 
-        string artifactRootPath = ResolveArtifactRootPath(settings);
+        string artifactRootPath = ResolveArtifactRootPath(network);
         string manifestPath = Path.Combine(artifactRootPath, NetworkProfileRoamingArtifacts.ManifestFileName);
         if (!File.Exists(manifestPath))
         {
@@ -125,11 +121,11 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         };
     }
 
-    private static string ResolveArtifactRootPath(CoreDeployNetworkProfileRoamingSettings settings)
+    private static string ResolveArtifactRootPath(WinPeNetworkSettings network)
     {
-        return string.IsNullOrWhiteSpace(settings.ArtifactRootPath)
+        return string.IsNullOrWhiteSpace(network.ArtifactRootPath)
             ? NetworkProfileRoamingArtifacts.DefaultArtifactRootPath
-            : settings.ArtifactRootPath.Trim();
+            : network.ArtifactRootPath.Trim();
     }
 
     private static async Task<NetworkProfileRoamingManifest?> ReadManifestAsync(
@@ -221,11 +217,11 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
         string artifactRootPath,
         string workspaceRootPath,
         IReadOnlyList<NetworkProfileRoamingCertificate> certificates,
-        CoreDeployNetworkProfileRoamingSettings settings,
+        ConnectNetworkProfileRoamingSettings settings,
         CancellationToken cancellationToken)
     {
         var importCertificates = new List<NetworkProfileRoamingImportCertificate>();
-        var secretKeys = new RoamingSecretKeys(_networkSecretKeyReader, _deploymentSecretKeyProvider, workspaceRootPath);
+        var secretKeys = new RoamingSecretKeys(_deploymentSecretKeyProvider, workspaceRootPath);
 
         try
         {
@@ -343,7 +339,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
 
     private static NetworkProfileRoamingTransportSettings? ResolveTransportSettings(
         NetworkProfileRoamingCertificate certificate,
-        CoreDeployNetworkProfileRoamingSettings settings)
+        ConnectNetworkProfileRoamingSettings settings)
     {
         if (NetworkProfileRoamingArtifacts.IsCertificateOwnedBySource(
                 certificate,
@@ -373,7 +369,7 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
             : null;
     }
 
-    // The envelope is parsed before any key is read: its key identifier chooses the key, and schema 6 media have no media key.
+    // The envelope is parsed before the key is read, so a missing or malformed password file never reads the deployment key.
     private static async Task<string?> ReadPfxPasswordAsync(
         string artifactRootPath,
         NetworkProfileRoamingCertificate certificate,
@@ -397,14 +393,10 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
             return null;
         }
 
-        return string.Equals(envelope.KeyId, MediaSecretEnvelopeProtector.DeploymentKeyId, StringComparison.Ordinal)
-            ? MediaSecretEnvelopeProtector.DecryptString(
-                envelope,
-                await secretKeys.GetDeploymentKeyAsync(cancellationToken).ConfigureAwait(false),
-                MediaSecretEnvelopeProtector.DeploymentKeyId)
-            : MediaSecretEnvelopeProtector.DecryptString(
-                envelope,
-                await secretKeys.GetMediaKeyAsync(cancellationToken).ConfigureAwait(false));
+        return MediaSecretEnvelopeProtector.DecryptString(
+            envelope,
+            await secretKeys.GetDeploymentKeyAsync(cancellationToken).ConfigureAwait(false),
+            MediaSecretEnvelopeProtector.DeploymentKeyId);
     }
 
     private static string AddPfxPasswordDataFile(List<PreOobeScriptDataFile> dataFiles, NetworkProfileRoamingCertificate certificate, string password)
@@ -469,30 +461,17 @@ public sealed class NetworkProfileRoamingArtifactService : INetworkProfileRoamin
     }
 
     /// <summary>
-    /// Reads the media key and the deployment key lazily, each at most once per load, and zeroes both in <see cref="Clear"/>.
+    /// Reads the deployment key lazily, at most once per load, and zeroes it in <see cref="Clear"/>.
     /// </summary>
-    private sealed class RoamingSecretKeys(
-        INetworkSecretKeyReader mediaKeys,
-        IDeploymentSecretKeyProvider deploymentKeys,
-        string workspaceRootPath)
+    private sealed class RoamingSecretKeys(IDeploymentSecretKeyProvider deploymentKeys, string workspaceRootPath)
     {
-        private byte[]? _mediaKey;
         private byte[]? _deploymentKey;
-
-        public async Task<byte[]> GetMediaKeyAsync(CancellationToken cancellationToken) =>
-            _mediaKey ??= await mediaKeys.ReadAsync(workspaceRootPath, cancellationToken).ConfigureAwait(false);
 
         public async Task<byte[]> GetDeploymentKeyAsync(CancellationToken cancellationToken) =>
             _deploymentKey ??= await deploymentKeys.ReadAsync(workspaceRootPath, cancellationToken).ConfigureAwait(false);
 
         public void Clear()
         {
-            if (_mediaKey is not null)
-            {
-                CryptographicOperations.ZeroMemory(_mediaKey);
-                _mediaKey = null;
-            }
-
             if (_deploymentKey is not null)
             {
                 CryptographicOperations.ZeroMemory(_deploymentKey);

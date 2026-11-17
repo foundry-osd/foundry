@@ -109,15 +109,14 @@ You must speak and write code exclusively in English.
 
 ## Configuration schema rules
 
-- Treat Foundry authoring configuration, Foundry.Deploy runtime configuration, and Foundry.Connect runtime configuration as separate schema contracts
+- Treat the Foundry authoring configuration and the single Foundry.WinPE runtime configuration (`foundry.winpe.config.json`, `ConfigurationSchemaVersions.WinPeCurrent`, shared root sections plus `connect` and `deploy` sections) as separate schema contracts; the PostInstall plan, checkpoint and manifest contracts are versioned separately
 - Treat the schema versions in the latest published GitHub Release tag as the production baseline; values present only on `main`, pull requests, or intermediate builds are not production versions
-- Set each affected schema integer to its value in the source at the latest published release tag plus one; do not increment the product release number or accumulate multiple unreleased schema bumps
+- Set each affected schema integer to its value in the source at the latest published release tag plus one; do not increment the product release number or accumulate multiple unreleased schema bumps; the Foundry.WinPE runtime contract has no published baseline yet, so its first published value is 1
 - Do not increment a schema version again for additional unreleased changes before the next GitHub Release
 - Keep published schema versions monotonic within each contract
 - Bump a schema version only when the persisted or generated configuration contract changes in a way that affects runtime behavior or compatibility
 - Bump Foundry authoring schema when the user-facing persisted Foundry configuration shape, defaults, migration behavior, or semantic meaning changes
-- Bump Foundry.Deploy runtime schema when Deploy consumes new generated configuration, requires new boot media assets, changes the meaning of an existing Deploy field, or needs older boot media to show a compatibility warning
-- Bump Foundry.Connect runtime schema when Connect consumes new generated configuration, requires new network provisioning assets, changes the meaning of an existing Connect field, or needs older boot media to show a compatibility warning
+- Bump the Foundry.WinPE runtime schema when the Connect or Deploy mode consumes new generated configuration, requires new boot media assets, or changes the meaning of an existing field
 - Do not bump schema versions for UI-only changes, localization updates, documentation changes, styling changes, internal refactors, or bug fixes that do not change the configuration contract
 - Update the affected constant in `src/Foundry.Core/Models/Configuration/ConfigurationSchemaVersions.cs`; generated and runtime configurations share these constants
 - Verify the affected authoring, generator, runtime, and compatibility behavior when changing a schema contract

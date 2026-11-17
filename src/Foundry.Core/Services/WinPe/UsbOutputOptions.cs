@@ -29,10 +29,8 @@ public sealed record UsbOutputOptions
     public IReadOnlyList<WinPeVendorSelection> DriverVendors { get; init; } = [];
     public string DriverCatalogUri { get; init; } = string.Empty;
     public string? CustomDriverDirectoryPath { get; init; }
-    public string? FoundryConnectConfigurationJson { get; init; }
-    public IReadOnlyList<FoundryConnectProvisionedAssetFile> FoundryConnectAssetFiles { get; init; } = [];
-    public string? DeployConfigurationJson { get; init; }
-    public IReadOnlyList<AutopilotProfileSettings> AutopilotProfiles { get; init; } = [];
+    /// <summary>Gets the WinPE configuration provisioned into boot.wim, which the published content packages must be bound to.</summary>
+    public string? WinPeConfigurationJson { get; init; }
     public WinPeRuntimePayloadProvisioningOptions? RuntimePayloadProvisioning { get; init; }
     /// <summary>Retains custom image inputs until data publication and BOOT creation complete.</summary>
     public WinPeCustomImageMediaLease? CustomImages { get; init; }

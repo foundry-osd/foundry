@@ -300,7 +300,7 @@ public sealed class ProvisioningStep : IProvisioningStep
             }
 
             // Not a failure: the profile is built by RefreshWifiAsync once the deployment password is entered. Items that
-            // are already readable (a media-keyed secret next to a locked one) are kept for that refresh.
+            // are already readable (a plain certificate file next to a locked password) are kept for that refresh.
             if (_secrets.IsWifiLocked)
             {
                 keepSecrets = true;

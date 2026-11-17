@@ -10,6 +10,7 @@ using Foundry.Core.Models.Images;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Images;
 using Foundry.Core.Services.WinPe;
+using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.WinPe;
 
@@ -277,12 +278,31 @@ public sealed class WinPeCustomImageMediaTests : IDisposable
         Assert.Equal(4, Assert.Single(manifest.Images[0].Reference.Indexes).Index);
         Assert.DoesNotContain(root, Encoding.UTF8.GetString(package.ManifestBytes));
         Assert.Throws<IOException>(() => File.Open(package.Files[0].SourcePath, FileMode.Open, FileAccess.Write, FileShare.ReadWrite));
-        string bound = WinPeCustomImageMediaService.BindConfiguration(package, """{"authoringVersion":"26.10.3.1","customImages":{"isEnabled":true}}""");
+        string bound = WinPeCustomImageMediaService.BindConfiguration(package, """{"authoringVersion":"26.10.3.1","deploy":{"customImages":{"isEnabled":true}}}""");
         using JsonDocument boundJson = JsonDocument.Parse(bound);
         Assert.Equal("26.10.3.1", boundJson.RootElement.GetProperty("authoringVersion").GetString());
         WinPeCustomImageMediaService.ValidateConfigurationBinding(package, bound);
         Assert.Throws<InvalidDataException>(() => WinPeCustomImageMediaService.ValidateConfigurationBinding(package,
             bound.Replace(package.ManifestHash, new string('0', 64), StringComparison.Ordinal)));
+    }
+
+    [Fact]
+    public async Task Binding_ChangesOnlyTheDeployNodeOfTheWinPeConfiguration()
+    {
+        (CustomImageLibraryService library, CustomImageReference image) = await ImportAsync("bound image");
+        using WinPeCustomImageMediaLease package = await new WinPeCustomImageMediaService().PrepareAsync(library,
+            new CustomImagesSettings { IsEnabled = true, Images = [image] }, TestContext.Current.CancellationToken);
+        string json = WinPeConfigurationTestDocuments.Json(new Foundry.Core.Models.Configuration.Deploy.DeployRuntimeSettings
+        {
+            CustomImages = new() { IsEnabled = true, DefaultImageId = image.Id }
+        });
+
+        string bound = WinPeCustomImageMediaService.BindConfiguration(package, json);
+
+        WinPeConfigurationTestDocuments.AssertOnlyDeployChanged(json, bound);
+        Assert.Equal(package.ManifestId, WinPeConfigurationTestDocuments.Deploy(bound).CustomImages.ManifestId);
+        Assert.Equal(image.Id, WinPeConfigurationTestDocuments.Deploy(bound).CustomImages.DefaultImageId);
+        WinPeCustomImageMediaService.ValidateConfigurationBinding(package, bound);
     }
 
     [Fact]

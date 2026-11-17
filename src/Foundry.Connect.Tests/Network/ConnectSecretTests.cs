@@ -32,10 +32,10 @@ public sealed class ConnectSecretTests
     [Fact]
     public void Unavailable_CarriesFailureAndNoValue()
     {
-        ConnectSecret secret = ConnectSecret.Unavailable(ConnectSecretFailure.MediaKeyMissing);
+        ConnectSecret secret = ConnectSecret.Unavailable(ConnectSecretFailure.DecryptionFailed);
 
         Assert.Equal(ConnectSecretStatus.Unavailable, secret.Status);
-        Assert.Equal(ConnectSecretFailure.MediaKeyMissing, secret.Failure);
+        Assert.Equal(ConnectSecretFailure.DecryptionFailed, secret.Failure);
         Assert.Throws<InvalidOperationException>(() => { _ = secret.Value; });
     }
 

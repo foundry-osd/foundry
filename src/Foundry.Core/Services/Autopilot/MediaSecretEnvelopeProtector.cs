@@ -26,7 +26,8 @@ public static class MediaSecretEnvelopeProtector
     public const string Algorithm = "aes-gcm-v1";
 
     /// <summary>
-    /// Logical key identifier for the media secret key, which exists on older (schema 5) media only.
+    /// Logical key identifier of the retired media secret key. No current media carries this key, so envelopes
+    /// marked with it are only detected to refuse them.
     /// </summary>
     public const string KeyId = "media";
 
@@ -37,9 +38,9 @@ public static class MediaSecretEnvelopeProtector
 
     /// <summary>
     /// Logical key identifiers Deploy accepts for the secrets it decrypts at runtime: the Deploy-only
-    /// <see cref="DeploymentKeyId"/> and the shared <see cref="KeyId"/> media key identifier.
+    /// <see cref="DeploymentKeyId"/>.
     /// </summary>
-    public static readonly IReadOnlyCollection<string> DeployKeyIds = [DeploymentKeyId, KeyId];
+    public static readonly IReadOnlyCollection<string> DeployKeyIds = [DeploymentKeyId];
 
     /// <summary>
     /// Required AES-256 media secret key length.
@@ -55,17 +56,6 @@ public static class MediaSecretEnvelopeProtector
     /// Required AES-GCM authentication tag length.
     /// </summary>
     public const int TagSizeBytes = AesGcmEncryption.TagSizeBytes;
-
-    /// <summary>
-    /// Encrypts a UTF-8 string into the shared media secret envelope format.
-    /// </summary>
-    /// <param name="plaintext">Plaintext value to encrypt.</param>
-    /// <param name="key">Media secret key.</param>
-    /// <returns>Encrypted secret envelope safe to serialize into generated configuration.</returns>
-    public static SecretEnvelope EncryptString(string plaintext, byte[] key)
-    {
-        return EncryptString(plaintext, key, KeyId);
-    }
 
     /// <summary>
     /// Encrypts a UTF-8 string with an explicit logical key identifier.
@@ -85,17 +75,6 @@ public static class MediaSecretEnvelopeProtector
     }
 
     /// <summary>
-    /// Decrypts a media secret envelope into a UTF-8 string.
-    /// </summary>
-    /// <param name="envelope">Encrypted secret envelope.</param>
-    /// <param name="key">Media secret key.</param>
-    /// <returns>Decrypted string value.</returns>
-    public static string DecryptString(SecretEnvelope envelope, byte[] key)
-    {
-        return DecryptString(envelope, key, KeyId);
-    }
-
-    /// <summary>
     /// Decrypts a UTF-8 string with an explicit logical key identifier.
     /// </summary>
     public static string DecryptString(SecretEnvelope envelope, byte[] key, string keyId)
@@ -109,17 +88,6 @@ public static class MediaSecretEnvelopeProtector
         {
             CryptographicOperations.ZeroMemory(plaintextBytes);
         }
-    }
-
-    /// <summary>
-    /// Encrypts binary secret material into the shared media secret envelope format.
-    /// </summary>
-    /// <param name="plaintext">Plaintext bytes to encrypt.</param>
-    /// <param name="key">Media secret key.</param>
-    /// <returns>Encrypted secret envelope safe to serialize into generated configuration.</returns>
-    public static SecretEnvelope EncryptBytes(byte[] plaintext, byte[] key)
-    {
-        return EncryptBytes(plaintext, key, KeyId);
     }
 
     /// <summary>
@@ -142,23 +110,6 @@ public static class MediaSecretEnvelopeProtector
             Tag = Base64Url.Encode(payload.Tag),
             Ciphertext = Base64Url.Encode(payload.Ciphertext)
         };
-    }
-
-    /// <summary>
-    /// Decrypts binary secret material from a media secret envelope.
-    /// </summary>
-    /// <param name="envelope">Encrypted secret envelope.</param>
-    /// <param name="key">Media secret key.</param>
-    /// <returns>Decrypted bytes. The caller is responsible for zeroing the returned buffer.</returns>
-    /// <exception cref="ArgumentException">
-    /// <paramref name="key"/> is not <see cref="KeySizeBytes"/> bytes long.
-    /// </exception>
-    /// <exception cref="CryptographicException">
-    /// The envelope is unsupported, incomplete, not valid base64url, or fails authentication.
-    /// </exception>
-    public static byte[] DecryptBytes(SecretEnvelope envelope, byte[] key)
-    {
-        return DecryptBytes(envelope, key, KeyId);
     }
 
     /// <summary>

@@ -5,19 +5,14 @@
 namespace Foundry.Core.Models.Configuration;
 
 /// <summary>
-/// Represents all files and secrets required to provision Foundry.Connect on boot media.
+/// Represents the <c>connect</c> section of a media build and the network assets staged for it.
 /// </summary>
 public sealed record FoundryConnectProvisioningBundle
 {
     /// <summary>
-    /// Gets the generated Foundry.Connect configuration model.
+    /// Gets the generated <c>connect</c> section of the WinPE runtime configuration.
     /// </summary>
-    public FoundryConnectConfigurationDocument Configuration { get; init; } = new();
-
-    /// <summary>
-    /// Gets the serialized configuration JSON written to media.
-    /// </summary>
-    public string ConfigurationJson { get; init; } = string.Empty;
+    public ConnectRuntimeSettings Configuration { get; init; } = new();
 
     /// <summary>
     /// Gets additional asset files staged beside the configuration.

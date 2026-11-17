@@ -281,7 +281,7 @@ public sealed class DeploymentPreflightTests
         // Debug media without a forwarded archive cannot provide the app, so resolution fails without any network request.
         using var fixture = new PipelineFixture { Mode = mode, InteractiveAutopilot = true };
         Directory.CreateDirectory(Path.Combine(fixture.AutopilotWinPeRoot, "Config"));
-        File.WriteAllText(Path.Combine(fixture.AutopilotWinPeRoot, "Config", "foundry.deploy.provisioning-source.txt"), "debug");
+        File.WriteAllText(Path.Combine(fixture.AutopilotWinPeRoot, "Config", "foundry.winpe.provisioning-source.txt"), "debug");
 
         DeploymentStepResult result = await fixture.RunAsync();
 

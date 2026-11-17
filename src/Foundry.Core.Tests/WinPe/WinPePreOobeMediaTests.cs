@@ -9,6 +9,7 @@ using Foundry.Core.Models.Packages;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Packages;
 using Foundry.Core.Services.WinPe;
+using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.WinPe;
 
@@ -80,17 +81,31 @@ public sealed class WinPePreOobeMediaTests : IDisposable
     }
 
     [Fact]
+    public async Task BindingChangesOnlyTheDeployNodeOfTheWinPeConfiguration()
+    {
+        var (library, settings) = await InputsAsync();
+        using var package = await new WinPePreOobeMediaService().PrepareAsync(library, settings, Cancellation);
+        string json = WinPeConfigurationTestDocuments.Json(new DeployRuntimeSettings
+        {
+            PreOobe = DeployConfigurationGenerator.MapContentSections(new() { PreOobe = settings }).PreOobe
+        });
+
+        string bound = WinPePreOobeMediaService.BindConfiguration(package, json);
+
+        WinPeConfigurationTestDocuments.AssertOnlyDeployChanged(json, bound);
+        Assert.Equal(package.ManifestId, WinPeConfigurationTestDocuments.Deploy(bound).PreOobe.ManifestId);
+        WinPePreOobeMediaService.ValidateConfigurationBinding(package, bound);
+    }
+
+    [Fact]
     public async Task CapacityAndConfigurationFailuresOccurBeforePublication()
     {
         var (library, settings) = await InputsAsync();
         var publisher = new WinPeContentPackageMediaService(ContentPackageKind.PostInstallation, _ => 0);
         var facade = new WinPePreOobeMediaService();
         using var package = await facade.PrepareAsync(library, settings, Cancellation);
-        var generator = new DeployConfigurationGenerator();
-        string config = generator.Serialize(generator.Generate(new() { PreOobe = settings }, null, null, null, "26.10.3.1"));
+        string config = WinPeConfigurationTestDocuments.Json(new DeployConfigurationGenerator().Generate(new() { PreOobe = settings }));
         string bound = WinPePreOobeMediaService.BindConfiguration(package, config);
-        using JsonDocument boundJson = JsonDocument.Parse(bound);
-        Assert.Equal("26.10.3.1", boundJson.RootElement.GetProperty("authoringVersion").GetString());
         WinPePreOobeMediaService.ValidateConfigurationBinding(package, bound);
         Assert.Throws<InvalidDataException>(() => WinPePreOobeMediaService.ValidateConfigurationBinding(package, config));
         string media = Path.Combine(root, "media");

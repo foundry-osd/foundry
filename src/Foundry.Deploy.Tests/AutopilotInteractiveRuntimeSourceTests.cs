@@ -281,7 +281,7 @@ public sealed class AutopilotInteractiveRuntimeSourceTests
         public void MarkDebugMedia()
         {
             Directory.CreateDirectory(Path.Combine(WinPeRoot, "Config"));
-            File.WriteAllText(Path.Combine(WinPeRoot, "Config", "foundry.deploy.provisioning-source.txt"), "debug");
+            File.WriteAllText(Path.Combine(WinPeRoot, "Config", "foundry.winpe.provisioning-source.txt"), "debug");
         }
 
         public void ForwardArchive(string path, string sha256)

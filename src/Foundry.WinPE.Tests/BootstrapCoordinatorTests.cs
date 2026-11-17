@@ -398,7 +398,7 @@ public sealed class BootstrapCoordinatorTests
             return Task.CompletedTask;
         }
 
-        public async Task<ApplicationLaunchResult> RunConnectAsync(string executable, string configurationPath,
+        public async Task<ApplicationLaunchResult> RunConnectAsync(string executable,
             IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken,
             Action<int>? processStarted = null, Func<Task>? processReleasing = null)
         {

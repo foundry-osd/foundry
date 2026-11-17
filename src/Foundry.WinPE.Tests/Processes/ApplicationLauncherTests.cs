@@ -40,7 +40,7 @@ public sealed class ApplicationLauncherTests
                 });
 
             using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-            ApplicationLaunchResult result = await launcher.RunConnectAsync(executable, "missing.json",
+            ApplicationLaunchResult result = await launcher.RunConnectAsync(executable,
                 new Dictionary<string, string?>(), deadline.Token);
 
             Assert.Equal(exitCode, result.ExitCode);
@@ -75,7 +75,7 @@ public sealed class ApplicationLauncherTests
             var exitedWhenReleased = new List<bool>();
 
             using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-            ApplicationLaunchResult result = await launcher.RunConnectAsync(executable, "missing.json",
+            ApplicationLaunchResult result = await launcher.RunConnectAsync(executable,
                 new Dictionary<string, string?>(), deadline.Token,
                 processStarted: processId => reportedProcessId = processId,
                 processReleasing: () =>
@@ -111,7 +111,7 @@ public sealed class ApplicationLauncherTests
             int releases = 0;
 
             using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-            ApplicationLaunchResult result = await launcher.RunConnectAsync(executable, "missing.json",
+            ApplicationLaunchResult result = await launcher.RunConnectAsync(executable,
                 new Dictionary<string, string?>(), deadline.Token,
                 processStarted: _ => throw new InvalidOperationException("secret detail"),
                 processReleasing: () =>
@@ -159,7 +159,7 @@ public sealed class ApplicationLauncherTests
                 releasePayload: File.Delete);
 
             await Assert.ThrowsAnyAsync<OperationCanceledException>(() => launcher.RunConnectAsync(
-                executable, "missing.json", new Dictionary<string, string?>(), cancellation.Token));
+                executable, new Dictionary<string, string?>(), cancellation.Token));
 
             Assert.False(child.HasExited);
             Assert.True(File.Exists(executable));
@@ -195,7 +195,7 @@ public sealed class ApplicationLauncherTests
                 });
 
             using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-            ApplicationLaunchResult result = await launcher.RunConnectAsync(executable, "missing.json",
+            ApplicationLaunchResult result = await launcher.RunConnectAsync(executable,
                 new Dictionary<string, string?>(), deadline.Token);
 
             Assert.True(result.Succeeded);
@@ -326,7 +326,7 @@ public sealed class ApplicationLauncherTests
             });
 
             using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-            await launcher.RunConnectAsync(executable, "missing.json", new Dictionary<string, string?>(), deadline.Token);
+            await launcher.RunConnectAsync(executable, new Dictionary<string, string?>(), deadline.Token);
             await launcher.StartDeployAsync(executable, new Dictionary<string, string?>(), deadline.Token);
 
             // Sharing the startnet console would let Ctrl+C there terminate Connect or Deploy.
@@ -347,9 +347,6 @@ public sealed class ApplicationLauncherTests
         try
         {
             string executable = Path.Combine(directory, "Foundry.WinPE.exe");
-            string configuration = Path.Combine(directory, "Path with spaces", "config.json");
-            Directory.CreateDirectory(Path.GetDirectoryName(configuration)!);
-            File.WriteAllText(configuration, "{}");
             var starts = new List<ProcessStartInfo>();
             using var logger = new LoggerConfiguration().CreateLogger();
             var launcher = new ApplicationLauncher(logger, startProcess: start =>
@@ -364,10 +361,10 @@ public sealed class ApplicationLauncherTests
             var environment = new Dictionary<string, string?> { ["FOUNDRY_DIAGNOSTIC_SESSION_ID"] = "TEST", ["TO_REMOVE"] = null };
 
             using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-            await launcher.RunConnectAsync(executable, configuration, environment, deadline.Token);
+            await launcher.RunConnectAsync(executable, environment, deadline.Token);
             await launcher.StartDeployAsync(executable, environment, deadline.Token);
 
-            Assert.Equal([["--connect", "--config", configuration], ["--deploy"]], starts.Select(start => start.ArgumentList.ToArray()));
+            Assert.Equal([["--connect"], ["--deploy"]], starts.Select(start => start.ArgumentList.ToArray()));
             Assert.All(starts, start =>
             {
                 Assert.Equal(executable, start.FileName);

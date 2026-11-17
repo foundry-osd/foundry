@@ -41,18 +41,9 @@ public enum ConnectSecretFailure
     /// <summary>The secret is not unavailable.</summary>
     None,
 
-    /// <summary>The media secret key file is missing next to the configuration.</summary>
-    MediaKeyMissing,
-
-    /// <summary>The media secret key file exists but could not be read (I/O error or access denied).</summary>
-    MediaKeyUnreadable,
-
-    /// <summary>The media secret key file has an invalid length.</summary>
-    MediaKeyInvalid,
-
     /// <summary>
-    /// The envelope is unsupported, tampered with, not valid base64url, carries an unknown key id, or is deployment-keyed on
-    /// media without a protection block; for an encrypted file, the file is also missing, too large or not an envelope.
+    /// The envelope is unsupported, tampered with, not valid base64url, carries a key id other than the deployment key, or is
+    /// deployment-keyed on media that cannot be unlocked; for an encrypted file, the file is also missing, too large or not an envelope.
     /// </summary>
     DecryptionFailed
 }
@@ -132,7 +123,7 @@ public sealed class ConnectSecret
     public static ConnectSecret NotProvisioned() => new(ConnectSecretStatus.NotProvisioned, ConnectSecretFailure.None, null, null);
 
     /// <summary>Creates an available secret that takes ownership of <paramref name="value"/>; the array is zeroed by <see cref="Clear"/>.</summary>
-    public static ConnectSecret Available(char[] value)
+    internal static ConnectSecret Available(char[] value)
     {
         ArgumentNullException.ThrowIfNull(value);
         return new ConnectSecret(ConnectSecretStatus.Available, ConnectSecretFailure.None, value, null);

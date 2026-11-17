@@ -17,21 +17,22 @@ namespace Foundry.WinPE.Diagnostics;
 internal sealed class BootstrapTelemetry : ILogEventSink
 {
     private BootstrapTelemetryPipeline? pipeline;
-    private string root = string.Empty;
     private TelemetrySettings? settings;
     private string? recoveryRoot;
     private Task recovery = Task.CompletedTask;
     private int terminalOutcomeRecorded;
     private string bootMediaTarget = TelemetryBootMediaTargets.Unknown;
 
-    /// <summary>Enables capture only after valid media preferences; no transport starts here.</summary>
+    /// <summary>
+    /// Enables capture only after valid preferences in <c>foundry.winpe.config.json</c>, the one consent source shared with
+    /// Connect and Deploy; no transport starts here.
+    /// </summary>
     internal void Configure(string winPeRoot, string? cacheRoot)
     {
         try
         {
-            root = winPeRoot;
             bootMediaTarget = cacheRoot is null ? TelemetryBootMediaTargets.Iso : TelemetryBootMediaTargets.Usb;
-            settings = RuntimeTelemetryConsent.ReadBootstrap(ReadFile(Path.Combine(root, "Config", "foundry.bootstrap.config.json")));
+            settings = ReadConsent(winPeRoot, Environment.GetEnvironmentVariable(WinPeConfigurationPath.OverrideEnvironmentVariable));
             recoveryRoot = Path.Combine(cacheRoot ?? winPeRoot, "Logs");
             if (settings is null) { return; }
             string version = typeof(BootstrapTelemetry).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "unknown";
@@ -43,10 +44,18 @@ internal sealed class BootstrapTelemetry : ILogEventSink
                 new(settings.IsRemoteDiagnosticsEnabled, settings.HostUrl, settings.ProjectToken, settings.InstallId),
                 TelemetryContextFactory.CreateRemoteDiagnosticsContext(context),
                 cacheRoot is null ? null : Path.Combine(cacheRoot, "Diagnostics", "Bootstrap", "pending.jsonl"));
-            RestrictChildConsent();
         }
         catch { }
     }
+
+    /// <summary>
+    /// Reads the consent of <c>Config\foundry.winpe.config.json</c> under <paramref name="winPeRoot"/>, or of
+    /// <paramref name="configurationOverride"/> when <see cref="WinPeConfigurationPath.OverrideEnvironmentVariable"/> is set.
+    /// </summary>
+    internal static TelemetrySettings? ReadConsent(string winPeRoot, string? configurationOverride) =>
+        RuntimeTelemetryConsent.ReadSettings(WinPeConfigurationPath.Resolve(
+            Path.Combine(winPeRoot, "Config", WinPeWorkspaceLayout.ConfigurationFileName),
+            configurationOverride).Path);
 
     public void Emit(LogEvent logEvent)
     {
@@ -54,11 +63,9 @@ internal sealed class BootstrapTelemetry : ILogEventSink
         catch { }
     }
 
-    /// <summary>Rechecks child opt-outs before the coordinator permits background delivery.</summary>
+    /// <summary>Starts background delivery once the coordinator permits it.</summary>
     internal void StartDelivery(bool clockUsable)
     {
-        try { RestrictChildConsent(); }
-        catch { return; }
         try
         {
             pipeline?.StartDelivery(clockUsable);
@@ -80,7 +87,6 @@ internal sealed class BootstrapTelemetry : ILogEventSink
         if (Interlocked.Exchange(ref terminalOutcomeRecorded, 1) != 0 || result.Outcome != BootstrapOutcome.Failed) { return; }
         try
         {
-            RestrictChildConsent();
             pipeline?.CaptureTerminalFailure(new Dictionary<string, object?>
             {
                 ["failure_category"] = result.FailureCategory ?? (result.ChildExitCode.HasValue ? "child_exit" : "stage_failed"),
@@ -102,7 +108,6 @@ internal sealed class BootstrapTelemetry : ILogEventSink
     {
         try
         {
-            RestrictChildConsent();
             try { await recovery.WaitAsync(cancellationToken).ConfigureAwait(false); }
             catch { }
             if (pipeline is not null) { await pipeline.ShutdownAsync(cancellationToken).ConfigureAwait(false); }
@@ -110,26 +115,11 @@ internal sealed class BootstrapTelemetry : ILogEventSink
         catch { }
     }
 
-    private void RestrictChildConsent()
-    {
-        if (settings is null || pipeline is null) { return; }
-        string? connectOverride = Environment.GetEnvironmentVariable("FOUNDRY_CONNECT_CONFIG");
-        bool required = !string.IsNullOrWhiteSpace(connectOverride);
-        // Connect resolves relative overrides under its executable directory, which differs from Bootstrap.
-        string? connectJson = required && !Path.IsPathFullyQualified(connectOverride!) ? "invalid" :
-            ReadFile(required ? connectOverride! : Path.Combine(root, "Config", "foundry.connect.config.json"));
-        var consent = RuntimeTelemetryConsent.RestrictChild(connectJson,
-            required, settings.IsEnabled, settings.IsRemoteDiagnosticsEnabled);
-        consent = RuntimeTelemetryConsent.RestrictChild(ReadFile(Path.Combine(root, "Config", "foundry.deploy.config.json")), false, consent.Usage, consent.Diagnostics);
-        pipeline.RestrictConsent(consent.Usage, consent.Diagnostics);
-    }
-
     /// <summary>Called only after the launcher has observed child exit and released upload ownership.</summary>
     internal void RecoverChildFailure(string directory, Guid launchId, string application)
     {
         try
         {
-            RestrictChildConsent();
             var status = RuntimeStartupStatusReader.ReadValidated(Path.Combine(directory, "status.json"));
             pipeline?.ImportChildStartupFailure(directory, launchId, TelemetryApplication(application), childExited: true,
                 expectedRecordId: Guid.TryParse(status?.FailureRecordId, out Guid recordId) ? recordId : null);
@@ -170,18 +160,4 @@ internal sealed class BootstrapTelemetry : ILogEventSink
         "Foundry.Deploy" => TelemetryApps.FoundryDeploy,
         _ => string.Empty
     };
-
-    private static string? ReadFile(string path)
-    {
-        try
-        {
-            using var file = File.OpenRead(path);
-            if (file.Length > 1024 * 1024) { return "invalid"; }
-            using var reader = new StreamReader(file);
-            return reader.ReadToEnd();
-        }
-        catch (FileNotFoundException) { return null; }
-        catch (DirectoryNotFoundException) { return null; }
-        catch { return "invalid"; }
-    }
 }

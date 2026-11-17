@@ -4,8 +4,8 @@
 
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
-using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Tests.Configuration;
 
@@ -38,7 +38,7 @@ public sealed class DeploymentProtectionContractTests
         var authoringService = new FoundryConfigurationService();
 
         FoundryConfigurationDocument authoring = authoringService.Deserialize("{}");
-        FoundryDeployConfigurationDocument runtime = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(
+        FoundryWinPeConfigurationDocument runtime = JsonSerializer.Deserialize<FoundryWinPeConfigurationDocument>(
             "{}",
             ConfigurationJsonDefaults.SerializerOptions)!;
 
@@ -47,35 +47,25 @@ public sealed class DeploymentProtectionContractTests
     }
 
     [Fact]
-    public void DeployGenerator_IncludesProtectionMetadataWithoutPassword()
+    public void WinPeGenerator_WritesTheMediaProtectionBlockWithoutPassword()
     {
-        var generator = new DeployConfigurationGenerator();
-        var protection = new DeployProtectionSettings
+        const string password = "correct horse battery staple";
+        string staging = Path.Combine(Path.GetTempPath(), "Foundry.Core.Tests", Guid.NewGuid().ToString("N"));
+        using DeploymentMediaProtectionMaterial protection = DeploymentMediaProtectionService.CreateProtected(password);
+        try
         {
-            IsEnabled = true,
-            KeyDerivationAlgorithm = "pbkdf2-sha256",
-            Iterations = 600_000,
-            Salt = "c2FsdA",
-            ProtectedDeploymentKey = new SecretEnvelope
-            {
-                Kind = "encrypted",
-                Algorithm = "aes-gcm-v1",
-                KeyId = "deployment-password",
-                Nonce = "bm9uY2U",
-                Tag = "dGFn",
-                Ciphertext = "Y2lwaGVydGV4dA"
-            }
-        };
+            WinPeConfigurationBundle bundle = new WinPeConfigurationGenerator().CreateBundle(
+                new FoundryConfigurationDocument(), MediaInputs.None, staging, protection);
 
-        FoundryDeployConfigurationDocument result = generator.Generate(
-            new FoundryConfigurationDocument(),
-            deploymentSecretsKey: null,
-            protectionSettings: protection);
-        string json = generator.Serialize(result);
-
-        Assert.Equal(protection, result.Protection);
-        Assert.Contains("\"keyDerivationAlgorithm\": \"pbkdf2-sha256\"", json, StringComparison.Ordinal);
-        Assert.DoesNotContain("\"password\":", json, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("\"confirmation\":", json, StringComparison.OrdinalIgnoreCase);
+            Assert.Equal(protection.Settings, bundle.Configuration.Protection);
+            Assert.Contains("\"keyDerivationAlgorithm\": \"pbkdf2-sha256\"", bundle.ConfigurationJson, StringComparison.Ordinal);
+            Assert.DoesNotContain(password, bundle.ConfigurationJson, StringComparison.Ordinal);
+            Assert.DoesNotContain("\"password\":", bundle.ConfigurationJson, StringComparison.OrdinalIgnoreCase);
+            Assert.DoesNotContain("\"confirmation\":", bundle.ConfigurationJson, StringComparison.OrdinalIgnoreCase);
+        }
+        finally
+        {
+            if (Directory.Exists(staging)) Directory.Delete(staging, recursive: true);
+        }
     }
 }

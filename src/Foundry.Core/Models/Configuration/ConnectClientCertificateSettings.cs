@@ -4,9 +4,9 @@
 
 namespace Foundry.Core.Models.Configuration;
 
-/// <summary>Client certificate of one Connect 802.1X profile (schema 6).</summary>
+/// <summary>Client certificate of one Connect 802.1X profile.</summary>
 /// <remarks>
-/// Part of the Connect runtime schema contract. A client PFX carries a private key, so new media stage it encrypted with the
+/// Part of the <c>connect</c> section of the WinPE runtime configuration. A client PFX carries a private key, so new media stage it encrypted with the
 /// deployment key and its password as a deployment-keyed envelope; no plaintext secret is carried.
 /// </remarks>
 public sealed record ConnectClientCertificateSettings
@@ -24,7 +24,7 @@ public sealed record ConnectClientCertificateSettings
     public bool IsContentProtected { get; init; }
 
     /// <summary>
-    /// Gets the encrypted PFX password envelope; schema 6 writes it with key id <c>deployment</c>.
+    /// Gets the encrypted PFX password envelope, written with key id <c>deployment</c>.
     /// </summary>
     public SecretEnvelope? PasswordSecret { get; init; }
 }

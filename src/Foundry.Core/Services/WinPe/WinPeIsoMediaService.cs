@@ -74,11 +74,11 @@ public sealed class WinPeIsoMediaService : IWinPeIsoMediaService
             if (hasExternalContent)
             {
                 if (options.CustomImages is not null)
-                    WinPeCustomImageMediaService.ValidateConfigurationBinding(options.CustomImages, options.DeployConfigurationJson ?? string.Empty);
+                    WinPeCustomImageMediaService.ValidateConfigurationBinding(options.CustomImages, options.WinPeConfigurationJson ?? string.Empty);
                 if (options.PostInstallation is not null)
-                    WinPePreOobeMediaService.ValidateConfigurationBinding(options.PostInstallation, options.DeployConfigurationJson ?? string.Empty);
+                    WinPePreOobeMediaService.ValidateConfigurationBinding(options.PostInstallation, options.WinPeConfigurationJson ?? string.Empty);
                 if (options.CustomDrivers is not null)
-                    WinPeCustomDriverSetMediaService.ValidateConfigurationBinding(options.CustomDrivers, options.DeployConfigurationJson ?? string.Empty);
+                    WinPeCustomDriverSetMediaService.ValidateConfigurationBinding(options.CustomDrivers, options.WinPeConfigurationJson ?? string.Empty);
                 _ = WinPeCustomImageIsoMastering.ResolveOscdimg(preparedWorkspace.Tools);
                 string temporaryRoot = string.IsNullOrWhiteSpace(options.IsoTempDirectoryPath)
                     ? Path.GetDirectoryName(preparedOutputPath)! : options.IsoTempDirectoryPath;

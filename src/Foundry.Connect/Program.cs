@@ -51,8 +51,7 @@ public static class Program
         ConnectStartupStage? stage = null;
         try
         {
-            var configurationPath = ConnectConfigurationService.ResolveConfigurationPath(args);
-            startup = RuntimeStartupDiagnostics.Create(Identity, configurationPath.Path ?? "", configurationPath.IsRequired);
+            startup = RuntimeStartupDiagnostics.Create(Identity, ConnectConfigurationService.ResolveConfiguration().Path);
             RegisterGlobalExceptionHandlers(startup);
             try
             {
@@ -90,7 +89,7 @@ public static class Program
             category = "configuration";
             stage = ConnectStartupStage.Configuration;
             var configurationService = new ConnectConfigurationService(
-                args, new SerilogLoggerFactory(Log.Logger).CreateLogger<ConnectConfigurationService>());
+                new SerilogLoggerFactory(Log.Logger).CreateLogger<ConnectConfigurationService>());
             ConnectConfigurationLoadResult loadResult = configurationService.Load();
             if (!loadResult.IsSuccess)
             {

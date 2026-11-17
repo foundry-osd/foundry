@@ -15,10 +15,10 @@ namespace Foundry.WinPE.Processes;
 internal interface IApplicationLauncher
 {
     /// <summary>
-    /// Runs <paramref name="executable"/> (the guardian's own Foundry.WinPE executable) with <c>--connect</c>, followed by
-    /// <c>--config</c> and <paramref name="configurationPath"/> when that file exists, and waits for it to exit.
+    /// Runs <paramref name="executable"/> (the guardian's own Foundry.WinPE executable) with <c>--connect</c> and waits for it
+    /// to exit; Connect locates <c>foundry.winpe.config.json</c> itself.
     /// </summary>
-    Task<ApplicationLaunchResult> RunConnectAsync(string executable, string configurationPath,
+    Task<ApplicationLaunchResult> RunConnectAsync(string executable,
         IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken,
         Action<int>? processStarted = null, Func<Task>? processReleasing = null);
 

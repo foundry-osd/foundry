@@ -12,7 +12,7 @@ public sealed class ProvisionedWifiProfileResolverTests
     public void ResolveAssetPath_WhenPathIsRelative_UsesConfigurationDirectory()
     {
         using var tempDirectory = new TemporaryDirectory();
-        string configurationPath = Path.Combine(tempDirectory.Path, "config", "foundry.connect.config.json");
+        string configurationPath = Path.Combine(tempDirectory.Path, "config", "foundry.winpe.config.json");
         Directory.CreateDirectory(Path.GetDirectoryName(configurationPath)!);
         File.WriteAllText(configurationPath, "{}");
 

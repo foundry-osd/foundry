@@ -6,9 +6,9 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
-using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Runtime;
 
 namespace Foundry.Core.Services.WinPe;
 
@@ -53,6 +53,16 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         </Key>
         """;
     private static readonly UTF8Encoding Utf8NoBom = new(false);
+
+    // Configuration files of media built before foundry.winpe.config.json; an updated boot image must not keep them.
+    private static readonly string[] RetiredConfigurationFileNames =
+    [
+        "foundry.bootstrap.config.json",
+        "foundry.connect.config.json",
+        "foundry.deploy.config.json",
+        "foundry.connect.provisioning-source.txt",
+        "foundry.deploy.provisioning-source.txt"
+    ];
 
     public async Task<WinPeResult> ProvisionAsync(
         WinPeMountedImageAssetProvisioningOptions options,
@@ -135,37 +145,18 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         WinPeMountedImageAssetProvisioningOptions options,
         CancellationToken cancellationToken)
     {
-        string bootstrapConfigurationJson = JsonSerializer.Serialize(
-            options.FoundryBootstrapConfiguration ?? new FoundryBootstrapConfigurationDocument(),
-            ConfigurationJsonDefaults.SerializerOptions);
-
-        await File.WriteAllTextAsync(
-            Path.Combine(foundryConfigPath, "foundry.bootstrap.config.json"),
-            bootstrapConfigurationJson,
-            Utf8NoBom,
-            cancellationToken).ConfigureAwait(false);
-
-        string connectConfigurationJson = string.IsNullOrWhiteSpace(options.FoundryConnectConfigurationJson)
-            ? CreateFallbackFoundryConnectConfigurationJson()
-            : options.FoundryConnectConfigurationJson;
-        EnsureNoMediaKeyedSecrets(connectConfigurationJson);
-
-        await File.WriteAllTextAsync(
-            Path.Combine(foundryConfigPath, "foundry.connect.config.json"),
-            connectConfigurationJson,
-            Utf8NoBom,
-            cancellationToken).ConfigureAwait(false);
-
-        string deployConfigurationJson = string.IsNullOrWhiteSpace(options.DeployConfigurationJson)
-            ? CreateFallbackDeployConfigurationJson()
-            : options.DeployConfigurationJson;
+        string configurationJson = string.IsNullOrWhiteSpace(options.WinPeConfigurationJson)
+            ? WinPeConfigurationGenerator.Serialize(new FoundryWinPeConfigurationDocument())
+            : options.WinPeConfigurationJson;
+        EnsureNoMediaKeyedSecrets(configurationJson);
 
         await WinPeUnattendAssetProvisioner.ProvisionAsync(
-            foundryConfigPath, options, deployConfigurationJson, cancellationToken).ConfigureAwait(false);
+            foundryConfigPath, options, configurationJson, cancellationToken).ConfigureAwait(false);
 
+        DeleteRetiredConfigurationFiles(foundryConfigPath);
         await File.WriteAllTextAsync(
-            Path.Combine(foundryConfigPath, "foundry.deploy.config.json"),
-            deployConfigurationJson,
+            Path.Combine(foundryConfigPath, WinPeWorkspaceLayout.ConfigurationFileName),
+            configurationJson,
             Utf8NoBom,
             cancellationToken).ConfigureAwait(false);
 
@@ -176,14 +167,8 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             cancellationToken).ConfigureAwait(false);
 
         await File.WriteAllTextAsync(
-            Path.Combine(foundryConfigPath, "foundry.connect.provisioning-source.txt"),
-            FormatProvisioningSource(options.ConnectProvisioningSource),
-            Utf8NoBom,
-            cancellationToken).ConfigureAwait(false);
-
-        await File.WriteAllTextAsync(
-            Path.Combine(foundryConfigPath, "foundry.deploy.provisioning-source.txt"),
-            FormatProvisioningSource(options.DeployProvisioningSource),
+            Path.Combine(foundryConfigPath, WinPeWorkspaceLayout.ProvisioningSourceFileName),
+            FormatProvisioningSource(options.ProvisioningSource),
             Utf8NoBom,
             cancellationToken).ConfigureAwait(false);
 
@@ -208,15 +193,23 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
     }
 
     /// <summary>
-    /// Refuses a Foundry Connect configuration that still carries a media-keyed envelope: new media never ship a media key, so
-    /// such a secret could not be decrypted, and network secrets are protected by the deployment key only.
+    /// Refuses a WinPE configuration that still carries a media-keyed envelope: new media never ship a media key, so such a
+    /// secret could not be decrypted, and every secret is protected by the deployment key only.
     /// </summary>
     /// <exception cref="ArgumentException">The configuration contains a media-keyed envelope.</exception>
-    private static void EnsureNoMediaKeyedSecrets(string connectConfigurationJson)
+    private static void EnsureNoMediaKeyedSecrets(string configurationJson)
     {
-        if (MediaSecretEnvelopeProtector.HasEncryptedSecrets(connectConfigurationJson))
+        if (MediaSecretEnvelopeProtector.HasEncryptedSecrets(configurationJson))
         {
-            throw new ArgumentException("Foundry Connect configuration must not contain media-keyed secrets.");
+            throw new ArgumentException("The WinPE configuration must not contain media-keyed secrets.");
+        }
+    }
+
+    private static void DeleteRetiredConfigurationFiles(string foundryConfigPath)
+    {
+        foreach (string fileName in RetiredConfigurationFileNames)
+        {
+            File.Delete(Path.Combine(foundryConfigPath, fileName));
         }
     }
 
@@ -426,17 +419,6 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         };
     }
 
-    private static string CreateFallbackFoundryConnectConfigurationJson()
-    {
-        // Same schema 6 writer as generated media, so the fallback omits the fields Connect no longer consumes.
-        return new ConnectConfigurationGenerator().Serialize(new FoundryConnectConfigurationDocument());
-    }
-
-    private static string CreateFallbackDeployConfigurationJson()
-    {
-        return JsonSerializer.Serialize(new FoundryDeployConfigurationDocument(), ConfigurationJsonDefaults.SerializerOptions);
-    }
-
     private static WinPeDiagnostic? ValidateOptions(WinPeMountedImageAssetProvisioningOptions? options)
     {
         if (options is null)
@@ -488,12 +470,12 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
                 "Set WinPeMountedImageAssetProvisioningOptions.IanaWindowsTimeZoneMapJson.");
         }
 
-        if (!Enum.IsDefined(options.ConnectProvisioningSource) || !Enum.IsDefined(options.DeployProvisioningSource))
+        if (!Enum.IsDefined(options.ProvisioningSource))
         {
             return new WinPeDiagnostic(
                 WinPeErrorCodes.ValidationFailed,
                 "Provisioning source value is invalid.",
-                $"Connect: '{options.ConnectProvisioningSource}', Deploy: '{options.DeployProvisioningSource}'.");
+                $"Value: '{options.ProvisioningSource}'.");
         }
 
         if (!Enum.IsDefined(options.AutopilotProvisioningMode))

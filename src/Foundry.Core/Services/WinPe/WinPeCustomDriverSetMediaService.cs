@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
@@ -36,29 +35,29 @@ public static class WinPeCustomDriverSetMediaService
         return await MediaService.PrepareAsync(library.Library, packages, cancellationToken).ConfigureAwait(false);
     }
 
-    /// <summary>Writes the manifest identity of <paramref name="package"/> into the <c>CustomDrivers</c> section and validates the result.</summary>
-    public static string BindConfiguration(WinPeContentPackageMediaLease package, string deployConfigurationJson)
+    /// <summary>
+    /// Writes the manifest identity of <paramref name="package"/> into <c>deploy.customDrivers</c> of the WinPE configuration and
+    /// validates the result; the other sections of the document are left as written.
+    /// </summary>
+    public static string BindConfiguration(WinPeContentPackageMediaLease package, string winPeConfigurationJson)
     {
         ThrowIfInvalidLease(package);
-        var configuration = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(deployConfigurationJson, ConfigurationJsonDefaults.SerializerOptions)
-            ?? throw new InvalidDataException("CustomDrivers.InvalidConfiguration");
-        string bound = JsonSerializer.Serialize(configuration with
+        string bound = WinPeConfigurationJson.UpdateDeploy(winPeConfigurationJson, deploy => deploy with
         {
-            CustomDrivers = configuration.CustomDrivers with { ManifestId = package.ManifestId, ManifestHash = package.ManifestHash }
-        }, ConfigurationJsonDefaults.SerializerOptions);
+            CustomDrivers = deploy.CustomDrivers with { ManifestId = package.ManifestId, ManifestHash = package.ManifestHash }
+        }) ?? throw new InvalidDataException("CustomDrivers.InvalidConfiguration");
         ValidateConfigurationBinding(package, bound);
         return bound;
     }
 
     /// <summary>
-    /// Checks that the configuration names this media generation and that its configured set hashes equal the manifest packages.
+    /// Checks that <c>deploy.customDrivers</c> of the WinPE configuration names this media generation and that its configured set hashes equal the manifest packages.
     /// </summary>
     /// <exception cref="InvalidDataException">The configuration is not bound to <paramref name="package"/>.</exception>
-    public static void ValidateConfigurationBinding(WinPeContentPackageMediaLease package, string deployConfigurationJson)
+    public static void ValidateConfigurationBinding(WinPeContentPackageMediaLease package, string winPeConfigurationJson)
     {
         ThrowIfInvalidLease(package);
-        var configuration = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(deployConfigurationJson, ConfigurationJsonDefaults.SerializerOptions);
-        DeployCustomDriversSettings? settings = configuration?.CustomDrivers;
+        DeployCustomDriversSettings? settings = WinPeConfigurationJson.ReadDeploy(winPeConfigurationJson)?.CustomDrivers;
         if (settings is null || settings.ManifestId != package.ManifestId || !package.ManifestHash.Equals(settings.ManifestHash, StringComparison.OrdinalIgnoreCase))
             throw new InvalidDataException("CustomDrivers.InvalidMediaBinding");
         string[] configured = (settings.IsEnabled ? settings.Sets : [])

@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System.IO;
-using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Utilities.Security;
@@ -15,7 +14,6 @@ public sealed class DeploymentSecretKeyProvider(
     IDeploymentSecretKeySession deploymentSecretKeySession) : IDeploymentSecretKeyProvider
 {
     private const string DeploymentKeyRelativePath = @"Config\Secrets\deployment-secrets.key";
-    private const string LegacyKeyRelativePath = @"Config\" + WinPeWorkspaceLayout.MediaSecretsKeyRelativePath;
 
     public async Task<byte[]> ReadAsync(string workspaceRootPath, CancellationToken cancellationToken = default)
     {
@@ -39,10 +37,7 @@ public sealed class DeploymentSecretKeyProvider(
             return deploymentSecretKeySession.GetKeyCopy();
         }
 
-        string deploymentKeyPath = Path.Combine(workspaceRootPath, DeploymentKeyRelativePath);
-        string keyPath = File.Exists(deploymentKeyPath)
-            ? deploymentKeyPath
-            : Path.Combine(workspaceRootPath, LegacyKeyRelativePath);
+        string keyPath = Path.Combine(workspaceRootPath, DeploymentKeyRelativePath);
         if (!File.Exists(keyPath))
         {
             throw new FileNotFoundException("Deploy secret key was not found in the boot media configuration.", keyPath);

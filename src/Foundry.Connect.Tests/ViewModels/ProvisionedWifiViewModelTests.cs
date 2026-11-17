@@ -10,6 +10,7 @@ using Foundry.Connect.ViewModels;
 using Foundry.Core.Models.Configuration;
 using Foundry.Wpf.Controls;
 using Foundry.Wpf.Localization;
+using Foundry.Connect.Configuration;
 
 namespace Foundry.Connect.Tests.ViewModels;
 

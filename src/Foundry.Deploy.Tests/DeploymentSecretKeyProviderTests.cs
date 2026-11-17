@@ -53,23 +53,20 @@ public sealed class DeploymentSecretKeyProviderTests
     }
 
     [Fact]
-    public async Task ReadAsync_WhenLegacyMediaHasOnlyMediaKey_ReturnsLegacyKey()
+    public async Task ReadAsync_WhenOnlyTheRetiredMediaKeyExists_DoesNotUseIt()
     {
         string root = CreateWorkspace();
-        byte[] expected = RandomNumberGenerator.GetBytes(32);
         string keyPath = Path.Combine(root, "Config", "Secrets", "media-secrets.key");
         Directory.CreateDirectory(Path.GetDirectoryName(keyPath)!);
-        await File.WriteAllBytesAsync(keyPath, expected, TestContext.Current.CancellationToken);
+        await File.WriteAllBytesAsync(keyPath, RandomNumberGenerator.GetBytes(32), TestContext.Current.CancellationToken);
         using var session = new DeploymentSecretKeySession();
         var provider = new DeploymentSecretKeyProvider(
-            new FakeConfigurationService(isProtected: false, schemaVersion: 10),
+            new FakeConfigurationService(isProtected: false),
             session);
 
-        byte[] actual = await provider.ReadAsync(root, TestContext.Current.CancellationToken);
+        await Assert.ThrowsAsync<FileNotFoundException>(
+            () => provider.ReadAsync(root, TestContext.Current.CancellationToken));
 
-        Assert.Equal(expected, actual);
-        CryptographicOperations.ZeroMemory(expected);
-        CryptographicOperations.ZeroMemory(actual);
         Directory.Delete(root, recursive: true);
     }
 
@@ -118,15 +115,13 @@ public sealed class DeploymentSecretKeyProviderTests
 
     private sealed class FakeConfigurationService(
         bool isProtected,
-        bool hasWrappedKey = false,
-        int schemaVersion = Foundry.Core.Models.Configuration.ConfigurationSchemaVersions.DeployCurrent) : IDeployConfigurationService
+        bool hasWrappedKey = false) : IDeployConfigurationService
     {
         public DeployConfigurationLoadResult LoadOptional() => new()
         {
             Exists = true,
             Document = new FoundryDeployConfigurationDocument
             {
-                SchemaVersion = schemaVersion,
                 Protection = new DeployProtectionSettings
                 {
                     IsEnabled = isProtected,

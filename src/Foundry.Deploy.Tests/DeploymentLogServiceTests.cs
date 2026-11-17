@@ -20,7 +20,7 @@ public sealed class DeploymentLogServiceTests
         {
             Directory.CreateDirectory(Path.Combine(root, "Payloads"));
             File.WriteAllText(Path.Combine(root, "FoundryDeploy.log"), "diagnostic");
-            File.WriteAllText(Path.Combine(root, "foundry.deploy.config.json"), "configuration");
+            File.WriteAllText(Path.Combine(root, "foundry.winpe.config.json"), "configuration");
             File.WriteAllText(Path.Combine(root, "readme.txt"), "runtime payload");
             File.WriteAllText(Path.Combine(root, "Payloads", "installer.log"), "payload");
             string[] files = DeploymentLogService.EnumerateSupportFiles([root]);

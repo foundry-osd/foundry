@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
+using Foundry.Core.Services.Runtime;
 using Foundry.Core.Services.WinPe;
 using Foundry.Telemetry;
 
@@ -18,56 +19,6 @@ namespace Foundry.Core.Tests.WinPe;
 public sealed class WinPeMountedImageAssetProvisioningServiceTests
 {
     private const string HighPerformancePowerSchemeCommand = "powercfg /s 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c";
-
-    [Theory]
-    [InlineData(false)]
-    [InlineData(true)]
-    public async Task ProvisionAsync_WritesIsolatedBootstrapTelemetryConfiguration(bool provideConfiguration)
-    {
-        using TempMountedImage image = TempMountedImage.Create();
-        string curlSource = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSource, "curl");
-        var configuration = new FoundryBootstrapConfigurationDocument
-        {
-            Telemetry = new TelemetrySettings
-            {
-                IsEnabled = true,
-                IsRemoteDiagnosticsEnabled = false,
-                InstallId = "anonymous-install",
-                RuntimePayloadSource = TelemetryRuntimePayloadSources.Release
-            }
-        };
-
-        WinPeResult result = await new WinPeMountedImageAssetProvisioningService().ProvisionAsync(
-            new WinPeMountedImageAssetProvisioningOptions
-            {
-                MountedImagePath = image.MountedImagePath,
-                CurlExecutableSourcePath = curlSource,
-                IanaWindowsTimeZoneMapJson = "{}",
-                FoundryBootstrapConfiguration = provideConfiguration ? configuration : null,
-                FoundryConnectConfigurationJson = "{\"network\":{\"secret\":\"network-secret\"}}",
-                DeployConfigurationJson = "{\"deploymentSecret\":\"deployment-secret\"}"
-            }, TestContext.Current.CancellationToken);
-
-        Assert.True(result.IsSuccess, result.Error?.Details);
-        string json = await File.ReadAllTextAsync(
-            Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.bootstrap.config.json"),
-            TestContext.Current.CancellationToken);
-        var written = JsonSerializer.Deserialize<FoundryBootstrapConfigurationDocument>(json, ConfigurationJsonDefaults.SerializerOptions);
-        Assert.NotNull(written);
-        Assert.Equal(1, written.SchemaVersion);
-        Assert.Equal(provideConfiguration, written.Telemetry.IsEnabled);
-        Assert.False(written.Telemetry.IsRemoteDiagnosticsEnabled);
-        if (provideConfiguration)
-        {
-            Assert.Equal(configuration.Telemetry, written.Telemetry);
-        }
-
-        using JsonDocument document = JsonDocument.Parse(json);
-        Assert.Equal(["schemaVersion", "telemetry"], document.RootElement.EnumerateObject().Select(property => property.Name).Order());
-        Assert.DoesNotContain("network-secret", json, StringComparison.Ordinal);
-        Assert.DoesNotContain("deployment-secret", json, StringComparison.Ordinal);
-    }
 
     [Fact]
     public async Task Launcher_WhenExecutableCannotStart_RecordsAttemptAndPropagatesFailure()
@@ -215,7 +166,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     }
 
     [Fact]
-    public async Task ProvisionAsync_WritesConfigurationAssetsAndSourceMarkers()
+    public async Task ProvisionAsync_WritesTimeZoneMapNetworkAssetsAndAutopilotProfiles()
     {
         using TempMountedImage image = TempMountedImage.Create();
         string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
@@ -232,8 +183,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 Architecture = WinPeArchitecture.X64,
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{\"zones\":[]}",
-                FoundryConnectConfigurationJson = "{\"schemaVersion\":1}",
-                DeployConfigurationJson = "{\"schemaVersion\":2}",
                 FoundryConnectAssetFiles =
                 [
                     new FoundryConnectProvisionedAssetFile
@@ -253,22 +202,91 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                         ImportedAtUtc = DateTimeOffset.UnixEpoch,
                         JsonContent = "{\"profile\":1}"
                     }
-                ],
-                ConnectProvisioningSource = WinPeProvisioningSource.Debug,
-                DeployProvisioningSource = WinPeProvisioningSource.Release
+                ]
             },
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        Assert.Equal("{\"schemaVersion\":1}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.config.json"), TestContext.Current.CancellationToken));
-        Assert.Equal("{\"schemaVersion\":2}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.config.json"), TestContext.Current.CancellationToken));
-        Assert.Equal("debug", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.provisioning-source.txt"), TestContext.Current.CancellationToken));
-        Assert.Equal("release", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.provisioning-source.txt"), TestContext.Current.CancellationToken));
         Assert.Equal("{\"zones\":[]}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "iana-windows-timezones.json"), TestContext.Current.CancellationToken));
         Assert.Equal("<WLANProfile />", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Wifi", "Profiles", "profile.xml"), TestContext.Current.CancellationToken));
         Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Wired")));
         Assert.False(Directory.Exists(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Network", "Certificates")));
         Assert.Equal("{\"profile\":1}", await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "Autopilot", "Profile1", "AutopilotConfigurationFile.json"), TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WritesOneWinPeConfigurationAndRemovesTheRetiredFiles()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+        string configPath = Path.Combine(image.MountedImagePath, "Foundry", "Config");
+        Directory.CreateDirectory(configPath);
+        string[] retired =
+        [
+            "foundry.bootstrap.config.json",
+            "foundry.connect.config.json",
+            "foundry.deploy.config.json",
+            "foundry.connect.provisioning-source.txt",
+            "foundry.deploy.provisioning-source.txt"
+        ];
+        foreach (string name in retired)
+        {
+            File.WriteAllText(Path.Combine(configPath, name), "stale");
+        }
+
+        string json = WinPeConfigurationGenerator.Serialize(new FoundryWinPeConfigurationDocument { AuthoringVersion = "26.11.1.1" });
+
+        WinPeResult result = await new WinPeMountedImageAssetProvisioningService().ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                CurlExecutableSourcePath = curlSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}",
+                WinPeConfigurationJson = json,
+                ProvisioningSource = WinPeProvisioningSource.Debug
+            },
+            TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        Assert.Equal(json, await File.ReadAllTextAsync(Path.Combine(configPath, WinPeWorkspaceLayout.ConfigurationFileName), TestContext.Current.CancellationToken));
+        Assert.Equal("debug", await File.ReadAllTextAsync(Path.Combine(configPath, WinPeWorkspaceLayout.ProvisioningSourceFileName), TestContext.Current.CancellationToken));
+        Assert.Equal(
+            new[] { "foundry.winpe.config.json", "foundry.winpe.provisioning-source.txt", "iana-windows-timezones.json" },
+            Directory.EnumerateFiles(configPath).Select(path => Path.GetFileName(path)).Order(StringComparer.Ordinal));
+    }
+
+    [Fact]
+    public async Task ProvisionAsync_WhenConfigurationIsMissing_WritesTheDefaultWinPeConfiguration()
+    {
+        using TempMountedImage image = TempMountedImage.Create();
+        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
+        File.WriteAllText(curlSourcePath, "curl");
+
+        WinPeResult result = await new WinPeMountedImageAssetProvisioningService().ProvisionAsync(
+            new WinPeMountedImageAssetProvisioningOptions
+            {
+                MountedImagePath = image.MountedImagePath,
+                CurlExecutableSourcePath = curlSourcePath,
+                IanaWindowsTimeZoneMapJson = "{}"
+            },
+            TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess, result.Error?.Details);
+        string json = await File.ReadAllTextAsync(
+            Path.Combine(image.MountedImagePath, "Foundry", "Config", WinPeWorkspaceLayout.ConfigurationFileName),
+            TestContext.Current.CancellationToken);
+        using JsonDocument document = JsonDocument.Parse(json);
+        JsonElement root = document.RootElement;
+        Assert.Equal(ConfigurationSchemaVersions.WinPeCurrent, root.GetProperty("schemaVersion").GetInt32());
+        Assert.False(root.GetProperty("telemetry").GetProperty("isEnabled").GetBoolean());
+        Assert.False(root.GetProperty("protection").GetProperty("isEnabled").GetBoolean());
+        Assert.True(root.GetProperty("network").TryGetProperty("profileRoaming", out _));
+        Assert.True(root.GetProperty("connect").TryGetProperty("wifi", out _));
+        Assert.True(root.GetProperty("deploy").GetProperty("customization").TryGetProperty("oobe", out _));
+        Assert.Equal("release", await File.ReadAllTextAsync(
+            Path.Combine(image.MountedImagePath, "Foundry", "Config", WinPeWorkspaceLayout.ProvisioningSourceFileName),
+            TestContext.Current.CancellationToken));
     }
 
     [Fact]
@@ -407,74 +425,6 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     }
 
     [Fact]
-    public async Task ProvisionAsync_WhenDeployConfigurationIsMissing_WritesCompleteDefaultDeployConfiguration()
-    {
-        using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
-
-        var service = new WinPeMountedImageAssetProvisioningService();
-
-        WinPeResult result = await service.ProvisionAsync(
-            new WinPeMountedImageAssetProvisioningOptions
-            {
-                MountedImagePath = image.MountedImagePath,
-                Architecture = WinPeArchitecture.X64,
-                CurlExecutableSourcePath = curlSourcePath,
-                IanaWindowsTimeZoneMapJson = "{}"
-            },
-            CancellationToken.None);
-
-        Assert.True(result.IsSuccess, result.Error?.Details);
-        string deployConfigurationJson = await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.deploy.config.json"), TestContext.Current.CancellationToken);
-        using JsonDocument document = JsonDocument.Parse(deployConfigurationJson);
-        JsonElement root = document.RootElement;
-        Assert.Equal(
-            Foundry.Core.Models.Configuration.Deploy.FoundryDeployConfigurationDocument.CurrentSchemaVersion,
-            root.GetProperty("schemaVersion").GetInt32());
-        Assert.True(root.TryGetProperty("localization", out _));
-        Assert.True(root.TryGetProperty("customization", out JsonElement customization));
-        Assert.True(customization.TryGetProperty("oobe", out _));
-        Assert.True(customization.TryGetProperty("appxRemoval", out _));
-        Assert.True(customization.TryGetProperty("aiComponentRemoval", out _));
-        Assert.True(root.TryGetProperty("autopilot", out _));
-    }
-
-    [Fact]
-    public async Task ProvisionAsync_WhenConnectConfigurationIsMissing_WritesCompleteDefaultConnectConfiguration()
-    {
-        using TempMountedImage image = TempMountedImage.Create();
-        string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
-        File.WriteAllText(curlSourcePath, "curl");
-
-        var service = new WinPeMountedImageAssetProvisioningService();
-
-        WinPeResult result = await service.ProvisionAsync(
-            new WinPeMountedImageAssetProvisioningOptions
-            {
-                MountedImagePath = image.MountedImagePath,
-                Architecture = WinPeArchitecture.X64,
-                CurlExecutableSourcePath = curlSourcePath,
-                IanaWindowsTimeZoneMapJson = "{}"
-            },
-            CancellationToken.None);
-
-        Assert.True(result.IsSuccess, result.Error?.Details);
-        string connectConfigurationJson = await File.ReadAllTextAsync(Path.Combine(image.MountedImagePath, "Foundry", "Config", "foundry.connect.config.json"), TestContext.Current.CancellationToken);
-        using JsonDocument document = JsonDocument.Parse(connectConfigurationJson);
-        JsonElement root = document.RootElement;
-        Assert.True(root.TryGetProperty("schemaVersion", out _));
-        Assert.True(root.TryGetProperty("capabilities", out _));
-        Assert.True(root.TryGetProperty("dot1x", out _));
-        Assert.True(root.TryGetProperty("wifi", out _));
-        Assert.False(root.TryGetProperty("internetProbe", out _));
-        Assert.True(root.TryGetProperty("network", out JsonElement network));
-        Assert.True(network.TryGetProperty("profileRoaming", out JsonElement profileRoaming));
-        Assert.False(profileRoaming.GetProperty("wiredDot1x").GetProperty("isEnabled").GetBoolean());
-        Assert.False(profileRoaming.GetProperty("wifi").GetProperty("isEnabled").GetBoolean());
-    }
-
-    [Fact]
     public async Task ProvisionAsync_WhenUnprotectedDeploymentKeyIsProvided_WritesSeparateDeploymentKey()
     {
         using TempMountedImage image = TempMountedImage.Create();
@@ -501,7 +451,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
     }
 
     [Fact]
-    public async Task ProvisionAsync_WhenConnectConfigurationHasMediaKeyedSecret_ReturnsFailure()
+    public async Task ProvisionAsync_WhenConfigurationHasMediaKeyedSecret_ReturnsFailure()
     {
         using TempMountedImage image = TempMountedImage.Create();
         string curlSourcePath = Path.Combine(image.RootPath, "curl.exe");
@@ -516,7 +466,7 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
                 Architecture = WinPeArchitecture.X64,
                 CurlExecutableSourcePath = curlSourcePath,
                 IanaWindowsTimeZoneMapJson = "{}",
-                FoundryConnectConfigurationJson = CreateConnectConfigurationWithEncryptedSecret()
+                WinPeConfigurationJson = CreateConfigurationWithMediaKeyedSecret()
             },
             CancellationToken.None);
 
@@ -695,33 +645,28 @@ public sealed class WinPeMountedImageAssetProvisioningServiceTests
         }
     }
 
-    private static string CreateConnectConfigurationWithEncryptedSecret()
+    private static string CreateConfigurationWithMediaKeyedSecret()
     {
         return """
         {
           "schemaVersion": 1,
-          "capabilities": {
-            "wifiProvisioned": true
-          },
-          "dot1x": {},
-          "wifi": {
-            "isEnabled": true,
-            "ssid": "Corp WiFi",
-            "securityType": "WPA2/WPA3-Personal",
-            "passphraseSecret": {
-              "kind": "encrypted",
-              "algorithm": "aes-gcm-v1",
-              "keyId": "media",
-              "nonce": "AAAAAAAAAAAAAAAA",
-              "tag": "AAAAAAAAAAAAAAAAAAAAAA",
-              "ciphertext": "AAAAAAAA"
+          "connect": {
+            "capabilities": {
+              "wifiProvisioned": true
+            },
+            "wifi": {
+              "isEnabled": true,
+              "ssid": "Corp WiFi",
+              "securityType": "WPA2/WPA3-Personal",
+              "passphraseSecret": {
+                "kind": "encrypted",
+                "algorithm": "aes-gcm-v1",
+                "keyId": "media",
+                "nonce": "AAAAAAAAAAAAAAAA",
+                "tag": "AAAAAAAAAAAAAAAAAAAAAA",
+                "ciphertext": "AAAAAAAA"
+              }
             }
-          },
-          "internetProbe": {
-            "probeUris": [
-              "http://www.msftconnecttest.com/connecttest.txt"
-            ],
-            "timeoutSeconds": 5
           }
         }
         """;

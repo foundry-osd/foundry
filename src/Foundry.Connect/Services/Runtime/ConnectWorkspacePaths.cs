@@ -22,18 +22,6 @@ internal static class ConnectWorkspacePaths
     }
 
     /// <summary>
-    /// Resolves a configuration file path from the WinPE workspace or application directory.
-    /// </summary>
-    /// <param name="fileName">Configuration file name.</param>
-    /// <returns>The resolved configuration file path.</returns>
-    public static string GetConfigFilePath(string fileName)
-    {
-        return IsWinPeRuntime()
-            ? Path.Combine(WinPeWorkspaceLayout.ConfigDirectory, fileName)
-            : Path.Combine(AppContext.BaseDirectory, fileName);
-    }
-
-    /// <summary>
     /// Enumerates directories that may contain startup logs for the current runtime.
     /// </summary>
     /// <returns>Candidate log directories in preferred search order.</returns>

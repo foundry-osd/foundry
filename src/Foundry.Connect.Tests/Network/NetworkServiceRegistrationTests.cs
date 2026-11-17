@@ -76,7 +76,7 @@ public sealed class NetworkServiceRegistrationTests
         services.AddSingleton(configuration);
         services.AddSingleton(ConnectRuntimeSecrets.None());
         services.AddSingleton(RuntimeStartupDiagnostics.Create(
-            new RuntimeApplicationIdentity("Foundry.Connect", TelemetryApps.FoundryConnect, "1.0.0.0"), "", configurationRequired: false));
+            new RuntimeApplicationIdentity("Foundry.Connect", TelemetryApps.FoundryConnect, "1.0.0.0"), ""));
         services.AddFoundryConnectApplicationServices([]);
         return services.BuildServiceProvider();
     }

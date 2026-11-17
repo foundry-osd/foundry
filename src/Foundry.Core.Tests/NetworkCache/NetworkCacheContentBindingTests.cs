@@ -8,6 +8,7 @@ using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.NetworkCache;
 using Foundry.Core.Services.Packages;
 using Foundry.Core.Services.WinPe;
+using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.NetworkCache;
 
@@ -21,8 +22,7 @@ public sealed class NetworkCacheContentBindingTests : IDisposable
     {
         FoundryConfigurationDocument configuration = await ConfigurationAsync();
         using WinPeContentPackageMediaLease postInstallation = await new WinPePreOobeMediaService().PrepareAsync(library!, configuration.PreOobe, Cancellation);
-        var generator = new DeployConfigurationGenerator();
-        string media = WinPePreOobeMediaService.BindConfiguration(postInstallation, generator.Serialize(generator.Generate(configuration, null, null, null, null)));
+        string media = WinPePreOobeMediaService.BindConfiguration(postInstallation, WinPeConfigurationTestDocuments.Json(new DeployConfigurationGenerator().Generate(configuration, null, null, null, null)));
 
         NetworkCacheContentSections sections = NetworkCacheBootConfiguration.BindContentSections(configuration, null, postInstallation, null);
 

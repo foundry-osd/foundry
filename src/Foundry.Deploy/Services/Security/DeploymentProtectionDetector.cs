@@ -5,14 +5,12 @@
 using System.IO;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Configuration;
-using ConfigurationSchemaVersions = Foundry.Core.Models.Configuration.ConfigurationSchemaVersions;
 using SecretEnvelope = Foundry.Core.Models.Configuration.SecretEnvelope;
 
 namespace Foundry.Deploy.Services.Security;
 
 internal static class DeploymentProtectionDetector
 {
-    private const string DeploymentKeyRelativePath = @"Config\Secrets\deployment-secrets.key";
     private const string AutopilotProfilesRelativePath = @"Config\Autopilot";
 
     public static bool RequiresUnlock(DeployProtectionSettings settings)
@@ -72,13 +70,7 @@ internal static class DeploymentProtectionDetector
                 return true;
             }
 
-            if (configuration.Document is null)
-            {
-                return false;
-            }
-
-            return configuration.Document.SchemaVersion >= ConfigurationSchemaVersions.DeployCurrent &&
-                   !File.Exists(Path.Combine(rootPath, DeploymentKeyRelativePath));
+            return false;
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or ArgumentException or NotSupportedException)
         {

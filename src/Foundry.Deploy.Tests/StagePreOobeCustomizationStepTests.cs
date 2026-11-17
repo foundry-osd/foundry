@@ -17,8 +17,6 @@ using Foundry.Deploy.Services.Hardware;
 using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using CoreConfiguration = Foundry.Core.Models.Configuration;
-using CoreDeployNetworkProfileRoamingSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkProfileRoamingSettings;
-using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
 using NetworkProfileRoamingTransportSettings = Foundry.Core.Models.Configuration.NetworkProfileRoamingTransportSettings;
 
 namespace Foundry.Deploy.Tests;
@@ -675,14 +673,14 @@ public sealed class StagePreOobeCustomizationStepTests
                 RootPath = tempDirectory.WorkspaceRoot,
                 Source = "test"
             },
-            Network = new CoreDeployNetworkSettings
+            Network = new Foundry.Core.Models.Configuration.WinPeNetworkSettings
             {
-                ProfileRoaming = new CoreDeployNetworkProfileRoamingSettings
+                ProfileRoaming = new Foundry.Core.Models.Configuration.ConnectNetworkProfileRoamingSettings
                 {
                     WiredDot1x = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true },
-                    Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true },
-                    ArtifactRootPath = tempDirectory.RootPath
-                }
+                    Wifi = new NetworkProfileRoamingTransportSettings { IsEnabled = true, IncludePrivateKeyMaterial = true }
+                },
+                ArtifactRootPath = tempDirectory.RootPath
             }
         };
 

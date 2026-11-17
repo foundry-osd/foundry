@@ -8,7 +8,6 @@ using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 using Foundry.Core.Tests.TestUtilities;
-using Foundry.Telemetry;
 using System.Text.Json;
 
 namespace Foundry.Core.Tests.Configuration;
@@ -95,7 +94,7 @@ public sealed class DeployConfigurationGeneratorTests
             using var emea = DomainJoinCredentialPayloadCodec.Decode(plaintext[1], new("emea.test", "EMEA\\join"));
             Assert.Equal(" exact password ", new string(corp.Password.Span));
             Assert.Equal("p2", new string(emea.Password.Span));
-            Assert.DoesNotContain("exact password", generator.Serialize(media));
+            Assert.DoesNotContain("exact password", SerializeSection(media));
         }
         finally { foreach (byte[] bytes in plaintext) System.Security.Cryptography.CryptographicOperations.ZeroMemory(bytes); }
     }
@@ -132,26 +131,6 @@ public sealed class DeployConfigurationGeneratorTests
             new() { Id = "emea", DomainName = "emea.test", AccountName = "EMEA\\join" }
         ]
     };
-
-    [Theory]
-    [InlineData("26.10.3.1")]
-    [InlineData(null)]
-    public void Generate_PropagatesOptionalAuthoringVersionToRuntimeJson(string? authoringVersion)
-    {
-        var generator = new DeployConfigurationGenerator();
-        FoundryDeployConfigurationDocument configuration = generator.Generate(new(), null, null, null, authoringVersion);
-        using JsonDocument json = JsonDocument.Parse(generator.Serialize(configuration));
-
-        Assert.Equal(authoringVersion, configuration.AuthoringVersion);
-        if (authoringVersion is null)
-        {
-            Assert.False(json.RootElement.TryGetProperty("authoringVersion", out _));
-        }
-        else
-        {
-            Assert.Equal("26.10.3.1", json.RootElement.GetProperty("authoringVersion").GetString());
-        }
-    }
 
     [Theory]
     [InlineData(true, true, AutopilotProvisioningMode.HardwareHashUpload, true, true)]
@@ -194,7 +173,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         };
 
-        FoundryDeployConfigurationDocument result = generator.Generate(document);
+        DeployRuntimeSettings result = generator.Generate(document);
 
         Assert.False(result.Completion.AutomaticRebootEnabled);
         Assert.Equal(42, result.Completion.AutomaticRebootDelaySeconds);
@@ -214,7 +193,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         };
 
-        FoundryDeployConfigurationDocument result = generator.Generate(document);
+        DeployRuntimeSettings result = generator.Generate(document);
 
         Assert.Equal(DeploymentRebootDelay.DefaultSeconds, result.Completion.AutomaticRebootDelaySeconds);
     }
@@ -276,7 +255,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         };
 
-        FoundryDeployConfigurationDocument result = generator.Generate(document);
+        DeployRuntimeSettings result = generator.Generate(document);
 
         DeployMachineNamingSettings naming = result.Customization.MachineNaming;
         Assert.Equal(MachineNamingMode.Composed, naming.Mode);
@@ -329,60 +308,6 @@ public sealed class DeployConfigurationGeneratorTests
         };
 
         Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
-    }
-
-    [Fact]
-    public void Generate_WhenNetworkProfileRoamingIsDisabled_DisablesDeployRoaming()
-    {
-        var generator = new DeployConfigurationGenerator();
-
-        FoundryDeployConfigurationDocument result = generator.Generate(new FoundryConfigurationDocument());
-
-        Assert.False(result.Network.ProfileRoaming.WiredDot1x.IsEnabled);
-        Assert.False(result.Network.ProfileRoaming.Wifi.IsEnabled);
-    }
-
-    [Fact]
-    public void Generate_WhenOnlyWifiRoamingIsEnabled_PropagatesIndependentDeployRoaming()
-    {
-        var generator = new DeployConfigurationGenerator();
-
-        FoundryDeployConfigurationDocument result = generator.Generate(new FoundryConfigurationDocument
-        {
-            Network = new NetworkSettings
-            {
-                RoamWiredDot1xProfileToWindows = false,
-                RoamWifiProfileToWindows = true,
-                RoamWifiPrivateKeyMaterialToWindows = true
-            }
-        });
-
-        Assert.False(result.Network.ProfileRoaming.WiredDot1x.IsEnabled);
-        Assert.False(result.Network.ProfileRoaming.WiredDot1x.IncludePrivateKeyMaterial);
-        Assert.True(result.Network.ProfileRoaming.Wifi.IsEnabled);
-        Assert.True(result.Network.ProfileRoaming.Wifi.IncludePrivateKeyMaterial);
-    }
-
-    [Fact]
-    public void Generate_PropagatesTelemetrySettings()
-    {
-        var generator = new DeployConfigurationGenerator();
-        var telemetry = new TelemetrySettings
-        {
-            IsEnabled = false,
-            IsRemoteDiagnosticsEnabled = true,
-            InstallId = "install-id",
-            HostUrl = TelemetryDefaults.PostHogEuHost,
-            ProjectToken = "project-token",
-            RuntimePayloadSource = TelemetryRuntimePayloadSources.Release
-        };
-
-        var result = generator.Generate(new FoundryConfigurationDocument { Telemetry = telemetry });
-
-        Assert.Same(telemetry, result.Telemetry);
-        Assert.True(result.Telemetry.IsRemoteDiagnosticsEnabled);
-        using JsonDocument serialized = JsonDocument.Parse(generator.Serialize(result));
-        Assert.True(serialized.RootElement.GetProperty("telemetry").GetProperty("isRemoteDiagnosticsEnabled").GetBoolean());
     }
 
     [Fact]
@@ -602,7 +527,7 @@ public sealed class DeployConfigurationGeneratorTests
         }
         else
         {
-            FoundryDeployConfigurationDocument result = generator.Generate(
+            DeployRuntimeSettings result = generator.Generate(
                 document, mediaProtection.DeploymentKey, mediaProtection.Settings, secretState);
             Assert.True(result.Customization.Oobe.EnableAdministratorAccount);
             Assert.Empty(result.Customization.Oobe.AdditionalAccounts);
@@ -650,7 +575,7 @@ public sealed class DeployConfigurationGeneratorTests
         secretState.SetAdditionalAccountPassword("account-1", "TechPassword123!");
         secretState.SetAdditionalAccountConfirmation("account-1", "TechPassword123!");
 
-        FoundryDeployConfigurationDocument result = generator.Generate(
+        DeployRuntimeSettings result = generator.Generate(
             document,
             mediaProtection.DeploymentKey,
             mediaProtection.Settings,
@@ -682,7 +607,7 @@ public sealed class DeployConfigurationGeneratorTests
                         MediaSecretEnvelopeProtector.DeploymentKeyId));
             });
 
-        string json = generator.Serialize(result);
+        string json = SerializeSection(result);
         Assert.DoesNotContain("AdminPassword123!", json, StringComparison.Ordinal);
         Assert.DoesNotContain("TechPassword123!", json, StringComparison.Ordinal);
     }
@@ -714,7 +639,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         };
 
-        FoundryDeployConfigurationDocument result = generator.Generate(
+        DeployRuntimeSettings result = generator.Generate(
             document,
             mediaProtection.DeploymentKey,
             mediaProtection.Settings,
@@ -1177,7 +1102,7 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
-    public void Serialize_WhenWinPeTimeZoneIsSet_PreservesBootstrapConfigurationPath()
+    public void Serialize_WhenDefaultTimeZoneIsSet_WritesLocalizationDefaultTimeZoneId()
     {
         var generator = new DeployConfigurationGenerator();
         var document = generator.Generate(new FoundryConfigurationDocument
@@ -1188,7 +1113,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         });
 
-        string json = generator.Serialize(document);
+        string json = SerializeSection(document);
 
         using JsonDocument configuration = JsonDocument.Parse(json);
         Assert.Equal("Romance Standard Time", configuration.RootElement
@@ -1312,7 +1237,7 @@ public sealed class DeployConfigurationGeneratorTests
         Assert.Equal(expiration, result.Autopilot.HardwareHashUpload.ActiveCertificateExpiresOnUtc);
         Assert.Equal("Sales", result.Autopilot.HardwareHashUpload.DefaultGroupTag);
 
-        string json = generator.Serialize(result);
+        string json = SerializeSection(result);
         Assert.DoesNotContain("knownGroupTags", json, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -1331,7 +1256,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         };
 
-        FoundryDeployConfigurationDocument result = generator.Generate(document, deploymentSecretsKey: [1, 2, 3]);
+        DeployRuntimeSettings result = generator.Generate(document, deploymentSecretsKey: [1, 2, 3]);
 
         Assert.True(result.Autopilot.IsEnabled);
         Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, result.Autopilot.ProvisioningMode);
@@ -1345,7 +1270,7 @@ public sealed class DeployConfigurationGeneratorTests
         Assert.Null(result.Autopilot.HardwareHashUpload.CertificatePfxSecret);
         Assert.Null(result.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret);
 
-        string json = generator.Serialize(result);
+        string json = SerializeSection(result);
         Assert.Contains("\"provisioningMode\": \"interactiveHardwareHashUpload\"", json, StringComparison.Ordinal);
         Assert.DoesNotContain("certificatePfxSecret", json, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("certificatePfxPasswordSecret", json, StringComparison.OrdinalIgnoreCase);
@@ -1405,7 +1330,7 @@ public sealed class DeployConfigurationGeneratorTests
                 }
             };
 
-            FoundryDeployConfigurationDocument result = generator.Generate(
+            DeployRuntimeSettings result = generator.Generate(
                 document, mediaKey, null, null, null, TestFileReferences.Resolving(pfxPath) with { AutopilotPfxPassword = "PfxPassword-DoNotLeak" });
 
             Assert.NotNull(result.Autopilot.HardwareHashUpload.CertificatePfxSecret);
@@ -1423,7 +1348,7 @@ public sealed class DeployConfigurationGeneratorTests
                     mediaKey,
                     MediaSecretEnvelopeProtector.DeploymentKeyId));
 
-            string json = generator.Serialize(result);
+            string json = SerializeSection(result);
             Assert.DoesNotContain(Convert.ToBase64String(pfxBytes), json, StringComparison.Ordinal);
             Assert.DoesNotContain("PfxPassword-DoNotLeak", json, StringComparison.Ordinal);
         }
@@ -1571,4 +1496,7 @@ public sealed class DeployConfigurationGeneratorTests
             DefaultGroupTag = "Sales"
         };
     }
+
+    private static string SerializeSection(Foundry.Core.Models.Configuration.Deploy.DeployRuntimeSettings section) =>
+        System.Text.Json.JsonSerializer.Serialize(section, ConfigurationJsonDefaults.SerializerOptions);
 }

@@ -81,7 +81,7 @@ public static class WifiSecurityClassifier
     }
 
     /// <summary>
-    /// Maps the schema-5 <c>wifi.securityType</c> value to a profile security.
+    /// Maps the configured <c>wifi.securityType</c> value to a profile security.
     /// </summary>
     /// <param name="securityType">Configured value; a type name, never a secret, so it is trimmed.</param>
     /// <returns>The profile security, or <see langword="null"/> for enterprise, unknown or missing values.</returns>

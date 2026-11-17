@@ -8,7 +8,6 @@ using System.Text;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
-using Foundry.Core.Models.Network;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Images;
 using Foundry.Core.Services.NetworkCache;
@@ -17,35 +16,36 @@ using Foundry.Core.Services.Sharing;
 namespace Foundry.Core.Services.Configuration;
 
 /// <summary>
-/// Generates the reduced Foundry.Deploy runtime configuration from Foundry configuration settings.
+/// Generates the <c>deploy</c> section of the WinPE runtime configuration (<see cref="DeployRuntimeSettings"/>) from Foundry
+/// configuration settings; <see cref="WinPeConfigurationGenerator"/> composes it into <c>foundry.winpe.config.json</c>.
 /// </summary>
 public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
 {
     /// <inheritdoc />
-    public FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document)
+    public DeployRuntimeSettings Generate(FoundryConfigurationDocument document)
     {
         return Generate(document, deploymentSecretsKey: null, protectionSettings: null, oobeAccountSecretState: null);
     }
 
     /// <summary>
-    /// Generates the reduced Foundry.Deploy runtime configuration and embeds encrypted media-only secrets when required.
+    /// Generates the <c>deploy</c> section and embeds encrypted media-only secrets when required.
     /// </summary>
     /// <param name="document">User-facing Foundry configuration.</param>
     /// <param name="deploymentSecretsKey">Deploy secret key used to encrypt boot-media-only secrets.</param>
-    /// <returns>Reduced Foundry.Deploy configuration document.</returns>
-    public FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document, byte[]? deploymentSecretsKey)
+    /// <returns>The <c>deploy</c> section of the WinPE runtime configuration.</returns>
+    public DeployRuntimeSettings Generate(FoundryConfigurationDocument document, byte[]? deploymentSecretsKey)
     {
         return Generate(document, deploymentSecretsKey, protectionSettings: null, oobeAccountSecretState: null);
     }
 
     /// <summary>
-    /// Generates the reduced Foundry.Deploy runtime configuration with Deploy secrets and protection metadata.
+    /// Generates the <c>deploy</c> section with Deploy secrets and protection metadata.
     /// </summary>
     /// <param name="document">User-facing Foundry configuration.</param>
     /// <param name="deploymentSecretsKey">Deploy secret key used to encrypt boot-media-only Deploy secrets.</param>
     /// <param name="protectionSettings">Deployment media password-protection metadata.</param>
-    /// <returns>Reduced Foundry.Deploy configuration document.</returns>
-    public FoundryDeployConfigurationDocument Generate(
+    /// <returns>The <c>deploy</c> section of the WinPE runtime configuration.</returns>
+    public DeployRuntimeSettings Generate(
         FoundryConfigurationDocument document,
         byte[]? deploymentSecretsKey,
         DeployProtectionSettings? protectionSettings)
@@ -54,33 +54,30 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
     }
 
     /// <inheritdoc />
-    public FoundryDeployConfigurationDocument Generate(
+    public DeployRuntimeSettings Generate(
+        FoundryConfigurationDocument document,
+        byte[]? deploymentSecretsKey,
+        DeployProtectionSettings? protectionSettings,
+        OobeAccountSecretState? oobeAccountSecretState) =>
+        Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState, null);
+
+    /// <inheritdoc />
+    public DeployRuntimeSettings Generate(
         FoundryConfigurationDocument document,
         byte[]? deploymentSecretsKey,
         DeployProtectionSettings? protectionSettings,
         OobeAccountSecretState? oobeAccountSecretState,
-        string? authoringVersion = null) =>
-        Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState, null, authoringVersion);
+        DomainJoinSecretState? domainJoinSecretState) =>
+        Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState, domainJoinSecretState, MediaInputs.None);
 
     /// <inheritdoc />
-    public FoundryDeployConfigurationDocument Generate(
+    public DeployRuntimeSettings Generate(
         FoundryConfigurationDocument document,
         byte[]? deploymentSecretsKey,
         DeployProtectionSettings? protectionSettings,
         OobeAccountSecretState? oobeAccountSecretState,
         DomainJoinSecretState? domainJoinSecretState,
-        string? authoringVersion = null) =>
-        Generate(document, deploymentSecretsKey, protectionSettings, oobeAccountSecretState, domainJoinSecretState, MediaInputs.None, authoringVersion);
-
-    /// <inheritdoc />
-    public FoundryDeployConfigurationDocument Generate(
-        FoundryConfigurationDocument document,
-        byte[]? deploymentSecretsKey,
-        DeployProtectionSettings? protectionSettings,
-        OobeAccountSecretState? oobeAccountSecretState,
-        DomainJoinSecretState? domainJoinSecretState,
-        MediaInputs inputs,
-        string? authoringVersion = null)
+        MediaInputs inputs)
     {
         ArgumentNullException.ThrowIfNull(document);
         ArgumentNullException.ThrowIfNull(inputs);
@@ -105,12 +102,10 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             throw new InvalidOperationException("Network cache configuration is not ready for deployment media.");
         NetworkCacheContentSections contentSections = MapContentSections(document);
 
-        return new FoundryDeployConfigurationDocument
+        return new DeployRuntimeSettings
         {
-            AuthoringVersion = authoringVersion,
             DomainJoin = MapDomainJoinSettings(document.DomainJoin, deploymentSecretsKey, domainJoinSecretState),
             NetworkCache = MapNetworkCacheSettings(document.NetworkCache, deploymentSecretsKey, inputs.NetworkCachePasswords, inputs.NetworkCacheIndex),
-            Protection = protectionSettings ?? new DeployProtectionSettings(),
             PreOobe = contentSections.PreOobe,
             CustomImages = contentSections.CustomImages,
             CustomDrivers = contentSections.CustomDrivers,
@@ -136,23 +131,6 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             Localization = new DeployLocalizationSettings
             {
                 DefaultTimeZoneId = document.Localization.DefaultTimeZoneId
-            },
-            Network = new DeployNetworkSettings
-            {
-                ProfileRoaming = new DeployNetworkProfileRoamingSettings
-                {
-                    WiredDot1x = new NetworkProfileRoamingTransportSettings
-                    {
-                        IsEnabled = document.Network.RoamWiredDot1xProfileToWindows,
-                        IncludePrivateKeyMaterial = document.Network.RoamWiredDot1xPrivateKeyMaterialToWindows
-                    },
-                    Wifi = new NetworkProfileRoamingTransportSettings
-                    {
-                        IsEnabled = document.Network.RoamWifiProfileToWindows,
-                        IncludePrivateKeyMaterial = document.Network.RoamWifiPrivateKeyMaterialToWindows
-                    },
-                    ArtifactRootPath = NetworkProfileRoamingArtifacts.DefaultArtifactRootPath
-                }
             },
             Customization = new DeployCustomizationSettings
             {
@@ -212,8 +190,7 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
                         OfferAssignedUser = document.Autopilot.Interactive.OfferAssignedUser
                     }
                     : new DeployAutopilotInteractiveSettings()
-            },
-            Telemetry = document.Telemetry
+            }
         };
     }
 
@@ -368,13 +345,6 @@ public sealed class DeployConfigurationGenerator : IDeployConfigurationGenerator
             RestartExitCodes = process.RestartExitCodes.ToArray()
         } : null
     };
-
-    /// <inheritdoc />
-    public string Serialize(FoundryDeployConfigurationDocument document)
-    {
-        ArgumentNullException.ThrowIfNull(document);
-        return JsonSerializer.Serialize(document, ConfigurationJsonDefaults.SerializerOptions);
-    }
 
     private static DeployAutopilotHardwareHashUploadSettings CreateDeployHardwareHashUploadSettings(
         AutopilotSettings autopilot,

@@ -12,8 +12,7 @@ public sealed class ConfigurationSchemaVersionsTests
     public void CurrentSchemaVersions_MatchNextPublishedContractVersions()
     {
         Assert.Equal(19, ConfigurationSchemaVersions.FoundryCurrent);
-        Assert.Equal(17, ConfigurationSchemaVersions.DeployCurrent);
-        Assert.Equal(6, ConfigurationSchemaVersions.ConnectCurrent);
+        Assert.Equal(1, ConfigurationSchemaVersions.WinPeCurrent);
     }
 
 }

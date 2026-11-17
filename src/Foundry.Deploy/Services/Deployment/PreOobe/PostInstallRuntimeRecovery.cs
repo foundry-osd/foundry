@@ -135,7 +135,7 @@ internal sealed class PostInstallRuntimeRecovery(string winPeRoot, string deploy
     /// <summary>Returns whether Deploy runs from debug media, which never download a published PostInstall runtime.</summary>
     internal bool IsDebugMedia()
     {
-        string provisioning = Path.Combine(winPeRoot, "Config", "foundry.deploy.provisioning-source.txt");
+        string provisioning = Path.Combine(winPeRoot, "Config", WinPeWorkspaceLayout.ProvisioningSourceFileName);
         return File.Exists(provisioning) && File.ReadAllText(provisioning).Trim().Equals("debug", StringComparison.OrdinalIgnoreCase);
     }
 

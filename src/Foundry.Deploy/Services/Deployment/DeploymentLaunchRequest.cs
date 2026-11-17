@@ -4,7 +4,7 @@
 
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
-using CoreDeployNetworkSettings = Foundry.Core.Models.Configuration.Deploy.DeployNetworkSettings;
+using WinPeNetworkSettings = Foundry.Core.Models.Configuration.WinPeNetworkSettings;
 
 namespace Foundry.Deploy.Services.Deployment;
 
@@ -42,7 +42,7 @@ public sealed record DeploymentLaunchRequest
     public required AutopilotProfileCatalogItem? SelectedAutopilotProfile { get; init; }
     public DeployAutopilotHardwareHashUploadSettings AutopilotHardwareHashUpload { get; init; } = new();
     public DeployAutopilotInteractiveSettings AutopilotInteractive { get; init; } = new();
-    public CoreDeployNetworkSettings Network { get; init; } = new();
+    public WinPeNetworkSettings Network { get; init; } = new();
     public DeployOobeSettings Oobe { get; init; } = new();
     public DeployAppxRemovalSettings AppxRemoval { get; init; } = new();
     public DeployAiComponentRemovalSettings AiComponentRemoval { get; init; } = new();

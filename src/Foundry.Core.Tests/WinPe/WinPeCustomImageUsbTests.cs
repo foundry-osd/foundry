@@ -11,6 +11,7 @@ using Foundry.Core.Services.Packages;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Drivers;
 using Foundry.Core.Services.WinPe;
+using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.WinPe;
 
@@ -34,10 +35,10 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         var runner = new Runner(publisher);
         var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher);
         using var package = new WinPeCustomImageMediaLease("build", Encoding.UTF8.GetBytes("{}"), [], []);
-        string config = JsonSerializer.Serialize(new FoundryDeployConfigurationDocument
+        string config = WinPeConfigurationTestDocuments.Json(new DeployRuntimeSettings
         {
             CustomImages = new() { IsEnabled = true, ManifestId = package.ManifestId, ManifestHash = package.ManifestHash }
-        }, ConfigurationJsonDefaults.SerializerOptions);
+        });
         var options = new UsbOutputOptions
         {
             TargetDiskNumber = 9,
@@ -47,7 +48,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             ExpectedDiskBusType = "USB",
             ExpectedDiskSizeBytes = 64000000000,
             CustomImages = package,
-            DeployConfigurationJson = config,
+            WinPeConfigurationJson = config,
             RuntimePayloadProvisioning = new()
             {
                 WinPe = new() { IsEnabled = true, ArchivePath = winPeArchive },
@@ -85,11 +86,11 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher);
         using var images = new WinPeCustomImageMediaLease("images", Encoding.UTF8.GetBytes("{}"), [], []);
         using var post = new WinPeContentPackageMediaLease(ContentPackageKind.PostInstallation, new ContentPackageMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
-        string config = JsonSerializer.Serialize(new FoundryDeployConfigurationDocument
+        string config = WinPeConfigurationTestDocuments.Json(new DeployRuntimeSettings
         {
             PreOobe = new() { ManifestId = post.ManifestId, ManifestHash = post.ManifestHash },
             CustomImages = new() { IsEnabled = withImages, ManifestId = images.ManifestId, ManifestHash = images.ManifestHash }
-        }, ConfigurationJsonDefaults.SerializerOptions);
+        });
         var options = new UsbOutputOptions
         {
             TargetDiskNumber = 9,
@@ -100,7 +101,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             ExpectedDiskSizeBytes = 64000000000,
             CustomImages = withImages ? images : null,
             PostInstallation = post,
-            DeployConfigurationJson = config
+            WinPeConfigurationJson = config
         };
         WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(options,
             new() { WorkingDirectoryPath = root, MediaDirectoryPath = root }, new() { PowerShellPath = "shadowed" }, false,
@@ -120,11 +121,11 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher);
         using var images = new WinPeCustomImageMediaLease("images", Encoding.UTF8.GetBytes("{}"), [], []);
         using var post = new WinPeContentPackageMediaLease(ContentPackageKind.PostInstallation, new ContentPackageMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
-        string config = JsonSerializer.Serialize(new FoundryDeployConfigurationDocument
+        string config = WinPeConfigurationTestDocuments.Json(new DeployRuntimeSettings
         {
             PreOobe = new() { ManifestId = post.ManifestId, ManifestHash = post.ManifestHash },
             CustomImages = new() { IsEnabled = true, ManifestId = images.ManifestId, ManifestHash = images.ManifestHash }
-        }, ConfigurationJsonDefaults.SerializerOptions);
+        });
         var progress = new CollectingProgress<WinPeMediaProgress>();
         var options = new UsbOutputOptions
         {
@@ -136,7 +137,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             ExpectedDiskSizeBytes = 64000000000,
             CustomImages = images,
             PostInstallation = post,
-            DeployConfigurationJson = config,
+            WinPeConfigurationJson = config,
             Progress = progress
         };
 
@@ -161,11 +162,11 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher, publisher);
         using var images = new WinPeCustomImageMediaLease("images", Encoding.UTF8.GetBytes("{}"), [], []);
         using var post = new WinPeContentPackageMediaLease(ContentPackageKind.PostInstallation, new ContentPackageMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
-        string config = JsonSerializer.Serialize(new FoundryDeployConfigurationDocument
+        string config = WinPeConfigurationTestDocuments.Json(new DeployRuntimeSettings
         {
             PreOobe = new() { ManifestId = post.ManifestId, ManifestHash = post.ManifestHash },
             CustomImages = new() { IsEnabled = true, ManifestId = images.ManifestId, ManifestHash = images.ManifestHash }
-        }, ConfigurationJsonDefaults.SerializerOptions);
+        });
         var progress = new CollectingProgress<WinPeMediaProgress>();
         var options = new UsbOutputOptions
         {
@@ -179,7 +180,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             FormatMode = UsbFormatMode.Quick,
             CustomImages = images,
             PostInstallation = post,
-            DeployConfigurationJson = config,
+            WinPeConfigurationJson = config,
             Progress = progress
         };
 
@@ -218,7 +219,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             CustomImages = images,
             PostInstallation = post,
             CustomDrivers = drivers,
-            DeployConfigurationJson = BoundConfiguration(images, post, drivers)
+            WinPeConfigurationJson = BoundConfiguration(images, post, drivers)
         };
 
         _ = await service.UpdateBootPartitionAsync(options,
@@ -248,7 +249,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             ExpectedDiskBusType = "USB",
             ExpectedDiskSizeBytes = 64000000000,
             CustomDrivers = drivers,
-            DeployConfigurationJson = BoundConfiguration(null, null, drivers)
+            WinPeConfigurationJson = BoundConfiguration(null, null, drivers)
         };
 
         WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(options,
@@ -301,7 +302,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         UsbOutputOptions options = UpdateOptions(withImages ? images : null, withPost ? post : null, withDrivers ? drivers : null) with
         {
             // An unbound configuration fails validation before any media change.
-            DeployConfigurationJson = "{}"
+            WinPeConfigurationJson = "{}"
         };
 
         WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(options,
@@ -379,12 +380,12 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             CustomImages = images,
             PostInstallation = post,
             CustomDrivers = drivers,
-            DeployConfigurationJson = drivers is null
-                ? JsonSerializer.Serialize(new FoundryDeployConfigurationDocument
+            WinPeConfigurationJson = drivers is null
+                ? WinPeConfigurationTestDocuments.Json(new DeployRuntimeSettings
                 {
                     PreOobe = post is null ? new() : new() { ManifestId = post.ManifestId, ManifestHash = post.ManifestHash },
                     CustomImages = images is null ? new() : new() { IsEnabled = true, ManifestId = images.ManifestId, ManifestHash = images.ManifestHash }
-                }, ConfigurationJsonDefaults.SerializerOptions)
+                })
                 : BoundConfiguration(images, post, drivers)
         };
 
@@ -409,7 +410,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             ExpectedDiskBusType = "USB",
             ExpectedDiskSizeBytes = 64000000000,
             CustomDrivers = drivers,
-            DeployConfigurationJson = BoundConfiguration(null, null, drivers),
+            WinPeConfigurationJson = BoundConfiguration(null, null, drivers),
             Progress = progress
         };
 
@@ -502,7 +503,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
     }
 
     private static string BoundConfiguration(WinPeCustomImageMediaLease? images, WinPeContentPackageMediaLease? post, WinPeContentPackageMediaLease drivers) =>
-        JsonSerializer.Serialize(new FoundryDeployConfigurationDocument
+        WinPeConfigurationTestDocuments.Json(new DeployRuntimeSettings
         {
             PreOobe = post is null ? new() : new() { ManifestId = post.ManifestId, ManifestHash = post.ManifestHash },
             CustomImages = images is null ? new() : new() { IsEnabled = true, ManifestId = images.ManifestId, ManifestHash = images.ManifestHash },
@@ -513,7 +514,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
                 ManifestId = drivers.ManifestId,
                 ManifestHash = drivers.ManifestHash
             }
-        }, ConfigurationJsonDefaults.SerializerOptions);
+        });
 
     private sealed class Publisher(bool fail, bool reportProgress = false, bool failPrune = false, bool failDestinationDisk = false) : IWinPeCustomImageMediaPublisher, IWinPeContentPackageMediaPublisher
     {

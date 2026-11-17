@@ -9,6 +9,7 @@ using Foundry.Core.Models.Images;
 using Foundry.Core.Models.Packages;
 using Foundry.Core.Services.Packages;
 using Foundry.Core.Services.WinPe;
+using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.WinPe;
 
@@ -135,7 +136,7 @@ public sealed class WinPeCustomImageIsoTests : IDisposable
         string relative = Path.Combine("Cache", "OperatingSystems", "Custom", hash.ToLowerInvariant(), "image.wim");
         using var package = new WinPeCustomImageMediaLease("build", Encoding.UTF8.GetBytes("{}"),
             [new(source, relative, 12, hash)], []);
-        string configuration = WinPeCustomImageMediaService.BindConfiguration(package, """{"customImages":{"isEnabled":true}}""");
+        string configuration = WinPeCustomImageMediaService.BindConfiguration(package, """{"deploy":{"customImages":{"isEnabled":true}}}""");
         using var cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
         var runner = new IsoRunner((staging, output) =>
         {
@@ -151,7 +152,7 @@ public sealed class WinPeCustomImageIsoTests : IDisposable
         var options = new WinPeIsoMediaOptions
         {
             CustomImages = package,
-            DeployConfigurationJson = configuration,
+            WinPeConfigurationJson = configuration,
             OutputIsoPath = output,
             IsoTempDirectoryPath = Path.Combine(root, "scratch"),
             PreparedWorkspace = new()
@@ -206,7 +207,7 @@ public sealed class WinPeCustomImageIsoTests : IDisposable
         var options = new WinPeIsoMediaOptions
         {
             PostInstallation = post,
-            DeployConfigurationJson = config,
+            WinPeConfigurationJson = config,
             OutputIsoPath = output,
             IsoTempDirectoryPath = Path.Combine(root, "Workspaces", Guid.NewGuid().ToString("N"), "Scratch", "Iso"),
             PreparedWorkspace = new()

@@ -10,7 +10,7 @@ namespace Foundry.Deploy.Services.Configuration;
 
 public sealed record DeployConfigurationLoadResult
 {
-    public string ConfigurationPath { get; init; } = DeployConfigurationService.DefaultConfigurationPath;
+    public string ConfigurationPath { get; init; } = WinPeWorkspaceLayout.ConfigurationPath;
     public bool Exists { get; init; }
     public FoundryDeployConfigurationDocument? Document { get; init; }
 

@@ -5,6 +5,7 @@
 using Foundry.Connect.Network;
 using Foundry.Connect.Network.Policy;
 using Foundry.Core.Models.Configuration;
+using Foundry.Connect.Configuration;
 
 namespace Foundry.Connect.Telemetry;
 

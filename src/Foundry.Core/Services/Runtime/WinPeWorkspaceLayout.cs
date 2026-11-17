@@ -21,9 +21,16 @@ public static class WinPeWorkspaceLayout
     /// <summary>Directory holding runtime artifacts shared between boot-media applications.</summary>
     public const string RuntimeDirectory = Root + @"\Runtime";
 
-    /// <summary>Bootstrap configuration read by child applications for early diagnostic preferences.</summary>
-    public const string BootstrapConfigurationPath = ConfigDirectory + @"\foundry.bootstrap.config.json";
+    /// <summary>File name of the one runtime configuration of a boot media, under <see cref="ConfigDirectory"/>.</summary>
+    public const string ConfigurationFileName = "foundry.winpe.config.json";
 
-    /// <summary>Location of the media secrets key, relative to the configuration directory; the key exists on older (schema 5) media only.</summary>
-    public const string MediaSecretsKeyRelativePath = @"Secrets\media-secrets.key";
+    /// <summary>File name of the marker that records whether the WinPE runtime came from a debug or a release build.</summary>
+    public const string ProvisioningSourceFileName = "foundry.winpe.provisioning-source.txt";
+
+    /// <summary>Full path of the runtime configuration inside a booted WinPE image.</summary>
+    public const string ConfigurationPath = ConfigDirectory + @"\" + ConfigurationFileName;
+
+    /// <summary>Full path of the provisioning-source marker inside a booted WinPE image.</summary>
+    public const string ProvisioningSourcePath = ConfigDirectory + @"\" + ProvisioningSourceFileName;
+
 }

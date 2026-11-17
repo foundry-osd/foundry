@@ -27,8 +27,8 @@ public sealed class BootstrapTelemetryPipeline : ILogEventSink, IAsyncDisposable
     private readonly HashSet<Guid> _attempted = [];
     private readonly SemaphoreSlim _signal = new(0, 1);
     private readonly CancellationTokenSource _deliveryCancellation = new();
-    private bool _usageEnabled;
-    private bool _diagnosticsEnabled;
+    private readonly bool _usageEnabled;
+    private readonly bool _diagnosticsEnabled;
     private bool _terminalCaptured;
     private bool _clockUsable;
     private bool _stopping;
@@ -75,20 +75,6 @@ public sealed class BootstrapTelemetryPipeline : ILogEventSink, IAsyncDisposable
         _capture = new PostHogRemoteDiagnosticsSink(static (_, _) => new CaptureOnlyExporter(),
             timeProvider: timeProvider, capture: CaptureDiagnostic, logCapture: CaptureLog);
         _capture.Configure(diagnostics, diagnosticContext);
-    }
-
-    /// <summary>Restrictions are monotonic and immediately purge the affected category, including durable records.</summary>
-    public void RestrictConsent(bool usageEnabled, bool diagnosticsEnabled)
-    {
-        lock (_gate)
-        {
-            _usageEnabled &= usageEnabled;
-            _diagnosticsEnabled &= diagnosticsEnabled;
-            if (!_diagnosticsEnabled) _logs?.Disable();
-            PurgeDisallowed();
-        }
-        // Do not acquire the capture sink lock while holding the journal lock.
-        if (!diagnosticsEnabled) _capture.Disable();
     }
 
     /// <inheritdoc />

@@ -132,7 +132,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         };
 
         Report(BootstrapStatus.Running, "Waiting for Foundry Connect");
-        ApplicationLaunchResult connectResult = await launcher.RunConnectAsync(executable, context.ConnectConfigurationPath,
+        ApplicationLaunchResult connectResult = await launcher.RunConnectAsync(executable,
             connectEnvironment, cancellationToken, handoffEnabled ? relay.ExpectSender : null,
             handoffEnabled ? EndReceiveAsync : null).ConfigureAwait(false);
         // The launcher returned without starting Connect (for example invalid startup metadata), so the hook never ran.

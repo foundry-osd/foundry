@@ -36,10 +36,10 @@ public sealed class UnattendMediaTests
         using var media = new MediaFixture();
         var generator = new DeployConfigurationGenerator();
         var authoring = new FoundryConfigurationDocument { Unattend = media.Options.Unattend };
-        FoundryDeployConfigurationDocument generated = generator.Generate(authoring, media.Protection.DeploymentKey, media.Protection.Settings);
+        DeployRuntimeSettings generated = generator.Generate(authoring, media.Protection.DeploymentKey, media.Protection.Settings);
         Assert.Equal(MediaFixture.FileId, generated.Unattend.DefaultFileId);
         Assert.Equal(MediaFixture.FileId, Assert.Single(generated.Unattend.Files).Id);
-        string json = generator.Serialize(generated);
+        string json = JsonSerializer.Serialize(generated, ConfigurationJsonDefaults.SerializerOptions);
         Assert.DoesNotContain("sourcePath", json, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("private-test-value", json);
 
@@ -74,7 +74,7 @@ public sealed class UnattendMediaTests
         }
         Assert.Empty(Directory.GetFiles(Path.Combine(media.ConfigPath, "Unattend"), "*.xml"));
         Assert.False(File.Exists(Path.Combine(media.ConfigPath, "Secrets", "deployment-secrets.key")));
-        string runtimeJson = File.ReadAllText(Path.Combine(media.ConfigPath, "foundry.deploy.config.json"));
+        string runtimeJson = File.ReadAllText(Path.Combine(media.ConfigPath, "foundry.winpe.config.json"));
         Assert.DoesNotContain("sourcePath", runtimeJson, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("private-test-value", runtimeJson);
     }
@@ -104,7 +104,7 @@ public sealed class UnattendMediaTests
     {
         using var media = new MediaFixture();
         WinPeResult result = await new WinPeMountedImageAssetProvisioningService()
-            .ProvisionAsync(media.Options with { DeployConfigurationJson = "{}" }, TestContext.Current.CancellationToken);
+            .ProvisionAsync(media.Options with { WinPeConfigurationJson = "{}" }, TestContext.Current.CancellationToken);
         Assert.False(result.IsSuccess);
     }
 
@@ -112,10 +112,10 @@ public sealed class UnattendMediaTests
     public async Task Provision_RejectsNullProtectionMetadataWithoutThrowing()
     {
         using var media = new MediaFixture();
-        JsonNode configuration = JsonNode.Parse(media.Options.DeployConfigurationJson)!;
+        JsonNode configuration = JsonNode.Parse(media.Options.WinPeConfigurationJson)!;
         configuration["protection"] = null;
         WinPeResult result = await new WinPeMountedImageAssetProvisioningService().ProvisionAsync(
-            media.Options with { DeployConfigurationJson = configuration.ToJsonString() },
+            media.Options with { WinPeConfigurationJson = configuration.ToJsonString() },
             TestContext.Current.CancellationToken);
         Assert.False(result.IsSuccess);
     }
@@ -133,7 +133,7 @@ public sealed class UnattendMediaTests
         var disabled = media.Options with
         {
             Unattend = media.Options.Unattend with { IsEnabled = false },
-            DeployConfigurationJson = "{}"
+            WinPeConfigurationJson = "{}"
         };
 
         WinPeResult result = await new WinPeMountedImageAssetProvisioningService()
@@ -172,17 +172,20 @@ public sealed class UnattendMediaTests
             string curl = Path.Combine(root, "curl.exe");
             File.WriteAllText(curl, "test");
             string digest = Convert.ToHexString(SHA256.HashData(Content));
-            string deployJson = JsonSerializer.Serialize(new
+            string configurationJson = JsonSerializer.Serialize(new
             {
                 protection = Protection.Settings,
-                unattend = new { isEnabled = true, defaultFileId = FileId, files = new[] { new { id = FileId, displayName = "Office", contentHash = digest } } }
+                deploy = new
+                {
+                    unattend = new { isEnabled = true, defaultFileId = FileId, files = new[] { new { id = FileId, displayName = "Office", contentHash = digest } } }
+                }
             }, ConfigurationJsonDefaults.SerializerOptions);
             Options = JsonSerializer.Deserialize<WinPeMountedImageAssetProvisioningOptions>(JsonSerializer.Serialize(new
             {
                 mountedImagePath = mounted,
                 curlExecutableSourcePath = curl,
                 ianaWindowsTimeZoneMapJson = "{}",
-                deployConfigurationJson = deployJson,
+                winPeConfigurationJson = configurationJson,
                 isDeploymentProtectionEnabled = true,
                 deploymentSecretsKey = Protection.DeploymentKey,
                 unattend = new

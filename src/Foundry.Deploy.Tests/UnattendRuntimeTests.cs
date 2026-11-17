@@ -547,7 +547,7 @@ public sealed class UnattendRuntimeTests
     {
         public string Root { get; } = Path.Combine(Path.GetTempPath(), "foundry-unattend-test-" + Guid.NewGuid().ToString("N"));
         public string Target => Path.Combine(Root, "Target");
-        public string ConfigurationPath => Path.Combine(Root, "Config", "foundry.deploy.config.json");
+        public string ConfigurationPath => Path.Combine(Root, "Config", "foundry.winpe.config.json");
         public DeploymentSecretKeySession Session { get; } = new();
         public UnattendContentService Service { get; }
         public UnattendSelection Selection { get; }

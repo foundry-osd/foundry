@@ -10,6 +10,12 @@ namespace Foundry.Telemetry;
 public sealed record TelemetrySettings
 {
     /// <summary>
+    /// Gets the settings a WinPE mode uses when its runtime configuration carries no telemetry section: nothing is sent
+    /// without the consent recorded by the authoring application.
+    /// </summary>
+    public static TelemetrySettings Disabled { get; } = new() { IsEnabled = false, IsRemoteDiagnosticsEnabled = false };
+
+    /// <summary>
     /// Gets whether telemetry is enabled for the current generated runtime.
     /// </summary>
     public bool IsEnabled { get; init; } = true;

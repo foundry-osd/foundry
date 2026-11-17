@@ -2,131 +2,27 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Security.Cryptography;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Text.Json.Serialization;
 using Foundry.Core.Models.Configuration;
-using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
-using Foundry.Core.Services.Runtime;
 using Foundry.Core.Services.WinPe;
-using Foundry.Utilities.Security;
 
 namespace Foundry.Connect.Tests.Support;
 
 /// <summary>
-/// Writes Foundry Connect boot media layouts for loader tests.
+/// Writes Foundry boot media layouts for Connect loader tests with the Core generator.
 /// </summary>
 internal static class ConnectMediaFixtures
 {
     /// <summary>The deployment password of the protected fixtures.</summary>
     public const string Password = "correct horse battery staple";
 
-    private static readonly JsonSerializerOptions SchemaFiveSerializerOptions = new()
-    {
-        WriteIndented = true,
-        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-    };
-
     /// <summary>
-    /// Writes schema 5 media as released before the deployment key protected network secrets: <c>Config\foundry.connect.config.json</c>
-    /// with media-keyed envelopes, and <c>Config\Secrets\media-secrets.key</c> when at least one envelope was written.
+    /// Writes media protected by <see cref="Password"/>: the generated <c>Foundry\Config\foundry.winpe.config.json</c> and every
+    /// staged asset at its media destination under <paramref name="directory"/>.
     /// </summary>
-    /// <remarks>
-    /// A Wi-Fi certificate path makes the Wi-Fi profile enterprise; otherwise a passphrase makes it personal. The document keeps the
-    /// fields schema 5 always wrote (authentication modes, <c>requiresCertificate</c>, <c>internetProbe</c>).
-    /// </remarks>
-    /// <returns>The configuration file path.</returns>
-    public static string WriteSchemaFive(
-        TemporaryDirectory directory,
-        string? wifiPassphrase = null,
-        string? wiredCertificatePath = null,
-        string? wiredPfxPassword = null,
-        string? wifiCertificatePath = null,
-        string? wifiPfxPassword = null)
-    {
-        ArgumentNullException.ThrowIfNull(directory);
-        byte[] mediaKey = AesGcmEncryption.GenerateKey();
-        try
-        {
-            bool hasEnvelope = false;
-            SecretEnvelope? Encrypt(string? value)
-            {
-                if (value is null)
-                {
-                    return null;
-                }
-
-                hasEnvelope = true;
-                return MediaSecretEnvelopeProtector.EncryptString(value, mediaKey);
-            }
-
-            bool isWifiEnterprise = wifiCertificatePath is not null;
-            bool isWifiEnabled = isWifiEnterprise || wifiPassphrase is not null;
-            var document = new FoundryConnectConfigurationDocument
-            {
-                SchemaVersion = 5,
-                Capabilities = new ConnectNetworkCapabilitiesSettings { WifiProvisioned = isWifiEnabled },
-                Dot1x = wiredCertificatePath is null
-                    ? new ConnectDot1xSettings()
-                    : new ConnectDot1xSettings
-                    {
-                        IsEnabled = true,
-                        ProfileTemplatePath = @"Network\Wired\Profiles\wired.xml",
-                        RequiresCertificate = true,
-                        CertificatePath = wiredCertificatePath,
-                        CertificatePfxPasswordSecret = Encrypt(wiredPfxPassword)
-                    },
-                Wifi = !isWifiEnabled
-                    ? new ConnectWifiSettings()
-                    : new ConnectWifiSettings
-                    {
-                        IsEnabled = true,
-                        Ssid = "Corp WiFi",
-                        SecurityType = isWifiEnterprise ? "WPA2/WPA3-Enterprise" : "WPA2/WPA3-Personal",
-                        PassphraseSecret = isWifiEnterprise ? null : Encrypt(wifiPassphrase),
-                        HasEnterpriseProfile = isWifiEnterprise,
-                        EnterpriseProfileTemplatePath = isWifiEnterprise ? @"Network\Wifi\Profiles\wifi.xml" : null,
-                        RequiresCertificate = isWifiEnterprise,
-                        CertificatePath = wifiCertificatePath,
-                        CertificatePfxPasswordSecret = isWifiEnterprise ? Encrypt(wifiPfxPassword) : null
-                    }
-            };
-
-            // The model no longer carries internetProbe, so the section schema 5 always wrote is added to the document.
-            JsonObject root = JsonSerializer.SerializeToNode(document, SchemaFiveSerializerOptions)!.AsObject();
-            root["internetProbe"] = new JsonObject
-            {
-                ["probeUris"] = new JsonArray("http://www.msftconnecttest.com/connecttest.txt", "http://www.google.com"),
-                ["timeoutSeconds"] = 5
-            };
-            string configurationPath = directory.CreateFile(
-                Path.Combine("Config", "foundry.connect.config.json"),
-                root.ToJsonString(SchemaFiveSerializerOptions));
-            if (hasEnvelope)
-            {
-                directory.CreateFile(Path.Combine("Config", WinPeWorkspaceLayout.MediaSecretsKeyRelativePath), mediaKey);
-            }
-
-            return configurationPath;
-        }
-        finally
-        {
-            CryptographicOperations.ZeroMemory(mediaKey);
-        }
-    }
-
-    /// <summary>
-    /// Writes schema 6 media protected by <see cref="Password"/>: the Core generator output at
-    /// <c>Foundry\Config\foundry.connect.config.json</c> and every staged asset at its media destination under <paramref name="directory"/>.
-    /// </summary>
-    /// <remarks>
-    /// Authoring file references resolve to the file of the same name directly under <paramref name="directory"/>. No media key is written.
-    /// </remarks>
+    /// <remarks>Authoring file references resolve to the file of the same name directly under <paramref name="directory"/>.</remarks>
     /// <returns>The configuration file path and a copy of the deployment key; the caller owns the copy.</returns>
-    public static (string ConfigurationPath, byte[] DeploymentKey) WriteProtectedSchemaSix(
+    public static (string ConfigurationPath, byte[] DeploymentKey) WriteProtected(
         TemporaryDirectory directory,
         FoundryConfigurationDocument authoring,
         NetworkSecrets secrets)
@@ -141,19 +37,25 @@ internal static class ConnectMediaFixtures
         };
 
         using DeploymentMediaProtectionMaterial protection = DeploymentMediaProtectionService.CreateProtected(Password);
-        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
-            authoring,
-            inputs,
-            Path.Combine(directory.Path, "Staging"),
-            authoringVersion: null,
-            protection);
-
-        foreach (FoundryConnectProvisionedAssetFile asset in bundle.AssetFiles)
+        WinPeConfigurationBundle bundle = new WinPeConfigurationGenerator().CreateBundle(
+            authoring, inputs, Path.Combine(directory.Path, "Staging"), protection);
+        foreach (FoundryConnectProvisionedAssetFile asset in bundle.ConnectAssetFiles)
         {
             directory.CreateFile(asset.RelativeDestinationPath, File.ReadAllBytes(asset.SourcePath));
         }
 
-        string configurationPath = directory.CreateFile(Path.Combine("Foundry", "Config", "foundry.connect.config.json"), bundle.ConfigurationJson);
+        string configurationPath = directory.CreateFile(Path.Combine("Foundry", "Config", "foundry.winpe.config.json"), bundle.ConfigurationJson);
         return (configurationPath, protection.DeploymentKey.ToArray());
+    }
+
+    /// <summary>Generates the unprotected WinPE runtime configuration of <paramref name="authoring"/> with the Core generator.</summary>
+    /// <param name="authoring">The authoring configuration.</param>
+    /// <param name="inputs">The referenced files and network passwords.</param>
+    /// <param name="stagingDirectoryPath">The directory that receives the staged network assets.</param>
+    /// <returns>The <c>foundry.winpe.config.json</c> content.</returns>
+    public static string Generate(FoundryConfigurationDocument authoring, MediaInputs inputs, string stagingDirectoryPath)
+    {
+        using DeploymentMediaProtectionMaterial protection = DeploymentMediaProtectionService.CreateUnprotected();
+        return new WinPeConfigurationGenerator().CreateBundle(authoring, inputs, stagingDirectoryPath, protection).ConfigurationJson;
     }
 }
