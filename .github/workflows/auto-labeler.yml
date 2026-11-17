@@ -1,7 +1,10 @@
 name: Auto Labeler
 
+# pull_request instead of pull_request_target: GitHub blocks pull_request_target by default on public
+# repositories (enforced from December 2, 2026). Pull requests from forks and Dependabot receive a read-only
+# token under pull_request, so they are skipped; Dependabot sets its own labels (.github/dependabot.yml).
 on:
-  pull_request_target:
+  pull_request:
     types: [opened, synchronize, reopened]
 
 permissions:
@@ -11,6 +14,7 @@ permissions:
 jobs:
   label:
     name: Label PR
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-slim
 
     steps:
