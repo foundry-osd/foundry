@@ -123,7 +123,7 @@ public sealed class ConnectSecret
     public static ConnectSecret NotProvisioned() => new(ConnectSecretStatus.NotProvisioned, ConnectSecretFailure.None, null, null);
 
     /// <summary>Creates an available secret that takes ownership of <paramref name="value"/>; the array is zeroed by <see cref="Clear"/>.</summary>
-    public static ConnectSecret Available(char[] value)
+    internal static ConnectSecret Available(char[] value)
     {
         ArgumentNullException.ThrowIfNull(value);
         return new ConnectSecret(ConnectSecretStatus.Available, ConnectSecretFailure.None, value, null);
