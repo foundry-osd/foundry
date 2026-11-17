@@ -15,9 +15,19 @@ public static class RuntimeTelemetryConsent
 {
     private const int MaximumConfigurationBytes = 1024 * 1024;
 
-    private static readonly JsonSerializerOptions Options = new() { PropertyNameCaseInsensitive = true };
+    // Same leniency as WinPeConfigurationReader, so early consent and the mode readers accept the same documents.
+    private static readonly JsonSerializerOptions Options = new()
+    {
+        PropertyNameCaseInsensitive = true,
+        AllowTrailingCommas = true,
+        ReadCommentHandling = JsonCommentHandling.Skip
+    };
 
-    private static readonly JsonDocumentOptions DocumentOptions = new() { CommentHandling = JsonCommentHandling.Skip };
+    private static readonly JsonDocumentOptions DocumentOptions = new()
+    {
+        AllowTrailingCommas = true,
+        CommentHandling = JsonCommentHandling.Skip
+    };
 
     /// <summary>
     /// Requires a valid schema version and explicit usage and diagnostics preferences before any early diagnostics are

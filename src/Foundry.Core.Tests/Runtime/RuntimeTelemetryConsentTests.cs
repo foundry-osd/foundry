@@ -49,6 +49,22 @@ public sealed class RuntimeTelemetryConsentTests
     }
 
     [Fact]
+    public void TrailingCommasAndCommentsYieldTheSameConsentAsTheModeReaders()
+    {
+        const string strict = """{"schemaVersion":1,"telemetry":{"isEnabled":true,"isRemoteDiagnosticsEnabled":false,"installId":"installation"}}""";
+        const string handWritten = """
+            {
+              // Hand-edited on the media.
+              "schemaVersion": 1,
+              "telemetry": { "isEnabled": true, "isRemoteDiagnosticsEnabled": false, "installId": "installation", },
+            }
+            """;
+
+        Assert.Equal(RuntimeTelemetryConsent.Read(strict), RuntimeTelemetryConsent.Read(handWritten));
+        Assert.NotNull(RuntimeTelemetryConsent.Read(handWritten));
+    }
+
+    [Fact]
     public void NewerSchemaKeepsItsPreferences()
     {
         var settings = RuntimeTelemetryConsent.Read(
