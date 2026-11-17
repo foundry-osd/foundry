@@ -23,7 +23,7 @@
                     Margin="0,0,16,0"
                     VerticalAlignment="Center"
                     AutomationProperties.Name="{Binding Strings[App.Name]}"
-                    Source="/Assets/Images/foundry-about-logo.png"
+                    Source="/Foundry.Deploy;component/Assets/Images/foundry-about-logo.png"
                     Stretch="Uniform" />
                 <TextBlock
                     VerticalAlignment="Center"

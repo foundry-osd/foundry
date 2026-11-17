@@ -39,7 +39,7 @@ public enum ConnectUnlockResult
 
 /// <summary>
 /// Unlocks the network secrets protected by the deployment key with the deployment password, then hands the key to
-/// Foundry Bootstrap once so Foundry Deploy does not ask again.
+/// Foundry WinPE once so Foundry Deploy does not ask again.
 /// </summary>
 public interface IConnectUnlockService
 {

@@ -17,6 +17,9 @@ namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloadProvisioningService
 {
+    private const string WinPeApplicationName = WinPeRuntimePayloadProvisioningOptions.WinPeApplicationName;
+    private const string PostInstallApplicationName = "Foundry.PostInstall";
+
     private readonly IWinPeProcessRunner _processRunner;
     private readonly HttpClient _httpClient;
     private readonly Func<string, string?> _environment;
@@ -70,18 +73,14 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             string runtimeIdentifier = options.Architecture.ToDotnetRuntimeIdentifier();
             options = options with
             {
-                Bootstrap = await PrepareLocalApplicationAsync("Foundry.Bootstrap", options.Bootstrap, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false),
-                Connect = await PrepareLocalApplicationAsync("Foundry.Connect", options.Connect, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false),
-                Deploy = await PrepareLocalApplicationAsync("Foundry.Deploy", options.Deploy, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false),
-                PostInstall = await PrepareLocalApplicationAsync("Foundry.PostInstall", options.PostInstall, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false),
+                WinPe = await PrepareLocalApplicationAsync(WinPeApplicationName, options.WinPe, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false),
+                PostInstall = await PrepareLocalApplicationAsync(PostInstallApplicationName, options.PostInstall, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false),
                 AutopilotInteractive = await PrepareLocalApplicationAsync(AutopilotInteractiveLayout.ApplicationName, options.AutopilotInteractive, options, runtimeIdentifier, cancellationToken).ConfigureAwait(false)
             };
             var releaseApplications = new[]
             {
-                (Name: "Foundry.Bootstrap", Options: options.Bootstrap),
-                (Name: "Foundry.Connect", Options: options.Connect),
-                (Name: "Foundry.Deploy", Options: options.Deploy),
-                (Name: "Foundry.PostInstall", Options: options.PostInstall)
+                (Name: WinPeApplicationName, Options: options.WinPe),
+                (Name: PostInstallApplicationName, Options: options.PostInstall)
             }.Where(application => application.Options.IsEnabled &&
                 application.Options.ProvisioningSource == WinPeProvisioningSource.Release &&
                 string.IsNullOrWhiteSpace(application.Options.ArchivePath)).ToArray();
@@ -104,13 +103,9 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 {
                     WinPeRuntimePayloadApplicationOptions preparedApplication = await PrepareApplicationAsync(
                         application.Name, application.Options, options, runtimeIdentifier, downloadProgress, cancellationToken).ConfigureAwait(false);
-                    options = application.Name switch
-                    {
-                        "Foundry.Bootstrap" => options with { Bootstrap = preparedApplication },
-                        "Foundry.Connect" => options with { Connect = preparedApplication },
-                        "Foundry.Deploy" => options with { Deploy = preparedApplication },
-                        _ => options with { PostInstall = preparedApplication }
-                    };
+                    options = application.Name == WinPeApplicationName
+                        ? options with { WinPe = preparedApplication }
+                        : options with { PostInstall = preparedApplication };
                 }
             }
 
@@ -189,11 +184,11 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             throw new InvalidOperationException($"{applicationName} archive did not contain the expected executable '{applicationName}.exe'.");
         }
 
-        if (applicationName == "Foundry.Bootstrap")
+        if (applicationName == WinPeApplicationName)
         {
-            ValidateBootstrapCapability(archive);
+            ValidateWinPeCapability(archive);
         }
-        if (applicationName == "Foundry.PostInstall")
+        if (applicationName == PostInstallApplicationName)
             await ValidatePostInstallManifestAsync(archive, runtimeIdentifier, cancellationToken).ConfigureAwait(false);
 
         return applicationOptions with { ArchivePath = archivePath, ArchiveSha256 = hash };
@@ -244,34 +239,23 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             string runtimeIdentifier = options.Architecture.ToDotnetRuntimeIdentifier();
             if (!string.IsNullOrWhiteSpace(options.MountedImagePath))
             {
-                await ProvisionApplicationAsync("Foundry.Bootstrap", options.Bootstrap, options,
+                await ProvisionApplicationAsync(WinPeApplicationName, options.WinPe, options,
                     runtimeIdentifier, cancellationToken).ConfigureAwait(false);
             }
 
-            await ProvisionApplicationAsync(
-                "Foundry.Connect",
-                options.Connect,
-                options,
-                runtimeIdentifier,
-                cancellationToken).ConfigureAwait(false);
-
-            await ProvisionApplicationAsync(
-                "Foundry.Deploy",
-                options.Deploy,
-                options,
-                runtimeIdentifier,
-                cancellationToken).ConfigureAwait(false);
-
-            await ProvisionApplicationAsync("Foundry.PostInstall", options.PostInstall, options,
+            await ProvisionApplicationAsync(PostInstallApplicationName, options.PostInstall, options,
                 runtimeIdentifier, cancellationToken).ConfigureAwait(false);
 
             await ProvisionApplicationAsync(AutopilotInteractiveLayout.ApplicationName, options.AutopilotInteractive, options,
                 runtimeIdentifier, cancellationToken).ConfigureAwait(false);
 
+            RemoveLegacyPayloads(options);
+
             if (!string.IsNullOrWhiteSpace(options.MountedImagePath))
             {
+                // Foundry.WinPE runs from the read-only boot image, so only the runtimes resolved through the cache need trust anchors.
                 RuntimePayloadTrust.WriteManifest(Path.Combine(Path.GetFullPath(options.MountedImagePath), "Foundry"),
-                    new[] { (Name: "Foundry.Connect", Options: options.Connect), (Name: "Foundry.Deploy", Options: options.Deploy), (Name: "Foundry.PostInstall", Options: options.PostInstall), (Name: AutopilotInteractiveLayout.ApplicationName, Options: options.AutopilotInteractive) }
+                    new[] { (Name: PostInstallApplicationName, Options: options.PostInstall), (Name: AutopilotInteractiveLayout.ApplicationName, Options: options.AutopilotInteractive) }
                         .Where(application => application.Options.IsEnabled)
                         .Select(application => new RuntimePayloadArchiveTrust(application.Name, runtimeIdentifier, application.Options.ArchiveSha256)));
             }
@@ -307,7 +291,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             throw new InvalidDataException($"Prepared {applicationName} archive SHA256 changed before provisioning.");
         }
 
-        if (applicationName == "Foundry.Bootstrap")
+        if (applicationName == WinPeApplicationName)
         {
             using var archive = new ZipArchive(source, ZipArchiveMode.Read);
             foreach (string destinationRoot in ResolveDestinationRoots(applicationName, options, runtimeIdentifier))
@@ -335,8 +319,6 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 await source.CopyToAsync(destination, cancellationToken).ConfigureAwait(false);
             }
         }
-
-        RemoveLegacyConnectSeed(applicationName, options);
     }
 
     private static async Task<string> ComputeArchiveHashAsync(FileStream stream, CancellationToken cancellationToken)
@@ -346,13 +328,13 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         return Convert.ToHexString(hash).ToLowerInvariant();
     }
 
-    private static void ValidateBootstrapCapability(ZipArchive archive)
+    private static void ValidateWinPeCapability(ZipArchive archive)
     {
         ZipArchiveEntry[] entries = archive.Entries.Where(entry =>
             entry.FullName.Equals(RuntimePayloadTrust.CapabilityFileName, StringComparison.OrdinalIgnoreCase)).ToArray();
         if (entries.Length != 1)
         {
-            throw new InvalidDataException("Bootstrap archive must contain a supported runtime trust capability marker.");
+            throw new InvalidDataException("Foundry.WinPE archive must contain a supported runtime trust capability marker.");
         }
 
         using Stream stream = entries[0].Open();
@@ -364,14 +346,14 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             capability.ValueKind != JsonValueKind.Number ||
             !capability.TryGetInt32(out int version) || version != 1)
         {
-            throw new InvalidDataException("Bootstrap archive runtime trust capability is unsupported or malformed.");
+            throw new InvalidDataException("Foundry.WinPE archive runtime trust capability is unsupported or malformed.");
         }
         if (root.EnumerateObject().Count(property => property.Name == "postInstallVersion") != 1 ||
             !root.TryGetProperty("postInstallVersion", out JsonElement postInstall) ||
             postInstall.ValueKind != JsonValueKind.Number ||
             !postInstall.TryGetInt32(out int postInstallVersion) || postInstallVersion != 1)
         {
-            throw new InvalidDataException("Bootstrap archive does not support post-installation runtime preparation. Use an updated Bootstrap release or local build.");
+            throw new InvalidDataException("Foundry.WinPE archive does not support post-installation runtime preparation. Use an updated Foundry.WinPE release or local build.");
         }
     }
 
@@ -440,21 +422,37 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         Directory.CreateDirectory(debugWorkspace);
         // Project references may not inherit the RID; propagate Platform to keep every assembly on the target architecture.
         string platform = runtimeIdentifier == "win-arm64" ? "ARM64" : "x64";
+        // Every runtime is a self-contained single-file executable, matching the release workflow. Foundry.WinPE keeps WPF's
+        // native libraries beside the executable so nothing is extracted into the WinPE RAM disk at startup, and skips bundle
+        // compression because boot.wim already compresses it. The runtimes started from the cache bundle and compress everything.
+        string[] singleFileProperties = applicationName == WinPeApplicationName
+            ?
+            [
+                "/p:EnableCompressionInSingleFile=false",
+                "/p:IncludeNativeLibrariesForSelfExtract=false",
+                "/p:IncludeAllContentForSelfExtract=false"
+            ]
+            :
+            [
+                "/p:EnableCompressionInSingleFile=true",
+                "/p:IncludeNativeLibrariesForSelfExtract=true",
+                "/p:IncludeAllContentForSelfExtract=true"
+            ];
         string publishArguments = string.Join(
             " ",
-            "publish",
-            WinPeProcessRunner.Quote(projectPath),
-            "-c", "Release",
-            "-r", runtimeIdentifier,
-            $"/p:Platform={platform}",
-            "--self-contained", "true",
-            "/p:PublishSingleFile=true",
-            "/p:EnableCompressionInSingleFile=true",
-            "/p:IncludeNativeLibrariesForSelfExtract=true",
-            "/p:IncludeAllContentForSelfExtract=true",
-            "/p:DebugType=None",
-            "/p:GenerateDocumentationFile=false",
-            "-o", WinPeProcessRunner.Quote(publishDirectory));
+            [
+                "publish",
+                WinPeProcessRunner.Quote(projectPath),
+                "-c", "Release",
+                "-r", runtimeIdentifier,
+                $"/p:Platform={platform}",
+                "--self-contained", "true",
+                "/p:PublishSingleFile=true",
+                .. singleFileProperties,
+                "/p:DebugType=None",
+                "/p:GenerateDocumentationFile=false",
+                "-o", WinPeProcessRunner.Quote(publishDirectory)
+            ]);
 
         cancellationToken.ThrowIfCancellationRequested();
         // Publishing writes into the workspace that cancellation will remove; wait for
@@ -490,7 +488,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 toolName: "dotnet"));
         }
 
-        if (applicationName == "Foundry.PostInstall")
+        if (applicationName == PostInstallApplicationName)
         {
             var files = new List<Models.Packages.ContentPackageFile>();
             foreach (string name in new[] { "Foundry.PostInstall.exe", "Launch.cmd" })
@@ -593,12 +591,8 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
     {
         return (applicationName, runtimeIdentifier) switch
         {
-            ("Foundry.Bootstrap", "win-x64") => "Foundry.Bootstrap-win-x64.zip",
-            ("Foundry.Bootstrap", "win-arm64") => "Foundry.Bootstrap-win-arm64.zip",
-            ("Foundry.Connect", "win-x64") => "Foundry.Connect-win-x64.zip",
-            ("Foundry.Connect", "win-arm64") => "Foundry.Connect-win-arm64.zip",
-            ("Foundry.Deploy", "win-x64") => "Foundry.Deploy-win-x64.zip",
-            ("Foundry.Deploy", "win-arm64") => "Foundry.Deploy-win-arm64.zip",
+            (WinPeApplicationName, "win-x64") => "Foundry.WinPE-win-x64.zip",
+            (WinPeApplicationName, "win-arm64") => "Foundry.WinPE-win-arm64.zip",
             ("Foundry.PostInstall", "win-x64") => "Foundry.PostInstall-win-x64.zip",
             ("Foundry.PostInstall", "win-arm64") => "Foundry.PostInstall-win-arm64.zip",
             _ => throw new InvalidOperationException($"No release asset mapping exists for {applicationName} and runtime '{runtimeIdentifier}'.")
@@ -666,11 +660,12 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         WinPeRuntimePayloadProvisioningOptions options,
         string runtimeIdentifier)
     {
-        if (applicationName == "Foundry.Bootstrap")
+        if (applicationName == WinPeApplicationName)
         {
+            // The boot image is the only home of Foundry.WinPE; the USB cache never carries it.
             if (!string.IsNullOrWhiteSpace(options.MountedImagePath))
             {
-                yield return Path.Combine(Path.GetFullPath(options.MountedImagePath), "Foundry", "Bootstrap");
+                yield return Path.Combine(Path.GetFullPath(options.MountedImagePath), "Foundry", "WinPE");
             }
 
             yield break;
@@ -696,13 +691,18 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         }
     }
 
-    private static void RemoveLegacyConnectSeed(
-        string applicationName,
-        WinPeRuntimePayloadProvisioningOptions options)
+    /// <summary>
+    /// Removes payload layouts that earlier media builds staged: the Bootstrap folder and the Connect and Deploy runtime
+    /// archives of the boot image, which Foundry.WinPE replaces, and the Connect seed archive.
+    /// </summary>
+    private static void RemoveLegacyPayloads(WinPeRuntimePayloadProvisioningOptions options)
     {
-        if (!applicationName.Equals("Foundry.Connect", StringComparison.Ordinal))
+        if (!string.IsNullOrWhiteSpace(options.MountedImagePath))
         {
-            return;
+            string foundryRoot = Path.Combine(Path.GetFullPath(options.MountedImagePath), "Foundry");
+            TryDeleteDirectory(Path.Combine(foundryRoot, "Bootstrap"));
+            TryDeleteDirectory(Path.Combine(foundryRoot, "Runtime", "Foundry.Connect"));
+            TryDeleteDirectory(Path.Combine(foundryRoot, "Runtime", "Foundry.Deploy"));
         }
 
         foreach (string root in new[] { options.MountedImagePath, options.UsbCacheRootPath })
@@ -726,12 +726,12 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 "Provide a non-null WinPeRuntimePayloadProvisioningOptions instance.");
         }
 
-        if (options.Bootstrap is null || options.Connect is null || options.Deploy is null || options.PostInstall is null || options.AutopilotInteractive is null)
+        if (options.WinPe is null || options.PostInstall is null || options.AutopilotInteractive is null)
         {
             return new WinPeDiagnostic(
                 WinPeErrorCodes.ValidationFailed,
                 "Runtime payload application options are required.",
-                "Provide non-null Bootstrap, Connect, Deploy, PostInstall, and AutopilotInteractive options.");
+                "Provide non-null WinPe, PostInstall, and AutopilotInteractive options.");
         }
 
         if (!Enum.IsDefined(options.Architecture))
@@ -761,7 +761,7 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
 
         // An empty version must not fall back to the latest release: only the unpublished local version selects it.
         if (options.ReleaseSnapshot is null && string.IsNullOrWhiteSpace(options.ReleaseVersion) &&
-            new[] { options.Bootstrap, options.Connect, options.Deploy, options.PostInstall }.Any(application =>
+            new[] { options.WinPe, options.PostInstall }.Any(application =>
                 application.IsEnabled && application.ProvisioningSource == WinPeProvisioningSource.Release &&
                 string.IsNullOrWhiteSpace(application.ArchivePath)))
         {
@@ -772,6 +772,21 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         }
 
         return null;
+    }
+
+    private static void TryDeleteDirectory(string path)
+    {
+        try
+        {
+            if (Directory.Exists(path))
+            {
+                Directory.Delete(path, recursive: true);
+            }
+        }
+        catch
+        {
+            // Best-effort cleanup.
+        }
     }
 
     private static void TryDeleteFile(string path)

@@ -14,20 +14,23 @@ namespace Foundry.Core.Services.WinPe;
 
 public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedImageAssetProvisioningService
 {
-    private const string BootstrapInvocation = @"call X:\Foundry\Bootstrap\Launch.cmd";
+    private const string WinPeInvocation = @"call X:\Foundry\WinPE\Launch.cmd";
+
+    // Media built before Foundry.WinPE started the guardian from the Bootstrap folder.
+    private const string LegacyBootstrapInvocation = @"call X:\Foundry\Bootstrap\Launch.cmd";
 
     // Microsoft recommends the built-in High Performance scheme (SCHEME_MIN) in WinPE to speed up deployments.
     private const string HighPerformancePowerSchemeCommand = "powercfg /s 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c";
-    private const string BootstrapLauncher = """
+    private const string WinPeLauncher = """
         @echo off
         setlocal
         if not exist "X:\Foundry\Logs" mkdir "X:\Foundry\Logs"
-        >"X:\Foundry\Logs\FoundryBootstrap.Launcher.log" echo [%date% %time%] Starting Foundry.Bootstrap.exe
-        "X:\Foundry\Bootstrap\Foundry.Bootstrap.exe"
-        set "bootstrapExitCode=%errorlevel%"
-        >>"X:\Foundry\Logs\FoundryBootstrap.Launcher.log" echo [%date% %time%] Foundry.Bootstrap.exe exited with code %bootstrapExitCode%
-        if not "%bootstrapExitCode%"=="0" if not "%bootstrapExitCode%"=="20" echo Foundry startup failed. See X:\Foundry\Logs for details.
-        exit /b %bootstrapExitCode%
+        >"X:\Foundry\Logs\FoundryBootstrap.Launcher.log" echo [%date% %time%] Starting Foundry.WinPE.exe
+        "X:\Foundry\WinPE\Foundry.WinPE.exe"
+        set "winPeExitCode=%errorlevel%"
+        >>"X:\Foundry\Logs\FoundryBootstrap.Launcher.log" echo [%date% %time%] Foundry.WinPE.exe exited with code %winPeExitCode%
+        if not "%winPeExitCode%"=="0" if not "%winPeExitCode%"=="20" echo Foundry startup failed. See X:\Foundry\Logs for details.
+        exit /b %winPeExitCode%
         """;
     private const string Oa3CfgTemplate = """
         <?xml version="1.0" encoding="utf-8"?>
@@ -75,8 +78,8 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
 
             File.Delete(Path.Combine(system32Path, "FoundryBootstrap.ps1"));
             await File.WriteAllTextAsync(
-                Path.Combine(foundryRootPath, "Bootstrap", "Launch.cmd"),
-                BootstrapLauncher.ReplaceLineEndings("\r\n") + "\r\n",
+                Path.Combine(foundryRootPath, "WinPE", "Launch.cmd"),
+                WinPeLauncher.ReplaceLineEndings("\r\n") + "\r\n",
                 Utf8NoBom,
                 cancellationToken).ConfigureAwait(false);
 
@@ -105,7 +108,8 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
             : [];
 
         lines.RemoveAll(line => line.Contains("FoundryBootstrap.ps1", StringComparison.OrdinalIgnoreCase) ||
-            line.Trim().Equals(BootstrapInvocation, StringComparison.OrdinalIgnoreCase) ||
+            line.Trim().Equals(WinPeInvocation, StringComparison.OrdinalIgnoreCase) ||
+            line.Trim().Equals(LegacyBootstrapInvocation, StringComparison.OrdinalIgnoreCase) ||
             line.Trim().Equals(HighPerformancePowerSchemeCommand, StringComparison.OrdinalIgnoreCase));
 
         int wpeinitIndex = lines.FindIndex(line => line.Trim().Equals("wpeinit", StringComparison.OrdinalIgnoreCase));
@@ -116,7 +120,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         }
 
         lines.Insert(wpeinitIndex + 1, HighPerformancePowerSchemeCommand);
-        lines.Add(BootstrapInvocation);
+        lines.Add(WinPeInvocation);
         if (!lines[0].Trim().Equals("@echo off", StringComparison.OrdinalIgnoreCase))
         {
             lines.Insert(0, "@echo off");
@@ -459,13 +463,13 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
                 $"Value: '{options.Architecture}'.");
         }
 
-        string bootstrapPath = Path.Combine(options.MountedImagePath, "Foundry", "Bootstrap", "Foundry.Bootstrap.exe");
-        if (!File.Exists(bootstrapPath))
+        string winPePath = Path.Combine(options.MountedImagePath, "Foundry", "WinPE", "Foundry.WinPE.exe");
+        if (!File.Exists(winPePath))
         {
             return new WinPeDiagnostic(
                 WinPeErrorCodes.ValidationFailed,
-                "Foundry.Bootstrap executable is missing from the mounted boot image.",
-                $"Provision the Bootstrap runtime payload before boot assets. Expected '{bootstrapPath}'.");
+                "Foundry.WinPE executable is missing from the mounted boot image.",
+                $"Provision the Foundry.WinPE runtime payload before boot assets. Expected '{winPePath}'.");
         }
 
         if (string.IsNullOrWhiteSpace(options.CurlExecutableSourcePath) || !File.Exists(options.CurlExecutableSourcePath))

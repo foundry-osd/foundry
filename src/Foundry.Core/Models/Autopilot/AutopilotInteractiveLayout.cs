@@ -5,7 +5,7 @@
 namespace Foundry.Core.Models.Autopilot;
 
 /// <summary>
-/// Names and relative locations shared by Foundry Deploy, Foundry Bootstrap, Foundry PostInstall and
+/// Names and relative locations shared by Foundry Deploy, Foundry WinPE, Foundry PostInstall and
 /// <c>Foundry.AutopilotInteractive</c>.
 /// </summary>
 /// <remarks>

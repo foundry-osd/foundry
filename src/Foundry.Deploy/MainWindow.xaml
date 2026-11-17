@@ -8,7 +8,7 @@
     xmlns:runtime="clr-namespace:Foundry.Deploy.Services.Runtime"
     xmlns:views="clr-namespace:Foundry.Deploy.Views"
     Title="{Binding WindowTitle}"
-    Icon="/Assets/Icons/app.ico"
+    Icon="/Foundry.Deploy;component/Assets/Icons/app.ico"
     ResizeMode="NoResize"
     WindowState="Maximized"
     WindowStyle="None"

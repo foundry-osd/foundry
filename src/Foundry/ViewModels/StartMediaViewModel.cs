@@ -1636,11 +1636,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 Constants.WorkspacesDirectoryPath);
             runtimePayloadProvisioning = AddReleaseRuntimeProvisioning(runtimePayloadProvisioning);
             runtimePayloadProvisioning = runtimePayloadProvisioning.WithDomainJoinRuntime(snapshot.Configuration.DomainJoin.IsEnabled);
-            TelemetrySettings connectTelemetrySettings = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Connect) };
-            TelemetrySettings deployTelemetrySettings = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy) };
+            // Connect and Deploy run from the Foundry.WinPE payload, so both report its source.
+            TelemetrySettings connectTelemetrySettings = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.WinPe) };
+            TelemetrySettings deployTelemetrySettings = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.WinPe) };
 
             logger.Debug(
-                "Final media workspace preparation started. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, SignatureMode={SignatureMode}, IncludeWirelessSupport={IncludeWirelessSupport}, IncludeRuntimePayloadInImage={IncludeRuntimePayloadInImage}, DriverVendorCount={DriverVendorCount}, HasCustomDriverDirectory={HasCustomDriverDirectory}, IsAutopilotEnabled={IsAutopilotEnabled}, IsConnectRuntimeProvisioningEnabled={IsConnectRuntimeProvisioningEnabled}, ConnectRuntimeSource={ConnectRuntimeSource}, IsDeployRuntimeProvisioningEnabled={IsDeployRuntimeProvisioningEnabled}, DeployRuntimeSource={DeployRuntimeSource}",
+                "Final media workspace preparation started. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, SignatureMode={SignatureMode}, IncludeWirelessSupport={IncludeWirelessSupport}, IncludeRuntimePayloadInImage={IncludeRuntimePayloadInImage}, DriverVendorCount={DriverVendorCount}, HasCustomDriverDirectory={HasCustomDriverDirectory}, IsAutopilotEnabled={IsAutopilotEnabled}, IsWinPeRuntimeProvisioningEnabled={IsWinPeRuntimeProvisioningEnabled}, WinPeRuntimeSource={WinPeRuntimeSource}, IsPostInstallRuntimeProvisioningEnabled={IsPostInstallRuntimeProvisioningEnabled}, PostInstallRuntimeSource={PostInstallRuntimeSource}",
                 options.Architecture,
                 NormalizeCultureName(options.WinPeLanguage),
                 options.SignatureMode,
@@ -1649,10 +1650,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 options.DriverVendors.Count,
                 !string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath),
                 options.IsAutopilotEnabled,
-                runtimePayloadProvisioning.Connect.IsEnabled,
-                ResolveProvisioningSource(runtimePayloadProvisioning.Connect),
-                runtimePayloadProvisioning.Deploy.IsEnabled,
-                ResolveProvisioningSource(runtimePayloadProvisioning.Deploy));
+                runtimePayloadProvisioning.WinPe.IsEnabled,
+                ResolveProvisioningSource(runtimePayloadProvisioning.WinPe),
+                runtimePayloadProvisioning.PostInstall.IsEnabled,
+                ResolveProvisioningSource(runtimePayloadProvisioning.PostInstall));
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.CleanStaleWorkspaces);
             // Recovery can wait on a DISM discard, so the user sees a status first and the DISM percentage while a
@@ -1851,7 +1852,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             IanaWindowsTimeZoneMapJson = embeddedAssetService.GetIanaWindowsTimeZoneMapJson(),
             FoundryBootstrapConfiguration = new FoundryBootstrapConfigurationDocument
             {
-                Telemetry = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.Bootstrap) }
+                Telemetry = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.WinPe) }
             },
             FoundryConnectConfigurationJson = connectBundle.ConfigurationJson,
             DeployConfigurationJson = deployConfigurationJson,
@@ -1867,8 +1868,9 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             AutopilotProfiles = options.IsAutopilotEnabled && options.AutopilotProvisioningMode == AutopilotProvisioningMode.JsonProfile
                 ? snapshot.Configuration.Autopilot.Profiles
                 : [],
-            ConnectProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Connect),
-            DeployProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.Deploy)
+            // Both markers keep their runtime readers: the guardian reads Deploy's debug marker and each mode reports its source.
+            ConnectProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.WinPe),
+            DeployProvisioningSource = ResolveProvisioningSource(runtimePayloadProvisioning.WinPe)
         };
     }
 
@@ -2604,8 +2606,8 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             success,
             failedStepName,
             duration,
-            ResolveRuntimePayloadSource(runtimePayloadProvisioning.Connect),
-            ResolveRuntimePayloadSource(runtimePayloadProvisioning.Deploy),
+            ResolveRuntimePayloadSource(runtimePayloadProvisioning.WinPe),
+            ResolveRuntimePayloadSource(runtimePayloadProvisioning.WinPe),
             diagnostic,
             operationId,
             adkService.CurrentStatus), StringComparer.Ordinal)
@@ -3448,14 +3450,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private static WinPeRuntimePayloadProvisioningOptions AddReleaseRuntimeProvisioning(
         WinPeRuntimePayloadProvisioningOptions options)
     {
+        // PostInstall joins only domain-join media, through WithDomainJoinRuntime.
         return options with
         {
-            Bootstrap = options.Bootstrap.IsEnabled ? options.Bootstrap : new WinPeRuntimePayloadApplicationOptions
-            {
-                IsEnabled = true,
-                ProvisioningSource = WinPeProvisioningSource.Release
-            },
-            Connect = options.Connect.IsEnabled ? options.Connect : new WinPeRuntimePayloadApplicationOptions
+            WinPe = options.WinPe.IsEnabled ? options.WinPe : new WinPeRuntimePayloadApplicationOptions
             {
                 IsEnabled = true,
                 ProvisioningSource = WinPeProvisioningSource.Release
@@ -3477,8 +3475,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         var current = new DirectoryInfo(AppContext.BaseDirectory);
         while (current is not null)
         {
-            if (File.Exists(Path.Combine(current.FullName, "src", "Foundry.Connect", "Foundry.Connect.csproj")) &&
-                File.Exists(Path.Combine(current.FullName, "src", "Foundry.Deploy", "Foundry.Deploy.csproj")))
+            if (File.Exists(Path.Combine(current.FullName, "src", "Foundry.WinPE", "Foundry.WinPE.csproj")))
             {
                 return current.FullName;
             }

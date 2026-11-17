@@ -6,15 +6,10 @@ namespace Foundry.Core.Services.WinPe;
 
 public static class WinPeRuntimePayloadEnvironmentVariables
 {
-    public const string DebugBootstrapEnable = "FOUNDRY_WINPE_DEBUG_BOOTSTRAP";
-    public const string DebugBootstrapArchive = "FOUNDRY_WINPE_DEBUG_BOOTSTRAP_ARCHIVE";
-    public const string DebugBootstrapProject = "FOUNDRY_WINPE_DEBUG_BOOTSTRAP_PROJECT";
-    public const string DebugConnectEnable = "FOUNDRY_WINPE_DEBUG_CONNECT";
-    public const string DebugConnectArchive = "FOUNDRY_WINPE_DEBUG_CONNECT_ARCHIVE";
-    public const string DebugConnectProject = "FOUNDRY_WINPE_DEBUG_CONNECT_PROJECT";
-    public const string DebugDeployEnable = "FOUNDRY_WINPE_DEBUG_DEPLOY";
-    public const string DebugDeployArchive = "FOUNDRY_WINPE_DEBUG_DEPLOY_ARCHIVE";
-    public const string DebugDeployProject = "FOUNDRY_WINPE_DEBUG_DEPLOY_PROJECT";
+    /// <summary>Enables the debug Foundry.WinPE payload; PostInstall and AutopilotInteractive follow it.</summary>
+    public const string DebugWinPeEnable = "FOUNDRY_WINPE_DEBUG_WINPE";
+    public const string DebugWinPeArchive = "FOUNDRY_WINPE_DEBUG_WINPE_ARCHIVE";
+    public const string DebugWinPeProject = "FOUNDRY_WINPE_DEBUG_WINPE_PROJECT";
     public const string DebugPostInstallArchive = "FOUNDRY_WINPE_DEBUG_POSTINSTALL_ARCHIVE";
     public const string DebugPostInstallProject = "FOUNDRY_WINPE_DEBUG_POSTINSTALL_PROJECT";
     public const string DebugAutopilotInteractiveArchive = "FOUNDRY_WINPE_DEBUG_AUTOPILOTINTERACTIVE_ARCHIVE";

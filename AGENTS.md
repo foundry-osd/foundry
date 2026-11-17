@@ -38,9 +38,9 @@ Verification scope:
 Solution architecture and project ownership:
 - `Foundry` is the WinUI 3 authoring application. It owns the desktop authoring experience, navigation, views, view models, and UI-specific services used to configure and generate deployment media.
 - `Foundry.Core` contains shared business logic, configuration models, validation, media creation, Windows ADK and WinPE operations, Autopilot integration, and framework-independent orchestration used by the applications.
-- `Foundry.Bootstrap` is the .NET console runtime for WinPE boot orchestration. It owns runtime payload resolution, cache recovery, system preparation, child process supervision, the deployment key relay between Foundry Connect and Foundry Deploy, console progress, and local boot diagnostics. It must not reference UI projects or replace PowerShell workflows owned by other applications.
-- `Foundry.Connect` is the WPF network provisioning runtime included in boot media. It owns runtime networking, configuration loading, application lifecycle, and the Connect-specific UI.
-- `Foundry.Deploy` is the WPF deployment runtime included in boot media. It owns deployment workflows, hardware discovery, downloads, driver packs, caching, runtime configuration, startup validation, and the Deploy-specific UI.
+- `Foundry.WinPE` is the single executable of the WinPE boot media. Without an argument it runs as the guardian: system preparation, PostInstall runtime resolution, the readiness protocol, the deployment key relay between Foundry Connect and Foundry Deploy, console progress, startup telemetry, and local boot diagnostics. It also hosts the Connect mode (`--connect`), the Deploy mode (`--deploy`), and the native deployment worker (`--native-deployment-worker`). It must not replace PowerShell workflows owned by other applications.
+- `Foundry.Connect` is the WPF network provisioning library hosted by `Foundry.WinPE`. It owns runtime networking, configuration loading, application lifecycle, and the Connect-specific UI.
+- `Foundry.Deploy` is the WPF deployment library hosted by `Foundry.WinPE`. It owns deployment workflows, hardware discovery, downloads, driver packs, caching, runtime configuration, startup validation, and the Deploy-specific UI.
 - `Foundry.AutopilotInteractive` is the WPF interactive Autopilot registration runtime that Deploy installs into the target OS and PostInstall runs during specialize. It owns device code sign-in, the QR code, group tag selection and the registration UI.
 - `Foundry.PostInstall` is the .NET console runtime for Windows setup before OOBE. It owns built-in and custom action execution, process supervision, durable restart/resume, and owned cleanup. Deploy owns target staging and answer-file integration; PostInstall runs Foundry.AutopilotInteractive as a built-in action; Deploy installs it in the target OS.
 - `Foundry.Localization` provides shared culture definitions and resource-based localization services used by the applications.
@@ -53,16 +53,17 @@ Project dependency rules:
 - Keep WinUI 3 concerns in `Foundry`.
 - Keep shared WPF building blocks in `Foundry.Wpf` and application-specific WPF concerns in the WPF application that owns them.
 - Keep `Foundry.PostInstall` independent of UI projects; shared execution contracts belong in `Foundry.Core`.
+- `Foundry.WinPE` may reference `Foundry.Connect` and `Foundry.Deploy`; `Foundry.Connect` and `Foundry.Deploy` must not reference each other or `Foundry.WinPE`.
 - `Foundry.AutopilotInteractive` may reference `Foundry.Core`, `Foundry.Wpf`, `Foundry.Localization` and `Foundry.Utilities`; it must not reference another application project.
 - Put reusable business rules and configuration contracts in `Foundry.Core` when they are shared or independent from a specific UI framework.
 - Put runtime-specific behavior in the runtime project that owns it.
 - Do not move Connect- or Deploy-specific workflows into `Foundry.Core` solely for reuse convenience.
 - Use `Foundry.Localization` for shared localization behavior instead of creating application-specific replacements.
-- Bootstrap and PostInstall console messages use English; keep Foundry OSD authoring controls translated in every supported culture.
+- Foundry.WinPE guardian and PostInstall console messages use English; keep Foundry OSD authoring controls translated in every supported culture.
 - Use `Foundry.Telemetry` for shared telemetry behavior instead of creating application-specific telemetry implementations.
 - `Foundry.Utilities` is a leaf project and must not reference another Foundry project.
 - `Foundry.Wpf` may reference `Foundry.Localization`, `Foundry.Telemetry` and `Foundry.Utilities`; it must not reference `Foundry.Core` or an application project. Only WPF applications reference `Foundry.Wpf`.
-- `Foundry.Core`, `Foundry`, `Foundry.Bootstrap`, `Foundry.Connect`, `Foundry.Deploy`, `Foundry.AutopilotInteractive`, `Foundry.PostInstall`, `Foundry.Localization`, `Foundry.Telemetry`, and `Foundry.Wpf` may consume `Foundry.Utilities` when a capability has a stable cross-project contract.
+- `Foundry.Core`, `Foundry`, `Foundry.WinPE`, `Foundry.Connect`, `Foundry.Deploy`, `Foundry.AutopilotInteractive`, `Foundry.PostInstall`, `Foundry.Localization`, `Foundry.Telemetry`, and `Foundry.Wpf` may consume `Foundry.Utilities` when a capability has a stable cross-project contract.
 - A type belongs in `Foundry.Utilities` only when it is technical, independently testable, and either has multiple consumers or replaces proven duplication.
 - Destructive deployment and media operations remain in the project that owns the workflow even when they use shared utility primitives.
 
@@ -119,7 +120,7 @@ Unit testing rules:
 - When adding new functionality, add or update the smallest relevant set of tests
 - Keep test projects aligned with the main project naming and solution structure
 - `Foundry.Core.Tests` owns tests for shared business logic, configuration contracts, validation, selection, transformation, and orchestration in `Foundry.Core`.
-- `Foundry.Bootstrap.Tests` owns tests for boot sequencing, runtime selection, cache rollback, process observation, cancellation, the deployment key relay, and best-effort system preparation and diagnostics in `Foundry.Bootstrap`.
+- `Foundry.WinPE.Tests` owns tests for mode dispatch, boot sequencing, process observation, cancellation, the deployment key relay, and best-effort system preparation and diagnostics in `Foundry.WinPE`.
 - `Foundry.Connect.Tests` owns tests for `Foundry.Connect` runtime behavior and its integration with shared `Foundry.Core` contracts.
 - `Foundry.Deploy.Tests` owns tests for `Foundry.Deploy` runtime behavior.
 - `Foundry.AutopilotInteractive.Tests` owns tests for `Foundry.AutopilotInteractive` runtime behavior, including sign-in flow, group tag handling, QR code generation and deadline handling.
@@ -134,11 +135,11 @@ Unit testing rules:
 - Test logic in its owning project; move it to `Foundry.Core` only when domain ownership and reuse justify it.
 
 Logging rules:
-- Use `FoundryLogConfiguration` for application file sinks so Foundry.OSD, Foundry.Bootstrap, Foundry.Connect, Foundry.Deploy, Foundry.AutopilotInteractive, and Foundry.PostInstall share the same structured text contract
+- Use `FoundryLogConfiguration` for application file sinks so Foundry.OSD, Foundry.WinPE, Foundry.Connect, Foundry.Deploy, Foundry.AutopilotInteractive, and Foundry.PostInstall share the same structured text contract
 - Foundry.PostInstall uses Verbose local file logging and preserves the diagnostic session ID staged by Deploy; do not assume a remote telemetry sink during Windows setup
 - Emit UTC timestamps with milliseconds and the Application, Session, and Component context on every application log event
 - Keep one stable active log filename with 10 MB size-based rolling and bounded retention
-- Use Verbose as the shared application file and PostHog Logs threshold for Foundry.OSD, Bootstrap, Connect, and Deploy
+- Use Verbose as the shared application file and PostHog Logs threshold for Foundry.OSD, the WinPE guardian, Connect, and Deploy
 - Use one normal structured log call for local and remote output; preserve original timestamps, event identifiers, process order, and ordinary diagnostic context, with targeted authentication-secret masking before both outputs
 - Keep Product Analytics and Error Tracking consent, privacy filtering, and exception deduplication separate from the all-level Logs stream; never add remote-only eligibility markers or per-message rate limiting
 - Keep verbose console output opt-in; pending remote logs must not block the application's primary operation or shutdown indefinitely
@@ -155,7 +156,7 @@ Logging rules:
 - Sample high-frequency numeric progress instead of logging every callback
 - Do not log secrets, tokens, passwords, full query strings, or sensitive user data
 - Prefer structured properties when the existing logger supports them
-- Correlate Bootstrap, Connect, and Deploy with `FOUNDRY_DIAGNOSTIC_SESSION_ID`
+- Correlate the WinPE guardian, Connect, and Deploy with `FOUNDRY_DIAGNOSTIC_SESSION_ID`
 - Persist WinPE logs best-effort without allowing persistence failures to replace the primary application outcome
 - Export sanitized support bundles by default without modifying source logs; raw export must require an explicit sensitive-data warning
 - Fail closed when a source cannot be sanitized, and publish support archives atomically only after manifest and summary generation succeeds

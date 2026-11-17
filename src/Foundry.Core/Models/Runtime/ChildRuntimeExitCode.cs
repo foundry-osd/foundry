@@ -5,7 +5,7 @@
 namespace Foundry.Core.Models.Runtime;
 
 /// <summary>
-/// Process exit codes a boot-media child application returns to Foundry.Bootstrap. Bootstrap treats
+/// Process exit codes a boot-media child application returns to the Foundry.WinPE guardian. The guardian treats
 /// <see cref="UserAborted"/> as operator cancellation and maps the failure codes to specific console messages; any
 /// other value is reported generically. Numeric values are a cross-process contract and must not change.
 /// </summary>
@@ -14,7 +14,7 @@ public enum ChildRuntimeExitCode
     /// <summary>The child completed its work.</summary>
     Success = 0,
 
-    /// <summary>The operator deliberately aborted the child; Bootstrap stops the boot without reporting a failure.</summary>
+    /// <summary>The operator deliberately aborted the child; the guardian stops the boot without reporting a failure.</summary>
     UserAborted = 20,
 
     /// <summary>The child could not start, for example because the shell or a required service failed to initialize.</summary>

@@ -18,7 +18,7 @@ public static class RuntimePayloadTrust
     /// <summary>Identifies the supported manifest contract.</summary>
     public const int SchemaVersion = 1;
 
-    /// <summary>Names the Bootstrap publication marker required by hardened media authoring.</summary>
+    /// <summary>Names the Foundry.WinPE publication marker required by hardened media authoring.</summary>
     public const string CapabilityFileName = "foundry.runtime-trust-capability.json";
 
     private static readonly JsonSerializerOptions SerializerOptions = new()
@@ -31,7 +31,7 @@ public static class RuntimePayloadTrust
     /// Reads a matching archive hash, validating the entire manifest before trusting any entry.
     /// </summary>
     /// <param name="winPeRoot">The boot-owned Foundry directory.</param>
-    /// <param name="applicationName">The Connect, Deploy, PostInstall, or AutopilotInteractive application name.</param>
+    /// <param name="applicationName">The PostInstall or AutopilotInteractive application name.</param>
     /// <param name="runtimeIdentifier">The target Windows runtime identifier.</param>
     /// <returns>The normalized SHA256, or null when the manifest or entry is absent.</returns>
     /// <exception cref="InvalidDataException">The identity or manifest is malformed, duplicated, or unsupported.</exception>
@@ -87,7 +87,7 @@ public static class RuntimePayloadTrust
 
     /// <summary>Resolves the original archive beneath an image or USB runtime root.</summary>
     /// <param name="runtimeRoot">The Runtime directory.</param>
-    /// <param name="applicationName">The Connect, Deploy, PostInstall, or AutopilotInteractive application name.</param>
+    /// <param name="applicationName">The PostInstall or AutopilotInteractive application name.</param>
     /// <param name="runtimeIdentifier">The target Windows runtime identifier.</param>
     /// <returns>The complete original archive path.</returns>
     public static string GetBaselineArchivePath(string runtimeRoot, string applicationName, string runtimeIdentifier)
@@ -121,7 +121,8 @@ public static class RuntimePayloadTrust
 
     private static void ValidateIdentity(string application, string runtime)
     {
-        if (application is not ("Foundry.Connect" or "Foundry.Deploy" or "Foundry.PostInstall" or "Foundry.AutopilotInteractive") || runtime is not ("win-x64" or "win-arm64"))
+        // Foundry.WinPE, which runs Connect and Deploy, is part of the read-only boot image and is never resolved from a cache.
+        if (application is not ("Foundry.PostInstall" or "Foundry.AutopilotInteractive") || runtime is not ("win-x64" or "win-arm64"))
         {
             throw new InvalidDataException("Runtime trust archive application or runtime identifier is unsupported.");
         }

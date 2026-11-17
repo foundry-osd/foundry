@@ -37,8 +37,7 @@ public static class MediaCreationStepNames
     public const string ApplyLanguageAndOptionalComponents = "Apply language and optional components";
     public const string ProvisionBootAssets = "Provision boot assets";
     public const string ProvisionRuntimePayloads = "Provision runtime payloads";
-    public const string DownloadConnectRuntimePayload = "Download Connect runtime payload";
-    public const string DownloadDeployRuntimePayload = "Download Deploy runtime payload";
+    public const string DownloadWinPeRuntimePayload = "Download WinPE runtime payload";
     public const string CommitBootImageChanges = "Commit boot image changes";
     public const string DownloadMediaDependency = "Download media dependency";
     public const string PrepareIsoOutputPath = "Prepare ISO output path";

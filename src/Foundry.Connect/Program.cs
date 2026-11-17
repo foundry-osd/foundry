@@ -24,7 +24,10 @@ using Serilog.Extensions.Logging;
 
 namespace Foundry.Connect;
 
-/// <summary>Runs the WPF application on its original STA thread and protects each startup boundary.</summary>
+/// <summary>
+/// Runs the WPF application on the calling thread, which must be the STA thread owned by the <c>[STAThread]</c> entry point of
+/// Foundry.WinPE, and protects each startup boundary.
+/// </summary>
 public static class Program
 {
     private const string DisableFluentBackdropSwitch = "Switch.System.Windows.Appearance.DisableFluentThemeWindowBackdrop";
@@ -32,8 +35,7 @@ public static class Program
     private static readonly TimeSpan DiagnosticsShutdownTimeout = TimeSpan.FromSeconds(2);
 
     /// <summary>Starts configuration and services before entering the synchronous WPF dispatcher loop.</summary>
-    [STAThread]
-    public static int Main(string[] args)
+    public static int Run(string[] args)
     {
         DiagnosticClock.Current.InitializeRuntime(Environment.GetEnvironmentVariable(DiagnosticClock.EnvironmentVariableName));
         string startupLogFilePath = "<unavailable>";
@@ -148,7 +150,7 @@ public static class Program
 
     /// <summary>
     /// Maps a failure to its exit code; failures before a policy stage keep the generic startup failure code, and once
-    /// the UI reported readiness to Foundry.Bootstrap every failure is a runtime failure.
+    /// the UI reported readiness to Foundry.WinPE every failure is a runtime failure.
     /// </summary>
     private static ChildRuntimeExitCode GetFailureExitCode(ConnectStartupStage? stage, RuntimeStartupDiagnostics? startup)
     {

@@ -17,7 +17,7 @@ using Serilog.Extensions.Logging;
 namespace Foundry.Deploy.Services.Deployment.PreOobe;
 
 /// <summary>
-/// Recovers a missing Bootstrap payload, or one from another release, into WinPE storage, with optional verified USB archive reuse.
+/// Recovers a missing PostInstall payload, or one from another release, into WinPE storage, with optional verified USB archive reuse.
 /// </summary>
 internal sealed class PostInstallRuntimeRecovery(string winPeRoot, string deployVersion, HttpClient client,
     IArtifactDownloadService downloadService, Func<string, string?> environment)

@@ -15,7 +15,7 @@ body:
       label: Affected area
       options:
         - Foundry OSD
-        - Foundry Bootstrap
+        - Foundry WinPE (startup)
         - Foundry Connect
         - Foundry Deploy
         - Foundry PostInstall

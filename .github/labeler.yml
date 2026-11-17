@@ -31,7 +31,6 @@
       - any-glob-to-any-file:
           - 'src/Foundry.Deploy/**'
           - 'src/Foundry.Deploy.Tests/**'
-          - 'scripts/Publish-FoundryDeploy.ps1'
           - 'src/Foundry.Wpf/**'
           - 'src/Foundry.Wpf.Tests/**'
 
@@ -41,16 +40,16 @@
       - any-glob-to-any-file:
           - 'src/Foundry.Connect/**'
           - 'src/Foundry.Connect.Tests/**'
-          - 'scripts/Publish-FoundryConnect.ps1'
           - 'src/Foundry.Wpf/**'
           - 'src/Foundry.Wpf.Tests/**'
 
-# Foundry WinPE boot orchestration runtime
-'project: foundry-bootstrap':
+# Foundry WinPE executable (guardian, Connect and Deploy hosting)
+'project: foundry-winpe':
   - changed-files:
       - any-glob-to-any-file:
-          - 'src/Foundry.Bootstrap/**'
-          - 'src/Foundry.Bootstrap.Tests/**'
+          - 'src/Foundry.WinPE/**'
+          - 'src/Foundry.WinPE.Tests/**'
+          - 'scripts/Publish-FoundryWinPE.ps1'
 
 # Foundry post-installation runtime
 'project: foundry-postinstall':

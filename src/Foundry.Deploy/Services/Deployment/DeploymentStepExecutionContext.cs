@@ -928,7 +928,7 @@ public sealed class DeploymentStepExecutionContext : IDisposable
         if (coveredDirectories.Any(path => !string.IsNullOrWhiteSpace(path) &&
             Path.TrimEndingDirectorySeparator(Path.GetFullPath(path)).Equals(Path.TrimEndingDirectorySeparator(source), StringComparison.OrdinalIgnoreCase))) return;
 
-        // Bootstrap's USB session owns top-level application snapshots and Startup records, not arbitrary adjacent payloads.
+        // The WinPE guardian's USB session owns top-level application snapshots and Startup records, not arbitrary adjacent payloads.
         await DiagnosticLogSnapshot.CopyAsync(source, destination.LogsDirectoryPath, "*.log", cancellationToken).ConfigureAwait(false);
         persisted.AddRange(Directory.EnumerateFiles(source, "*.log").Select(path => Path.Combine(destination.LogsDirectoryPath, Path.GetFileName(path))));
         await CopyDiagnosticTreeAsync(Path.Combine(source, "Startup"),

@@ -9,6 +9,9 @@ namespace Foundry.Core.Services.WinPe;
 /// </summary>
 public sealed record WinPeRuntimePayloadProvisioningOptions
 {
+    /// <summary>Names the Foundry.WinPE application, its executable and its release asset prefix.</summary>
+    public const string WinPeApplicationName = "Foundry.WinPE";
+
     /// <summary>
     /// Gets the target runtime architecture.
     /// </summary>
@@ -30,7 +33,8 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
     public string UsbCacheRootPath { get; init; } = string.Empty;
 
     /// <summary>
-    /// Gets whether original Connect, Deploy, PostInstall, and debug AutopilotInteractive archives enter the image. Trust anchors always enter the image.
+    /// Gets whether original PostInstall and debug AutopilotInteractive archives enter the image. Trust anchors and the
+    /// Foundry.WinPE folder always enter the image.
     /// </summary>
     public bool IncludePayloadsInImage { get; init; } = true;
 
@@ -42,26 +46,18 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
     public string ReleaseVersion { get; init; } = string.Empty;
 
     /// <summary>
-    /// Gets the Bootstrap payload staged only into the mounted image.
+    /// Gets the Foundry.WinPE payload. Its archive (the single-file executable, WPF's native libraries and the startup
+    /// manifests) is extracted into <c>Foundry\WinPE</c> of the mounted image only and never into the USB cache, so the
+    /// image holds no archive; the executable runs the guardian, Connect and Deploy from the boot image.
     /// </summary>
-    public WinPeRuntimePayloadApplicationOptions Bootstrap { get; init; } = new();
+    public WinPeRuntimePayloadApplicationOptions WinPe { get; init; } = new();
 
     /// <summary>
     /// Gets the release metadata shared by all provisioning stages of this media build.
     /// </summary>
     public WinPeRuntimeReleaseSnapshot? ReleaseSnapshot { get; init; }
 
-    /// <summary>
-    /// Gets Foundry.Connect payload options.
-    /// </summary>
-    public WinPeRuntimePayloadApplicationOptions Connect { get; init; } = new();
-
-    /// <summary>
-    /// Gets Foundry.Deploy payload options.
-    /// </summary>
-    public WinPeRuntimePayloadApplicationOptions Deploy { get; init; } = new();
-
-    /// <summary>Gets Foundry.PostInstall payload options, following the Deploy debug selection.</summary>
+    /// <summary>Gets Foundry.PostInstall payload options, following the WinPE debug selection.</summary>
     public WinPeRuntimePayloadApplicationOptions PostInstall { get; init; } = new();
 
     /// <summary>
@@ -109,33 +105,18 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
             MountedImagePath = mountedImagePath,
             UsbCacheRootPath = usbCacheRootPath,
             ReleaseVersion = releaseVersion,
-            Bootstrap = CreateApplicationOptions(
-                "Foundry.Bootstrap",
-                WinPeRuntimePayloadEnvironmentVariables.DebugBootstrapEnable,
-                WinPeRuntimePayloadEnvironmentVariables.DebugBootstrapArchive,
-                WinPeRuntimePayloadEnvironmentVariables.DebugBootstrapProject,
+            WinPe = CreateApplicationOptions(
+                WinPeApplicationName,
+                WinPeRuntimePayloadEnvironmentVariables.DebugWinPeEnable,
+                WinPeRuntimePayloadEnvironmentVariables.DebugWinPeArchive,
+                WinPeRuntimePayloadEnvironmentVariables.DebugWinPeProject,
                 isDebuggerAttached,
                 getEnvironmentVariable,
                 projectDiscoveryStartPath,
-                requireLocalSourceWhenDebugging: true),
-            Connect = CreateApplicationOptions(
-                "Foundry.Connect",
-                WinPeRuntimePayloadEnvironmentVariables.DebugConnectEnable,
-                WinPeRuntimePayloadEnvironmentVariables.DebugConnectArchive,
-                WinPeRuntimePayloadEnvironmentVariables.DebugConnectProject,
-                isDebuggerAttached,
-                getEnvironmentVariable,
-                projectDiscoveryStartPath),
-            Deploy = CreateApplicationOptions(
-                "Foundry.Deploy",
-                WinPeRuntimePayloadEnvironmentVariables.DebugDeployEnable,
-                WinPeRuntimePayloadEnvironmentVariables.DebugDeployArchive,
-                WinPeRuntimePayloadEnvironmentVariables.DebugDeployProject,
-                isDebuggerAttached,
-                getEnvironmentVariable,
-                projectDiscoveryStartPath)
+                requireLocalSourceWhenDebugging: true)
         };
-        if (!options.Deploy.IsEnabled)
+        // PostInstall and AutopilotInteractive follow the WinPE debug selection: debug boot media carry local builds of both.
+        if (!options.WinPe.IsEnabled)
         {
             string archive = (getEnvironmentVariable(WinPeRuntimePayloadEnvironmentVariables.DebugPostInstallArchive) ?? string.Empty).Trim();
             string project = (getEnvironmentVariable(WinPeRuntimePayloadEnvironmentVariables.DebugPostInstallProject) ?? string.Empty).Trim();
@@ -148,11 +129,11 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
                 }
             };
         }
-        string? discoveryPath = string.IsNullOrWhiteSpace(options.Deploy.ProjectPath)
-            ? projectDiscoveryStartPath : Path.GetDirectoryName(Path.GetFullPath(options.Deploy.ProjectPath));
+        string? discoveryPath = string.IsNullOrWhiteSpace(options.WinPe.ProjectPath)
+            ? projectDiscoveryStartPath : Path.GetDirectoryName(Path.GetFullPath(options.WinPe.ProjectPath));
         WinPeRuntimePayloadApplicationOptions autopilotInteractive = CreateApplicationOptions(
             "Foundry.AutopilotInteractive",
-            WinPeRuntimePayloadEnvironmentVariables.DebugDeployEnable,
+            WinPeRuntimePayloadEnvironmentVariables.DebugWinPeEnable,
             WinPeRuntimePayloadEnvironmentVariables.DebugAutopilotInteractiveArchive,
             WinPeRuntimePayloadEnvironmentVariables.DebugAutopilotInteractiveProject,
             true, getEnvironmentVariable, discoveryPath);
@@ -160,7 +141,7 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
         {
             PostInstall = CreateApplicationOptions(
                 "Foundry.PostInstall",
-                WinPeRuntimePayloadEnvironmentVariables.DebugDeployEnable,
+                WinPeRuntimePayloadEnvironmentVariables.DebugWinPeEnable,
                 WinPeRuntimePayloadEnvironmentVariables.DebugPostInstallArchive,
                 WinPeRuntimePayloadEnvironmentVariables.DebugPostInstallProject,
                 true, getEnvironmentVariable, discoveryPath, requireLocalSourceWhenDebugging: true),

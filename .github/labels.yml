@@ -56,15 +56,16 @@
 
 - name: 'project: foundry-deploy'
   color: '0e8a16'
-  description: Changes in the Foundry.Deploy deployment application
+  description: Changes in the Foundry.Deploy deployment library hosted by Foundry.WinPE
 
 - name: 'project: foundry-connect'
   color: 'ea580c'
-  description: Changes in the Foundry.Connect WinPE network provisioning application
+  description: Changes in the Foundry.Connect network provisioning library hosted by Foundry.WinPE
 
-- name: 'project: foundry-bootstrap'
+- name: 'project: foundry-winpe'
   color: '84cc16'
-  description: Changes in the Foundry.Bootstrap WinPE boot orchestration runtime
+  description: 'Changes in the Foundry.WinPE executable: WinPE guardian and host of the Connect and Deploy modes'
+  aliases: ['project: foundry-bootstrap']
 
 - name: 'project: foundry-postinstall'
   color: '8d5524'

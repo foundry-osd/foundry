@@ -750,7 +750,8 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
     {
         return options with
         {
-            Bootstrap = options.Bootstrap with { IsEnabled = false },
+            // Foundry.WinPE lives only in boot.wim; the cache partition receives the runtimes resolved from it.
+            WinPe = options.WinPe with { IsEnabled = false },
             MountedImagePath = string.Empty,
             UsbCacheRootPath = cacheRootPath,
             WorkingDirectoryPath = string.IsNullOrWhiteSpace(options.WorkingDirectoryPath)
