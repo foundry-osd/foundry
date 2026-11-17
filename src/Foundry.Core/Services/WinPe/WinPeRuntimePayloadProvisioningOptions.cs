@@ -46,8 +46,9 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
     public string ReleaseVersion { get; init; } = string.Empty;
 
     /// <summary>
-    /// Gets the Foundry.WinPE payload. It is extracted as a folder into <c>Foundry\WinPE</c> of the mounted image only and
-    /// never into the USB cache; it runs the guardian, Connect and Deploy from the boot image.
+    /// Gets the Foundry.WinPE payload. Its archive (the single-file executable, WPF's native libraries and the startup
+    /// manifests) is extracted into <c>Foundry\WinPE</c> of the mounted image only and never into the USB cache, so the
+    /// image holds no archive; the executable runs the guardian, Connect and Deploy from the boot image.
     /// </summary>
     public WinPeRuntimePayloadApplicationOptions WinPe { get; init; } = new();
 

@@ -422,13 +422,18 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         Directory.CreateDirectory(debugWorkspace);
         // Project references may not inherit the RID; propagate Platform to keep every assembly on the target architecture.
         string platform = runtimeIdentifier == "win-arm64" ? "ARM64" : "x64";
-        // Foundry.WinPE runs from the boot image as a folder, so nothing self-extracts into the small WinPE RAM disk;
-        // the runtimes started from the cache stay single-file archives.
-        string[] layoutProperties = applicationName == WinPeApplicationName
-            ? ["/p:PublishSingleFile=false"]
+        // Every runtime is a self-contained single-file executable, matching the release workflow. Foundry.WinPE keeps WPF's
+        // native libraries beside the executable so nothing is extracted into the WinPE RAM disk at startup, and skips bundle
+        // compression because boot.wim already compresses it. The runtimes started from the cache bundle and compress everything.
+        string[] singleFileProperties = applicationName == WinPeApplicationName
+            ?
+            [
+                "/p:EnableCompressionInSingleFile=false",
+                "/p:IncludeNativeLibrariesForSelfExtract=false",
+                "/p:IncludeAllContentForSelfExtract=false"
+            ]
             :
             [
-                "/p:PublishSingleFile=true",
                 "/p:EnableCompressionInSingleFile=true",
                 "/p:IncludeNativeLibrariesForSelfExtract=true",
                 "/p:IncludeAllContentForSelfExtract=true"
@@ -442,7 +447,8 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 "-r", runtimeIdentifier,
                 $"/p:Platform={platform}",
                 "--self-contained", "true",
-                .. layoutProperties,
+                "/p:PublishSingleFile=true",
+                .. singleFileProperties,
                 "/p:DebugType=None",
                 "/p:GenerateDocumentationFile=false",
                 "-o", WinPeProcessRunner.Quote(publishDirectory)

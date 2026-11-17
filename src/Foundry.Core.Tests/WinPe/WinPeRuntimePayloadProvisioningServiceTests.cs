@@ -669,7 +669,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
     [Theory]
     [InlineData(WinPeArchitecture.X64, "win-x64", "x64")]
     [InlineData(WinPeArchitecture.Arm64, "win-arm64", "ARM64")]
-    public async Task ProvisionAsync_WhenWinPeProjectIsProvided_PublishesAFolderIntoTheBootImage(WinPeArchitecture architecture, string runtime, string platform)
+    public async Task ProvisionAsync_WhenWinPeProjectIsProvided_PublishesASingleFileExecutableIntoTheBootImage(WinPeArchitecture architecture, string runtime, string platform)
     {
         using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
         string projectPath = Path.Combine(workspace.RootPath, "src", "Foundry.WinPE", "Foundry.WinPE.csproj");
@@ -701,10 +701,13 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         Assert.Contains($"-r {runtime}", execution.Arguments);
         Assert.Contains($"/p:Platform={platform}", execution.Arguments);
         Assert.Contains("--self-contained true", execution.Arguments);
-        Assert.Contains("/p:PublishSingleFile=false", execution.Arguments);
-        Assert.DoesNotContain("PublishSingleFile=true", execution.Arguments);
-        Assert.DoesNotContain("SelfExtract", execution.Arguments);
-        Assert.DoesNotContain("EnableCompressionInSingleFile", execution.Arguments);
+        // Single-file without extraction: WPF's native libraries stay beside the executable and boot.wim compresses the payload.
+        Assert.Contains("/p:PublishSingleFile=true", execution.Arguments);
+        Assert.Contains("/p:EnableCompressionInSingleFile=false", execution.Arguments);
+        Assert.Contains("/p:IncludeNativeLibrariesForSelfExtract=false", execution.Arguments);
+        Assert.Contains("/p:IncludeAllContentForSelfExtract=false", execution.Arguments);
+        Assert.DoesNotContain("SelfExtract=true", execution.Arguments);
+        Assert.DoesNotContain("EnableCompressionInSingleFile=true", execution.Arguments);
         string winPeRoot = Path.Combine(workspace.MountedImagePath, "Foundry", "WinPE");
         Assert.True(File.Exists(Path.Combine(winPeRoot, "Foundry.WinPE.exe")));
         Assert.True(File.Exists(Path.Combine(winPeRoot, RuntimePayloadTrust.CapabilityFileName)));

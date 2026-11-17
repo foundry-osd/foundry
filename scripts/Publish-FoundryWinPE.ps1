@@ -14,9 +14,14 @@ $PSNativeCommandUseErrorActionPreference = $true
 $repoRoot = Resolve-Path (Join-Path $PSScriptRoot '..')
 $projectPath = Join-Path $repoRoot 'src\Foundry.WinPE\Foundry.WinPE.csproj'
 $publishRoot = Join-Path $repoRoot 'artifacts\publish\Foundry.WinPE'
-# Foundry.WinPE runs as a folder from the boot image: no single-file bundle and nothing self-extracts into the WinPE RAM disk.
+# Foundry.WinPE is a self-contained single-file executable copied directly into the boot image. WPF's native libraries
+# stay beside it so nothing is extracted into the WinPE RAM disk at startup, and the bundle is not compressed because
+# boot.wim already compresses the payload.
 $publishProperties = @(
-    'PublishSingleFile=false',
+    'PublishSingleFile=true',
+    'EnableCompressionInSingleFile=false',
+    'IncludeNativeLibrariesForSelfExtract=false',
+    'IncludeAllContentForSelfExtract=false',
     'DebugType=None',
     'GenerateDocumentationFile=false'
 )
@@ -64,7 +69,7 @@ foreach ($rid in $runtimeIdentifiers) {
 
     foreach ($file in $requiredFiles) {
         if (-not (Test-Path -Path (Join-Path $outputPath $file) -PathType Leaf)) {
-            throw "Foundry.WinPE publish output ($rid) is missing '$file' at the folder root."
+            throw "Foundry.WinPE publish output ($rid) is missing '$file' at the publish root."
         }
     }
 

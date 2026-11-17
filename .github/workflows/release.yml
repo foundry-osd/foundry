@@ -302,9 +302,14 @@ jobs:
               'IncludeNativeLibrariesForSelfExtract=true',
               'IncludeAllContentForSelfExtract=true'
           ) + $commonPublishProperties
-          # Foundry.WinPE runs as a folder from the boot image, so nothing self-extracts into the WinPE RAM disk.
-          $folderPublishProperties = @(
-              'PublishSingleFile=false'
+          # Foundry.WinPE is a single-file executable copied directly into the boot image. WPF's native libraries stay
+          # beside it so nothing is extracted into the WinPE RAM disk at startup, and the bundle is not compressed because
+          # boot.wim already compresses the payload.
+          $winPePublishProperties = @(
+              'PublishSingleFile=true',
+              'EnableCompressionInSingleFile=false',
+              'IncludeNativeLibrariesForSelfExtract=false',
+              'IncludeAllContentForSelfExtract=false'
           ) + $commonPublishProperties
 
           function Invoke-Publish {
@@ -368,7 +373,7 @@ jobs:
               }
 
               $winPePublishPath = Join-Path $publishRoot (Join-Path 'Foundry.WinPE' $runtimeIdentifier)
-              Invoke-Publish -ProjectPath $winPeProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $winPePublishPath -Properties $folderPublishProperties
+              Invoke-Publish -ProjectPath $winPeProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $winPePublishPath -Properties $winPePublishProperties
 
               foreach ($winPeRequiredFile in @('Foundry.WinPE.exe', 'foundry.startup.json', 'foundry.runtime-trust-capability.json')) {
                   $winPeRequiredPath = Join-Path $winPePublishPath $winPeRequiredFile
