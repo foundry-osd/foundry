@@ -115,12 +115,6 @@ public sealed partial class WinPeUsbMediaService
     }
 
     /// <summary>
-    /// Removes driver sets that the just-published generation no longer references, or every driver set when the update
-    /// publishes none, once BOOT was rewritten and verified. Runs only in the update flow.
-    /// Cleanup is best-effort: the new media is already complete, so any failure, including a cache drive that no longer
-    /// belongs to the target disk, is logged and reported without failing the update.
-    /// </summary>
-    /// <summary>
     /// Removes the runtime cache that older Foundry OSD versions kept on the cache partition, once BOOT was rewritten and
     /// verified. Runs only in the update flow and, like driver set pruning, never deletes from a cache drive that no longer
     /// belongs to the target disk; a failure is logged without failing the update.
@@ -132,7 +126,7 @@ public sealed partial class WinPeUsbMediaService
             // The cache drive letter may have been reassigned while BOOT was rewritten; never delete from another disk.
             await _customImagePublisher.ValidateDestinationDiskAsync(dataRoot, options.TargetDiskNumber!.Value, cancellationToken).ConfigureAwait(false);
         }
-        catch (Exception exception)
+        catch (Exception exception) when (exception is not OperationCanceledException)
         {
             Log.ForContext<WinPeUsbMediaService>().Warning(exception, "Legacy USB runtime cache was kept: the cache drive could not be verified.");
             return;
@@ -141,6 +135,12 @@ public sealed partial class WinPeUsbMediaService
         RemoveLegacyRuntimeCache(dataRoot);
     }
 
+    /// <summary>
+    /// Removes driver sets that the just-published generation no longer references, or every driver set when the update
+    /// publishes none, once BOOT was rewritten and verified. Runs only in the update flow.
+    /// Cleanup is best-effort: the new media is already complete, so any failure, including a cache drive that no longer
+    /// belongs to the target disk, is logged and reported without failing the update.
+    /// </summary>
     private async Task PruneCustomDriversAsync(UsbOutputOptions options, string dataRoot, CancellationToken cancellationToken)
     {
         ILogger logger = Log.ForContext<WinPeUsbMediaService>();

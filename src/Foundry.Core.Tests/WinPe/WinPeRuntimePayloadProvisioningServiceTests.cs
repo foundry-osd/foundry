@@ -205,10 +205,10 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
     }
 
     [Theory]
-    [InlineData("hash")]
-    [InlineData("missing-launch")]
-    [InlineData("unlisted-file")]
-    public async Task ProvisionAsync_WhenPostInstallFilesDoNotMatchTheManifest_Fails(string defect)
+    [InlineData("hash", "PostInstall runtime file 'Launch.cmd' does not match its manifest.")]
+    [InlineData("missing-launch", "PostInstall runtime archive must contain exactly one 'Launch.cmd' at its root.")]
+    [InlineData("unlisted-file", "PostInstall runtime metadata must list exactly the executable and Launch.cmd.")]
+    public async Task ProvisionAsync_WhenPostInstallFilesDoNotMatchTheManifest_Fails(string defect, string expectedDetail)
     {
         using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
         string archive = workspace.CreateArchive("postinstall.zip", "Foundry.PostInstall.exe");
@@ -240,6 +240,8 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         }, cancellationToken: TestContext.Current.CancellationToken);
 
         Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.BuildFailed, result.Error!.Code);
+        Assert.Equal(expectedDetail, result.Error.Details);
     }
 
     [Theory]

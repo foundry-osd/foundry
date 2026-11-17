@@ -54,8 +54,6 @@ internal static class TelemetryValueNormalizer
                 "uploadtimedout" => "upload_timed_out",
                 _ => text
             },
-            "last_stage" when eventName == TelemetryEvents.BootstrapFailed =>
-                text == "deploymentpreparation" ? "deployment_preparation" : text,
             "deploy_os_edition" => NormalizeWindowsEdition(text),
             _ => text
         };

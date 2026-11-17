@@ -87,8 +87,6 @@ public sealed class TelemetryValueNormalizerTests
     [InlineData(TelemetryEvents.DeploySessionFinished, "deploy_autopilot_hash_upload_state", "completed", "completed")]
     [InlineData(TelemetryEvents.OsdBootMediaFinished, "boot_media_boot_image_source", "winre", "winre")]
     [InlineData(TelemetryEvents.OsdBootMediaFinished, "boot_media_boot_image_source", "winpe_fallback", "winpe_fallback")]
-    [InlineData(TelemetryEvents.BootstrapFailed, "last_stage", "deploymentpreparation", "deployment_preparation")]
-    [InlineData(TelemetryEvents.BootstrapFailed, "last_stage", "deployment_preparation", "deployment_preparation")]
     [InlineData(TelemetryEvents.BootstrapFailed, "last_stage", "connect", "connect")]
     public void Normalize_SendsSnakeCaseEnumValues(string eventName, string key, string value, string expected)
     {
@@ -129,15 +127,5 @@ public sealed class TelemetryValueNormalizerTests
             new Dictionary<string, object?> { ["deploy_os_source"] = source, ["deploy_os_edition"] = "Pro" });
 
         Assert.Equal("professional", result["deploy_os_edition"]);
-    }
-
-    [Fact]
-    public void Sanitize_ForBootstrapFailed_KeepsLegacyStageSpellingAsCanonicalValue()
-    {
-        IReadOnlyDictionary<string, object?> result = TelemetryEventPropertyPolicy.Sanitize(
-            TelemetryEvents.BootstrapFailed,
-            new Dictionary<string, object?> { ["last_stage"] = "deploymentpreparation" });
-
-        Assert.Equal("deployment_preparation", result["last_stage"]);
     }
 }

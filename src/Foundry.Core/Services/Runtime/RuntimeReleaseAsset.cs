@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.Json;
+using Foundry.Core.Models.Autopilot;
 
 namespace Foundry.Core.Services.Runtime;
 
@@ -22,7 +23,7 @@ public sealed record RuntimeReleaseAsset(string DownloadUrl, string Sha256)
     /// <exception cref="InvalidDataException">The identity or release asset is missing, ambiguous, or invalid.</exception>
     public static RuntimeReleaseAsset Parse(JsonElement release, string applicationName, string runtimeIdentifier)
     {
-        if (applicationName != "Foundry.AutopilotInteractive" || runtimeIdentifier is not ("win-x64" or "win-arm64"))
+        if (applicationName != AutopilotInteractiveLayout.ApplicationName || runtimeIdentifier is not ("win-x64" or "win-arm64"))
         {
             throw new InvalidDataException("Runtime release asset application or runtime identifier is unsupported.");
         }

@@ -313,7 +313,7 @@ public sealed class BootstrapTelemetryPipelineTests
     }
 
     [Fact]
-    public void PersistedLegacyFailure_IsRevalidatedWithCanonicalStage()
+    public void PersistedLegacyFailure_IsRevalidatedWithCurrentSchemaVersion()
     {
         using var folder = new TestFolder();
         var legacy = new BootstrapPendingRecord(Guid.NewGuid(),
@@ -322,7 +322,7 @@ public sealed class BootstrapTelemetryPipelineTests
             new Dictionary<string, object>
             {
                 ["failure_category"] = "stage_failed",
-                ["last_stage"] = "deploymentpreparation",
+                ["last_stage"] = "system",
                 ["telemetry_schema_version"] = 2
             }, null);
         File.WriteAllLines(folder.Path, [JsonSerializer.Serialize(legacy)]);
@@ -330,7 +330,7 @@ public sealed class BootstrapTelemetryPipelineTests
         BootstrapPendingRecord record = Assert.Single(new BootstrapTelemetryJournal(folder.Path).Records);
 
         Assert.Equal("stage_failed", record.Properties!["failure_category"]);
-        Assert.Equal("deployment_preparation", record.Properties["last_stage"]);
+        Assert.Equal("system", record.Properties["last_stage"]);
         Assert.Equal(3, record.Properties["telemetry_schema_version"]);
     }
 
