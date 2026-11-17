@@ -5,10 +5,10 @@
 namespace Foundry.Core.Models.Configuration;
 
 /// <summary>
-/// Describes the wired 802.1X settings written to the Foundry.Connect runtime configuration.
+/// Describes the wired 802.1X settings written to the Foundry.Connect section of the WinPE runtime configuration.
 /// </summary>
 /// <remarks>
-/// This is part of the Connect runtime schema contract and is kept separate from the authoring <see cref="Dot1xSettings"/>,
+/// This is part of the <c>connect</c> section of the WinPE runtime configuration and is kept separate from the authoring <see cref="Dot1xSettings"/>,
 /// so authoring changes cannot alter the generated JSON. Paths are media-relative and no plaintext secret is carried.
 /// </remarks>
 public sealed record ConnectDot1xSettings

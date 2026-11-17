@@ -7,10 +7,10 @@ using System.Text.Json.Serialization;
 namespace Foundry.Core.Models.Configuration;
 
 /// <summary>
-/// Describes the Wi-Fi settings written to the Foundry.Connect runtime configuration.
+/// Describes the Wi-Fi settings written to the Foundry.Connect section of the WinPE runtime configuration.
 /// </summary>
 /// <remarks>
-/// This is part of the Connect runtime schema contract and is kept separate from the authoring <see cref="WifiSettings"/>,
+/// This is part of the <c>connect</c> section of the WinPE runtime configuration and is kept separate from the authoring <see cref="WifiSettings"/>,
 /// so authoring changes cannot alter the generated JSON. Paths are media-relative and secrets are only carried as envelopes.
 /// </remarks>
 public sealed record ConnectWifiSettings

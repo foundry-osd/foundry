@@ -1102,7 +1102,7 @@ public sealed class DeployConfigurationGeneratorTests
     }
 
     [Fact]
-    public void Serialize_WhenWinPeTimeZoneIsSet_PreservesBootstrapConfigurationPath()
+    public void Serialize_WhenDefaultTimeZoneIsSet_WritesLocalizationDefaultTimeZoneId()
     {
         var generator = new DeployConfigurationGenerator();
         var document = generator.Generate(new FoundryConfigurationDocument
