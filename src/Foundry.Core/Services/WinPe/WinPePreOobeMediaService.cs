@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Text.Json;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Models.Packages;
@@ -46,24 +45,26 @@ public sealed class WinPePreOobeMediaService
         }
     }
 
-    public static string BindConfiguration(WinPeContentPackageMediaLease package, string deployConfigurationJson)
+    /// <summary>
+    /// Writes the manifest identity of <paramref name="package"/> into <c>deploy.preOobe</c> of the WinPE configuration and
+    /// validates the result; the other sections of the document are left as written.
+    /// </summary>
+    public static string BindConfiguration(WinPeContentPackageMediaLease package, string winPeConfigurationJson)
     {
         package.ThrowIfDisposed();
-        var configuration = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(deployConfigurationJson, ConfigurationJsonDefaults.SerializerOptions)
-            ?? throw new InvalidDataException("PreOobe.InvalidConfiguration");
-        string bound = JsonSerializer.Serialize(configuration with
+        string bound = WinPeConfigurationJson.UpdateDeploy(winPeConfigurationJson, deploy => deploy with
         {
-            PreOobe = configuration.PreOobe with { ManifestId = package.ManifestId, ManifestHash = package.ManifestHash }
-        }, ConfigurationJsonDefaults.SerializerOptions);
+            PreOobe = deploy.PreOobe with { ManifestId = package.ManifestId, ManifestHash = package.ManifestHash }
+        }) ?? throw new InvalidDataException("PreOobe.InvalidConfiguration");
         ValidateConfigurationBinding(package, bound);
         return bound;
     }
 
-    public static void ValidateConfigurationBinding(WinPeContentPackageMediaLease package, string deployConfigurationJson)
+    /// <summary>Checks that <c>deploy.preOobe</c> of the WinPE configuration names this media generation and its packages.</summary>
+    public static void ValidateConfigurationBinding(WinPeContentPackageMediaLease package, string winPeConfigurationJson)
     {
         package.ThrowIfDisposed();
-        var configuration = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(deployConfigurationJson, ConfigurationJsonDefaults.SerializerOptions);
-        DeployPreOobeSettings? settings = configuration?.PreOobe;
+        DeployPreOobeSettings? settings = WinPeConfigurationJson.ReadDeploy(winPeConfigurationJson)?.PreOobe;
         if (settings is null || settings.ManifestId != package.ManifestId || !package.ManifestHash.Equals(settings.ManifestHash, StringComparison.OrdinalIgnoreCase))
             throw new InvalidDataException("PreOobe.InvalidMediaBinding");
         PreOobeConfigurationValidator.ThrowIfInvalid(new() { IsEnabled = settings.IsEnabled, Actions = settings.Actions });

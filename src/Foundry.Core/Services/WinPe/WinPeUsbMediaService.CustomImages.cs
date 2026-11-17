@@ -16,11 +16,11 @@ public sealed partial class WinPeUsbMediaService
         try
         {
             if (options.CustomImages is not null)
-                WinPeCustomImageMediaService.ValidateConfigurationBinding(options.CustomImages, options.DeployConfigurationJson ?? string.Empty);
+                WinPeCustomImageMediaService.ValidateConfigurationBinding(options.CustomImages, options.WinPeConfigurationJson ?? string.Empty);
             if (options.PostInstallation is not null)
-                WinPePreOobeMediaService.ValidateConfigurationBinding(options.PostInstallation, options.DeployConfigurationJson ?? string.Empty);
+                WinPePreOobeMediaService.ValidateConfigurationBinding(options.PostInstallation, options.WinPeConfigurationJson ?? string.Empty);
             if (options.CustomDrivers is not null)
-                WinPeCustomDriverSetMediaService.ValidateConfigurationBinding(options.CustomDrivers, options.DeployConfigurationJson ?? string.Empty);
+                WinPeCustomDriverSetMediaService.ValidateConfigurationBinding(options.CustomDrivers, options.WinPeConfigurationJson ?? string.Empty);
             var sourcePaths = new List<string> { artifact.WorkingDirectoryPath };
             if (options.CustomImages is not null) sourcePaths.AddRange(options.CustomImages.Files.Select(file => file.SourcePath));
             if (options.PostInstallation is not null) sourcePaths.AddRange(options.PostInstallation.Files.Select(file => file.SourcePath));

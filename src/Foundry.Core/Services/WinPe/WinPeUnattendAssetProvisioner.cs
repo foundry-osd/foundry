@@ -12,20 +12,20 @@ using Foundry.Core.Services.Configuration;
 namespace Foundry.Core.Services.WinPe;
 
 /// <summary>
-/// Packages the validated source bytes as protected assets matching the generated deployment manifest.
+/// Packages the validated source bytes as protected assets matching the answer-file manifest of the WinPE configuration.
 /// </summary>
 internal static class WinPeUnattendAssetProvisioner
 {
     public static async Task ProvisionAsync(
         string configurationRoot,
         WinPeMountedImageAssetProvisioningOptions options,
-        string deployConfigurationJson,
+        string configurationJson,
         CancellationToken cancellationToken)
     {
         UnattendFileService.ValidateSettings(options.Unattend, options.IsDeploymentProtectionEnabled);
-        FoundryDeployConfigurationDocument configuration = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(
-            deployConfigurationJson, ConfigurationJsonDefaults.SerializerOptions)
-            ?? throw new InvalidOperationException("Deployment configuration is required for answer-file provisioning.");
+        FoundryWinPeConfigurationDocument configuration = JsonSerializer.Deserialize<FoundryWinPeConfigurationDocument>(
+            configurationJson, ConfigurationJsonDefaults.SerializerOptions)
+            ?? throw new InvalidOperationException("The WinPE configuration is required for answer-file provisioning.");
         ValidateManifest(options, configuration);
 
         string assetRoot = Path.Combine(configurationRoot, "Unattend");
@@ -69,9 +69,9 @@ internal static class WinPeUnattendAssetProvisioner
 
     private static void ValidateManifest(
         WinPeMountedImageAssetProvisioningOptions options,
-        FoundryDeployConfigurationDocument configuration)
+        FoundryWinPeConfigurationDocument configuration)
     {
-        DeployUnattendSettings manifest = configuration.Unattend
+        DeployUnattendSettings manifest = configuration.Deploy?.Unattend
             ?? throw new InvalidOperationException("The answer-file manifest is invalid.");
         if (manifest.IsEnabled != options.Unattend.IsEnabled)
         {

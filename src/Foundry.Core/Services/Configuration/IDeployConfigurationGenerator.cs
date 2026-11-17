@@ -8,7 +8,7 @@ using Foundry.Core.Models.Configuration.Deploy;
 namespace Foundry.Core.Services.Configuration;
 
 /// <summary>
-/// Converts full Foundry configuration into the reduced document consumed by Foundry.Deploy.
+/// Converts full Foundry configuration into the <c>deploy</c> section of the WinPE runtime configuration.
 /// </summary>
 public interface IDeployConfigurationGenerator
 {
@@ -17,7 +17,7 @@ public interface IDeployConfigurationGenerator
     /// </summary>
     /// <param name="document">The Foundry configuration document.</param>
     /// <returns>The deployment runtime configuration.</returns>
-    FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document);
+    DeployRuntimeSettings Generate(FoundryConfigurationDocument document);
 
     /// <summary>
     /// Generates the deployment runtime configuration and encrypts media-only secrets when a media key is provided.
@@ -25,7 +25,7 @@ public interface IDeployConfigurationGenerator
     /// <param name="document">The Foundry configuration document.</param>
     /// <param name="deploymentSecretsKey">Optional Deploy secret key used for generated boot media secrets.</param>
     /// <returns>The deployment runtime configuration.</returns>
-    FoundryDeployConfigurationDocument Generate(FoundryConfigurationDocument document, byte[]? deploymentSecretsKey);
+    DeployRuntimeSettings Generate(FoundryConfigurationDocument document, byte[]? deploymentSecretsKey);
 
     /// <summary>
     /// Generates the deployment runtime configuration with Deploy secret key and protection metadata.
@@ -34,7 +34,7 @@ public interface IDeployConfigurationGenerator
     /// <param name="deploymentSecretsKey">Optional Deploy secret key used for generated boot media secrets.</param>
     /// <param name="protectionSettings">Deployment media protection metadata.</param>
     /// <returns>The deployment runtime configuration.</returns>
-    FoundryDeployConfigurationDocument Generate(
+    DeployRuntimeSettings Generate(
         FoundryConfigurationDocument document,
         byte[]? deploymentSecretsKey,
         DeployProtectionSettings? protectionSettings);
@@ -46,41 +46,37 @@ public interface IDeployConfigurationGenerator
     /// <param name="deploymentSecretsKey">Optional Deploy secret key used for generated boot media secrets.</param>
     /// <param name="protectionSettings">Deployment media protection metadata.</param>
     /// <param name="oobeAccountSecretState">Transient OOBE account password state merged only for generation.</param>
-    /// <param name="authoringVersion">Optional OSD release captured for this media build.</param>
     /// <returns>The deployment runtime configuration.</returns>
-    FoundryDeployConfigurationDocument Generate(
+    DeployRuntimeSettings Generate(
         FoundryConfigurationDocument document,
         byte[]? deploymentSecretsKey,
         DeployProtectionSettings? protectionSettings,
-        OobeAccountSecretState? oobeAccountSecretState,
-        string? authoringVersion = null);
+        OobeAccountSecretState? oobeAccountSecretState);
 
     /// <summary>Generates active domain metadata and context-bound credentials using the existing media protection.</summary>
-    FoundryDeployConfigurationDocument Generate(
+    DeployRuntimeSettings Generate(
         FoundryConfigurationDocument document,
         byte[]? deploymentSecretsKey,
         DeployProtectionSettings? protectionSettings,
         OobeAccountSecretState? oobeAccountSecretState,
-        DomainJoinSecretState? domainJoinSecretState,
-        string? authoringVersion = null);
+        DomainJoinSecretState? domainJoinSecretState);
 
     /// <summary>
     /// Generates the deployment runtime configuration with session inputs kept outside the document: the readable copy of the
     /// Autopilot boot media PFX and its password.
     /// </summary>
-    FoundryDeployConfigurationDocument Generate(
+    DeployRuntimeSettings Generate(
         FoundryConfigurationDocument document,
         byte[]? deploymentSecretsKey,
         DeployProtectionSettings? protectionSettings,
         OobeAccountSecretState? oobeAccountSecretState,
         DomainJoinSecretState? domainJoinSecretState,
-        MediaInputs inputs,
-        string? authoringVersion = null);
+        MediaInputs inputs);
 
     /// <summary>
-    /// Serializes a deployment runtime configuration document to JSON.
+    /// Serializes a <c>deploy</c> section to JSON.
     /// </summary>
-    /// <param name="document">The deployment runtime document.</param>
+    /// <param name="document">The <c>deploy</c> section.</param>
     /// <returns>The JSON representation.</returns>
-    string Serialize(FoundryDeployConfigurationDocument document);
+    string Serialize(DeployRuntimeSettings document);
 }

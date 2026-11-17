@@ -9,6 +9,7 @@ using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Drivers;
 using Foundry.Core.Services.Packages;
 using Foundry.Core.Services.WinPe;
+using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.WinPe;
 
@@ -63,14 +64,16 @@ public sealed class WinPeCustomDriverSetMediaTests : IDisposable
     }
 
     [Fact]
-    public async Task BindingWritesTheManifestIdentityIntoTheDriversSection()
+    public async Task BindingWritesTheManifestIdentityIntoTheDriversSectionOnly()
     {
         var (library, settings) = await InputsAsync();
         using WinPeContentPackageMediaLease lease = await WinPeCustomDriverSetMediaService.PrepareAsync(library, settings, Cancellation);
+        string configuration = Configuration(settings);
 
-        string bound = WinPeCustomDriverSetMediaService.BindConfiguration(lease, Configuration(settings));
+        string bound = WinPeCustomDriverSetMediaService.BindConfiguration(lease, configuration);
 
-        var document = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(bound, ConfigurationJsonDefaults.SerializerOptions)!;
+        WinPeConfigurationTestDocuments.AssertOnlyDeployChanged(configuration, bound);
+        DeployRuntimeSettings document = WinPeConfigurationTestDocuments.Deploy(bound);
         Assert.Equal(lease.ManifestId, document.CustomDrivers.ManifestId);
         Assert.Equal(lease.ManifestHash, document.CustomDrivers.ManifestHash);
         WinPeCustomDriverSetMediaService.ValidateConfigurationBinding(lease, bound);
@@ -181,8 +184,7 @@ public sealed class WinPeCustomDriverSetMediaTests : IDisposable
 
     private static string Configuration(CustomDriverSetsSettings settings)
     {
-        var generator = new DeployConfigurationGenerator();
-        return generator.Serialize(generator.Generate(new() { CustomDrivers = settings }, null, null, null, "26.10.3.1"));
+        return WinPeConfigurationTestDocuments.Json(new DeployConfigurationGenerator().Generate(new() { CustomDrivers = settings }));
     }
 
     private sealed class CollectingProgress : IProgress<WinPeMediaProgress>

@@ -9,6 +9,10 @@ namespace Foundry.Core.Models.Configuration;
 /// <summary>
 /// Represents the configuration consumed by Foundry.Connect during runtime provisioning.
 /// </summary>
+/// <remarks>
+/// Transitional: media no longer carry this document (see <see cref="FoundryWinPeConfigurationDocument"/>); it remains only as
+/// the model of the Connect runtime reader until that reader loads <c>foundry.winpe.config.json</c>.
+/// </remarks>
 public sealed record FoundryConnectConfigurationDocument
 {
     /// <summary>

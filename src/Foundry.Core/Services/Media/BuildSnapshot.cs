@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Core.Models.Configuration;
-using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Files;
 using Foundry.Core.Services.NetworkCache;
@@ -163,31 +162,33 @@ public sealed class BuildSnapshot : IDisposable
     }
 
     /// <summary>
-    /// Generates Connect only from captured credentials and private dependency copies; network secrets are encrypted with the
-    /// deployment key of <paramref name="protection"/>, and refused when its Password protection is off.
+    /// Generates <c>foundry.winpe.config.json</c> only from captured credentials and private dependency copies. Every secret is
+    /// encrypted with the deployment key of <paramref name="protection"/>; a network secret is refused when its Password
+    /// protection is off, and the existing Deploy protection and account validation rules apply.
     /// </summary>
-    public FoundryConnectProvisioningBundle CreateConnectProvisioningBundle(
+    /// <param name="stagingDirectoryPath">The directory whose FoundryConnectAssets child receives the staged network assets.</param>
+    /// <param name="protection">The deployment protection material of the media build.</param>
+    /// <param name="telemetryOverride">The telemetry the media reports, with its runtime payload source; the captured one otherwise.</param>
+    public WinPeConfigurationBundle CreateWinPeConfigurationBundle(
         string stagingDirectoryPath,
         DeploymentMediaProtectionMaterial protection,
         TelemetrySettings? telemetryOverride = null)
     {
         ObjectDisposedException.ThrowIf(isDisposed, this);
         ArgumentNullException.ThrowIfNull(protection);
-        return new ConnectConfigurationGenerator().CreateProvisioningBundle(
-            CreateGenerationDocument(telemetryOverride), CreateGenerationInputs(), stagingDirectoryPath, authoringVersion, protection);
-    }
-
-    /// <summary>Retains existing Deploy protection and account validation rules while using captured session material.</summary>
-    public string GenerateDeployConfigurationJson(TelemetrySettings? telemetryOverride = null, byte[]? deploymentSecretsKey = null, DeployProtectionSettings? protectionSettings = null)
-    {
-        ObjectDisposedException.ThrowIf(isDisposed, this);
         if (!accountSecrets.Validate(configuration.Customization.Oobe).IsValid)
         {
             throw new InvalidOperationException("OOBE local account password confirmation is invalid.");
         }
-        var generator = new DeployConfigurationGenerator();
-        return generator.Serialize(generator.Generate(
-            CreateGenerationDocument(telemetryOverride), deploymentSecretsKey, protectionSettings, accountSecrets, domainSecrets, CreateGenerationInputs(), authoringVersion));
+
+        return new WinPeConfigurationGenerator().CreateBundle(
+            CreateGenerationDocument(telemetryOverride),
+            CreateGenerationInputs(),
+            stagingDirectoryPath,
+            protection,
+            accountSecrets,
+            domainSecrets,
+            authoringVersion);
     }
 
     /// <summary>Creates fresh per-media protection using the confirmed password captured before preparation began.</summary>

@@ -54,8 +54,8 @@ public sealed class BuildSnapshotTests : IDisposable
         domain.Clear();
         using BuildSnapshot snapshot = await capturing;
         using var protection = snapshot.CreateDeploymentProtectionMaterial();
-        string json = snapshot.GenerateDeployConfigurationJson(deploymentSecretsKey: protection.DeploymentKey, protectionSettings: protection.Settings);
-        var deploy = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+        string json = snapshot.CreateWinPeConfigurationBundle(Path.Combine(root, "winpe"), protection).ConfigurationJson;
+        DeployRuntimeSettings deploy = WinPeConfigurationTestDocuments.Deploy(json);
         byte[] payload = MediaSecretEnvelopeProtector.DecryptBytes(deploy.DomainJoin.Domains[0].EncryptedCredentials!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId);
         byte[] second = MediaSecretEnvelopeProtector.DecryptBytes(deploy.DomainJoin.Domains[1].EncryptedCredentials!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId);
         try
@@ -94,9 +94,9 @@ public sealed class BuildSnapshotTests : IDisposable
         using BuildSnapshot snapshot = await capturing;
         using var protection = snapshot.CreateDeploymentProtectionMaterial();
 
-        string json = snapshot.GenerateDeployConfigurationJson(deploymentSecretsKey: protection.DeploymentKey, protectionSettings: protection.Settings);
+        string json = snapshot.CreateWinPeConfigurationBundle(Path.Combine(root, "winpe"), protection).ConfigurationJson;
 
-        var deploy = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+        DeployRuntimeSettings deploy = WinPeConfigurationTestDocuments.Deploy(json);
         byte[] payload = MediaSecretEnvelopeProtector.DecryptBytes(deploy.NetworkCache.Shares[0].EncryptedCredentials!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId);
         try
         {
@@ -133,20 +133,20 @@ public sealed class BuildSnapshotTests : IDisposable
     }
 
     [Fact]
-    public async Task CaptureAsync_PreservesOneAuthoringVersionAcrossBothRuntimeOutputs()
+    public async Task CaptureAsync_WritesTheAuthoringVersionOnceInTheWinPeConfiguration()
     {
         using var secrets = new OobeAccountSecretState();
         using BuildSnapshot snapshot = await BuildSnapshot.CaptureAsync(
             new(), secrets, [], root, "26.10.3.1", TestContext.Current.CancellationToken);
         using DeploymentMediaProtectionMaterial protection = snapshot.CreateDeploymentProtectionMaterial();
-        FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"), protection);
-        using JsonDocument connectJson = JsonDocument.Parse(connect.ConfigurationJson);
-        using JsonDocument deployJson = JsonDocument.Parse(snapshot.GenerateDeployConfigurationJson());
+        WinPeConfigurationBundle bundle = snapshot.CreateWinPeConfigurationBundle(Path.Combine(root, "winpe"), protection);
+        using JsonDocument winPeJson = JsonDocument.Parse(bundle.ConfigurationJson);
         using JsonDocument authoringJson = JsonDocument.Parse(new FoundryConfigurationService().Serialize(snapshot.Configuration));
 
-        Assert.Equal("26.10.3.1", connect.Configuration.AuthoringVersion);
-        Assert.Equal("26.10.3.1", connectJson.RootElement.GetProperty("authoringVersion").GetString());
-        Assert.Equal("26.10.3.1", deployJson.RootElement.GetProperty("authoringVersion").GetString());
+        Assert.Equal("26.10.3.1", bundle.Configuration.AuthoringVersion);
+        Assert.Equal("26.10.3.1", winPeJson.RootElement.GetProperty("authoringVersion").GetString());
+        Assert.False(winPeJson.RootElement.GetProperty("connect").TryGetProperty("authoringVersion", out _));
+        Assert.False(winPeJson.RootElement.GetProperty("deploy").TryGetProperty("authoringVersion", out _));
         Assert.False(authoringJson.RootElement.TryGetProperty("authoringVersion", out _));
     }
 
@@ -185,12 +185,12 @@ public sealed class BuildSnapshotTests : IDisposable
         Array.Clear(mediaPassword);
         using BuildSnapshot snapshot = await capture;
         using var protection = snapshot.CreateDeploymentProtectionMaterial();
-        FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"), protection);
+        WinPeConfigurationBundle bundle = snapshot.CreateWinPeConfigurationBundle(Path.Combine(root, "winpe"), protection);
 
         Assert.Equal("OriginalWifiPassword", MediaSecretEnvelopeProtector.DecryptString(
-            connect.Configuration.Wifi.PassphraseSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
-        string json = snapshot.GenerateDeployConfigurationJson(deploymentSecretsKey: protection.DeploymentKey, protectionSettings: protection.Settings);
-        FoundryDeployConfigurationDocument deploy = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+            bundle.Configuration.Connect.Wifi.PassphraseSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
+        string json = bundle.ConfigurationJson;
+        DeployRuntimeSettings deploy = WinPeConfigurationTestDocuments.Deploy(json);
         Assert.Equal("AdminPassword123!", MediaSecretEnvelopeProtector.DecryptString(deploy.Customization.Oobe.AdministratorPasswordSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
         Assert.DoesNotContain("OriginalWifiPassword", new FoundryConfigurationService().Serialize(snapshot.Configuration), StringComparison.Ordinal);
     }
@@ -387,8 +387,8 @@ public sealed class BuildSnapshotTests : IDisposable
         using BuildSnapshot snapshot = await Capture(document, secrets, autopilotPfxPassword: "OriginalCertificatePassword");
         File.WriteAllBytes(library.GetAvailablePath(document.Autopilot.HardwareHashUpload.BootMediaCertificate.Pfx!)!, [9, 9, 9, 9, 9]);
         using var protection = snapshot.CreateDeploymentProtectionMaterial();
-        string json = snapshot.GenerateDeployConfigurationJson(deploymentSecretsKey: protection.DeploymentKey, protectionSettings: protection.Settings);
-        FoundryDeployConfigurationDocument deploy = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+        string json = snapshot.CreateWinPeConfigurationBundle(Path.Combine(root, "winpe"), protection).ConfigurationJson;
+        DeployRuntimeSettings deploy = WinPeConfigurationTestDocuments.Deploy(json);
         Assert.Equal(original, MediaSecretEnvelopeProtector.DecryptBytes(deploy.Autopilot.HardwareHashUpload.CertificatePfxSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
         Assert.Equal("OriginalCertificatePassword", MediaSecretEnvelopeProtector.DecryptString(deploy.Autopilot.HardwareHashUpload.CertificatePfxPasswordSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
         Assert.DoesNotContain("OriginalCertificatePassword", new FoundryConfigurationService().Serialize(snapshot.Configuration), StringComparison.Ordinal);
@@ -410,8 +410,8 @@ public sealed class BuildSnapshotTests : IDisposable
         secrets.Clear();
         using BuildSnapshot snapshot = await capture;
         using var protection = snapshot.CreateDeploymentProtectionMaterial();
-        string json = snapshot.GenerateDeployConfigurationJson(deploymentSecretsKey: protection.DeploymentKey, protectionSettings: protection.Settings);
-        FoundryDeployConfigurationDocument deploy = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })!;
+        string json = snapshot.CreateWinPeConfigurationBundle(Path.Combine(root, "winpe"), protection).ConfigurationJson;
+        DeployRuntimeSettings deploy = WinPeConfigurationTestDocuments.Deploy(json);
         Assert.Equal("AccountPassword123!", MediaSecretEnvelopeProtector.DecryptString(deploy.Customization.Oobe.AdditionalAccounts[0].PasswordSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
         Assert.True(deploy.Customization.Oobe.AdditionalAccounts[1].PasswordIsBlank);
         Assert.Null(deploy.Customization.Oobe.AdditionalAccounts[1].PasswordSecret);
@@ -622,14 +622,14 @@ public sealed class BuildSnapshotTests : IDisposable
         string capturedCertificate = snapshot.ResolveCapturedFile(certificate)!;
         File.WriteAllBytes(library.GetAvailablePath(template)!, "<changed! />"u8.ToArray());
         using DeploymentMediaProtectionMaterial protection = snapshot.CreateDeploymentProtectionMaterial();
-        FoundryConnectProvisioningBundle connect = snapshot.CreateConnectProvisioningBundle(Path.Combine(root, "connect"), protection);
+        WinPeConfigurationBundle bundle = snapshot.CreateWinPeConfigurationBundle(Path.Combine(root, "winpe"), protection);
 
         Assert.StartsWith(Path.Combine(root, "snapshots") + Path.DirectorySeparatorChar, capturedTemplate);
         Assert.Equal("<LANProfile />"u8.ToArray(), File.ReadAllBytes(capturedTemplate));
         Assert.Equal([1, 2, 3], File.ReadAllBytes(capturedCertificate));
-        Assert.Equal("<LANProfile />"u8.ToArray(), File.ReadAllBytes(connect.AssetFiles.Single(asset => asset.RelativeDestinationPath.Contains(@"\Wired\Profiles\", StringComparison.Ordinal)).SourcePath));
+        Assert.Equal("<LANProfile />"u8.ToArray(), File.ReadAllBytes(bundle.ConnectAssetFiles.Single(asset => asset.RelativeDestinationPath.Contains(@"\Wired\Profiles\", StringComparison.Ordinal)).SourcePath));
         Assert.Equal("pfx-password", MediaSecretEnvelopeProtector.DecryptString(
-            connect.Configuration.Dot1x.ClientCertificate!.PasswordSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
+            bundle.Configuration.Connect.Dot1x.ClientCertificate!.PasswordSecret!, protection.DeploymentKey, MediaSecretEnvelopeProtector.DeploymentKeyId));
     }
 
     [Fact]

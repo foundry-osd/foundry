@@ -7,19 +7,21 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.NetworkCache;
+using Foundry.Core.Tests.TestUtilities;
 
 namespace Foundry.Core.Tests.NetworkCache;
 
 public sealed class NetworkCacheBootConfigurationTests
 {
     [Fact]
-    public void Split_ActiveBoundConfiguration_EmptiesSectionsInBootJsonAndReturnsBoundSections()
+    public void Split_ActiveBoundConfiguration_EmptiesTheDeploySectionsOnlyAndReturnsBoundSections()
     {
-        FoundryDeployConfigurationDocument bound = Bound(publisherPublicKey: "a2V5");
+        string json = WinPeConfigurationTestDocuments.Json(Bound(publisherPublicKey: "a2V5"));
 
-        (string bootJson, NetworkCacheContentSections sections) = NetworkCacheBootConfiguration.Split(Serialize(bound));
+        (string bootJson, NetworkCacheContentSections sections) = NetworkCacheBootConfiguration.Split(json);
 
-        FoundryDeployConfigurationDocument boot = Deserialize(bootJson);
+        WinPeConfigurationTestDocuments.AssertOnlyDeployChanged(json, bootJson);
+        DeployRuntimeSettings boot = WinPeConfigurationTestDocuments.Deploy(bootJson);
         Assert.Equal(Serialize(new DeployCustomImagesSettings()), Serialize(boot.CustomImages));
         Assert.Equal(Serialize(new DeployCustomDriversSettings()), Serialize(boot.CustomDrivers));
         Assert.Equal(Serialize(new DeployPreOobeSettings()), Serialize(boot.PreOobe));
@@ -41,7 +43,7 @@ public sealed class NetworkCacheBootConfigurationTests
     [Fact]
     public void Split_InactiveConfiguration_ReturnsTheSameJson()
     {
-        string json = Serialize(Bound(publisherPublicKey: null) with { NetworkCache = new() });
+        string json = WinPeConfigurationTestDocuments.Json(Bound(publisherPublicKey: null) with { NetworkCache = new() });
 
         (string bootJson, NetworkCacheContentSections sections) = NetworkCacheBootConfiguration.Split(json);
 
@@ -52,14 +54,14 @@ public sealed class NetworkCacheBootConfigurationTests
     [Fact]
     public void Split_EnabledCacheWithoutPublisherKey_ReturnsTheSameJson()
     {
-        string json = Serialize(Bound(publisherPublicKey: null));
+        string json = WinPeConfigurationTestDocuments.Json(Bound(publisherPublicKey: null));
 
         (string bootJson, _) = NetworkCacheBootConfiguration.Split(json);
 
         Assert.Equal(json, bootJson);
     }
 
-    private static FoundryDeployConfigurationDocument Bound(string? publisherPublicKey) => new()
+    private static DeployRuntimeSettings Bound(string? publisherPublicKey) => new()
     {
         NetworkCache = new() { IsEnabled = true, PublisherPublicKey = publisherPublicKey, PublisherKeyId = "0123", MinimumIndexSequence = 4 },
         CustomImages = new()
@@ -90,7 +92,4 @@ public sealed class NetworkCacheBootConfigurationTests
 
     private static string Serialize<T>(T document) =>
         JsonSerializer.Serialize(document, ConfigurationJsonDefaults.SerializerOptions);
-
-    private static FoundryDeployConfigurationDocument Deserialize(string json) =>
-        JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(json, ConfigurationJsonDefaults.SerializerOptions)!;
 }

@@ -67,7 +67,7 @@ public sealed class WinPeSystemPreparationTests : IDisposable
     [InlineData("Central Standard Time", "Central Standard Time", true)]
     public async Task PrepareSystemAsync_ReadsSerializedDeployConfigurationWithOptionalTimeZone(string? configuredTimeZone, string expectedTimeZone, bool pascalCase)
     {
-        var configuration = new FoundryDeployConfigurationDocument
+        var configuration = new DeployRuntimeSettings
         {
             Localization = new DeployLocalizationSettings { DefaultTimeZoneId = configuredTimeZone }
         };

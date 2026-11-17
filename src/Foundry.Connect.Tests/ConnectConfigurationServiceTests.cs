@@ -270,7 +270,7 @@ public sealed class ConnectConfigurationServiceTests
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
         string wiredProfilePath = CreateFile(tempDirectory.Path, "wired.xml", "<LANProfile />");
-        string configurationJson = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+        string configurationJson = ConnectMediaFixtures.GenerateSchemaSix(
             new CoreConfiguration.FoundryConfigurationDocument
             {
                 Network = new CoreConfiguration.NetworkSettings
@@ -302,7 +302,7 @@ public sealed class ConnectConfigurationServiceTests
     {
         using var environmentScope = new EnvironmentVariableScope("FOUNDRY_CONNECT_CONFIG", null);
         using var tempDirectory = new TemporaryDirectory();
-        string configurationJson = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+        string configurationJson = ConnectMediaFixtures.GenerateSchemaSix(
             new CoreConfiguration.FoundryConfigurationDocument
             {
                 Network = new CoreConfiguration.NetworkSettings

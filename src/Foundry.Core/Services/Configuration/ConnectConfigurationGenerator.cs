@@ -4,7 +4,6 @@
 
 using System.Security.Cryptography;
 using System.Text.Json;
-using System.Text.Json.Nodes;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.WinPe;
@@ -14,8 +13,8 @@ using Foundry.Utilities.Networking;
 namespace Foundry.Core.Services.Configuration;
 
 /// <summary>
-/// Generates Foundry.Connect runtime configuration (schema <see cref="ConfigurationSchemaVersions.ConnectCurrent"/>) and stages
-/// network assets for boot media.
+/// Generates the <c>connect</c> section of the WinPE runtime configuration (<see cref="ConnectRuntimeSettings"/>) and stages
+/// network assets for boot media; <see cref="WinPeConfigurationGenerator"/> composes it into <c>foundry.winpe.config.json</c>.
 /// </summary>
 /// <remarks>
 /// <para>
@@ -27,8 +26,8 @@ namespace Foundry.Core.Services.Configuration;
 /// </para>
 /// <para>
 /// A network secret without enabled Password protection is refused (<see cref="InvalidOperationException"/>), even though
-/// Foundry OSD already blocks media creation. The <c>protection</c> block, with its key check, is written only when at least one
-/// secret was encrypted. A disabled feature writes no path, no envelope and no asset (CFG-08). An encrypted asset must not be
+/// Foundry OSD already blocks media creation. The shared <c>protection</c> block of the WinPE configuration carries the key check
+/// that unlocks these secrets. A disabled feature writes no path, no envelope and no asset (CFG-08). An encrypted asset must not be
 /// empty and its envelope must fit <see cref="ConnectProtectedFileLimits.MaxEnvelopeFileBytes"/>, the size Connect reads.
 /// </para>
 /// </remarks>
@@ -42,23 +41,11 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
     private const string WifiCertificateFolder = @"Network\Certificates\Wifi";
     private const string EncryptedFileSuffix = ".encrypted";
 
-    // Runtime fields schema 6 no longer writes. Connect still reads them from older media, where they hold the values the
-    // runtime records default to, so they are removed only from the serialized output.
-    private static readonly string[] OmittedDot1xProperties = ["allowRuntimeCredentials", "authenticationMode", "requiresCertificate"];
-    private static readonly string[] OmittedWifiProperties = ["allowRuntimeCredentials", "enterpriseAuthenticationMode", "requiresCertificate"];
-
-    /// <inheritdoc />
-    public FoundryConnectConfigurationDocument Generate(FoundryConfigurationDocument document, MediaInputs inputs, string stagingDirectoryPath)
-    {
-        return CreateProvisioningBundle(document, inputs, stagingDirectoryPath).Configuration;
-    }
-
     /// <inheritdoc />
     public FoundryConnectProvisioningBundle CreateProvisioningBundle(
         FoundryConfigurationDocument document,
         MediaInputs inputs,
         string stagingDirectoryPath,
-        string? authoringVersion = null,
         DeploymentMediaProtectionMaterial? protection = null)
     {
         ArgumentNullException.ThrowIfNull(document);
@@ -83,57 +70,40 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
         ConnectDot1xSettings dot1x = StageDot1x(network.Dot1x, inputs, secrets, staging);
         ConnectWifiSettings wifi = StageWifi(network.WifiProvisioned && network.Wifi.IsEnabled, network.Wifi, inputs, secrets, staging);
 
-        // The generated document uses media-relative asset paths; source file paths stay outside the runtime JSON.
-        FoundryConnectConfigurationDocument configuration = new()
-        {
-            AuthoringVersion = authoringVersion,
-            Capabilities = new ConnectNetworkCapabilitiesSettings
-            {
-                WifiProvisioned = network.WifiProvisioned
-            },
-            Network = new ConnectNetworkSettings
-            {
-                ProfileRoaming = new ConnectNetworkProfileRoamingSettings
-                {
-                    WiredDot1x = new NetworkProfileRoamingTransportSettings
-                    {
-                        IsEnabled = network.RoamWiredDot1xProfileToWindows,
-                        IncludePrivateKeyMaterial = network.RoamWiredDot1xPrivateKeyMaterialToWindows
-                    },
-                    Wifi = new NetworkProfileRoamingTransportSettings
-                    {
-                        IsEnabled = network.RoamWifiProfileToWindows,
-                        IncludePrivateKeyMaterial = network.RoamWifiPrivateKeyMaterialToWindows
-                    }
-                }
-            },
-            Dot1x = dot1x,
-            Wifi = wifi,
-            Telemetry = document.Telemetry,
-            Protection = staging.HasProtectedContent ? protection!.Settings : null
-        };
-
+        // The generated section uses media-relative asset paths; source file paths stay outside the runtime JSON.
         return new FoundryConnectProvisioningBundle
         {
-            Configuration = configuration,
-            ConfigurationJson = Serialize(configuration),
+            Configuration = new ConnectRuntimeSettings
+            {
+                Capabilities = new ConnectNetworkCapabilitiesSettings
+                {
+                    WifiProvisioned = network.WifiProvisioned
+                },
+                Dot1x = dot1x,
+                Wifi = wifi
+            },
             AssetFiles = staging.AssetFiles
         };
     }
 
-    /// <inheritdoc />
-    /// <remarks>
-    /// The schema 6 output omits <c>allowRuntimeCredentials</c>, <c>authenticationMode</c>, <c>enterpriseAuthenticationMode</c>
-    /// and <c>requiresCertificate</c>; Foundry.Connect reads their defaults, which equal the values earlier schemas always wrote.
-    /// The <c>internetProbe</c> section of earlier schemas is no longer part of the model, so it is not written either.
-    /// </remarks>
-    public string Serialize(FoundryConnectConfigurationDocument document)
+    /// <summary>Maps the authoring roaming opt-ins to the shared <c>network.profileRoaming</c> section.</summary>
+    /// <param name="network">The authoring network settings.</param>
+    internal static ConnectNetworkProfileRoamingSettings ToProfileRoaming(NetworkSettings network)
     {
-        ArgumentNullException.ThrowIfNull(document);
-        JsonObject root = JsonSerializer.SerializeToNode(document, ConfigurationJsonDefaults.SerializerOptions)!.AsObject();
-        RemoveProperties(root["dot1x"], OmittedDot1xProperties);
-        RemoveProperties(root["wifi"], OmittedWifiProperties);
-        return root.ToJsonString(ConfigurationJsonDefaults.SerializerOptions);
+        ArgumentNullException.ThrowIfNull(network);
+        return new ConnectNetworkProfileRoamingSettings
+        {
+            WiredDot1x = new NetworkProfileRoamingTransportSettings
+            {
+                IsEnabled = network.RoamWiredDot1xProfileToWindows,
+                IncludePrivateKeyMaterial = network.RoamWiredDot1xPrivateKeyMaterialToWindows
+            },
+            Wifi = new NetworkProfileRoamingTransportSettings
+            {
+                IsEnabled = network.RoamWifiProfileToWindows,
+                IncludePrivateKeyMaterial = network.RoamWifiPrivateKeyMaterialToWindows
+            }
+        };
     }
 
     /// <summary>
@@ -320,19 +290,6 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
             : [.. roots.Select(root => staging.Copy(inputs.ResolveRequired(root)!, folder))];
     }
 
-    private static void RemoveProperties(JsonNode? node, string[] propertyNames)
-    {
-        if (node is not JsonObject element)
-        {
-            return;
-        }
-
-        foreach (string propertyName in propertyNames)
-        {
-            element.Remove(propertyName);
-        }
-    }
-
     private static string GetExistingFullPath(string sourcePath)
     {
         string fullSourcePath = Path.GetFullPath(sourcePath);
@@ -361,9 +318,6 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
 
         /// <summary>Gets whether a deployment key is available, that is whether Password protection is on.</summary>
         public bool CanEncrypt => deploymentKey is not null;
-
-        /// <summary>Gets whether at least one envelope or encrypted asset was written.</summary>
-        public bool HasProtectedContent { get; private set; }
 
         /// <summary>Copies a file as is and returns its media-relative path.</summary>
         public string Copy(string sourcePath, string folder)
@@ -416,16 +370,13 @@ public sealed class ConnectConfigurationGenerator : IConnectConfigurationGenerat
 
             string stagedFilePath = PrepareStagedFile(fileName + EncryptedFileSuffix, folder, out string relativePath);
             File.WriteAllBytes(stagedFilePath, envelopeJson);
-            HasProtectedContent = true;
             return relativePath;
         }
 
         /// <summary>Encrypts a secret string with the deployment key.</summary>
         public SecretEnvelope EncryptString(string value, NetworkConfigurationValidationCode protectionRequiredCode)
         {
-            SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptString(value, RequireKey(protectionRequiredCode), MediaSecretEnvelopeProtector.DeploymentKeyId);
-            HasProtectedContent = true;
-            return envelope;
+            return MediaSecretEnvelopeProtector.EncryptString(value, RequireKey(protectionRequiredCode), MediaSecretEnvelopeProtector.DeploymentKeyId);
         }
 
         // Validation already refuses a network secret without protection; this guard keeps every generation path fail-closed.

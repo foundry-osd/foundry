@@ -8,8 +8,13 @@ public static class ConfigurationSchemaVersions
 {
     public const int FoundryCurrent = 19;
 
+    /// <summary>Gets the schema of <c>foundry.winpe.config.json</c>, the one runtime configuration of a boot media.</summary>
+    public const int WinPeCurrent = 1;
+
+    /// <summary>Gets the schema the Connect runtime reader still checks; transitional until it reads <c>foundry.winpe.config.json</c>.</summary>
     public const int ConnectCurrent = 6;
 
+    /// <summary>Gets the schema the Deploy runtime reader still checks; transitional until it reads <c>foundry.winpe.config.json</c>.</summary>
     public const int DeployCurrent = 17;
 
 }

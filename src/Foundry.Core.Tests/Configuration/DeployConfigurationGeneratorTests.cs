@@ -8,7 +8,6 @@ using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.WinPe;
 using Foundry.Core.Tests.TestUtilities;
-using Foundry.Telemetry;
 using System.Text.Json;
 
 namespace Foundry.Core.Tests.Configuration;
@@ -134,26 +133,6 @@ public sealed class DeployConfigurationGeneratorTests
     };
 
     [Theory]
-    [InlineData("26.10.3.1")]
-    [InlineData(null)]
-    public void Generate_PropagatesOptionalAuthoringVersionToRuntimeJson(string? authoringVersion)
-    {
-        var generator = new DeployConfigurationGenerator();
-        FoundryDeployConfigurationDocument configuration = generator.Generate(new(), null, null, null, authoringVersion);
-        using JsonDocument json = JsonDocument.Parse(generator.Serialize(configuration));
-
-        Assert.Equal(authoringVersion, configuration.AuthoringVersion);
-        if (authoringVersion is null)
-        {
-            Assert.False(json.RootElement.TryGetProperty("authoringVersion", out _));
-        }
-        else
-        {
-            Assert.Equal("26.10.3.1", json.RootElement.GetProperty("authoringVersion").GetString());
-        }
-    }
-
-    [Theory]
     [InlineData(true, true, AutopilotProvisioningMode.HardwareHashUpload, true, true)]
     [InlineData(true, true, AutopilotProvisioningMode.InteractiveHardwareHashUpload, true, true)]
     [InlineData(false, true, AutopilotProvisioningMode.InteractiveHardwareHashUpload, true, false)]
@@ -194,7 +173,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         };
 
-        FoundryDeployConfigurationDocument result = generator.Generate(document);
+        DeployRuntimeSettings result = generator.Generate(document);
 
         Assert.False(result.Completion.AutomaticRebootEnabled);
         Assert.Equal(42, result.Completion.AutomaticRebootDelaySeconds);
@@ -214,7 +193,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         };
 
-        FoundryDeployConfigurationDocument result = generator.Generate(document);
+        DeployRuntimeSettings result = generator.Generate(document);
 
         Assert.Equal(DeploymentRebootDelay.DefaultSeconds, result.Completion.AutomaticRebootDelaySeconds);
     }
@@ -276,7 +255,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         };
 
-        FoundryDeployConfigurationDocument result = generator.Generate(document);
+        DeployRuntimeSettings result = generator.Generate(document);
 
         DeployMachineNamingSettings naming = result.Customization.MachineNaming;
         Assert.Equal(MachineNamingMode.Composed, naming.Mode);
@@ -329,60 +308,6 @@ public sealed class DeployConfigurationGeneratorTests
         };
 
         Assert.Throws<InvalidOperationException>(() => generator.Generate(document));
-    }
-
-    [Fact]
-    public void Generate_WhenNetworkProfileRoamingIsDisabled_DisablesDeployRoaming()
-    {
-        var generator = new DeployConfigurationGenerator();
-
-        FoundryDeployConfigurationDocument result = generator.Generate(new FoundryConfigurationDocument());
-
-        Assert.False(result.Network.ProfileRoaming.WiredDot1x.IsEnabled);
-        Assert.False(result.Network.ProfileRoaming.Wifi.IsEnabled);
-    }
-
-    [Fact]
-    public void Generate_WhenOnlyWifiRoamingIsEnabled_PropagatesIndependentDeployRoaming()
-    {
-        var generator = new DeployConfigurationGenerator();
-
-        FoundryDeployConfigurationDocument result = generator.Generate(new FoundryConfigurationDocument
-        {
-            Network = new NetworkSettings
-            {
-                RoamWiredDot1xProfileToWindows = false,
-                RoamWifiProfileToWindows = true,
-                RoamWifiPrivateKeyMaterialToWindows = true
-            }
-        });
-
-        Assert.False(result.Network.ProfileRoaming.WiredDot1x.IsEnabled);
-        Assert.False(result.Network.ProfileRoaming.WiredDot1x.IncludePrivateKeyMaterial);
-        Assert.True(result.Network.ProfileRoaming.Wifi.IsEnabled);
-        Assert.True(result.Network.ProfileRoaming.Wifi.IncludePrivateKeyMaterial);
-    }
-
-    [Fact]
-    public void Generate_PropagatesTelemetrySettings()
-    {
-        var generator = new DeployConfigurationGenerator();
-        var telemetry = new TelemetrySettings
-        {
-            IsEnabled = false,
-            IsRemoteDiagnosticsEnabled = true,
-            InstallId = "install-id",
-            HostUrl = TelemetryDefaults.PostHogEuHost,
-            ProjectToken = "project-token",
-            RuntimePayloadSource = TelemetryRuntimePayloadSources.Release
-        };
-
-        var result = generator.Generate(new FoundryConfigurationDocument { Telemetry = telemetry });
-
-        Assert.Same(telemetry, result.Telemetry);
-        Assert.True(result.Telemetry.IsRemoteDiagnosticsEnabled);
-        using JsonDocument serialized = JsonDocument.Parse(generator.Serialize(result));
-        Assert.True(serialized.RootElement.GetProperty("telemetry").GetProperty("isRemoteDiagnosticsEnabled").GetBoolean());
     }
 
     [Fact]
@@ -602,7 +527,7 @@ public sealed class DeployConfigurationGeneratorTests
         }
         else
         {
-            FoundryDeployConfigurationDocument result = generator.Generate(
+            DeployRuntimeSettings result = generator.Generate(
                 document, mediaProtection.DeploymentKey, mediaProtection.Settings, secretState);
             Assert.True(result.Customization.Oobe.EnableAdministratorAccount);
             Assert.Empty(result.Customization.Oobe.AdditionalAccounts);
@@ -650,7 +575,7 @@ public sealed class DeployConfigurationGeneratorTests
         secretState.SetAdditionalAccountPassword("account-1", "TechPassword123!");
         secretState.SetAdditionalAccountConfirmation("account-1", "TechPassword123!");
 
-        FoundryDeployConfigurationDocument result = generator.Generate(
+        DeployRuntimeSettings result = generator.Generate(
             document,
             mediaProtection.DeploymentKey,
             mediaProtection.Settings,
@@ -714,7 +639,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         };
 
-        FoundryDeployConfigurationDocument result = generator.Generate(
+        DeployRuntimeSettings result = generator.Generate(
             document,
             mediaProtection.DeploymentKey,
             mediaProtection.Settings,
@@ -1331,7 +1256,7 @@ public sealed class DeployConfigurationGeneratorTests
             }
         };
 
-        FoundryDeployConfigurationDocument result = generator.Generate(document, deploymentSecretsKey: [1, 2, 3]);
+        DeployRuntimeSettings result = generator.Generate(document, deploymentSecretsKey: [1, 2, 3]);
 
         Assert.True(result.Autopilot.IsEnabled);
         Assert.Equal(AutopilotProvisioningMode.InteractiveHardwareHashUpload, result.Autopilot.ProvisioningMode);
@@ -1405,7 +1330,7 @@ public sealed class DeployConfigurationGeneratorTests
                 }
             };
 
-            FoundryDeployConfigurationDocument result = generator.Generate(
+            DeployRuntimeSettings result = generator.Generate(
                 document, mediaKey, null, null, null, TestFileReferences.Resolving(pfxPath) with { AutopilotPfxPassword = "PfxPassword-DoNotLeak" });
 
             Assert.NotNull(result.Autopilot.HardwareHashUpload.CertificatePfxSecret);

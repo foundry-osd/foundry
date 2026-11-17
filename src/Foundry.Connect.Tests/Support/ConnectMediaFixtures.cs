@@ -141,19 +141,50 @@ internal static class ConnectMediaFixtures
         };
 
         using DeploymentMediaProtectionMaterial protection = DeploymentMediaProtectionService.CreateProtected(Password);
-        FoundryConnectProvisioningBundle bundle = new ConnectConfigurationGenerator().CreateProvisioningBundle(
+        (string configurationJson, IReadOnlyList<FoundryConnectProvisionedAssetFile> assetFiles) = GenerateSchemaSix(
             authoring,
             inputs,
             Path.Combine(directory.Path, "Staging"),
-            authoringVersion: null,
             protection);
 
-        foreach (FoundryConnectProvisionedAssetFile asset in bundle.AssetFiles)
+        foreach (FoundryConnectProvisionedAssetFile asset in assetFiles)
         {
             directory.CreateFile(asset.RelativeDestinationPath, File.ReadAllBytes(asset.SourcePath));
         }
 
-        string configurationPath = directory.CreateFile(Path.Combine("Foundry", "Config", "foundry.connect.config.json"), bundle.ConfigurationJson);
+        string configurationPath = directory.CreateFile(Path.Combine("Foundry", "Config", "foundry.connect.config.json"), configurationJson);
         return (configurationPath, protection.DeploymentKey.ToArray());
+    }
+
+    /// <summary>
+    /// Transitional until Connect reads <c>foundry.winpe.config.json</c>: generates the WinPE configuration with the Core
+    /// generator and projects its shared and <c>connect</c> sections onto the schema 6 document the Connect loader still reads.
+    /// </summary>
+    /// <param name="authoring">The authoring configuration.</param>
+    /// <param name="inputs">The referenced files and network passwords.</param>
+    /// <param name="stagingDirectoryPath">The directory that receives the staged network assets.</param>
+    /// <param name="protection">The protection material; an unprotected one is created when omitted.</param>
+    /// <returns>The schema 6 JSON and the staged network assets.</returns>
+    public static (string ConfigurationJson, IReadOnlyList<FoundryConnectProvisionedAssetFile> AssetFiles) GenerateSchemaSix(
+        FoundryConfigurationDocument authoring,
+        MediaInputs inputs,
+        string stagingDirectoryPath,
+        DeploymentMediaProtectionMaterial? protection = null)
+    {
+        using DeploymentMediaProtectionMaterial? unprotected = protection is null ? DeploymentMediaProtectionService.CreateUnprotected() : null;
+        WinPeConfigurationBundle bundle = new WinPeConfigurationGenerator().CreateBundle(
+            authoring, inputs, stagingDirectoryPath, protection ?? unprotected!);
+        FoundryWinPeConfigurationDocument winPe = bundle.Configuration;
+        var document = new FoundryConnectConfigurationDocument
+        {
+            AuthoringVersion = winPe.AuthoringVersion,
+            Capabilities = winPe.Connect.Capabilities,
+            Network = new ConnectNetworkSettings { ProfileRoaming = winPe.Network.ProfileRoaming },
+            Dot1x = winPe.Connect.Dot1x,
+            Wifi = winPe.Connect.Wifi,
+            Telemetry = winPe.Telemetry,
+            Protection = winPe.Protection.IsEnabled ? winPe.Protection : null
+        };
+        return (JsonSerializer.Serialize(document, SchemaFiveSerializerOptions), bundle.ConnectAssetFiles);
     }
 }

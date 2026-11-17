@@ -27,8 +27,10 @@ public static class BootMediaTelemetryPropertyBuilder
     /// <param name="success">Whether media creation completed successfully.</param>
     /// <param name="failedStepName">Failed media creation step name, or <see langword="null"/> when successful; names outside <see cref="MediaCreationStepNames"/> are sent as unknown.</param>
     /// <param name="duration">Total media creation duration.</param>
-    /// <param name="connectRuntimePayloadSource">Source of the generated Connect runtime payload.</param>
-    /// <param name="deployRuntimePayloadSource">Source of the generated Deploy runtime payload.</param>
+    /// <param name="runtimePayloadSource">
+    /// Source of the Foundry.WinPE runtime payload, which hosts both Connect and Deploy; it is sent under both the
+    /// <c>boot_media_connect_runtime_payload_source</c> and <c>boot_media_deploy_runtime_payload_source</c> properties.
+    /// </param>
     /// <param name="diagnostic">Structured failure diagnostic, or <see langword="null"/> when none was produced.</param>
     /// <param name="operationId">Correlation identifier of the media operation.</param>
     /// <param name="adkStatus">Windows ADK state used for the media operation; its version is sent only when it parses as a version.</param>
@@ -41,8 +43,7 @@ public static class BootMediaTelemetryPropertyBuilder
         bool success,
         string? failedStepName,
         TimeSpan duration,
-        string connectRuntimePayloadSource,
-        string deployRuntimePayloadSource,
+        string runtimePayloadSource,
         WinPeDiagnostic? diagnostic = null,
         string? operationId = null,
         AdkInstallationStatus? adkStatus = null)
@@ -93,8 +94,9 @@ public static class BootMediaTelemetryPropertyBuilder
             ["boot_media_custom_images_count"] = customImages.IsEnabled ? customImages.Images.Count(image => image.IsIncluded) : 0,
             ["boot_media_custom_drivers_count"] = customDrivers.IsEnabled ? customDrivers.Sets.Count(set => set.IsIncluded) : 0,
             ["boot_media_default_os_source"] = customImages.IsEnabled && customImages.DefaultSource == CustomImageSource.Custom ? "custom" : "catalog",
-            ["boot_media_connect_runtime_payload_source"] = connectRuntimePayloadSource,
-            ["boot_media_deploy_runtime_payload_source"] = deployRuntimePayloadSource,
+            // Both properties stay in the event contract: dashboards built before the single WinPE runtime still read them.
+            ["boot_media_connect_runtime_payload_source"] = runtimePayloadSource,
+            ["boot_media_deploy_runtime_payload_source"] = runtimePayloadSource,
             ["autopilot_enabled"] = options.IsAutopilotEnabled,
             ["autopilot_provisioning_mode"] = ResolveAutopilotProvisioningMode(options),
             ["deployment_protection_enabled"] = document.General.DeploymentProtection.IsEnabled,

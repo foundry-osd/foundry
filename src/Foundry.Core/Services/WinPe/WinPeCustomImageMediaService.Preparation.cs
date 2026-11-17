@@ -50,29 +50,26 @@ public sealed partial class WinPeCustomImageMediaService
         }
     }
 
-    /// <summary>Adds the prepared manifest identity without changing runtime defaults or protected configuration values.</summary>
-    public static string BindConfiguration(WinPeCustomImageMediaLease package, string deployConfigurationJson)
+    /// <summary>
+    /// Adds the prepared manifest identity to <c>deploy.customImages</c> of the WinPE configuration without changing runtime
+    /// defaults, protected values or any other section of the document.
+    /// </summary>
+    public static string BindConfiguration(WinPeCustomImageMediaLease package, string winPeConfigurationJson)
     {
         package.ThrowIfDisposed();
-        FoundryDeployConfigurationDocument configuration = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(
-            deployConfigurationJson, ConfigurationJsonDefaults.SerializerOptions)
-            ?? throw new InvalidDataException("The deployment configuration is unavailable.");
-        configuration = configuration with
+        string bound = WinPeConfigurationJson.UpdateDeploy(winPeConfigurationJson, deploy => deploy with
         {
-            CustomImages = configuration.CustomImages with { ManifestId = package.ManifestId, ManifestHash = package.ManifestHash }
-        };
-        string bound = JsonSerializer.Serialize(configuration, ConfigurationJsonDefaults.SerializerOptions);
+            CustomImages = deploy.CustomImages with { ManifestId = package.ManifestId, ManifestHash = package.ManifestHash }
+        }) ?? throw new InvalidDataException("The deployment configuration is unavailable.");
         ValidateConfigurationBinding(package, bound);
         return bound;
     }
 
-    /// <summary>Rejects stale or missing manifest bindings before publishing images for a boot configuration.</summary>
-    public static void ValidateConfigurationBinding(WinPeCustomImageMediaLease package, string deployConfigurationJson)
+    /// <summary>Rejects stale or missing manifest bindings in the WinPE configuration before publishing images for it.</summary>
+    public static void ValidateConfigurationBinding(WinPeCustomImageMediaLease package, string winPeConfigurationJson)
     {
         package.ThrowIfDisposed();
-        FoundryDeployConfigurationDocument? configuration = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(
-            deployConfigurationJson, ConfigurationJsonDefaults.SerializerOptions);
-        DeployCustomImagesSettings? images = configuration?.CustomImages;
+        DeployCustomImagesSettings? images = WinPeConfigurationJson.ReadDeploy(winPeConfigurationJson)?.CustomImages;
         if (images is null || !images.IsEnabled || images.ManifestId != package.ManifestId ||
             !string.Equals(images.ManifestHash, package.ManifestHash, StringComparison.OrdinalIgnoreCase))
             throw new InvalidDataException("The deployment configuration does not reference the prepared custom image manifest.");

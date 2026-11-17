@@ -49,7 +49,7 @@ public sealed class PreOobeConfigurationTests
         var service = new FoundryConfigurationService();
         var source = service.Deserialize(service.Serialize(new() { PreOobe = new() { IsEnabled = true, Actions = [script, installer] } }));
         var generator = new DeployConfigurationGenerator();
-        var generated = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(generator.Serialize(generator.Generate(source)), ConfigurationJsonDefaults.SerializerOptions)!;
+        var generated = JsonSerializer.Deserialize<DeployRuntimeSettings>(generator.Serialize(generator.Generate(source)), ConfigurationJsonDefaults.SerializerOptions)!;
         Assert.Equal("-NoProfile", generated.PreOobe.Actions[0].PowerShellArguments);
         Assert.Equal("-Name Example", generated.PreOobe.Actions[0].Arguments);
         Assert.True(generated.PreOobe.Actions[1].GenerateInstallationLog);

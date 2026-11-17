@@ -13,9 +13,16 @@ public sealed record WinPeMountedImageAssetProvisioningOptions
     public string CurlExecutableSourcePath { get; init; } = string.Empty;
     public string SevenZipSourceDirectoryPath { get; init; } = string.Empty;
     public string IanaWindowsTimeZoneMapJson { get; init; } = string.Empty;
-    public FoundryBootstrapConfigurationDocument? FoundryBootstrapConfiguration { get; init; }
-    public string FoundryConnectConfigurationJson { get; init; } = string.Empty;
-    public string DeployConfigurationJson { get; init; } = string.Empty;
+
+    /// <summary>
+    /// Gets the serialized <c>foundry.winpe.config.json</c>, already bound and split by media preparation; when empty, the
+    /// default document is written.
+    /// </summary>
+    public string WinPeConfigurationJson { get; init; } = string.Empty;
+
+    /// <summary>Gets the build the WinPE runtime came from, recorded in <c>foundry.winpe.provisioning-source.txt</c>.</summary>
+    public WinPeProvisioningSource ProvisioningSource { get; init; } = WinPeProvisioningSource.Release;
+
     public byte[]? DeploymentSecretsKey { get; init; }
     public bool IsDeploymentProtectionEnabled { get; init; }
 
@@ -41,6 +48,4 @@ public sealed record WinPeMountedImageAssetProvisioningOptions
     public string? Oa3ToolSourcePath { get; init; }
 
     public IReadOnlyList<AutopilotProfileSettings> AutopilotProfiles { get; init; } = [];
-    public WinPeProvisioningSource ConnectProvisioningSource { get; init; } = WinPeProvisioningSource.Release;
-    public WinPeProvisioningSource DeployProvisioningSource { get; init; } = WinPeProvisioningSource.Release;
 }

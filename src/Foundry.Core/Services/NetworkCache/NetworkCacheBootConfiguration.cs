@@ -10,7 +10,7 @@ using Foundry.Core.Services.WinPe;
 
 namespace Foundry.Core.Services.NetworkCache;
 
-/// <summary>The content sections of a bound Deploy configuration that an active network cache moves into the signed index.</summary>
+/// <summary>The content sections of a bound <c>deploy</c> node that an active network cache moves into the signed index.</summary>
 /// <param name="CustomImages">The custom image section with its manifest binding.</param>
 /// <param name="CustomDrivers">The custom driver set section with its manifest binding.</param>
 /// <param name="PreOobe">The post-installation section with its manifest binding.</param>
@@ -23,30 +23,30 @@ public sealed record NetworkCacheContentSections(
 public static class NetworkCacheBootConfiguration
 {
     /// <summary>
-    /// Returns the configuration to write into the boot image and the bound content sections. Media preparation binds the
-    /// sections to their manifests after generation, so the split happens on the bound JSON. An active network cache (enabled
-    /// and carrying a publisher key) keeps the three sections out of the boot image, because Deploy reads them from the signed
-    /// index on its share; any other configuration is returned unchanged.
+    /// Returns the WinPE configuration to write into the boot image and the bound content sections of its <c>deploy</c> node.
+    /// Media preparation binds the sections to their manifests after generation, so the split happens on the bound JSON. An
+    /// active network cache (enabled and carrying a publisher key) keeps the three sections out of the boot image, because
+    /// Deploy reads them from the signed index on its share; only the <c>deploy</c> node changes. Any other configuration is
+    /// returned unchanged.
     /// </summary>
-    /// <param name="boundDeployConfigurationJson">The Deploy configuration JSON after the media services bound their manifests.</param>
-    /// <exception cref="JsonException">The text is not a Deploy configuration.</exception>
-    public static (string BootConfigurationJson, NetworkCacheContentSections Sections) Split(string boundDeployConfigurationJson)
+    /// <param name="boundConfigurationJson">The WinPE configuration JSON after the media services bound their manifests.</param>
+    /// <exception cref="JsonException">The text is not a WinPE runtime configuration.</exception>
+    public static (string BootConfigurationJson, NetworkCacheContentSections Sections) Split(string boundConfigurationJson)
     {
-        ArgumentNullException.ThrowIfNull(boundDeployConfigurationJson);
-        FoundryDeployConfigurationDocument document = JsonSerializer.Deserialize<FoundryDeployConfigurationDocument>(
-            boundDeployConfigurationJson, ConfigurationJsonDefaults.SerializerOptions)
-            ?? throw new JsonException("The Deploy configuration is empty.");
-        var sections = new NetworkCacheContentSections(document.CustomImages, document.CustomDrivers, document.PreOobe);
-        if (!document.NetworkCache.IsEnabled || string.IsNullOrEmpty(document.NetworkCache.PublisherPublicKey))
-            return (boundDeployConfigurationJson, sections);
+        ArgumentNullException.ThrowIfNull(boundConfigurationJson);
+        DeployRuntimeSettings deploy = WinPeConfigurationJson.ReadDeploy(boundConfigurationJson)
+            ?? throw new JsonException("The WinPE runtime configuration has no deploy section.");
+        var sections = new NetworkCacheContentSections(deploy.CustomImages, deploy.CustomDrivers, deploy.PreOobe);
+        if (!deploy.NetworkCache.IsEnabled || string.IsNullOrEmpty(deploy.NetworkCache.PublisherPublicKey))
+            return (boundConfigurationJson, sections);
 
-        FoundryDeployConfigurationDocument boot = document with
+        string boot = WinPeConfigurationJson.UpdateDeploy(boundConfigurationJson, bound => bound with
         {
             CustomImages = new(),
             CustomDrivers = new(),
             PreOobe = new()
-        };
-        return (JsonSerializer.Serialize(boot, ConfigurationJsonDefaults.SerializerOptions), sections);
+        })!;
+        return (boot, sections);
     }
 
     /// <summary>
@@ -68,12 +68,15 @@ public static class NetworkCacheBootConfiguration
         ArgumentNullException.ThrowIfNull(configuration);
         ArgumentNullException.ThrowIfNull(postInstallation);
         NetworkCacheContentSections sections = DeployConfigurationGenerator.MapContentSections(configuration);
-        string json = JsonSerializer.Serialize(new FoundryDeployConfigurationDocument
+        string json = WinPeConfigurationGenerator.Serialize(new FoundryWinPeConfigurationDocument
         {
-            CustomImages = sections.CustomImages,
-            CustomDrivers = sections.CustomDrivers,
-            PreOobe = sections.PreOobe
-        }, ConfigurationJsonDefaults.SerializerOptions);
+            Deploy = new DeployRuntimeSettings
+            {
+                CustomImages = sections.CustomImages,
+                CustomDrivers = sections.CustomDrivers,
+                PreOobe = sections.PreOobe
+            }
+        });
         // Same order as media preparation: images, post-installation, then driver sets.
         if (customImages is not null) json = WinPeCustomImageMediaService.BindConfiguration(customImages, json);
         json = WinPePreOobeMediaService.BindConfiguration(postInstallation, json);
