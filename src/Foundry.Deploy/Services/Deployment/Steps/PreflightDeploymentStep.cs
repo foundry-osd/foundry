@@ -51,11 +51,11 @@ public sealed class PreflightDeploymentStep(
                 context.PostInstallContent = await (postInstallResolver ?? new PreOobe.PreOobeContentResolver())
                     .PrepareAsync(context, cancellationToken).ConfigureAwait(false);
             }
-            catch (PreOobe.PostInstallRuntimeUnavailableException exception)
+            catch (PreOobe.PostInstallRuntimeMissingException exception)
             {
                 context.ClearDomainJoinInput();
-                Serilog.Log.ForContext<PreflightDeploymentStep>().Error(exception, "Post-installation runtime recovery failed.");
-                return Failed("PostInstall.RuntimeUnavailable", "postinstall_runtime_unavailable");
+                Serilog.Log.ForContext<PreflightDeploymentStep>().Error(exception, "The boot media PostInstall runtime is missing or damaged.");
+                return Failed("PostInstall.RuntimeMissing", "postinstall_runtime_missing");
             }
             catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException or InvalidOperationException or HttpRequestException)
             {

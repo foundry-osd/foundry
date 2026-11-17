@@ -57,7 +57,7 @@ public sealed class PreOobeTargetStagingService
             }
             if (!PreOobeContentResolver.IsRequired(context.Request, context.RuntimeState) && driver is null && context.NetworkProfileRoamingPayload?.DataFiles.Count is not > 0)
                 return;
-            foreach (string path in new[] { layout.RuntimePreOobe, layout.StatePreOobe, layout.LogsPreOobe, work, packageRoot, Path.Combine(layout.RuntimePreOobe, "Bundle") }) _protectDirectory(path);
+            foreach (string path in new[] { layout.RuntimePreOobe, layout.StatePreOobe, layout.LogsPreOobe, work, packageRoot }) _protectDirectory(path);
             string planPath = Path.Combine(layout.StatePreOobe, "plan.json");
             string journalPath = Path.Combine(layout.StatePreOobe, "execution-result.json");
             if (File.Exists(planPath) || File.Exists(journalPath)) throw new InvalidDataException("An existing post-installation operation cannot be overwritten.");

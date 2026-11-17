@@ -4552,9 +4552,6 @@ Licenc az MIT licenc alatt.</value>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>Foundry-összetevők hozzáadása…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Foundry-összetevők hozzáadása az USB-meghajtóhoz…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>Importált tartalom közzététele a hálózati gyorsítótárban…</value>
   </data>

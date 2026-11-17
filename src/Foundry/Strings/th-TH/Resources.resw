@@ -4552,9 +4552,6 @@
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>กำลังเพิ่มส่วนประกอบ Foundry…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>กำลังเพิ่มส่วนประกอบ Foundry ลงในไดรฟ์ USB…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>กำลังเผยแพร่เนื้อหาที่นำเข้าไปยังแคชเครือข่าย…</value>
   </data>

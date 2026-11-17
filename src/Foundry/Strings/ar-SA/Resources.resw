@@ -4552,9 +4552,6 @@
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>جارٍ إضافة مكونات Foundry…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>جارٍ إضافة مكونات Foundry إلى قرص USB…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>جارٍ نشر المحتوى المستورد إلى ذاكرة التخزين المؤقت للشبكة…</value>
   </data>

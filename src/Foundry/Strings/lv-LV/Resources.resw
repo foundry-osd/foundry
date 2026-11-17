@@ -4552,9 +4552,6 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>Notiek Foundry komponentu pievienošana…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Notiek Foundry komponentu pievienošana USB diskam…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>Notiek importētā satura publicēšana tīkla kešatmiņā…</value>
   </data>

@@ -13,13 +13,20 @@ public sealed record RuntimeReleaseAsset(string DownloadUrl, string Sha256)
 {
     /// <summary>Selects one runtime archive and requires its trusted digest and secure download address.</summary>
     /// <param name="release">The GitHub release metadata.</param>
-    /// <param name="applicationName">The Connect, Deploy, PostInstall, or AutopilotInteractive application name.</param>
+    /// <param name="applicationName">
+    /// The application name; only <c>Foundry.AutopilotInteractive</c> is downloaded by Foundry Deploy, every other runtime
+    /// ships in the boot image.
+    /// </param>
     /// <param name="runtimeIdentifier">The target Windows runtime identifier.</param>
     /// <returns>The validated runtime release asset.</returns>
     /// <exception cref="InvalidDataException">The identity or release asset is missing, ambiguous, or invalid.</exception>
     public static RuntimeReleaseAsset Parse(JsonElement release, string applicationName, string runtimeIdentifier)
     {
-        _ = RuntimePayloadTrust.GetBaselineArchivePath(string.Empty, applicationName, runtimeIdentifier);
+        if (applicationName != "Foundry.AutopilotInteractive" || runtimeIdentifier is not ("win-x64" or "win-arm64"))
+        {
+            throw new InvalidDataException("Runtime release asset application or runtime identifier is unsupported.");
+        }
+
         string assetName = $"{applicationName}-{runtimeIdentifier}.zip";
         try
         {

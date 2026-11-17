@@ -4552,9 +4552,6 @@
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>מוסיף רכיבי Foundry…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>מוסיף רכיבי Foundry לכונן ה-USB…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>מפרסם תוכן מיובא במטמון הרשת…</value>
   </data>

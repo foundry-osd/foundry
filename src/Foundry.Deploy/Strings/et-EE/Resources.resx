@@ -753,11 +753,8 @@ Kas jätkata juurutamisega?</value>
   <data name="PostInstall.PreflightFailed" xml:space="preserve">
     <value>Installimisjärgse etapi ettevalmistamine nurjus. Lisateavet leiate juurutuslogist.</value>
   </data>
-  <data name="PostInstall.RuntimePreparing" xml:space="preserve">
-    <value>Installijärgsete komponentide ettevalmistamine...</value>
-  </data>
-  <data name="PostInstall.RuntimeUnavailable" xml:space="preserve">
-    <value>Installijärgseid komponente ei saanud ette valmistada. Kontrollige ühendust ja proovige uuesti või looge alglaadimiskandja uuesti. Üksikasju vaadake juurutuslogist.</value>
+  <data name="PostInstall.RuntimeMissing" xml:space="preserve">
+    <value>Selle alglaadimiskandja installijärgsed komponendid puuduvad või on kahjustatud. Looge alglaadimiskandja uuesti. Üksikasju vaadake juurutuslogist.</value>
   </data>
   <data name="PostInstall.Simulated" xml:space="preserve">
     <value>Installimisjärgne ettevalmistamine on lõpetatud (simulatsioon).</value>

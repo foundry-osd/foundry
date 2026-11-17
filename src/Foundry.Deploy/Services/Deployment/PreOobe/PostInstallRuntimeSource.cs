@@ -11,30 +11,39 @@ using Foundry.Deploy.Services.Images;
 
 namespace Foundry.Deploy.Services.Deployment.PreOobe;
 
-/// <summary>Checks and holds the authenticated runtime prepared by Bootstrap or Deploy until target staging.</summary>
+/// <summary>
+/// Checks and holds the PostInstall runtime that every boot media carries in <c>X:\Foundry\PostInstall</c> until target
+/// staging. The boot image is read-only and nothing is downloaded or repaired: a missing or damaged runtime means the boot
+/// media must be recreated.
+/// </summary>
 internal static class PostInstallRuntimeSource
 {
-    private const string ReleaseTagDataKey = "PostInstall.ReleaseTag";
-    private const string ExpectedReleaseTagDataKey = "PostInstall.ExpectedReleaseTag";
-
-    /// <summary>Verifies the runtime next to <paramref name="executablePath"/> and locks its files until the result is disposed.</summary>
-    /// <param name="executablePath">Absolute path of <c>Foundry.PostInstall.exe</c>.</param>
+    /// <summary>
+    /// Verifies the manifest contract, runtime identifier and per-file length and SHA256 of the runtime in
+    /// <paramref name="runtimeDirectory"/>, and locks its files until the result is disposed. The manifest release tag is
+    /// informational and never compared.
+    /// </summary>
+    /// <param name="runtimeDirectory">Absolute directory holding <c>Foundry.PostInstall.exe</c>, <c>Launch.cmd</c> and the manifest.</param>
     /// <param name="expectedRid">Runtime identifier of the deployed Windows image.</param>
-    /// <param name="expectedReleaseTag">
-    /// Release tag the runtime manifest must declare, compared ignoring case, or <see langword="null"/> to skip the release check
-    /// for unpublished Deploy builds and debug media, whose runtimes are built locally without a tag.
-    /// </param>
     /// <param name="cancellationToken">Cancels the verification.</param>
-    /// <exception cref="InvalidDataException">
-    /// The runtime is invalid; <see cref="IsReleaseMismatch"/> tells whether it is otherwise valid but comes from another release.
-    /// </exception>
-    internal static async Task<PreOobePreparedContent> AcquireAsync(string? executablePath, string expectedRid, string? expectedReleaseTag,
-        CancellationToken cancellationToken)
+    /// <exception cref="PostInstallRuntimeMissingException">The runtime is missing, unreadable, incompatible or damaged.</exception>
+    internal static async Task<PreOobePreparedContent> AcquireAsync(string runtimeDirectory, string expectedRid, CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(executablePath) || !Path.IsPathFullyQualified(executablePath) ||
-            !Path.GetFileName(executablePath).Equals("Foundry.PostInstall.exe", StringComparison.OrdinalIgnoreCase))
-            throw new InvalidDataException("Bootstrap did not provide a PostInstall runtime executable.");
-        string directory = Path.GetDirectoryName(Path.GetFullPath(executablePath))!;
+        try
+        {
+            return await AcquireCoreAsync(runtimeDirectory, expectedRid, cancellationToken).ConfigureAwait(false);
+        }
+        catch (Exception exception) when (exception is IOException or InvalidDataException or UnauthorizedAccessException)
+        {
+            throw new PostInstallRuntimeMissingException(exception);
+        }
+    }
+
+    private static async Task<PreOobePreparedContent> AcquireCoreAsync(string runtimeDirectory, string expectedRid, CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(runtimeDirectory) || !Path.IsPathFullyQualified(runtimeDirectory))
+            throw new InvalidDataException("The PostInstall runtime directory must be an absolute path.");
+        string directory = Path.GetFullPath(runtimeDirectory);
         string manifestPath = Path.Combine(directory, PostInstallRuntimeManifest.FileName);
         CustomImageSourceLease.EnsureRegularPath(manifestPath);
         var manifestStream = new FileStream(manifestPath, FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -52,8 +61,6 @@ internal static class PostInstallRuntimeSource
             }
             catch (JsonException exception) { throw new InvalidDataException("PostInstall runtime metadata is invalid.", exception); }
             Validate(manifest, expectedRid);
-            if (expectedReleaseTag is not null && !string.Equals(manifest.ReleaseTag, expectedReleaseTag, StringComparison.OrdinalIgnoreCase))
-                throw ReleaseMismatch(manifest.ReleaseTag, expectedReleaseTag);
             prepared = new() { RuntimeIdentifier = expectedRid, RuntimeDirectory = directory, RuntimeManifest = manifest };
             prepared.Files.Add((manifestPath, manifestStream));
             foreach (var file in manifest.Files)
@@ -89,28 +96,8 @@ internal static class PostInstallRuntimeSource
             total += file.Length;
             if (total > 512L * 1024 * 1024) throw new InvalidDataException("PostInstall runtime exceeds its size limit.");
         }
-        if (!paths.Contains("Foundry.PostInstall.exe") || !paths.Contains("Launch.cmd"))
+        if (!paths.Contains(PostInstallRuntimeManifest.ExecutableFileName) || !paths.Contains(PostInstallRuntimeManifest.LaunchScriptFileName))
             throw new InvalidDataException("PostInstall runtime is missing required launch files.");
-    }
-
-    /// <summary>
-    /// Returns whether <paramref name="exception"/> reports a valid runtime published by another release, or without a release
-    /// tag, typically a boot media runtime paired with a Deploy of another release. Callers may replace that runtime with the
-    /// one of the Deploy release; every other validation failure stays fatal.
-    /// </summary>
-    internal static bool IsReleaseMismatch(Exception exception) =>
-        exception is InvalidDataException && exception.Data.Contains(ExpectedReleaseTagDataKey);
-
-    /// <summary>Reads the release tag found in the runtime manifest and the expected one recorded by a release mismatch.</summary>
-    internal static (string? Found, string? Expected) ReadReleaseMismatch(Exception exception) =>
-        (exception.Data[ReleaseTagDataKey] as string, exception.Data[ExpectedReleaseTagDataKey] as string);
-
-    private static InvalidDataException ReleaseMismatch(string? releaseTag, string expectedReleaseTag)
-    {
-        var exception = new InvalidDataException("PostInstall runtime does not come from the release of this Deploy.");
-        exception.Data[ReleaseTagDataKey] = releaseTag;
-        exception.Data[ExpectedReleaseTagDataKey] = expectedReleaseTag;
-        return exception;
     }
 
     /// <summary>Copies exactly <paramref name="expected"/> bytes; <paramref name="onBytes"/> receives the bytes copied so far after each chunk.</summary>
@@ -129,3 +116,10 @@ internal static class PostInstallRuntimeSource
         if (total != expected) throw new InvalidDataException("Content is incomplete.");
     }
 }
+
+/// <summary>
+/// Reports that the PostInstall runtime of the boot media is missing, unreadable, incompatible or damaged. It is distinct
+/// from invalid user post-installation content because only recreating the boot media repairs it.
+/// </summary>
+internal sealed class PostInstallRuntimeMissingException(Exception innerException)
+    : IOException("The PostInstall runtime of this boot media is missing or damaged.", innerException);

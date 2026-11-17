@@ -4552,9 +4552,6 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>Foundry-Komponenten werden hinzugefügt…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Foundry-Komponenten werden dem USB-Laufwerk hinzugefügt…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>Importierte Inhalte werden im Netzwerkcache veröffentlicht…</value>
   </data>

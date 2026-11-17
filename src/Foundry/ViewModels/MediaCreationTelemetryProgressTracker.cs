@@ -44,8 +44,7 @@ internal sealed class MediaCreationTelemetryProgressTracker : ILogEventEnricher
         [WinPeProgressStatuses.PartitioningUsbTarget] = MediaCreationStepNames.PartitionAndFormatUsbTarget,
         [WinPeProgressStatuses.CopyingWinPeMediaToUsb] = MediaCreationStepNames.CopyWinPeMediaToUsb,
         [WinPeProgressStatuses.VerifyingUsbBootMedia] = MediaCreationStepNames.VerifyUsbBootMedia,
-        [WinPeProgressStatuses.PreparingUsbCachePartition] = MediaCreationStepNames.PrepareUsbCachePartition,
-        [WinPeProgressStatuses.ProvisioningUsbRuntimePayloads] = MediaCreationStepNames.ProvisionUsbRuntimePayloads
+        [WinPeProgressStatuses.PreparingUsbCachePartition] = MediaCreationStepNames.PrepareUsbCachePartition
     };
 
     /// <summary>

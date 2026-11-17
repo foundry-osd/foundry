@@ -24,8 +24,9 @@ namespace Foundry.Deploy.Services.Autopilot;
 /// <remarks>
 /// Production media download the archive of release <c>v&lt;Deploy version&gt;</c> (or the <c>FOUNDRY_DEPLOY_RELEASE_TAG</c>, then
 /// <c>FOUNDRY_RELEASE_TAG</c> override), never <c>latest</c>; only an unpublished local build reads <c>latest</c>, with a warning.
-/// Debug media never download: Bootstrap forwards the media archive and its SHA256 through <see cref="AutopilotInteractiveLayout.ArchiveEnvironmentVariable"/> and
-/// <see cref="AutopilotInteractiveLayout.ArchiveSha256EnvironmentVariable"/>, and this class verifies the hash while copying.
+/// Debug media never download: they carry the archive in boot.wim at
+/// <see cref="WinPeWorkspaceLayout.AutopilotInteractiveArchivePath"/>, the read-only boot image being its trust root, and it is
+/// read only when the provisioning-source marker says <c>debug</c>. Its SHA256 is pinned when resolved and verified after the copy.
 /// The archive only ever lands in the target runtime folder: never in WinPE storage, the USB cache or the network cache.
 /// </remarks>
 internal sealed class AutopilotInteractiveRuntimeSource(string winPeRoot, string deployVersion, HttpClient client,
@@ -46,27 +47,23 @@ internal sealed class AutopilotInteractiveRuntimeSource(string winPeRoot, string
     internal Func<TimeSpan, CancellationToken, Task> Delay { get; init; } = Task.Delay;
 
     /// <summary>
-    /// Finds the archive to install without touching any disk. A forwarded media archive wins; debug media without one fail,
+    /// Finds the archive to install without touching any disk. Debug media use the boot image archive and fail without one,
     /// because they must never fetch a published build; otherwise the release must publish exactly one archive for
     /// <paramref name="runtimeIdentifier"/> with an HTTPS address and a <c>sha256:</c> digest.
     /// </summary>
     /// <param name="runtimeIdentifier">Windows runtime identifier, <c>win-x64</c> or <c>win-arm64</c>.</param>
     /// <param name="cancellationToken">Cancels the lookup.</param>
     /// <returns>The archive origin to hand to <see cref="InstallAsync"/>.</returns>
-    /// <exception cref="InvalidDataException">The forwarded archive is incomplete, debug media have none, or the release asset is missing or untrusted.</exception>
+    /// <exception cref="InvalidDataException">Debug media carry no archive, or the release asset is missing or untrusted.</exception>
     /// <exception cref="HttpRequestException">
     /// The release metadata could not be read; <see cref="IsRateLimited"/> tells whether GitHub limited the requests.
     /// </exception>
     internal async Task<AutopilotInteractiveRuntimeOrigin> ResolveAsync(string runtimeIdentifier, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        string archive = ReadEnvironment(AutopilotInteractiveLayout.ArchiveEnvironmentVariable);
-        string sha256 = ReadEnvironment(AutopilotInteractiveLayout.ArchiveSha256EnvironmentVariable);
-        if (archive.Length > 0 || sha256.Length > 0) return ResolveForwardedArchive(archive, sha256);
-
         string provisioning = Path.Combine(winPeRoot, "Config", WinPeWorkspaceLayout.ProvisioningSourceFileName);
         if (File.Exists(provisioning) && File.ReadAllText(provisioning).Trim().Equals("debug", StringComparison.OrdinalIgnoreCase))
-            throw new InvalidDataException("Debug media must provide Foundry.AutopilotInteractive through Bootstrap.");
+            return await ResolveBootImageArchiveAsync(cancellationToken).ConfigureAwait(false);
 
         FoundryReleaseSelection release = FoundryReleaseTag.Resolve(deployVersion, environment, "FOUNDRY_DEPLOY_RELEASE_TAG",
             FoundryReleaseTag.ReleaseTagVariable);
@@ -104,7 +101,7 @@ internal sealed class AutopilotInteractiveRuntimeSource(string winPeRoot, string
         try
         {
             if (origin.IsLocalArchive)
-                await CopyForwardedArchiveAsync(origin, archive, cancellationToken).ConfigureAwait(false);
+                await CopyBootImageArchiveAsync(origin, archive, cancellationToken).ConfigureAwait(false);
             else
                 await DownloadAsync(origin, archive, progress, cancellationToken).ConfigureAwait(false);
 
@@ -131,26 +128,26 @@ internal sealed class AutopilotInteractiveRuntimeSource(string winPeRoot, string
         }
     }
 
-    private static AutopilotInteractiveRuntimeOrigin ResolveForwardedArchive(string archive, string sha256)
+    /// <summary>Pins the SHA256 of the debug archive carried in boot.wim, which <see cref="InstallAsync"/> verifies after copying it.</summary>
+    private async Task<AutopilotInteractiveRuntimeOrigin> ResolveBootImageArchiveAsync(CancellationToken cancellationToken)
     {
-        if (sha256.Length != 64 || sha256.Any(character => !Uri.IsHexDigit(character)))
-            throw new InvalidDataException("A trusted SHA256 digest is required for the forwarded Foundry.AutopilotInteractive archive.");
-        if (!Path.IsPathFullyQualified(archive))
-            throw new InvalidDataException("The forwarded Foundry.AutopilotInteractive archive requires a local absolute path.");
-        CustomImageSourceLease.EnsureRegularPath(archive);
+        string archive = Path.Combine(winPeRoot, WinPeWorkspaceLayout.AutopilotInteractiveDirectoryName,
+            WinPeWorkspaceLayout.AutopilotInteractiveArchiveFileName);
         if (!File.Exists(archive))
-            throw new FileNotFoundException("The forwarded Foundry.AutopilotInteractive archive was not found.");
-        Logger.LogInformation("Using the Foundry.AutopilotInteractive archive forwarded by Bootstrap.");
+            throw new InvalidDataException("Debug media must carry Foundry.AutopilotInteractive in the boot image.");
+        CustomImageSourceLease.EnsureRegularPath(archive);
+        string sha256 = await FileHash.ComputeSha256Async(archive, cancellationToken).ConfigureAwait(false);
+        Logger.LogInformation("Using the Foundry.AutopilotInteractive archive of the debug boot image.");
         return new AutopilotInteractiveRuntimeOrigin(archive, sha256, IsLocalArchive: true);
     }
 
-    private static async Task CopyForwardedArchiveAsync(AutopilotInteractiveRuntimeOrigin origin, string archive, CancellationToken cancellationToken)
+    private static async Task CopyBootImageArchiveAsync(AutopilotInteractiveRuntimeOrigin origin, string archive, CancellationToken cancellationToken)
     {
         CustomImageSourceLease.EnsureRegularPath(origin.Source);
         await RuntimeArchiveCache.StoreAsync(origin.Source, archive, cancellationToken).ConfigureAwait(false);
         string actual = await FileHash.ComputeSha256Async(archive, cancellationToken).ConfigureAwait(false);
         if (!actual.Equals(origin.Sha256, StringComparison.OrdinalIgnoreCase))
-            throw new InvalidDataException("The forwarded Foundry.AutopilotInteractive archive does not match its trusted SHA256 digest.");
+            throw new InvalidDataException("The Foundry.AutopilotInteractive archive of the boot image changed after it was resolved.");
     }
 
     private async Task DownloadAsync(AutopilotInteractiveRuntimeOrigin origin, string archive, IProgress<DownloadProgress>? progress,
@@ -203,8 +200,6 @@ internal sealed class AutopilotInteractiveRuntimeSource(string winPeRoot, string
             using JsonDocument release = JsonDocument.Parse(await response.Content.ReadAsStringAsync(token).ConfigureAwait(false));
             return RuntimeReleaseAsset.Parse(release.RootElement, AutopilotInteractiveLayout.ApplicationName, runtimeIdentifier);
         }, Logger, "Foundry.AutopilotInteractive release lookup", cancellationToken, retryCount: 2, retryDelay: TimeSpan.FromSeconds(2));
-
-    private string ReadEnvironment(string name) => environment(name)?.Trim() ?? string.Empty;
 
     private static void TryDelete(string path)
     {

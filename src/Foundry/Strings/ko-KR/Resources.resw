@@ -4552,9 +4552,6 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>Foundry 구성 요소를 추가하는 중…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>USB 드라이브에 Foundry 구성 요소를 추가하는 중…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>가져온 콘텐츠를 네트워크 캐시에 게시하는 중…</value>
   </data>

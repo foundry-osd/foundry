@@ -27,8 +27,7 @@ $publishProperties = @(
 )
 $requiredFiles = @(
     'Foundry.WinPE.exe',
-    'foundry.startup.json',
-    'foundry.runtime-trust-capability.json'
+    'foundry.startup.json'
 )
 
 if (-not (Test-Path -Path $projectPath -PathType Leaf)) {

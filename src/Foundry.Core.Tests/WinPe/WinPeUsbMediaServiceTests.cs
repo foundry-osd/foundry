@@ -844,13 +844,13 @@ public sealed class WinPeUsbMediaServiceTests
     }
 
     [Fact]
-    public void InitializeCachePartitionDirectories_CreatesOnlyMediaCreationCacheLayout()
+    public void PrepareCachePartition_CreatesOnlyMediaCreationCacheLayout()
     {
         using TempWorkspace workspace = TempWorkspace.Create();
 
-        WinPeUsbMediaService.InitializeCachePartitionDirectories(workspace.RootPath);
+        WinPeUsbMediaService.PrepareCachePartition(workspace.RootPath);
 
-        Assert.True(Directory.Exists(Path.Combine(workspace.RootPath, "Runtime")));
+        Assert.False(Directory.Exists(Path.Combine(workspace.RootPath, "Runtime")));
         Assert.True(Directory.Exists(Path.Combine(workspace.RootPath, "Cache", "OperatingSystems")));
         Assert.True(Directory.Exists(Path.Combine(workspace.RootPath, "Cache", "DriverPacks")));
         Assert.True(Directory.Exists(Path.Combine(workspace.RootPath, "Cache", "Firmware")));
@@ -860,36 +860,15 @@ public sealed class WinPeUsbMediaServiceTests
     }
 
     [Fact]
-    public void CreateUsbRuntimePayloadOptions_ScopesRuntimeToCachePartition()
+    public void PrepareCachePartition_RemovesTheLegacyRuntimeCache()
     {
         using TempWorkspace workspace = TempWorkspace.Create();
-        var runtimeOptions = new WinPeRuntimePayloadProvisioningOptions
-        {
-            MountedImagePath = Path.Combine(workspace.RootPath, "mount"),
-            UsbCacheRootPath = Path.Combine(workspace.RootPath, "old-cache"),
-            WorkingDirectoryPath = Path.Combine(workspace.RootPath, "runtime-work"),
-            WinPe = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true },
-            PostInstall = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true },
-            AutopilotInteractive = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
-        };
-        var artifact = new WinPeBuildArtifact
-        {
-            WorkingDirectoryPath = Path.Combine(workspace.RootPath, "work"),
-            Architecture = WinPeArchitecture.Arm64
-        };
-        string cacheRoot = Path.Combine(workspace.RootPath, "cache");
+        CreateLegacyRuntimeCache(workspace.RootPath);
 
-        WinPeRuntimePayloadProvisioningOptions result = WinPeUsbMediaService.CreateUsbRuntimePayloadOptions(
-            runtimeOptions,
-            artifact,
-            cacheRoot);
+        WinPeUsbMediaService.PrepareCachePartition(workspace.RootPath);
 
-        Assert.Equal(cacheRoot, result.UsbCacheRootPath);
-        Assert.False(result.WinPe.IsEnabled);
-        Assert.Equal(string.Empty, result.MountedImagePath);
-        Assert.Equal(WinPeArchitecture.Arm64, result.Architecture);
-        Assert.Same(runtimeOptions.PostInstall, result.PostInstall);
-        Assert.Same(runtimeOptions.AutopilotInteractive, result.AutopilotInteractive);
+        Assert.False(Directory.Exists(Path.Combine(workspace.RootPath, "Runtime")));
+        Assert.True(File.Exists(Path.Combine(workspace.RootPath, "Cache", "OperatingSystems", "kept.esd")));
     }
 
     [Fact]
@@ -1184,8 +1163,10 @@ public sealed class WinPeUsbMediaServiceTests
         Assert.DoesNotContain(progress.Reports, report => report.Status.Contains("cache", StringComparison.OrdinalIgnoreCase));
     }
 
-    [Fact]
-    public async Task UpdateBootPartitionAsync_WhenRuntimeProvisioningIsEnabled_RefreshesRuntimePayloadsOnCachePartition()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task UpdateBootPartitionAsync_RemovesTheLegacyRuntimeCacheAndKeepsOtherCacheContent(bool cacheDriveBelongsToTarget)
     {
         string diskIdentity = """
                               {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000}
@@ -1194,6 +1175,7 @@ public sealed class WinPeUsbMediaServiceTests
         using TemporaryDriveMapping bootDrive = TemporaryDriveMapping.Create(workspace.RootPath, "boot");
         using TemporaryDriveMapping cacheDrive = TemporaryDriveMapping.Create(workspace.RootPath, "cache");
         CreateVerifiedBootPartition(bootDrive.RootPath, WinPeArchitecture.Arm64);
+        CreateLegacyRuntimeCache(cacheDrive.RootPath);
         string layout = $$"""
                         {"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"{{bootDrive.DriveLetter}}","CacheDriveLetter":"{{cacheDrive.DriveLetter}}"}
                         """;
@@ -1202,18 +1184,8 @@ public sealed class WinPeUsbMediaServiceTests
                               {"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"{{bootDrive.DriveLetter}}","CacheDriveLetter":"{{cacheDrive.DriveLetter}}"}
                               """;
         var runner = new FakeSequenceRunner(diskIdentity, layout, formatResult, string.Empty);
-        var runtimeProvisioningService = new FakeRuntimePayloadProvisioningService();
-        var progress = new RecordingProgress();
-        var downloadProgress = new CapturingProgress<WinPeDownloadProgress>();
-        var service = new WinPeUsbMediaService(runner, runtimeProvisioningService);
-        var runtimeOptions = new WinPeRuntimePayloadProvisioningOptions
-        {
-            WorkingDirectoryPath = Path.Combine(workspace.RootPath, "runtime-work"),
-            MountedImagePath = Path.Combine(workspace.RootPath, "mount"),
-            UsbCacheRootPath = Path.Combine(workspace.RootPath, "old-cache"),
-            WinPe = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true },
-            PostInstall = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
-        };
+        var destinationDisk = new DestinationDiskPublisher(cacheDriveBelongsToTarget);
+        var service = new WinPeUsbMediaService(runner, destinationDisk);
 
         WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(
             new UsbOutputOptions
@@ -1223,10 +1195,7 @@ public sealed class WinPeUsbMediaServiceTests
                 ExpectedDiskSerialNumber = "SERIAL",
                 ExpectedDiskUniqueId = "UNIQUE",
                 ExpectedDiskBusType = "USB",
-                ExpectedDiskSizeBytes = 64000000000,
-                RuntimePayloadProvisioning = runtimeOptions,
-                DownloadProgress = downloadProgress,
-                Progress = progress
+                ExpectedDiskSizeBytes = 64000000000
             },
             new WinPeBuildArtifact
             {
@@ -1239,73 +1208,10 @@ public sealed class WinPeUsbMediaServiceTests
             CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
-        WinPeRuntimePayloadProvisioningOptions capturedOptions = Assert.Single(runtimeProvisioningService.Options);
-        Assert.Equal(cacheDrive.RootPath, capturedOptions.UsbCacheRootPath);
-        Assert.Equal(string.Empty, capturedOptions.MountedImagePath);
-        Assert.Equal(WinPeArchitecture.Arm64, capturedOptions.Architecture);
-        Assert.Equal(runtimeOptions.WorkingDirectoryPath, capturedOptions.WorkingDirectoryPath);
-        Assert.False(capturedOptions.WinPe.IsEnabled);
-        Assert.Same(runtimeOptions.PostInstall, capturedOptions.PostInstall);
-        Assert.Same(downloadProgress, Assert.Single(runtimeProvisioningService.DownloadProgress));
-        Assert.Contains(progress.Reports, report => report is { Percent: 92, Status: "Provisioning USB runtime payloads." });
-    }
-
-    [Fact]
-    public async Task UpdateBootPartitionAsync_WhenRuntimeProvisioningFails_ReturnsFailure()
-    {
-        string diskIdentity = """
-                              {"Number":9,"FriendlyName":"Safe USB","SerialNumber":"SERIAL","UniqueId":"UNIQUE","BusType":"USB","IsSystem":false,"IsBoot":false,"Size":64000000000}
-                              """;
-        using TempWorkspace workspace = TempWorkspace.Create();
-        using TemporaryDriveMapping bootDrive = TemporaryDriveMapping.Create(workspace.RootPath, "boot");
-        using TemporaryDriveMapping cacheDrive = TemporaryDriveMapping.Create(workspace.RootPath, "cache");
-        CreateVerifiedBootPartition(bootDrive.RootPath, WinPeArchitecture.X64);
-        string layout = $$"""
-                        {"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"{{bootDrive.DriveLetter}}","CacheDriveLetter":"{{cacheDrive.DriveLetter}}"}
-                        """;
-        string formatResult = $$"""
-                              FOUNDRY_USB_PROGRESS|35|Formatting BOOT partition.
-                              {"BootPartitionSizeBytes":2147483648,"BootAllocationUnitSizeBytes":4096,"DiskNumber":9,"BootDriveLetter":"{{bootDrive.DriveLetter}}","CacheDriveLetter":"{{cacheDrive.DriveLetter}}"}
-                              """;
-        var runner = new FakeSequenceRunner(diskIdentity, layout, formatResult, string.Empty);
-        var runtimeProvisioningService = new FakeRuntimePayloadProvisioningService(
-            WinPeResult.Failure(
-                WinPeErrorCodes.BuildFailed,
-                "Failed to provision Foundry runtime payloads.",
-                "Runtime archive missing."));
-        var progress = new RecordingProgress();
-        var service = new WinPeUsbMediaService(runner, runtimeProvisioningService);
-
-        WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(
-            new UsbOutputOptions
-            {
-                TargetDiskNumber = 9,
-                ExpectedDiskFriendlyName = "Safe USB",
-                ExpectedDiskSerialNumber = "SERIAL",
-                ExpectedDiskUniqueId = "UNIQUE",
-                ExpectedDiskBusType = "USB",
-                ExpectedDiskSizeBytes = 64000000000,
-                RuntimePayloadProvisioning = new WinPeRuntimePayloadProvisioningOptions
-                {
-                    WorkingDirectoryPath = Path.Combine(workspace.RootPath, "runtime-work"),
-                    PostInstall = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true }
-                },
-                Progress = progress
-            },
-            new WinPeBuildArtifact
-            {
-                WorkingDirectoryPath = workspace.RootPath,
-                MediaDirectoryPath = Path.Combine(workspace.RootPath, "media"),
-                Architecture = WinPeArchitecture.X64
-            },
-            new WinPeToolPaths { PowerShellPath = "pwsh.exe" },
-            useBootEx: false,
-            CancellationToken.None);
-
-        Assert.False(result.IsSuccess);
-        Assert.Equal(WinPeErrorCodes.BuildFailed, result.Error?.Code);
-        Assert.Contains(progress.Reports, report => report is { Percent: 92, Status: "Provisioning USB runtime payloads." });
-        Assert.DoesNotContain(progress.Reports, report => report is { Percent: 100, Status: "USB boot partition updated." });
+        Assert.Contains((cacheDrive.RootPath, 9), destinationDisk.ValidatedDestinations);
+        // A cache drive that no longer belongs to the target disk is never modified.
+        Assert.Equal(!cacheDriveBelongsToTarget, Directory.Exists(Path.Combine(cacheDrive.RootPath, "Runtime")));
+        Assert.True(File.Exists(Path.Combine(cacheDrive.RootPath, "Cache", "OperatingSystems", "kept.esd")));
     }
 
     [Fact]
@@ -1513,36 +1419,34 @@ public sealed class WinPeUsbMediaServiceTests
         }
     }
 
-    private sealed class CapturingProgress<T> : IProgress<T>
+    private sealed class DestinationDiskPublisher(bool belongsToTarget) : IWinPeCustomImageMediaPublisher
     {
-        public List<T> Items { get; } = [];
-
-        public void Report(T value)
+        public List<(string Root, int Disk)> ValidatedDestinations { get; } = [];
+        public Task ValidateSourcesAsync(WinPeCustomImageMediaLease package, CancellationToken cancellationToken = default) => Task.CompletedTask;
+        public Task ValidateInputDisksAsync(IEnumerable<string> paths, int targetDisk, CancellationToken cancellationToken) => Task.CompletedTask;
+        public Task ValidateDestinationDiskAsync(string root, int targetDisk, CancellationToken cancellationToken)
         {
-            Items.Add(value);
+            ValidatedDestinations.Add((root, targetDisk));
+            return belongsToTarget ? Task.CompletedTask : Task.FromException(new IOException("The cache drive belongs to another disk."));
         }
+        public Task ValidateCapacityAsync(WinPeCustomImageMediaLease package, string root, long additionalBytes, CancellationToken cancellationToken) => Task.CompletedTask;
+        public Task PublishAsync(WinPeCustomImageMediaLease package, string destinationRoot, CancellationToken cancellationToken = default,
+            IProgress<WinPeMediaProgress>? progress = null) => Task.CompletedTask;
     }
 
-    private sealed class FakeRuntimePayloadProvisioningService(WinPeResult? result = null) : IWinPeRuntimePayloadProvisioningService
+    /// <summary>Creates the runtime cache that boot media from Foundry OSD v26.10.18.1 and earlier keep on the data volume.</summary>
+    private static void CreateLegacyRuntimeCache(string cacheRootPath)
     {
-        public Task<WinPeResult<WinPeRuntimePayloadProvisioningOptions>> PrepareAsync(
-            WinPeRuntimePayloadProvisioningOptions options,
-            CancellationToken cancellationToken = default)
+        foreach (string application in new[] { "Foundry.Connect", "Foundry.Deploy", "Foundry.PostInstall", "Foundry.AutopilotInteractive" })
         {
-            return Task.FromResult(WinPeResult<WinPeRuntimePayloadProvisioningOptions>.Success(options));
+            string runtimeRoot = Path.Combine(cacheRootPath, "Runtime", application, "win-x64");
+            Directory.CreateDirectory(runtimeRoot);
+            File.WriteAllText(Path.Combine(runtimeRoot, "original.zip"), "original");
+            File.WriteAllText(Path.Combine(runtimeRoot, "current.zip"), "current");
         }
-        public List<WinPeRuntimePayloadProvisioningOptions> Options { get; } = [];
-        public List<IProgress<WinPeDownloadProgress>?> DownloadProgress { get; } = [];
-
-        public Task<WinPeResult> ProvisionAsync(
-            WinPeRuntimePayloadProvisioningOptions options,
-            IProgress<WinPeDownloadProgress>? downloadProgress = null,
-            CancellationToken cancellationToken = default)
-        {
-            Options.Add(options);
-            DownloadProgress.Add(downloadProgress);
-            return Task.FromResult(result ?? WinPeResult.Success());
-        }
+        string operatingSystems = Path.Combine(cacheRootPath, "Cache", "OperatingSystems");
+        Directory.CreateDirectory(operatingSystems);
+        File.WriteAllText(Path.Combine(operatingSystems, "kept.esd"), "image");
     }
 
     private static void CreateVerifiedBootPartition(string bootRootPath, WinPeArchitecture architecture) =>

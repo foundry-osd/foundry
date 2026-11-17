@@ -14,7 +14,7 @@ public sealed class BootstrapEnvironmentTests
     public void AmbiguousCacheVolumesCannotSelectAnArbitraryRuntimeOrigin()
     {
         Assert.Throws<InvalidDataException>(() => BootstrapEnvironment.Create(@"X:\Foundry", "SESSION", Architecture.X64,
-            [new BootstrapVolume(@"D:\", true, "Foundry Cache"), new BootstrapVolume(@"E:\", true, "Foundry Cache")], _ => null));
+            [new BootstrapVolume(@"D:\", true, "Foundry Cache"), new BootstrapVolume(@"E:\", true, "Foundry Cache")]));
     }
 
     [Theory]
@@ -32,25 +32,24 @@ public sealed class BootstrapEnvironmentTests
     }
 
     [Fact]
-    public void UsbCacheTakesPrecedenceAndPropagatesSessionPersistence()
+    public void UsbCachePropagatesSessionPersistence()
     {
         BootstrapContext context = BootstrapEnvironment.Create(@"X:\Foundry", "SESSION", Architecture.X64,
-            [new BootstrapVolume(@"D:\", true, "Foundry Cache")], _ => null);
+            [new BootstrapVolume(@"D:\", true, "Foundry Cache")]);
 
-        Assert.Equal(@"D:\Runtime", context.RuntimeRoot);
         Assert.Equal(@"D:\Logs\SESSION", context.PersistenceDirectory);
         Assert.Equal("Usb", context.ChildEnvironment["FOUNDRY_DEPLOYMENT_MODE"]);
         Assert.Equal("SESSION", context.ChildEnvironment[DiagnosticSessionContext.EnvironmentVariableName]);
     }
 
     [Fact]
-    public void IsoRemovesInheritedPersistenceAndHonorsDebugSource()
+    public void IsoRemovesInheritedPersistence()
     {
         BootstrapContext context = BootstrapEnvironment.Create(@"X:\Foundry", "SESSION", Architecture.Arm64,
-            [new BootstrapVolume(@"D:\", false, "Foundry Cache")], path => path.EndsWith("foundry.winpe.provisioning-source.txt", StringComparison.Ordinal) ? " debug\r\n" : "release");
+            [new BootstrapVolume(@"D:\", false, "Foundry Cache")]);
 
-        Assert.Equal(@"X:\Foundry\Runtime", context.RuntimeRoot);
+        Assert.Equal("win-arm64", context.RuntimeIdentifier);
         Assert.Null(context.ChildEnvironment[DiagnosticSessionContext.PersistenceDirectoryEnvironmentVariableName]);
-        Assert.True(context.DeployIsDebug);
+        Assert.Equal("Iso", context.ChildEnvironment["FOUNDRY_DEPLOYMENT_MODE"]);
     }
 }

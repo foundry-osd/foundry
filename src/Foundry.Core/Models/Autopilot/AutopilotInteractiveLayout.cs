@@ -14,7 +14,7 @@ namespace Foundry.Core.Models.Autopilot;
 /// </remarks>
 public static class AutopilotInteractiveLayout
 {
-    /// <summary>Application name used for release assets, runtime archives and trust manifest entries.</summary>
+    /// <summary>Application name used for release assets and runtime archives.</summary>
     public const string ApplicationName = "Foundry.AutopilotInteractive";
 
     /// <summary>Executable file name inside the staged runtime directory.</summary>
@@ -31,13 +31,4 @@ public static class AutopilotInteractiveLayout
 
     /// <summary>Name of the registration result file inside <see cref="StateRelativePath"/>.</summary>
     public const string ResultFileName = "result.json";
-
-    /// <summary>
-    /// Environment variable through which Bootstrap forwards a debug archive override to Deploy. Must be set together with
-    /// <see cref="ArchiveSha256EnvironmentVariable"/>.
-    /// </summary>
-    public const string ArchiveEnvironmentVariable = "FOUNDRY_AUTOPILOTINTERACTIVE_ARCHIVE";
-
-    /// <summary>Environment variable carrying the SHA256 that authenticates the archive named by <see cref="ArchiveEnvironmentVariable"/>.</summary>
-    public const string ArchiveSha256EnvironmentVariable = "FOUNDRY_AUTOPILOTINTERACTIVE_ARCHIVE_SHA256";
 }

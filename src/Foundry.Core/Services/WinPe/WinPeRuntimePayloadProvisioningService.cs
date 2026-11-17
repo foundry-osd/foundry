@@ -6,7 +6,7 @@ using System.IO.Compression;
 using System.Text.Json;
 using Foundry.Core.Models.Autopilot;
 using Foundry.Core.Models.Packages;
-using Foundry.Core.Models.Runtime;
+using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Services.Runtime;
 using Foundry.Utilities.IO;
 using Foundry.Utilities.Networking;
@@ -15,10 +15,23 @@ using Serilog;
 
 namespace Foundry.Core.Services.WinPe;
 
+/// <summary>
+/// Prepares the Foundry runtime archives of a media build and copies their files into the mounted boot image: Foundry.WinPE
+/// into <c>Foundry\WinPE</c>, the Foundry.PostInstall launch files into <c>Foundry\PostInstall</c> and, on debug media
+/// only, the Foundry.AutopilotInteractive archive into <c>Foundry\AutopilotInteractive</c>.
+/// </summary>
 public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloadProvisioningService
 {
     private const string WinPeApplicationName = WinPeRuntimePayloadProvisioningOptions.WinPeApplicationName;
     private const string PostInstallApplicationName = "Foundry.PostInstall";
+
+    /// <summary>The only Foundry.PostInstall files copied into the boot image and staged by Deploy into the target OS.</summary>
+    private static readonly string[] PostInstallLaunchFiles =
+    [
+        PostInstallRuntimeManifest.ExecutableFileName,
+        PostInstallRuntimeManifest.LaunchScriptFileName,
+        PostInstallRuntimeManifest.FileName
+    ];
 
     private readonly IWinPeProcessRunner _processRunner;
     private readonly HttpClient _httpClient;
@@ -184,22 +197,43 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             throw new InvalidOperationException($"{applicationName} archive did not contain the expected executable '{applicationName}.exe'.");
         }
 
-        if (applicationName == WinPeApplicationName)
-        {
-            ValidateWinPeCapability(archive);
-        }
         if (applicationName == PostInstallApplicationName)
-            await ValidatePostInstallManifestAsync(archive, runtimeIdentifier, cancellationToken).ConfigureAwait(false);
+            await ValidatePostInstallArchiveAsync(archive, runtimeIdentifier, cancellationToken).ConfigureAwait(false);
 
         return applicationOptions with { ArchivePath = archivePath, ArchiveSha256 = hash };
     }
 
-    private static async Task ValidatePostInstallManifestAsync(ZipArchive archive, string runtimeIdentifier, CancellationToken cancellationToken)
+    /// <summary>
+    /// Requires one of each launch file at the archive root and a supported manifest that lists only the executable and
+    /// <c>Launch.cmd</c>, the files Foundry OSD copies into the boot image.
+    /// </summary>
+    private static async Task ValidatePostInstallArchiveAsync(ZipArchive archive, string runtimeIdentifier, CancellationToken cancellationToken)
     {
-        var entries = archive.Entries.Where(entry => entry.FullName.Equals(Models.PreOobe.PostInstallRuntimeManifest.FileName, StringComparison.OrdinalIgnoreCase)).ToArray();
-        if (entries.Length != 1 || entries[0].Length is <= 0 or > 65536)
+        foreach (string fileName in PostInstallLaunchFiles)
+        {
+            if (archive.Entries.Count(entry => entry.FullName.Equals(fileName, StringComparison.OrdinalIgnoreCase)) != 1)
+                throw new InvalidDataException($"PostInstall runtime archive must contain exactly one '{fileName}' at its root.");
+        }
+
+        PostInstallRuntimeManifest manifest = await ReadPostInstallManifestAsync(
+            FindEntry(archive, PostInstallRuntimeManifest.FileName), cancellationToken).ConfigureAwait(false);
+        if (manifest.SchemaVersion != 1 || manifest.ContractVersion != 1 || manifest.RuntimeIdentifier != runtimeIdentifier)
+            throw new InvalidDataException("PostInstall runtime metadata is incompatible with the selected Windows image or deployment contract.");
+        string[] listed = manifest.Files?.Select(file => file?.RelativePath ?? string.Empty).ToArray() ?? [];
+        if (listed.Length != 2 ||
+            !listed.Contains(PostInstallRuntimeManifest.ExecutableFileName, StringComparer.OrdinalIgnoreCase) ||
+            !listed.Contains(PostInstallRuntimeManifest.LaunchScriptFileName, StringComparer.OrdinalIgnoreCase))
+            throw new InvalidDataException("PostInstall runtime metadata must list exactly the executable and Launch.cmd.");
+    }
+
+    private static ZipArchiveEntry FindEntry(ZipArchive archive, string fileName) =>
+        archive.Entries.Single(entry => entry.FullName.Equals(fileName, StringComparison.OrdinalIgnoreCase));
+
+    private static async Task<PostInstallRuntimeManifest> ReadPostInstallManifestAsync(ZipArchiveEntry entry, CancellationToken cancellationToken)
+    {
+        if (entry.Length is <= 0 or > 65536)
             throw new InvalidDataException("PostInstall runtime metadata is missing, ambiguous or exceeds its size limit.");
-        await using var input = entries[0].Open();
+        await using Stream input = entry.Open();
         using var bounded = new MemoryStream();
         byte[] buffer = new byte[8192];
         int count;
@@ -208,10 +242,16 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             if (bounded.Length + count > 65536) throw new InvalidDataException("PostInstall runtime metadata exceeds its size limit.");
             bounded.Write(buffer, 0, count);
         }
-        var manifest = JsonSerializer.Deserialize<Models.PreOobe.PostInstallRuntimeManifest>(bounded.ToArray(),
-            Configuration.ConfigurationJsonDefaults.SerializerOptions);
-        if (manifest is null || manifest.SchemaVersion != 1 || manifest.ContractVersion != 1 || manifest.RuntimeIdentifier != runtimeIdentifier)
-            throw new InvalidDataException("PostInstall runtime metadata is incompatible with the selected Windows image or deployment contract.");
+
+        try
+        {
+            return JsonSerializer.Deserialize<PostInstallRuntimeManifest>(bounded.ToArray(), Configuration.ConfigurationJsonDefaults.SerializerOptions)
+                ?? throw new InvalidDataException("PostInstall runtime metadata is missing.");
+        }
+        catch (JsonException exception)
+        {
+            throw new InvalidDataException("PostInstall runtime metadata is invalid.", exception);
+        }
     }
 
     public async Task<WinPeResult> ProvisionAsync(
@@ -236,30 +276,11 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         options = prepared.Value!;
         try
         {
-            string runtimeIdentifier = options.Architecture.ToDotnetRuntimeIdentifier();
-            if (!string.IsNullOrWhiteSpace(options.MountedImagePath))
-            {
-                await ProvisionApplicationAsync(WinPeApplicationName, options.WinPe, options,
-                    runtimeIdentifier, cancellationToken).ConfigureAwait(false);
-            }
-
-            await ProvisionApplicationAsync(PostInstallApplicationName, options.PostInstall, options,
-                runtimeIdentifier, cancellationToken).ConfigureAwait(false);
-
-            await ProvisionApplicationAsync(AutopilotInteractiveLayout.ApplicationName, options.AutopilotInteractive, options,
-                runtimeIdentifier, cancellationToken).ConfigureAwait(false);
-
-            RemoveLegacyPayloads(options);
-
-            if (!string.IsNullOrWhiteSpace(options.MountedImagePath))
-            {
-                // Foundry.WinPE runs from the read-only boot image, so only the runtimes resolved through the cache need trust anchors.
-                RuntimePayloadTrust.WriteManifest(Path.Combine(Path.GetFullPath(options.MountedImagePath), "Foundry"),
-                    new[] { (Name: PostInstallApplicationName, Options: options.PostInstall), (Name: AutopilotInteractiveLayout.ApplicationName, Options: options.AutopilotInteractive) }
-                        .Where(application => application.Options.IsEnabled)
-                        .Select(application => new RuntimePayloadArchiveTrust(application.Name, runtimeIdentifier, application.Options.ArchiveSha256)));
-            }
-
+            string foundryRoot = Path.Combine(Path.GetFullPath(options.MountedImagePath), "Foundry");
+            await ProvisionApplicationAsync(WinPeApplicationName, options.WinPe, foundryRoot, cancellationToken).ConfigureAwait(false);
+            await ProvisionApplicationAsync(PostInstallApplicationName, options.PostInstall, foundryRoot, cancellationToken).ConfigureAwait(false);
+            await ProvisionApplicationAsync(AutopilotInteractiveLayout.ApplicationName, options.AutopilotInteractive, foundryRoot, cancellationToken).ConfigureAwait(false);
+            RemoveLegacyPayloads(foundryRoot);
             return WinPeResult.Success();
         }
         catch (Exception ex) when (ex is IOException or InvalidDataException or UnauthorizedAccessException or ArgumentException or NotSupportedException or InvalidOperationException or HttpRequestException or JsonException)
@@ -272,15 +293,21 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         }
     }
 
-    private async Task ProvisionApplicationAsync(
+    /// <summary>
+    /// Copies one prepared archive into the mounted image after checking that its bytes still match the hash pinned during
+    /// preparation. A disabled AutopilotInteractive leaves no directory, so release images never carry it.
+    /// </summary>
+    private static async Task ProvisionApplicationAsync(
         string applicationName,
         WinPeRuntimePayloadApplicationOptions applicationOptions,
-        WinPeRuntimePayloadProvisioningOptions options,
-        string runtimeIdentifier,
+        string foundryRoot,
         CancellationToken cancellationToken)
     {
+        string autopilotInteractiveRoot = Path.Combine(foundryRoot, WinPeWorkspaceLayout.AutopilotInteractiveDirectoryName);
         if (!applicationOptions.IsEnabled)
         {
+            if (applicationName == AutopilotInteractiveLayout.ApplicationName && Directory.Exists(autopilotInteractiveRoot))
+                Directory.Delete(autopilotInteractiveRoot, recursive: true);
             return;
         }
 
@@ -291,32 +318,57 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
             throw new InvalidDataException($"Prepared {applicationName} archive SHA256 changed before provisioning.");
         }
 
-        if (applicationName == WinPeApplicationName)
+        switch (applicationName)
         {
-            using var archive = new ZipArchive(source, ZipArchiveMode.Read);
-            foreach (string destinationRoot in ResolveDestinationRoots(applicationName, options, runtimeIdentifier))
+            case WinPeApplicationName:
             {
-                DirectoryOperations.Recreate(destinationRoot);
-                archive.ExtractToDirectory(destinationRoot);
+                string destination = Path.Combine(foundryRoot, "WinPE");
+                DirectoryOperations.Recreate(destination);
+                using var archive = new ZipArchive(source, ZipArchiveMode.Read);
+                archive.ExtractToDirectory(destination);
+                break;
             }
-        }
-        else
-        {
-            if (!options.IncludePayloadsInImage && !string.IsNullOrWhiteSpace(options.MountedImagePath))
+            case PostInstallApplicationName:
             {
-                string imageRuntime = Path.Combine(Path.GetFullPath(options.MountedImagePath), "Foundry", "Runtime", applicationName, runtimeIdentifier);
-                if (Directory.Exists(imageRuntime))
+                string destination = Path.Combine(foundryRoot, WinPeWorkspaceLayout.PostInstallDirectoryName);
+                DirectoryOperations.Recreate(destination);
+                using var archive = new ZipArchive(source, ZipArchiveMode.Read);
+                foreach (string fileName in PostInstallLaunchFiles)
                 {
-                    Directory.Delete(imageRuntime, recursive: true);
+                    FindEntry(archive, fileName).ExtractToFile(Path.Combine(destination, fileName));
                 }
-            }
 
-            foreach (string destinationRoot in ResolveDestinationRoots(applicationName, options, runtimeIdentifier))
+                await VerifyPostInstallFilesAsync(destination, cancellationToken).ConfigureAwait(false);
+                break;
+            }
+            default:
+                DirectoryOperations.Recreate(autopilotInteractiveRoot);
+                await using (FileStream destination = File.Create(Path.Combine(autopilotInteractiveRoot, WinPeWorkspaceLayout.AutopilotInteractiveArchiveFileName)))
+                {
+                    await source.CopyToAsync(destination, cancellationToken).ConfigureAwait(false);
+                }
+
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Checks the length and SHA256 of every file the extracted manifest lists, so media creation fails instead of Deploy
+    /// rejecting the boot media before deployment.
+    /// </summary>
+    private static async Task VerifyPostInstallFilesAsync(string directory, CancellationToken cancellationToken)
+    {
+        PostInstallRuntimeManifest manifest = JsonSerializer.Deserialize<PostInstallRuntimeManifest>(
+            await File.ReadAllBytesAsync(Path.Combine(directory, PostInstallRuntimeManifest.FileName), cancellationToken).ConfigureAwait(false),
+            Configuration.ConfigurationJsonDefaults.SerializerOptions)
+            ?? throw new InvalidDataException("PostInstall runtime metadata is missing.");
+        foreach (ContentPackageFile file in manifest.Files)
+        {
+            string path = Path.Combine(directory, file.RelativePath);
+            if (new FileInfo(path).Length != file.Length ||
+                !string.Equals(await FileHash.ComputeSha256Async(path, cancellationToken).ConfigureAwait(false), file.Sha256, StringComparison.OrdinalIgnoreCase))
             {
-                DirectoryOperations.Recreate(destinationRoot);
-                await using var destination = File.Create(Path.Combine(destinationRoot, "original.zip"));
-                source.Position = 0;
-                await source.CopyToAsync(destination, cancellationToken).ConfigureAwait(false);
+                throw new InvalidDataException($"PostInstall runtime file '{file.RelativePath}' does not match its manifest.");
             }
         }
     }
@@ -326,35 +378,6 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         byte[] hash = await System.Security.Cryptography.SHA256.HashDataAsync(stream, cancellationToken).ConfigureAwait(false);
         stream.Position = 0;
         return Convert.ToHexString(hash).ToLowerInvariant();
-    }
-
-    private static void ValidateWinPeCapability(ZipArchive archive)
-    {
-        ZipArchiveEntry[] entries = archive.Entries.Where(entry =>
-            entry.FullName.Equals(RuntimePayloadTrust.CapabilityFileName, StringComparison.OrdinalIgnoreCase)).ToArray();
-        if (entries.Length != 1)
-        {
-            throw new InvalidDataException("Foundry.WinPE archive must contain a supported runtime trust capability marker.");
-        }
-
-        using Stream stream = entries[0].Open();
-        using JsonDocument document = JsonDocument.Parse(stream);
-        JsonElement root = document.RootElement;
-        if (root.ValueKind != JsonValueKind.Object ||
-            root.EnumerateObject().Count(property => property.Name == "runtimeTrustVersion") != 1 ||
-            !root.TryGetProperty("runtimeTrustVersion", out JsonElement capability) ||
-            capability.ValueKind != JsonValueKind.Number ||
-            !capability.TryGetInt32(out int version) || version != 1)
-        {
-            throw new InvalidDataException("Foundry.WinPE archive runtime trust capability is unsupported or malformed.");
-        }
-        if (root.EnumerateObject().Count(property => property.Name == "postInstallVersion") != 1 ||
-            !root.TryGetProperty("postInstallVersion", out JsonElement postInstall) ||
-            postInstall.ValueKind != JsonValueKind.Number ||
-            !postInstall.TryGetInt32(out int postInstallVersion) || postInstallVersion != 1)
-        {
-            throw new InvalidDataException("Foundry.WinPE archive does not support post-installation runtime preparation. Use an updated Foundry.WinPE release or local build.");
-        }
     }
 
     private async Task<string> ResolveArchivePathAsync(
@@ -422,10 +445,11 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         Directory.CreateDirectory(debugWorkspace);
         // Project references may not inherit the RID; propagate Platform to keep every assembly on the target architecture.
         string platform = runtimeIdentifier == "win-arm64" ? "ARM64" : "x64";
-        // Every runtime is a self-contained single-file executable, matching the release workflow. Foundry.WinPE keeps WPF's
-        // native libraries beside the executable so nothing is extracted into the WinPE RAM disk at startup, and skips bundle
-        // compression because boot.wim already compresses it. The runtimes started from the cache bundle and compress everything.
-        string[] singleFileProperties = applicationName == WinPeApplicationName
+        // Every runtime is a self-contained single-file executable, matching the release workflow. Foundry.WinPE and
+        // Foundry.PostInstall ship in boot.wim: they extract nothing at startup (WPF's native libraries stay beside
+        // Foundry.WinPE) and skip bundle compression because boot.wim already compresses them. Foundry.AutopilotInteractive
+        // runs from its archive in the target OS, so it bundles and compresses everything.
+        string[] singleFileProperties = applicationName != AutopilotInteractiveLayout.ApplicationName
             ?
             [
                 "/p:EnableCompressionInSingleFile=false",
@@ -490,23 +514,41 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
 
         if (applicationName == PostInstallApplicationName)
         {
-            var files = new List<Models.Packages.ContentPackageFile>();
-            foreach (string name in new[] { "Foundry.PostInstall.exe", "Launch.cmd" })
-            {
-                string path = Path.Combine(publishDirectory, name);
-                files.Add(new()
-                {
-                    RelativePath = name,
-                    Length = new FileInfo(path).Length,
-                    Sha256 = (await FileHash.ComputeSha256Async(path, cancellationToken).ConfigureAwait(false)).ToLowerInvariant()
-                });
-            }
-            var manifest = new Models.PreOobe.PostInstallRuntimeManifest { RuntimeIdentifier = runtimeIdentifier, Files = files };
-            await File.WriteAllTextAsync(Path.Combine(publishDirectory, Models.PreOobe.PostInstallRuntimeManifest.FileName),
-                JsonSerializer.Serialize(manifest, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }), cancellationToken).ConfigureAwait(false);
+            await CreatePostInstallArchiveAsync(publishDirectory, archivePath, runtimeIdentifier, cancellationToken).ConfigureAwait(false);
+            return archivePath;
         }
+
         ZipFile.CreateFromDirectory(publishDirectory, archivePath, CompressionLevel.Optimal, includeBaseDirectory: false);
         return archivePath;
+    }
+
+    /// <summary>
+    /// Writes the runtime manifest of a local PostInstall publish and archives only the launch files, like the release
+    /// workflow, so anything else the publish leaves beside the executable never reaches the boot image.
+    /// </summary>
+    private static async Task CreatePostInstallArchiveAsync(string publishDirectory, string archivePath, string runtimeIdentifier,
+        CancellationToken cancellationToken)
+    {
+        var files = new List<ContentPackageFile>();
+        foreach (string name in new[] { PostInstallRuntimeManifest.ExecutableFileName, PostInstallRuntimeManifest.LaunchScriptFileName })
+        {
+            string path = Path.Combine(publishDirectory, name);
+            files.Add(new()
+            {
+                RelativePath = name,
+                Length = new FileInfo(path).Length,
+                Sha256 = (await FileHash.ComputeSha256Async(path, cancellationToken).ConfigureAwait(false)).ToLowerInvariant()
+            });
+        }
+
+        var manifest = new PostInstallRuntimeManifest { RuntimeIdentifier = runtimeIdentifier, Files = files };
+        await File.WriteAllTextAsync(Path.Combine(publishDirectory, PostInstallRuntimeManifest.FileName),
+            JsonSerializer.Serialize(manifest, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase }), cancellationToken).ConfigureAwait(false);
+        using ZipArchive archive = ZipFile.Open(archivePath, ZipArchiveMode.Create);
+        foreach (string name in PostInstallLaunchFiles)
+        {
+            archive.CreateEntryFromFile(Path.Combine(publishDirectory, name), name, CompressionLevel.Optimal);
+        }
     }
 
     private async Task<string> DownloadReleaseArchiveAsync(
@@ -655,65 +697,17 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
         return new HttpClient();
     }
 
-    private static IEnumerable<string> ResolveDestinationRoots(
-        string applicationName,
-        WinPeRuntimePayloadProvisioningOptions options,
-        string runtimeIdentifier)
-    {
-        if (applicationName == WinPeApplicationName)
-        {
-            // The boot image is the only home of Foundry.WinPE; the USB cache never carries it.
-            if (!string.IsNullOrWhiteSpace(options.MountedImagePath))
-            {
-                yield return Path.Combine(Path.GetFullPath(options.MountedImagePath), "Foundry", "WinPE");
-            }
-
-            yield break;
-        }
-
-        if (options.IncludePayloadsInImage && !string.IsNullOrWhiteSpace(options.MountedImagePath))
-        {
-            yield return Path.Combine(
-                Path.GetFullPath(options.MountedImagePath),
-                "Foundry",
-                "Runtime",
-                applicationName,
-                runtimeIdentifier);
-        }
-
-        if (!string.IsNullOrWhiteSpace(options.UsbCacheRootPath))
-        {
-            yield return Path.Combine(
-                Path.GetFullPath(options.UsbCacheRootPath),
-                "Runtime",
-                applicationName,
-                runtimeIdentifier);
-        }
-    }
-
     /// <summary>
-    /// Removes payload layouts that earlier media builds staged: the Bootstrap folder and the Connect and Deploy runtime
-    /// archives of the boot image, which Foundry.WinPE replaces, and the Connect seed archive.
+    /// Removes payload layouts that earlier media builds staged in the boot image: the Bootstrap folder, the Runtime folder
+    /// with its Connect, Deploy, PostInstall and AutopilotInteractive archives, the runtime trust manifest and the Connect
+    /// seed archive.
     /// </summary>
-    private static void RemoveLegacyPayloads(WinPeRuntimePayloadProvisioningOptions options)
+    private static void RemoveLegacyPayloads(string foundryRoot)
     {
-        if (!string.IsNullOrWhiteSpace(options.MountedImagePath))
-        {
-            string foundryRoot = Path.Combine(Path.GetFullPath(options.MountedImagePath), "Foundry");
-            TryDeleteDirectory(Path.Combine(foundryRoot, "Bootstrap"));
-            TryDeleteDirectory(Path.Combine(foundryRoot, "Runtime", "Foundry.Connect"));
-            TryDeleteDirectory(Path.Combine(foundryRoot, "Runtime", "Foundry.Deploy"));
-        }
-
-        foreach (string root in new[] { options.MountedImagePath, options.UsbCacheRootPath })
-        {
-            if (string.IsNullOrWhiteSpace(root))
-            {
-                continue;
-            }
-
-            TryDeleteFile(Path.Combine(root, "Foundry", "Seed", "Foundry.Connect.zip"));
-        }
+        TryDeleteDirectory(Path.Combine(foundryRoot, "Bootstrap"));
+        TryDeleteDirectory(Path.Combine(foundryRoot, "Runtime"));
+        TryDeleteFile(Path.Combine(foundryRoot, "Config", "foundry.runtime-trust.json"));
+        TryDeleteFile(Path.Combine(foundryRoot, "Seed", "Foundry.Connect.zip"));
     }
 
     private static WinPeDiagnostic? ValidateOptions(WinPeRuntimePayloadProvisioningOptions? options, bool requireDestination = true)
@@ -750,13 +744,12 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 "Set WinPeRuntimePayloadProvisioningOptions.WorkingDirectoryPath.");
         }
 
-        if (requireDestination && string.IsNullOrWhiteSpace(options.MountedImagePath) &&
-            string.IsNullOrWhiteSpace(options.UsbCacheRootPath))
+        if (requireDestination && string.IsNullOrWhiteSpace(options.MountedImagePath))
         {
             return new WinPeDiagnostic(
                 WinPeErrorCodes.ValidationFailed,
-                "At least one runtime payload destination is required.",
-                "Set MountedImagePath, UsbCacheRootPath, or both.");
+                "The mounted boot image is required to provision runtime payloads.",
+                "Set WinPeRuntimePayloadProvisioningOptions.MountedImagePath.");
         }
 
         // An empty version must not fall back to the latest release: only the unpublished local version selects it.

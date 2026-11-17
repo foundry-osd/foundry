@@ -5,10 +5,7 @@
 using System.Diagnostics;
 using Foundry.WinPE.Diagnostics;
 using Foundry.WinPE.Processes;
-using Foundry.WinPE.Runtime;
 using Foundry.WinPE.SystemPreparation;
-using Foundry.Core.Models.Autopilot;
-using Foundry.Core.Models.PreOobe;
 using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
 using Serilog;
@@ -18,8 +15,8 @@ namespace Foundry.WinPE;
 /// <summary>
 /// Runs the finite, ordered WinPE boot workflow. Foundry Connect and Foundry Deploy run from this guardian's own executable
 /// (<paramref name="executablePath"/>, default <see cref="Environment.ProcessPath"/>) in their <c>--connect</c> and
-/// <c>--deploy</c> modes; only Foundry PostInstall is resolved as a runtime payload. A result of the Connect, deployment
-/// preparation or Deploy stage carries the file version of that executable, other stages carry none.
+/// <c>--deploy</c> modes; no runtime is resolved or downloaded, Deploy reads Foundry PostInstall from the boot image. A
+/// result of the Connect or Deploy stage carries the file version of that executable, other stages carry none.
 /// <paramref name="readPayloadVersion"/> defaults to the executable file version and must not throw.
 /// </summary>
 /// <remarks>
@@ -29,7 +26,7 @@ namespace Foundry.WinPE;
 /// when Connect exited 0, and the relay is disposed (key zeroed) when this workflow ends on any path. A hand-off failure is
 /// logged with its exception type only and never changes the boot outcome; Deploy then prompts for the password.
 /// </remarks>
-internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeResolver runtime,
+internal sealed class BootstrapCoordinator(BootstrapContext context,
     ISystemPreparation preparation, IApplicationLauncher launcher, IBootstrapLogPersistence persistence,
     ILogger logger, Action<BootstrapProgress> progress, Action? deliveryReady = null,
     Action<BootstrapResult, TimeSpan>? completed = null, Func<string, string?>? readPayloadVersion = null,
@@ -159,24 +156,13 @@ internal sealed class BootstrapCoordinator(BootstrapContext context, IRuntimeRes
         try { deliveryReady?.Invoke(); }
         catch { }
 
-        stage = BootstrapStage.DeploymentPreparation;
+        stage = BootstrapStage.Deploy;
         payloadVersion = readPayloadVersion(executable);
-        Report(BootstrapStatus.Running, "Preparing Foundry PostInstall");
-        string postInstall = await runtime.ResolveAsync("Foundry.PostInstall", context.DeployIsDebug, cancellationToken).ConfigureAwait(false);
         var deployEnvironment = new Dictionary<string, string?>(context.ChildEnvironment)
         {
-            [PostInstallRuntimeManifest.ExecutableEnvironmentVariable] = postInstall,
             [DeploymentKeyHandoff.SendPipeEnvironmentVariable] = null,
             [DeploymentKeyHandoff.ReceivePipeEnvironmentVariable] = null
         };
-        // Debug media only: release media never carry this application, so Deploy downloads it into the target OS.
-        if (context.DeployIsDebug && runtime.TryGetDebugArchive(AutopilotInteractiveLayout.ApplicationName) is var (archivePath, archiveSha256))
-        {
-            deployEnvironment[AutopilotInteractiveLayout.ArchiveEnvironmentVariable] = archivePath;
-            deployEnvironment[AutopilotInteractiveLayout.ArchiveSha256EnvironmentVariable] = archiveSha256;
-        }
-        Report(BootstrapStatus.Completed, "Deployment applications prepared");
-        stage = BootstrapStage.Deploy;
         Report(BootstrapStatus.Running, "Starting Foundry Deploy");
         cancellationToken.ThrowIfCancellationRequested();
         // The key is served only while the launcher waits for Deploy readiness; EndServeAsync zeroes it.

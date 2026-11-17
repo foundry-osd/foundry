@@ -4552,9 +4552,6 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>Pridedami Foundry komponentai…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Į USB diską pridedami Foundry komponentai…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>Importuotas turinys publikuojamas tinklo talpykloje…</value>
   </data>

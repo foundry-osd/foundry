@@ -8,7 +8,6 @@ using System.Runtime.InteropServices;
 using Foundry.WinPE.Console;
 using Foundry.WinPE.Diagnostics;
 using Foundry.WinPE.Processes;
-using Foundry.WinPE.Runtime;
 using Foundry.WinPE.SystemPreparation;
 using Foundry.Telemetry;
 using Foundry.Utilities.Diagnostics;
@@ -84,25 +83,19 @@ internal static class GuardianProgram
                 cache is null ? null : Path.Combine(cache.Root, "Logs", sessionId),
                 Log.ForContext<BootstrapLogPersistence>());
             BootstrapContext context = BootstrapEnvironment.Create(WinPeRoot, sessionId,
-                RuntimeInformation.OSArchitecture, volumes,
-                path => File.Exists(path) ? File.ReadAllText(path) : null);
-            Log.Information("Bootstrap runtime initialized. Version={Version}; runtime {RuntimeIdentifier}; PostInstall and AutopilotInteractive source {DeploySource}; persistent logs {HasPersistentLogs}",
+                RuntimeInformation.OSArchitecture, volumes);
+            Log.Information("Bootstrap runtime initialized. Version={Version}; runtime {RuntimeIdentifier}; persistent logs {HasPersistentLogs}",
                 typeof(GuardianProgram).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion,
-                context.RuntimeIdentifier, context.DeployIsDebug ? "Debug" : "Release",
-                context.PersistenceDirectory is not null);
-            Log.Debug("Bootstrap storage selected. RuntimeRoot={RuntimeRoot}; LogPath={LogPath}; PersistenceDirectory={PersistenceDirectory}",
-                context.RuntimeRoot, logPath, context.PersistenceDirectory);
-            Directory.CreateDirectory(context.RuntimeRoot);
+                context.RuntimeIdentifier, context.PersistenceDirectory is not null);
+            Log.Debug("Bootstrap storage selected. LogPath={LogPath}; PersistenceDirectory={PersistenceDirectory}",
+                logPath, context.PersistenceDirectory);
             using var httpClient = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
-            var runtime = new RuntimeResolver(WinPeRoot, context.RuntimeRoot, context.RuntimeIdentifier,
-                httpClient, Log.ForContext<RuntimeResolver>(), presenter.ReportDownload,
-                warning: presenter.ReportWarning, activity: presenter.ReportActivity);
             var preparation = new WinPeSystemPreparation(WinPeRoot, httpClient,
                 Log.ForContext<WinPeSystemPreparation>(), presenter.ReportWarning);
             var launcher = new ApplicationLauncher(Log.ForContext<ApplicationLauncher>(),
                 context.PersistenceDirectory ?? Path.Combine(WinPeRoot, "Logs", sessionId),
-                presenter.ReportWarning, telemetry.RecoverChildFailure, releasePayload: runtime.Release);
-            var coordinator = new BootstrapCoordinator(context, runtime, preparation, launcher, persistence,
+                presenter.ReportWarning, telemetry.RecoverChildFailure);
+            var coordinator = new BootstrapCoordinator(context, preparation, launcher, persistence,
                 Log.ForContext<BootstrapCoordinator>(), presenter.Report,
                 () => telemetry.StartDelivery(preparation.IsClockUsable), telemetry.Complete);
             coordinatorStarted = true;

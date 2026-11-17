@@ -4,7 +4,6 @@
 
 using System.Runtime.InteropServices;
 using Foundry.Core.Services.Media;
-using Foundry.Core.Services.Runtime;
 using Foundry.Utilities.Diagnostics;
 
 namespace Foundry.WinPE;
@@ -23,30 +22,15 @@ internal static class BootstrapEnvironment
     };
 
     internal static BootstrapContext Create(string winPeRoot, string sessionId, Architecture architecture,
-        IEnumerable<BootstrapVolume> volumes, Func<string, string?> readProvisioningSource)
+        IEnumerable<BootstrapVolume> volumes)
     {
         string runtimeIdentifier = ResolveRuntimeIdentifier(architecture);
         BootstrapVolume? cache = ResolveCacheVolume(volumes);
-        return new BootstrapContext(winPeRoot,
-            Path.Combine(cache?.Root ?? winPeRoot, "Runtime"), runtimeIdentifier, sessionId,
-            cache is null ? null : Path.Combine(cache.Root, "Logs", sessionId),
-            IsDeployDebug());
-
-        // Debug media carry locally built PostInstall and AutopilotInteractive archives: PostInstall skips the release lookup
-        // and Deploy receives the AutopilotInteractive archive.
-        bool IsDeployDebug()
-        {
-            try
-            {
-                string? source = readProvisioningSource(Path.Combine(winPeRoot, "Config", WinPeWorkspaceLayout.ProvisioningSourceFileName));
-                return string.Equals(source?.Trim(), "debug", StringComparison.OrdinalIgnoreCase);
-            }
-            catch (IOException) { return false; }
-            catch (UnauthorizedAccessException) { return false; }
-        }
+        return new BootstrapContext(winPeRoot, runtimeIdentifier, sessionId,
+            cache is null ? null : Path.Combine(cache.Root, "Logs", sessionId));
     }
 
-    /// <summary>Rejects ambiguous cache discovery before any runtime or diagnostic data uses a volume.</summary>
+    /// <summary>Rejects ambiguous cache discovery before any diagnostic data uses a volume.</summary>
     internal static BootstrapVolume? ResolveCacheVolume(IEnumerable<BootstrapVolume> volumes)
     {
         BootstrapVolume[] candidates = volumes.Where(volume => volume.IsReady &&

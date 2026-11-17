@@ -4552,9 +4552,6 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>Foundry komponentide lisamine…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Foundry komponentide lisamine USB-kettale…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>Imporditud sisu avaldamine võrguvahemällu…</value>
   </data>

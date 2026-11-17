@@ -8,7 +8,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Update="foundry.startup.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
-    <None Update="foundry.runtime-trust-capability.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
     <ProjectReference Include="..\Foundry.Connect\Foundry.Connect.csproj" />
     <ProjectReference Include="..\Foundry.Core\Foundry.Core.csproj" />
     <ProjectReference Include="..\Foundry.Deploy\Foundry.Deploy.csproj" />

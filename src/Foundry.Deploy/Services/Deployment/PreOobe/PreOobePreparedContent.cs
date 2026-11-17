@@ -15,19 +15,13 @@ internal sealed class PreOobePreparedContent : IDisposable
     public required string RuntimeDirectory { get; init; }
     public required PostInstallRuntimeManifest RuntimeManifest { get; init; }
     public List<PreOobePreparedPackage> Packages { get; } = [];
+    /// <summary>Gets the held source handles; the boot image runtime and media sources are never deleted on disposal.</summary>
     public List<(string Path, FileStream Stream)> Files { get; } = [];
-    /// <summary>Set only for runtime files downloaded by Deploy; Bootstrap and media sources remain externally owned.</summary>
-    internal string? OwnedRuntimeWorkspace { get; set; }
     public long TargetBytes => checked(RuntimeManifest.Files.Sum(file => file.Length) + Packages.Sum(package => package.Manifest.Files.Sum(file => file.Length)));
 
     public void Dispose()
     {
         foreach (var file in Files) file.Stream.Dispose();
-        if (OwnedRuntimeWorkspace is { } workspace)
-        {
-            OwnedRuntimeWorkspace = null;
-            PostInstallRuntimeRecovery.DeleteWorkspace(workspace);
-        }
     }
 }
 
