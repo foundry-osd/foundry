@@ -18,8 +18,8 @@ public sealed class AutopilotMediaSecretProtectorTests
         byte[] key = AesGcmEncryption.GenerateKey();
         byte[] payload = [0, 1, 2, 3, 255, 254, 128];
 
-        var envelope = MediaSecretEnvelopeProtector.EncryptBytes(payload, key);
-        byte[] decrypted = MediaSecretEnvelopeProtector.DecryptBytes(envelope, key);
+        var envelope = MediaSecretEnvelopeProtector.EncryptBytes(payload, key, MediaSecretEnvelopeProtector.DeploymentKeyId);
+        byte[] decrypted = MediaSecretEnvelopeProtector.DecryptBytes(envelope, key, MediaSecretEnvelopeProtector.DeploymentKeyId);
 
         Assert.Equal(payload, decrypted);
         Assert.NotEqual(Convert.ToBase64String(payload), envelope.Ciphertext);
@@ -30,12 +30,12 @@ public sealed class AutopilotMediaSecretProtectorTests
     {
         byte[] key = AesGcmEncryption.GenerateKey();
         const string secret = "PfxPassword-DoNotLeak";
-        var envelope = MediaSecretEnvelopeProtector.EncryptString(secret, key) with
+        var envelope = MediaSecretEnvelopeProtector.EncryptString(secret, key, MediaSecretEnvelopeProtector.DeploymentKeyId) with
         {
             Ciphertext = "AAAA"
         };
 
-        var exception = Assert.Throws<CryptographicException>(() => MediaSecretEnvelopeProtector.DecryptString(envelope, key));
+        var exception = Assert.Throws<CryptographicException>(() => MediaSecretEnvelopeProtector.DecryptString(envelope, key, MediaSecretEnvelopeProtector.DeploymentKeyId));
 
         Assert.DoesNotContain(secret, exception.ToString(), StringComparison.Ordinal);
         Assert.DoesNotContain(Convert.ToBase64String(Encoding.UTF8.GetBytes(secret)), exception.ToString(), StringComparison.Ordinal);
@@ -45,19 +45,17 @@ public sealed class AutopilotMediaSecretProtectorTests
     public void DecryptString_InvalidBase64_ThrowsCryptographicException()
     {
         byte[] key = AesGcmEncryption.GenerateKey();
-        SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptString("secret", key) with { Ciphertext = "!!" };
-        CryptographicException ex = Assert.Throws<CryptographicException>(() => MediaSecretEnvelopeProtector.DecryptString(envelope, key));
+        SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptString("secret", key, MediaSecretEnvelopeProtector.DeploymentKeyId) with { Ciphertext = "!!" };
+        CryptographicException ex = Assert.Throws<CryptographicException>(() => MediaSecretEnvelopeProtector.DecryptString(envelope, key, MediaSecretEnvelopeProtector.DeploymentKeyId));
         Assert.Contains("base64url", ex.Message);
     }
 
-    [Theory]
-    [InlineData(MediaSecretEnvelopeProtector.KeyId)]
-    [InlineData(MediaSecretEnvelopeProtector.DeploymentKeyId)]
-    public void DecryptBytes_WithDeployKeyIds_RoundTripsBinaryPayloadForEveryAcceptedKeyId(string keyId)
+    [Fact]
+    public void DecryptBytes_WithDeployKeyIds_RoundTripsDeploymentKeyedPayload()
     {
         byte[] key = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
         byte[] payload = [0, 1, 2, 255, 128, 127];
-        SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptBytes(payload, key, keyId);
+        SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptBytes(payload, key, MediaSecretEnvelopeProtector.DeploymentKeyId);
 
         byte[] decrypted = MediaSecretEnvelopeProtector.DecryptBytes(envelope, key, MediaSecretEnvelopeProtector.DeployKeyIds);
 
@@ -70,7 +68,7 @@ public sealed class AutopilotMediaSecretProtectorTests
     {
         byte[] key = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
         const string secret = "PfxPassword-DoNotLeak";
-        SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptString(secret, key) with
+        SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptString(secret, key, MediaSecretEnvelopeProtector.DeploymentKeyId) with
         {
             Ciphertext = "AAAA"
         };
@@ -86,7 +84,7 @@ public sealed class AutopilotMediaSecretProtectorTests
     public void DecryptChars_ReturnsClearableCharacterBuffer()
     {
         byte[] key = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
-        SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptString("PfxPassword", key);
+        SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptString("PfxPassword", key, MediaSecretEnvelopeProtector.DeploymentKeyId);
 
         char[] decrypted = MediaSecretEnvelopeProtector.DecryptChars(envelope, key, MediaSecretEnvelopeProtector.DeployKeyIds);
 
@@ -94,11 +92,13 @@ public sealed class AutopilotMediaSecretProtectorTests
         Assert.IsType<char[]>(decrypted);
     }
 
-    [Fact]
-    public void DecryptChars_RejectsUnexpectedKeyId()
+    [Theory]
+    [InlineData("other")]
+    [InlineData(MediaSecretEnvelopeProtector.KeyId)]
+    public void DecryptChars_WithDeployKeyIds_RejectsUnexpectedKeyId(string keyId)
     {
         byte[] key = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
-        SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptString("PfxPassword", key, "other");
+        SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptString("PfxPassword", key, keyId);
 
         CryptographicException exception = Assert.Throws<CryptographicException>(
             () => MediaSecretEnvelopeProtector.DecryptChars(envelope, key, MediaSecretEnvelopeProtector.DeployKeyIds));
@@ -110,7 +110,7 @@ public sealed class AutopilotMediaSecretProtectorTests
     public void DecryptBytes_WithAcceptedKeyIds_WhenKeyLengthIsWrong_ThrowsArgumentException()
     {
         byte[] key = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
-        SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptString("PfxPassword", key);
+        SecretEnvelope envelope = MediaSecretEnvelopeProtector.EncryptString("PfxPassword", key, MediaSecretEnvelopeProtector.DeploymentKeyId);
 
         Assert.Throws<ArgumentException>(
             () => MediaSecretEnvelopeProtector.DecryptBytes(envelope, new byte[5], MediaSecretEnvelopeProtector.DeployKeyIds));
@@ -120,7 +120,7 @@ public sealed class AutopilotMediaSecretProtectorTests
     public void HasEncryptedSecrets_DetectsNestedEncryptedEnvelope()
     {
         byte[] key = AesGcmEncryption.GenerateKey();
-        var envelope = MediaSecretEnvelopeProtector.EncryptString("secret", key);
+        var envelope = MediaSecretEnvelopeProtector.EncryptString("secret", key, MediaSecretEnvelopeProtector.KeyId);
         string json = $$"""
             {
               "autopilot": {
