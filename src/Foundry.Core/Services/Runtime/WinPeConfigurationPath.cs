@@ -21,7 +21,10 @@ public static class WinPeConfigurationPath
     public static WinPeConfigurationLocation Resolve(string defaultPath) =>
         Resolve(defaultPath, Environment.GetEnvironmentVariable(OverrideEnvironmentVariable));
 
-    internal static WinPeConfigurationLocation Resolve(string defaultPath, string? overridePath)
+    /// <summary>Resolves the configuration path against <paramref name="defaultPath"/> and an already read override.</summary>
+    /// <param name="defaultPath">The configuration file used when <paramref name="overridePath"/> is empty.</param>
+    /// <param name="overridePath">The value of <see cref="OverrideEnvironmentVariable"/>, or <see langword="null"/> when unset.</param>
+    public static WinPeConfigurationLocation Resolve(string defaultPath, string? overridePath)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(defaultPath);
         return string.IsNullOrWhiteSpace(overridePath)

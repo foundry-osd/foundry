@@ -32,8 +32,7 @@ internal sealed class BootstrapTelemetry : ILogEventSink
         try
         {
             bootMediaTarget = cacheRoot is null ? TelemetryBootMediaTargets.Iso : TelemetryBootMediaTargets.Usb;
-            settings = RuntimeTelemetryConsent.ReadSettings(WinPeConfigurationPath.Resolve(
-                Path.Combine(winPeRoot, "Config", WinPeWorkspaceLayout.ConfigurationFileName)).Path);
+            settings = ReadConsent(winPeRoot, Environment.GetEnvironmentVariable(WinPeConfigurationPath.OverrideEnvironmentVariable));
             recoveryRoot = Path.Combine(cacheRoot ?? winPeRoot, "Logs");
             if (settings is null) { return; }
             string version = typeof(BootstrapTelemetry).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "unknown";
@@ -48,6 +47,15 @@ internal sealed class BootstrapTelemetry : ILogEventSink
         }
         catch { }
     }
+
+    /// <summary>
+    /// Reads the consent of <c>Config\foundry.winpe.config.json</c> under <paramref name="winPeRoot"/>, or of
+    /// <paramref name="configurationOverride"/> when <see cref="WinPeConfigurationPath.OverrideEnvironmentVariable"/> is set.
+    /// </summary>
+    internal static TelemetrySettings? ReadConsent(string winPeRoot, string? configurationOverride) =>
+        RuntimeTelemetryConsent.ReadSettings(WinPeConfigurationPath.Resolve(
+            Path.Combine(winPeRoot, "Config", WinPeWorkspaceLayout.ConfigurationFileName),
+            configurationOverride).Path);
 
     public void Emit(LogEvent logEvent)
     {
