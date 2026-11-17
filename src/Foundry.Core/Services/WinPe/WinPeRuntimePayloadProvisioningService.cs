@@ -728,6 +728,15 @@ public sealed class WinPeRuntimePayloadProvisioningService : IWinPeRuntimePayloa
                 "Provide non-null WinPe, PostInstall, and AutopilotInteractive options.");
         }
 
+        // Foundry Deploy stages PostInstall from the boot image, so every media must carry it.
+        if (!options.PostInstall.IsEnabled)
+        {
+            return new WinPeDiagnostic(
+                WinPeErrorCodes.ValidationFailed,
+                "Foundry.PostInstall must be provisioned on every boot media.",
+                "Set WinPeRuntimePayloadProvisioningOptions.PostInstall.IsEnabled to true; Foundry Deploy relies on it.");
+        }
+
         if (!Enum.IsDefined(options.Architecture))
         {
             return new WinPeDiagnostic(

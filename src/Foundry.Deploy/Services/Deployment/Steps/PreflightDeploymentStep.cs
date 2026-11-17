@@ -272,7 +272,7 @@ public sealed class PreflightDeploymentStep(
 
     /// <summary>
     /// When interactive Autopilot is selected, confirms before any disk operation that the runtime archive exists with a trusted
-    /// SHA256 (a release asset, or the media archive Bootstrap forwarded) and keeps its origin for the Autopilot step.
+    /// SHA256 (a release asset, or the debug archive read from the boot image, whose hash is pinned when resolved) and keeps its origin for the Autopilot step.
     /// </summary>
     /// <returns>
     /// <see langword="null"/> when the runtime is available or not needed; otherwise the failure, with a distinct message when

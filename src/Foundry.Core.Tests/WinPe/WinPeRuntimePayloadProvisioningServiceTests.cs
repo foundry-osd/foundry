@@ -76,6 +76,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
     private static WinPeRuntimePayloadProvisioningOptions CreateReleaseWinPeOptions(TempRuntimeWorkspace workspace, string releaseVersion) => new()
     {
         WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+        PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive() },
         MountedImagePath = workspace.MountedImagePath,
         ReleaseVersion = releaseVersion,
         WinPe = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
@@ -141,6 +142,21 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
     }
 
     [Fact]
+    public async Task PrepareAsync_WithDisabledPostInstall_FailsValidation()
+    {
+        using var workspace = TempRuntimeWorkspace.Create();
+        var result = await new WinPeRuntimePayloadProvisioningService(new FakeRuntimeProcessRunner()).PrepareAsync(new()
+        {
+            WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            PostInstall = new() { IsEnabled = false }
+        }, TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(WinPeErrorCodes.ValidationFailed, result.Error!.Code);
+        Assert.Contains("PostInstall.IsEnabled", result.Error.Details, StringComparison.Ordinal);
+    }
+
+    [Fact]
     public async Task PrepareAsync_WhenCancelledDuringLocalPublish_WaitsForPublisherAndSkipsArchive()
     {
         using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
@@ -160,6 +176,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         await Assert.ThrowsAsync<OperationCanceledException>(() => service.PrepareAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive() },
             WinPe = new() { IsEnabled = true, ProjectPath = projectPath }
         }, cancellation.Token));
 
@@ -259,6 +276,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         var result = await service.ProvisionAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive() },
             MountedImagePath = workspace.MountedImagePath,
             AutopilotInteractive = new()
             {
@@ -287,6 +305,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         {
             Architecture = architecture,
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive(architecture) },
             MountedImagePath = workspace.MountedImagePath,
             AutopilotInteractive = new() { IsEnabled = true, ArchivePath = archive }
         }, cancellationToken: TestContext.Current.CancellationToken);
@@ -312,6 +331,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         var result = await new WinPeRuntimePayloadProvisioningService(runner).ProvisionAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive() },
             MountedImagePath = workspace.MountedImagePath,
             AutopilotInteractive = new() { IsEnabled = true, ProjectPath = projectPath }
         }, cancellationToken: TestContext.Current.CancellationToken);
@@ -336,6 +356,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         {
             Architecture = architecture,
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive(architecture) },
             MountedImagePath = workspace.MountedImagePath,
             ReleaseVersion = TestReleaseVersion,
             WinPe = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
@@ -364,6 +385,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         var result = await service.PrepareAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive() },
             ReleaseVersion = TestReleaseVersion,
             WinPe = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
         }, TestContext.Current.CancellationToken);
@@ -381,6 +403,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         var result = await service.PrepareAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive() },
             WinPe = new() { IsEnabled = true, ArchivePath = archive }
         }, TestContext.Current.CancellationToken);
         Assert.False(result.IsSuccess);
@@ -401,6 +424,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         var result = await service.PrepareAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive() },
             ReleaseVersion = TestReleaseVersion,
             WinPe = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
         }, TestContext.Current.CancellationToken);
@@ -420,6 +444,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => service.ProvisionAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive() },
             MountedImagePath = workspace.MountedImagePath,
             ReleaseVersion = TestReleaseVersion,
             WinPe = new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
@@ -436,6 +461,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         var prepared = await service.PrepareAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive() },
             WinPe = new() { IsEnabled = true, ArchivePath = archive }
         }, TestContext.Current.CancellationToken);
         Assert.True(prepared.IsSuccess, prepared.Error?.Details);
@@ -460,6 +486,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         var result = await service.PrepareAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive() },
             WinPe = null!
         }, TestContext.Current.CancellationToken);
         Assert.False(result.IsSuccess);
@@ -481,6 +508,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         WinPeResult result = await service.ProvisionAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive() },
             MountedImagePath = workspace.MountedImagePath,
             WinPe = new WinPeRuntimePayloadApplicationOptions { IsEnabled = true, ProjectPath = projectPath }
         }, cancellationToken: TestContext.Current.CancellationToken);
@@ -502,6 +530,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         WinPeResult result = await service.ProvisionAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive() },
             MountedImagePath = workspace.MountedImagePath,
             WinPe = new WinPeRuntimePayloadApplicationOptions
             {
@@ -575,6 +604,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
             {
                 Architecture = WinPeArchitecture.X64,
                 WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+                PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive() },
                 MountedImagePath = workspace.MountedImagePath,
                 WinPe = new WinPeRuntimePayloadApplicationOptions
                 {
@@ -663,6 +693,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
             {
                 Architecture = architecture,
                 WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+                PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive(architecture) },
                 MountedImagePath = workspace.MountedImagePath,
                 WinPe = new WinPeRuntimePayloadApplicationOptions
                 {
@@ -706,6 +737,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
             {
                 Architecture = WinPeArchitecture.X64,
                 WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+                PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive() },
                 MountedImagePath = workspace.MountedImagePath,
                 ReleaseVersion = TestReleaseVersion,
                 WinPe = new WinPeRuntimePayloadApplicationOptions
@@ -728,7 +760,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
     }
 
     [Fact]
-    public async Task ProvisionAsync_WhenApplicationsAreDisabled_DoesNotCreateTheirDirectories()
+    public async Task ProvisionAsync_WhenOptionalApplicationsAreDisabled_ProvisionsOnlyPostInstall()
     {
         using TempRuntimeWorkspace workspace = TempRuntimeWorkspace.Create();
 
@@ -739,13 +771,14 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
             {
                 Architecture = WinPeArchitecture.X64,
                 WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+                PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive() },
                 MountedImagePath = workspace.MountedImagePath
             },
             cancellationToken: CancellationToken.None);
 
         Assert.True(result.IsSuccess, result.Error?.Details);
         Assert.False(Directory.Exists(Path.Combine(workspace.MountedImagePath, "Foundry", "WinPE")));
-        Assert.False(Directory.Exists(Path.Combine(workspace.MountedImagePath, "Foundry", WinPeWorkspaceLayout.PostInstallDirectoryName)));
+        Assert.True(Directory.Exists(Path.Combine(workspace.MountedImagePath, "Foundry", WinPeWorkspaceLayout.PostInstallDirectoryName)));
     }
 
     [Theory]
@@ -760,6 +793,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         {
             Architecture = architecture,
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive(architecture) },
             MountedImagePath = workspace.MountedImagePath,
             WinPe = new() { IsEnabled = true, ArchivePath = workspace.CreateArchive("winpe.zip", "Foundry.WinPE.exe") }
         }, cancellationToken: TestContext.Current.CancellationToken);
@@ -901,6 +935,7 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
         var prepared = await service.PrepareAsync(new WinPeRuntimePayloadProvisioningOptions
         {
             WorkingDirectoryPath = workspace.WorkingDirectoryPath,
+            PostInstall = new() { IsEnabled = true, ArchivePath = workspace.CreatePostInstallArchive() },
             WinPe = new() { IsEnabled = true, ProjectPath = projectPath }
         }, TestContext.Current.CancellationToken);
         Assert.True(prepared.IsSuccess, prepared.Error?.Details);
@@ -1132,6 +1167,9 @@ public sealed class WinPeRuntimePayloadProvisioningServiceTests
             ZipFile.CreateFromDirectory(payloadPath, archivePath);
             return archivePath;
         }
+
+        public string CreatePostInstallArchive(WinPeArchitecture architecture = WinPeArchitecture.X64) => CreateArchive(
+            $"required-postinstall-{architecture}.zip", "Foundry.PostInstall.exe", architecture == WinPeArchitecture.Arm64 ? "win-arm64" : "win-x64");
 
         public void Dispose()
         {

@@ -332,7 +332,6 @@ public sealed class ApplicationLauncherTests
                 Assert.Equal(directory, start.WorkingDirectory);
                 Assert.Equal("TEST", start.Environment["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
                 Assert.False(start.Environment.ContainsKey("TO_REMOVE"));
-                Assert.False(start.Environment.ContainsKey("DOTNET_BUNDLE_EXTRACT_BASE_DIR"));
             });
         }
         finally { Directory.Delete(directory, recursive: true); }

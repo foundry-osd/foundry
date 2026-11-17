@@ -27,6 +27,14 @@ public sealed class ObsoleteMediaModeTests
         Assert.Equal(expected, applicationId);
     }
 
+    [Fact]
+    public void TryGetApplicationId_RecognizesLegacyLauncherConfigArguments()
+    {
+        string[] args = ["--config", @"X:\Foundry\Config\foundry.connect.config.json"];
+        Assert.True(ObsoleteMediaMode.TryGetApplicationId(@"X:\Foundry\Runtime\Foundry.Connect\Foundry.Connect.exe", args, out string? applicationId));
+        Assert.Equal("Foundry.Connect", applicationId);
+    }
+
     [Theory]
     [InlineData(@"X:\Foundry\Foundry.WinPE.exe", "")]
     [InlineData(@"X:\Foundry\Foundry.WinPE.exe", "--connect")]

@@ -89,6 +89,7 @@ internal static class GuardianProgram
                 context.RuntimeIdentifier, context.PersistenceDirectory is not null);
             Log.Debug("Bootstrap storage selected. LogPath={LogPath}; PersistenceDirectory={PersistenceDirectory}",
                 logPath, context.PersistenceDirectory);
+            // Infinite timeout: the only remaining users (clock probes) apply their own linked deadlines.
             using var httpClient = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
             var preparation = new WinPeSystemPreparation(WinPeRoot, httpClient,
                 Log.ForContext<WinPeSystemPreparation>(), presenter.ReportWarning);
