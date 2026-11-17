@@ -29,17 +29,17 @@ internal static class ObsoleteMediaWindow
         FreeConsole();
         AppContext.SetSwitch(DisableFluentBackdropSwitch, true);
         var application = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
+        // The constructor applies the Fluent dictionary to the current application; the instance itself is not needed.
         _ = new ThemeService();
         application.Resources.MergedDictionaries.Add(new ResourceDictionary
         {
             Source = new Uri("pack://application:,,,/Foundry.Wpf;component/Themes/FoundryWpfStyles.xaml", UriKind.Absolute)
         });
 
-        CultureInfo culture = CultureInfo.CurrentUICulture;
         var window = new LocalizedMessageDialog(
-            Strings.GetString("ObsoleteMedia.Title", culture)!,
-            Strings.GetString("ObsoleteMedia.Message", culture)!,
-            Strings.GetString("ObsoleteMedia.Close", culture)!)
+            Localize("ObsoleteMedia.Title", "Obsolete boot media"),
+            Localize("ObsoleteMedia.Message", "This boot media is obsolete. Update Foundry OSD and recreate the media."),
+            Localize("ObsoleteMedia.Close", "Close"))
         {
             ShowInTaskbar = true,
             WindowStartupLocation = WindowStartupLocation.CenterScreen
@@ -47,6 +47,10 @@ internal static class ObsoleteMediaWindow
         window.ContentRendered += (_, _) => onRendered();
         window.ShowDialog();
     }
+
+    /// <summary>Returns the resource for the current UI culture, or the English text when the key is missing.</summary>
+    private static string Localize(string key, string english) =>
+        Strings.GetString(key, CultureInfo.CurrentUICulture) ?? english;
 
     [DllImport("kernel32.dll", SetLastError = true)]
     [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]

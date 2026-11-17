@@ -63,7 +63,6 @@ public sealed class ObsoleteMediaModeTests
         Assert.Equal(StartupStage.UiReady, status?.Stage);
         Assert.Null(status?.FailureCategory);
         Assert.Equal((int)ChildRuntimeExitCode.UserAborted, exitCode);
-        Assert.Equal(20, exitCode);
     }
 
     [Fact]

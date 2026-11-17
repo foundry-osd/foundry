@@ -23,6 +23,7 @@ internal static class ObsoleteMediaMode
 {
     private const string ConnectApplicationId = "Foundry.Connect";
     private const string DeployApplicationId = "Foundry.Deploy";
+    private static readonly string[] ApplicationIds = [ConnectApplicationId, DeployApplicationId];
 
     /// <summary>Exit code returned once the window is closed: the legacy launchers treat it as an operator abort.</summary>
     internal const int ExitCode = (int)ChildRuntimeExitCode.UserAborted;
@@ -39,7 +40,7 @@ internal static class ObsoleteMediaMode
         applicationId = null;
         if (processPath is null || WinPeModes.Parse(args) == WinPeMode.NativeWorker) return false;
         string fileName = Path.GetFileName(processPath);
-        foreach (string candidate in (string[])[ConnectApplicationId, DeployApplicationId])
+        foreach (string candidate in ApplicationIds)
         {
             if (string.Equals(fileName, candidate + ".exe", StringComparison.OrdinalIgnoreCase))
             {
