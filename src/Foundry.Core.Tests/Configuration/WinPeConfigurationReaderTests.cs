@@ -86,6 +86,34 @@ public sealed class WinPeConfigurationReaderTests
     public void ReadModeView_RejectsADocumentThatIsNotAWinPeConfiguration(string json) =>
         Assert.ThrowsAny<JsonException>(() => WinPeConfigurationReader.ReadModeView(json, WinPeConfigurationReader.DeploySection));
 
+    [Theory]
+    [InlineData(WinPeConfigurationReader.ConnectSection, WinPeConfigurationReader.DeploySection, "5")]
+    [InlineData(WinPeConfigurationReader.ConnectSection, WinPeConfigurationReader.DeploySection, "\"x\"")]
+    [InlineData(WinPeConfigurationReader.ConnectSection, WinPeConfigurationReader.DeploySection, """{"completion":{"automaticRebootDelaySeconds":"x"}}""")]
+    [InlineData(WinPeConfigurationReader.DeploySection, WinPeConfigurationReader.ConnectSection, "5")]
+    [InlineData(WinPeConfigurationReader.DeploySection, WinPeConfigurationReader.ConnectSection, "\"x\"")]
+    [InlineData(WinPeConfigurationReader.DeploySection, WinPeConfigurationReader.ConnectSection, """{"wifi":{"ssid":5}}""")]
+    public void ReadModeView_IgnoresAMalformedSectionOfTheOtherMode(string mode, string otherMode, string otherSection)
+    {
+        string modeSection = mode == WinPeConfigurationReader.ConnectSection
+            ? """{"wifi":{"ssid":"Lab"}}"""
+            : """{"completion":{"automaticRebootDelaySeconds":42}}""";
+        string json = $$"""{"schemaVersion":1,"{{mode}}":{{modeSection}},"{{otherMode}}":{{otherSection}}}""";
+        var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+
+        JsonObject view = WinPeConfigurationReader.ReadModeView(json, mode);
+
+        Assert.False(view.ContainsKey(otherMode));
+        if (mode == WinPeConfigurationReader.ConnectSection)
+        {
+            Assert.Equal("Lab", view.Deserialize<ConnectRuntimeSettings>(options)!.Wifi.Ssid);
+        }
+        else
+        {
+            Assert.Equal(42, view.Deserialize<DeployRuntimeSettings>(options)!.Completion.AutomaticRebootDelaySeconds);
+        }
+    }
+
     [Fact]
     public void ReadModeView_WithoutTheModeSection_HasOnlyTheSharedSections()
     {
