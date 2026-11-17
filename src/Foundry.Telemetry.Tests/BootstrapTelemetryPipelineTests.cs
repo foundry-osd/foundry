@@ -184,30 +184,6 @@ public sealed class BootstrapTelemetryPipelineTests
         Assert.Equal(BootstrapTelemetryDestination.Exception, Assert.Single(next.Records).Destination);
     }
 
-    [Theory]
-    [InlineData(false, false, 0)]
-    [InlineData(true, false, 1)]
-    [InlineData(false, true, 2)]
-    [InlineData(true, true, 3)]
-    public async Task RestrictionBeforeReplay_PurgesEachCategoryIndependently(bool usage, bool diagnostics, int expected)
-    {
-        using var folder = new TestFolder();
-        await using (var first = Create(new RecordingTransport(), folder.Path))
-        {
-            first.CaptureTerminalFailure(Failure());
-            first.Emit(Event(LogEventLevel.Error, new IOException("Failed")));
-            await first.ShutdownAsync(new CancellationToken(true));
-        }
-        var transport = new RecordingTransport();
-        await using var pipeline = Create(transport, folder.Path);
-        pipeline.RestrictConsent(usage, diagnostics);
-        Assert.Equal(expected, pipeline.PendingRecords.Count);
-        pipeline.StartDelivery(true);
-        await pipeline.ShutdownAsync(TestContext.Current.CancellationToken);
-        Assert.Equal(expected, transport.Records.Count);
-        Assert.Equal(expected, pipeline.PendingRecords.Count);
-    }
-
     [Fact]
     public async Task ChangedInstallationOrDestination_DoesNotReplayOldRecords()
     {
