@@ -275,6 +275,20 @@ public sealed class ConnectConfigurationServiceTests
         Assert.Equal(TelemetryRuntimePayloadSources.Debug, configuration.Telemetry.RuntimePayloadSource);
     }
 
+    [Theory]
+    [InlineData("""{"schemaVersion":1}""")]
+    [InlineData("""{"schemaVersion":1,"telemetry":null}""")]
+    public void Load_WhenTelemetryIsMissingOrNull_DisablesTelemetry(string json)
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "foundry.winpe.config.json", json);
+
+        FoundryConnectConfigurationDocument configuration = LoadConfiguration(ServiceFor(path));
+
+        Assert.False(configuration.Telemetry.IsEnabled);
+        Assert.False(configuration.Telemetry.IsRemoteDiagnosticsEnabled);
+    }
+
     [Fact]
     public void Load_WhenCoreGeneratedConfigurationIsProvided_PreservesEffectiveNetworkPaths()
     {
@@ -327,7 +341,7 @@ public sealed class ConnectConfigurationServiceTests
 
         FoundryConnectConfigurationDocument configuration = LoadConfiguration(ServiceFor(path));
 
-        Assert.Equal(new TelemetrySettings(), configuration.Telemetry);
+        Assert.Equal(TelemetrySettings.Disabled, configuration.Telemetry);
         Assert.False(configuration.Protection.IsEnabled);
         Assert.False(configuration.Wifi.IsEnabled);
     }

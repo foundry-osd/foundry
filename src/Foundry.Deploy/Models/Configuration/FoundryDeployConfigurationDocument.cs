@@ -69,7 +69,7 @@ public sealed record FoundryDeployConfigurationDocument
     public DeployAutopilotSettings Autopilot { get; init; } = new();
 
     /// <summary>
-    /// Gets telemetry policy and runtime settings for Foundry.Deploy.
+    /// Gets telemetry policy and runtime settings for Foundry.Deploy; disabled when the file carries none.
     /// </summary>
-    public TelemetrySettings Telemetry { get; init; } = new();
+    public TelemetrySettings Telemetry { get; init; } = TelemetrySettings.Disabled;
 }

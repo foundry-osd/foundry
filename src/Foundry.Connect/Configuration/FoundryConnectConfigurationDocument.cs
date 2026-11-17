@@ -33,8 +33,8 @@ public sealed record FoundryConnectConfigurationDocument
     /// <summary>Gets Wi-Fi provisioning settings.</summary>
     public ConnectWifiSettings Wifi { get; init; } = new();
 
-    /// <summary>Gets the telemetry policy shared by the guardian, Connect and Deploy.</summary>
-    public TelemetrySettings Telemetry { get; init; } = new();
+    /// <summary>Gets the telemetry policy shared by the guardian, Connect and Deploy; disabled when the file carries none.</summary>
+    public TelemetrySettings Telemetry { get; init; } = TelemetrySettings.Disabled;
 
     /// <summary>
     /// Gets the deployment password protection block shared with Deploy. It is always present; the media can be unlocked only

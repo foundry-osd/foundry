@@ -8,6 +8,7 @@ using Foundry.Core.Services.Configuration;
 using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Runtime;
+using Foundry.Telemetry;
 using Microsoft.Extensions.Logging;
 using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using ConfigurationSchemaVersions = Foundry.Core.Models.Configuration.ConfigurationSchemaVersions;
@@ -155,9 +156,12 @@ public sealed class DeployConfigurationService : IDeployConfigurationService
     }
 
     // The view keeps only the shared sections and the deploy section, so a Connect section never affects Deploy startup.
+    // An explicit "telemetry": null disables telemetry: no consent, no data.
     private static FoundryDeployConfigurationDocument? ReadDeployView(string json) =>
         WinPeConfigurationReader.ReadModeView(json, WinPeConfigurationReader.DeploySection)
-            .Deserialize<FoundryDeployConfigurationDocument>(ConfigurationJsonDefaults.SerializerOptions);
+            .Deserialize<FoundryDeployConfigurationDocument>(ConfigurationJsonDefaults.SerializerOptions) is { } document
+            ? document with { Telemetry = document.Telemetry ?? TelemetrySettings.Disabled }
+            : null;
 
     private static void ValidateDomainJoin(FoundryDeployConfigurationDocument document)
     {

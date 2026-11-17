@@ -250,6 +250,6 @@ public static class ServiceCollectionExtensions
         return serviceProvider.GetRequiredService<IDeployConfigurationService>()
             .LoadOptional()
             .Document
-            ?.Telemetry ?? new TelemetrySettings();
+            ?.Telemetry ?? TelemetrySettings.Disabled;
     }
 }

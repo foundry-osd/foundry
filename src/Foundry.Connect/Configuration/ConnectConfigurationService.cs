@@ -202,8 +202,8 @@ public sealed class ConnectConfigurationService : IConnectConfigurationService
             Network = configuration.Network ?? new WinPeNetworkSettings(),
             Dot1x = configuration.Dot1x ?? new ConnectDot1xSettings(),
             Wifi = configuration.Wifi ?? new ConnectWifiSettings(),
-            // An explicit "telemetry": null in the file falls back to the defaults instead of failing startup.
-            Telemetry = configuration.Telemetry ?? new TelemetrySettings(),
+            // An explicit "telemetry": null in the file disables telemetry instead of failing startup: no consent, no data.
+            Telemetry = configuration.Telemetry ?? TelemetrySettings.Disabled,
             Protection = configuration.Protection ?? new()
         };
     }

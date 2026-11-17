@@ -235,6 +235,21 @@ public sealed class DeployConfigurationServiceTests
         Assert.True(result.Document.Telemetry.IsRemoteDiagnosticsEnabled);
     }
 
+    [Theory]
+    [InlineData("""{"schemaVersion":1}""")]
+    [InlineData("""{"schemaVersion":1,"telemetry":null}""")]
+    public void LoadOptional_WhenTelemetryIsMissingOrNull_DisablesTelemetry(string json)
+    {
+        using var directory = new TemporaryDirectory();
+        string path = CreateJsonFile(directory.Path, "foundry.winpe.config.json", json);
+
+        DeployConfigurationLoadResult result = new DeployConfigurationService(NullLogger<DeployConfigurationService>.Instance, path).LoadOptional();
+
+        Assert.NotNull(result.Document);
+        Assert.False(result.Document.Telemetry.IsEnabled);
+        Assert.False(result.Document.Telemetry.IsRemoteDiagnosticsEnabled);
+    }
+
     [Fact]
     public void LoadOptional_RecommendsRebuildForOlderAuthoringReleaseWithCurrentSchema()
     {
