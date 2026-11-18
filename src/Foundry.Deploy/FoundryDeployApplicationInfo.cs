@@ -8,5 +8,5 @@ namespace Foundry.Deploy;
 
 public static class FoundryDeployApplicationInfo
 {
-    public static string Version { get; } = WpfApplicationIdentity.FromAssembly(typeof(App).Assembly).Version;
+    public static string Version { get; } = WpfApplicationIdentity.FromAssembly(typeof(MainWindow).Assembly).Version;
 }

@@ -15,8 +15,9 @@ namespace Foundry.Connect.Security;
 /// active window, else by the main window once it is loaded and visible, else by no window.
 /// </summary>
 /// <remarks>
-/// The wired startup prompt runs before the page initialization completes, so the first rendered prompt reports the UI
-/// ready: otherwise Bootstrap's readiness window would expire while the technician types the password.
+/// The wired startup prompt runs before the page initialization completes, so the first rendered prompt reports the phase's
+/// first window rendered to the Foundry.WinPE UI host: otherwise the guardian's readiness window would expire while the
+/// technician types the password.
 /// </remarks>
 public sealed class DeploymentPasswordPrompt(ILocalizationService localization, RuntimeStartupDiagnostics startup)
     : IDeploymentPasswordPrompt

@@ -9,8 +9,9 @@ using System.Windows.Threading;
 namespace Foundry.Deploy.Tests;
 
 /// <summary>
-/// Runs test code on one process-wide STA thread that owns Deploy's <see cref="App"/>, initialized from App.xaml as
-/// <c>Program</c> does, so tests see the resources the Foundry.WinPE host loads in Deploy mode.
+/// Runs test code on one process-wide STA thread that owns a WPF <see cref="Application"/> whose resources merge Fluent,
+/// the shared Foundry.Wpf styles and Deploy's application resources in the order the Foundry.WinPE host uses, so tests see
+/// the resources of the Deploy phase.
 /// </summary>
 /// <remarks>
 /// WPF allows one <see cref="Application"/> per process, and view models capture <c>Application.Current.Dispatcher</c>, so the
@@ -19,6 +20,13 @@ namespace Foundry.Deploy.Tests;
 /// </remarks>
 internal static class WpfApplicationTestHost
 {
+    private static readonly string[] ResourceSources =
+    [
+        "pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml",
+        "pack://application:,,,/Foundry.Wpf;component/Themes/FoundryWpfStyles.xaml",
+        "pack://application:,,,/Foundry.Deploy;component/Themes/DeployApplicationResources.xaml"
+    ];
+
     private static readonly Lazy<Dispatcher> HostDispatcher = new(Start, LazyThreadSafetyMode.ExecutionAndPublication);
 
     /// <summary>Gets the exceptions that reached the host dispatcher without being observed by a test.</summary>
@@ -47,8 +55,12 @@ internal static class WpfApplicationTestHost
                     UnhandledExceptions.Enqueue(e.Exception);
                     e.Handled = true;
                 };
-                App application = new() { ShutdownMode = ShutdownMode.OnExplicitShutdown };
-                application.InitializeComponent();
+                Application application = new() { ShutdownMode = ShutdownMode.OnExplicitShutdown };
+                foreach (string source in ResourceSources)
+                {
+                    application.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(source, UriKind.Absolute) });
+                }
+
                 ready.SetResult(dispatcher);
             }
             catch (Exception exception)

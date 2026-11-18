@@ -14,7 +14,10 @@ using Serilog.Parsing;
 
 namespace Foundry.Core.Services.Runtime;
 
-/// <summary>Owns child startup acknowledgements and transfers only pre-readiness failure evidence to Bootstrap.</summary>
+/// <summary>
+/// Owns startup acknowledgements to the Foundry.WinPE guardian and transfers only pre-readiness failure evidence to it; a
+/// phase hosted by the UI process uses <see cref="CreateForHostedPhase"/> instead.
+/// </summary>
 public sealed class RuntimeStartupDiagnostics
 {
     private readonly RuntimeApplicationIdentity _identity;
@@ -29,11 +32,17 @@ public sealed class RuntimeStartupDiagnostics
 
     internal RuntimeStartupDiagnostics(RuntimeApplicationIdentity identity, Action<string, string?, string?> report,
         Func<Exception, LogEvent, string, Guid?> capture, ILogger logger)
+        : this(identity, report, capture, () => logger)
+    {
+    }
+
+    private RuntimeStartupDiagnostics(RuntimeApplicationIdentity identity, Action<string, string?, string?> report,
+        Func<Exception, LogEvent, string, Guid?> capture, Func<ILogger> logger)
     {
         _identity = identity;
         _report = report;
         _capture = capture;
-        _logger = () => logger;
+        _logger = logger;
     }
 
     internal RuntimeStartupDiagnostics(RuntimeApplicationIdentity identity, RuntimeStartupReporter? reporter, TelemetrySettings? settings)
@@ -75,6 +84,26 @@ public sealed class RuntimeStartupDiagnostics
         reporter?.Report(StartupStage.ManagedStarted);
         TelemetrySettings? settings = reporter is null ? null : RuntimeTelemetryConsent.ReadSettings(configurationPath);
         return new RuntimeStartupDiagnostics(identity, reporter, settings);
+    }
+
+    /// <summary>
+    /// Creates the diagnostics of a phase hosted by the Foundry.WinPE UI process, which owns the startup protocol: nothing is
+    /// reported to the guardian and no failure evidence is captured for it, failures are only logged, and the first usable UI
+    /// calls <paramref name="onUiReady"/> once instead of reporting <c>ui_ready</c>.
+    /// </summary>
+    /// <param name="identity">The phase that starts, used for its log entries.</param>
+    /// <param name="onUiReady">Called once, on the reporting thread, when the phase's first window or prompt rendered.</param>
+    public static RuntimeStartupDiagnostics CreateForHostedPhase(RuntimeApplicationIdentity identity, Action onUiReady)
+    {
+        ArgumentNullException.ThrowIfNull(identity);
+        ArgumentNullException.ThrowIfNull(onUiReady);
+        return new RuntimeStartupDiagnostics(identity,
+            (stage, _, _) =>
+            {
+                if (stage == StartupStage.UiReady) onUiReady();
+            },
+            static (_, _, _) => null,
+            static () => Log.ForContext<RuntimeStartupDiagnostics>());
     }
 
     /// <summary>Starts the process service with verified managed-startup consent before full configuration loading.</summary>

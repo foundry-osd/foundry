@@ -12,7 +12,7 @@ namespace Foundry.Connect.Tests.Support;
 /// </summary>
 internal static class ConnectResources
 {
-    private static readonly ResourceManager Manager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
+    private static readonly ResourceManager Manager = new("Foundry.Connect.Strings.Resources", typeof(MainWindow).Assembly);
 
     /// <summary>
     /// Checks the neutral (en-US) resource set only, so a key missing from en-US is reported even when a satellite

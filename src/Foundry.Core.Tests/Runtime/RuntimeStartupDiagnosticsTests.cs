@@ -45,6 +45,33 @@ public sealed class RuntimeStartupDiagnosticsTests
     }
 
     [Fact]
+    public void HostedPhase_CallsTheReadinessHookOnceAndNeverReportsTheProtocol()
+    {
+        int rendered = 0;
+        var startup = RuntimeStartupDiagnostics.CreateForHostedPhase(Identity, () => rendered++);
+
+        startup.ReportConfigurationLoaded();
+        startup.ReportUiReady();
+        startup.ReportUiReady();
+
+        Assert.Equal(1, rendered);
+        Assert.True(startup.IsUiReady);
+        Assert.False(startup.ProtocolEnabled);
+    }
+
+    [Fact]
+    public void HostedPhase_FailureBeforeReadinessSuppressesTheHook()
+    {
+        int rendered = 0;
+        var startup = RuntimeStartupDiagnostics.CreateForHostedPhase(Identity, () => rendered++);
+
+        startup.ReportFailure(new InvalidOperationException(), "configuration");
+        startup.ReportUiReady();
+
+        Assert.Equal(0, rendered);
+    }
+
+    [Fact]
     public void FailureNormalizationErrorStillPublishesFailedStatus()
     {
         string? stage = null;

@@ -22,7 +22,7 @@ public sealed record DeployProtectionSettings
     public SecretEnvelope ProtectedDeploymentKey { get; init; } = new();
 
     /// <summary>
-    /// Authenticates a deployment key handed over by Foundry Connect; absent on media built before it.
+    /// Authenticates a deployment key unlocked in the Foundry Connect phase; absent on media built before it.
     /// </summary>
     public SecretEnvelope? KeyCheck { get; init; }
 }

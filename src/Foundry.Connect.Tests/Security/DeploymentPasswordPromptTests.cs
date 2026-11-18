@@ -13,15 +13,16 @@ namespace Foundry.Connect.Tests.Security;
 public sealed class DeploymentPasswordPromptTests
 {
     [Fact]
-    public void OnDialogRendered_ReportsTheUiReady()
+    public void OnDialogRendered_ReportsTheFirstWindowRenderedToTheHost()
     {
-        // Without the Bootstrap startup protocol variables the diagnostics only track the state.
-        RuntimeStartupDiagnostics startup = RuntimeStartupDiagnostics.Create(
-            new RuntimeApplicationIdentity("Foundry.Connect", TelemetryApps.FoundryConnect, "1.0.0.0"), "");
+        int rendered = 0;
+        RuntimeStartupDiagnostics startup = RuntimeStartupDiagnostics.CreateForHostedPhase(
+            new RuntimeApplicationIdentity("Foundry.Connect", TelemetryApps.FoundryConnect, "1.0.0.0"), () => rendered++);
         var prompt = new DeploymentPasswordPrompt(TestLocalization.Create(), startup);
 
         prompt.OnDialogRendered();
 
         Assert.True(startup.IsUiReady);
+        Assert.Equal(1, rendered);
     }
 }

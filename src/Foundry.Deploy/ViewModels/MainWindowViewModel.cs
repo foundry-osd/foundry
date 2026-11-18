@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using BootMediaUpdateReason = Foundry.Core.Models.Configuration.BootMediaUpdateReason;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Threading;
@@ -441,62 +442,31 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
-    /// Re-applies the keyboard layout chosen in Foundry Connect, which runs first.
-    /// Call it once the window is active: Windows ignores layout activation for a process that does not own the focused window.
+    /// Applies the theme and language chosen in the Foundry Connect phase. Call once, before the window's first layout, so the
+    /// first frame and the menu check marks already use them. A missing or unknown value keeps the default, and a failure
+    /// while applying them is logged as a warning: the preferences never fail Deploy's startup. The keyboard layout needs no
+    /// hand-over: Connect activated it for this process.
     /// </summary>
-    public void RestoreKeyboardLayoutHandoff()
+    /// <param name="themeMode">A <see cref="DeployThemeMode"/> name, for example <c>Dark</c>, or <see langword="null"/>.</param>
+    /// <param name="cultureName">A culture name, for example <c>fr-FR</c>, or <see langword="null"/>.</param>
+    public void ApplyInitialPreferences(string? themeMode, string? cultureName)
     {
-        KeyboardLayoutSwitchResult? result = _keyboardLayoutSwitcher.RestoreHandoff();
-        if (result is null)
-        {
-            return;
-        }
-
-        if (!result.Succeeded)
-        {
-            _logger.LogWarning("Keyboard layout hand-off was not applied. LayoutId={LayoutId}, Error={Error}", result.LayoutId, result.Error);
-        }
-        else if (result.Error is not null)
-        {
-            _logger.LogWarning("Keyboard layout restored from Foundry Connect with a warning. LayoutId={LayoutId}, Warning={Warning}", result.LayoutId, result.Error);
-        }
-        else
-        {
-            _logger.LogInformation("Keyboard layout restored from Foundry Connect. LayoutId={LayoutId}", result.LayoutId);
-        }
-
-        RefreshKeyboardMenu();
-    }
-
-    /// <summary>
-    /// Applies the theme and language chosen in Foundry Connect, which runs first. Call once, before the window's first layout.
-    /// A missing or invalid hand-off file leaves the defaults untouched, and a failure while applying it is logged as a
-    /// warning: the hand-off never fails Deploy's startup.
-    /// </summary>
-    public void RestoreRuntimePreferencesHandoff() => RestoreRuntimePreferencesHandoff(RuntimePreferencesHandoff.DefaultPath);
-
-    internal void RestoreRuntimePreferencesHandoff(string path)
-    {
-        if (!RuntimePreferencesHandoff.TryRead(path, out RuntimePreferences? preferences))
-        {
-            return;
-        }
-
         try
         {
-            _themeService.SetTheme(preferences.Theme switch
+            if (Enum.TryParse(themeMode, ignoreCase: true, out DeployThemeMode theme) && Enum.IsDefined(theme))
             {
-                RuntimeThemePreference.Light => DeployThemeMode.Light,
-                RuntimeThemePreference.Dark => DeployThemeMode.Dark,
-                _ => DeployThemeMode.System
-            });
-            OnPropertyChanged(nameof(CurrentTheme));
-            LocalizationService.SetCulture(CultureInfo.GetCultureInfo(preferences.CultureName));
+                _themeService.SetTheme(theme);
+                OnPropertyChanged(nameof(CurrentTheme));
+            }
+
+            if (TryGetKnownCulture(cultureName, out CultureInfo? culture))
+            {
+                LocalizationService.SetCulture(culture);
+            }
         }
         catch (Exception exception)
         {
-            // The hand-off is a convenience: Deploy must start with what it has. The exception is not attached because
-            // every log level is mirrored remotely.
+            // The exception is not attached because every log level is mirrored remotely.
             _logger.LogWarning(
                 "Theme and language from Foundry Connect could not be applied. FailureType={FailureType}",
                 exception.GetType().Name);
@@ -504,9 +474,28 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         _logger.LogInformation(
-            "Theme and language restored from Foundry Connect. Theme={Theme}, Culture={Culture}",
-            preferences.Theme,
-            preferences.CultureName);
+            "Theme and language applied from Foundry Connect. Theme={Theme}, Culture={Culture}",
+            CurrentTheme,
+            CurrentCulture.Name);
+    }
+
+    private static bool TryGetKnownCulture(string? cultureName, [NotNullWhen(true)] out CultureInfo? culture)
+    {
+        culture = null;
+        if (string.IsNullOrWhiteSpace(cultureName))
+        {
+            return false;
+        }
+
+        try
+        {
+            culture = CultureInfo.GetCultureInfo(cultureName, predefinedOnly: true);
+            return true;
+        }
+        catch (CultureNotFoundException)
+        {
+            return false;
+        }
     }
 
     private void RefreshKeyboardMenu()

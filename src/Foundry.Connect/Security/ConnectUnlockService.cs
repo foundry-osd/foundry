@@ -15,12 +15,13 @@ namespace Foundry.Connect.Security;
 
 /// <summary>
 /// Runs the deployment password prompt loop: Deploy's retry delay after each wrong password, cancel → the secrets
-/// stay locked for the session, success → every locked secret is decrypted and the key is handed to
-/// Bootstrap once when the media carries a key check.
+/// stay locked for the session, success → every locked secret is decrypted and, when the media carries a key check, a
+/// copy of the key is kept for the Foundry Deploy phase.
 /// </summary>
 /// <remarks>
-/// The password, its length and the key are never logged. The password is zeroed after each unwrap attempt and the key
-/// after the hand-off, on every path. The unwrap runs on the thread pool so the PBKDF2 derivation never blocks the UI
+/// The password, its length and the key are never logged. The password is zeroed after each unwrap attempt and the unwrapped
+/// key once it is unlocked and copied, on every path; the kept copy is zeroed when it is taken or when this service is
+/// disposed with the phase's container. The unwrap runs on the thread pool so the PBKDF2 derivation never blocks the UI
 /// thread; the prompt marshals itself to the UI thread.
 /// </remarks>
 public sealed class ConnectUnlockService(
@@ -28,11 +29,11 @@ public sealed class ConnectUnlockService(
     ConnectRuntimeSecrets secrets,
     IDeploymentPasswordPrompt prompt,
     IDeploymentKeyUnwrapper unwrapper,
-    IDeploymentKeyHandoffSender handoff,
     TimeProvider timeProvider,
-    ILogger<ConnectUnlockService> logger) : IConnectUnlockService
+    ILogger<ConnectUnlockService> logger) : IConnectUnlockService, IDisposable
 {
     private readonly SemaphoreSlim _gate = new(1, 1);
+    private DeploymentKeyTransfer? _deploymentKey;
 
     /// <inheritdoc />
     public bool IsWiredUnlockRequired => secrets.IsWiredLocked && configuration.Dot1x.IsEnabled;
@@ -110,12 +111,7 @@ public sealed class ConnectUnlockService(
                     trigger,
                     unlockedSecretCount);
                 LogUndecryptableContent();
-                // Deploy refuses a handed-off key that it cannot verify, so media without a key check skips the hand-off.
-                if (protection.KeyCheck is null || !await TryHandOffAsync(key).ConfigureAwait(false))
-                {
-                    logger.LogInformation("The deployment key was not handed to Foundry Deploy; Foundry Deploy will ask for the password.");
-                }
-
+                KeepDeploymentKey(protection, key);
                 return ConnectUnlockResult.Unlocked;
             }
             finally
@@ -151,7 +147,7 @@ public sealed class ConnectUnlockService(
 
     /// <summary>
     /// Decrypts the locked secrets. A key that fails the media's key check (an inconsistent protection block) unlocks nothing
-    /// and is handled like a cancel: the secrets stay locked for the session and the key is not handed off.
+    /// and is handled like a cancel: the secrets stay locked for the session and no key is kept for Foundry Deploy.
     /// </summary>
     private bool TryUnlockSecrets(byte[] key, ConnectUnlockTrigger trigger, out int unlockedSecretCount)
     {
@@ -209,19 +205,27 @@ public sealed class ConnectUnlockService(
         }
     }
 
-    /// <summary>
-    /// Sends the key under its own bounded timeout, not linked to the caller's token (the secrets are already unlocked).
-    /// </summary>
-    private async Task<bool> TryHandOffAsync(byte[] key)
+    /// <inheritdoc />
+    public DeploymentKeyTransfer? TakeDeploymentKey() => Interlocked.Exchange(ref _deploymentKey, null);
+
+    /// <summary>Zeroes a key the Connect phase did not take, for example when Connect ends without success.</summary>
+    public void Dispose()
     {
-        using var timeout = new CancellationTokenSource(DeploymentKeyHandoff.ClientTimeout, timeProvider);
-        try
+        Interlocked.Exchange(ref _deploymentKey, null)?.Dispose();
+    }
+
+    /// <summary>
+    /// Keeps a copy of the unlocked key for the Deploy phase. Deploy refuses a key that it cannot verify, so media without a
+    /// key check keep nothing and Deploy asks for the password.
+    /// </summary>
+    private void KeepDeploymentKey(DeployProtectionSettings protection, byte[] key)
+    {
+        if (protection.KeyCheck is null)
         {
-            return await handoff.TrySendAsync(key, timeout.Token).ConfigureAwait(false);
+            logger.LogInformation("The deployment key is not kept for Foundry Deploy because the media has no key check; Foundry Deploy will ask for the password.");
+            return;
         }
-        catch (OperationCanceledException) when (timeout.IsCancellationRequested)
-        {
-            return false;
-        }
+
+        Interlocked.Exchange(ref _deploymentKey, DeploymentKeyTransfer.FromKey(key))?.Dispose();
     }
 }

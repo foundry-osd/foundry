@@ -20,6 +20,7 @@ using Foundry.Connect.Services.Runtime;
 using Foundry.Wpf.Theme;
 using Foundry.Connect.ViewModels;
 using Foundry.Core.Models.Configuration;
+using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
 using Foundry.Telemetry;
 using Foundry.Utilities.Globalization;
@@ -40,24 +41,30 @@ public static class ServiceCollectionExtensions
     internal static readonly TimeSpan TelemetryHttpTimeout = TimeSpan.FromSeconds(10);
 
     /// <summary>
-    /// Registers the Foundry.Connect application, UI, lifetime, telemetry and network services.
+    /// Registers the Foundry Connect phase window, lifetime, telemetry and network services.
     /// </summary>
-    /// <remarks>The caller pre-registers <see cref="IConnectConfigurationService"/>, the loaded <see cref="FoundryConnectConfigurationDocument"/> and its <see cref="ConnectRuntimeSecrets"/>.</remarks>
+    /// <remarks>
+    /// The caller pre-registers <see cref="IConnectConfigurationService"/>, the loaded <see cref="FoundryConnectConfigurationDocument"/>,
+    /// its <see cref="ConnectRuntimeSecrets"/> and the phase's <see cref="RuntimeStartupDiagnostics"/>. Nothing here ends the
+    /// WPF application: the lifetime service and the shell service end the phase, and the Foundry.WinPE UI host owns the
+    /// single-instance mutex.
+    /// </remarks>
     /// <param name="services">The service collection to update.</param>
-    /// <param name="args">The command-line arguments of the process.</param>
     /// <returns>The same service collection.</returns>
-    public static IServiceCollection AddFoundryConnectApplicationServices(this IServiceCollection services, string[] args)
+    public static IServiceCollection AddFoundryConnectApplicationServices(this IServiceCollection services)
     {
-        services.AddSingleton<App>();
         services.AddSingleton<MainWindow>();
         services.AddSingleton<MainWindowViewModel>();
         AddPageViewModels(services);
-        services.AddSingleton(args ?? Array.Empty<string>());
 
-        services.AddSingleton<IApplicationShellService, ApplicationShellService>();
-        services.AddSingleton(WpfApplicationIdentity.FromAssembly(typeof(App).Assembly));
-        services.AddSingleton<IApplicationLifetimeService>(sp => new ApplicationLifetimeService(
-            ShutdownApplication, sp.GetRequiredService<ILogger<ApplicationLifetimeService>>()));
+        // Connect reports its outcome through its exit code, so the shell's Shutdown ends the phase as a user abort.
+        services.AddSingleton<IApplicationShellService>(sp => new ApplicationShellService(
+            sp.GetRequiredService<ILocalizationService>(),
+            sp.GetRequiredService<WpfApplicationIdentity>(),
+            () => sp.GetRequiredService<IApplicationLifetimeService>().TryExit(ChildRuntimeExitCode.UserAborted)));
+        services.AddSingleton(WpfApplicationIdentity.FromAssembly(typeof(MainWindow).Assembly));
+        services.AddSingleton(sp => new ApplicationLifetimeService(sp.GetRequiredService<ILogger<ApplicationLifetimeService>>()));
+        services.AddSingleton<IApplicationLifetimeService>(sp => sp.GetRequiredService<ApplicationLifetimeService>());
         services.AddSingleton(CreateTelemetryOptions);
         services.AddSingleton(CreateTelemetryContext);
         services.AddSingleton<ITelemetryService>(sp =>
@@ -84,13 +91,13 @@ public static class ServiceCollectionExtensions
                 sp.GetRequiredService<TelemetryContext>(),
                 logger);
         });
-        services.AddSingleton<ILocalizationService>(_ => new ResourceLocalizationService(new ResourceManager("Foundry.Connect.Strings.Resources", typeof(App).Assembly)));
+        services.AddSingleton<ILocalizationService>(_ => new ResourceLocalizationService(new ResourceManager("Foundry.Connect.Strings.Resources", typeof(MainWindow).Assembly)));
         services.AddSingleton<INetworkAdapterSnapshotProvider, WindowsNetworkAdapterSnapshotProvider>();
         services.AddSingleton<INetworkProfileRoamingService, NetworkProfileRoamingService>();
         AddNetworkServices(services);
         AddSecurityServices(services);
         services.AddSingleton<IThemeService, ThemeService>();
-        services.AddSingleton<IKeyboardLayoutSwitcher>(_ => new WindowsKeyboardLayoutSwitcher(KeyboardLayoutHandoff.DefaultPath));
+        services.AddSingleton<IKeyboardLayoutSwitcher>(_ => new WindowsKeyboardLayoutSwitcher());
 
         return services;
     }
@@ -102,8 +109,8 @@ public static class ServiceCollectionExtensions
     /// </summary>
     private static void AddPageViewModels(IServiceCollection services)
     {
-        // Program creates the App before it resolves the window, so this is the UI dispatcher whatever the resolving
-        // thread; without an Application (tests) it falls back to the resolving thread's dispatcher.
+        // The phase runs inside the host's Application, so this is the UI dispatcher whatever the resolving thread; without
+        // an Application (tests) it falls back to the resolving thread's dispatcher.
         services.AddSingleton<IUiDispatcher>(_ => new WpfUiDispatcher(Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher));
         services.AddSingleton<ConnectNetworkActions>();
         services.AddSingleton(sp => new AutoContinueViewModel(
@@ -146,19 +153,17 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<INetworkObservationSource, NetworkObservationSource>();
         services.AddSingleton<INetworkMonitor, NetworkMonitor>();
         services.AddSingleton<IRoamingCapture, RoamingCapture>();
-        services.AddSingleton<IRuntimePreferencesPublisher, RuntimePreferencesPublisher>();
         services.AddSingleton<ISuccessfulExitService, SuccessfulExitService>();
     }
 
     /// <summary>
-    /// Registers the deployment password unlock. The hand-off sender reads and removes its pipe name when it is
-    /// constructed with the main window graph, before provisioning starts any child process.
+    /// Registers the deployment password unlock. The unlock service keeps the unlocked deployment key for the Connect phase
+    /// result and zeroes an untaken key when the phase's container is disposed.
     /// </summary>
     private static void AddSecurityServices(IServiceCollection services)
     {
         services.AddSingleton<IDeploymentPasswordPrompt, DeploymentPasswordPrompt>();
         services.AddSingleton<IDeploymentKeyUnwrapper, DeploymentKeyUnwrapper>();
-        services.AddSingleton<IDeploymentKeyHandoffSender, EnvironmentDeploymentKeyHandoffSender>();
         services.AddSingleton<IConnectUnlockService, ConnectUnlockService>();
     }
 
@@ -167,24 +172,6 @@ public static class ServiceCollectionExtensions
     /// stalled send cannot linger. The exit path stops waiting after its own, shorter budget.
     /// </summary>
     internal static HttpClient CreateTelemetryHttpClient() => new() { Timeout = TelemetryHttpTimeout };
-
-    /// <summary>Shuts the WPF application down on its UI thread; exit requests may come from background work.</summary>
-    private static void ShutdownApplication(int exitCode)
-    {
-        Application? app = Application.Current;
-        if (app is null)
-        {
-            return;
-        }
-
-        if (app.Dispatcher.CheckAccess())
-        {
-            app.Shutdown(exitCode);
-            return;
-        }
-
-        _ = app.Dispatcher.InvokeAsync(() => app.Shutdown(exitCode));
-    }
 
     private static TelemetryOptions CreateTelemetryOptions(IServiceProvider serviceProvider)
     {

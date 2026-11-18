@@ -97,8 +97,6 @@ internal sealed class FakeKeyboardLayoutSwitcher : IKeyboardLayoutSwitcher
         activeLayoutId = layout.Id;
         return new KeyboardLayoutSwitchResult(true, layout.Id, null);
     }
-
-    public KeyboardLayoutSwitchResult? RestoreHandoff() => null;
 }
 
 internal sealed class FakeApplicationShellService : IApplicationShellService

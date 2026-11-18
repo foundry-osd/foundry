@@ -99,7 +99,7 @@ public sealed class LocalizationResourceTests
     {
         ResourceManager resourceManager = new(
             "Foundry.Connect.Strings.Resources",
-            typeof(App).Assembly);
+            typeof(MainWindow).Assembly);
         CultureInfo culture = CultureInfo.GetCultureInfo(cultureName);
 
         ResourceSet? resourceSet = resourceManager.GetResourceSet(culture, createIfNotExists: true, tryParents: false);
@@ -114,7 +114,7 @@ public sealed class LocalizationResourceTests
     [MemberData(nameof(PageKeys))]
     public void EveryCulture_ContainsPageKey(string key)
     {
-        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
+        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(MainWindow).Assembly);
 
         foreach (string cultureName in CultureNames)
         {
@@ -127,7 +127,7 @@ public sealed class LocalizationResourceTests
     [MemberData(nameof(TitleAndDescriptionPairs))]
     public void BlockedDescriptions_DoNotRepeatTheTitle(string titleKey, string descriptionKey)
     {
-        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
+        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(MainWindow).Assembly);
 
         Assert.All(CultureNames, cultureName =>
         {
@@ -140,7 +140,7 @@ public sealed class LocalizationResourceTests
     [MemberData(nameof(SupportedCultures))]
     public void WiredTexts_DoNotMentionWifi(string cultureName)
     {
-        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
+        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(MainWindow).Assembly);
         ResourceSet resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
 
         foreach (string key in new[]
@@ -174,7 +174,7 @@ public sealed class LocalizationResourceTests
     [MemberData(nameof(SupportedCultures))]
     public void MenuHeaders_HaveAccessKeys(string cultureName)
     {
-        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(App).Assembly);
+        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(MainWindow).Assembly);
         ResourceSet resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
 
         foreach (string key in new[] { "Menu.About", "Menu.Debug", "Menu.Keyboard", "Menu.KeyboardFormat", "Menu.Language", "Menu.Theme", "Menu.Tools" })

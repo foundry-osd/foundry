@@ -31,10 +31,4 @@ public interface IKeyboardLayoutSwitcher
     /// Activates a layout for this process and, in Windows PE, for processes started afterwards.
     /// </summary>
     KeyboardLayoutSwitchResult Apply(KeyboardLayout layout);
-
-    /// <summary>
-    /// Re-applies the layout chosen by a previous WinPE application.
-    /// </summary>
-    /// <returns>The switch result, or <see langword="null"/> when no hand-off file exists.</returns>
-    KeyboardLayoutSwitchResult? RestoreHandoff();
 }

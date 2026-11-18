@@ -11,12 +11,21 @@ using Foundry.Deploy.Services.Deployment.Native.Servicing;
 namespace Foundry.Deploy.Services.Deployment.Native;
 
 /// <summary>Runs before WPF, telemetry or metadata readers acquire native libraries in the child process.</summary>
-internal static class NativeDeploymentWorker
+/// <remarks>
+/// Foundry Deploy starts <c>Foundry.WinPE.exe --native-deployment-worker &lt;request.json&gt;</c>; the Foundry.WinPE entry point
+/// routes that invocation here before any other mode. The worker has no logging, startup protocol or DI container and writes
+/// JSON lines on stdout.
+/// </remarks>
+public static class NativeDeploymentWorker
 {
+    /// <summary>The first argument of a worker invocation.</summary>
     public const string Command = "--native-deployment-worker";
 
+    /// <summary>Returns whether <paramref name="args"/> starts with <see cref="Command"/>.</summary>
     public static bool IsWorkerInvocation(string[] args) => args.Length > 0 && args[0] == Command;
 
+    /// <summary>Runs one worker request and returns the process exit code.</summary>
+    /// <param name="args"><see cref="Command"/> followed by the path of the request file.</param>
     public static int Run(string[] args)
     {
         Console.OutputEncoding = new UTF8Encoding(false);

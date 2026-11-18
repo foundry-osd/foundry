@@ -33,10 +33,17 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
     private readonly ILogger<DeploymentOrchestrator> _logger;
     private readonly INetworkProfileRoamingArtifactService? _networkProfileRoamingArtifactService;
     private readonly INetworkCacheSessionAccessor? _networkCacheAccessor;
+    private readonly Action? _onDestructiveStepStarted;
 
     /// <summary>
     /// Initializes the deployment orchestrator and validates the registered step sequence.
     /// </summary>
+    /// <remarks>
+    /// <c>onDestructiveStepStarted</c> is called once per live run, synchronously and right before the
+    /// <see cref="DeploymentStepNames.PrepareTargetDiskLayout"/> body runs, wherever the plan places that step: from then on
+    /// the target disk may be wiped. It is never called in a dry run, or when the run fails or is cancelled before that step.
+    /// An exception it throws fails the run before the disk is touched.
+    /// </remarks>
     public DeploymentOrchestrator(
         IOperationProgressService operationProgressService,
         IDeploymentLogService deploymentLogService,
@@ -45,7 +52,8 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         ITelemetryService telemetryService,
         ILogger<DeploymentOrchestrator> logger,
         INetworkProfileRoamingArtifactService? networkProfileRoamingArtifactService = null,
-        INetworkCacheSessionAccessor? networkCacheAccessor = null)
+        INetworkCacheSessionAccessor? networkCacheAccessor = null,
+        Action? onDestructiveStepStarted = null)
     {
         _operationProgressService = operationProgressService;
         _deploymentLogService = deploymentLogService;
@@ -54,6 +62,7 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
         _logger = logger;
         _networkProfileRoamingArtifactService = networkProfileRoamingArtifactService;
         _networkCacheAccessor = networkCacheAccessor;
+        _onDestructiveStepStarted = onDestructiveStepStarted;
 
         var stepsByName = new Dictionary<string, IDeploymentStep>(StringComparer.Ordinal);
         foreach (IDeploymentStep step in steps)
@@ -260,6 +269,11 @@ public sealed class DeploymentOrchestrator : IDeploymentOrchestrator
                 cancellationToken.ThrowIfCancellationRequested();
                 isCancellationDeferred = !context.IsDryRun && !CanCancelActiveStep(step.Name);
                 CancellationToken stepToken = isCancellationDeferred ? CancellationToken.None : cancellationToken;
+                if (!context.IsDryRun && step.Name == DeploymentStepNames.PrepareTargetDiskLayout)
+                {
+                    _onDestructiveStepStarted?.Invoke();
+                }
+
                 DeploymentStepResult result = step.Name == DeploymentStepNames.ValidateTargetConfiguration
                     ? await ExecuteSetupAsync(executionContext, stepToken).ConfigureAwait(false)
                     : await step.ExecuteAsync(executionContext, stepToken).ConfigureAwait(false);

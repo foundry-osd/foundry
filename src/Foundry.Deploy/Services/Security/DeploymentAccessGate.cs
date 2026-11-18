@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Security.Cryptography;
+using Foundry.Core.Services.Runtime;
 using Foundry.Core.Services.Security;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Configuration;
@@ -11,24 +12,36 @@ using Microsoft.Extensions.Logging;
 namespace Foundry.Deploy.Services.Security;
 
 /// <summary>
-/// Authorizes Foundry Deploy startup on protected media: accepts the deployment key handed over by Foundry Connect when
+/// Authorizes Foundry Deploy startup on protected media: accepts the deployment key the Foundry Connect phase unlocked when
 /// the media's key check authenticates it, and otherwise prompts for the deployment password with a progressive retry delay.
 /// </summary>
 /// <remarks>
-/// The hand-off is read only when the media requires an unlock, and before the first prompt: Foundry WinPE serves the
-/// key only until Deploy reports its UI ready, which the password dialog does when it renders. A handed-off key is zeroed
-/// on every path; it is never logged.
+/// The initial key (the key unlocked by the Connect phase, or <see langword="null"/>) is tried only when the media requires an
+/// unlock, and before the first prompt. It is disposed, which zeroes it, on every path of the first authorization, used or
+/// not; the copy taken from it is zeroed too. It is never logged.
 /// </remarks>
 public sealed class DeploymentAccessGate(
     IDeployConfigurationService configurationService,
     IDeploymentProtectionUnlockService unlockService,
     IDeploymentPasswordDialogService passwordDialogService,
     IDeploymentAccessRetryDelay retryDelay,
-    IDeploymentKeyHandoffReceiver handoff,
+    DeploymentKeyTransfer? initialDeploymentKey,
     IDeploymentSecretKeySession session,
     ILogger<DeploymentAccessGate> logger) : IDeploymentAccessGate
 {
     public async Task<bool> AuthorizeAsync(CancellationToken cancellationToken = default)
+    {
+        try
+        {
+            return await AuthorizeCoreAsync(cancellationToken);
+        }
+        finally
+        {
+            initialDeploymentKey?.Dispose();
+        }
+    }
+
+    private async Task<bool> AuthorizeCoreAsync(CancellationToken cancellationToken)
     {
         DeployConfigurationLoadResult loadResult = configurationService.LoadOptional();
         if (loadResult.Exists && loadResult.Document is null)
@@ -48,7 +61,7 @@ public sealed class DeploymentAccessGate(
             return true;
         }
 
-        if (await TryAcceptHandedOffKeyAsync(protection, cancellationToken))
+        if (TryAcceptInitialKey(protection))
         {
             return true;
         }
@@ -75,27 +88,27 @@ public sealed class DeploymentAccessGate(
         }
     }
 
-    // Media without a key check (built before it) never accept a handed-off key and prompt as before.
-    private async Task<bool> TryAcceptHandedOffKeyAsync(DeployProtectionSettings protection, CancellationToken cancellationToken)
+    // Media without a key check (built before it) never accept the initial key and prompt as before.
+    private bool TryAcceptInitialKey(DeployProtectionSettings protection)
     {
-        byte[]? key = await handoff.TryReceiveAsync(cancellationToken);
-        if (key is null)
-        {
-            return false;
-        }
-
+        byte[] key = GC.AllocateArray<byte>(DeploymentKeyTransfer.KeyLength, pinned: true);
         try
         {
+            if (initialDeploymentKey is null || !initialDeploymentKey.TryTake(key))
+            {
+                return false;
+            }
+
             if (DeploymentKeyProtection.VerifyKeyCheck(protection.KeyCheck, key))
             {
-                // SetKey copies the key into the session; the received buffer is zeroed below.
+                // SetKey copies the key into the session; the taken buffer is zeroed below.
                 session.SetKey(key);
-                logger.LogInformation("Deployment unlocked with the key handed over by Foundry Connect.");
+                logger.LogInformation("Deployment unlocked with the key unlocked in Foundry Connect.");
                 return true;
             }
 
             logger.LogWarning(
-                "The deployment key handed over by Foundry Connect was rejected. HasKeyCheck={HasKeyCheck}",
+                "The deployment key unlocked in Foundry Connect was rejected. HasKeyCheck={HasKeyCheck}",
                 protection.KeyCheck is not null);
             return false;
         }

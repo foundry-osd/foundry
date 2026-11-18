@@ -302,6 +302,97 @@ public sealed class DeploymentOrchestratorTests
         Assert.True((bool)Assert.Single(telemetry.Events).Properties["deploy_session_success"]!);
     }
 
+    private const string DestructiveStepMarker = "<destructive step started>";
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task RunAsync_ReportsTheDestructiveStepOnceRightBeforeTheTargetDiskLayout(bool externalCustomImage)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        DeploymentContext request = externalCustomImage
+            ? CreateCancellationContext(workspace.RootPath) with { OperatingSystem = CreateExternalCustomImage() }
+            : CreateCancellationContext(workspace.RootPath);
+        var timeline = new List<string>();
+        DeploymentOrchestrator orchestrator = CreateOrchestrator(
+            DeploymentStepNames.ExecutionOrder.Select(name => (IDeploymentStep)new TimelineStep(name, timeline)),
+            () => timeline.Add(DestructiveStepMarker));
+
+        DeploymentResult result = await orchestrator.RunAsync(request, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess);
+        Assert.Single(timeline, static entry => entry == DestructiveStepMarker);
+        int marker = timeline.IndexOf(DestructiveStepMarker);
+        Assert.Equal(DeploymentStepNames.PrepareTargetDiskLayout, timeline[marker + 1]);
+        Assert.Equal(externalCustomImage ? DeploymentStepNames.CheckWindowsImage : DeploymentStepNames.PreflightDeployment, timeline[marker - 1]);
+    }
+
+    [Fact]
+    public async Task RunAsync_DryRun_NeverReportsTheDestructiveStep()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var timeline = new List<string>();
+        DeploymentOrchestrator orchestrator = CreateOrchestrator(
+            DeploymentStepNames.ExecutionOrder.Select(name => (IDeploymentStep)new TimelineStep(name, timeline)),
+            () => timeline.Add(DestructiveStepMarker));
+
+        DeploymentResult result = await orchestrator.RunAsync(
+            CreateCancellationContext(workspace.RootPath) with { IsDryRun = true }, TestContext.Current.CancellationToken);
+
+        Assert.True(result.IsSuccess);
+        Assert.Contains(DeploymentStepNames.PrepareTargetDiskLayout, timeline);
+        Assert.DoesNotContain(DestructiveStepMarker, timeline);
+    }
+
+    [Fact]
+    public async Task RunAsync_FailureBeforeTheTargetDiskLayout_NeverReportsTheDestructiveStep()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        int destructiveStarts = 0;
+        DeploymentOrchestrator orchestrator = CreateOrchestrator(
+            DeploymentStepNames.ExecutionOrder.Select(name => name == DeploymentStepNames.ValidateTargetConfiguration
+                ? (IDeploymentStep)new FailingStep(name) : new SucceedingStep(name)),
+            () => destructiveStarts++);
+
+        DeploymentResult result = await orchestrator.RunAsync(CreateCancellationContext(workspace.RootPath), TestContext.Current.CancellationToken);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(0, destructiveStarts);
+    }
+
+    [Fact]
+    public async Task RunAsync_CancelledBeforeTheTargetDiskLayout_NeverReportsTheDestructiveStep()
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        using var cancellation = new CancellationTokenSource();
+        int destructiveStarts = 0;
+        DeploymentOrchestrator orchestrator = CreateOrchestrator(
+            DeploymentStepNames.ExecutionOrder.Select(name => name == DeploymentStepNames.DownloadOperatingSystemImage
+                ? (IDeploymentStep)new CallerCancellingStep(name, cancellation) : new SucceedingStep(name)),
+            () => destructiveStarts++);
+
+        DeploymentResult result = await orchestrator.RunAsync(
+            CreateCancellationContext(workspace.RootPath) with { OperatingSystem = CreateExternalCustomImage() }, cancellation.Token);
+
+        Assert.True(result.IsCancelled);
+        Assert.Equal(0, destructiveStarts);
+    }
+
+    private static CustomImageSelection CreateExternalCustomImage() => new(
+        new CustomImageAsset { Id = "custom", DisplayName = "Custom", ImagePath = @"\\server\share\Foundry\install.wim", VolumeRoot = @"\\server\share\Foundry" },
+        new Foundry.Core.Models.Configuration.CustomImageIndex { Index = 1, EditionId = "Professional", Architecture = "x64", ExpandedSizeBytes = 4096 });
+
+    private sealed class TimelineStep(string name, List<string> timeline) : IDeploymentStep
+    {
+        public string Name { get; } = name;
+
+        public Task<DeploymentStepResult> ExecuteAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
+        {
+            timeline.Add(Name);
+            return Task.FromResult(DeploymentStepResult.Succeeded($"Completed {Name}."));
+        }
+    }
+
     private static DeploymentContext CreateCancellationContext(string rootPath) => new()
     {
         Mode = DeploymentMode.Iso,
@@ -1001,7 +1092,7 @@ public sealed class DeploymentOrchestratorTests
             .ToArray();
     }
 
-    private static DeploymentOrchestrator CreateOrchestrator(IEnumerable<IDeploymentStep> steps)
+    private static DeploymentOrchestrator CreateOrchestrator(IEnumerable<IDeploymentStep> steps, Action? onDestructiveStepStarted = null)
     {
         return new DeploymentOrchestrator(
             new FakeOperationProgressService(),
@@ -1009,7 +1100,8 @@ public sealed class DeploymentOrchestratorTests
             new FakeTargetDiskService(),
             steps,
             new RecordingTelemetryService(),
-            NullLogger<DeploymentOrchestrator>.Instance);
+            NullLogger<DeploymentOrchestrator>.Instance,
+            onDestructiveStepStarted: onDestructiveStepStarted);
     }
 
     private sealed class PrepareTargetLayoutStep(string targetWindowsRoot) : IDeploymentStep

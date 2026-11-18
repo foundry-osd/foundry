@@ -12,9 +12,9 @@ namespace Foundry.Utilities.Globalization;
 
 /// <summary>
 /// Switches keyboard layouts with user32 for the current process and, in Windows PE, with <c>wpeutil SetKeyboardLayout</c>
-/// for processes started afterwards. The choice is written to a hand-off file so the next WinPE application can restore it.
-/// Outside Windows PE only the current process switches; Windows keeps the loaded layout in the session until sign-out.
-/// A switcher from <see cref="CreateForCurrentProcess"/> only ever switches the current process.
+/// for processes started afterwards. Foundry Connect and Foundry Deploy run in the same process, so a layout chosen in one
+/// stays active in the other. Outside Windows PE only the current process switches; Windows keeps the loaded layout in the
+/// session until sign-out. A switcher from <see cref="CreateForCurrentProcess"/> only ever switches the current process.
 /// </summary>
 public sealed class WindowsKeyboardLayoutSwitcher : IKeyboardLayoutSwitcher
 {
@@ -23,8 +23,6 @@ public sealed class WindowsKeyboardLayoutSwitcher : IKeyboardLayoutSwitcher
     private const int KeyboardLayoutNameLength = 9;
     private static readonly TimeSpan WpeUtilTimeout = TimeSpan.FromSeconds(30);
 
-    // Null for a process-only switcher: no hand-off file and no wpeutil, even in Windows PE.
-    private readonly string? handoffPath;
     private readonly Func<IReadOnlyList<KeyboardLayout>> loadLayouts;
     private readonly Func<string, bool> activateLayout;
     private readonly Func<string> getActiveLayoutId;
@@ -32,12 +30,10 @@ public sealed class WindowsKeyboardLayoutSwitcher : IKeyboardLayoutSwitcher
     private readonly Func<string, string?> setWinPeSessionLayout;
 
     /// <summary>
-    /// Initializes a switcher that persists choices to <paramref name="handoffPath"/>.
+    /// Initializes a switcher for a WinPE application: in Windows PE, a switch also applies to processes started afterwards.
     /// </summary>
-    /// <param name="handoffPath">Hand-off file path, normally <see cref="KeyboardLayoutHandoff.DefaultPath"/>.</param>
-    public WindowsKeyboardLayoutSwitcher(string handoffPath)
+    public WindowsKeyboardLayoutSwitcher()
         : this(
-            handoffPath,
             KeyboardLayoutCatalog.GetInstalled,
             ActivateForProcess,
             ReadActiveLayoutId,
@@ -47,19 +43,12 @@ public sealed class WindowsKeyboardLayoutSwitcher : IKeyboardLayoutSwitcher
     }
 
     internal WindowsKeyboardLayoutSwitcher(
-        string? handoffPath,
         Func<IReadOnlyList<KeyboardLayout>> loadLayouts,
         Func<string, bool> activateLayout,
         Func<string> getActiveLayoutId,
         Func<bool> isWinPe,
         Func<string, string?> setWinPeSessionLayout)
     {
-        if (handoffPath is not null)
-        {
-            ArgumentException.ThrowIfNullOrWhiteSpace(handoffPath);
-        }
-
-        this.handoffPath = handoffPath;
         this.loadLayouts = loadLayouts;
         this.activateLayout = activateLayout;
         this.getActiveLayoutId = getActiveLayoutId;
@@ -69,8 +58,8 @@ public sealed class WindowsKeyboardLayoutSwitcher : IKeyboardLayoutSwitcher
 
     /// <summary>
     /// Creates a switcher that changes the keyboard layout of the current process only, for applications that run in an
-    /// installed Windows (for example during Windows setup). It never runs <c>wpeutil</c>, never reads or writes a hand-off
-    /// file and never changes the Windows input settings of a user or of the system.
+    /// installed Windows (for example during Windows setup). It never runs <c>wpeutil</c> and never changes the Windows input
+    /// settings of a user or of the system.
     /// </summary>
     /// <param name="loadLayouts">Returns the layouts the application offers, for example the installed layouts filtered further.</param>
     /// <returns>A process-only switcher.</returns>
@@ -78,7 +67,6 @@ public sealed class WindowsKeyboardLayoutSwitcher : IKeyboardLayoutSwitcher
     {
         ArgumentNullException.ThrowIfNull(loadLayouts);
         return new WindowsKeyboardLayoutSwitcher(
-            handoffPath: null,
             loadLayouts,
             ActivateForProcess,
             ReadActiveLayoutId,
@@ -109,54 +97,13 @@ public sealed class WindowsKeyboardLayoutSwitcher : IKeyboardLayoutSwitcher
             return new KeyboardLayoutSwitchResult(false, layout.Id, "The keyboard layout could not be activated.");
         }
 
-        if (handoffPath is null || !isWinPe())
+        if (!isWinPe())
         {
             return new KeyboardLayoutSwitchResult(true, layout.Id, null);
         }
 
-        // The hand-off backs up wpeutil inheritance, so it is written even when wpeutil fails.
-        var warnings = new List<string>();
-        try
-        {
-            KeyboardLayoutHandoff.Write(handoffPath, layout.Id);
-        }
-        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
-        {
-            warnings.Add($"The keyboard layout could not be handed off: {exception.Message}");
-        }
-
-        string? wpeUtilError = setWinPeSessionLayout(layout.InputLocale);
-        if (wpeUtilError is not null)
-        {
-            warnings.Add(wpeUtilError);
-        }
-
-        return new KeyboardLayoutSwitchResult(true, layout.Id, warnings.Count == 0 ? null : string.Join(" ", warnings));
-    }
-
-    /// <inheritdoc />
-    public KeyboardLayoutSwitchResult? RestoreHandoff()
-    {
-        if (handoffPath is null || !File.Exists(handoffPath))
-        {
-            return null;
-        }
-
-        if (!KeyboardLayoutHandoff.TryRead(handoffPath, out string layoutId))
-        {
-            return new KeyboardLayoutSwitchResult(false, null, "The keyboard layout hand-off file is empty or invalid.");
-        }
-
-        KeyboardLayout? layout = KeyboardLayoutSelection.Find(GetLayouts(), layoutId);
-        if (layout is null)
-        {
-            return new KeyboardLayoutSwitchResult(false, layoutId, "The handed-off keyboard layout is not installed.");
-        }
-
-        // wpeutil usually passed the layout on already; calling it again only delays startup.
-        return getActiveLayoutId() == layout.Id
-            ? new KeyboardLayoutSwitchResult(true, layout.Id, null)
-            : Apply(layout);
+        // The layout is already active for this process; a wpeutil failure only affects processes started afterwards.
+        return new KeyboardLayoutSwitchResult(true, layout.Id, setWinPeSessionLayout(layout.InputLocale));
     }
 
     private static bool ActivateForProcess(string layoutId)

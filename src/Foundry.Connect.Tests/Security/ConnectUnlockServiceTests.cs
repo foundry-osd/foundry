@@ -8,6 +8,7 @@ using Foundry.Connect.Tests.Support;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Autopilot;
+using Foundry.Core.Services.Runtime;
 using Foundry.Core.Services.Security;
 using Foundry.Utilities.Security;
 using Microsoft.Extensions.Logging;
@@ -19,7 +20,6 @@ public sealed class ConnectUnlockServiceTests
     private readonly byte[] _key = AesGcmEncryption.GenerateKey();
     private readonly ManualTimeProvider _time = new();
     private readonly FakePrompt _prompt = new();
-    private readonly FakeHandoff _handoff = new();
     private readonly RecordingLogger<ConnectUnlockService> _logger = new();
 
     private ConnectRuntimeSecrets LockedSecrets() => new(
@@ -28,31 +28,37 @@ public sealed class ConnectUnlockServiceTests
         protection: new DeployProtectionSettings { IsEnabled = true, KeyCheck = DeploymentKeyProtection.CreateKeyCheck(_key) });
 
     private ConnectUnlockService Create(ConnectRuntimeSecrets secrets) =>
-        new(new FoundryConnectConfigurationDocument(), secrets, _prompt, new FakeUnwrapper(_key, "right password"), _handoff, _time, _logger);
+        new(new FoundryConnectConfigurationDocument(), secrets, _prompt, new FakeUnwrapper(_key, "right password"), _time, _logger);
 
     [Fact]
-    public async Task UnlockAsync_CorrectPassword_UnlocksSendsTheKeyOnceAndZeroesThePassword()
+    public async Task UnlockAsync_CorrectPassword_UnlocksKeepsTheKeyForTheTransferAndZeroesThePassword()
     {
         ConnectRuntimeSecrets secrets = LockedSecrets();
         _prompt.Answers.Enqueue("right password".ToCharArray());
 
-        ConnectUnlockResult result = await Create(secrets).UnlockAsync(ConnectUnlockTrigger.ManualWifi, TestContext.Current.CancellationToken);
+        using ConnectUnlockService service = Create(secrets);
+
+        ConnectUnlockResult result = await service.UnlockAsync(ConnectUnlockTrigger.ManualWifi, TestContext.Current.CancellationToken);
 
         Assert.Equal(ConnectUnlockResult.Unlocked, result);
         Assert.Equal("lab-passphrase", new string(secrets.WifiPassphrase.Value));
-        Assert.Equal(_key, Assert.Single(_handoff.Sent));
+        using DeploymentKeyTransfer transfer = Assert.IsType<DeploymentKeyTransfer>(service.TakeDeploymentKey());
+        byte[] taken = new byte[DeploymentKeyTransfer.KeyLength];
+        Assert.True(transfer.TryTake(taken));
+        Assert.Equal(_key, taken);
+        Assert.Null(service.TakeDeploymentKey());
         Assert.All(_prompt.Returned.Single(), static character => Assert.Equal('\0', character));
         Assert.DoesNotContain(_logger.Entries, entry => entry.Message.Contains("right password", StringComparison.Ordinal));
     }
 
     [Fact]
-    public async Task UnlockAsync_WrongPasswordThenCancel_WaitsDeployDelaysAndSendsNothing()
+    public async Task UnlockAsync_WrongPasswordThenCancel_WaitsDeployDelaysAndKeepsNoKey()
     {
         ConnectRuntimeSecrets secrets = LockedSecrets();
         _prompt.Answers.Enqueue("wrong".ToCharArray());
         _prompt.Answers.Enqueue("wrong".ToCharArray());
         _prompt.Answers.Enqueue(null);
-        ConnectUnlockService service = Create(secrets);
+        using ConnectUnlockService service = Create(secrets);
 
         Task<ConnectUnlockResult> unlock = service.UnlockAsync(ConnectUnlockTrigger.AutomaticWifi, TestContext.Current.CancellationToken);
         // Wait for the retry delay timer itself, not only the prompt: advancing before Task.Delay created it would never fire.
@@ -67,7 +73,7 @@ public sealed class ConnectUnlockServiceTests
         Assert.Equal([false, true, true], _prompt.Calls);
         Assert.True(secrets.IsUnlockDeclined);
         Assert.True(secrets.IsWifiLocked);
-        Assert.Empty(_handoff.Sent);
+        Assert.Null(service.TakeDeploymentKey());
         Assert.Equal(2, _prompt.Returned.Count);
         Assert.All(_prompt.Returned, static password => Assert.All(password, static character => Assert.Equal('\0', character)));
     }
@@ -77,12 +83,13 @@ public sealed class ConnectUnlockServiceTests
     {
         ConnectRuntimeSecrets secrets = LockedSecrets();
         _prompt.Failure = new InvalidOperationException("The deployment password prompt requires a running WPF application.");
+        using ConnectUnlockService service = Create(secrets);
 
-        ConnectUnlockResult result = await Create(secrets).UnlockAsync(ConnectUnlockTrigger.WiredStartup, TestContext.Current.CancellationToken);
+        ConnectUnlockResult result = await service.UnlockAsync(ConnectUnlockTrigger.WiredStartup, TestContext.Current.CancellationToken);
 
         Assert.Equal(ConnectUnlockResult.Cancelled, result);
         Assert.True(secrets.IsUnlockDeclined);
-        Assert.Empty(_handoff.Sent);
+        Assert.Null(service.TakeDeploymentKey());
         RecordedLogEntry warning = Assert.Single(_logger.Entries, static entry => entry.Level == LogLevel.Warning);
         Assert.Null(warning.Exception);
         Assert.Equal(nameof(InvalidOperationException), warning.Properties["FailureType"]);
@@ -90,35 +97,37 @@ public sealed class ConnectUnlockServiceTests
     }
 
     [Fact]
-    public async Task UnlockAsync_MediaWithoutAKeyCheck_UnlocksWithoutSendingTheKey()
+    public async Task UnlockAsync_MediaWithoutAKeyCheck_UnlocksWithoutKeepingTheKey()
     {
         var secrets = new ConnectRuntimeSecrets(
             ConnectSecret.Locked(MediaSecretEnvelopeProtector.EncryptString("lab-passphrase", _key, MediaSecretEnvelopeProtector.DeploymentKeyId)),
             ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(), protection: new DeployProtectionSettings { IsEnabled = true });
         _prompt.Answers.Enqueue("right password".ToCharArray());
+        using ConnectUnlockService service = Create(secrets);
 
-        ConnectUnlockResult result = await Create(secrets).UnlockAsync(ConnectUnlockTrigger.ManualWifi, TestContext.Current.CancellationToken);
+        ConnectUnlockResult result = await service.UnlockAsync(ConnectUnlockTrigger.ManualWifi, TestContext.Current.CancellationToken);
 
         Assert.Equal(ConnectUnlockResult.Unlocked, result);
         Assert.Equal("lab-passphrase", new string(secrets.WifiPassphrase.Value));
-        Assert.Empty(_handoff.Sent);
+        Assert.Null(service.TakeDeploymentKey());
     }
 
     [Fact]
-    public async Task UnlockAsync_KeyThatFailsTheMediaKeyCheck_KeepsTheSecretsLockedAndSendsNothing()
+    public async Task UnlockAsync_KeyThatFailsTheMediaKeyCheck_KeepsTheSecretsLockedAndNoKey()
     {
         var secrets = new ConnectRuntimeSecrets(
             ConnectSecret.Locked(MediaSecretEnvelopeProtector.EncryptString("lab-passphrase", _key, MediaSecretEnvelopeProtector.DeploymentKeyId)),
             ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(),
             protection: new DeployProtectionSettings { IsEnabled = true, KeyCheck = DeploymentKeyProtection.CreateKeyCheck(AesGcmEncryption.GenerateKey()) });
         _prompt.Answers.Enqueue("right password".ToCharArray());
+        using ConnectUnlockService service = Create(secrets);
 
-        ConnectUnlockResult result = await Create(secrets).UnlockAsync(ConnectUnlockTrigger.ManualWifi, TestContext.Current.CancellationToken);
+        ConnectUnlockResult result = await service.UnlockAsync(ConnectUnlockTrigger.ManualWifi, TestContext.Current.CancellationToken);
 
         Assert.Equal(ConnectUnlockResult.Cancelled, result);
         Assert.True(secrets.IsWifiLocked);
         Assert.True(secrets.IsUnlockDeclined);
-        Assert.Empty(_handoff.Sent);
+        Assert.Null(service.TakeDeploymentKey());
         RecordedLogEntry warning = Assert.Single(_logger.Entries, static entry => entry.Level == LogLevel.Warning);
         Assert.Null(warning.Exception);
         Assert.Equal(ConnectUnlockTrigger.ManualWifi, warning.Properties["Trigger"]);
@@ -147,25 +156,25 @@ public sealed class ConnectUnlockServiceTests
     }
 
     [Fact]
-    public async Task UnlockAsync_CallerCancelledDuringTheHandoff_StillReportsUnlockedAndZeroesTheKey()
+    public async Task UnlockAsync_NoUnlock_KeepsNoKey()
     {
-        ConnectRuntimeSecrets secrets = LockedSecrets();
+        using ConnectUnlockService service = Create(ConnectRuntimeSecrets.None());
+
+        await service.UnlockAsync(ConnectUnlockTrigger.WiredStartup, TestContext.Current.CancellationToken);
+
+        Assert.Null(service.TakeDeploymentKey());
+    }
+
+    [Fact]
+    public async Task Dispose_DiscardsAnUntakenKey()
+    {
         _prompt.Answers.Enqueue("right password".ToCharArray());
-        var handoff = new PendingHandoff();
-        using var caller = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
-        var service = new ConnectUnlockService(new FoundryConnectConfigurationDocument(), secrets, _prompt,
-            new FakeUnwrapper(_key, "right password"), handoff, _time, _logger);
+        ConnectUnlockService service = Create(LockedSecrets());
+        await service.UnlockAsync(ConnectUnlockTrigger.ManualWifi, TestContext.Current.CancellationToken);
 
-        Task<ConnectUnlockResult> unlock = service.UnlockAsync(ConnectUnlockTrigger.ManualWifi, caller.Token);
-        byte[] sentKey = await handoff.Started.Task.WaitAsync(TestContext.Current.CancellationToken);
-        await caller.CancelAsync();
+        service.Dispose();
 
-        Assert.False(handoff.Token.IsCancellationRequested);
-        Assert.Equal(_key, sentKey);
-        handoff.Completion.SetResult(true);
-        Assert.Equal(ConnectUnlockResult.Unlocked, await unlock);
-        Assert.All(sentKey, static value => Assert.Equal(0, value));
-        Assert.False(secrets.IsWifiLocked);
+        Assert.Null(service.TakeDeploymentKey());
     }
 
     [Fact]
@@ -174,7 +183,7 @@ public sealed class ConnectUnlockServiceTests
         ConnectRuntimeSecrets secrets = LockedSecrets();
         var prompt = new BlockingPrompt();
         var service = new ConnectUnlockService(new FoundryConnectConfigurationDocument(), secrets, prompt,
-            new FakeUnwrapper(_key, "right password"), _handoff, _time, _logger);
+            new FakeUnwrapper(_key, "right password"), _time, _logger);
         CancellationToken token = TestContext.Current.CancellationToken;
 
         Task<ConnectUnlockResult> manual = Task.Run(() => service.UnlockAsync(ConnectUnlockTrigger.ManualWifi, token), token);
@@ -242,30 +251,6 @@ public sealed class ConnectUnlockServiceTests
     {
         public byte[]? TryUnwrap(DeployProtectionSettings settings, ReadOnlySpan<char> candidate) =>
             candidate.SequenceEqual(password) ? key.ToArray() : null;
-    }
-
-    private sealed class FakeHandoff : IDeploymentKeyHandoffSender
-    {
-        public List<byte[]> Sent { get; } = [];
-        public Task<bool> TrySendAsync(byte[] deploymentKey, CancellationToken cancellationToken)
-        {
-            Sent.Add(deploymentKey.ToArray());
-            return Task.FromResult(true);
-        }
-    }
-
-    // Keeps the service's own key buffer, not a copy, to observe that it is zeroed after the send.
-    private sealed class PendingHandoff : IDeploymentKeyHandoffSender
-    {
-        public TaskCompletionSource<byte[]> Started { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
-        public TaskCompletionSource<bool> Completion { get; } = new(TaskCreationOptions.RunContinuationsAsynchronously);
-        public CancellationToken Token { get; private set; }
-        public Task<bool> TrySendAsync(byte[] deploymentKey, CancellationToken cancellationToken)
-        {
-            Token = cancellationToken;
-            Started.SetResult(deploymentKey);
-            return Completion.Task;
-        }
     }
 
     // Holds the prompt open on its calling thread until the test closes it with a cancel.

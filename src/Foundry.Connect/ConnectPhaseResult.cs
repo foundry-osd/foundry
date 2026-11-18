@@ -1,0 +1,31 @@
+// Copyright (c) Foundry Project contributors.
+// Licensed under the MIT License.
+// See the LICENSE file in the project root for more information.
+
+using System.Windows;
+using Foundry.Core.Models.Runtime;
+using Foundry.Core.Services.Runtime;
+
+namespace Foundry.Connect;
+
+/// <summary>Outcome of <see cref="ConnectPhase.RunAsync"/>.</summary>
+/// <param name="ExitCode">
+/// A <see cref="ChildRuntimeExitCode"/> value: <see cref="ChildRuntimeExitCode.Success"/> when the network is ready, otherwise
+/// the user abort or the startup, configuration or runtime failure that ended Connect.
+/// </param>
+/// <param name="DeploymentKey">
+/// The deployment key unlocked in Connect, set only on success when the media carries a key check. The caller owns it and
+/// disposes it, whether the Deploy phase takes it or not.
+/// </param>
+/// <param name="ThemeMode">The theme Connect ended with, a <c>Foundry.Wpf.Theme.ThemeMode</c> name such as <c>Dark</c>.</param>
+/// <param name="CultureName">The UI culture Connect ended with, for example <c>fr-FR</c>.</param>
+/// <param name="MainWindow">
+/// On success, Connect's window, left open and disabled so the host closes it once the next window rendered; otherwise
+/// <see langword="null"/>: the phase closed its window, ended before creating it, or the window was already closed.
+/// </param>
+public sealed record ConnectPhaseResult(
+    int ExitCode,
+    DeploymentKeyTransfer? DeploymentKey,
+    string ThemeMode,
+    string CultureName,
+    Window? MainWindow);
