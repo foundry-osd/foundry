@@ -114,6 +114,7 @@ public partial class MainWindow : Window
 
     private void ProgressPage_TechnicalDetailsRequested(object sender, RoutedEventArgs e)
     {
+        e.Handled = true;
         var dialog = new DeploymentErrorDetailsDialog
         {
             DataContext = _viewModel.Session,
@@ -121,5 +122,4 @@ public partial class MainWindow : Window
         };
         _ = dialog.ShowDialog();
     }
-
 }

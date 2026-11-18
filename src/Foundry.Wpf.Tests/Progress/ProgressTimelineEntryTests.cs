@@ -9,12 +9,12 @@ namespace Foundry.Wpf.Tests.Progress;
 public sealed class ProgressTimelineEntryTests
 {
     [Theory]
-    [InlineData(ProgressStepState.Pending, "", false)]
-    [InlineData(ProgressStepState.Running, "", true)]
-    [InlineData(ProgressStepState.Succeeded, "", false)]
-    [InlineData(ProgressStepState.Failed, "", true)]
-    [InlineData(ProgressStepState.Skipped, "", false)]
-    [InlineData(ProgressStepState.Cancelled, "", true)]
+    [InlineData(ProgressStepState.Pending, "\uECCA", false)]
+    [InlineData(ProgressStepState.Running, "\uE915", true)]
+    [InlineData(ProgressStepState.Succeeded, "\uE930", false)]
+    [InlineData(ProgressStepState.Failed, "\uEA39", true)]
+    [InlineData(ProgressStepState.Skipped, "\uE946", false)]
+    [InlineData(ProgressStepState.Cancelled, "\uE711", true)]
     public void State_SelectsGlyphAndActiveRow(ProgressStepState state, string glyph, bool isActive)
     {
         var entry = new ProgressTimelineEntry(1, "Apply", "Apply image", "Waiting");

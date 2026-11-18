@@ -18,6 +18,7 @@ namespace Foundry.Deploy.Tests;
 /// Smoke test of the shared progress page hosted with Deploy's resources: every resource resolves and every binding finds its
 /// source in each debug preview state.
 /// </summary>
+[Collection(nameof(WpfApplicationHostCollection))]
 public sealed class ProgressPageViewBindingTests
 {
     [Theory]
@@ -29,6 +30,7 @@ public sealed class ProgressPageViewBindingTests
     {
         var listener = new RecordingTraceListener();
         PresentationTraceSources.Refresh();
+        SourceLevels previousLevel = PresentationTraceSources.DataBindingSource.Switch.Level;
         PresentationTraceSources.DataBindingSource.Listeners.Add(listener);
         PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Error;
         try
@@ -52,6 +54,7 @@ public sealed class ProgressPageViewBindingTests
         finally
         {
             PresentationTraceSources.DataBindingSource.Listeners.Remove(listener);
+            PresentationTraceSources.DataBindingSource.Switch.Level = previousLevel;
         }
     });
 

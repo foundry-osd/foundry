@@ -29,6 +29,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
 
+[Collection(nameof(WpfApplicationHostCollection))]
 public sealed class ProgressPageContractTests
 {
     [Fact]
@@ -49,6 +50,7 @@ public sealed class ProgressPageContractTests
         using DeploymentSessionViewModel session = DeploymentSessionDebugPreviewTests.CreateSession(Dispatcher.CurrentDispatcher);
 
         Assert.Equal(LocalizationText.GetString("Success.RebootNow"), session.CompletionActionText);
+        Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
         return Task.CompletedTask;
     });
 
@@ -81,6 +83,7 @@ public sealed class ProgressPageContractTests
         Assert.False(session.IsCancellationPending);
         Assert.True(session.IsCancelled);
         Assert.Same(viewModel.CancelDeploymentCommand, session.CancelCommand);
+        Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
     });
 
     private static MainWindowViewModel CreateMainWindowViewModel(PendingExecution execution)

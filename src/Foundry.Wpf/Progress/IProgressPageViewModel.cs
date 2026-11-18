@@ -16,7 +16,10 @@ namespace Foundry.Wpf.Progress;
 /// <remarks>
 /// The page animates its central state when <see cref="IsSuccessPage"/> or <see cref="IsErrorPage"/> is raised as
 /// <see langword="true"/>, and announces its live region when a page flag is raised as <see langword="true"/> or when
-/// <see cref="CurrentStepName"/>, <see cref="TerminalErrorTitle"/> or <see cref="CompletionInstructionText"/> changes.
+/// <see cref="CurrentStepName"/>, <see cref="TerminalErrorTitle"/> or <see cref="CompletionInstructionText"/> changes;
+/// announcements raised in the same dispatcher turn are coalesced into one. The page does not track the previous value:
+/// raising <see cref="IsSuccessPage"/> or <see cref="IsErrorPage"/> again while it is already <see langword="true"/>
+/// re-animates and re-announces, so hosts raise the page flags only when the page changes.
 /// </remarks>
 public interface IProgressPageViewModel : INotifyPropertyChanged
 {

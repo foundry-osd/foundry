@@ -23,6 +23,7 @@ public partial class ProgressPageView : UserControl
         nameof(TechnicalDetailsRequested), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ProgressPageView));
 
     private IProgressPageViewModel? _session;
+    private bool _liveRegionPending;
 
     public ProgressPageView()
     {
@@ -124,8 +125,17 @@ public partial class ProgressPageView : UserControl
 
     private void RaiseStatusLiveRegionChanged()
     {
+        // One transition changes several triggers in the same dispatcher turn (a cancellation raises the error title and the
+        // page flag); a single queued callback announces the settled content once.
+        if (_liveRegionPending)
+        {
+            return;
+        }
+
+        _liveRegionPending = true;
         Dispatcher.BeginInvoke(() =>
         {
+            _liveRegionPending = false;
             if (!IsLoaded)
             {
                 return;
