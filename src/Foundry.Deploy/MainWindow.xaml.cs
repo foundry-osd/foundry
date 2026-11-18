@@ -8,6 +8,7 @@ using System.Windows.Threading;
 using Foundry.Wpf.Motion;
 using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.ViewModels;
+using Foundry.Deploy.Views;
 
 namespace Foundry.Deploy;
 
@@ -109,6 +110,16 @@ public partial class MainWindow : Window
     private static bool IsStatusPage(DeploymentPage page)
     {
         return page is DeploymentPage.Progress or DeploymentPage.Success or DeploymentPage.Error;
+    }
+
+    private void ProgressPage_TechnicalDetailsRequested(object sender, RoutedEventArgs e)
+    {
+        var dialog = new DeploymentErrorDetailsDialog
+        {
+            DataContext = _viewModel.Session,
+            Owner = this
+        };
+        _ = dialog.ShowDialog();
     }
 
 }

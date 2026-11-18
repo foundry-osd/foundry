@@ -13,6 +13,7 @@ using Foundry.Deploy.ViewModels;
 using Foundry.Utilities.Networking;
 using Foundry.Utilities.Processes;
 using Foundry.Wpf.Localization;
+using Foundry.Wpf.Progress;
 using Microsoft.Extensions.Logging.Abstractions;
 using DeployUnattendFile = Foundry.Core.Models.Configuration.Deploy.DeployUnattendFile;
 
@@ -57,10 +58,10 @@ public sealed class DeploymentSessionDebugPreviewTests
             Assert.Equal(expected, session.TimelineEntries.Select(entry => entry.RawName));
             Assert.Equal(DeploymentPage.Progress, session.CurrentPage);
             Assert.Equal(request.TargetComputerName, session.ComputerNameText);
-            AssertActiveStep(session, DeploymentStepState.Running, customUnattend ? 6 : 5, 11);
+            AssertActiveStep(session, ProgressStepState.Running, customUnattend ? 6 : 5, 11);
             AssertCachedImage(session);
             Assert.All(session.TimelineEntries.Where(entry => entry.StepIndex > (customUnattend ? 6 : 5)),
-                entry => Assert.Equal(DeploymentStepState.Pending, entry.State));
+                entry => Assert.Equal(ProgressStepState.Pending, entry.State));
         });
 
     [Theory]
@@ -107,7 +108,7 @@ public sealed class DeploymentSessionDebugPreviewTests
                     DeploymentStepNames.StagePreOobeCustomization]
             };
             Assert.Equal(expected, driverSteps);
-            AssertActiveStep(session, DeploymentStepState.Running, 5, count);
+            AssertActiveStep(session, ProgressStepState.Running, 5, count);
         });
 
     [Theory]
@@ -119,19 +120,19 @@ public sealed class DeploymentSessionDebugPreviewTests
         {
             session.ShowDebugSuccess(Request() with { IsAutopilotEnabled = true, AutopilotProvisioningMode = mode });
 
-            DeploymentTimelineEntryViewModel autopilot = Assert.Single(session.TimelineEntries,
+            ProgressTimelineEntry autopilot = Assert.Single(session.TimelineEntries,
                 entry => entry.RawName == DeploymentStepNames.ProvisionAutopilot);
             Assert.Equal(LocalizationText.GetString(labelKey), autopilot.DisplayName);
             // The interactive assistant runs as a post-installation action, which adds its staging step.
             int count = mode == AutopilotProvisioningMode.InteractiveHardwareHashUpload ? 12 : 11;
             Assert.Equal(DeploymentPage.Success, session.CurrentPage);
             Assert.Equal(count, session.TimelineEntries.Count);
-            Assert.Equal(100, session.DeploymentProgress);
+            Assert.Equal(100, session.OverallProgress);
             Assert.Equal(LocalizationText.GetString("Step.FinalizeDeploymentAndWriteLogs"), session.CurrentStepName);
             Assert.Equal(LocalizationText.Format("Status.StepCounterFormat", count, count), session.StepCounterText);
             AssertCachedImage(session);
             Assert.All(session.TimelineEntries.Where(entry => entry.RawName != DeploymentStepNames.DownloadOperatingSystemImage),
-                entry => Assert.Equal(DeploymentStepState.Succeeded, entry.State));
+                entry => Assert.Equal(ProgressStepState.Succeeded, entry.State));
         });
 
     [Theory]
@@ -149,8 +150,8 @@ public sealed class DeploymentSessionDebugPreviewTests
 
             Assert.Equal(DeploymentPage.Error, session.CurrentPage);
             Assert.Equal(cancelled, session.IsCancelled);
-            Assert.Equal(!cancelled, session.HasDeploymentFailure);
-            AssertActiveStep(session, cancelled ? DeploymentStepState.Cancelled : DeploymentStepState.Failed, 5, 10);
+            Assert.Equal(!cancelled, session.HasFailure);
+            AssertActiveStep(session, cancelled ? ProgressStepState.Cancelled : ProgressStepState.Failed, 5, 10);
             AssertCachedImage(session);
             if (!cancelled)
             {
@@ -162,11 +163,11 @@ public sealed class DeploymentSessionDebugPreviewTests
 
             Assert.Equal(DeploymentPage.Progress, session.CurrentPage);
             Assert.False(session.IsCancelled);
-            Assert.False(session.HasDeploymentFailure);
+            Assert.False(session.HasFailure);
             Assert.Empty(session.FailedStepName);
             Assert.Empty(session.FailedStepErrorMessage);
-            AssertActiveStep(session, DeploymentStepState.Running, 5, 10);
-            Assert.All(session.TimelineEntries.Skip(5), entry => Assert.Equal(DeploymentStepState.Pending, entry.State));
+            AssertActiveStep(session, ProgressStepState.Running, 5, 10);
+            Assert.All(session.TimelineEntries.Skip(5), entry => Assert.Equal(ProgressStepState.Pending, entry.State));
         });
 
     [Fact]
@@ -185,13 +186,13 @@ public sealed class DeploymentSessionDebugPreviewTests
             or DeploymentStepNames.StageCustomUnattend or DeploymentStepNames.ProvisionAutopilot
             or DeploymentStepNames.DownloadDriverPack or DeploymentStepNames.ApplyRecoveryDrivers);
         Assert.Contains(session.TimelineEntries, entry => entry.RawName == DeploymentStepNames.ConfigureTargetComputerName);
-        AssertActiveStep(session, DeploymentStepState.Running, 5, 10);
+        AssertActiveStep(session, ProgressStepState.Running, 5, 10);
         AssertCachedImage(session);
     });
 
-    private static void AssertActiveStep(DeploymentSessionViewModel session, DeploymentStepState state, int index, int count)
+    private static void AssertActiveStep(DeploymentSessionViewModel session, ProgressStepState state, int index, int count)
     {
-        DeploymentTimelineEntryViewModel active = Assert.Single(session.TimelineEntries, entry => entry.IsActive);
+        ProgressTimelineEntry active = Assert.Single(session.TimelineEntries, entry => entry.IsActive);
         Assert.Equal(DeploymentStepNames.ApplyOperatingSystemImage, active.RawName);
         Assert.Equal(state, active.State);
         Assert.Equal(index, active.StepIndex);
@@ -200,18 +201,18 @@ public sealed class DeploymentSessionDebugPreviewTests
         Assert.Equal(active.DisplayName, session.CurrentStepName);
         Assert.Equal(LocalizationText.Format("Status.StepCounterFormat", index, count), session.StepCounterText);
         Assert.Equal(65, session.CurrentStepProgress);
-        Assert.InRange(session.DeploymentProgress, 1, 99);
+        Assert.InRange(session.OverallProgress, 1, 99);
     }
 
     private static void AssertCachedImage(DeploymentSessionViewModel session)
     {
-        DeploymentTimelineEntryViewModel download = Assert.Single(session.TimelineEntries,
+        ProgressTimelineEntry download = Assert.Single(session.TimelineEntries,
             entry => entry.RawName == DeploymentStepNames.DownloadOperatingSystemImage);
-        Assert.Equal(DeploymentStepState.Skipped, download.State);
+        Assert.Equal(ProgressStepState.Skipped, download.State);
         Assert.Equal(LocalizationText.GetString("StepResult.OperatingSystemImageResolvedFromCache"), download.DetailText);
     }
 
-    private static DeploymentContext Request() => new()
+    internal static DeploymentContext Request() => new()
     {
         Mode = DeploymentMode.Usb,
         CacheRootPath = "cache",
@@ -230,9 +231,7 @@ public sealed class DeploymentSessionDebugPreviewTests
             Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
             try
             {
-                using DeploymentSessionViewModel session = new(dispatcher, NullLogger.Instance,
-                    new OperationProgressService(), new PreviewOnlyOrchestrator(), new RejectingProcessRunner(),
-                    new ResourceLocalizationService(LocalizationText.ResourceManager), isDebugSafeMode: true, new EmptyNetworkSnapshotProvider());
+                using DeploymentSessionViewModel session = CreateSession(dispatcher);
                 test(session);
                 completion.SetResult();
             }
@@ -250,6 +249,11 @@ public sealed class DeploymentSessionDebugPreviewTests
         thread.Start();
         return completion.Task;
     }
+
+    /// <summary>Creates a debug-safe session that can only preview: it never runs a deployment step or a process.</summary>
+    internal static DeploymentSessionViewModel CreateSession(Dispatcher dispatcher) =>
+        new(dispatcher, NullLogger.Instance, new OperationProgressService(), new PreviewOnlyOrchestrator(), new RejectingProcessRunner(),
+            new ResourceLocalizationService(LocalizationText.ResourceManager), isDebugSafeMode: true, new EmptyNetworkSnapshotProvider());
 
     private sealed class PreviewOnlyOrchestrator : IDeploymentOrchestrator
     {

@@ -1,9 +1,8 @@
-﻿<UserControl x:Class="Foundry.Deploy.Views.DeploymentStatusView"
+﻿<UserControl x:Class="Foundry.Wpf.Progress.ProgressPageView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:Foundry.Wpf.Controls;assembly=Foundry.Wpf"
-    xmlns:deployment="clr-namespace:Foundry.Deploy.Services.Deployment"
-    DataContext="{Binding Session}">
+    xmlns:controls="clr-namespace:Foundry.Wpf.Controls"
+    xmlns:progress="clr-namespace:Foundry.Wpf.Progress">
     <Grid>
         <TextBlock
             Margin="260,44,260,0"
@@ -113,28 +112,28 @@
                                                 <Style.Triggers>
                                                     <DataTrigger
                                                         Binding="{Binding State}"
-                                                        Value="{x:Static deployment:DeploymentStepState.Succeeded}">
+                                                        Value="{x:Static progress:ProgressStepState.Succeeded}">
                                                         <Setter
                                                             Property="Foreground"
                                                             Value="{DynamicResource SystemFillColorSuccessBrush}" />
                                                     </DataTrigger>
                                                     <DataTrigger
                                                         Binding="{Binding State}"
-                                                        Value="{x:Static deployment:DeploymentStepState.Skipped}">
+                                                        Value="{x:Static progress:ProgressStepState.Skipped}">
                                                         <Setter
                                                             Property="Foreground"
                                                             Value="{DynamicResource AccentTextFillColorPrimaryBrush}" />
                                                     </DataTrigger>
                                                     <DataTrigger
                                                         Binding="{Binding State}"
-                                                        Value="{x:Static deployment:DeploymentStepState.Running}">
+                                                        Value="{x:Static progress:ProgressStepState.Running}">
                                                         <Setter
                                                             Property="Foreground"
                                                             Value="{DynamicResource AccentFillColorDefaultBrush}" />
                                                     </DataTrigger>
                                                     <DataTrigger
                                                         Binding="{Binding State}"
-                                                        Value="{x:Static deployment:DeploymentStepState.Failed}">
+                                                        Value="{x:Static progress:ProgressStepState.Failed}">
                                                         <Setter
                                                             Property="Foreground"
                                                             Value="{DynamicResource SystemFillColorCriticalBrush}" />
@@ -177,7 +176,7 @@
                         ProgressBrush="{DynamicResource AccentFillColorDefaultBrush}"
                         Thickness="14"
                         TrackBrush="{DynamicResource ControlStrongFillColorDefaultBrush}"
-                        Value="{Binding DeploymentProgress}" />
+                        Value="{Binding OverallProgress}" />
                     <TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -191,7 +190,7 @@
                 <controls:TerminalStatusGlyph
                     AutomationName="{Binding TerminalErrorTitle}"
                     IsSuccess="False"
-                    Visibility="{Binding HasDeploymentFailure, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    Visibility="{Binding HasFailure, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -223,7 +222,7 @@
                         Margin="20,16,20,8"
                         IsIndeterminate="{Binding IsCurrentStepProgressIndeterminate}"
                         Maximum="100"
-                        Style="{StaticResource DeployProgressBarStyle}"
+                        Style="{StaticResource FoundryProgressBarStyle}"
                         Value="{Binding CurrentStepProgress}" />
                     <TextBlock
                         HorizontalAlignment="Center"
@@ -239,7 +238,7 @@
                         Text="{Binding Strings[Status.CancellationPending]}"
                         TextAlignment="Center"
                         TextWrapping="Wrap"
-                        Visibility="{Binding DataContext.IsCancellationPending, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        Visibility="{Binding IsCancellationPending, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </StackPanel>
             </Grid>
 
@@ -278,12 +277,28 @@
                         Text="{Binding CompletionInstructionText}"
                         TextAlignment="Center"
                         TextWrapping="Wrap" />
-                    <Button
-                        MinWidth="140"
-                        HorizontalAlignment="Center"
-                        Command="{Binding RebootNowCommand}"
-                        Content="{Binding Strings[Success.RebootNow]}"
-                        Style="{DynamicResource AccentButtonStyle}" />
+                    <!--  The host hides the completion action by leaving its command null.  -->
+                    <Grid HorizontalAlignment="Center">
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Style.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding CompletionCommand}"
+                                        Value="{x:Null}">
+                                        <Setter
+                                            Property="Visibility"
+                                            Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                        <Button
+                            MinWidth="140"
+                            HorizontalAlignment="Center"
+                            Command="{Binding CompletionCommand}"
+                            Content="{Binding CompletionActionText}"
+                            Style="{DynamicResource AccentButtonStyle}" />
+                    </Grid>
                 </StackPanel>
             </Grid>
 
@@ -327,7 +342,7 @@
                         HorizontalAlignment="Center"
                         Click="ViewTechnicalDetails_Click"
                         Content="{Binding Strings[Error.ViewTechnicalDetails]}"
-                        Visibility="{Binding HasDeploymentFailure, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        Visibility="{Binding HasFailure, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </StackPanel>
             </Grid>
         </Grid>
@@ -356,9 +371,9 @@
                     MinWidth="140"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    Command="{Binding DataContext.CancelDeploymentCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                    Command="{Binding CancelCommand}"
                     Content="{Binding Strings[Common.Cancel]}"
-                    Visibility="{Binding DataContext.IsDeploymentRunning, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    Visibility="{Binding CanCancel, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </Grid>
         </Grid>
     </Grid>

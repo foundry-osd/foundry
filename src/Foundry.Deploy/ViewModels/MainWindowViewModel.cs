@@ -259,6 +259,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             localizationService,
             IsDebugSafeMode,
             networkAdapterSnapshotProvider);
+        Session.CancelCommand = CancelDeploymentCommand;
         Session.PropertyChanged += OnSessionPropertyChanged;
         _deploymentOrchestrator.CompletionStarting += OnDeploymentCompletionStarting;
         LocalizationService.LanguageChanged += OnLocalizationLanguageChanged;
@@ -898,6 +899,11 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     private bool CanCancelDeployment() => IsDeploymentRunning && !IsCancellationPending && !IsCompletionStarting && _deploymentCancellation is not null;
+
+    // The progress page binds the session; it shows the cancel button while a deployment runs and the pending notice after a request.
+    partial void OnIsDeploymentRunningChanged(bool value) => Session.CanCancel = value;
+
+    partial void OnIsCancellationPendingChanged(bool value) => Session.IsCancellationPending = value;
 
     private void OnDeploymentCompletionStarting(object? sender, EventArgs e)
     {

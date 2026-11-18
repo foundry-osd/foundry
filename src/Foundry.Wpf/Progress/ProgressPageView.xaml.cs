@@ -8,15 +8,23 @@ using System.Windows;
 using System.Windows.Automation.Peers;
 using System.Windows.Controls;
 using Foundry.Wpf.Motion;
-using Foundry.Deploy.ViewModels;
 
-namespace Foundry.Deploy.Views;
+namespace Foundry.Wpf.Progress;
 
-public partial class DeploymentStatusView : UserControl
+/// <summary>
+/// Shared progress page of a run: session panel, timeline, central progress or terminal state, step counter and cancel action.
+/// Its data context is an <see cref="IProgressPageViewModel"/>; the host opens its own technical details from
+/// <see cref="TechnicalDetailsRequested"/>.
+/// </summary>
+public partial class ProgressPageView : UserControl
 {
-    private DeploymentSessionViewModel? _session;
+    /// <summary>Identifies the bubbling <see cref="TechnicalDetailsRequested"/> routed event.</summary>
+    public static readonly RoutedEvent TechnicalDetailsRequestedEvent = EventManager.RegisterRoutedEvent(
+        nameof(TechnicalDetailsRequested), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ProgressPageView));
 
-    public DeploymentStatusView()
+    private IProgressPageViewModel? _session;
+
+    public ProgressPageView()
     {
         InitializeComponent();
         DataContextChanged += OnDataContextChanged;
@@ -24,14 +32,21 @@ public partial class DeploymentStatusView : UserControl
         Unloaded += OnUnloaded;
     }
 
+    /// <summary>Occurs when the operator asks for the technical details of a failure.</summary>
+    public event RoutedEventHandler TechnicalDetailsRequested
+    {
+        add => AddHandler(TechnicalDetailsRequestedEvent, value);
+        remove => RemoveHandler(TechnicalDetailsRequestedEvent, value);
+    }
+
     private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        AttachSession(e.NewValue as DeploymentSessionViewModel);
+        AttachSession(e.NewValue as IProgressPageViewModel);
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
-        AttachSession(DataContext as DeploymentSessionViewModel);
+        AttachSession(DataContext as IProgressPageViewModel);
         ScrollToActiveTimelineEntry();
     }
 
@@ -41,7 +56,7 @@ public partial class DeploymentStatusView : UserControl
         TransitionAnimator.Clear(CentralStateHost, CentralStateScale);
     }
 
-    private void AttachSession(DeploymentSessionViewModel? session)
+    private void AttachSession(IProgressPageViewModel? session)
     {
         if (_session == session)
         {
@@ -57,7 +72,7 @@ public partial class DeploymentStatusView : UserControl
 
         _session.PropertyChanged += OnSessionPropertyChanged;
         _session.TimelineEntries.CollectionChanged += OnTimelineCollectionChanged;
-        foreach (DeploymentTimelineEntryViewModel entry in _session.TimelineEntries)
+        foreach (ProgressTimelineEntry entry in _session.TimelineEntries)
         {
             entry.PropertyChanged += OnTimelineEntryPropertyChanged;
         }
@@ -72,7 +87,7 @@ public partial class DeploymentStatusView : UserControl
 
         _session.PropertyChanged -= OnSessionPropertyChanged;
         _session.TimelineEntries.CollectionChanged -= OnTimelineCollectionChanged;
-        foreach (DeploymentTimelineEntryViewModel entry in _session.TimelineEntries)
+        foreach (ProgressTimelineEntry entry in _session.TimelineEntries)
         {
             entry.PropertyChanged -= OnTimelineEntryPropertyChanged;
         }
@@ -82,19 +97,30 @@ public partial class DeploymentStatusView : UserControl
 
     private void OnSessionPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(DeploymentSessionViewModel.CurrentPage))
+        // A page change raises every page flag; only the flag raised as true marks the transition, so each transition
+        // animates and announces once.
+        bool isPageShown = IsPageShown(e.PropertyName);
+        if (isPageShown)
         {
-            AnimateTerminalStateChange();
+            AnimateTerminalStateChange(e.PropertyName);
         }
 
-        if (e.PropertyName is nameof(DeploymentSessionViewModel.CurrentPage)
-            or nameof(DeploymentSessionViewModel.CurrentStepName)
-            or nameof(DeploymentSessionViewModel.FailedStepName)
-            or nameof(DeploymentSessionViewModel.CompletionInstructionText))
+        if (isPageShown
+            || e.PropertyName is nameof(IProgressPageViewModel.CurrentStepName)
+            or nameof(IProgressPageViewModel.TerminalErrorTitle)
+            or nameof(IProgressPageViewModel.CompletionInstructionText))
         {
             RaiseStatusLiveRegionChanged();
         }
     }
+
+    private bool IsPageShown(string? propertyName) => propertyName switch
+    {
+        nameof(IProgressPageViewModel.IsProgressPage) => _session?.IsProgressPage == true,
+        nameof(IProgressPageViewModel.IsSuccessPage) => _session?.IsSuccessPage == true,
+        nameof(IProgressPageViewModel.IsErrorPage) => _session?.IsErrorPage == true,
+        _ => false
+    };
 
     private void RaiseStatusLiveRegionChanged()
     {
@@ -115,7 +141,7 @@ public partial class DeploymentStatusView : UserControl
     {
         if (e.OldItems is not null)
         {
-            foreach (DeploymentTimelineEntryViewModel entry in e.OldItems)
+            foreach (ProgressTimelineEntry entry in e.OldItems)
             {
                 entry.PropertyChanged -= OnTimelineEntryPropertyChanged;
             }
@@ -123,7 +149,7 @@ public partial class DeploymentStatusView : UserControl
 
         if (e.NewItems is not null)
         {
-            foreach (DeploymentTimelineEntryViewModel entry in e.NewItems)
+            foreach (ProgressTimelineEntry entry in e.NewItems)
             {
                 entry.PropertyChanged += OnTimelineEntryPropertyChanged;
             }
@@ -134,7 +160,7 @@ public partial class DeploymentStatusView : UserControl
 
     private void OnTimelineEntryPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(DeploymentTimelineEntryViewModel.IsActive))
+        if (e.PropertyName == nameof(ProgressTimelineEntry.IsActive))
         {
             ScrollToActiveTimelineEntry();
         }
@@ -147,7 +173,7 @@ public partial class DeploymentStatusView : UserControl
             return;
         }
 
-        DeploymentTimelineEntryViewModel? activeEntry = _session.TimelineEntries.FirstOrDefault(entry => entry.IsActive);
+        ProgressTimelineEntry? activeEntry = _session.TimelineEntries.FirstOrDefault(entry => entry.IsActive);
         if (activeEntry is null)
         {
             return;
@@ -162,9 +188,9 @@ public partial class DeploymentStatusView : UserControl
         });
     }
 
-    private void AnimateTerminalStateChange()
+    private void AnimateTerminalStateChange(string? shownPage)
     {
-        if (_session?.CurrentPage is DeploymentPage.Success or DeploymentPage.Error)
+        if (shownPage is nameof(IProgressPageViewModel.IsSuccessPage) or nameof(IProgressPageViewModel.IsErrorPage))
         {
             TransitionAnimator.FadeAndScale(CentralStateHost, CentralStateScale, 0.98);
         }
@@ -172,11 +198,6 @@ public partial class DeploymentStatusView : UserControl
 
     private void ViewTechnicalDetails_Click(object sender, RoutedEventArgs e)
     {
-        var dialog = new DeploymentErrorDetailsDialog
-        {
-            DataContext = DataContext,
-            Owner = Window.GetWindow(this)
-        };
-        _ = dialog.ShowDialog();
+        RaiseEvent(new RoutedEventArgs(TechnicalDetailsRequestedEvent, this));
     }
 }

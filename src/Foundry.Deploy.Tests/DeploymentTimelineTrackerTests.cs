@@ -4,6 +4,7 @@
 
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.ViewModels;
+using Foundry.Wpf.Progress;
 
 namespace Foundry.Deploy.Tests;
 
@@ -22,7 +23,7 @@ public sealed class DeploymentTimelineTrackerTests
         Assert.Equal(3, tracker.Entries.Count);
         Assert.Equal("Check setup", tracker.Entries[0].DisplayName);
         Assert.All(tracker.Entries, entry => Assert.Empty(entry.DetailText));
-        Assert.All(tracker.Entries, entry => Assert.Equal(DeploymentStepState.Pending, entry.State));
+        Assert.All(tracker.Entries, entry => Assert.Equal(ProgressStepState.Pending, entry.State));
     }
 
     [Fact]
@@ -33,8 +34,8 @@ public sealed class DeploymentTimelineTrackerTests
 
         tracker.Apply(CreateProgress(stepIndex: 2, state: DeploymentStepState.Running));
 
-        Assert.Equal(DeploymentStepState.Pending, tracker.Entries[0].State);
-        Assert.Equal(DeploymentStepState.Running, tracker.Entries[1].State);
+        Assert.Equal(ProgressStepState.Pending, tracker.Entries[0].State);
+        Assert.Equal(ProgressStepState.Running, tracker.Entries[1].State);
     }
 
     [Fact]
@@ -46,9 +47,9 @@ public sealed class DeploymentTimelineTrackerTests
 
         tracker.FailAt(2);
 
-        Assert.Equal(DeploymentStepState.Succeeded, tracker.Entries[0].State);
-        Assert.Equal(DeploymentStepState.Failed, tracker.Entries[1].State);
-        Assert.Equal(DeploymentStepState.Pending, tracker.Entries[2].State);
+        Assert.Equal(ProgressStepState.Succeeded, tracker.Entries[0].State);
+        Assert.Equal(ProgressStepState.Failed, tracker.Entries[1].State);
+        Assert.Equal(ProgressStepState.Pending, tracker.Entries[2].State);
     }
 
     [Fact]
@@ -60,7 +61,7 @@ public sealed class DeploymentTimelineTrackerTests
 
         tracker.FailAt(1);
 
-        Assert.Equal(DeploymentStepState.Succeeded, tracker.Entries[0].State);
+        Assert.Equal(ProgressStepState.Succeeded, tracker.Entries[0].State);
     }
 
     [Fact]
@@ -71,7 +72,7 @@ public sealed class DeploymentTimelineTrackerTests
 
         tracker.Reconcile([new("Prepare", "Prepare"), new("Apply", "Apply")]);
 
-        Assert.All(tracker.Entries, entry => Assert.Equal(DeploymentStepState.Pending, entry.State));
+        Assert.All(tracker.Entries, entry => Assert.Equal(ProgressStepState.Pending, entry.State));
     }
 
     [Fact]
@@ -83,7 +84,7 @@ public sealed class DeploymentTimelineTrackerTests
 
         tracker.Reconcile([new("Prepare", "Prepare")]);
 
-        Assert.Equal(DeploymentStepState.Skipped, tracker.Entries[0].State);
+        Assert.Equal(ProgressStepState.Skipped, tracker.Entries[0].State);
         Assert.Single(tracker.Entries);
 
     }
@@ -105,9 +106,9 @@ public sealed class DeploymentTimelineTrackerTests
         });
 
         Assert.Equal("Download", tracker.Entries[0].RawName);
-        Assert.Equal(DeploymentStepState.Skipped, tracker.Entries[0].State);
+        Assert.Equal(ProgressStepState.Skipped, tracker.Entries[0].State);
         Assert.Equal("Cached image reused.", tracker.Entries[0].DetailText);
-        Assert.Equal(DeploymentStepState.Pending, tracker.Entries[1].State);
+        Assert.Equal(ProgressStepState.Pending, tracker.Entries[1].State);
     }
 
     [Fact]
@@ -119,6 +120,24 @@ public sealed class DeploymentTimelineTrackerTests
         tracker.Apply(CreateProgress(1, DeploymentStepState.Running));
 
         Assert.Equal("Localized Running", tracker.Entries[0].StateAutomationText);
+    }
+
+    [Theory]
+    [InlineData(DeploymentStepState.Pending)]
+    [InlineData(DeploymentStepState.Running)]
+    [InlineData(DeploymentStepState.Succeeded)]
+    [InlineData(DeploymentStepState.Failed)]
+    [InlineData(DeploymentStepState.Skipped)]
+    [InlineData(DeploymentStepState.Cancelled)]
+    public void Apply_ShowsEveryDeploymentStateAsTheProgressStateOfTheSameName(DeploymentStepState state)
+    {
+        var tracker = CreateTracker();
+        tracker.Reset([new("Prepare", "Prepare")]);
+
+        tracker.Apply(CreateProgress(1, state));
+
+        Assert.Equal(state.ToString(), tracker.Entries[0].State.ToString());
+        Assert.Equal(Enum.GetNames<DeploymentStepState>(), Enum.GetNames<ProgressStepState>());
     }
 
     private static DeploymentTimelineTracker CreateTracker()
