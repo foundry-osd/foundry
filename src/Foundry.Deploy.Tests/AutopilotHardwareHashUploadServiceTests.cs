@@ -266,6 +266,23 @@ public sealed class AutopilotHardwareHashUploadServiceTests
     }
 
     [Fact]
+    public async Task UploadAsync_WhenCancelledWhileTheWaitIsSlowToStop_DoesNotSpin()
+    {
+        using var deployment = new CancellationTokenSource();
+        var reports = new List<AutopilotHardwareHashUploadProgress>();
+        var profile = new FakeProfileAssignment(ProfileAssignmentOutcome.Skipped)
+        {
+            OnWait = deployment.Cancel,
+            WaitDuration = TimeSpan.FromMilliseconds(300)
+        };
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+            RunSuccessfulUploadAsync(profile, progress: new SynchronousProgress(reports.Add), cancellationToken: deployment.Token));
+
+        Assert.True(reports.Count(report => report.Message == "Waiting for the Autopilot profile assignment...") <= 2);
+    }
+
+    [Fact]
     public async Task UploadAsync_ReportsTheProfileCountdown()
     {
         var profile = new FakeProfileAssignment(ProfileAssignmentOutcome.Assigned) { WaitDuration = TimeSpan.FromMilliseconds(1500) };

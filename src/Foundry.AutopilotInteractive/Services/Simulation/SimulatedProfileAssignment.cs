@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.AutopilotInteractive.Services.Registration;
 using Foundry.Core.Services.Autopilot;
 
 namespace Foundry.AutopilotInteractive.Services.Simulation;

@@ -165,8 +165,12 @@ public sealed class AutopilotHardwareHashUploadService(
             progress?.Report(new AutopilotHardwareHashUploadProgress(
                 "Waiting for the Autopilot profile assignment...",
                 $"Checking the Autopilot profile ({FormatRemaining(remaining)} remaining)..."));
-            // The ticker ends with the wait; a cancelled delay only ends the loop early, the wait reports the cancellation.
             await Task.WhenAny(wait, Task.Delay(TimeSpan.FromSeconds(1), cancellationToken)).ConfigureAwait(false);
+            if (cancellationToken.IsCancellationRequested)
+            {
+                // A cancelled delay completes at once: stop ticking and let the wait observe the cancellation.
+                break;
+            }
         }
 
         ProfileAssignmentOutcome outcome = await wait.ConfigureAwait(false);

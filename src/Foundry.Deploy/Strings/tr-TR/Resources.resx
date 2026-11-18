@@ -1300,7 +1300,7 @@ Dağıtıma devam edilsin mi?</value>
     <value>Autopilot grup etiketi güncellemesi bekleniyor...</value>
   </data>
   <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
-    <value>Autopilot profili atamasını bekleniyor...</value>
+    <value>Autopilot profili ataması bekleniyor...</value>
   </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Tamamlama günlükleri yazılıyor...</value>

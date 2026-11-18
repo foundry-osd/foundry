@@ -18,7 +18,10 @@ public enum ProfileAssignmentOutcome
     /// <summary>No assignment was seen before the stop time.</summary>
     TimedOut,
 
-    /// <summary>The technician skipped the wait.</summary>
+    /// <summary>
+    /// The wait was stopped through its token: the technician skipped it in Interactive, or the deployment was cancelled in
+    /// Deploy.
+    /// </summary>
     Skipped,
 
     /// <summary>The status cannot be read: Graph returned an error or does not expose the property.</summary>
@@ -38,7 +41,10 @@ public interface IProfileAssignmentService
     /// <param name="accessToken">Graph access token.</param>
     /// <param name="deviceId">Autopilot device identity.</param>
     /// <param name="stopAtUtc">Instant at which the wait gives up.</param>
-    /// <param name="skip">Cancelled when the technician skips the wait; wins over every other outcome.</param>
+    /// <param name="skip">
+    /// Cancelled to stop the wait: a technician skip in Interactive, the deployment cancellation in Deploy. Wins over every other
+    /// outcome.
+    /// </param>
     /// <returns>How the wait ended.</returns>
     Task<ProfileAssignmentOutcome> WaitAsync(string accessToken, string deviceId, DateTimeOffset stopAtUtc, CancellationToken skip);
 }
