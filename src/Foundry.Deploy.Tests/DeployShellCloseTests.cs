@@ -73,6 +73,9 @@ public sealed class DeployShellCloseTests
     {
         Application application = Application.Current;
         Window? previous = application.MainWindow;
+        // Another main window first: the application adopts a new window as its main window only when it has none.
+        var other = new Window();
+        application.MainWindow = other;
         var window = new Window();
         var content = new System.Windows.Controls.UserControl();
         var shell = new FakeShellHost(window);
@@ -88,6 +91,7 @@ public sealed class DeployShellCloseTests
         {
             application.MainWindow = previous;
             window.Close();
+            other.Close();
         }
 
         return Task.CompletedTask;

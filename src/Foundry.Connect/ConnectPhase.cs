@@ -112,9 +112,7 @@ public static class ConnectPhase
 
             var content = host.Services.GetRequiredService<ConnectShellContent>();
             closeAttachment = AttachCloseHandler(options.Shell, host.Services.GetRequiredService<MainWindowViewModel>().HandleWindowClosing);
-            // Owner fallbacks (About, prompts, message dialogs) read Application.MainWindow: point it at the shell window.
-            application.MainWindow = options.Shell.Window;
-            options.Shell.ShowContent(content);
+            PresentContent(application, options.Shell, content);
 
             var exitCode = (int)await exitAuthority.Completion;
             logger.Information("Foundry Connect phase ended with code {ExitCode}.", exitCode);
@@ -235,6 +233,16 @@ public static class ConnectPhase
 
         shell.CloseRequested += OnCloseRequested;
         return new CloseAttachment(() => shell.CloseRequested -= OnCloseRequested);
+    }
+
+    /// <summary>
+    /// Shows <paramref name="content"/> in the shell and makes the shell window the application's main window, which owner
+    /// fallbacks (About, prompts, message dialogs) read.
+    /// </summary>
+    internal static void PresentContent(Application application, IShellHost shell, FrameworkElement content)
+    {
+        application.MainWindow = shell.Window;
+        shell.ShowContent(content);
     }
 
     private sealed class CloseAttachment(Action detach) : IDisposable
