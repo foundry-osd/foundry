@@ -28,7 +28,7 @@ public sealed partial class ProgressTimelineEntry : ObservableObject
     /// <summary>Gets or sets the latest raw message reported by the host for this step.</summary>
     public string? RawMessage { get; set; }
 
-    /// <summary>Gets or sets the secondary detail text shown under the step name.</summary>
+    /// <summary>Gets or sets the step detail shown as the tooltip and automation help text.</summary>
     [ObservableProperty]
     private string detailText = string.Empty;
 
