@@ -31,6 +31,7 @@ internal static class UiHostLog
     internal const string DeployLogFileName = "FoundryDeploy.log";
 
     private const string ApplicationName = "Foundry.WinPE";
+    private const string ApplicationProperty = "Application";
     private const int RetainedLogFileCount = 5;
 
     private static ILogger? _fileLogger;
@@ -83,9 +84,14 @@ internal static class UiHostLog
         }
     }
 
-    /// <summary>Creates a logger for <paramref name="sourceContext"/> that writes to whatever <see cref="Log.Logger"/> is current.</summary>
+    /// <summary>
+    /// Creates a logger for <paramref name="sourceContext"/> that writes to whatever <see cref="Log.Logger"/> is current. Its
+    /// entries keep the <c>Foundry.WinPE</c> application name, also while a phase logger is current, because enrichers never
+    /// replace a property an event already carries.
+    /// </summary>
     internal static ILogger CreateLogger(Type sourceContext) => new LoggerConfiguration()
         .MinimumLevel.Verbose()
+        .Enrich.WithProperty(ApplicationProperty, ApplicationName)
         .WriteTo.Sink(new CurrentLoggerSink())
         .CreateLogger()
         .ForContext(sourceContext);

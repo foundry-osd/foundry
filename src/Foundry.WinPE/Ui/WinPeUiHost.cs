@@ -5,7 +5,6 @@
 using System.Reflection;
 using System.Windows;
 using Foundry.Connect;
-using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
 using Foundry.Deploy;
 using Foundry.Telemetry;
@@ -25,7 +24,8 @@ namespace Foundry.WinPE.Ui;
 /// The process-wide setup is done once here: diagnostic clock, readiness protocol (<c>managed_started</c> under
 /// <see cref="UiReadinessReporter.ApplicationId"/>), host log (<see cref="UiHostLog"/>), global exception handlers, remote
 /// diagnostics (<see cref="UiRemoteDiagnostics"/>), the single-instance mutex <see cref="SingleInstanceGuard.UiInstanceName"/>,
-/// the Fluent backdrop switch and the application resources (<see cref="ResourcesUri"/>).
+/// the Fluent backdrop switch and the application resources (<see cref="ResourcesUri"/>). A setup failure is a startup
+/// failure (21, <c>startup_failed</c>); see <see cref="UiProcessExit"/>.
 /// </para>
 /// <para>
 /// The application uses <see cref="ShutdownMode.OnExplicitShutdown"/>: closing a phase window never ends the process. The
@@ -34,19 +34,16 @@ namespace Foundry.WinPE.Ui;
 /// refused to close and whose services are already disposed: application shutdown closes the window without asking it.
 /// </para>
 /// <para>
-/// A dispatcher exception raised while a phase runs is the phase's (it ends the phase, Connect with 21 or 23, Deploy with 1).
-/// One raised outside a phase is logged and ends the process with <see cref="UnhandledExceptionExitCode"/>, which the guardian
-/// treats as a crash; nothing is recorded as destructive.
+/// Dispatcher exceptions: one raised while a phase runs is the phase's (it ends the phase, Connect with 21 or 23, Deploy with
+/// 1). The host handler acts on one raised while no phase runs: it logs it, cancels the session so no further phase starts,
+/// and ends the process with <see cref="UiProcessExit.UnhandledExceptionExitCode"/>, which the guardian treats as a crash.
+/// A phase removes its handler while it ends, before its task completes; an exception raised in that window is marked
+/// handled by nobody, leaves <see cref="Application.Run()"/> and is classified as a crash by <see cref="UiProcessExit"/>
+/// (the host fallback). Nothing is recorded as destructive on these paths.
 /// </para>
 /// </remarks>
 internal static class WinPeUiHost
 {
-    /// <summary>
-    /// Exit code of a UI process ended by an unhandled exception outside the phases. It is none of the codes the guardian reads
-    /// as an outcome (0, 20, 21, 22, 23), so the guardian treats it as a crash.
-    /// </summary>
-    internal const int UnhandledExceptionExitCode = 30;
-
     /// <summary>The application resources of the UI process.</summary>
     internal const string ResourcesUri = "pack://application:,,,/Foundry.WinPE;component/Ui/WinPeApplicationResources.xaml";
 
@@ -63,39 +60,41 @@ internal static class WinPeUiHost
         UiHostLog.Use(skipConnect ? UiHostLog.DeployLogFileName : UiHostLog.ConnectLogFileName);
         ILogger logger = UiHostLog.CreateLogger(typeof(WinPeUiHost));
         RegisterGlobalExceptionHandlers(readiness, logger);
-        UiRemoteDiagnostics diagnostics = UiRemoteDiagnostics.FromConfiguration();
-        if (skipConnect) diagnostics.Activate(TelemetryApps.FoundryDeploy, FoundryDeployApplicationInfo.Version);
-        else diagnostics.Activate(TelemetryApps.FoundryConnect, FoundryConnectApplicationInfo.Version);
-        logger.Information("Foundry UI process started. Version={Version}, SessionId={SessionId}, SkipConnect={SkipConnect}",
-            typeof(WinPeUiHost).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion,
-            DiagnosticSessionContext.CurrentSessionId, skipConnect);
+        UiRemoteDiagnostics? diagnostics = null;
         SingleInstanceGuard? instanceGuard = null;
+        // Infinite timeout: the clock and time zone probes apply their own linked deadlines.
+        using var httpClient = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
+        using var sessionCancellation = new CancellationTokenSource();
         try
         {
-            if (!SingleInstanceGuard.TryAcquire(SingleInstanceGuard.UiInstanceName, out instanceGuard))
+            int exitCode = UiProcessExit.Run(() =>
             {
-                logger.Error("Another Foundry UI process is already running.");
-                readiness.ReportStartupFailed((int)ChildRuntimeExitCode.StartupFailure);
-                return (int)ChildRuntimeExitCode.StartupFailure;
-            }
+                diagnostics = UiRemoteDiagnostics.FromConfiguration();
+                if (skipConnect) diagnostics.Activate(TelemetryApps.FoundryDeploy, FoundryDeployApplicationInfo.Version);
+                else diagnostics.Activate(TelemetryApps.FoundryConnect, FoundryConnectApplicationInfo.Version);
+                logger.Information("Foundry UI process started. Version={Version}, SessionId={SessionId}, SkipConnect={SkipConnect}",
+                    typeof(WinPeUiHost).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion,
+                    DiagnosticSessionContext.CurrentSessionId, skipConnect);
+                if (!SingleInstanceGuard.TryAcquire(SingleInstanceGuard.UiInstanceName, out instanceGuard))
+                {
+                    throw new InvalidOperationException("Another Foundry UI process is already running.");
+                }
 
-            ConfigureFluentBackdrop(logger);
-            int exitCode = RunApplication(skipConnect, readiness, diagnostics, logger);
+                ConfigureFluentBackdrop(logger);
+                return CreateApplication(skipConnect, readiness, diagnostics, httpClient, sessionCancellation, logger);
+            }, readiness, logger);
             logger.Information("Foundry UI process ended with code {ExitCode}.", exitCode);
             return exitCode;
-        }
-        catch (Exception exception)
-        {
-            // Setup failed before or while the application started: no window can have rendered.
-            logger.Fatal(exception, "Foundry UI process could not start.");
-            readiness.ReportStartupFailed((int)ChildRuntimeExitCode.StartupFailure);
-            return (int)ChildRuntimeExitCode.StartupFailure;
         }
         finally
         {
             // The dispatcher has stopped: the shutdown runs on the thread pool so its awaits never target this thread.
-            try { Task.Run(diagnostics.ShutdownAsync).Wait(HostedPhaseScope.ShutdownBudget * 2); }
-            catch { }
+            if (diagnostics is not null)
+            {
+                try { Task.Run(diagnostics.ShutdownAsync).Wait(HostedPhaseScope.ShutdownBudget * 2); }
+                catch { }
+            }
+
             UiHostLog.Close();
             // Released last, on the thread that acquired it, so a next instance cannot start while this one still flushes.
             try { instanceGuard?.Dispose(); }
@@ -103,11 +102,29 @@ internal static class WinPeUiHost
         }
     }
 
-    private static int RunApplication(bool skipConnect, UiReadinessReporter readiness, UiRemoteDiagnostics diagnostics,
-        ILogger logger)
+    /// <summary>
+    /// Sets the switch that removes the Fluent window backdrop, which Windows PE cannot compose, before the first window of the
+    /// process is created; <c>FOUNDRY_DISABLE_FLUENT_BACKDROP</c> overrides the Windows PE detection.
+    /// </summary>
+    internal static void ConfigureFluentBackdrop(ILogger? logger = null)
     {
-        // Infinite timeout: the clock and time zone probes apply their own linked deadlines.
-        using var httpClient = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
+        string? overrideValue = Environment.GetEnvironmentVariable(DisableFluentBackdropEnvironmentVariable);
+        bool disable = string.IsNullOrWhiteSpace(overrideValue)
+            ? WinPeRuntimeDetector.IsWinPeRuntime()
+            : overrideValue.Trim().ToLowerInvariant() is "1" or "true" or "yes" or "on";
+        if (!disable)
+        {
+            return;
+        }
+
+        AppContext.SetSwitch(DisableFluentBackdropSwitch, true);
+        logger?.Debug("Enabled '{SwitchName}'.", DisableFluentBackdropSwitch);
+    }
+
+    /// <summary>Creates the application and its session, and returns the call that runs it.</summary>
+    private static Func<int> CreateApplication(bool skipConnect, UiReadinessReporter readiness, UiRemoteDiagnostics diagnostics,
+        HttpClient httpClient, CancellationTokenSource sessionCancellation, ILogger logger)
+    {
         ILogger sessionLogger = UiHostLog.CreateLogger(typeof(WinPeUiSession));
         var session = new WinPeUiSession(
             new WpfConnectPhaseRunner(),
@@ -136,25 +153,32 @@ internal static class WinPeUiHost
 
             logger.Fatal(eventArgs.Exception, "Unhandled UI exception outside the Connect and Deploy phases. The UI process ends.");
             eventArgs.Handled = true;
-            application.Shutdown(UnhandledExceptionExitCode);
+            // Shutdown is posted: without the cancellation, a session continuation queued before it could start the next phase.
+            sessionCancellation.Cancel();
+            application.Shutdown(UiProcessExit.UnhandledExceptionExitCode);
         };
         application.Startup += async (_, _) =>
         {
             int exitCode;
             try
             {
-                exitCode = await session.RunAsync(CancellationToken.None);
+                exitCode = await session.RunAsync(sessionCancellation.Token);
+            }
+            catch (OperationCanceledException) when (sessionCancellation.IsCancellationRequested)
+            {
+                // The dispatcher handler already logged the crash and requested the shutdown with its code.
+                exitCode = UiProcessExit.UnhandledExceptionExitCode;
             }
             catch (Exception exception)
             {
                 logger.Fatal(exception, "The UI session failed. The UI process ends.");
-                exitCode = UnhandledExceptionExitCode;
+                exitCode = UiProcessExit.UnhandledExceptionExitCode;
             }
 
             // The first Shutdown wins: an earlier one from the dispatcher handler keeps its crash code.
             application.Shutdown(exitCode);
         };
-        return application.Run();
+        return application.Run;
     }
 
     private static void RegisterGlobalExceptionHandlers(UiReadinessReporter readiness, ILogger logger)
@@ -180,21 +204,5 @@ internal static class WinPeUiHost
             logger.Error(eventArgs.Exception, "Unobserved task exception.");
             eventArgs.SetObserved();
         };
-    }
-
-    private static void ConfigureFluentBackdrop(ILogger logger)
-    {
-        string? overrideValue = Environment.GetEnvironmentVariable(DisableFluentBackdropEnvironmentVariable);
-        // WinPE does not provide the desktop composition stack the Fluent window backdrop needs.
-        bool disable = string.IsNullOrWhiteSpace(overrideValue)
-            ? WinPeRuntimeDetector.IsWinPeRuntime()
-            : overrideValue.Trim().ToLowerInvariant() is "1" or "true" or "yes" or "on";
-        if (!disable)
-        {
-            return;
-        }
-
-        AppContext.SetSwitch(DisableFluentBackdropSwitch, true);
-        logger.Debug("Enabled '{SwitchName}'.", DisableFluentBackdropSwitch);
     }
 }

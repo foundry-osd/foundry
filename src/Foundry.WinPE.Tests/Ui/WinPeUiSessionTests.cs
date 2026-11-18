@@ -222,6 +222,43 @@ public sealed class WinPeUiSessionTests
     }
 
     [Fact]
+    public async Task ConnectFailureWithAWindow_ClosesItExactlyOnce()
+    {
+        var fixture = new Fixture { ConnectExitCode = 23, WindowOnFailure = true };
+
+        Assert.Equal(23, await fixture.RunAsync());
+
+        Assert.Equal(1, fixture.Window.CloseCount);
+        Assert.Equal(["connect"], fixture.Calls);
+    }
+
+    [Fact]
+    public async Task Cancellation_DuringConnect_StartsNoFurtherPhaseAndStillReleasesKeyAndWindow()
+    {
+        using var cancellation = new CancellationTokenSource();
+        var fixture = new Fixture { OnConnect = cancellation.Cancel };
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => fixture.RunWithTokenAsync(cancellation.Token));
+
+        Assert.Equal(["connect"], fixture.Calls);
+        Assert.Equal(1, fixture.Window.CloseCount);
+        Assert.False(fixture.Key.TryTake(new byte[DeploymentKeyTransfer.KeyLength]));
+    }
+
+    [Fact]
+    public async Task Cancellation_DuringSystemPreparation_NeverStartsDeploy()
+    {
+        using var cancellation = new CancellationTokenSource();
+        var fixture = new Fixture { OnSystemPreparation = cancellation.Cancel };
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => fixture.RunWithTokenAsync(cancellation.Token));
+
+        Assert.Equal(["connect", "system"], fixture.Calls);
+        Assert.Equal(1, fixture.Window.CloseCount);
+        Assert.False(fixture.Key.TryTake(new byte[DeploymentKeyTransfer.KeyLength]));
+    }
+
+    [Fact]
     public async Task IsPhaseRunning_IsTrueOnlyWhileAPhaseRuns()
     {
         var fixture = new Fixture();
@@ -255,6 +292,7 @@ public sealed class WinPeUiSessionTests
         internal int ConnectExitCode { get; init; }
         internal bool ConnectRenders { get; init; } = true;
         internal bool HasWindow { get; init; } = true;
+        internal bool WindowOnFailure { get; init; }
         internal bool SystemPreparationFails { get; init; }
         internal bool IsWinPe { get; init; } = true;
         internal bool SkipConnect { get; init; }
@@ -271,6 +309,8 @@ public sealed class WinPeUiSessionTests
 
         internal Task<int> RunAsync() => CreateSession().RunAsync(TestContext.Current.CancellationToken);
 
+        internal Task<int> RunWithTokenAsync(CancellationToken cancellationToken) => CreateSession().RunAsync(cancellationToken);
+
         Task<ConnectPhaseOutcome> IConnectPhaseRunner.RunAsync(Action onConfigurationLoaded, Action onFirstWindowRendered,
             CancellationToken cancellationToken)
         {
@@ -280,7 +320,7 @@ public sealed class WinPeUiSessionTests
             if (ConnectRenders) onFirstWindowRendered();
             bool succeeded = ConnectExitCode == 0;
             return Task.FromResult(new ConnectPhaseOutcome(ConnectExitCode, Key, "Dark", "fr-FR",
-                succeeded && HasWindow ? Window : null));
+                (succeeded || WindowOnFailure) && HasWindow ? Window : null));
         }
 
         Task ISystemPreparationStep.RunAsync(CancellationToken cancellationToken)

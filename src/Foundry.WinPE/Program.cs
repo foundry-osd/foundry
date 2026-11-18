@@ -31,6 +31,8 @@ public static class Program
 
         if (DebugModePicker.ShouldShow(DebugSafetyMode.IsEnabled, args))
         {
+            // WPF caches its AppContext switches when it first reads them, which the picker's window can already do.
+            WinPeUiHost.ConfigureFluentBackdrop();
             return DebugModePicker.Run(DebugModePicker.Show(), WinPeUiHost.Run, ShowObsoleteMediaScreen);
         }
 

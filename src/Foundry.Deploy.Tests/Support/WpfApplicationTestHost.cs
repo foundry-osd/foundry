@@ -5,28 +5,22 @@
 using System.Collections.Concurrent;
 using System.Windows;
 using System.Windows.Threading;
+using Xunit;
 
 namespace Foundry.Deploy.Tests;
 
 /// <summary>
-/// Runs test code on one process-wide STA thread that owns a WPF <see cref="Application"/> whose resources merge Fluent,
-/// the shared Foundry.Wpf styles and Deploy's application resources in the order the Foundry.WinPE host uses, so tests see
-/// the resources of the Deploy phase. Foundry.WinPE.Tests has its own host on the UI process's complete resources.
+/// Runs test code on one process-wide STA thread that owns a WPF <see cref="Application"/> whose resources each test project
+/// supplies in <c>WpfApplicationTestHost.Resources.cs</c> (<see cref="CreateResources"/>): Deploy's phase resources here, the
+/// UI process's complete resources in Foundry.WinPE.Tests, which compiles this file as a link.
 /// </summary>
 /// <remarks>
 /// WPF allows one <see cref="Application"/> per process, and view models capture <c>Application.Current.Dispatcher</c>, so the
 /// thread keeps pumping for the lifetime of the test process instead of being shut down after a test. Tests that use the host
 /// belong to <see cref="WpfApplicationHostCollection"/>.
 /// </remarks>
-internal static class WpfApplicationTestHost
+internal static partial class WpfApplicationTestHost
 {
-    private static readonly string[] ResourceSources =
-    [
-        "pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml",
-        "pack://application:,,,/Foundry.Wpf;component/Themes/FoundryWpfStyles.xaml",
-        "pack://application:,,,/Foundry.Deploy;component/Themes/DeployApplicationResources.xaml"
-    ];
-
     private static readonly Lazy<Dispatcher> HostDispatcher = new(Start, LazyThreadSafetyMode.ExecutionAndPublication);
 
     /// <summary>Gets the exceptions that reached the host dispatcher without being observed by a test.</summary>
@@ -55,11 +49,8 @@ internal static class WpfApplicationTestHost
                     UnhandledExceptions.Enqueue(e.Exception);
                     e.Handled = true;
                 };
-                Application application = new() { ShutdownMode = ShutdownMode.OnExplicitShutdown };
-                foreach (string source in ResourceSources)
-                {
-                    application.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(source, UriKind.Absolute) });
-                }
+                // Assigned as a whole, as the Foundry.WinPE host does: Fluent must be the first merged dictionary.
+                _ = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown, Resources = CreateResources() };
 
                 ready.SetResult(dispatcher);
             }
@@ -79,6 +70,9 @@ internal static class WpfApplicationTestHost
         thread.Start();
         return ready.Task.GetAwaiter().GetResult();
     }
+
+    /// <summary>Creates the application resources, with the Fluent dictionary as the first merged dictionary.</summary>
+    private static partial ResourceDictionary CreateResources();
 }
 
 /// <summary>Serializes the tests that share <see cref="WpfApplicationTestHost"/> and the process-wide binding trace source.</summary>

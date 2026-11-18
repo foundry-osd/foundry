@@ -11,7 +11,6 @@ using System.Windows.Threading;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Tests;
 using Foundry.Deploy.ViewModels;
-using Foundry.WinPE.Tests.Support;
 using Foundry.Wpf.Progress;
 using Xunit;
 

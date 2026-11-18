@@ -60,6 +60,11 @@ internal sealed class WinPeUiSession(
     public bool IsPhaseRunning => Volatile.Read(ref _phaseRunning) != 0;
 
     /// <summary>Runs the session and returns the UI process exit code.</summary>
+    /// <param name="cancellationToken">
+    /// Cancelled by the host when it ends the process: a running phase ends as its own cancellation defines, no further
+    /// phase starts, and the key and Connect's window are still released.
+    /// </param>
+    /// <exception cref="OperationCanceledException"><paramref name="cancellationToken"/> was cancelled before a phase started.</exception>
     public async Task<int> RunAsync(CancellationToken cancellationToken)
     {
         if (skipConnect)
@@ -86,6 +91,8 @@ internal sealed class WinPeUiSession(
                 return connect.ExitCode;
             }
 
+            // A cancelled session (the host is ending the process) starts no further phase; the finally still runs.
+            cancellationToken.ThrowIfCancellationRequested();
             EnterPhase(UiPhase.System);
             await PrepareSystemAsync(cancellationToken);
             return await RunDeployAsync(connect, cancellationToken);
@@ -101,6 +108,7 @@ internal sealed class WinPeUiSession(
 
     private async Task<int> RunDeployAsync(ConnectPhaseOutcome? connect, CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         EnterPhase(UiPhase.Deploy);
         var options = new DeployPhaseOptions
         {
