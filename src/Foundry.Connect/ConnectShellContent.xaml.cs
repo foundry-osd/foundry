@@ -16,7 +16,8 @@ namespace Foundry.Connect;
 
 /// <summary>
 /// The Foundry Connect page of the WinPE shell window: the menu row, the boot media banner, the version and the network
-/// page. It runs the page initialization once it is loaded and reports the phase's readiness once it rendered.
+/// page. It runs the page initialization once it is loaded and reports the phase's readiness once it rendered;
+/// <see cref="Detach"/> releases it from the shell when the phase ends.
 /// </summary>
 public partial class ConnectShellContent : UserControl
 {
@@ -24,8 +25,7 @@ public partial class ConnectShellContent : UserControl
     private readonly IApplicationLifetimeService _applicationLifetimeService;
     private readonly ILogger<ConnectShellContent> _logger;
     private readonly RuntimeStartupDiagnostics _startup;
-    private readonly TaskCompletionSource _rendered = new(TaskCreationOptions.RunContinuationsAsynchronously);
-    private bool _closed;
+    private readonly ShellContentAttachment _shellAttachment;
 
     /// <summary>Initializes the page and binds it to its view model.</summary>
     /// <param name="viewModel">The Connect page view model.</param>
@@ -47,9 +47,14 @@ public partial class ConnectShellContent : UserControl
         InitializeComponent();
         DataContext = viewModel;
         Loaded += OnLoadedAsync;
-        shell.FirstContentRendered += (_, _) => _rendered.TrySetResult();
-        shell.Window.Closed += (_, _) => { _closed = true; _rendered.TrySetCanceled(); };
+        _shellAttachment = new ShellContentAttachment(shell, this);
     }
+
+    /// <summary>
+    /// Releases the page from the shell: stops the initialization observer and removes its handlers from the shell, which may
+    /// keep showing the page (disabled) after the phase. Called when the phase ends; safe to call more than once.
+    /// </summary>
+    internal void Detach() => _shellAttachment.Dispose();
 
     private async void OnLoadedAsync(object sender, RoutedEventArgs e)
     {
@@ -59,10 +64,10 @@ public partial class ConnectShellContent : UserControl
         try
         {
             await _startup.ObserveInitializationAsync(_viewModel.InitializeAsync, WaitForRenderedAsync,
-                () => !_closed && _applicationLifetimeService.RequestedExitCode is null);
+                () => !_shellAttachment.IsEnded && _applicationLifetimeService.RequestedExitCode is null);
             _logger.LogInformation("Connect content asynchronous initialization finished.");
         }
-        catch (OperationCanceledException) when (_closed || _applicationLifetimeService.RequestedExitCode is not null)
+        catch (OperationCanceledException) when (_shellAttachment.IsEnded || _applicationLifetimeService.RequestedExitCode is not null)
         {
         }
         catch (Exception ex)
@@ -74,7 +79,7 @@ public partial class ConnectShellContent : UserControl
 
     private async Task WaitForRenderedAsync()
     {
-        await _rendered.Task;
+        await _shellAttachment.Rendered;
         await Dispatcher.InvokeAsync(() => { }, DispatcherPriority.ContextIdle);
     }
 }

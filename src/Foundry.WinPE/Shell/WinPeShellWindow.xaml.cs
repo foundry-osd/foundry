@@ -32,7 +32,6 @@ public partial class WinPeShellWindow : Window, IShellHost
 
     private readonly Func<bool> _isSystemShuttingDown;
     private bool _hasContent;
-    private bool _firstContentRenderedRaised;
 
     /// <summary>Initializes the window, hidden until its first content.</summary>
     public WinPeShellWindow()
@@ -55,7 +54,7 @@ public partial class WinPeShellWindow : Window, IShellHost
     public event EventHandler<CancelEventArgs>? CloseRequested;
 
     /// <inheritdoc />
-    public event EventHandler? FirstContentRendered;
+    public event EventHandler<ShellContentRenderedEventArgs>? ShellContentRendered;
 
     /// <summary>
     /// Gets or sets whether the window may close without asking <see cref="CloseRequested"/>. The host sets it when the
@@ -117,11 +116,7 @@ public partial class WinPeShellWindow : Window, IShellHost
             content.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
         }
 
-        if (!_firstContentRenderedRaised)
-        {
-            _firstContentRenderedRaised = true;
-            FirstContentRendered?.Invoke(this, EventArgs.Empty);
-        }
+        ShellContentRendered?.Invoke(this, new ShellContentRenderedEventArgs(content));
     }
 
     private bool ContainsFocus(FrameworkElement content)

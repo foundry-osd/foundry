@@ -72,6 +72,7 @@ public static class ConnectPhase
         ApplicationLifetimeService? lifetime = null;
         DispatcherUnhandledExceptionEventHandler? dispatcherHandler = null;
         IDisposable? closeAttachment = null;
+        ConnectShellContent? content = null;
         DeploymentKeyTransfer? takenKey = null;
         string category = "managed_startup";
         // Managed startup (logging, runtime checks) precedes the policy stages.
@@ -110,7 +111,7 @@ public static class ConnectPhase
             using CancellationTokenRegistration cancellation = cancellationToken.Register(
                 () => exitAuthority.TryExit(ChildRuntimeExitCode.UserAborted));
 
-            var content = host.Services.GetRequiredService<ConnectShellContent>();
+            content = host.Services.GetRequiredService<ConnectShellContent>();
             closeAttachment = AttachCloseHandler(options.Shell, host.Services.GetRequiredService<MainWindowViewModel>().HandleWindowClosing);
             PresentContent(application, options.Shell, content);
 
@@ -142,6 +143,8 @@ public static class ConnectPhase
         {
             // The close decision belongs to the next phase from here on; without a handler the shell refuses a close.
             closeAttachment?.Dispose();
+            // The shell may keep showing the content, but no longer holds it (or its view model) through its events.
+            content?.Detach();
             if (dispatcherHandler is not null)
             {
                 application.DispatcherUnhandledException -= dispatcherHandler;

@@ -180,7 +180,8 @@ internal sealed class WinPeUiSession(
 
     private void OnConnectFirstContentRendered() => RunHook("connect_first_content", ReportUiReady);
 
-    // Decides readiness only when Connect was skipped: after Connect, its first content already reported it once.
+    // Called once Deploy's own content rendered; it decides readiness only when Connect was skipped: after Connect, Connect's
+    // first content already reported it and this call changes nothing.
     private void OnDeployFirstContentRendered() => RunHook("deploy_first_content", ReportUiReady);
 
     // Called on the deployment thread right before the step that can wipe the target disk; the record is on disk when it returns.

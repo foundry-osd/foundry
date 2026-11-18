@@ -79,7 +79,8 @@ public static class DeployPhase
 
     private static async Task<int> RunCoreAsync(Application application, DeployPhaseOptions options, CancellationToken cancellationToken)
     {
-        // The first render of the content or of a startup dialog, whichever comes first, tells the host Deploy is visible.
+        // The first render of Deploy's own content in the shell (also after Connect's content) or of a startup dialog, whichever
+        // comes first, tells the host Deploy is visible.
         Action onFirstContentRendered = RunOnce(options.OnFirstContentRendered);
 
         RuntimeStartupDiagnostics startup = RuntimeStartupDiagnostics.CreateForHostedPhase(Identity, onFirstContentRendered);

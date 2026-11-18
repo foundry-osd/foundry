@@ -130,15 +130,16 @@ public sealed partial class WinPeShellWindowTests
         var window = new WinPeShellWindow();
         try
         {
-            int raised = 0;
-            window.FirstContentRendered += (_, _) => raised++;
+            var rendered = new List<FrameworkElement>();
+            window.ShellContentRendered += (_, e) => rendered.Add(e.Content);
             Assert.False(window.IsVisible);
+            Button content = new();
 
-            window.ShowContent(new Button());
+            window.ShowContent(content);
             await Settle();
 
             Assert.True(window.IsVisible);
-            Assert.Equal(1, raised);
+            Assert.Equal([content], rendered);
         }
         finally
         {
@@ -161,20 +162,29 @@ public sealed partial class WinPeShellWindowTests
     });
 
     [Fact]
-    public Task FirstContentRendered_IsRaisedOnce() => WpfApplicationTestHost.RunAsync(async () =>
+    public Task ShellContentRendered_IsRaisedOncePerContentShown() => WpfApplicationTestHost.RunAsync(async () =>
     {
         var window = new WinPeShellWindow();
         try
         {
-            int raised = 0;
-            window.FirstContentRendered += (_, _) => raised++;
+            var rendered = new List<FrameworkElement>();
+            window.ShellContentRendered += (_, e) => rendered.Add(e.Content);
             window.Show();
-            window.ShowContent(new Button());
+            Button first = new();
+            Button second = new();
+
+            window.ShowContent(first);
             await Settle();
-            window.ShowContent(new Button());
+            // A later render of the same content raises nothing.
+            first.InvalidateVisual();
+            window.UpdateLayout();
+            await Settle();
+            Assert.Equal([first], rendered);
+
+            window.ShowContent(second);
             await Settle();
 
-            Assert.Equal(1, raised);
+            Assert.Equal([first, second], rendered);
         }
         finally
         {

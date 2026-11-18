@@ -109,18 +109,21 @@ public sealed class WinPeUiSessionTests
     }
 
     [Fact]
-    public async Task Readiness_IsReportedOnceAtConnectsFirstRenderEvenWhenThePromptAndDeployRenderToo()
+    public async Task Readiness_IsReportedOnceAtConnectsFirstContentAndNotAgainWhenDeploysContentRenders()
     {
-        // Connect's password prompt and its page both report a first render; so does Deploy's content.
-        var fixture = new Fixture { ConnectRenderCount = 2 };
+        // Each phase calls its hook once (Connect: its prompt or its page; Deploy: its own content in the same shell).
+        var fixture = new Fixture();
+        int deployHookCalls = 0;
         fixture.Deploy = options =>
         {
             options.OnFirstContentRendered();
+            deployHookCalls++;
             return Task.FromResult(DeployPhase.SuccessExitCode);
         };
 
         await fixture.RunAsync();
 
+        Assert.Equal(1, deployHookCalls);
         Assert.Equal(["configuration_loaded", "ui_ready"], fixture.Readiness);
     }
 
@@ -286,7 +289,7 @@ public sealed class WinPeUiSessionTests
 
         public event EventHandler<System.ComponentModel.CancelEventArgs>? CloseRequested;
 
-        public event EventHandler? FirstContentRendered
+        public event EventHandler<ShellContentRenderedEventArgs>? ShellContentRendered
         {
             add { }
             remove { }
@@ -321,7 +324,6 @@ public sealed class WinPeUiSessionTests
         internal DeploymentKeyTransfer Key { get; } = DeploymentKeyTransfer.FromKey(new byte[DeploymentKeyTransfer.KeyLength]);
         internal int ConnectExitCode { get; init; }
         internal bool ConnectRenders { get; init; } = true;
-        internal int ConnectRenderCount { get; init; } = 1;
         internal bool SystemPreparationFails { get; init; }
         internal bool IsWinPe { get; init; } = true;
         internal bool SkipConnect { get; init; }
@@ -347,10 +349,7 @@ public sealed class WinPeUiSessionTests
             ConnectOptions = options;
             OnConnect?.Invoke();
             options.OnConfigurationLoaded?.Invoke();
-            for (int render = 0; ConnectRenders && render < ConnectRenderCount; render++)
-            {
-                options.OnFirstContentRendered();
-            }
+            if (ConnectRenders) options.OnFirstContentRendered();
 
             return Task.FromResult(new ConnectPhaseResult(ConnectExitCode, Key, "Dark", "fr-FR"));
         }

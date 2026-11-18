@@ -26,6 +26,11 @@ public interface IShellHost
     /// </summary>
     event EventHandler<CancelEventArgs> CloseRequested;
 
-    /// <summary>Raised once, the first time a content has rendered.</summary>
-    event EventHandler FirstContentRendered;
+    /// <summary>
+    /// Raised on the UI thread once for each <see cref="ShowContent"/> call, after that content first rendered, with the content
+    /// in <see cref="ShellContentRenderedEventArgs.Content"/>; never again for the same call. It is not raised for a content a
+    /// later <see cref="ShowContent"/> replaced before it rendered. A page reacts only to its own content (see
+    /// <see cref="ShellContentAttachment"/>).
+    /// </summary>
+    event EventHandler<ShellContentRenderedEventArgs> ShellContentRendered;
 }

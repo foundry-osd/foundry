@@ -32,8 +32,8 @@ public sealed class DeployPhaseOptions
     public string? CultureName { get; init; }
 
     /// <summary>
-    /// Gets the hook called once, on the UI thread, when Deploy's first content renders: its page in the shell, or a startup dialog
-    /// (deployment password, network cache) if one renders first.
+    /// Gets the hook called once, on the UI thread, when Deploy's first content renders: its own page in the shell, also when it
+    /// replaces Connect's content there, or a startup dialog (deployment password, network cache) if one renders first.
     /// </summary>
     public required Action OnFirstContentRendered { get; init; }
 

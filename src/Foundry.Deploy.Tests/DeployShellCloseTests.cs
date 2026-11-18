@@ -107,7 +107,7 @@ public sealed class DeployShellCloseTests
 
         public event EventHandler<CancelEventArgs>? CloseRequested;
 
-        public event EventHandler? FirstContentRendered
+        public event EventHandler<ShellContentRenderedEventArgs>? ShellContentRendered
         {
             add { }
             remove { }

@@ -25,7 +25,7 @@ public partial class DeployShellContent : UserControl
     private readonly RuntimeStartupDiagnostics _startup;
     private readonly DeployPhaseLifetime _lifetime;
     private readonly IShellHost _shell;
-    private readonly TaskCompletionSource _rendered = new(TaskCreationOptions.RunContinuationsAsynchronously);
+    private readonly ShellContentAttachment _shellAttachment;
     private bool _closed;
     private DeploymentPage _previousPage = DeploymentPage.Splash;
 
@@ -43,8 +43,7 @@ public partial class DeployShellContent : UserControl
         DataContext = viewModel;
         _viewModel.Session.PropertyChanged += OnSessionPropertyChanged;
         Loaded += OnLoaded;
-        shell.FirstContentRendered += OnFirstContentRendered;
-        shell.Window.Closed += OnShellClosed;
+        _shellAttachment = new ShellContentAttachment(shell, this, Detach);
     }
 
     /// <summary>
@@ -54,16 +53,10 @@ public partial class DeployShellContent : UserControl
     internal void Detach()
     {
         _closed = true;
-        _rendered.TrySetCanceled();
-        _shell.FirstContentRendered -= OnFirstContentRendered;
-        _shell.Window.Closed -= OnShellClosed;
+        _shellAttachment.Dispose();
         _viewModel.Session.PropertyChanged -= OnSessionPropertyChanged;
         _viewModel.Dispose();
     }
-
-    private void OnFirstContentRendered(object? sender, EventArgs e) => _rendered.TrySetResult();
-
-    private void OnShellClosed(object? sender, EventArgs e) => Detach();
 
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
@@ -84,7 +77,7 @@ public partial class DeployShellContent : UserControl
 
     private async Task WaitForRenderedAsync()
     {
-        await _rendered.Task;
+        await _shellAttachment.Rendered;
         await Dispatcher.InvokeAsync(() => { }, DispatcherPriority.ContextIdle);
     }
 
