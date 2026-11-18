@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Threading;
@@ -11,11 +12,13 @@ using Foundry.Connect.Lifetime;
 using Foundry.Connect.Security;
 using Foundry.Connect.Services.Logging;
 using Foundry.Connect.Startup;
+using Foundry.Connect.ViewModels;
 using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
 using Foundry.Telemetry;
 using Foundry.Utilities.Diagnostics;
 using Foundry.Wpf.Localization;
+using Foundry.Wpf.Shell;
 using Foundry.Wpf.Theme;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -35,7 +38,7 @@ namespace Foundry.Connect;
 /// remote diagnostics, single-instance mutex, the startup protocol, and the application resources, with
 /// <c>/Foundry.Connect;component/Themes/ConnectStyles.xaml</c> merged after Fluent and the Foundry.Wpf styles.
 /// While the phase runs, it owns <see cref="Log.Logger"/> (through <see cref="HostedPhaseScope"/>),
-/// <see cref="Application.MainWindow"/> and a handler of <see cref="Application.DispatcherUnhandledException"/>, which marks
+/// <see cref="Application.MainWindow"/> (set to the shell window), the shell's close requests and a handler of <see cref="Application.DispatcherUnhandledException"/>, which marks
 /// the exception handled and ends the phase.
 /// </remarks>
 public static class ConnectPhase
@@ -43,12 +46,12 @@ public static class ConnectPhase
     private static readonly RuntimeApplicationIdentity Identity = new("Foundry.Connect", TelemetryApps.FoundryConnect, FoundryConnectApplicationInfo.Version);
 
     /// <summary>
-    /// Loads the configuration, shows Connect's main window and completes when Connect's lifetime ends: Continue or
-    /// auto-continue (success), closing the window (user abort), or a failure. Must be called on the application's UI thread.
+    /// Loads the configuration, shows Connect's content in the shell and completes when Connect's lifetime ends: Continue or
+    /// auto-continue (success), a close request of the shell window (user abort), or a failure. Must be called on the application's UI thread.
     /// </summary>
     /// <param name="options">The host hooks.</param>
     /// <param name="cancellationToken">Ends a running phase as a user abort, like closing its window.</param>
-    /// <returns>The phase result; its deployment key and window are handed to the caller.</returns>
+    /// <returns>The phase result; its deployment key is handed to the caller; its content stays shown (disabled) in the shell after a success.</returns>
     /// <exception cref="InvalidOperationException">No WPF application runs on the calling thread.</exception>
     /// <exception cref="OperationCanceledException"><paramref name="cancellationToken"/> was cancelled before the phase started.</exception>
     public static async Task<ConnectPhaseResult> RunAsync(ConnectPhaseOptions options, CancellationToken cancellationToken)
@@ -60,7 +63,7 @@ public static class ConnectPhase
         cancellationToken.ThrowIfCancellationRequested();
 
         RuntimeStartupDiagnostics startup = RuntimeStartupDiagnostics.CreateForHostedPhase(
-            Identity, options.OnFirstWindowRendered, options.OnConfigurationLoaded);
+            Identity, options.OnFirstContentRendered, options.OnConfigurationLoaded);
         HostedPhaseScope scope = HostedPhaseScope.Begin(Identity, "Foundry Connect", typeof(ConnectPhase),
             FoundryConnectLogging.ResolveStartupLogFilePath, FoundryConnectLogging.CreateLogger);
         Serilog.ILogger logger = scope.Logger;
@@ -68,8 +71,7 @@ public static class ConnectPhase
         ITelemetryService? telemetry = null;
         ApplicationLifetimeService? lifetime = null;
         DispatcherUnhandledExceptionEventHandler? dispatcherHandler = null;
-        MainWindow? window = null;
-        bool isWindowClosed = false;
+        IDisposable? closeAttachment = null;
         DeploymentKeyTransfer? takenKey = null;
         string category = "managed_startup";
         // Managed startup (logging, runtime checks) precedes the policy stages.
@@ -85,7 +87,7 @@ public static class ConnectPhase
             category = "configuration";
             var configurationService = new ConnectConfigurationService(
                 new SerilogLoggerFactory(Log.Logger).CreateLogger<ConnectConfigurationService>());
-            host = LoadServices(startup, configurationService, current => stage = current);
+            host = LoadServices(startup, configurationService, options.Shell, current => stage = current);
             if (host is null)
             {
                 return CreateEndedResult((int)ConnectStartupFailurePolicy.Map(ConnectStartupStage.Configuration), services: null);
@@ -108,43 +110,40 @@ public static class ConnectPhase
             using CancellationTokenRegistration cancellation = cancellationToken.Register(
                 () => exitAuthority.TryExit(ChildRuntimeExitCode.UserAborted));
 
-            window = host.Services.GetRequiredService<MainWindow>();
-            window.Closed += (_, _) => isWindowClosed = true;
-            // Owner fallbacks (About, prompts, message dialogs) read Application.MainWindow: point it at this phase's window.
-            application.MainWindow = window;
-            window.Show();
+            var content = host.Services.GetRequiredService<ConnectShellContent>();
+            closeAttachment = AttachCloseHandler(options.Shell, host.Services.GetRequiredService<MainWindowViewModel>().HandleWindowClosing);
+            // Owner fallbacks (About, prompts, message dialogs) read Application.MainWindow: point it at the shell window.
+            application.MainWindow = options.Shell.Window;
+            options.Shell.ShowContent(content);
 
             var exitCode = (int)await exitAuthority.Completion;
             logger.Information("Foundry Connect phase ended with code {ExitCode}.", exitCode);
             if (exitCode != (int)ChildRuntimeExitCode.Success)
             {
-                CloseWindow(window, isWindowClosed);
                 return CreateEndedResult(exitCode, host.Services);
             }
 
             string theme = host.Services.GetRequiredService<IThemeService>().CurrentTheme.ToString();
             string culture = host.Services.GetRequiredService<ILocalizationService>().CurrentCulture.Name;
-            if (!isWindowClosed)
-            {
-                // Left open and disabled so the next window replaces it without a blank screen.
-                window.IsEnabled = false;
-            }
+            // Left shown and disabled so the next page replaces it without a blank screen.
+            content.IsEnabled = false;
 
             // Taken last: nothing below can fail, so the caller always receives the key it must dispose.
             takenKey = host.Services.GetRequiredService<IConnectUnlockService>().TakeDeploymentKey();
-            return new ConnectPhaseResult((int)ChildRuntimeExitCode.Success, takenKey, theme, culture, isWindowClosed ? null : window);
+            return new ConnectPhaseResult((int)ChildRuntimeExitCode.Success, takenKey, theme, culture);
         }
         catch (Exception exception)
         {
             startup.ReportFailure(exception, category);
             takenKey?.Dispose();
-            CloseWindow(window, isWindowClosed);
             int exitCode = ConnectStartupFailurePolicy.ResolveFailureExitCode(
                 lifetime?.RequestedExitCode, GetFailureExitCode(stage, startup));
             return CreateEndedResult(exitCode, host?.Services);
         }
         finally
         {
+            // The close decision belongs to the next phase from here on; without a handler the shell refuses a close.
+            closeAttachment?.Dispose();
             if (dispatcherHandler is not null)
             {
                 application.DispatcherUnhandledException -= dispatcherHandler;
@@ -160,11 +159,13 @@ public static class ConnectPhase
     /// </summary>
     /// <param name="startup">The phase diagnostics; a configuration failure is reported to it.</param>
     /// <param name="configurationService">Loads the Foundry.WinPE runtime configuration.</param>
+    /// <param name="shell">The shell that shows Connect's content, registered for the content to resolve.</param>
     /// <param name="enterStage">Receives the startup stage before configuration loading and before the container build.</param>
     /// <returns>The phase's container, or <see langword="null"/> when the configuration cannot be loaded.</returns>
     internal static IHost? LoadServices(
         RuntimeStartupDiagnostics startup,
         IConnectConfigurationService configurationService,
+        IShellHost shell,
         Action<ConnectStartupStage> enterStage)
     {
         enterStage(ConnectStartupStage.Configuration);
@@ -177,7 +178,7 @@ public static class ConnectPhase
 
         // Building the host is not a configuration failure for the exit code.
         enterStage(ConnectStartupStage.Services);
-        IHost host = BuildHost(startup, configurationService, loadResult.Configuration, loadResult.Secrets);
+        IHost host = BuildHost(startup, configurationService, shell, loadResult.Configuration, loadResult.Secrets);
         try
         {
             startup.ReportConfigurationLoaded();
@@ -193,7 +194,7 @@ public static class ConnectPhase
     }
 
     /// <summary>
-    /// Builds the result of a phase that did not succeed: no window, and no key (an unlocked key is taken and zeroed here).
+    /// Builds the result of a phase that did not succeed: no content change, and no key (an unlocked key is taken and zeroed here).
     /// Reading the end state never fails the result.
     /// </summary>
     private static ConnectPhaseResult CreateEndedResult(int exitCode, IServiceProvider? services)
@@ -214,30 +215,36 @@ public static class ConnectPhase
             }
         }
 
-        return new ConnectPhaseResult(exitCode, DeploymentKey: null, theme, culture, MainWindow: null);
+        return new ConnectPhaseResult(exitCode, DeploymentKey: null, theme, culture);
     }
 
-    /// <summary>Closes the phase's window unless it is already closed; a window that refuses to close stays for the host.</summary>
-    private static void CloseWindow(Window? window, bool isWindowClosed)
+    /// <summary>
+    /// Routes the shell's close requests to <paramref name="handleClosing"/> (the operator abort) and keeps the window open:
+    /// the host closes it when the process ends. Disposing detaches the handler, leaving the decision to the next phase.
+    /// </summary>
+    /// <param name="shell">The shell whose close requests Connect handles.</param>
+    /// <param name="handleClosing">Ends the phase as a user abort unless another exit already won.</param>
+    /// <returns>The attachment; dispose it when the phase ends.</returns>
+    internal static IDisposable AttachCloseHandler(IShellHost shell, Action handleClosing)
     {
-        if (window is null || isWindowClosed)
+        void OnCloseRequested(object? sender, CancelEventArgs e)
         {
-            return;
+            handleClosing();
+            e.Cancel = true;
         }
 
-        try
-        {
-            window.Close();
-        }
-        catch (InvalidOperationException)
-        {
-            // Already closing: the host's shutdown closes it.
-        }
+        shell.CloseRequested += OnCloseRequested;
+        return new CloseAttachment(() => shell.CloseRequested -= OnCloseRequested);
+    }
+
+    private sealed class CloseAttachment(Action detach) : IDisposable
+    {
+        public void Dispose() => detach();
     }
 
     /// <summary>
     /// Maps a failure to its exit code; failures before a policy stage keep the generic startup failure code, and once
-    /// the phase's first window rendered every failure is a runtime failure.
+    /// the phase's first content rendered every failure is a runtime failure.
     /// </summary>
     private static ChildRuntimeExitCode GetFailureExitCode(ConnectStartupStage? stage, RuntimeStartupDiagnostics startup)
     {
@@ -252,6 +259,7 @@ public static class ConnectPhase
     private static IHost BuildHost(
         RuntimeStartupDiagnostics startup,
         IConnectConfigurationService configurationService,
+        IShellHost shell,
         FoundryConnectConfigurationDocument configuration,
         ConnectRuntimeSecrets secrets)
     {
@@ -261,6 +269,7 @@ public static class ConnectPhase
         builder.Logging.SetMinimumLevel(LogLevel.Trace);
         builder.Logging.AddSerilog(dispose: false);
         builder.Services.AddSingleton(startup);
+        builder.Services.AddSingleton(shell);
         builder.Services.AddSingleton(configurationService);
         builder.Services.AddSingleton(configuration);
         builder.Services.AddSingleton(secrets);

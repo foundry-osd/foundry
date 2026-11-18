@@ -216,7 +216,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     /// feedback, then starts the network monitor. Later calls do nothing.
     /// </summary>
     /// <remarks>
-    /// Call it once the main window is loaded and visible: the wired prompt is owned by it and may run a nested
+    /// Call it once the Connect content is loaded and visible: the wired prompt is owned by it and may run a nested
     /// modal loop inside this call. A cancelled prompt still provisions, with wired 802.1X unavailable for the session. The
     /// monitor is started with the page lifetime token, not <paramref name="cancellationToken"/>, and is not awaited: it
     /// runs its loop off the caller thread until <see cref="Dispose"/>. It never starts once the page is disposed.
@@ -334,7 +334,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
             }
         });
 
-    // Raised at most once per session on the monitor's thread; the prompt is owned by the loaded main window.
+    // Raised at most once per session on the monitor's thread; the prompt is owned by the loaded shell window.
     private void OnUnlockRequested(object? sender, EventArgs e) => _dispatcher.Run(() => _ = OnUnlockRequestedAsync());
 
     // Never faults: the task is discarded by the event handler. A request raised while a debug scenario is simulated is dropped,

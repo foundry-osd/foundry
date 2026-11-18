@@ -12,11 +12,11 @@ namespace Foundry.Connect.Security;
 
 /// <summary>
 /// Shows the shared <see cref="PasswordPromptDialog"/> with the Connect unlock texts on the UI thread, owned by the
-/// active window, else by the main window once it is loaded and visible, else by no window.
+/// active window, else by the shell window (the application's main window) once it is loaded and visible, else by no window.
 /// </summary>
 /// <remarks>
 /// The wired startup prompt runs before the page initialization completes, so the first rendered prompt reports the phase's
-/// first window rendered to the Foundry.WinPE UI host: otherwise the guardian's readiness window would expire while the
+/// first content rendered to the Foundry.WinPE UI host: otherwise the guardian's readiness window would expire while the
 /// technician types the password.
 /// </remarks>
 public sealed class DeploymentPasswordPrompt(ILocalizationService localization, RuntimeStartupDiagnostics startup)
@@ -57,7 +57,7 @@ public sealed class DeploymentPasswordPrompt(ILocalizationService localization, 
 
     /// <summary>
     /// Picks the dialog owner. <see cref="Window.Owner"/> throws for a window whose handle is not created yet or that was
-    /// closed, so the main window is used only once it is loaded and visible; without an owner the dialog is still modal
+    /// closed, so the shell window is used only once it is loaded and visible; without an owner the dialog is still modal
     /// for the UI thread.
     /// </summary>
     private static Window? ResolveOwnerWindow()

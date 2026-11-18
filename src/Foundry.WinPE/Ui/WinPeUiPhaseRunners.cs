@@ -4,30 +4,67 @@
 
 using System.Windows;
 using Foundry.Connect;
+using Foundry.Core.Models.Runtime;
 using Foundry.Deploy;
+using Foundry.WinPE.Shell;
 using Foundry.WinPE.SystemPreparation;
 
 namespace Foundry.WinPE.Ui;
 
-/// <summary>Runs <see cref="ConnectPhase"/> in the host's WPF application.</summary>
+/// <summary>
+/// Runs <see cref="ConnectPhase"/> in the host's WPF application, in a shell window it creates and shows; the window is handed
+/// over on success and closed otherwise. It is a stepping stone toward one window shared by both phases.
+/// </summary>
 internal sealed class WpfConnectPhaseRunner : IConnectPhaseRunner
 {
     /// <inheritdoc />
-    public async Task<ConnectPhaseOutcome> RunAsync(Action onConfigurationLoaded, Action onFirstWindowRendered,
+    public async Task<ConnectPhaseOutcome> RunAsync(Action onConfigurationLoaded, Action onFirstContentRendered,
         CancellationToken cancellationToken)
     {
-        ConnectPhaseResult result = await ConnectPhase.RunAsync(new ConnectPhaseOptions
+        var shell = new WinPeShellWindow();
+        shell.Show();
+        ConnectPhaseResult result;
+        try
         {
-            OnConfigurationLoaded = onConfigurationLoaded,
-            OnFirstWindowRendered = onFirstWindowRendered
-        }, cancellationToken);
+            result = await ConnectPhase.RunAsync(new ConnectPhaseOptions
+            {
+                Shell = shell,
+                OnConfigurationLoaded = onConfigurationLoaded,
+                OnFirstContentRendered = onFirstContentRendered
+            }, cancellationToken);
+        }
+        catch
+        {
+            Close(shell);
+            throw;
+        }
+
+        if (result.ExitCode != (int)ChildRuntimeExitCode.Success)
+        {
+            Close(shell);
+            return new ConnectPhaseOutcome(result.ExitCode, result.DeploymentKey, result.ThemeMode, result.CultureName, Window: null);
+        }
+
         return new ConnectPhaseOutcome(result.ExitCode, result.DeploymentKey, result.ThemeMode, result.CultureName,
-            result.MainWindow is null ? null : new HandOverWindow(result.MainWindow));
+            new HandOverWindow(shell));
     }
 
-    private sealed class HandOverWindow(Window window) : IHandOverWindow
+    private static void Close(WinPeShellWindow shell)
     {
-        public void Close() => window.Close();
+        shell.AllowClose = true;
+        try
+        {
+            shell.Close();
+        }
+        catch (InvalidOperationException)
+        {
+            // Already closing: the host's shutdown closes it.
+        }
+    }
+
+    private sealed class HandOverWindow(WinPeShellWindow shell) : IHandOverWindow
+    {
+        public void Close() => WpfConnectPhaseRunner.Close(shell);
     }
 }
 

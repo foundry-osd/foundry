@@ -28,7 +28,7 @@ public static class ConnectStartupFailurePolicy
     /// Maps a failure to its exit code: once the UI reported readiness to Foundry.WinPE, every failure is a runtime failure.
     /// </summary>
     /// <param name="stage">The stage that was running when the failure happened.</param>
-    /// <param name="isUiReady">Whether the UI already reported readiness; the deployment password prompt can report it before the main window.</param>
+    /// <param name="isUiReady">Whether the UI already reported readiness; the deployment password prompt can report it before the page.</param>
     /// <returns>The exit code that tells Foundry.WinPE which kind of failure stopped Foundry.Connect.</returns>
     public static ChildRuntimeExitCode MapFailure(ConnectStartupStage stage, bool isUiReady)
         => Map(isUiReady ? ConnectStartupStage.Running : stage);

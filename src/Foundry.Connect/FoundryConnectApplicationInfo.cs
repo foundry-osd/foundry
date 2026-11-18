@@ -11,5 +11,5 @@ public static class FoundryConnectApplicationInfo
     public const int DefaultAutoContinueDelaySeconds = 10;
     public const int DefaultRefreshIntervalSeconds = 10;
 
-    public static string Version { get; } = WpfApplicationIdentity.FromAssembly(typeof(MainWindow).Assembly).Version;
+    public static string Version { get; } = WpfApplicationIdentity.FromAssembly(typeof(ConnectShellContent).Assembly).Version;
 }

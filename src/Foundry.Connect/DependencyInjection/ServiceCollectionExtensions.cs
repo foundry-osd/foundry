@@ -53,7 +53,7 @@ public static class ServiceCollectionExtensions
     /// <returns>The same service collection.</returns>
     public static IServiceCollection AddFoundryConnectApplicationServices(this IServiceCollection services)
     {
-        services.AddSingleton<MainWindow>();
+        services.AddSingleton<ConnectShellContent>();
         services.AddSingleton<MainWindowViewModel>();
         AddPageViewModels(services);
 
@@ -62,7 +62,7 @@ public static class ServiceCollectionExtensions
             sp.GetRequiredService<ILocalizationService>(),
             sp.GetRequiredService<WpfApplicationIdentity>(),
             () => sp.GetRequiredService<IApplicationLifetimeService>().TryExit(ChildRuntimeExitCode.UserAborted)));
-        services.AddSingleton(WpfApplicationIdentity.FromAssembly(typeof(MainWindow).Assembly));
+        services.AddSingleton(WpfApplicationIdentity.FromAssembly(typeof(ConnectShellContent).Assembly));
         services.AddSingleton(sp => new ApplicationLifetimeService(sp.GetRequiredService<ILogger<ApplicationLifetimeService>>()));
         services.AddSingleton<IApplicationLifetimeService>(sp => sp.GetRequiredService<ApplicationLifetimeService>());
         services.AddSingleton(CreateTelemetryOptions);
@@ -91,7 +91,7 @@ public static class ServiceCollectionExtensions
                 sp.GetRequiredService<TelemetryContext>(),
                 logger);
         });
-        services.AddSingleton<ILocalizationService>(_ => new ResourceLocalizationService(new ResourceManager("Foundry.Connect.Strings.Resources", typeof(MainWindow).Assembly)));
+        services.AddSingleton<ILocalizationService>(_ => new ResourceLocalizationService(new ResourceManager("Foundry.Connect.Strings.Resources", typeof(ConnectShellContent).Assembly)));
         services.AddSingleton<INetworkAdapterSnapshotProvider, WindowsNetworkAdapterSnapshotProvider>();
         services.AddSingleton<INetworkProfileRoamingService, NetworkProfileRoamingService>();
         AddNetworkServices(services);

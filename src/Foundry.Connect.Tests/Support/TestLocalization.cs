@@ -18,5 +18,5 @@ internal static class TestLocalization
     /// </summary>
     /// <returns>A new localization service.</returns>
     public static ResourceLocalizationService Create() =>
-        new(new ResourceManager("Foundry.Connect.Strings.Resources", typeof(MainWindow).Assembly));
+        new(new ResourceManager("Foundry.Connect.Strings.Resources", typeof(ConnectShellContent).Assembly));
 }

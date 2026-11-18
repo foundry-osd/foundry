@@ -12,9 +12,9 @@ internal interface IConnectPhaseRunner
 {
     /// <summary>Runs the phase on the UI thread and completes when it ends.</summary>
     /// <param name="onConfigurationLoaded">Called once Connect loaded its configuration and built its services.</param>
-    /// <param name="onFirstWindowRendered">Called once Connect's first window (its main window or password prompt) rendered.</param>
+    /// <param name="onFirstContentRendered">Called once Connect's first content (its page or the password prompt) rendered.</param>
     /// <param name="cancellationToken">Ends a running phase as a user abort.</param>
-    Task<ConnectPhaseOutcome> RunAsync(Action onConfigurationLoaded, Action onFirstWindowRendered, CancellationToken cancellationToken);
+    Task<ConnectPhaseOutcome> RunAsync(Action onConfigurationLoaded, Action onFirstContentRendered, CancellationToken cancellationToken);
 }
 
 /// <summary>What the Foundry Connect phase hands to the rest of the session.</summary>

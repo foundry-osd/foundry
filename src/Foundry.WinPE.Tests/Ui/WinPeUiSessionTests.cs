@@ -311,13 +311,13 @@ public sealed class WinPeUiSessionTests
 
         internal Task<int> RunWithTokenAsync(CancellationToken cancellationToken) => CreateSession().RunAsync(cancellationToken);
 
-        Task<ConnectPhaseOutcome> IConnectPhaseRunner.RunAsync(Action onConfigurationLoaded, Action onFirstWindowRendered,
+        Task<ConnectPhaseOutcome> IConnectPhaseRunner.RunAsync(Action onConfigurationLoaded, Action onFirstContentRendered,
             CancellationToken cancellationToken)
         {
             Calls.Add("connect");
             OnConnect?.Invoke();
             onConfigurationLoaded();
-            if (ConnectRenders) onFirstWindowRendered();
+            if (ConnectRenders) onFirstContentRendered();
             bool succeeded = ConnectExitCode == 0;
             return Task.FromResult(new ConnectPhaseOutcome(ConnectExitCode, Key, "Dark", "fr-FR",
                 (succeeded || WindowOnFailure) && HasWindow ? Window : null));
