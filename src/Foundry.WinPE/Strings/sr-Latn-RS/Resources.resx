@@ -21,4 +21,22 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>Zastareli medijum za pokretanje</value>
   </data>
+  <data name="UiCrash.Close" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="UiCrash.LogFolder" xml:space="preserve">
+    <value>Evidencije: {0}</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchAllowed" xml:space="preserve">
+    <value>Foundry se neočekivano zaustavio pre nego što je primena promenila odredišni disk. Možete ponovo pokrenuti Foundry, koji će početi iznova od mrežne veze.</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchRefused" xml:space="preserve">
+    <value>Foundry se neočekivano zaustavio. Primena je možda već promenila odredišni disk, pa se Foundry ne može ponovo pokrenuti. Ponovo pokrenite računar da biste započeli novu primenu.</value>
+  </data>
+  <data name="UiCrash.Relaunch" xml:space="preserve">
+    <value>Ponovo pokreni</value>
+  </data>
+  <data name="UiCrash.Title" xml:space="preserve">
+    <value>Foundry se zaustavio</value>
+  </data>
 </root>

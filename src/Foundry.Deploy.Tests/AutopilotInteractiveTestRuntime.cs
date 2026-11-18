@@ -70,7 +70,5 @@ internal static class AutopilotInteractiveTestRuntime
         public string GetActiveLayoutId() => activeLayoutId;
 
         public KeyboardLayoutSwitchResult Apply(KeyboardLayout layout) => throw new NotSupportedException();
-
-        public KeyboardLayoutSwitchResult? RestoreHandoff() => null;
     }
 }

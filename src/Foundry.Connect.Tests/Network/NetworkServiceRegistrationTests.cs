@@ -7,18 +7,16 @@ using Foundry.Connect.DependencyInjection;
 using Foundry.Connect.Lifetime;
 using Foundry.Connect.Network;
 using Foundry.Connect.Security;
-using Foundry.Connect.Tests.Support;
 using Foundry.Connect.ViewModels;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
 using Foundry.Telemetry;
+using Foundry.Wpf.Shell;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Foundry.Connect.Tests.Network;
 
-// Resolving the page graph constructs the hand-off sender, which removes the process-wide hand-off variable.
-[Collection(nameof(DeploymentKeyHandoffEnvironmentCollection))]
 public sealed class NetworkServiceRegistrationTests
 {
     [Fact]
@@ -34,6 +32,19 @@ public sealed class NetworkServiceRegistrationTests
         Assert.NotNull(provider.GetRequiredService<INetworkMonitor>());
         Assert.NotNull(provider.GetRequiredService<IConnectUnlockService>());
         Assert.IsType<DeploymentPasswordPrompt>(provider.GetRequiredService<IDeploymentPasswordPrompt>());
+    }
+
+    [Fact]
+    public void AddFoundryConnectApplicationServices_ShellShutdownEndsThePhaseAsAUserAbort()
+    {
+        using ServiceProvider provider = BuildProvider();
+        ApplicationLifetimeService lifetime = provider.GetRequiredService<ApplicationLifetimeService>();
+
+        provider.GetRequiredService<IApplicationShellService>().Shutdown();
+
+        Assert.Same(lifetime, provider.GetRequiredService<IApplicationLifetimeService>());
+        Assert.Equal(ChildRuntimeExitCode.UserAborted, lifetime.RequestedExitCode);
+        Assert.True(lifetime.Completion.IsCompletedSuccessfully);
     }
 
     [Fact]
@@ -75,9 +86,9 @@ public sealed class NetworkServiceRegistrationTests
         services.AddSingleton<IConnectConfigurationService>(new StubConfigurationService(configuration));
         services.AddSingleton(configuration);
         services.AddSingleton(ConnectRuntimeSecrets.None());
-        services.AddSingleton(RuntimeStartupDiagnostics.Create(
-            new RuntimeApplicationIdentity("Foundry.Connect", TelemetryApps.FoundryConnect, "1.0.0.0"), ""));
-        services.AddFoundryConnectApplicationServices([]);
+        services.AddSingleton(RuntimeStartupDiagnostics.CreateForHostedPhase(
+            new RuntimeApplicationIdentity("Foundry.Connect", TelemetryApps.FoundryConnect, "1.0.0.0"), static () => { }));
+        services.AddFoundryConnectApplicationServices();
         return services.BuildServiceProvider();
     }
 

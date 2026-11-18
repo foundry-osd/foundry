@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Services.Runtime;
+
 namespace Foundry.Connect.Security;
 
 /// <summary>Why Foundry Connect asks for the deployment password; logged with every unlock outcome.</summary>
@@ -27,7 +29,10 @@ public enum ConnectUnlockResult
     /// </summary>
     NotRequired,
 
-    /// <summary>The password was accepted: every locked secret was decrypted and the key was offered to Bootstrap once.</summary>
+    /// <summary>
+    /// The password was accepted: every locked secret was decrypted and, when the media carries a key check, the key is kept
+    /// for <see cref="IConnectUnlockService.TakeDeploymentKey"/>.
+    /// </summary>
     Unlocked,
 
     /// <summary>
@@ -38,8 +43,8 @@ public enum ConnectUnlockResult
 }
 
 /// <summary>
-/// Unlocks the network secrets protected by the deployment key with the deployment password, then hands the key to
-/// Foundry WinPE once so Foundry Deploy does not ask again.
+/// Unlocks the network secrets protected by the deployment key with the deployment password, then keeps the key for the
+/// Foundry Deploy phase so Deploy does not ask again.
 /// </summary>
 public interface IConnectUnlockService
 {
@@ -66,8 +71,7 @@ public interface IConnectUnlockService
     /// </para>
     /// <para>
     /// Once the password is accepted, the outcome is <see cref="ConnectUnlockResult.Unlocked"/> even if
-    /// <paramref name="cancellationToken"/> is cancelled meanwhile: the hand-off to Bootstrap runs under its own bounded
-    /// timeout, not under the caller's token.
+    /// <paramref name="cancellationToken"/> is cancelled meanwhile.
     /// </para>
     /// </remarks>
     /// <param name="trigger">Why the password is needed.</param>
@@ -75,7 +79,15 @@ public interface IConnectUnlockService
     /// <returns>The unlock outcome.</returns>
     /// <exception cref="OperationCanceledException">
     /// <paramref name="cancellationToken"/> was cancelled before the password was accepted; the only exception thrown,
-    /// since a prompt that cannot be shown, the unwrap and the hand-off report every failure as a result.
+    /// since a prompt that cannot be shown and the unwrap report every failure as a result.
     /// </exception>
     Task<ConnectUnlockResult> UnlockAsync(ConnectUnlockTrigger trigger, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Transfers the deployment key kept by the last successful unlock to the caller, which then owns and disposes it.
+    /// </summary>
+    /// <returns>
+    /// The key, or <see langword="null"/> when no unlock succeeded, the media has no key check, or the key was already taken.
+    /// </returns>
+    DeploymentKeyTransfer? TakeDeploymentKey();
 }

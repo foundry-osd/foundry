@@ -55,7 +55,7 @@ public sealed record AutopilotInteractiveRuntimeConfiguration
     /// <summary>UI culture name, for example <c>fr-FR</c>. Must not be empty.</summary>
     public string CultureName { get; init; } = string.Empty;
 
-    /// <summary>Diagnostic session identifier shared with Bootstrap, Connect and Deploy for log correlation, when known.</summary>
+    /// <summary>Diagnostic session identifier shared with the Foundry.WinPE guardian, Connect and Deploy for log correlation, when known.</summary>
     public string? DiagnosticSessionId { get; init; }
 
     /// <summary>

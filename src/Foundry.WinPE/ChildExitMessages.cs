@@ -6,28 +6,23 @@ using Foundry.Core.Models.Runtime;
 
 namespace Foundry.WinPE;
 
-/// <summary>Maps a child application exit code to the console message shown when the child stopped the boot.</summary>
+/// <summary>Maps a UI process exit code to the console message shown when the UI process stopped the boot.</summary>
 internal static class ChildExitMessages
 {
     /// <summary>
-    /// Returns a specific message for the <see cref="ChildRuntimeExitCode"/> failure codes returned by Foundry Connect
-    /// and a generic message for any other code or stage.
+    /// Returns a specific message for the <see cref="ChildRuntimeExitCode"/> failure codes, naming the phase that returned
+    /// them (Foundry Deploy for <see cref="BootstrapStage.Deploy"/>, Foundry Connect otherwise), and a generic message
+    /// describing the UI process as "Foundry" for any other code.
     /// </summary>
     internal static string Describe(BootstrapStage stage, int exitCode)
     {
-        if (stage == BootstrapStage.Connect)
+        string phase = stage == BootstrapStage.Deploy ? "Foundry Deploy" : "Foundry Connect";
+        return (ChildRuntimeExitCode)exitCode switch
         {
-            switch ((ChildRuntimeExitCode)exitCode)
-            {
-                case ChildRuntimeExitCode.StartupFailure:
-                    return "Foundry Connect could not start. Check the session log for details.";
-                case ChildRuntimeExitCode.ConfigurationFailure:
-                    return "Foundry Connect could not load its configuration. Recreate the boot media.";
-                case ChildRuntimeExitCode.RuntimeFailure:
-                    return "Foundry Connect stopped unexpectedly. Check the session log for details.";
-            }
-        }
-
-        return $"Foundry {(stage == BootstrapStage.Connect ? "Connect" : "Deploy")} stopped with exit code {exitCode}.";
+            ChildRuntimeExitCode.StartupFailure => $"{phase} could not start. Check the session log for details.",
+            ChildRuntimeExitCode.ConfigurationFailure => $"{phase} could not load its configuration. Recreate the boot media.",
+            ChildRuntimeExitCode.RuntimeFailure => $"{phase} stopped unexpectedly. Check the session log for details.",
+            _ => $"Foundry stopped unexpectedly with exit code {exitCode}. Check the session log for details."
+        };
     }
 }

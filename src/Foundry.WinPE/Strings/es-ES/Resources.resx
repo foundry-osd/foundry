@@ -21,4 +21,22 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>Medio de arranque obsoleto</value>
   </data>
+  <data name="UiCrash.Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="UiCrash.LogFolder" xml:space="preserve">
+    <value>Registros: {0}</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchAllowed" xml:space="preserve">
+    <value>Foundry se ha detenido inesperadamente antes de que la implementación modificara el disco de destino. Puede volver a iniciar Foundry, que comenzará de nuevo desde la conexión de red.</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchRefused" xml:space="preserve">
+    <value>Foundry se ha detenido inesperadamente. Es posible que la implementación ya haya modificado el disco de destino, por lo que Foundry no se puede volver a iniciar. Reinicie el equipo para comenzar una nueva implementación.</value>
+  </data>
+  <data name="UiCrash.Relaunch" xml:space="preserve">
+    <value>Volver a iniciar</value>
+  </data>
+  <data name="UiCrash.Title" xml:space="preserve">
+    <value>Foundry se ha detenido</value>
+  </data>
 </root>

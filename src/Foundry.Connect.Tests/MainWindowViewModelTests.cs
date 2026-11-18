@@ -208,8 +208,6 @@ public sealed class MainWindowViewModelTests
             activeLayoutId = layout.Id;
             return new KeyboardLayoutSwitchResult(true, layout.Id, null);
         }
-
-        public KeyboardLayoutSwitchResult? RestoreHandoff() => null;
     }
 
     private sealed class FakeThemeService : IThemeService

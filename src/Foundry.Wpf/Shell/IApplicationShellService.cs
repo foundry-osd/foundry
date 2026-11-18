@@ -13,10 +13,10 @@ public interface IApplicationShellService
     /// <summary>Shows a modal Yes/No warning and returns <see langword="true"/> when the operator confirmed.</summary>
     bool ConfirmWarning(string title, string message);
 
-    /// <summary>Shuts the WPF application down.</summary>
+    /// <summary>Shuts the WPF application down, or ends the hosting phase when the shell was given an end action.</summary>
     /// <remarks>
-    /// The application ends with exit code 0. An application that reports a meaningful exit code to its parent process must
-    /// exit through its own exit path instead of this method.
+    /// A standalone application ends with exit code 0. An application or phase that reports a meaningful exit code must exit
+    /// through its own exit path instead of this method.
     /// </remarks>
     void Shutdown();
 }

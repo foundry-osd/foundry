@@ -21,4 +21,22 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>Forældet startmedie</value>
   </data>
+  <data name="UiCrash.Close" xml:space="preserve">
+    <value>Luk</value>
+  </data>
+  <data name="UiCrash.LogFolder" xml:space="preserve">
+    <value>Logfiler: {0}</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchAllowed" xml:space="preserve">
+    <value>Foundry stoppede uventet, før installationen ændrede destinationsdisken. Du kan genstarte Foundry, som starter forfra fra netværksforbindelsen.</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchRefused" xml:space="preserve">
+    <value>Foundry stoppede uventet. Installationen kan allerede have ændret destinationsdisken, så Foundry kan ikke genstartes. Genstart computeren for at starte en ny installation.</value>
+  </data>
+  <data name="UiCrash.Relaunch" xml:space="preserve">
+    <value>Genstart</value>
+  </data>
+  <data name="UiCrash.Title" xml:space="preserve">
+    <value>Foundry er stoppet</value>
+  </data>
 </root>

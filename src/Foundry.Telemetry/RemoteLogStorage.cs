@@ -18,7 +18,7 @@ internal static class RemoteLogStorage
             BootstrapTelemetryJournal.Scope(options.HostUrl, options.ProjectToken, options.InstallId));
     }
 
-    /// <summary>Uses Bootstrap's persistent cache across boot sessions when its inherited session path matches.</summary>
+    /// <summary>Uses the guardian's persistent cache across boot sessions when its inherited session path matches.</summary>
     internal static string ResolveRoot(string fallback, RemoteDiagnosticsContext context, string? persistenceDirectory)
     {
         if (context.Runtime != TelemetryRuntimeModes.WinPe || string.IsNullOrWhiteSpace(persistenceDirectory)) return fallback;

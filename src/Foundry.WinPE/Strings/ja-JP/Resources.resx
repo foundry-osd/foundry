@@ -21,4 +21,22 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>古いブート メディア</value>
   </data>
+  <data name="UiCrash.Close" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="UiCrash.LogFolder" xml:space="preserve">
+    <value>ログ: {0}</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchAllowed" xml:space="preserve">
+    <value>展開によって対象ディスクが変更される前に、Foundry が予期せず停止しました。Foundry を再起動できます。ネットワーク接続からやり直します。</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchRefused" xml:space="preserve">
+    <value>Foundry が予期せず停止しました。展開によって対象ディスクが既に変更されている可能性があるため、Foundry を再起動できません。新しい展開を開始するには、コンピューターを再起動してください。</value>
+  </data>
+  <data name="UiCrash.Relaunch" xml:space="preserve">
+    <value>再起動</value>
+  </data>
+  <data name="UiCrash.Title" xml:space="preserve">
+    <value>Foundry が停止しました</value>
+  </data>
 </root>

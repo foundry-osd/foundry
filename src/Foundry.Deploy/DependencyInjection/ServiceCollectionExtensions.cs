@@ -5,6 +5,7 @@
 using System.Globalization;
 using System.Net.Http;
 using System.Runtime.InteropServices;
+using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.DomainJoin;
 using Foundry.Core.Services.Runtime;
@@ -51,17 +52,46 @@ public static class ServiceCollectionExtensions
 {
     private const string DeploymentModeEnvironmentVariable = "FOUNDRY_DEPLOYMENT_MODE";
 
-    public static IServiceCollection AddFoundryDeployApplicationServices(this IServiceCollection services)
+    /// <summary>
+    /// Returns the shell's end action. The shell shuts down only when the operator leaves before the wizard opens (the password
+    /// prompt was cancelled or the network cache start was closed), so the phase ends with <see cref="ChildRuntimeExitCode.UserAborted"/>
+    /// and the guardian reports a cancelled boot, as it does when Foundry Connect is closed.
+    /// </summary>
+    internal static Action CreateShellEndAction(DeployPhaseLifetime lifetime)
+        => () => lifetime.TryEnd((int)ChildRuntimeExitCode.UserAborted);
+
+    /// <summary>
+    /// Registers the Foundry Deploy phase window, lifetime, telemetry, startup and deployment services.
+    /// </summary>
+    /// <remarks>
+    /// The caller pre-registers the phase's <see cref="RuntimeStartupDiagnostics"/>. Nothing here ends the WPF application:
+    /// the shell service and the window end the phase through <see cref="DeployPhaseLifetime"/>.
+    /// </remarks>
+    /// <param name="services">The service collection to update.</param>
+    /// <param name="options">
+    /// The phase options: the access gate tries <see cref="DeployPhaseOptions.InitialDeploymentKey"/> and the orchestrator
+    /// calls <see cref="DeployPhaseOptions.OnDestructiveStepStarted"/>.
+    /// </param>
+    /// <returns>The same service collection.</returns>
+    public static IServiceCollection AddFoundryDeployApplicationServices(this IServiceCollection services, DeployPhaseOptions options)
     {
-        services.AddSingleton<App>();
-        services.AddSingleton<MainWindow>();
+        ArgumentNullException.ThrowIfNull(options);
+        services.AddSingleton<DeployPhaseLifetime>();
+        services.AddSingleton(sp => new MainWindow(
+            sp.GetRequiredService<MainWindowViewModel>(),
+            sp.GetRequiredService<RuntimeStartupDiagnostics>(),
+            sp.GetRequiredService<DeployPhaseLifetime>()));
         services.AddSingleton<MainWindowViewModel>();
 
         services.AddSingleton<ILocalizationService>(_ => new ResourceLocalizationService(LocalizationText.ResourceManager));
         services.AddSingleton<IThemeService, ThemeService>();
-        services.AddSingleton<IKeyboardLayoutSwitcher>(_ => new WindowsKeyboardLayoutSwitcher(KeyboardLayoutHandoff.DefaultPath));
-        services.AddSingleton<IApplicationShellService, ApplicationShellService>();
-        services.AddSingleton(WpfApplicationIdentity.FromAssembly(typeof(App).Assembly));
+        services.AddSingleton<IKeyboardLayoutSwitcher>(_ => new WindowsKeyboardLayoutSwitcher());
+        // Before the wizard (access denied, network cache start closed by the operator) the shell's Shutdown ends the phase as an operator abort.
+        services.AddSingleton<IApplicationShellService>(sp => new ApplicationShellService(
+            sp.GetRequiredService<ILocalizationService>(),
+            sp.GetRequiredService<WpfApplicationIdentity>(),
+            CreateShellEndAction(sp.GetRequiredService<DeployPhaseLifetime>())));
+        services.AddSingleton(WpfApplicationIdentity.FromAssembly(typeof(MainWindow).Assembly));
         services.AddSingleton<IDeploymentWizardStateService, DeploymentWizardStateService>();
         services.AddSingleton<IDeploymentWizardContextFactory, DeploymentWizardContextFactory>();
         services.AddSingleton<IDeploymentStartupCoordinator, DeploymentStartupCoordinator>();
@@ -75,8 +105,14 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentProtectionUnlockService, DeploymentProtectionUnlockService>();
         services.AddSingleton<IDeploymentPasswordDialogService, DeploymentPasswordDialogService>();
         services.AddSingleton<IDeploymentAccessRetryDelay, DeploymentAccessRetryDelay>();
-        services.AddSingleton<IDeploymentKeyHandoffReceiver, DeploymentKeyHandoffReceiver>();
-        services.AddSingleton<IDeploymentAccessGate, DeploymentAccessGate>();
+        services.AddSingleton<IDeploymentAccessGate>(sp => new DeploymentAccessGate(
+            sp.GetRequiredService<IDeployConfigurationService>(),
+            sp.GetRequiredService<IDeploymentProtectionUnlockService>(),
+            sp.GetRequiredService<IDeploymentPasswordDialogService>(),
+            sp.GetRequiredService<IDeploymentAccessRetryDelay>(),
+            options.InitialDeploymentKey,
+            sp.GetRequiredService<IDeploymentSecretKeySession>(),
+            sp.GetRequiredService<ILogger<DeploymentAccessGate>>()));
         services.AddSingleton(LoadTelemetrySettings);
         services.AddSingleton(CreateTelemetryOptions);
         services.AddSingleton(CreateTelemetryContext);
@@ -203,7 +239,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IDeploymentStep, SealRecoveryPartitionStep>();
         services.AddSingleton<IDeploymentStep, StagePreOobeCustomizationStep>();
         services.AddSingleton<IDeploymentStep, ValidateTargetConfigurationStep>();
-        services.AddSingleton<IDeploymentOrchestrator, DeploymentOrchestrator>();
+        services.AddSingleton<IDeploymentOrchestrator>(sp =>
+            ActivatorUtilities.CreateInstance<DeploymentOrchestrator>(sp, options.OnDestructiveStepStarted));
 
         return services;
     }
@@ -242,7 +279,8 @@ public static class ServiceCollectionExtensions
                 runtime,
                 Environment.GetEnvironmentVariable(DeploymentModeEnvironmentVariable)),
             RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant(),
-            CultureInfo.CurrentUICulture.Name);
+            CultureInfo.CurrentUICulture.Name,
+            TelemetryRuntimeHosts.FoundryWinPe);
     }
 
     private static TelemetrySettings LoadTelemetrySettings(IServiceProvider serviceProvider)

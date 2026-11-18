@@ -15,16 +15,23 @@ public sealed class WinPeModeTests
     }
 
     [Fact]
-    public void Parse_RoutesConnectAndDeploy()
+    public void Parse_RoutesTheUiProcess()
     {
-        Assert.Equal(WinPeMode.Connect, WinPeModes.Parse(["--connect", "--config", "x"]));
-        Assert.Equal(WinPeMode.Deploy, WinPeModes.Parse(["--deploy"]));
+        Assert.Equal(WinPeMode.Ui, WinPeModes.Parse(["--ui"]));
+    }
+
+    [Theory]
+    [InlineData("--connect")]
+    [InlineData("--deploy")]
+    public void Parse_TheRemovedPhaseModesAreNoLongerModes(string argument)
+    {
+        Assert.Equal(WinPeMode.Guardian, WinPeModes.Parse([argument]));
     }
 
     [Fact]
     public void Parse_RoutesTheNativeWorkerFirst()
     {
-        Assert.Equal(WinPeMode.NativeWorker, WinPeModes.Parse(["--deploy", "--native-deployment-worker"]));
+        Assert.Equal(WinPeMode.NativeWorker, WinPeModes.Parse(["--ui", "--native-deployment-worker"]));
         Assert.Equal(WinPeMode.NativeWorker, WinPeModes.Parse(["--native-deployment-worker"]));
     }
 
@@ -32,11 +39,5 @@ public sealed class WinPeModeTests
     public void Parse_IgnoresUnknownArgumentsAsGuardian()
     {
         Assert.Equal(WinPeMode.Guardian, WinPeModes.Parse(["--version"]));
-    }
-
-    [Fact]
-    public void StripMode_RemovesOnlyTheLeadingMode()
-    {
-        Assert.Equal(["--config", "x"], WinPeModes.StripMode(["--connect", "--config", "x"]));
     }
 }

@@ -12,25 +12,32 @@ using Foundry.Deploy.Views;
 
 namespace Foundry.Deploy;
 
+/// <summary>
+/// The Foundry Deploy phase window. Closing it ends the phase, except while a deployment runs: the close then requests the
+/// deployment's cancellation instead.
+/// </summary>
 public partial class MainWindow : Window
 {
     private readonly MainWindowViewModel _viewModel;
     private readonly RuntimeStartupDiagnostics _startup;
+    private readonly DeployPhaseLifetime _lifetime;
     private readonly TaskCompletionSource _rendered = new(TaskCreationOptions.RunContinuationsAsynchronously);
     private bool _closed;
     private DeploymentPage _previousPage = DeploymentPage.Splash;
 
-    public MainWindow(MainWindowViewModel viewModel, RuntimeStartupDiagnostics startup)
+    /// <remarks>
+    /// The phase applies the theme and language chosen in Foundry Connect to <paramref name="viewModel"/> before it resolves
+    /// this window, so the first frame already uses them.
+    /// </remarks>
+    internal MainWindow(MainWindowViewModel viewModel, RuntimeStartupDiagnostics startup, DeployPhaseLifetime lifetime)
     {
-        // Before InitializeComponent so the first frame already uses the theme and language chosen in Foundry Connect.
-        viewModel.RestoreRuntimePreferencesHandoff();
         InitializeComponent();
         _viewModel = viewModel;
         _startup = startup;
+        _lifetime = lifetime;
         DataContext = viewModel;
         _viewModel.Session.PropertyChanged += OnSessionPropertyChanged;
         Loaded += OnLoaded;
-        Activated += OnFirstActivated;
         ContentRendered += (_, _) => _rendered.TrySetResult();
     }
 
@@ -58,12 +65,6 @@ public partial class MainWindow : Window
         base.OnClosed(e);
     }
 
-    private void OnFirstActivated(object? sender, EventArgs e)
-    {
-        Activated -= OnFirstActivated;
-        _viewModel.RestoreKeyboardLayoutHandoff();
-    }
-
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
         Loaded -= OnLoaded;
@@ -77,7 +78,7 @@ public partial class MainWindow : Window
         catch (Exception exception)
         {
             _startup.ReportFailure(exception, "ui_initialization");
-            Application.Current?.Shutdown(1);
+            _lifetime.TryEnd(DeployPhase.FailureExitCodeFor("ui_initialization"));
         }
     }
 

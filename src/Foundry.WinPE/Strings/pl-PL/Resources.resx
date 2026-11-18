@@ -21,4 +21,22 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>Przestarzały nośnik rozruchowy</value>
   </data>
+  <data name="UiCrash.Close" xml:space="preserve">
+    <value>Zamknij</value>
+  </data>
+  <data name="UiCrash.LogFolder" xml:space="preserve">
+    <value>Dzienniki: {0}</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchAllowed" xml:space="preserve">
+    <value>Foundry nieoczekiwanie przestał działać, zanim wdrożenie zmieniło dysk docelowy. Możesz ponownie uruchomić Foundry, który zacznie od nowa od połączenia sieciowego.</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchRefused" xml:space="preserve">
+    <value>Foundry nieoczekiwanie przestał działać. Wdrożenie mogło już zmienić dysk docelowy, dlatego nie można ponownie uruchomić Foundry. Uruchom ponownie komputer, aby rozpocząć nowe wdrożenie.</value>
+  </data>
+  <data name="UiCrash.Relaunch" xml:space="preserve">
+    <value>Uruchom ponownie</value>
+  </data>
+  <data name="UiCrash.Title" xml:space="preserve">
+    <value>Foundry przestał działać</value>
+  </data>
 </root>

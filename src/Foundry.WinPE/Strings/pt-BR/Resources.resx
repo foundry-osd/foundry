@@ -21,4 +21,22 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>Mídia de inicialização obsoleta</value>
   </data>
+  <data name="UiCrash.Close" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="UiCrash.LogFolder" xml:space="preserve">
+    <value>Pasta de logs: {0}</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchAllowed" xml:space="preserve">
+    <value>O Foundry parou inesperadamente antes de a implantação alterar o disco de destino. Você pode reiniciar o Foundry, que começará novamente a partir da conexão de rede.</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchRefused" xml:space="preserve">
+    <value>O Foundry parou inesperadamente. A implantação pode já ter alterado o disco de destino, portanto o Foundry não pode ser reiniciado. Reinicie o computador para começar uma nova implantação.</value>
+  </data>
+  <data name="UiCrash.Relaunch" xml:space="preserve">
+    <value>Reiniciar</value>
+  </data>
+  <data name="UiCrash.Title" xml:space="preserve">
+    <value>O Foundry parou</value>
+  </data>
 </root>

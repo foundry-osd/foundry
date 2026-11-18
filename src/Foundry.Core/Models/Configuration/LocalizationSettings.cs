@@ -10,7 +10,7 @@ namespace Foundry.Core.Models.Configuration;
 public sealed record LocalizationSettings
 {
     /// <summary>
-    /// Gets the optional Windows time-zone identifier used by the WinPE bootstrap.
+    /// Gets the optional Windows time-zone identifier used by the Foundry.WinPE system preparation.
     /// </summary>
     public string? DefaultTimeZoneId { get; init; }
 }

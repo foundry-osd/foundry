@@ -12,7 +12,7 @@ namespace Foundry.Core.Tests.Runtime;
 public sealed class RuntimeStartupProtocolTests
 {
     [Theory]
-    [InlineData(null, StartupCapabilityMode.Legacy)]
+    [InlineData(null, StartupCapabilityMode.Invalid)]
     [InlineData("{\"protocolVersions\":[1]}", StartupCapabilityMode.Supported)]
     [InlineData("{\"protocolVersions\":[2,1]}", StartupCapabilityMode.Supported)]
     [InlineData("{\"protocolVersions\":[2]}", StartupCapabilityMode.Incompatible)]
@@ -22,7 +22,7 @@ public sealed class RuntimeStartupProtocolTests
     [InlineData("{\"protocolVersions\":[\"1\"]}", StartupCapabilityMode.Invalid)]
     [InlineData("{\"protocolVersions\":[1],\"protocolVersions\":[2]}", StartupCapabilityMode.Invalid)]
     [InlineData("{", StartupCapabilityMode.Invalid)]
-    public void CapabilityNegotiationDistinguishesLegacyFromInvalidAdvertisement(string? json, StartupCapabilityMode expected)
+    public void CapabilityNegotiationAcceptsOnlyAValidAdvertisement(string? json, StartupCapabilityMode expected)
     {
         using var directory = new TemporaryDirectory();
         if (json is not null) File.WriteAllText(Path.Combine(directory.Path, StartupProtocol.ManifestFileName), json);
@@ -32,7 +32,7 @@ public sealed class RuntimeStartupProtocolTests
     }
 
     [Fact]
-    public void OversizedManifestIsInvalidRatherThanLegacy()
+    public void OversizedManifestIsInvalid()
     {
         using var directory = new TemporaryDirectory();
         File.WriteAllText(Path.Combine(directory.Path, StartupProtocol.ManifestFileName), new string(' ', StartupProtocol.MaximumFileBytes + 1));
@@ -41,7 +41,7 @@ public sealed class RuntimeStartupProtocolTests
     }
 
     [Fact]
-    public void ReporterAtomicallyPublishesForwardStagesAndFailureIdentity()
+    public void ReporterAtomicallyPublishesForwardStagesAndFailureCategory()
     {
         using var directory = new TemporaryDirectory();
         string path = Path.Combine(directory.Path, "launch", "status.json");
@@ -58,9 +58,12 @@ public sealed class RuntimeStartupProtocolTests
         Assert.Equal(StartupStage.UiReady, reader.Read()?.Stage);
         Assert.Null(reader.Read());
         Assert.False(reporter.Report(StartupStage.ConfigurationLoaded));
-        string recordId = Guid.NewGuid().ToString("D");
-        Assert.True(reporter.Report(StartupStage.StartupFailed, "startup_failed", recordId));
-        Assert.Equal(recordId, reader.Read()?.FailureRecordId);
+        Assert.True(reporter.Report(StartupStage.StartupFailed, "startup_failed"));
+        RuntimeStartupStatus? failed = reader.Read();
+        Assert.Equal("startup_failed", failed?.FailureCategory);
+        // Kept in the file shape for v26.10.18.1 compatibility, never populated.
+        Assert.Null(failed?.FailureRecordId);
+        Assert.Contains("\"failureRecordId\":null", File.ReadAllText(path), StringComparison.Ordinal);
         Assert.False(reporter.Report(StartupStage.UiReady));
         Assert.Empty(Directory.GetFiles(Path.GetDirectoryName(path)!, "*.tmp"));
         Assert.True(new FileInfo(path).Length <= StartupProtocol.MaximumFileBytes);
@@ -123,6 +126,26 @@ public sealed class RuntimeStartupProtocolTests
         using var directory = new TemporaryDirectory();
         Assert.Null(CreateReporter(Path.Combine(directory.Path, "status.json"), "wrong-launch"));
         Assert.Null(CreateReporter(Path.Combine(directory.Path, "status.json"), Guid.Empty.ToString("N")));
+    }
+
+    [Theory]
+    [InlineData("Foundry.WinPE", true)]
+    [InlineData("Foundry.Connect", true)]
+    [InlineData("Foundry.Deploy", true)]
+    [InlineData("Foundry.Unknown", false)]
+    public void OnlyKnownApplicationsReportStartup(string application, bool accepted)
+    {
+        using var directory = new TemporaryDirectory();
+        RuntimeStartupReporter? reporter = RuntimeStartupReporter.FromEnvironment(application, name => name switch
+        {
+            StartupProtocol.ProtocolEnvironmentVariable => "1",
+            StartupProtocol.LaunchIdEnvironmentVariable => Guid.NewGuid().ToString("N"),
+            StartupProtocol.SessionIdEnvironmentVariable => "SESSION_1",
+            StartupProtocol.StatusPathEnvironmentVariable => Path.Combine(directory.Path, "status.json"),
+            _ => null
+        });
+
+        Assert.Equal(accepted, reporter is not null);
     }
 
     [Fact]

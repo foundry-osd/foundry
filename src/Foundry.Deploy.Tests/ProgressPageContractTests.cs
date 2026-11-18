@@ -25,6 +25,7 @@ using Foundry.Utilities.Processes;
 using Foundry.Wpf.Localization;
 using Foundry.Wpf.Progress;
 using Foundry.Wpf.Shell;
+using Foundry.Wpf.Theme;
 using Microsoft.Extensions.Logging.Abstractions;
 
 namespace Foundry.Deploy.Tests;
@@ -47,7 +48,7 @@ public sealed class ProgressPageContractTests
     [Fact]
     public Task CompletionAction_IsTheRebootLabel() => WpfApplicationTestHost.RunAsync(() =>
     {
-        using DeploymentSessionViewModel session = DeploymentSessionDebugPreviewTests.CreateSession(Dispatcher.CurrentDispatcher);
+        using DeploymentSessionViewModel session = DeploymentPreviewSession.Create(Dispatcher.CurrentDispatcher);
 
         Assert.Equal(LocalizationText.GetString("Success.RebootNow"), session.CompletionActionText);
         Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
@@ -86,12 +87,13 @@ public sealed class ProgressPageContractTests
         Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
     });
 
-    private static MainWindowViewModel CreateMainWindowViewModel(PendingExecution execution)
+    /// <summary>Creates the Deploy main window view model around test doubles; the services a test does not reach throw.</summary>
+    internal static MainWindowViewModel CreateMainWindowViewModel(IDeploymentExecutionService execution, IThemeService? theme = null)
     {
         var localization = new ResourceLocalizationService(LocalizationText.ResourceManager);
         return new MainWindowViewModel(
             localization,
-            new AutopilotInteractiveTestRuntime.FixedTheme(Foundry.Wpf.Theme.ThemeMode.Light),
+            theme ?? new AutopilotInteractiveTestRuntime.FixedTheme(Foundry.Wpf.Theme.ThemeMode.Light),
             new OperationProgressService(),
             new Unused(),
             new Unused(),
@@ -135,7 +137,7 @@ public sealed class ProgressPageContractTests
         public DeploymentLaunchPreparationResult Prepare(DeploymentLaunchRequest request,
             Foundry.Core.Models.Configuration.Deploy.DeployDomainJoinSettings? domainJoin, DomainJoinSubmission? domainJoinSubmission = null)
         {
-            DeploymentContext context = DeploymentSessionDebugPreviewTests.Request();
+            DeploymentContext context = DeploymentPreviewSession.Request();
             return DeploymentLaunchPreparationResult.Success(context.TargetComputerName, new TargetDiskInfo { DiskNumber = 1 }, context);
         }
     }

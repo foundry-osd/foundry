@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Connect.Security;
+using Foundry.Core.Services.Runtime;
 
 namespace Foundry.Connect.Tests.Support;
 
@@ -34,4 +35,7 @@ internal sealed class FakeUnlockService : IConnectUnlockService
         OnUnlock?.Invoke();
         return Task.FromResult(Result);
     }
+
+    /// <inheritdoc />
+    public DeploymentKeyTransfer? TakeDeploymentKey() => null;
 }

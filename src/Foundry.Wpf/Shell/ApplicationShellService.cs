@@ -12,18 +12,34 @@ namespace Foundry.Wpf.Shell;
 /// Default <see cref="IApplicationShellService"/> backed by the current WPF <see cref="Application"/>.
 /// Dialogs are modal and parented to the active window, falling back to the main window.
 /// </summary>
-/// <remarks>Members must be called on the UI thread.</remarks>
+/// <remarks>
+/// Members must be called on the UI thread. A phase hosted in a shared application (Foundry Connect and Foundry Deploy in the
+/// Foundry.WinPE UI process) passes its own end action, so <see cref="Shutdown"/> ends only that phase, and sets
+/// <see cref="Application.MainWindow"/> to its own window while it runs, so the owner fallback targets that window.
+/// </remarks>
 public sealed class ApplicationShellService : IApplicationShellService
 {
     private readonly ILocalizationService _localizationService;
     private readonly WpfApplicationIdentity _identity;
+    private readonly Action? _shutdown;
 
+    /// <summary>Initializes a shell whose <see cref="Shutdown"/> shuts the WPF application down.</summary>
     /// <param name="localizationService">Provides the About dialog texts in the active language.</param>
     /// <param name="identity">Supplies the application version shown in the About dialog.</param>
     public ApplicationShellService(ILocalizationService localizationService, WpfApplicationIdentity identity)
+        : this(localizationService, identity, shutdown: null)
+    {
+    }
+
+    /// <summary>Initializes a shell whose <see cref="Shutdown"/> runs <paramref name="shutdown"/> instead.</summary>
+    /// <param name="localizationService">Provides the About dialog texts in the active language.</param>
+    /// <param name="identity">Supplies the application version shown in the About dialog.</param>
+    /// <param name="shutdown">Ends the hosting phase; <see langword="null"/> shuts the WPF application down.</param>
+    public ApplicationShellService(ILocalizationService localizationService, WpfApplicationIdentity identity, Action? shutdown)
     {
         _localizationService = localizationService;
         _identity = identity;
+        _shutdown = shutdown;
     }
 
     /// <inheritdoc/>
@@ -70,6 +86,12 @@ public sealed class ApplicationShellService : IApplicationShellService
     /// <inheritdoc/>
     public void Shutdown()
     {
+        if (_shutdown is not null)
+        {
+            _shutdown();
+            return;
+        }
+
         Application.Current?.Shutdown();
     }
 

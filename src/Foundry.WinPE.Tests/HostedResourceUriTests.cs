@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Text.RegularExpressions;
+using Foundry.WinPE.Tests.Support;
 using Xunit;
 
 namespace Foundry.WinPE.Tests;
@@ -15,7 +16,7 @@ public sealed partial class HostedResourceUriTests
     [InlineData("Foundry.Deploy")]
     public void HostedLibrarySourcesQualifyApplicationResourceUrisWithTheirComponent(string project)
     {
-        string projectRoot = Path.Combine(FindRepositoryRoot(), "src", project);
+        string projectRoot = Path.Combine(RepositoryRoot.Find(), "src", project);
         string[] violations = Directory.EnumerateFiles(projectRoot, "*.*", SearchOption.AllDirectories)
             .Where(path => path.EndsWith(".xaml", StringComparison.OrdinalIgnoreCase) ||
                 path.EndsWith(".cs", StringComparison.OrdinalIgnoreCase))
@@ -32,22 +33,6 @@ public sealed partial class HostedResourceUriTests
     {
         string firstSegment = Path.GetRelativePath(projectRoot, path).Split(Path.DirectorySeparatorChar)[0];
         return firstSegment is "bin" or "obj";
-    }
-
-    private static string FindRepositoryRoot()
-    {
-        DirectoryInfo? directory = new(AppContext.BaseDirectory);
-        while (directory is not null)
-        {
-            if (File.Exists(Path.Combine(directory.FullName, "src", "Foundry.slnx")))
-            {
-                return directory.FullName;
-            }
-
-            directory = directory.Parent;
-        }
-
-        throw new DirectoryNotFoundException("Could not locate the repository root.");
     }
 
     [GeneratedRegex("""

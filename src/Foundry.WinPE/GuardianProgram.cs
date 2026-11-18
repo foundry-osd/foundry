@@ -9,6 +9,7 @@ using Foundry.WinPE.Console;
 using Foundry.WinPE.Diagnostics;
 using Foundry.WinPE.Processes;
 using Foundry.WinPE.SystemPreparation;
+using Foundry.WinPE.Ui;
 using Foundry.Telemetry;
 using Foundry.Utilities.Diagnostics;
 using Foundry.Utilities.IO;
@@ -19,8 +20,10 @@ using Serilog.Events;
 namespace Foundry.WinPE;
 
 /// <summary>
-/// Runs the WinPE boot workflow in the startnet console: Foundry Connect, system preparation, then Foundry Deploy, both
-/// applications launched from this executable. The guardian exits once Deploy reports UI readiness.
+/// Runs the WinPE boot workflow in the startnet console: environment preparation, then the UI process (Foundry Connect,
+/// system preparation and Foundry Deploy) launched from this executable and supervised until it exits. When the UI process
+/// crashes, the guardian shows the crash window (<see cref="UiCrashWindow"/>), which may relaunch it. The guardian exits
+/// once the boot ends.
 /// </summary>
 internal static class GuardianProgram
 {
@@ -69,7 +72,7 @@ internal static class GuardianProgram
 
             if (!WinPeRuntimeDetector.IsWinPeRuntime())
             {
-                Log.Warning("Bootstrap requires Windows PE; no boot operations were started");
+                Log.Warning("The guardian requires Windows PE; no boot operations were started");
                 presenter.Report(new BootstrapProgress(BootstrapStage.Environment, BootstrapStatus.Failed,
                     "Foundry WinPE must run in Windows PE."));
                 presenter.ShowDiagnostics(sessionId, logPath);
@@ -84,19 +87,20 @@ internal static class GuardianProgram
                 Log.ForContext<BootstrapLogPersistence>());
             BootstrapContext context = BootstrapEnvironment.Create(WinPeRoot, sessionId,
                 RuntimeInformation.OSArchitecture, volumes);
-            Log.Information("Bootstrap runtime initialized. Version={Version}; runtime {RuntimeIdentifier}; persistent logs {HasPersistentLogs}",
+            Log.Information("Guardian runtime initialized. Version={Version}; runtime {RuntimeIdentifier}; persistent logs {HasPersistentLogs}",
                 typeof(GuardianProgram).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion,
                 context.RuntimeIdentifier, context.PersistenceDirectory is not null);
-            Log.Debug("Bootstrap storage selected. LogPath={LogPath}; PersistenceDirectory={PersistenceDirectory}",
+            Log.Debug("Guardian storage selected. LogPath={LogPath}; PersistenceDirectory={PersistenceDirectory}",
                 logPath, context.PersistenceDirectory);
-            // Infinite timeout: the only remaining users (clock probes) apply their own linked deadlines.
+            // Infinite timeout: the guardian only sends clock probes, and each applies its own linked deadline.
             using var httpClient = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
             var preparation = new WinPeSystemPreparation(WinPeRoot, httpClient,
                 Log.ForContext<WinPeSystemPreparation>(), presenter.ReportWarning);
             var launcher = new ApplicationLauncher(Log.ForContext<ApplicationLauncher>(),
-                context.PersistenceDirectory ?? Path.Combine(WinPeRoot, "Logs", sessionId),
-                presenter.ReportWarning, telemetry.RecoverChildFailure);
-            var coordinator = new BootstrapCoordinator(context, preparation, launcher, persistence,
+                context.PersistenceDirectory ?? Path.Combine(WinPeRoot, "Logs", sessionId));
+            // The crash window points at the logs that survive a restart: the cache volume copy when there is one.
+            var crashScreen = new UiCrashScreen(context.PersistenceDirectory ?? Path.GetDirectoryName(logPath));
+            var coordinator = new BootstrapCoordinator(context, preparation, launcher, crashScreen, persistence,
                 Log.ForContext<BootstrapCoordinator>(), presenter.Report,
                 () => telemetry.StartDelivery(preparation.IsClockUsable), telemetry.Complete);
             coordinatorStarted = true;
@@ -106,7 +110,7 @@ internal static class GuardianProgram
         }
         catch (Exception exception)
         {
-            Log.Fatal(exception, "Bootstrap could not initialize");
+            Log.Fatal(exception, "The guardian could not initialize");
             telemetry.Complete(new BootstrapResult(BootstrapOutcome.Failed, BootstrapStage.Environment), Stopwatch.GetElapsedTime(started));
             presenter.Report(new BootstrapProgress(BootstrapStage.Environment, BootstrapStatus.Failed,
                 "The boot environment could not be initialized."));

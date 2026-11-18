@@ -36,7 +36,7 @@ internal sealed class BootstrapTelemetryTransport : IBootstrapTelemetryTransport
         }
 
         if (record.Destination != BootstrapTelemetryDestination.Exception)
-            throw new ArgumentException("Bootstrap Logs use the shared reliable log pipeline.", nameof(record));
+            throw new ArgumentException("Guardian logs use the shared reliable log pipeline.", nameof(record));
         _diagnostics ??= new PostHogDiagnosticsExporter(_options);
         _diagnostics.ExportException(record.Diagnostic!);
         // The exception SDK only enqueues; its flush method does not expose per-record receipts.

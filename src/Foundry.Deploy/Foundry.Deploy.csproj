@@ -181,11 +181,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ApplicationDefinition Remove="App.xaml" />
-    <Page Include="App.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="..\..\Assets\Brand\Foundry.ico" Link="Assets\Icons\app.ico" />
     <Resource Include="..\..\Assets\Brand\Foundry.png" Link="Assets\Images\foundry-about-logo.png" />
   </ItemGroup>

@@ -21,4 +21,22 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>Παρωχημένο μέσο εκκίνησης</value>
   </data>
+  <data name="UiCrash.Close" xml:space="preserve">
+    <value>Κλείσιμο</value>
+  </data>
+  <data name="UiCrash.LogFolder" xml:space="preserve">
+    <value>Αρχεία καταγραφής: {0}</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchAllowed" xml:space="preserve">
+    <value>Το Foundry σταμάτησε απροσδόκητα πριν η ανάπτυξη αλλάξει τον δίσκο προορισμού. Μπορείτε να εκκινήσετε ξανά το Foundry, το οποίο θα ξεκινήσει πάλι από τη σύνδεση δικτύου.</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchRefused" xml:space="preserve">
+    <value>Το Foundry σταμάτησε απροσδόκητα. Η ανάπτυξη μπορεί να έχει ήδη αλλάξει τον δίσκο προορισμού, επομένως το Foundry δεν μπορεί να εκκινηθεί ξανά. Επανεκκινήστε τον υπολογιστή για να ξεκινήσετε μια νέα ανάπτυξη.</value>
+  </data>
+  <data name="UiCrash.Relaunch" xml:space="preserve">
+    <value>Εκκίνηση ξανά</value>
+  </data>
+  <data name="UiCrash.Title" xml:space="preserve">
+    <value>Το Foundry σταμάτησε</value>
+  </data>
 </root>

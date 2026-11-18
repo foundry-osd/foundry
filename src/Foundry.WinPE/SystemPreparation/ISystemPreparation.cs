@@ -14,7 +14,10 @@ public interface ISystemPreparation
     /// </summary>
     Task PrepareNetworkAsync(CancellationToken cancellationToken);
 
-    /// <summary>Attempts clock synchronization within a short budget before Connect establishes connectivity.</summary>
+    /// <summary>
+    /// Attempts clock synchronization within a short budget, early in the boot, before the UI process starts. Returns at once
+    /// when the clock is already usable.
+    /// </summary>
     Task PrepareClockAsync(CancellationToken cancellationToken);
 
     /// <summary>

@@ -11,69 +11,53 @@ public sealed class WindowsKeyboardLayoutSwitcherTests
     private static readonly KeyboardLayout BelgianFrench = new("0000080C", "fr", 0x080C, "KBDBE.DLL", "Belgian French");
 
     [Fact]
-    public void Apply_WhenWpeUtilFails_StillHandsOffAndReportsWarning()
+    public void Apply_InWinPe_SetsTheSessionLayoutForLaterProcesses()
     {
-        string path = CreateHandoffPath();
+        string activeLayoutId = "0000040C";
+        var sessionLocales = new List<string>();
+        var switcher = new WindowsKeyboardLayoutSwitcher(
+            loadLayouts: () => [BelgianFrench],
+            activateLayout: id => { activeLayoutId = id; return true; },
+            getActiveLayoutId: () => activeLayoutId,
+            isWinPe: () => true,
+            setWinPeSessionLayout: locale =>
+            {
+                sessionLocales.Add(locale);
+                return null;
+            });
+
+        KeyboardLayoutSwitchResult result = switcher.Apply(BelgianFrench);
+
+        Assert.True(result.Succeeded);
+        Assert.Null(result.Error);
+        Assert.Equal([BelgianFrench.InputLocale], sessionLocales);
+    }
+
+    [Fact]
+    public void Apply_WhenWpeUtilFails_StillSucceedsWithAWarning()
+    {
         string activeLayoutId = "0000040C";
         var switcher = new WindowsKeyboardLayoutSwitcher(
-            path,
             loadLayouts: () => [BelgianFrench],
             activateLayout: id => { activeLayoutId = id; return true; },
             getActiveLayoutId: () => activeLayoutId,
             isWinPe: () => true,
             setWinPeSessionLayout: _ => "wpeutil.exe SetKeyboardLayout failed with exit code 5.");
 
-        try
-        {
-            KeyboardLayoutSwitchResult result = switcher.Apply(BelgianFrench);
+        KeyboardLayoutSwitchResult result = switcher.Apply(BelgianFrench);
 
-            Assert.True(result.Succeeded);
-            Assert.Contains("exit code 5", result.Error);
-            Assert.True(KeyboardLayoutHandoff.TryRead(path, out string handedOff));
-            Assert.Equal("0000080C", handedOff);
-        }
-        finally
-        {
-            Directory.Delete(Path.GetDirectoryName(path)!, recursive: true);
-        }
+        Assert.True(result.Succeeded);
+        Assert.Contains("exit code 5", result.Error);
     }
 
     [Fact]
-    public void Apply_WhenLayoutDoesNotBecomeActive_FailsWithoutHandoff()
+    public void Apply_WhenLayoutDoesNotBecomeActive_FailsWithoutChangingTheSession()
     {
-        string path = CreateHandoffPath();
+        int wpeUtilCalls = 0;
         var switcher = new WindowsKeyboardLayoutSwitcher(
-            path,
             loadLayouts: () => [BelgianFrench],
             activateLayout: _ => true,
             getActiveLayoutId: () => "0000040C",
-            isWinPe: () => true,
-            setWinPeSessionLayout: _ => null);
-
-        try
-        {
-            KeyboardLayoutSwitchResult result = switcher.Apply(BelgianFrench);
-
-            Assert.False(result.Succeeded);
-            Assert.False(File.Exists(path));
-        }
-        finally
-        {
-            Directory.Delete(Path.GetDirectoryName(path)!, recursive: true);
-        }
-    }
-
-    [Fact]
-    public void RestoreHandoff_WhenLayoutIsAlreadyActive_DoesNotRunWpeUtil()
-    {
-        string path = CreateHandoffPath();
-        KeyboardLayoutHandoff.Write(path, BelgianFrench.Id);
-        int wpeUtilCalls = 0;
-        var switcher = new WindowsKeyboardLayoutSwitcher(
-            path,
-            loadLayouts: () => [BelgianFrench],
-            activateLayout: _ => true,
-            getActiveLayoutId: () => BelgianFrench.Id,
             isWinPe: () => true,
             setWinPeSessionLayout: _ =>
             {
@@ -81,31 +65,22 @@ public sealed class WindowsKeyboardLayoutSwitcherTests
                 return null;
             });
 
-        try
-        {
-            KeyboardLayoutSwitchResult? result = switcher.RestoreHandoff();
+        KeyboardLayoutSwitchResult result = switcher.Apply(BelgianFrench);
 
-            Assert.NotNull(result);
-            Assert.True(result.Succeeded);
-            Assert.Equal(0, wpeUtilCalls);
-        }
-        finally
-        {
-            Directory.Delete(Path.GetDirectoryName(path)!, recursive: true);
-        }
+        Assert.False(result.Succeeded);
+        Assert.Equal(0, wpeUtilCalls);
     }
 
     [Fact]
-    public void Apply_WithoutHandoffPath_SwitchesOnlyTheProcessEvenInWinPe()
+    public void Apply_OutsideWinPe_SwitchesOnlyTheProcess()
     {
         string activeLayoutId = "0000040C";
         int wpeUtilCalls = 0;
         var switcher = new WindowsKeyboardLayoutSwitcher(
-            handoffPath: null,
             loadLayouts: () => [BelgianFrench],
             activateLayout: id => { activeLayoutId = id; return true; },
             getActiveLayoutId: () => activeLayoutId,
-            isWinPe: () => true,
+            isWinPe: () => false,
             setWinPeSessionLayout: _ =>
             {
                 wpeUtilCalls++;
@@ -117,13 +92,5 @@ public sealed class WindowsKeyboardLayoutSwitcherTests
         Assert.True(result.Succeeded);
         Assert.Null(result.Error);
         Assert.Equal(0, wpeUtilCalls);
-        Assert.Null(switcher.RestoreHandoff());
-    }
-
-    private static string CreateHandoffPath()
-    {
-        string directory = Path.Combine(Path.GetTempPath(), $"foundry-keyboard-{Guid.NewGuid():N}");
-        Directory.CreateDirectory(directory);
-        return Path.Combine(directory, "keyboard-layout.txt");
     }
 }

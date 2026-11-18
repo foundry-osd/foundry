@@ -16,6 +16,10 @@ namespace Foundry.Telemetry;
 /// <param name="RuntimeArchitecture">Application or runtime architecture.</param>
 /// <param name="Locale">Current UI or runtime culture.</param>
 /// <param name="SessionId">Random per-process identifier for grouping events from one run.</param>
+/// <param name="RuntimeHost">
+/// The hosting process (<see cref="TelemetryRuntimeHosts"/>), reported as <c>runtime_host</c> on the events whose allowlist
+/// accepts it, or <see langword="null"/> when the application is its own host.
+/// </param>
 public sealed record TelemetryContext(
     string App,
     string AppVersion,
@@ -25,4 +29,5 @@ public sealed record TelemetryContext(
     string BootMediaTarget,
     string RuntimeArchitecture,
     string Locale,
-    string SessionId);
+    string SessionId,
+    string? RuntimeHost = null);

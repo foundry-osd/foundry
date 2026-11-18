@@ -7,139 +7,97 @@ using System.Globalization;
 using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
 using Foundry.Utilities.Diagnostics;
+using Foundry.WinPE.Ui;
 using Serilog;
 
 namespace Foundry.WinPE.Processes;
 
-/// <summary>Observes application lifetimes without terminating children or buffering their output.</summary>
+/// <summary>
+/// Launches the UI process and observes it until it exits, without terminating it or buffering its output. Each launch gets
+/// its own directory under <c>Startup\&lt;launch id&gt;</c> in the session directory, holding the readiness status file and
+/// the UI state file (<see cref="UiStateFile"/>), which is read while the ready UI process runs and once it exited.
+/// </summary>
 internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirectory = null,
-    Action<string>? warning = null, Action<string, Guid, string>? recoverFailure = null,
     Func<ProcessStartInfo, Process?>? startProcess = null) : IApplicationLauncher
 {
-    public Task<ApplicationLaunchResult> RunConnectAsync(string executable,
-        IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken,
-        Action<int>? processStarted = null, Func<Task>? processReleasing = null) =>
-        LaunchAsync(executable, "Foundry.Connect", environment, [WinPeModes.ConnectArgument], true, cancellationToken,
-            processStarted, processReleasing);
+    /// <summary>The UI state file name, next to the launch's status file.</summary>
+    internal const string UiStateFileName = "ui-state.json";
 
-    public Task<ApplicationLaunchResult> StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment,
-        CancellationToken cancellationToken, Action<int>? processStarted = null, Func<Task>? processReleasing = null) =>
-        LaunchAsync(executable, "Foundry.Deploy", environment, [WinPeModes.DeployArgument], false, cancellationToken,
-            processStarted, processReleasing);
+    private const string Application = UiReadinessReporter.ApplicationId;
 
-    private async Task<ApplicationLaunchResult> LaunchAsync(string executable, string application,
-        IReadOnlyDictionary<string, string?> environment, string[] arguments, bool waitForCompletion,
-        CancellationToken cancellationToken, Action<int>? processStarted, Func<Task>? processReleasing)
+    public async Task<ApplicationLaunchResult> RunUiAsync(string executable, IReadOnlyDictionary<string, string?> environment,
+        Action<UiState>? onUiState, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         StartupCapabilityResult capability = RuntimeStartupCapabilities.Negotiate(executable);
-        if (capability.Mode == StartupCapabilityMode.Invalid)
+        if (capability.Mode != StartupCapabilityMode.Supported)
         {
-            logger.Error("Application startup capability manifest is invalid for {Component}", application);
+            // Every supported boot image ships foundry.startup.json advertising protocol v1: anything else is a damaged image.
+            logger.Error("Application startup capability manifest is invalid for {Component}; capability {Mode}",
+                Application, capability.Mode);
             return new(false, FailureCategory: "capability_invalid");
         }
-        ProcessStartInfo start = CreateStartInfo(executable, environment, arguments);
-        // Never inherit another launch's protocol when handing off a legacy payload.
-        start.Environment.Remove(StartupProtocol.ProtocolEnvironmentVariable);
-        start.Environment.Remove(StartupProtocol.LaunchIdEnvironmentVariable);
-        start.Environment.Remove(StartupProtocol.StatusPathEnvironmentVariable);
-        bool supported = capability.Mode == StartupCapabilityMode.Supported;
+        ProcessStartInfo start = CreateStartInfo(executable, environment, [WinPeModes.UiArgument]);
         Guid launchId = Guid.NewGuid();
         string sessionId = DiagnosticSessionContext.ResolveSessionId(
             environment.GetValueOrDefault(DiagnosticSessionContext.EnvironmentVariableName));
         string directory = Path.Combine(sessionDirectory ?? Path.Combine(Path.GetTempPath(), "Foundry", "Logs", sessionId),
             "Startup", launchId.ToString("N"));
         string statusPath = Path.Combine(directory, "status.json");
-        if (supported)
-        {
-            Directory.CreateDirectory(directory);
-            start.Environment[StartupProtocol.SessionIdEnvironmentVariable] = sessionId;
-            start.Environment[StartupProtocol.ProtocolEnvironmentVariable] = capability.ProtocolVersion!.Value.ToString(CultureInfo.InvariantCulture);
-            start.Environment[StartupProtocol.LaunchIdEnvironmentVariable] = launchId.ToString("N");
-            start.Environment[StartupProtocol.StatusPathEnvironmentVariable] = statusPath;
-        }
-        else
-        {
-            logger.Warning("Application startup readiness is unverified for {Component}; capability {Mode}; reason {CompatibilityReason}",
-                application, capability.Mode, capability.Mode == StartupCapabilityMode.Legacy ? "Startup capability manifest is absent" : "No supported startup protocol version was advertised");
-            warning?.Invoke("This application does not support startup confirmation. Readiness will remain unverified.");
-        }
+        string statePath = Path.Combine(directory, UiStateFileName);
+        Directory.CreateDirectory(directory);
+        start.Environment[StartupProtocol.SessionIdEnvironmentVariable] = sessionId;
+        start.Environment[StartupProtocol.ProtocolEnvironmentVariable] = capability.ProtocolVersion!.Value.ToString(CultureInfo.InvariantCulture);
+        start.Environment[StartupProtocol.LaunchIdEnvironmentVariable] = launchId.ToString("N");
+        start.Environment[StartupProtocol.StatusPathEnvironmentVariable] = statusPath;
+        start.Environment[UiStateFile.PathEnvironmentVariable] = statePath;
         long launched = Stopwatch.GetTimestamp();
         using Process process = Start(start);
-        try
+        UiPhase? lastPhase = null;
+        var reader = new RuntimeStartupStatusReader(statusPath, sessionId, launchId.ToString("N"), Application, process.Id);
+        logger.Debug("Observing managed startup for {Component}; process {ProcessId}; protocol {ProtocolVersion}; launch {LaunchId}",
+            Application, process.Id, capability.ProtocolVersion, launchId.ToString("N"));
+        ApplicationLaunchResult result = await new ApplicationStartupObserver().ObserveAsync(
+            new ObservedApplication(process), ReadStatus, cancellationToken, Supervise).ConfigureAwait(false);
+        if (result.FailureCategory == "startup_failed" && !process.HasExited)
         {
-            if (processStarted is not null)
-            {
-                try { processStarted(process.Id); }
-                catch (Exception exception) { LogHandoffCallbackFailure(application, exception); }
-            }
-
-            if (!supported)
-            {
-                if (!waitForCompletion) { return new(true); }
-                int exitCode = await ObserveAsync(process, cancellationToken).ConfigureAwait(false);
-                return new(exitCode == 0, exitCode, FailureCategory: exitCode == 0 ? null : "child_exit");
-            }
-            var reader = new RuntimeStartupStatusReader(statusPath, sessionId, launchId.ToString("N"), application, process.Id);
-            logger.Debug("Observing managed startup for {Component}; process {ProcessId}; protocol {ProtocolVersion}",
-                application, process.Id, capability.ProtocolVersion);
-            ApplicationLaunchResult result = await new ApplicationStartupObserver().ObserveAsync(
-                new ObservedApplication(process), ReadStatus, waitForCompletion, cancellationToken).ConfigureAwait(false);
-            if (result.FailureCategory == "startup_failed" && recoverFailure is not null && !process.HasExited)
-            {
-                // Allow orderly child cleanup to release its failure record before terminal telemetry shutdown.
-                using var exitGrace = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-                exitGrace.CancelAfter(TimeSpan.FromSeconds(5));
-                try { await process.WaitForExitAsync(exitGrace.Token).ConfigureAwait(false); }
-                catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested) { }
-                cancellationToken.ThrowIfCancellationRequested();
-                if (process.HasExited) { result = result with { ExitCode = process.ExitCode }; }
-            }
-            logger.Information(
-                "Application startup observed for {Component}: {Outcome}; stage {Stage}; exit {ExitCode}; reason {FailureReason}; duration {DurationMilliseconds:F0} ms",
-                application, result.Succeeded ? "Succeeded" : "Stopped", result.LastStage, result.ExitCode, result.FailureCategory,
-                Stopwatch.GetElapsedTime(launched).TotalMilliseconds);
-            return result;
-
-            RuntimeStartupStatus? ReadStatus()
-            {
-                RuntimeStartupStatus? status = reader.Read();
-                if (status is not null)
-                {
-                    logger.Information("Application {Component} acknowledged startup stage {Stage}; process {ProcessId}; elapsed {DurationMilliseconds:F0} ms",
-                        application, status.Stage, process.Id, Stopwatch.GetElapsedTime(launched).TotalMilliseconds);
-                }
-                return status;
-            }
+            // A UI process that reported startup_failed is shutting down: wait briefly so child_exit_code carries its code.
+            using var exitGrace = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            exitGrace.CancelAfter(TimeSpan.FromSeconds(5));
+            try { await process.WaitForExitAsync(exitGrace.Token).ConfigureAwait(false); }
+            catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested) { }
+            cancellationToken.ThrowIfCancellationRequested();
+            if (process.HasExited) { result = result with { ExitCode = process.ExitCode }; }
         }
-        finally
+        if (process.HasExited) { result = result with { UiState = UiStateFile.Read(statePath) }; }
+        logger.Information(
+            "Application run observed for {Component}: {Outcome}; stage {Stage}; exit {ExitCode}; reason {FailureReason}; UI phase {UiPhase}; destructive step started {DestructiveStarted}; duration {DurationMilliseconds:F0} ms",
+            Application, result.Succeeded ? "Succeeded" : "Stopped", result.LastStage, result.ExitCode, result.FailureCategory,
+            result.UiState?.Phase, result.UiState?.DestructiveStarted, Stopwatch.GetElapsedTime(launched).TotalMilliseconds);
+        return result;
+
+        RuntimeStartupStatus? ReadStatus()
         {
-            // The child owns its failure file until process exit; timeout and cancellation never terminate it.
-            if (process.HasExited && supported)
+            RuntimeStartupStatus? status = reader.Read();
+            if (status is not null)
             {
-                try { recoverFailure?.Invoke(directory, launchId, application); }
-                catch (Exception exception) { logger.Warning(exception, "Child startup diagnostics could not be recovered"); }
+                logger.Information("Application {Component} acknowledged startup stage {Stage}; process {ProcessId}; elapsed {DurationMilliseconds:F0} ms",
+                    Application, status.Stage, process.Id, Stopwatch.GetElapsedTime(launched).TotalMilliseconds);
             }
-
-            // Awaited before `using` disposes the process: its open handle keeps the process id from being reused while the
-            // key relay still trusts it.
-            if (processReleasing is not null)
-            {
-                try { await processReleasing().ConfigureAwait(false); }
-                catch (Exception exception) { LogHandoffCallbackFailure(application, exception); }
-            }
+            return status;
         }
-    }
 
-    // Key hand-off code never attaches the exception object (its message is mirrored to remote logs).
-    private void LogHandoffCallbackFailure(string application, Exception exception) =>
-        logger.Warning("Key hand-off callback failed for {Component}. FailureType={FailureType}", application, exception.GetType().Name);
-
-    internal async Task<int> ObserveAsync(Process process, CancellationToken cancellationToken)
-    {
-        await process.WaitForExitAsync(cancellationToken).ConfigureAwait(false);
-        logger.Information("Application process {ProcessId} exited with code {ExitCode}", process.Id, process.ExitCode);
-        return process.ExitCode;
+        // Runs while the ready UI process is supervised: reports its state, and logs each phase it enters.
+        void Supervise()
+        {
+            if (UiStateFile.Read(statePath) is not UiState state) return;
+            if (state.Phase != lastPhase)
+            {
+                lastPhase = state.Phase;
+                logger.Information("Application {Component} entered UI phase {UiPhase}; process {ProcessId}", Application, state.Phase, process.Id);
+            }
+            onUiState?.Invoke(state);
+        }
     }
 
     internal static ProcessStartInfo CreateStartInfo(string executable,

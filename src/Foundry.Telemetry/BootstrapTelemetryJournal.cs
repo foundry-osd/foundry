@@ -23,8 +23,7 @@ internal sealed record BootstrapPendingRecord(
     Dictionary<string, object>? Properties,
     RemoteDiagnosticRecord? Diagnostic,
     int Attempts = 0,
-    BootstrapDeliveryState State = BootstrapDeliveryState.Pending,
-    bool RetainAcknowledgement = false);
+    BootstrapDeliveryState State = BootstrapDeliveryState.Pending);
 
 /// <summary>Bounds both RAM and disk; callers serialize access and apply consent before replay.</summary>
 internal sealed class BootstrapTelemetryJournal
@@ -63,23 +62,12 @@ internal sealed class BootstrapTelemetryJournal
         }
     }
 
-    /// <summary>Transfers all destinations in one durable update without replacing prior receipts or attempt counts.</summary>
-    internal bool Import(IReadOnlyList<BootstrapPendingRecord> records)
-    {
-        if (records.Any(record => JsonSerializer.SerializeToUtf8Bytes(record).Length > MaximumRecordBytes)) return false;
-        foreach (BootstrapPendingRecord record in records)
-        {
-            if (!_records.Any(existing => existing.Id == record.Id)) _records.Add(record);
-        }
-        return Save();
-    }
-
     internal bool Update(BootstrapPendingRecord record)
     {
         int index = _records.FindIndex(candidate => candidate.Id == record.Id);
         if (index >= 0)
         {
-            if (record.State == BootstrapDeliveryState.Acknowledged && !record.RetainAcknowledgement) _records.RemoveAt(index);
+            if (record.State == BootstrapDeliveryState.Acknowledged) _records.RemoveAt(index);
             else _records[index] = record;
             return Save();
         }
@@ -108,7 +96,7 @@ internal sealed class BootstrapTelemetryJournal
                     BootstrapPendingRecord? record = JsonSerializer.Deserialize<BootstrapPendingRecord>(line);
                     if (record is not null && record.Id != Guid.Empty && record.Scope is { Length: 64 } &&
                         Enum.IsDefined(record.Destination) && Enum.IsDefined(record.State) && record.Attempts >= 0 &&
-                        (record.State != BootstrapDeliveryState.Acknowledged || record.RetainAcknowledgement) &&
+                        record.State != BootstrapDeliveryState.Acknowledged &&
                         (record.Destination == BootstrapTelemetryDestination.Analytics ? record.Properties is not null :
                             record.Diagnostic is { Attributes: not null, Body: not null } diagnostic && Enum.IsDefined(diagnostic.Level) &&
                             (record.Destination != BootstrapTelemetryDestination.Exception ||
@@ -123,7 +111,7 @@ internal sealed class BootstrapTelemetryJournal
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException)
         {
-            System.Diagnostics.Debug.WriteLine("Bootstrap telemetry journal could not be read.");
+            System.Diagnostics.Debug.WriteLine("Guardian telemetry journal could not be read.");
         }
     }
 
@@ -208,7 +196,7 @@ internal sealed class BootstrapTelemetryJournal
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException)
         {
-            System.Diagnostics.Debug.WriteLine("Bootstrap telemetry remains in memory because its journal could not be written.");
+            System.Diagnostics.Debug.WriteLine("Guardian telemetry remains in memory because its journal could not be written.");
             return false;
         }
     }

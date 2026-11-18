@@ -5,7 +5,7 @@
 namespace Foundry.Core.Services.Runtime;
 
 /// <summary>
-/// Locates <c>foundry.winpe.config.json</c> for the guardian and the Connect and Deploy modes: the
+/// Locates <c>foundry.winpe.config.json</c> for the guardian and the Connect and Deploy phases of the UI process: the
 /// <see cref="OverrideEnvironmentVariable"/> full path when it is set, otherwise the file of the booted media.
 /// </summary>
 public static class WinPeConfigurationPath

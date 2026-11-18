@@ -29,7 +29,7 @@ public sealed class WinPeMountedImageAssetProvisioningService : IWinPeMountedIma
         "X:\Foundry\WinPE\Foundry.WinPE.exe"
         set "winPeExitCode=%errorlevel%"
         >>"X:\Foundry\Logs\FoundryBootstrap.Launcher.log" echo [%date% %time%] Foundry.WinPE.exe exited with code %winPeExitCode%
-        if not "%winPeExitCode%"=="0" if not "%winPeExitCode%"=="20" echo Foundry startup failed. See X:\Foundry\Logs for details.
+        if not "%winPeExitCode%"=="0" if not "%winPeExitCode%"=="20" echo Foundry stopped with an error. See X:\Foundry\Logs for details.
         exit /b %winPeExitCode%
         """;
     private const string Oa3CfgTemplate = """

@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <!-- Console subsystem: the guardian writes to the startnet console and the Connect and Deploy modes inherit it. -->
+    <!-- Console subsystem: the guardian writes to the startnet console and the UI process and the native worker inherit it. -->
     <OutputType>Exe</OutputType>
     <UseWPF>true</UseWPF>
     <StartupObject>Foundry.WinPE.Program</StartupObject>

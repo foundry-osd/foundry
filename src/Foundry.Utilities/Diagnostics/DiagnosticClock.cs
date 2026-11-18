@@ -22,7 +22,7 @@ public sealed class DiagnosticClock
     /// <summary>Null outside managed boot logging, otherwise the current verified clock state.</summary>
     public bool? IsSynchronized => Volatile.Read(ref _state) switch { 0 => null, 2 => true, _ => false };
 
-    /// <summary>Starts boot logging, accepting only an explicit synchronized state inherited from Bootstrap.</summary>
+    /// <summary>Starts boot logging, accepting only an explicit synchronized state inherited from the Foundry.WinPE guardian.</summary>
     public void InitializeRuntime(string? inheritedState) =>
         Volatile.Write(ref _state, string.Equals(inheritedState, "true", StringComparison.OrdinalIgnoreCase) ? 2 : 1);
 

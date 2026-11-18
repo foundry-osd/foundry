@@ -6,7 +6,10 @@ using Foundry.Core.Models.Runtime;
 
 namespace Foundry.WinPE;
 
-/// <summary>Ordered user-visible stages; application launch is distinct from readiness.</summary>
+/// <summary>
+/// Ordered boot stages, reported as <c>last_stage</c>: the guardian's environment preparation, then the phases of the UI
+/// process (Foundry Connect, system preparation, Foundry Deploy), read from its UI state file.
+/// </summary>
 internal enum BootstrapStage { Environment, Connect, System, Deploy }
 
 /// <summary>Textual status remains meaningful without terminal colors or cursor support.</summary>
@@ -20,10 +23,10 @@ internal enum BootstrapOutcome { Succeeded, Cancelled, Failed }
 
 /// <summary>
 /// Terminal result retains the failing stage and child code for diagnostics. <see cref="PayloadVersion"/> is the file
-/// version of the Foundry.WinPE executable for the Connect and Deploy stages, or <see langword="null"/> for other stages.
+/// version of the Foundry.WinPE executable once the UI process was launched, or <see langword="null"/> before.
 /// </summary>
 internal sealed record BootstrapResult(BootstrapOutcome Outcome, BootstrapStage Stage, int? ChildExitCode = null,
-    string? FailureCategory = null, string? ChildStartupStage = null, bool ReadinessConfirmed = false, string? PayloadVersion = null)
+    string? FailureCategory = null, string? ChildStartupStage = null, string? PayloadVersion = null)
 {
     internal int ExitCode => Outcome switch
     {

@@ -21,4 +21,22 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>وسائط تمهيد قديمة</value>
   </data>
+  <data name="UiCrash.Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="UiCrash.LogFolder" xml:space="preserve">
+    <value>السجلات: {0}</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchAllowed" xml:space="preserve">
+    <value>توقف Foundry بشكل غير متوقع قبل أن يغيّر النشر القرص الهدف. يمكنك إعادة تشغيل Foundry، وسيبدأ من جديد من اتصال الشبكة.</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchRefused" xml:space="preserve">
+    <value>توقف Foundry بشكل غير متوقع. ربما يكون النشر قد غيّر القرص الهدف بالفعل، لذا لا يمكن إعادة تشغيل Foundry. أعد تشغيل الكمبيوتر لبدء نشر جديد.</value>
+  </data>
+  <data name="UiCrash.Relaunch" xml:space="preserve">
+    <value>إعادة التشغيل</value>
+  </data>
+  <data name="UiCrash.Title" xml:space="preserve">
+    <value>توقف Foundry</value>
+  </data>
 </root>

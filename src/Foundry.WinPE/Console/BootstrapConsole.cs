@@ -3,20 +3,26 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Diagnostics;
+using Foundry.Core.Models.Runtime;
 
 namespace Foundry.WinPE.Console;
 
-/// <summary>Maintains a compact WinPE progress screen, with plain output when cursor control is unavailable.</summary>
+/// <summary>
+/// Maintains a compact WinPE progress screen, with plain output when cursor control is unavailable. It shows two lines: the
+/// guardian's environment stage and the UI process ("Foundry"), on which every UI phase is reported.
+/// </summary>
 internal sealed class BootstrapConsole : IDisposable
 {
     private readonly object gate = new();
     private readonly TextWriter output;
     private readonly Timer heartbeat;
     private readonly long started = Stopwatch.GetTimestamp();
-    private static readonly int StageCount = Enum.GetValues<BootstrapStage>().Length;
-    private readonly BootstrapStatus[] stages = new BootstrapStatus[StageCount];
-    private readonly long?[] stageStarts = new long?[StageCount];
-    private readonly TimeSpan?[] stageDurations = new TimeSpan?[StageCount];
+    private const int EnvironmentRow = 0;
+    private const int FoundryRow = 1;
+    private const int RowCount = 2;
+    private readonly BootstrapStatus[] stages = new BootstrapStatus[RowCount];
+    private readonly long?[] stageStarts = new long?[RowCount];
+    private readonly TimeSpan?[] stageDurations = new TimeSpan?[RowCount];
     private readonly List<(BootstrapStage Stage, string Message)> warnings = [];
     private BootstrapProgress? current;
     private BootstrapResult? result;
@@ -65,14 +71,14 @@ internal sealed class BootstrapConsole : IDisposable
                 return;
             }
             current = value;
-            int index = (int)value.Stage;
-            if (value.Status == BootstrapStatus.Running) stageStarts[index] ??= Stopwatch.GetTimestamp();
-            else if (stageStarts[index] is long stageStart)
-                stageDurations[index] ??= Stopwatch.GetElapsedTime(stageStart);
-            stages[(int)value.Stage] = value.Status;
+            int row = Row(value.Stage);
+            if (value.Status == BootstrapStatus.Running) stageStarts[row] ??= Stopwatch.GetTimestamp();
+            else if (stageStarts[row] is long stageStart)
+                stageDurations[row] ??= Stopwatch.GetElapsedTime(stageStart);
+            stages[row] = value.Status;
             if (value.Status is BootstrapStatus.Failed or BootstrapStatus.Cancelled ||
-                value.Stage == BootstrapStage.Deploy && value.Status == BootstrapStatus.Completed) Stop();
-            if (!Render()) WriteLine($"{StageName(value.Stage)}: {StatusText(value.Stage)} - {value.Message}");
+                row == FoundryRow && value.Status == BootstrapStatus.Completed) Stop();
+            if (!Render()) WriteLine($"{RowName(row)}: {StatusText(row)} - {value.Message}");
             lastOutput = Stopwatch.GetTimestamp();
         }
     }
@@ -85,7 +91,7 @@ internal sealed class BootstrapConsole : IDisposable
         }
     }
 
-    /// <summary>Retains warnings and distinguishes confirmed readiness from a legacy process-only handoff.</summary>
+    /// <summary>Shows the final outcome and keeps the warnings; later reports cannot replace it.</summary>
     internal void Complete(BootstrapResult value, string sessionId, string? logPath)
     {
         lock (gate)
@@ -123,7 +129,7 @@ internal sealed class BootstrapConsole : IDisposable
     {
         if (warnings.Contains((stage, message))) return;
         warnings.Add((stage, message));
-        if (!Render()) WriteLine($"Warning - {StageName(stage)}: {message}");
+        if (!Render()) WriteLine($"Warning - {RowName(Row(stage))}: {message}");
         lastOutput = Stopwatch.GetTimestamp();
     }
 
@@ -153,59 +159,52 @@ internal sealed class BootstrapConsole : IDisposable
         return $"{(int)duration.TotalMinutes:00}:{duration.Seconds:00}";
     }
 
-    private string StageElapsedText(BootstrapStage stage)
+    private string StageElapsedText(int row)
     {
-        int index = (int)stage;
-        if (stageStarts[index] is not long timestamp) return "";
-        TimeSpan duration = stageDurations[index] ?? Stopwatch.GetElapsedTime(timestamp);
+        if (stageStarts[row] is not long timestamp) return "";
+        TimeSpan duration = stageDurations[row] ?? Stopwatch.GetElapsedTime(timestamp);
         return $"{(int)duration.TotalMinutes:00}:{duration.Seconds:00}";
     }
 
     private string Subtitle() => result?.Outcome switch
     {
-        BootstrapOutcome.Succeeded when result.ReadinessConfirmed => "Deployment environment ready",
-        BootstrapOutcome.Succeeded => "Deployment application launched",
+        BootstrapOutcome.Succeeded => "Foundry finished",
         BootstrapOutcome.Cancelled => "Startup cancelled",
-        BootstrapOutcome.Failed => "Startup failed",
+        BootstrapOutcome.Failed => result is not null && IsStoppedAfterStartup(result) ? "Foundry stopped" : "Startup failed",
         _ => "Preparing your deployment environment"
     };
 
-    private string FinalMessage() => result?.Outcome switch
-    {
-        BootstrapOutcome.Succeeded when result.ReadinessConfirmed => "Continue in Foundry Deploy.",
-        BootstrapOutcome.Succeeded => warnings.Count > 0 ? "Foundry Deploy was launched." : "Foundry Deploy was launched. Readiness is unverified.",
-        _ => current?.Message ?? "Preparing your deployment environment"
-    };
+    // The UI process ended with an exit code other than its own startup or configuration failure codes (a crash, before or
+    // after readiness): "Foundry stopped" matches the "stopped unexpectedly" message better than "Startup failed".
+    private static bool IsStoppedAfterStartup(BootstrapResult value) =>
+        value.Stage != BootstrapStage.Environment && value.FailureCategory == "child_exit" &&
+        value.ChildExitCode is not null and not (int)ChildRuntimeExitCode.StartupFailure and not (int)ChildRuntimeExitCode.ConfigurationFailure;
 
-    private string StatusText(BootstrapStage stage) => stages[(int)stage] switch
+    private string FinalMessage() => current?.Message ?? "Preparing your deployment environment";
+
+    private string StatusText(int row) => stages[row] switch
     {
         BootstrapStatus.Running => "In progress",
-        BootstrapStatus.Completed when stage == BootstrapStage.Deploy && result is not null =>
-            result.ReadinessConfirmed ? "Ready" : "Unverified",
-        BootstrapStatus.Completed => warnings.Any(warning => warning.Stage == stage) ? "Done (warning)" : "Done",
+        BootstrapStatus.Completed => warnings.Any(warning => Row(warning.Stage) == row) ? "Done (warning)" : "Done",
         BootstrapStatus.Failed => "Failed",
         BootstrapStatus.Cancelled => "Cancelled",
         _ => stopped ? "Not started" : "Waiting"
     };
 
-    private ConsoleColor StageColor(BootstrapStage stage) => stages[(int)stage] switch
+    private ConsoleColor StageColor(int row) => stages[row] switch
     {
         BootstrapStatus.Failed => ConsoleColor.Red,
         BootstrapStatus.Cancelled => ConsoleColor.Yellow,
-        _ when warnings.Any(warning => warning.Stage == stage) => ConsoleColor.Yellow,
+        _ when warnings.Any(warning => Row(warning.Stage) == row) => ConsoleColor.Yellow,
         BootstrapStatus.Completed => ConsoleColor.Green,
         BootstrapStatus.Running => ConsoleColor.Cyan,
         _ => ConsoleColor.DarkGray
     };
 
-    private static string StageName(BootstrapStage stage) => stage switch
-    {
-        BootstrapStage.Environment => "Environment",
-        BootstrapStage.Connect => "Network connection",
-        BootstrapStage.System => "Clock and time zone",
-        BootstrapStage.Deploy => "Deployment application",
-        _ => throw new ArgumentOutOfRangeException(nameof(stage))
-    };
+    // The UI process runs Connect, system preparation and Deploy: all its phases share the "Foundry" line.
+    private static int Row(BootstrapStage stage) => stage == BootstrapStage.Environment ? EnvironmentRow : FoundryRow;
+
+    private static string RowName(int row) => row == EnvironmentRow ? "Environment" : "Foundry";
 
     private bool Render()
     {
@@ -230,8 +229,8 @@ internal sealed class BootstrapConsole : IDisposable
             Add("Foundry WinPE", ConsoleColor.White);
             Add(Subtitle());
             Add("");
-            foreach (BootstrapStage stage in Enum.GetValues<BootstrapStage>())
-                Add($"  {StageName(stage),-27}{StatusText(stage),-15}{(width >= 50 ? StageElapsedText(stage) : "")}");
+            for (int row = 0; row < RowCount; row++)
+                Add($"  {RowName(row),-27}{StatusText(row),-15}{(width >= 50 ? StageElapsedText(row) : "")}");
             Add("");
             Add(stopped ? FinalMessage() : current?.Message ?? "Starting...");
             Add("");
@@ -253,20 +252,20 @@ internal sealed class BootstrapConsole : IDisposable
                 var line = row < lines.Count ? lines[row] : (string.Empty, ConsoleColor.Gray);
                 System.Console.ForegroundColor = line.Item2;
                 output.Write(line.Item1.PadRight(width));
-                if (row >= 3 && row < 3 + StageCount)
+                if (row >= 3 && row < 3 + RowCount)
                 {
-                    BootstrapStage stage = (BootstrapStage)(row - 3);
+                    int stageRow = row - 3;
                     System.Console.SetCursorPosition(2, row);
                     System.Console.ForegroundColor = ConsoleColor.White;
-                    output.Write(StageName(stage));
+                    output.Write(RowName(stageRow));
                     System.Console.SetCursorPosition(29, row);
-                    System.Console.ForegroundColor = StageColor(stage);
-                    output.Write(StatusText(stage));
+                    System.Console.ForegroundColor = StageColor(stageRow);
+                    output.Write(StatusText(stageRow));
                     if (width >= 50)
                     {
                         System.Console.SetCursorPosition(44, row);
                         System.Console.ForegroundColor = ConsoleColor.DarkGray;
-                        output.Write(StageElapsedText(stage));
+                        output.Write(StageElapsedText(stageRow));
                     }
                 }
             }

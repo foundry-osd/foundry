@@ -21,4 +21,22 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>Inaktuellt startmedium</value>
   </data>
+  <data name="UiCrash.Close" xml:space="preserve">
+    <value>Stäng</value>
+  </data>
+  <data name="UiCrash.LogFolder" xml:space="preserve">
+    <value>Loggar: {0}</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchAllowed" xml:space="preserve">
+    <value>Foundry stoppades oväntat innan distributionen ändrade måldisken. Du kan starta om Foundry, som börjar om från nätverksanslutningen.</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchRefused" xml:space="preserve">
+    <value>Foundry stoppades oväntat. Distributionen kan redan ha ändrat måldisken, så Foundry kan inte startas om. Starta om datorn för att påbörja en ny distribution.</value>
+  </data>
+  <data name="UiCrash.Relaunch" xml:space="preserve">
+    <value>Starta om</value>
+  </data>
+  <data name="UiCrash.Title" xml:space="preserve">
+    <value>Foundry har stoppats</value>
+  </data>
 </root>

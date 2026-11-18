@@ -12,7 +12,8 @@ namespace Foundry.Telemetry;
 public static class TelemetryContextFactory
 {
     /// <summary>
-    /// Creates a telemetry context correlated with the current diagnostic session.
+    /// Creates a telemetry context correlated with the current diagnostic session; <c>runtimeHost</c> is the hosting process
+    /// (<see cref="TelemetryRuntimeHosts"/>), or <see langword="null"/> when the application is its own host.
     /// </summary>
     public static TelemetryContext Create(
         string app,
@@ -22,7 +23,8 @@ public static class TelemetryContextFactory
         string runtimePayloadSource,
         string bootMediaTarget,
         string runtimeArchitecture,
-        string locale)
+        string locale,
+        string? runtimeHost = null)
     {
         return new TelemetryContext(
             app,
@@ -33,7 +35,8 @@ public static class TelemetryContextFactory
             bootMediaTarget,
             runtimeArchitecture,
             locale,
-            DiagnosticSessionContext.CurrentSessionId);
+            DiagnosticSessionContext.CurrentSessionId,
+            runtimeHost);
     }
 
     /// <summary>
