@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Foundry.Core.Models.Autopilot;
+using Foundry.Core.Services.Autopilot;
 
 namespace Foundry.AutopilotInteractive.Services.Registration;
 

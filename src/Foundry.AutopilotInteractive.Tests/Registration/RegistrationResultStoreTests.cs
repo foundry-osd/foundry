@@ -5,6 +5,7 @@
 using System.IO;
 using System.Text.Json;
 using Foundry.AutopilotInteractive.Services.Registration;
+using Foundry.Core.Services.Autopilot;
 
 namespace Foundry.AutopilotInteractive.Tests.Registration;
 

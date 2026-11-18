@@ -1098,6 +1098,9 @@
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Καταγραφή κατακερματισμού υλικού Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Έλεγχος του προφίλ Autopilot (απομένει {0})...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Έλεγχος διαθέσιμου χώρου...</value>
   </data>
@@ -1296,6 +1299,9 @@
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Αναμονή για ενημέρωση ετικέτας ομάδας Autopilot...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Αναμονή για την ανάθεση του προφίλ Autopilot...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Σύνταξη αρχείων καταγραφής ολοκλήρωσης...</value>
   </data>
@@ -1385,6 +1391,18 @@
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Η αποστολή κατακερματισμού υλικού Autopilot παραλείφθηκε επειδή οι απαιτούμενες πληροφορίες πιστοποιητικού του μέσου δεν είναι πλήρεις.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Ο κατακερματισμός υλικού Autopilot εισήχθη και το προφίλ Autopilot έχει ανατεθεί.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Ο κατακερματισμός υλικού Autopilot εισήχθη, αλλά το Intune ανέφερε ότι η ανάθεση του προφίλ Autopilot απέτυχε.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Ο κατακερματισμός υλικού Autopilot εισήχθη, αλλά δεν ανατέθηκε προφίλ Autopilot εντός 20 λεπτών.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Ο κατακερματισμός υλικού Autopilot εισήχθη, αλλά δεν ήταν δυνατή η ανάγνωση της κατάστασης του προφίλ Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Το Autopilot είναι ενεργοποιημένο αλλά δεν επιλέχθηκε κανένα προφίλ.</value>

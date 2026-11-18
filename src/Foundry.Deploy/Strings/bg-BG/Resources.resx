@@ -1098,6 +1098,9 @@
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Прихващане на Autopilot хардуерен хеш...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Проверка на Autopilot профила (оставащи: {0})...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Проверка на свободното място...</value>
   </data>
@@ -1296,6 +1299,9 @@
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Изчаква се актуализация на Autopilot групов етикет...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Изчаква се назначаването на Autopilot профила...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Записване на регистрационни файлове за завършване...</value>
   </data>
@@ -1385,6 +1391,18 @@
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Качването на Autopilot хардуерен хеш е пропуснато, тъй като необходимата информация за медийния сертификат е непълна.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Autopilot хардуерният хеш е импортиран и Autopilot профилът е назначен.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Autopilot хардуерният хеш е импортиран, но Intune съобщи, че назначаването на Autopilot профила е неуспешно.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Autopilot хардуерният хеш е импортиран, но в рамките на 20 минути не е назначен Autopilot профил.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Autopilot хардуерният хеш е импортиран, но състоянието на Autopilot профила не можа да бъде прочетено.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot е активиран, но не е избран профил.</value>

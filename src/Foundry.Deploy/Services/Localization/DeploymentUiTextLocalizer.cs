@@ -248,6 +248,7 @@ public static partial class DeploymentUiTextLocalizer
             "Preparing Microsoft Graph import..." => LocalizationText.GetString("StepMessage.PreparingMicrosoftGraphImport"),
             "Submitting import request to Microsoft Graph..." => LocalizationText.GetString("StepMessage.SubmittingMicrosoftGraphImport"),
             "Waiting for Autopilot device visibility..." => LocalizationText.GetString("StepMessage.WaitingForAutopilotDeviceVisibility"),
+            "Waiting for the Autopilot profile assignment..." => LocalizationText.GetString("StepMessage.WaitingForAutopilotProfileAssignment"),
             "Updating existing Autopilot device..." => LocalizationText.GetString("StepMessage.UpdatingExistingAutopilotDevice"),
             "Updating Windows Autopilot group tag in Microsoft Graph..." => LocalizationText.GetString("StepMessage.UpdatingWindowsAutopilotGroupTag"),
             "Waiting for Autopilot group tag update..." => LocalizationText.GetString("StepMessage.WaitingForAutopilotGroupTagUpdate"),
@@ -263,6 +264,10 @@ public static partial class DeploymentUiTextLocalizer
             "Autopilot hardware hash upload skipped because media metadata is incomplete." => LocalizationText.GetString("StepResult.AutopilotHashUploadSkippedMissingMetadata"),
             "Autopilot hardware hash imported and visible in Windows Autopilot devices." => LocalizationText.GetString("StepResult.AutopilotHardwareHashImportedVisible"),
             "Imported Autopilot device did not appear in Windows Autopilot devices before the timeout." => LocalizationText.GetString("StepResult.AutopilotDeviceVisibilityTimedOut"),
+            "Autopilot hardware hash imported and the Autopilot profile is assigned." => LocalizationText.GetString("StepResult.AutopilotProfileAssigned"),
+            "Autopilot hardware hash imported, but no Autopilot profile was assigned within 20 minutes." => LocalizationText.GetString("StepResult.AutopilotProfileAssignmentTimedOut"),
+            "Autopilot hardware hash imported, but Intune reported that the Autopilot profile assignment failed." => LocalizationText.GetString("StepResult.AutopilotProfileAssignmentFailed"),
+            "Autopilot hardware hash imported, but the Autopilot profile status could not be read." => LocalizationText.GetString("StepResult.AutopilotProfileAssignmentUnavailable"),
             "Windows Autopilot device group tag update was not confirmed before the timeout." => LocalizationText.GetString("StepResult.AutopilotGroupTagUpdateTimedOut"),
             "Autopilot hardware hash upload prepared for dry run." => LocalizationText.GetString("StepResult.AutopilotHashUploadPreparedDryRun"),
             "Autopilot hardware hash upload prepared (simulation)." => LocalizationText.GetString("StepResult.AutopilotHashUploadPreparedSimulation"),
@@ -405,6 +410,14 @@ public static partial class DeploymentUiTextLocalizer
         {
             return LocalizationText.Format(
                 "StepMessage.CheckingWindowsAutopilotDevicesFormat",
+                LocalizeCompactRemainingDuration(match.Groups["remaining"].Value));
+        }
+
+        match = CheckingAutopilotProfileRegex().Match(value);
+        if (match.Success)
+        {
+            return LocalizationText.Format(
+                "StepMessage.CheckingAutopilotProfileFormat",
                 LocalizeCompactRemainingDuration(match.Groups["remaining"].Value));
         }
 
@@ -582,6 +595,9 @@ public static partial class DeploymentUiTextLocalizer
 
     [GeneratedRegex(@"^Checking Windows Autopilot group tag \((?<remaining>.+) remaining\)\.\.\.$")]
     private static partial Regex CheckingWindowsAutopilotGroupTagRegex();
+
+    [GeneratedRegex(@"^Checking the Autopilot profile \((?<remaining>.+) remaining\)\.\.\.$")]
+    private static partial Regex CheckingAutopilotProfileRegex();
 
     // The network cache upload line of the finalize step, for example "install.wim: 50% (512.0 MB / 1.0 GB), 2 more" or "pack.cab: 1.0 KB".
     // The progress shape is spelled out so that no other "name: text" message matches; percent labels share it and are tried first.

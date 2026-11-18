@@ -1098,6 +1098,9 @@
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>يتم الآن التقاط تجزئة الأجهزة Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>جارٍ التحقق من ملف تعريف Autopilot ({0} المتبقية)...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>التحقق من المساحة المتاحة...</value>
   </data>
@@ -1296,6 +1299,9 @@
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>في انتظار تحديث علامة المجموعة Autopilot...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>في انتظار تعيين ملف تعريف Autopilot...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>كتابة سجلات الإكمال...</value>
   </data>
@@ -1385,6 +1391,18 @@
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilot تم تخطي تحميل تجزئة الأجهزة لأن معلومات شهادة الوسائط المطلوبة غير كاملة.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>تم استيراد تجزئة الأجهزة Autopilot وتم تعيين ملف تعريف Autopilot.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>تم استيراد تجزئة الأجهزة Autopilot، ولكن أبلغ Intune عن فشل تعيين ملف تعريف Autopilot.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>تم استيراد تجزئة الأجهزة Autopilot، ولكن لم يتم تعيين ملف تعريف Autopilot خلال 20 دقيقة.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>تم استيراد تجزئة الأجهزة Autopilot، ولكن تعذرت قراءة حالة ملف تعريف Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>تم تمكين Autopilot ولكن لم يتم تحديد ملف تعريف.</value>

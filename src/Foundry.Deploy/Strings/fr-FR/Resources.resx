@@ -1098,6 +1098,9 @@ Continuer le déploiement ?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Capture du hachage matériel Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Vérification du profil Autopilot ({0} restant)...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Vérification de l'espace disponible...</value>
   </data>
@@ -1296,6 +1299,9 @@ Continuer le déploiement ?</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Attente de la mise à jour de la balise de groupe Autopilot...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Attente de l'attribution du profil Autopilot...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Écriture des journaux de fin...</value>
   </data>
@@ -1385,6 +1391,18 @@ Continuer le déploiement ?</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Envoi du hachage matériel Autopilot ignoré car les informations de certificat du média sont incomplètes.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Hachage matériel Autopilot importé et profil Autopilot attribué.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Hachage matériel Autopilot importé, mais Intune a signalé l'échec de l'attribution du profil Autopilot.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Hachage matériel Autopilot importé, mais aucun profil Autopilot n'a été attribué dans un délai de 20 minutes.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Hachage matériel Autopilot importé, mais l'état du profil Autopilot n'a pas pu être lu.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot est activé mais aucun profil n'a été sélectionné.</value>

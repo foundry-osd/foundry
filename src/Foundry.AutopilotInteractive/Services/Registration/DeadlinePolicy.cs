@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Core.Services.Autopilot;
+
 namespace Foundry.AutopilotInteractive.Services.Registration;
 
 /// <summary>
@@ -19,6 +21,19 @@ public static class DeadlinePolicy
     /// <param name="deadlineUtc">The deadline, or <see langword="null"/> when none was passed.</param>
     /// <returns>The deadline minus <see cref="Margin"/>, or <see langword="null"/> without a deadline.</returns>
     public static DateTimeOffset? StopAt(DateTimeOffset? deadlineUtc) => deadlineUtc - Margin;
+
+    /// <summary>
+    /// Computes when the profile assignment wait must stop: <see cref="ProfileAssignmentWaiter.MaximumWait"/> after the
+    /// start, or the deadline margin when earlier.
+    /// </summary>
+    /// <param name="startUtc">Instant the wait starts.</param>
+    /// <param name="deadlineUtc">Setup deadline, or <see langword="null"/> when none was passed.</param>
+    /// <returns>The stop instant.</returns>
+    public static DateTimeOffset ProfileWaitStopAt(DateTimeOffset startUtc, DateTimeOffset? deadlineUtc)
+    {
+        DateTimeOffset limit = startUtc + ProfileAssignmentWaiter.MaximumWait;
+        return StopAt(deadlineUtc) is { } stop && stop < limit ? stop : limit;
+    }
 
     /// <summary>
     /// Tells whether the deadline itself has been reached.

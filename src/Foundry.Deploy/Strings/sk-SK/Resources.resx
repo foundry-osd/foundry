@@ -1098,6 +1098,9 @@ Pokračovať v nasadzovaní?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Zachytáva sa hardvérový hash Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Kontrola profilu Autopilot (zostáva {0})...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Kontrola dostupného miesta...</value>
   </data>
@@ -1296,6 +1299,9 @@ Pokračovať v nasadzovaní?</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Čaká sa na aktualizáciu značky skupiny Autopilot...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Čaká sa na priradenie profilu Autopilot...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Zapisujú sa denníky dokončenia...</value>
   </data>
@@ -1385,6 +1391,18 @@ Pokračovať v nasadzovaní?</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Nahrávanie hardvérového hashu Autopilot bolo preskočené, pretože požadované informácie o certifikáte média nie sú úplné.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Hardvérový hash Autopilot bol importovaný a profil Autopilot je priradený.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Hardvérový hash Autopilot bol importovaný, ale Intune nahlásil, že priradenie profilu Autopilot zlyhalo.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Hardvérový hash Autopilot bol importovaný, ale do 20 minút nebol priradený žiadny profil Autopilot.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Hardvérový hash Autopilot bol importovaný, ale stav profilu Autopilot sa nepodarilo prečítať.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot je povolený, ale nebol vybratý žiadny profil.</value>

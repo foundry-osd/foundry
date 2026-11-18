@@ -1098,6 +1098,9 @@ ErrorCode=0x80070005
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>לוכד את גיבוב החומרה של Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>בודק את פרופיל Autopilot (נותרו {0})...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>בדיקת השטח הזמין...</value>
   </data>
@@ -1296,6 +1299,9 @@ ErrorCode=0x80070005
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>ממתין לעדכון תג הקבוצה Autopilot...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>ממתין להקצאת פרופיל Autopilot...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>כתיבת יומני השלמה...</value>
   </data>
@@ -1385,6 +1391,18 @@ ErrorCode=0x80070005
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>בוצע דילוג על העלאת גיבוב החומרה של Autopilot מכיוון שהמידע הנדרש על אישור המדיה אינו שלם.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>גיבוב החומרה של Autopilot יובא ופרופיל Autopilot הוקצה.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>גיבוב החומרה של Autopilot יובא, אך Intune דיווח שהקצאת פרופיל Autopilot נכשלה.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>גיבוב החומרה של Autopilot יובא, אך לא הוקצה פרופיל Autopilot בתוך 20 דקות.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>גיבוב החומרה של Autopilot יובא, אך לא ניתן היה לקרוא את מצב פרופיל Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot מופעל אך לא נבחר פרופיל.</value>

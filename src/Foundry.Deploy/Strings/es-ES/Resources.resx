@@ -1098,6 +1098,9 @@ Sistema operativo: {4}
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Capturando hash de hardware Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Comprobando el perfil de Autopilot ({0} restantes)...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Comprobando el espacio disponible...</value>
   </data>
@@ -1296,6 +1299,9 @@ Sistema operativo: {4}
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Esperando la actualización de la etiqueta del grupo Autopilot...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Esperando la asignación del perfil de Autopilot...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Escribiendo registros de finalización...</value>
   </data>
@@ -1385,6 +1391,18 @@ Sistema operativo: {4}
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilot se omitió la carga del hash de hardware porque la información del certificado de medios requerida está incompleta.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Hash de hardware de Autopilot importado y perfil de Autopilot asignado.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Hash de hardware de Autopilot importado, pero Intune notificó que la asignación del perfil de Autopilot falló.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Hash de hardware de Autopilot importado, pero no se asignó ningún perfil de Autopilot en 20 minutos.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Hash de hardware de Autopilot importado, pero no se pudo leer el estado del perfil de Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot está habilitado pero no se seleccionó ningún perfil.</value>

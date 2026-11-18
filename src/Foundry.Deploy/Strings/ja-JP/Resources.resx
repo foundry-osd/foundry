@@ -1098,6 +1098,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Autopilot ハードウェア ハッシュをキャプチャしています...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Autopilot プロファイルをチェックしています ({0} 残り)...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>空き容量を確認しています...</value>
   </data>
@@ -1296,6 +1299,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Autopilot グループタグの更新を待っています...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Autopilot プロファイルが割り当てられるのを待っています...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>完了ログを書き込んでいます...</value>
   </data>
@@ -1385,6 +1391,18 @@ MITライセンスに基づいてライセンスされています。</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilot 必要なメディア証明書情報が不完全であるため、ハードウェア ハッシュのアップロードはスキップされました。</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Autopilot ハードウェア ハッシュがインポートされ、Autopilot プロファイルが割り当てられました。</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Autopilot ハードウェア ハッシュはインポートされましたが、Autopilot プロファイルの割り当てに失敗したことが Intune から報告されました。</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Autopilot ハードウェア ハッシュはインポートされましたが、20 分以内に Autopilot プロファイルが割り当てられませんでした。</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Autopilot ハードウェア ハッシュはインポートされましたが、Autopilot プロファイルの状態を読み取れませんでした。</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot は有効ですが、プロファイルが選択されていません。</value>

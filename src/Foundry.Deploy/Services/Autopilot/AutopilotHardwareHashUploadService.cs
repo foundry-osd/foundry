@@ -24,6 +24,7 @@ public sealed class AutopilotHardwareHashUploadService(
     IDeploymentSecretKeyProvider deploymentSecretKeyProvider,
     IAutopilotGraphTokenService tokenService,
     AutopilotGraphImportClient graphImportClient,
+    IProfileAssignmentService profileAssignment,
     ILogger<AutopilotHardwareHashUploadService> logger) : IAutopilotHardwareHashUploadService
 {
     private const string UploadResultFileName = "AutopilotUploadResult.json";
@@ -31,6 +32,7 @@ public sealed class AutopilotHardwareHashUploadService(
     private readonly IDeploymentSecretKeyProvider deploymentSecretKeyProvider = deploymentSecretKeyProvider;
     private readonly IAutopilotGraphTokenService tokenService = tokenService;
     private readonly AutopilotGraphImportClient graphImportClient = graphImportClient;
+    private readonly IProfileAssignmentService profileAssignment = profileAssignment;
     private readonly ILogger logger = logger;
 
     public async Task<AutopilotHardwareHashUploadResult> UploadAsync(
@@ -99,7 +101,7 @@ public sealed class AutopilotHardwareHashUploadService(
             progress?.Report(new AutopilotHardwareHashUploadProgress(
                 "Uploading Autopilot hardware hash...",
                 "Importing hardware hash into Microsoft Graph..."));
-            return await graphImportClient.ImportHardwareHashAsync(
+            AutopilotHardwareHashUploadResult importResult = await graphImportClient.ImportHardwareHashAsync(
                 new AutopilotGraphImportRequest(
                     accessToken,
                     request.Identity.SerialNumber,
@@ -110,6 +112,17 @@ public sealed class AutopilotHardwareHashUploadService(
                     request.AssignedComputerName),
                 progress,
                 cancellationToken).ConfigureAwait(false);
+            if (!importResult.IsCompleted)
+            {
+                return importResult;
+            }
+
+            ProfileAssignmentOutcome outcome = await WaitForProfileAsync(
+                accessToken,
+                importResult.AutopilotDeviceId,
+                progress,
+                cancellationToken).ConfigureAwait(false);
+            return importResult with { ProfileAssignment = outcome, Message = DescribeProfileAssignment(outcome) };
         }
         finally
         {
@@ -124,6 +137,70 @@ public sealed class AutopilotHardwareHashUploadService(
                 CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(pfxPassword.AsSpan()));
             }
         }
+    }
+
+    /// <summary>
+    /// Waits up to <see cref="ProfileAssignmentWaiter.MaximumWait"/> for Intune to assign the Autopilot deployment profile,
+    /// so the device reaches OOBE with it, and reports a countdown every second. The outcome is informational: a profile that
+    /// is not assigned never fails the upload. Deployment cancellation still cancels.
+    /// </summary>
+    private async Task<ProfileAssignmentOutcome> WaitForProfileAsync(
+        string accessToken,
+        string? autopilotDeviceId,
+        IProgress<AutopilotHardwareHashUploadProgress>? progress,
+        CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(autopilotDeviceId))
+        {
+            logger.LogWarning("The Autopilot device identifier is unknown; the profile assignment wait is skipped.");
+            return ProfileAssignmentOutcome.Unavailable;
+        }
+
+        DateTimeOffset stopAtUtc = DateTimeOffset.UtcNow + ProfileAssignmentWaiter.MaximumWait;
+        logger.LogInformation("Waiting up to {Timeout} for the Autopilot profile assignment.", ProfileAssignmentWaiter.MaximumWait);
+        Task<ProfileAssignmentOutcome> wait = profileAssignment.WaitAsync(accessToken, autopilotDeviceId, stopAtUtc, cancellationToken);
+        while (!wait.IsCompleted)
+        {
+            TimeSpan remaining = stopAtUtc - DateTimeOffset.UtcNow;
+            progress?.Report(new AutopilotHardwareHashUploadProgress(
+                "Waiting for the Autopilot profile assignment...",
+                $"Checking the Autopilot profile ({FormatRemaining(remaining)} remaining)..."));
+            await Task.WhenAny(wait, Task.Delay(TimeSpan.FromSeconds(1), cancellationToken)).ConfigureAwait(false);
+            if (cancellationToken.IsCancellationRequested)
+            {
+                // A cancelled delay completes at once: stop ticking and let the wait observe the cancellation.
+                break;
+            }
+        }
+
+        ProfileAssignmentOutcome outcome = await wait.ConfigureAwait(false);
+        // The waiter reports a cancelled token as Skipped; here it is the deployment being cancelled.
+        cancellationToken.ThrowIfCancellationRequested();
+        if (outcome == ProfileAssignmentOutcome.Assigned)
+        {
+            logger.LogInformation("The Autopilot profile is assigned to the device.");
+        }
+        else
+        {
+            logger.LogWarning("The Autopilot profile is not assigned to the device. Outcome={Outcome}", outcome);
+        }
+
+        return outcome;
+    }
+
+    private static string DescribeProfileAssignment(ProfileAssignmentOutcome outcome) => outcome switch
+    {
+        ProfileAssignmentOutcome.Assigned => "Autopilot hardware hash imported and the Autopilot profile is assigned.",
+        ProfileAssignmentOutcome.TimedOut => "Autopilot hardware hash imported, but no Autopilot profile was assigned within 20 minutes.",
+        ProfileAssignmentOutcome.Failed => "Autopilot hardware hash imported, but Intune reported that the Autopilot profile assignment failed.",
+        _ => "Autopilot hardware hash imported, but the Autopilot profile status could not be read."
+    };
+
+    // Same wording as the Graph client's visibility countdown, which the Deploy localizer already recognizes.
+    private static string FormatRemaining(TimeSpan remaining)
+    {
+        double seconds = Math.Max(0, Math.Ceiling(remaining.TotalSeconds));
+        return seconds == 1 ? "1 second" : $"{seconds:0} seconds";
     }
 
     private static void ValidateRequest(AutopilotHardwareHashUploadRequest request)
@@ -189,6 +266,7 @@ public sealed class AutopilotHardwareHashUploadService(
             result.ImportId,
             result.ImportedIdentityId,
             result.AutopilotDeviceId,
+            profileAssignment = result.ProfileAssignment?.ToString(),
             request.Identity.SerialNumber,
             request.Identity.GroupTag,
             activeCertificateThumbprint = request.Settings.ActiveCertificateThumbprint,

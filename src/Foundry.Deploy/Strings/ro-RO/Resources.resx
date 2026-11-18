@@ -1098,6 +1098,9 @@ Continuați cu implementarea?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Se capturează Autopilot hash hardware...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Se verifică profilul Autopilot ({0} rămase)...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Se verifică spațiul disponibil...</value>
   </data>
@@ -1296,6 +1299,9 @@ Continuați cu implementarea?</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Se așteaptă actualizarea etichetei de grup Autopilot...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Se așteaptă atribuirea profilului Autopilot...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Se scriu jurnalele de finalizare...</value>
   </data>
@@ -1385,6 +1391,18 @@ Continuați cu implementarea?</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilot Încărcarea hash hardware a fost omisă deoarece informațiile necesare despre certificatul media sunt incomplete.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Hash hardware Autopilot importat și profil Autopilot atribuit.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Hash hardware Autopilot importat, dar Intune a raportat că atribuirea profilului Autopilot a eșuat.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Hash hardware Autopilot importat, dar niciun profil Autopilot nu a fost atribuit în 20 de minute.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Hash hardware Autopilot importat, dar starea profilului Autopilot nu a putut fi citită.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot este activat, dar nu a fost selectat niciun profil.</value>

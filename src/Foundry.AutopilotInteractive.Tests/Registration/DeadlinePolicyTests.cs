@@ -11,6 +11,15 @@ public sealed class DeadlinePolicyTests
     private static readonly DateTimeOffset Deadline = new(2026, 11, 1, 12, 0, 0, TimeSpan.Zero);
 
     [Fact]
+    public void ProfileWaitStopAt_UsesTheEarlierOfTwentyMinutesAndTheDeadlineMargin()
+    {
+        DateTimeOffset start = Deadline.AddHours(-2);
+        Assert.Equal(start.AddMinutes(20), DeadlinePolicy.ProfileWaitStopAt(start, null));
+        Assert.Equal(start.AddMinutes(20), DeadlinePolicy.ProfileWaitStopAt(start, start.AddHours(2)));
+        Assert.Equal(start.AddMinutes(4), DeadlinePolicy.ProfileWaitStopAt(start, start.AddMinutes(5)));
+    }
+
+    [Fact]
     public void StopAt_Is60SecondsBeforeDeadline()
     {
         Assert.Equal(Deadline.AddSeconds(-60), DeadlinePolicy.StopAt(Deadline));

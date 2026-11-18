@@ -59,6 +59,25 @@ public sealed class ProvisionAutopilotStepTests
     }
 
     [Theory]
+    [InlineData(ProfileAssignmentOutcome.Assigned, "Info")]
+    [InlineData(ProfileAssignmentOutcome.TimedOut, "Warning")]
+    [InlineData(ProfileAssignmentOutcome.Unavailable, "Warning")]
+    public async Task ExecuteAsync_ZeroTouch_SucceedsAndWarnsWhenTheProfileIsNotAssigned(ProfileAssignmentOutcome outcome, string level)
+    {
+        using TempDeploymentWorkspace workspace = TempDeploymentWorkspace.Create();
+        var uploadService = new FakeAutopilotHardwareHashUploadService(
+            AutopilotHardwareHashUploadResult.Completed("Device imported.") with { ProfileAssignment = outcome });
+        using DeploymentStepExecutionContext context = CreateContext(workspace, false, AutopilotProvisioningMode.HardwareHashUpload,
+            CreateCompleteHardwareHashSettings(), uploadComputerName: false, computerName: "Edited-042");
+
+        DeploymentStepResult result = await CreateStep(uploadService: uploadService).ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        string logs = string.Join("\n", Directory.EnumerateFiles(workspace.RootPath, "*.log", SearchOption.AllDirectories).Select(File.ReadAllText));
+        Assert.Contains($"{level}: Autopilot hardware hash upload state 'Completed', profile assignment '{outcome}'.", logs);
+    }
+
+    [Theory]
     [InlineData(AutopilotProvisioningMode.HardwareHashUpload, true, "Edited-042")]
     [InlineData(AutopilotProvisioningMode.HardwareHashUpload, false, null)]
     [InlineData(AutopilotProvisioningMode.InteractiveHardwareHashUpload, true, "Edited-042")]

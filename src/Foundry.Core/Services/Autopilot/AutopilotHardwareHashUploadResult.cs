@@ -23,6 +23,12 @@ public sealed record AutopilotHardwareHashUploadResult
     public string? ImportId { get; init; }
     public string? ImportedIdentityId { get; init; }
     public string? AutopilotDeviceId { get; init; }
+
+    /// <summary>
+    /// How the wait for the Autopilot deployment profile ended after a completed Zero-touch import; <see langword="null"/>
+    /// when no wait ran (failed import, or a caller that does not wait).
+    /// </summary>
+    public ProfileAssignmentOutcome? ProfileAssignment { get; init; }
     public string? ArtifactPath { get; init; }
 
     public bool IsCompleted => State == AutopilotHardwareHashUploadState.Completed;

@@ -1098,6 +1098,9 @@ Continue with deployment?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Capturing Autopilot hardware hash...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Checking the Autopilot profile ({0} remaining)...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Checking available space...</value>
   </data>
@@ -1296,6 +1299,9 @@ Continue with deployment?</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Waiting for Autopilot group tag update...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Waiting for the Autopilot profile assignment...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Writing completion logs...</value>
   </data>
@@ -1385,6 +1391,18 @@ Continue with deployment?</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilot hardware hash upload skipped because required media certificate information is incomplete.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Autopilot hardware hash imported and the Autopilot profile is assigned.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Autopilot hardware hash imported, but Intune reported that the Autopilot profile assignment failed.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Autopilot hardware hash imported, but no Autopilot profile was assigned within 20 minutes.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Autopilot hardware hash imported, but the Autopilot profile status could not be read.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot is enabled but no profile was selected.</value>

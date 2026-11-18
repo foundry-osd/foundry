@@ -207,6 +207,12 @@ public static class ServiceCollectionExtensions
                 },
                 sp.GetRequiredService<ILogger<AutopilotGraphImportClient>>()));
         services.AddSingleton<IAutopilotGroupTagDiscoveryService, AutopilotGroupTagDiscoveryService>();
+        services.AddSingleton<IProfileAssignmentService>(sp =>
+            new ProfileAssignmentWaiter(
+                sp.GetRequiredService<AutopilotGraphImportClient>(),
+                (duration, cancellationToken) => Task.Delay(duration, cancellationToken),
+                () => DateTimeOffset.UtcNow,
+                sp.GetRequiredService<ILogger<ProfileAssignmentWaiter>>()));
         services.AddSingleton<IAutopilotHardwareHashUploadService, AutopilotHardwareHashUploadService>();
         // Runtime execution follows DeploymentStepNames.ExecutionOrder, not registration order.
         services.AddSingleton<IDeploymentStep, ApplyDriverPackStep>();

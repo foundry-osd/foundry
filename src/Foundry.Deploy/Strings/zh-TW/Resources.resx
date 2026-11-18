@@ -1098,6 +1098,9 @@ ErrorCode=0x80070005
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>正在擷取 Autopilot 硬體雜湊...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>正在檢查 Autopilot 設定檔（剩餘 {0}）...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>正在檢查可用空間...</value>
   </data>
@@ -1296,6 +1299,9 @@ ErrorCode=0x80070005
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>正在等待 Autopilot 群組標籤更新...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>正在等待指派 Autopilot 設定檔...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>正在寫入完成記錄...</value>
   </data>
@@ -1385,6 +1391,18 @@ ErrorCode=0x80070005
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>已略過 Autopilot 硬體雜湊上傳，因為必要的媒體憑證資訊不完整。</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Autopilot 硬體雜湊已匯入，並已指派 Autopilot 設定檔。</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Autopilot 硬體雜湊已匯入，但 Intune 回報 Autopilot 設定檔指派失敗。</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Autopilot 硬體雜湊已匯入，但在 20 分鐘內未指派 Autopilot 設定檔。</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Autopilot 硬體雜湊已匯入，但無法讀取 Autopilot 設定檔狀態。</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>已啟用 Autopilot，但未選取設定檔。</value>
