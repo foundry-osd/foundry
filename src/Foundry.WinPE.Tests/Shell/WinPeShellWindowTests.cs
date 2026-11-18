@@ -125,6 +125,42 @@ public sealed partial class WinPeShellWindowTests
     });
 
     [Fact]
+    public Task ShowContent_ShowsAHiddenWindowWithItsFirstContent() => WpfApplicationTestHost.RunAsync(async () =>
+    {
+        var window = new WinPeShellWindow();
+        try
+        {
+            int raised = 0;
+            window.FirstContentRendered += (_, _) => raised++;
+            Assert.False(window.IsVisible);
+
+            window.ShowContent(new Button());
+            await Settle();
+
+            Assert.True(window.IsVisible);
+            Assert.Equal(1, raised);
+        }
+        finally
+        {
+            CloseForTest(window);
+        }
+    });
+
+    [Fact]
+    public Task Close_WhileWindowsShutsDown_IsAcceptedWithoutAHandler() => WpfApplicationTestHost.RunAsync(() =>
+    {
+        var window = new WinPeShellWindow(isSystemShuttingDown: () => true);
+        bool closed = false;
+        window.Closed += (_, _) => closed = true;
+        window.CloseRequested += (_, e) => e.Cancel = true;
+        window.Show();
+        window.Close();
+
+        Assert.True(closed);
+        return Task.CompletedTask;
+    });
+
+    [Fact]
     public Task FirstContentRendered_IsRaisedOnce() => WpfApplicationTestHost.RunAsync(async () =>
     {
         var window = new WinPeShellWindow();

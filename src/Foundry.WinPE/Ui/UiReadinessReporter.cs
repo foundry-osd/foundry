@@ -13,10 +13,10 @@ internal interface IUiReadinessReporter
     /// <summary>Reports <c>configuration_loaded</c>: Foundry Connect loaded its configuration and built its services.</summary>
     void ReportConfigurationLoaded();
 
-    /// <summary>Reports <c>ui_ready</c>: the first window of the session rendered.</summary>
+    /// <summary>Reports <c>ui_ready</c>: the first content of the session (a phase page or the password prompt shown before it) rendered.</summary>
     void ReportUiReady();
 
-    /// <summary>Reports <c>startup_failed</c> for a session that ended with <paramref name="exitCode"/> before any window rendered.</summary>
+    /// <summary>Reports <c>startup_failed</c> for a session that ended with <paramref name="exitCode"/> before any content rendered.</summary>
     void ReportStartupFailed(int exitCode);
 }
 

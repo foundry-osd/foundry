@@ -15,7 +15,7 @@ namespace Foundry.Wpf.Shell;
 /// <remarks>
 /// Members must be called on the UI thread. A phase hosted in a shared application (Foundry Connect and Foundry Deploy in the
 /// Foundry.WinPE UI process) passes its own end action, so <see cref="Shutdown"/> ends only that phase, and sets
-/// <see cref="Application.MainWindow"/> to its own window while it runs, so the owner fallback targets that window.
+/// <see cref="Application.MainWindow"/> to the shell window it runs in, so the owner fallback targets that window.
 /// </remarks>
 public sealed class ApplicationShellService : IApplicationShellService
 {

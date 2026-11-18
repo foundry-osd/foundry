@@ -16,19 +16,35 @@ namespace Foundry.WinPE.Shell;
 /// leaves the close decision to its owner through <see cref="CloseRequested"/>.
 /// </summary>
 /// <remarks>
-/// It uses only the standalone application resources (Fluent and the Foundry.Wpf styles): the Connect and Deploy styles are
-/// not merged in every process that creates it.
+/// <para>
+/// The host creates it hidden; the first <see cref="ShowContent"/> shows it, so no empty window appears while a phase builds
+/// its services. It uses only the standalone application resources (Fluent and the Foundry.Wpf styles): the Connect and
+/// Deploy styles are not merged in every process that creates it.
+/// </para>
+/// <para>
+/// A close while Windows shuts down or restarts is always accepted, like a programmatic close with <see cref="AllowClose"/>:
+/// the window never holds up the end of the Windows session.
+/// </para>
 /// </remarks>
 public partial class WinPeShellWindow : Window, IShellHost
 {
     private const double SlideOffset = 24;
 
+    private readonly Func<bool> _isSystemShuttingDown;
     private bool _hasContent;
     private bool _firstContentRenderedRaised;
 
-    /// <summary>Initializes the window.</summary>
+    /// <summary>Initializes the window, hidden until its first content.</summary>
     public WinPeShellWindow()
+        : this(SystemShutdown.IsInProgress)
     {
+    }
+
+    /// <summary>Initializes the window with the test seam that tells whether Windows is shutting down.</summary>
+    /// <param name="isSystemShuttingDown">Returns whether Windows is shutting down or restarting.</param>
+    internal WinPeShellWindow(Func<bool> isSystemShuttingDown)
+    {
+        _isSystemShuttingDown = isSystemShuttingDown;
         InitializeComponent();
     }
 
@@ -48,6 +64,7 @@ public partial class WinPeShellWindow : Window, IShellHost
     internal bool AllowClose { get; set; }
 
     /// <inheritdoc />
+    /// <remarks>The first content also shows the window when it is still hidden.</remarks>
     public void ShowContent(FrameworkElement content)
     {
         ArgumentNullException.ThrowIfNull(content);
@@ -61,13 +78,17 @@ public partial class WinPeShellWindow : Window, IShellHost
         }
 
         RunAfterRender(() => OnContentRendered(content));
+        if (!IsVisible)
+        {
+            Show();
+        }
     }
 
     /// <inheritdoc />
     protected override void OnClosing(CancelEventArgs e)
     {
         base.OnClosing(e);
-        if (AllowClose)
+        if (AllowClose || _isSystemShuttingDown())
         {
             return;
         }
