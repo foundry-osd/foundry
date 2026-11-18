@@ -3,12 +3,11 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Net;
-using Foundry.AutopilotInteractive.Services.Registration;
-using Foundry.AutopilotInteractive.Tests.Authentication;
+using System.Text;
 using Foundry.Core.Services.Autopilot;
 using Microsoft.Extensions.Logging.Abstractions;
 
-namespace Foundry.AutopilotInteractive.Tests.Registration;
+namespace Foundry.Core.Tests.Autopilot;
 
 public sealed class ProfileAssignmentWaiterTests
 {
@@ -114,14 +113,6 @@ public sealed class ProfileAssignmentWaiterTests
         Assert.Equal(ProfileAssignmentOutcome.Skipped, await harness.WaitAsync(skip: skip));
     }
 
-    [Fact]
-    public void ComputeStopAt_UsesTheEarlierOfTwentyMinutesAndTheDeadlineMargin()
-    {
-        Assert.Equal(Start.AddMinutes(20), ProfileAssignmentWaiter.ComputeStopAt(Start, null));
-        Assert.Equal(Start.AddMinutes(20), ProfileAssignmentWaiter.ComputeStopAt(Start, Start.AddHours(2)));
-        Assert.Equal(Start.AddMinutes(4), ProfileAssignmentWaiter.ComputeStopAt(Start, Start.AddMinutes(5)));
-    }
-
     private sealed class DelegateHandler(Func<HttpRequestMessage, HttpResponseMessage> respond) : HttpMessageHandler
     {
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken) =>
@@ -134,6 +125,22 @@ public sealed class ProfileAssignmentWaiterTests
         {
             await Task.Delay(Timeout.Infinite, cancellationToken);
             throw new InvalidOperationException("Unreachable.");
+        }
+    }
+
+    /// <summary>Replays a scripted HTTP behavior and records the requests it receives.</summary>
+    private sealed class FakeHttpMessageHandler(Func<HttpRequestMessage, string, HttpResponseMessage> respond) : HttpMessageHandler
+    {
+        public List<(Uri? Uri, string Body)> Requests { get; } = [];
+
+        public static HttpResponseMessage Json(HttpStatusCode status, string json) =>
+            new(status) { Content = new StringContent(json, Encoding.UTF8, "application/json") };
+
+        protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            string body = request.Content is null ? string.Empty : await request.Content.ReadAsStringAsync(cancellationToken);
+            Requests.Add((request.RequestUri, body));
+            return respond(request, body);
         }
     }
 

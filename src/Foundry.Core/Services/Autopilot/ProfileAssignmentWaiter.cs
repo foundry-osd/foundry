@@ -2,10 +2,9 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Core.Services.Autopilot;
 using Microsoft.Extensions.Logging;
 
-namespace Foundry.AutopilotInteractive.Services.Registration;
+namespace Foundry.Core.Services.Autopilot;
 
 /// <summary>Outcome of the wait for the Autopilot deployment profile assignment.</summary>
 public enum ProfileAssignmentOutcome
@@ -68,19 +67,6 @@ public sealed class ProfileAssignmentWaiter(
 
     /// <summary>Longest time the wait lasts, whatever the deadline.</summary>
     public static readonly TimeSpan MaximumWait = TimeSpan.FromMinutes(20);
-
-    /// <summary>
-    /// Computes when the wait must stop: <see cref="MaximumWait"/> after the start, or the deadline margin when earlier.
-    /// </summary>
-    /// <param name="startUtc">Instant the wait starts.</param>
-    /// <param name="deadlineUtc">Setup deadline, or <see langword="null"/> when none was passed.</param>
-    /// <returns>The stop instant.</returns>
-    public static DateTimeOffset ComputeStopAt(DateTimeOffset startUtc, DateTimeOffset? deadlineUtc)
-    {
-        DateTimeOffset limit = startUtc + MaximumWait;
-        DateTimeOffset? deadlineStop = DeadlinePolicy.StopAt(deadlineUtc);
-        return deadlineStop is { } stop && stop < limit ? stop : limit;
-    }
 
     /// <inheritdoc />
     /// <remarks>The stop time also bounds a status read still in progress.</remarks>

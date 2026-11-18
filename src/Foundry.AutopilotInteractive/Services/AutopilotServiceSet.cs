@@ -7,6 +7,7 @@ using Foundry.AutopilotInteractive.Services.Registration;
 using Foundry.AutopilotInteractive.Services.Simulation;
 using Foundry.AutopilotInteractive.Startup;
 using Foundry.Core.Models.Autopilot;
+using Foundry.Core.Services.Autopilot;
 
 namespace Foundry.AutopilotInteractive.Services;
 

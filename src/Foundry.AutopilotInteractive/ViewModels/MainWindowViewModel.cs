@@ -14,6 +14,7 @@ using Foundry.AutopilotInteractive.Services.Device;
 using Foundry.AutopilotInteractive.Services.Registration;
 using Foundry.AutopilotInteractive.Services.Simulation;
 using Foundry.Core.Models.Autopilot;
+using Foundry.Core.Services.Autopilot;
 using Foundry.Localization;
 using Foundry.Utilities.Globalization;
 using Foundry.Wpf.Localization;

@@ -455,7 +455,7 @@ public sealed partial class GroupTagViewModel : LocalizedViewModelBase
         using CancellationTokenSource skip = CancellationTokenSource.CreateLinkedTokenSource(token);
         _skipCts = skip;
         _profileWaitStartUtc = _timeProvider.GetUtcNow();
-        _profileStopAtUtc = ProfileAssignmentWaiter.ComputeStopAt(_profileWaitStartUtc, services.DeadlineUtc);
+        _profileStopAtUtc = DeadlinePolicy.ProfileWaitStopAt(_profileWaitStartUtc, services.DeadlineUtc);
         _statusKey = null;
         IsProfileWaiting = true;
         IsProgressIndeterminate = false;
