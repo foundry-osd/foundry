@@ -11,6 +11,5 @@
   <ItemGroup>
     <!-- The WPF test host (resources in Support\WpfApplicationTestHost.Resources.cs) and the debug-safe Deploy session the progress page binding test previews. -->
     <Compile Include="..\Foundry.Deploy.Tests\Support\WpfApplicationTestHost.cs" Link="Support\WpfApplicationTestHost.cs" />
-    <Compile Include="..\Foundry.Deploy.Tests\Support\DeploymentPreviewSession.cs" Link="Support\DeploymentPreviewSession.cs" />
   </ItemGroup>
 </Project>

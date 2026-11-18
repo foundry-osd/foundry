@@ -26,7 +26,7 @@ public sealed class PreOobeActionExecutor(string root, string windowsRoot, PreOo
             PreOobeBuiltInKind.VerifyDomainMembership => await new DomainMembershipVerificationAction(root, plan, planHash,
                 bootIdentity, new NativeDomainJoin()).ExecuteAsync(action, cancellationToken).ConfigureAwait(false),
             PreOobeBuiltInKind.AutopilotRegistration => await new AutopilotRegistrationAction(root, windowsRoot, processes).ExecuteAsync(action, cancellationToken).ConfigureAwait(false),
-            PreOobeBuiltInKind.Cleanup => await CleanupAsync(cancellationToken).ConfigureAwait(false),
+            PreOobeBuiltInKind.Cleanup => Cleanup(),
             _ => throw new InvalidDataException("Unsupported built-in action.")
         };
     }
@@ -40,16 +40,9 @@ public sealed class PreOobeActionExecutor(string root, string windowsRoot, PreOo
             result.ExitCode == 0 ? null : "activation_failed", TerminationUncertain: result.TerminationUncertain || result.TimedOut);
     }
 
-    private async Task<ActionStepOutcome> CleanupAsync(CancellationToken cancellationToken)
+    private ActionStepOutcome Cleanup()
     {
         bool warning = false;
-        try
-        {
-            ActionStepOutcome registry = await new DriverAction(root, windowsRoot, processes).CleanupRegistryAsync(cancellationToken).ConfigureAwait(false);
-            if (registry.TerminationUncertain) return registry;
-            warning = registry.HasWarnings;
-        }
-        catch (Exception error) when (error is IOException or UnauthorizedAccessException or System.ComponentModel.Win32Exception) { warning = true; }
         string marker = OwnedPaths.Resolve(root, "State/PreOobe/lenovo-content.owned");
         if (File.Exists(marker))
         {

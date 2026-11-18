@@ -159,6 +159,28 @@ public sealed class OrchestratorTests
     }
 
     [Fact]
+    public async Task FailedDriverPack_ContinuesWithErrors()
+    {
+        using var fixture = new Fixture("driver-pack", "second");
+        fixture.FailingActionId = "driver-pack";
+        fixture.Outcome = new ActionStepOutcome(false, 1, "driver_install_incomplete");
+        Assert.Equal(0, await fixture.Run("boot"));
+        Assert.Equal("CompletedWithErrors", fixture.Journal.Read().Status);
+        Assert.Equal(["driver-pack", "second"], fixture.Executed);
+    }
+
+    [Fact]
+    public async Task UncertainDriverPack_StopsTheSequence()
+    {
+        using var fixture = new Fixture("driver-pack", "second");
+        fixture.FailingActionId = "driver-pack";
+        fixture.Outcome = new ActionStepOutcome(false, null, "execution_uncertain", TerminationUncertain: true);
+        Assert.Equal(3, await fixture.Run("boot"));
+        Assert.Equal("Failed", fixture.Journal.Read().Status);
+        Assert.Equal(["driver-pack"], fixture.Executed);
+    }
+
+    [Fact]
     public async Task SkippedAutopilotRegistration_ShowsSucceededWithWarningAndContinues()
     {
         using var fixture = new Fixture("autopilot-registration", "second");
@@ -228,9 +250,10 @@ public sealed class OrchestratorTests
                     {
                         "cleanup" => PreOobeBuiltInKind.Cleanup,
                         "autopilot-registration" => PreOobeBuiltInKind.AutopilotRegistration,
+                        "driver-pack" => PreOobeBuiltInKind.Driver,
                         _ => null
                     },
-                    CustomAction = id is "cleanup" or "autopilot-registration" ? null : new PreOobeActionSettings
+                    CustomAction = id is "cleanup" or "autopilot-registration" or "driver-pack" ? null : new PreOobeActionSettings
                     {
                         Id = id,
                         Name = id,

@@ -7,9 +7,22 @@ using Foundry.PostInstall.Execution;
 
 namespace Foundry.PostInstall.Actions;
 
-public sealed class DriverAction(string root, string windowsRoot, IPreOobeProcessExecutor processes)
+/// <summary>
+/// Installs a driver pack staged by Foundry Deploy: a Surface <c>.msi</c> in one step, or a Lenovo <c>.exe</c> that unpacks
+/// to the drivers folder (substep 0) whose INF files are then installed one by one with PnPUtil (substep 1).
+/// </summary>
+/// <remarks>
+/// PnPUtil returns actionable codes only for one INF per call. 0, 259 (no matching device, or the device already has a
+/// better driver) and 3010 (reboot required) are successes; no restart is requested, because Windows restarts after the
+/// specialize pass anyway. Every INF and its exit code are written to <c>Logs\PreOobe\lenovo-drivers.log</c>.
+/// </remarks>
+public sealed class DriverAction(string root, string windowsRoot, IPreOobeProcessExecutor processes, string? driversRoot = null)
 {
-    private const string DriverRegistryPath = @"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\UnattendSettings\PnPUnattend\DriverPaths\1";
+    private const int NoMatchingDevice = 259;
+    private const int RebootRequired = 3010;
+    private static readonly TimeSpan InfTimeout = TimeSpan.FromMinutes(10);
+
+    private readonly string drivers = driversRoot ?? Path.Combine(Path.GetPathRoot(windowsRoot)!, "Drivers");
 
     public async Task<ActionStepOutcome> ExecuteAsync(PreOobeExecutionAction action, int substep, CancellationToken cancellationToken)
     {
@@ -18,56 +31,63 @@ public sealed class DriverAction(string root, string windowsRoot, IPreOobeProces
         string logs = OwnedPaths.Resolve(root, @"Logs\PreOobe");
         Directory.CreateDirectory(logs);
         string system = Path.Combine(windowsRoot, "System32");
-        ProcessCommand command;
-        int? next;
         if (settings.CommandKind == "SurfaceMsi")
         {
             if (substep != 0) throw new InvalidDataException("Invalid Surface substep.");
-            command = new(Path.Combine(system, "msiexec.exe"),
+            ProcessOutcome msi = await processes.RunAsync(new(Path.Combine(system, "msiexec.exe"),
                 ["/i", package, "/qn", "/norestart", "/l*v", Path.Combine(logs, "surface-driverpack.log")],
-                Path.GetDirectoryName(package)!, TimeSpan.FromMinutes(30));
-            next = null;
+                Path.GetDirectoryName(package)!, TimeSpan.FromMinutes(30)), cancellationToken).ConfigureAwait(false);
+            return BuiltInSettings.Observe(msi);
         }
-        else if (settings.CommandKind == "LenovoExecutable")
+
+        if (settings.CommandKind != "LenovoExecutable") throw new InvalidDataException("Unsupported deferred driver command.");
+        switch (substep)
         {
-            if (substep == 0 && !Directory.Exists(Path.Combine(Path.GetPathRoot(windowsRoot)!, "Drivers")))
-                WriteMarker("lenovo-content.owned");
-            if (substep == 1) WriteMarker("lenovo-registry.owned");
-            (command, next) = substep switch
-            {
-                0 => (new ProcessCommand(package, ["/SILENT", "/SUPPRESSMSGBOXES", "/NORESTART"], Path.GetDirectoryName(package)!, TimeSpan.FromMinutes(30)), 1),
-                1 => (new ProcessCommand(Path.Combine(system, "reg.exe"), ["add", DriverRegistryPath, "/v", "Path", "/t", "REG_SZ", "/d", @"C:\Drivers", "/f"], root, TimeSpan.FromMinutes(1)), 2),
-                2 => (new ProcessCommand(Path.Combine(system, "pnpunattend.exe"), ["AuditSystem", "/L"], root, TimeSpan.FromMinutes(30)), 3),
-                3 => (new ProcessCommand(Path.Combine(system, "reg.exe"), ["delete", DriverRegistryPath, "/v", "Path", "/f"], root, TimeSpan.FromMinutes(1)), (int?)null),
-                _ => throw new InvalidDataException("Invalid Lenovo substep.")
-            };
+            case 0:
+                if (!Directory.Exists(drivers)) WriteMarker("lenovo-content.owned");
+                ProcessOutcome unpack = await processes.RunAsync(new(package, ["/SILENT", "/SUPPRESSMSGBOXES", "/NORESTART"],
+                    Path.GetDirectoryName(package)!, TimeSpan.FromMinutes(30)), cancellationToken).ConfigureAwait(false);
+                return BuiltInSettings.Observe(unpack, 1);
+            case 1:
+                return await InstallInfFilesAsync(Path.Combine(system, "pnputil.exe"), Path.Combine(logs, "lenovo-drivers.log"),
+                    cancellationToken).ConfigureAwait(false);
+            default:
+                throw new InvalidDataException("Invalid Lenovo substep.");
         }
-        else throw new InvalidDataException("Unsupported deferred driver command.");
-        ProcessOutcome result = await processes.RunAsync(command, cancellationToken).ConfigureAwait(false);
-        if (settings.CommandKind == "LenovoExecutable" && substep == 3 && !result.TerminationUncertain && result.ExitCode != 1641)
-        {
-            if (result.ExitCode == 0) File.Delete(Marker("lenovo-registry.owned"));
-            return new(true, result.ExitCode, HasWarnings: result.ExitCode != 0);
-        }
-        return BuiltInSettings.Observe(result, next);
     }
 
-    public async Task<ActionStepOutcome> CleanupRegistryAsync(CancellationToken cancellationToken)
+    private async Task<ActionStepOutcome> InstallInfFilesAsync(string pnputil, string logPath, CancellationToken cancellationToken)
     {
-        if (!File.Exists(Marker("lenovo-registry.owned"))) return new(true);
-        ProcessOutcome result = await processes.RunAsync(new ProcessCommand(Path.Combine(windowsRoot, "System32", "reg.exe"),
-            ["delete", DriverRegistryPath, "/v", "Path", "/f"], root, TimeSpan.FromSeconds(30)), cancellationToken).ConfigureAwait(false);
-        if (result.ExitCode == 0 && !result.TerminationUncertain) File.Delete(Marker("lenovo-registry.owned"));
-        if (result.TerminationUncertain || result.TimedOut || result.ExitCode is null or 1641)
-            return new(false, result.ExitCode, "cleanup_uncertain", TerminationUncertain: true);
-        return new(true, result.ExitCode, HasWarnings: result.ExitCode != 0);
-    }
+        string[] infFiles = Directory.Exists(drivers)
+            ? Directory.EnumerateFiles(drivers, "*.inf", SearchOption.AllDirectories).Order(StringComparer.OrdinalIgnoreCase).ToArray()
+            : [];
+        // Flushed per line: the log must show the INF in progress if the device loses power or the process is killed.
+        using var log = new StreamWriter(logPath, append: true) { AutoFlush = true };
+        if (infFiles.Length == 0)
+        {
+            await log.WriteLineAsync($"No INF file found under {drivers}.").ConfigureAwait(false);
+            return new(false, null, "driver_package_empty");
+        }
 
-    private string Marker(string name) => OwnedPaths.Resolve(root, "State/PreOobe/" + name);
+        int? firstFailure = null;
+        foreach (string inf in infFiles)
+        {
+            // The root, not the INF folder: a deep pack folder can exceed the length allowed for a working directory.
+            ProcessOutcome result = await processes.RunAsync(new(pnputil, ["/add-driver", inf, "/install"], root, InfTimeout),
+                cancellationToken).ConfigureAwait(false);
+            await log.WriteLineAsync($"{Path.GetRelativePath(drivers, inf)}: exit {result.ExitCode?.ToString() ?? "none"}")
+                .ConfigureAwait(false);
+            if (result.TerminationUncertain || result.TimedOut)
+                return new(false, result.ExitCode, "execution_uncertain", TerminationUncertain: true);
+            if (result.ExitCode is not (0 or NoMatchingDevice or RebootRequired)) firstFailure ??= result.ExitCode ?? -1;
+        }
+
+        return firstFailure is null ? new(true, 0) : new(false, firstFailure, "driver_install_incomplete");
+    }
 
     private void WriteMarker(string name)
     {
-        string path = Marker(name);
+        string path = OwnedPaths.Resolve(root, "State/PreOobe/" + name);
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
         using var file = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
         file.WriteByte(1);
