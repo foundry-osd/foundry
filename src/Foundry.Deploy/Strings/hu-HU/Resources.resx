@@ -1098,6 +1098,9 @@ Folytatja a telepítést?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Autopilot hardveres hash rögzítése...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Az Autopilot-profil ellenőrzése ({0} maradt)...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>A rendelkezésre álló hely ellenőrzése...</value>
   </data>
@@ -1296,6 +1299,9 @@ Folytatja a telepítést?</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Várakozás a Autopilot csoportcímke frissítésére...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Várakozás az Autopilot-profil hozzárendelésére...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Befejezési naplók írása...</value>
   </data>
@@ -1385,6 +1391,18 @@ Folytatja a telepítést?</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilot hardveres hash feltöltés kimaradt, mert a szükséges médiatanúsítvány-információk hiányosak.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Az Autopilot hardveres hash importálva, és az Autopilot-profil hozzá van rendelve.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Az Autopilot hardveres hash importálva, de az Intune jelezte, hogy az Autopilot-profil hozzárendelése sikertelen volt.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Az Autopilot hardveres hash importálva, de 20 percen belül nem lett Autopilot-profil hozzárendelve.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Az Autopilot hardveres hash importálva, de az Autopilot-profil állapotát nem sikerült beolvasni.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>A Autopilot engedélyezve van, de nem lett kiválasztva profil.</value>

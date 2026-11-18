@@ -1098,6 +1098,9 @@ Fortsätt med implementeringen?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Fångar Autopilot hårdvaruhash...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Kontrollerar Autopilot-profilen ({0} återstår)...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Kontrollerar ledigt utrymme...</value>
   </data>
@@ -1296,6 +1299,9 @@ Fortsätt med implementeringen?</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Väntar på uppdatering av Autopilot grupptagg...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Väntar på tilldelning av Autopilot-profil...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Skriver slutförandeloggar...</value>
   </data>
@@ -1385,6 +1391,18 @@ Fortsätt med implementeringen?</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilot uppladdning av hårdvaruhash hoppade över eftersom nödvändig mediecertifikatinformation är ofullständig.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Autopilot hårdvaruhash importerad och Autopilot-profilen är tilldelad.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Autopilot hårdvaruhash importerad, men Intune rapporterade att tilldelningen av Autopilot-profilen misslyckades.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Autopilot hårdvaruhash importerad, men ingen Autopilot-profil tilldelades inom 20 minuter.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Autopilot hårdvaruhash importerad, men statusen för Autopilot-profilen kunde inte läsas.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot är aktiverat men ingen profil har valts.</value>

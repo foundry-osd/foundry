@@ -1098,6 +1098,9 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Zajem Autopilot hash strojne opreme...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Preverjanje profila Autopilot (preostalo {0})...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Preverjanje razpoložljivega prostora...</value>
   </data>
@@ -1296,6 +1299,9 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Čakanje na posodobitev oznake skupine Autopilot...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Čakanje na dodelitev profila Autopilot...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Pisanje dnevnikov dokončanja...</value>
   </data>
@@ -1385,6 +1391,18 @@ Ali želite nadaljevati z uvajanjem?</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilot Nalaganje zgoščene opreme strojne opreme je bilo preskočeno, ker zahtevane informacije o medijskem potrdilu niso popolne.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Autopilot hash strojne opreme je uvožen in profil Autopilot je dodeljen.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Autopilot hash strojne opreme je uvožen, vendar je Intune sporočil, da dodelitev profila Autopilot ni uspela.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Autopilot hash strojne opreme je uvožen, vendar v 20 minutah ni bil dodeljen noben profil Autopilot.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Autopilot hash strojne opreme je uvožen, vendar stanja profila Autopilot ni bilo mogoče prebrati.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot je omogočen, vendar ni bil izbran noben profil.</value>

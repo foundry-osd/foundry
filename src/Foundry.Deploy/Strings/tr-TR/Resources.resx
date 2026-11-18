@@ -1098,6 +1098,9 @@ Dağıtıma devam edilsin mi?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Autopilot donanım karması yakalanıyor...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Autopilot profili kontrol ediliyor ({0} kalan)...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Kullanılabilir alan denetleniyor...</value>
   </data>
@@ -1296,6 +1299,9 @@ Dağıtıma devam edilsin mi?</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Autopilot grup etiketi güncellemesi bekleniyor...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Autopilot profili atamasını bekleniyor...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Tamamlama günlükleri yazılıyor...</value>
   </data>
@@ -1385,6 +1391,18 @@ Dağıtıma devam edilsin mi?</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Gerekli medya sertifikası bilgileri eksik olduğundan Autopilot donanım karmasının karşıya yüklenmesi atlandı.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Autopilot donanım karması içe aktarıldı ve Autopilot profili atandı.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Autopilot donanım karması içe aktarıldı, ancak Intune Autopilot profili atamasının başarısız olduğunu bildirdi.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Autopilot donanım karması içe aktarıldı, ancak 20 dakika içinde hiçbir Autopilot profili atanmadı.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Autopilot donanım karması içe aktarıldı, ancak Autopilot profili durumu okunamadı.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot etkinleştirildi ancak hiçbir profil seçilmedi.</value>

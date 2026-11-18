@@ -1098,6 +1098,9 @@
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>กำลังรวบรวมแฮชฮาร์ดแวร์ Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>กำลังตรวจสอบโปรไฟล์ Autopilot ({0} ที่เหลืออยู่)...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>กำลังตรวจสอบพื้นที่ว่าง...</value>
   </data>
@@ -1296,6 +1299,9 @@
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>กำลังรออัพเดตแท็กกลุ่ม Autopilot...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>กำลังรอการกำหนดโปรไฟล์ Autopilot...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>กำลังเขียนบันทึกการเสร็จสิ้น...</value>
   </data>
@@ -1385,6 +1391,18 @@
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>ข้ามการอัปโหลดแฮชฮาร์ดแวร์ Autopilot เนื่องจากข้อมูลใบรับรองสื่อที่จำเป็นไม่สมบูรณ์</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>นำเข้าแฮชฮาร์ดแวร์ Autopilot แล้ว และกำหนดโปรไฟล์ Autopilot แล้ว</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>นำเข้าแฮชฮาร์ดแวร์ Autopilot แล้ว แต่ Intune รายงานว่าการกำหนดโปรไฟล์ Autopilot ล้มเหลว</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>นำเข้าแฮชฮาร์ดแวร์ Autopilot แล้ว แต่ไม่มีการกำหนดโปรไฟล์ Autopilot ภายใน 20 นาที</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>นำเข้าแฮชฮาร์ดแวร์ Autopilot แล้ว แต่ไม่สามารถอ่านสถานะโปรไฟล์ Autopilot ได้</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot เปิดใช้งานอยู่แต่ไม่ได้เลือกโปรไฟล์</value>

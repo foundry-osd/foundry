@@ -1098,6 +1098,9 @@ ErrorCode=0x80070005
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Отримання апаратного хешу Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Перевірка профілю Autopilot (залишилося {0})...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Перевірка доступного місця...</value>
   </data>
@@ -1296,6 +1299,9 @@ ErrorCode=0x80070005
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Очікування оновлення тегу групи Autopilot...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Очікування призначення профілю Autopilot...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Записування журналів завершення...</value>
   </data>
@@ -1385,6 +1391,18 @@ ErrorCode=0x80070005
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Передавання апаратного хешу Autopilot пропущено, оскільки необхідна інформація про сертифікат носія неповна.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Апаратний хеш Autopilot імпортовано, профіль Autopilot призначено.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Апаратний хеш Autopilot імпортовано, але Intune повідомив, що призначення профілю Autopilot не вдалося.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Апаратний хеш Autopilot імпортовано, але профіль Autopilot не було призначено протягом 20 хвилин.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Апаратний хеш Autopilot імпортовано, але не вдалося прочитати стан профілю Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot увімкнено, але профіль не вибрано.</value>

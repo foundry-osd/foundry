@@ -1098,6 +1098,9 @@ Jatketaanko käyttöönottoa?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Kaapataan Autopilotin laitteiston hajautusarvoa...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Tarkistetaan Autopilot-profiilia ({0} jäljellä)...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Tarkistetaan käytettävissä olevaa tilaa...</value>
   </data>
@@ -1296,6 +1299,9 @@ Jatketaanko käyttöönottoa?</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Odotetaan Autopilot ryhmätunnisteen päivitystä...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Odotetaan Autopilot-profiilin määritystä...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Kirjoitetaan valmistumislokeja...</value>
   </data>
@@ -1385,6 +1391,18 @@ Jatketaanko käyttöönottoa?</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilotin laitteiston hajautusarvon lataus palvelimeen ohitettiin, koska vaaditut mediavarmennetiedot ovat puutteelliset.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Autopilotin laitteiston hajautusarvo tuotu ja Autopilot-profiili määritetty.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Autopilotin laitteiston hajautusarvo tuotu, mutta Intune ilmoitti, että Autopilot-profiilin määritys epäonnistui.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Autopilotin laitteiston hajautusarvo tuotu, mutta Autopilot-profiilia ei määritetty 20 minuutin kuluessa.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Autopilotin laitteiston hajautusarvo tuotu, mutta Autopilot-profiilin tilaa ei voitu lukea.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot on käytössä, mutta profiilia ei ole valittu.</value>

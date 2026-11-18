@@ -398,9 +398,11 @@ public sealed class ProvisionAutopilotStep : DeploymentStepBase
             uploadResult.FailureCode,
             captureResult,
             uploadResult).ConfigureAwait(false);
+        // A device registered without its profile reaches OOBE without it: the step succeeds, the log warns.
+        bool profileMissing = uploadResult.ProfileAssignment is { } profile && profile != ProfileAssignmentOutcome.Assigned;
         await context.AppendLogAsync(
-            uploadResult.IsCompleted ? DeploymentLogLevel.Info : DeploymentLogLevel.Warning,
-            $"Autopilot hardware hash upload state '{uploadResult.State}'. DiagnosticsPath='{context.RuntimeState.AutopilotHardwareHashDiagnosticsPath}', GroupTagConfigured={!string.IsNullOrWhiteSpace(context.RuntimeState.AutopilotHardwareHashGroupTag)}.",
+            uploadResult.IsCompleted && !profileMissing ? DeploymentLogLevel.Info : DeploymentLogLevel.Warning,
+            $"Autopilot hardware hash upload state '{uploadResult.State}', profile assignment '{uploadResult.ProfileAssignment?.ToString() ?? "none"}'. DiagnosticsPath='{context.RuntimeState.AutopilotHardwareHashDiagnosticsPath}', GroupTagConfigured={!string.IsNullOrWhiteSpace(context.RuntimeState.AutopilotHardwareHashGroupTag)}.",
             cancellationToken).ConfigureAwait(false);
 
         return uploadResult.IsCompleted

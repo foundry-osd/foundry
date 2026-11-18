@@ -1098,6 +1098,9 @@ Vil du fortsætte med implementeringen?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Optager Autopilot hardware-hash...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Kontrollerer Autopilot-profilen ({0} tilbage)...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Kontrollerer ledig plads...</value>
   </data>
@@ -1296,6 +1299,9 @@ Vil du fortsætte med implementeringen?</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Venter på opdatering af Autopilot gruppetag...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Venter på tildeling af Autopilot-profil...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Skriver færdiggørelseslogfiler...</value>
   </data>
@@ -1385,6 +1391,18 @@ Vil du fortsætte med implementeringen?</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilot hardware-hash-upload sprunget over, fordi de nødvendige mediecertifikatoplysninger er ufuldstændige.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Autopilot hardware-hash importeret, og Autopilot-profilen er tildelt.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Autopilot hardware-hash importeret, men Intune rapporterede, at tildelingen af Autopilot-profilen mislykkedes.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Autopilot hardware-hash importeret, men der blev ikke tildelt nogen Autopilot-profil inden for 20 minutter.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Autopilot hardware-hash importeret, men status for Autopilot-profilen kunne ikke læses.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot er aktiveret, men ingen profil blev valgt.</value>

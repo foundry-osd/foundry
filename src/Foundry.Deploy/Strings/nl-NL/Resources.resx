@@ -1098,6 +1098,9 @@ Doorgaan met de implementatie?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Autopilot hardware-hash vastleggen...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Autopilot-profiel controleren ({0} resterend)...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Beschikbare ruimte controleren...</value>
   </data>
@@ -1296,6 +1299,9 @@ Doorgaan met de implementatie?</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Wachten op update van Autopilot groepstag...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Wachten op toewijzing van het Autopilot-profiel...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Voltooiingslogboeken schrijven...</value>
   </data>
@@ -1385,6 +1391,18 @@ Doorgaan met de implementatie?</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilot hardware-hash-upload overgeslagen omdat de vereiste mediacertificaatinformatie onvolledig is.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Autopilot hardwarehash geïmporteerd en Autopilot-profiel toegewezen.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Autopilot hardwarehash geïmporteerd, maar Intune meldde dat de toewijzing van het Autopilot-profiel is mislukt.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Autopilot hardwarehash geïmporteerd, maar er is binnen 20 minuten geen Autopilot-profiel toegewezen.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Autopilot hardwarehash geïmporteerd, maar de status van het Autopilot-profiel kon niet worden gelezen.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot is ingeschakeld, maar er is geen profiel geselecteerd.</value>

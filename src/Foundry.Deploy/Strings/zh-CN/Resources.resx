@@ -1098,6 +1098,9 @@
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>正在捕获Autopilot硬件哈希...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>正在检查 Autopilot 配置文件（剩余 {0}）...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>正在检查可用空间...</value>
   </data>
@@ -1296,6 +1299,9 @@
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>正在等待Autopilot组标签更新...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>正在等待分配 Autopilot 配置文件...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>写入完成日志...</value>
   </data>
@@ -1385,6 +1391,18 @@
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilot 硬件哈希上传已跳过，因为所需的媒体证书信息不完整。</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Autopilot 硬件哈希已导入，并且已分配 Autopilot 配置文件。</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Autopilot 硬件哈希已导入，但 Intune 报告 Autopilot 配置文件分配失败。</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Autopilot 硬件哈希已导入，但在 20 分钟内未分配 Autopilot 配置文件。</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Autopilot 硬件哈希已导入，但无法读取 Autopilot 配置文件状态。</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot 已启用，但未选择配置文件。</value>

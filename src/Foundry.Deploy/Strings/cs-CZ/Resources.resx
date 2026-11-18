@@ -1098,6 +1098,9 @@ Pokračovat v nasazování?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Zachycuje se hardwarový hash Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Kontrola profilu Autopilot (zbývá {0})...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Kontrola volného místa...</value>
   </data>
@@ -1296,6 +1299,9 @@ Pokračovat v nasazování?</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Čekání na aktualizaci značky skupiny Autopilot...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Čekání na přiřazení profilu Autopilot...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Zapisování protokolů dokončení...</value>
   </data>
@@ -1385,6 +1391,18 @@ Pokračovat v nasazování?</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Nahrávání hardwarového hash Autopilot bylo přeskočeno, protože požadované informace o certifikátu média nejsou úplné.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Hardwarový hash Autopilot byl importován a profil Autopilot je přiřazen.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Hardwarový hash Autopilot byl importován, ale Intune nahlásil, že přiřazení profilu Autopilot selhalo.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Hardwarový hash Autopilot byl importován, ale do 20 minut nebyl přiřazen žádný profil Autopilot.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Hardwarový hash Autopilot byl importován, ale stav profilu Autopilot se nepodařilo přečíst.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot je povoleno, ale nebyl vybrán žádný profil.</value>

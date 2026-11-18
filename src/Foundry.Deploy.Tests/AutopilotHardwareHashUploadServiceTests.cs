@@ -36,6 +36,7 @@ public sealed class AutopilotHardwareHashUploadServiceTests
                         BaseAddress = new Uri("https://graph.microsoft.com/", UriKind.Absolute)
                     },
                     NullLogger<AutopilotGraphImportClient>.Instance),
+                new FakeProfileAssignment(ProfileAssignmentOutcome.Assigned),
                 NullLogger<AutopilotHardwareHashUploadService>.Instance);
 
             AutopilotHardwareHashUploadResult result = await service.UploadAsync(
@@ -92,6 +93,7 @@ public sealed class AutopilotHardwareHashUploadServiceTests
                         BaseAddress = new Uri("https://graph.microsoft.com/", UriKind.Absolute)
                     },
                     NullLogger<AutopilotGraphImportClient>.Instance),
+                new FakeProfileAssignment(ProfileAssignmentOutcome.Assigned),
                 NullLogger<AutopilotHardwareHashUploadService>.Instance);
 
             AutopilotHardwareHashUploadResult result = await service.UploadAsync(
@@ -148,6 +150,7 @@ public sealed class AutopilotHardwareHashUploadServiceTests
                 {
                     BaseAddress = new Uri("https://graph.microsoft.com/")
                 }, NullLogger<AutopilotGraphImportClient>.Instance),
+                new FakeProfileAssignment(ProfileAssignmentOutcome.Assigned),
                 NullLogger<AutopilotHardwareHashUploadService>.Instance);
 
             AutopilotHardwareHashUploadResult result = await service.UploadAsync(new AutopilotHardwareHashUploadRequest
@@ -177,6 +180,187 @@ public sealed class AutopilotHardwareHashUploadServiceTests
         }
     }
 
+    [Fact]
+    public async Task UploadAsync_AfterCompletedImport_WaitsForTheProfileWithTheSameToken()
+    {
+        var profile = new FakeProfileAssignment(ProfileAssignmentOutcome.Assigned);
+        DateTimeOffset before = DateTimeOffset.UtcNow;
+
+        (AutopilotHardwareHashUploadResult result, string resultJson) = await RunSuccessfulUploadAsync(profile);
+
+        Assert.Equal("token", profile.AccessToken);
+        Assert.Equal("device", profile.DeviceId);
+        Assert.InRange(profile.StopAtUtc!.Value, before.AddMinutes(20).AddSeconds(-5), DateTimeOffset.UtcNow.AddMinutes(20).AddSeconds(5));
+        Assert.True(result.IsCompleted);
+        Assert.Equal(ProfileAssignmentOutcome.Assigned, result.ProfileAssignment);
+        Assert.Equal("Autopilot hardware hash imported and the Autopilot profile is assigned.", result.Message);
+        Assert.Contains("\"profileAssignment\": \"Assigned\"", resultJson);
+    }
+
+    [Theory]
+    [InlineData(ProfileAssignmentOutcome.TimedOut, "Autopilot hardware hash imported, but no Autopilot profile was assigned within 20 minutes.")]
+    [InlineData(ProfileAssignmentOutcome.Failed, "Autopilot hardware hash imported, but Intune reported that the Autopilot profile assignment failed.")]
+    [InlineData(ProfileAssignmentOutcome.Unavailable, "Autopilot hardware hash imported, but the Autopilot profile status could not be read.")]
+    public async Task UploadAsync_WhenProfileIsNotAssigned_StillCompletesWithItsMessage(ProfileAssignmentOutcome outcome, string message)
+    {
+        (AutopilotHardwareHashUploadResult result, _) = await RunSuccessfulUploadAsync(new FakeProfileAssignment(outcome));
+
+        Assert.True(result.IsCompleted);
+        Assert.Equal(outcome, result.ProfileAssignment);
+        Assert.Equal(message, result.Message);
+    }
+
+    [Fact]
+    public async Task UploadAsync_WithoutAutopilotDeviceId_DoesNotWaitAndReportsUnavailable()
+    {
+        var profile = new FakeProfileAssignment(ProfileAssignmentOutcome.Assigned);
+
+        (AutopilotHardwareHashUploadResult result, _) = await RunSuccessfulUploadAsync(profile, listedDeviceId: null);
+
+        Assert.False(profile.Called);
+        Assert.True(result.IsCompleted);
+        Assert.Equal(ProfileAssignmentOutcome.Unavailable, result.ProfileAssignment);
+        Assert.Equal("Autopilot hardware hash imported, but the Autopilot profile status could not be read.", result.Message);
+    }
+
+    [Fact]
+    public async Task UploadAsync_WhenImportFails_DoesNotWait()
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-upload-service-{Guid.NewGuid():N}");
+        Directory.CreateDirectory(root);
+        try
+        {
+            var profile = new FakeProfileAssignment(ProfileAssignmentOutcome.Assigned);
+            var service = new AutopilotHardwareHashUploadService(
+                new StaticMediaSecretKeyReader(),
+                new SuccessfulTokenService(),
+                new AutopilotGraphImportClient(new HttpClient(new ThrowingGraphHandler()), NullLogger<AutopilotGraphImportClient>.Instance),
+                profile,
+                NullLogger<AutopilotHardwareHashUploadService>.Instance);
+
+            AutopilotHardwareHashUploadResult result = await service.UploadAsync(new AutopilotHardwareHashUploadRequest
+            {
+                Settings = new DeployAutopilotHardwareHashUploadSettings(),
+                Identity = new AutopilotHardwareHashDeviceIdentity("SER123", "HASH", null),
+                WorkspaceRootPath = root,
+                DiagnosticsRootPath = Path.Combine(root, "Diagnostics")
+            }, cancellationToken: TestContext.Current.CancellationToken);
+
+            Assert.False(result.IsCompleted);
+            Assert.False(profile.Called);
+            Assert.Null(result.ProfileAssignment);
+        }
+        finally
+        {
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    [Fact]
+    public async Task UploadAsync_WhenCancelledDuringTheWait_Throws()
+    {
+        using var deployment = new CancellationTokenSource();
+        var profile = new FakeProfileAssignment(ProfileAssignmentOutcome.Skipped) { OnWait = deployment.Cancel };
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => RunSuccessfulUploadAsync(profile, cancellationToken: deployment.Token));
+    }
+
+    [Fact]
+    public async Task UploadAsync_ReportsTheProfileCountdown()
+    {
+        var profile = new FakeProfileAssignment(ProfileAssignmentOutcome.Assigned) { WaitDuration = TimeSpan.FromMilliseconds(1500) };
+        var reports = new List<AutopilotHardwareHashUploadProgress>();
+
+        await RunSuccessfulUploadAsync(profile, progress: new SynchronousProgress(reports.Add));
+
+        Assert.Contains(reports, report =>
+            report.Message == "Waiting for the Autopilot profile assignment..." &&
+            report.Detail is not null &&
+            report.Detail.StartsWith("Checking the Autopilot profile (", StringComparison.Ordinal) &&
+            report.Detail.EndsWith(" remaining)...", StringComparison.Ordinal));
+    }
+
+    private static async Task<(AutopilotHardwareHashUploadResult Result, string ResultJson)> RunSuccessfulUploadAsync(
+        IProfileAssignmentService profile,
+        string? listedDeviceId = "device",
+        IProgress<AutopilotHardwareHashUploadProgress>? progress = null,
+        CancellationToken? cancellationToken = null)
+    {
+        string root = Path.Combine(Path.GetTempPath(), $"foundry-upload-service-{Guid.NewGuid():N}");
+        Directory.CreateDirectory(root);
+        byte[] mediaKey = RandomNumberGenerator.GetBytes(MediaSecretEnvelopeProtector.KeySizeBytes);
+        using X509Certificate2 certificate = CreateCertificate();
+        const string password = "test-password";
+        byte[] pfxBytes = certificate.Export(X509ContentType.Pfx, password);
+        try
+        {
+            var service = new AutopilotHardwareHashUploadService(
+                new StaticMediaSecretKeyReader(mediaKey),
+                new SuccessfulTokenService(),
+                new AutopilotGraphImportClient(new HttpClient(new SuccessfulGraphHandler { ListedDeviceId = listedDeviceId })
+                {
+                    BaseAddress = new Uri("https://graph.microsoft.com/")
+                }, NullLogger<AutopilotGraphImportClient>.Instance),
+                profile,
+                NullLogger<AutopilotHardwareHashUploadService>.Instance);
+
+            AutopilotHardwareHashUploadResult result = await service.UploadAsync(new AutopilotHardwareHashUploadRequest
+            {
+                Settings = new DeployAutopilotHardwareHashUploadSettings
+                {
+                    TenantId = "tenant",
+                    ClientId = "client",
+                    ActiveCertificateThumbprint = certificate.Thumbprint,
+                    CertificatePfxSecret = Encrypt(pfxBytes, mediaKey),
+                    CertificatePfxPasswordSecret = Encrypt(Encoding.UTF8.GetBytes(password), mediaKey)
+                },
+                Identity = new AutopilotHardwareHashDeviceIdentity("SER123", "HASH", null),
+                WorkspaceRootPath = root,
+                DiagnosticsRootPath = Path.Combine(root, "Diagnostics")
+            }, progress, cancellationToken ?? TestContext.Current.CancellationToken);
+
+            return (result, File.ReadAllText(result.ArtifactPath!));
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(pfxBytes);
+            CryptographicOperations.ZeroMemory(mediaKey);
+            Directory.Delete(root, recursive: true);
+        }
+    }
+
+    /// <summary>Returns a fixed outcome and records the arguments of the wait.</summary>
+    private sealed class FakeProfileAssignment(ProfileAssignmentOutcome outcome) : IProfileAssignmentService
+    {
+        public bool Called { get; private set; }
+        public string? AccessToken { get; private set; }
+        public string? DeviceId { get; private set; }
+        public DateTimeOffset? StopAtUtc { get; private set; }
+        public Action? OnWait { get; init; }
+        public TimeSpan WaitDuration { get; init; }
+
+        public async Task<ProfileAssignmentOutcome> WaitAsync(string accessToken, string deviceId, DateTimeOffset stopAtUtc, CancellationToken skip)
+        {
+            Called = true;
+            AccessToken = accessToken;
+            DeviceId = deviceId;
+            StopAtUtc = stopAtUtc;
+            OnWait?.Invoke();
+            if (WaitDuration > TimeSpan.Zero)
+            {
+                await Task.Delay(WaitDuration, CancellationToken.None);
+            }
+
+            return outcome;
+        }
+    }
+
+    /// <summary>Reports on the calling thread, unlike <see cref="Progress{T}"/>.</summary>
+    private sealed class SynchronousProgress(Action<AutopilotHardwareHashUploadProgress> report) : IProgress<AutopilotHardwareHashUploadProgress>
+    {
+        public void Report(AutopilotHardwareHashUploadProgress value) => report(value);
+    }
+
     private sealed class SuccessfulTokenService : IAutopilotGraphTokenService
     {
         public Task<string> AcquireAccessTokenAsync(string tenantId, string clientId, X509Certificate2 certificate,
@@ -186,6 +370,9 @@ public sealed class AutopilotHardwareHashUploadServiceTests
     private sealed class SuccessfulGraphHandler : HttpMessageHandler
     {
         public string? AssignedName { get; private set; }
+
+        /// <summary>Identifier of the listed Autopilot device; <see langword="null"/> lists the device without one.</summary>
+        public string? ListedDeviceId { get; init; } = "device";
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
@@ -198,7 +385,7 @@ public sealed class AutopilotHardwareHashUploadServiceTests
 
             string json = request.Method == HttpMethod.Post
                 ? """{ "value": [{ "id": "imported", "state": { "deviceImportStatus": "complete" } }] }"""
-                : JsonSerializer.Serialize(new { value = new[] { new { id = "device", serialNumber = "SER123", displayName = AssignedName } } });
+                : JsonSerializer.Serialize(new { value = new[] { new { id = ListedDeviceId, serialNumber = "SER123", displayName = AssignedName } } });
             return new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(json) };
         }
     }

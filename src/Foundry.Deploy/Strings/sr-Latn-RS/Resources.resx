@@ -1098,6 +1098,9 @@ Operativni sistem: {4}
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Hvatanje hardverskog heša Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Provera Autopilot profila (preostalo {0})...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Provera dostupnog prostora...</value>
   </data>
@@ -1296,6 +1299,9 @@ Operativni sistem: {4}
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Čeka se ažuriranje oznake grupe Autopilot...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Čeka se dodela Autopilot profila...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Pisanje evidencije završetka...</value>
   </data>
@@ -1385,6 +1391,18 @@ Operativni sistem: {4}
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilot hardverski heš otpremanje je preskočeno jer su potrebne informacije o sertifikatu medija nepotpune.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Autopilot hardverski heš uvezen i Autopilot profil je dodeljen.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Autopilot hardverski heš uvezen, ali je Intune prijavio da dodela Autopilot profila nije uspela.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Autopilot hardverski heš uvezen, ali Autopilot profil nije dodeljen u roku od 20 minuta.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Autopilot hardverski heš uvezen, ali status Autopilot profila nije mogao da se pročita.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot je omogućen, ali nijedan profil nije izabran.</value>

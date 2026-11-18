@@ -1098,6 +1098,9 @@ Tęsti diegimą?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Fiksuojama Autopilot aparatinės įrangos maiša...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Tikrinamas Autopilot profilis (liko {0})...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Tikrinama laisva vieta...</value>
   </data>
@@ -1296,6 +1299,9 @@ Tęsti diegimą?</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Laukiama Autopilot grupės žymos atnaujinimo...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Laukiama Autopilot profilio priskyrimo...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Rašomi užbaigimo žurnalai...</value>
   </data>
@@ -1385,6 +1391,18 @@ Tęsti diegimą?</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilot aparatinės įrangos maišos įkėlimas praleistas, nes reikalinga medijos sertifikato informacija yra neišsami.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Autopilot aparatinės įrangos maiša importuota ir Autopilot profilis priskirtas.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Autopilot aparatinės įrangos maiša importuota, bet Intune pranešė, kad Autopilot profilio priskyrimas nepavyko.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Autopilot aparatinės įrangos maiša importuota, bet per 20 minučių Autopilot profilis nebuvo priskirtas.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Autopilot aparatinės įrangos maiša importuota, bet Autopilot profilio būsenos nepavyko perskaityti.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot įjungtas, bet nebuvo pasirinktas joks profilis.</value>

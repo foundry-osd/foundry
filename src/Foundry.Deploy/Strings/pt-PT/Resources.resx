@@ -1098,6 +1098,9 @@ Continuar com a implementação?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>A capturar o hash de hardware do Autopilot...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>A verificar o perfil do Autopilot ({0} restantes)...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>A verificar o espaço disponível...</value>
   </data>
@@ -1296,6 +1299,9 @@ Continuar com a implementação?</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>A aguardar a atualização da etiqueta de grupo do Autopilot...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>A aguardar a atribuição do perfil do Autopilot...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>A escrever os registos de conclusão...</value>
   </data>
@@ -1385,6 +1391,18 @@ Continuar com a implementação?</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Carregamento do hash de hardware do Autopilot ignorado porque as informações necessárias do certificado do suporte estão incompletas.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Hash de hardware do Autopilot importado e perfil do Autopilot atribuído.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Hash de hardware do Autopilot importado, mas o Intune comunicou que a atribuição do perfil do Autopilot falhou.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Hash de hardware do Autopilot importado, mas nenhum perfil do Autopilot foi atribuído em 20 minutos.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Hash de hardware do Autopilot importado, mas não foi possível ler o estado do perfil do Autopilot.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>O Autopilot está ativado, mas não foi selecionado nenhum perfil.</value>

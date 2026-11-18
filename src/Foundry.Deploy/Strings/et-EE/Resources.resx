@@ -1098,6 +1098,9 @@ Kas jätkata juurutamisega?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Autopilot riistvararäsi jäädvustamine...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Autopilot profiili kontrollimine ({0} jäänud)...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Vaba ruumi kontrollimine...</value>
   </data>
@@ -1296,6 +1299,9 @@ Kas jätkata juurutamisega?</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Autopilot rühmamärgendi värskenduse ootamine...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Autopilot profiili määramise ootamine...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Lõpetamise logide kirjutamine...</value>
   </data>
@@ -1385,6 +1391,18 @@ Kas jätkata juurutamisega?</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilot riistvara räsi üleslaadimine jäeti vahele, kuna nõutav meediumisertifikaadi teave on puudulik.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Autopilot riistvararäsi on imporditud ja Autopilot profiil on määratud.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Autopilot riistvararäsi on imporditud, kuid Intune teatas, et Autopilot profiili määramine ebaõnnestus.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Autopilot riistvararäsi on imporditud, kuid 20 minuti jooksul ei määratud ühtegi Autopilot profiili.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Autopilot riistvararäsi on imporditud, kuid Autopilot profiili olekut ei õnnestunud lugeda.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot on lubatud, kuid profiili pole valitud.</value>

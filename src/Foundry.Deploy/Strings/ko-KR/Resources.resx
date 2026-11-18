@@ -1098,6 +1098,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Autopilot 하드웨어 해시를 캡처하는 중...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Autopilot 프로필 확인 중({0} 남음)...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>사용 가능한 공간 확인 중...</value>
   </data>
@@ -1296,6 +1299,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Autopilot 그룹 태그 업데이트를 기다리는 중...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Autopilot 프로필이 할당되기를 기다리는 중...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>완료 로그 작성 중...</value>
   </data>
@@ -1385,6 +1391,18 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>필수 미디어 인증서 정보가 불완전하기 때문에 Autopilot 하드웨어 해시 업로드를 건너뛰었습니다.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Autopilot 하드웨어 해시를 가져왔으며 Autopilot 프로필이 할당되었습니다.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Autopilot 하드웨어 해시를 가져왔지만 Intune에서 Autopilot 프로필 할당이 실패했다고 보고했습니다.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Autopilot 하드웨어 해시를 가져왔지만 20분 이내에 Autopilot 프로필이 할당되지 않았습니다.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Autopilot 하드웨어 해시를 가져왔지만 Autopilot 프로필 상태를 읽을 수 없습니다.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot이 활성화되었지만 선택된 프로필이 없습니다.</value>

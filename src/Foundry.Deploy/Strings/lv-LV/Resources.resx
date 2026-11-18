@@ -1098,6 +1098,9 @@ Vai turpināt izvietošanu?</value>
   <data name="StepMessage.CapturingAutopilotHardwareHash" xml:space="preserve">
     <value>Notiek Autopilot aparatūras jaucējkoda tveršana...</value>
   </data>
+  <data name="StepMessage.CheckingAutopilotProfileFormat" xml:space="preserve">
+    <value>Notiek Autopilot profila pārbaude (atlikusi {0})...</value>
+  </data>
   <data name="StepMessage.CheckingAvailableSpace" xml:space="preserve">
     <value>Pārbauda pieejamo vietu...</value>
   </data>
@@ -1296,6 +1299,9 @@ Vai turpināt izvietošanu?</value>
   <data name="StepMessage.WaitingForAutopilotGroupTagUpdate" xml:space="preserve">
     <value>Gaida Autopilot grupas taga atjauninājumu...</value>
   </data>
+  <data name="StepMessage.WaitingForAutopilotProfileAssignment" xml:space="preserve">
+    <value>Gaida Autopilot profila piešķiršanu...</value>
+  </data>
   <data name="StepMessage.WritingCompletionLogs" xml:space="preserve">
     <value>Notiek pabeigšanas žurnālu rakstīšana...</value>
   </data>
@@ -1385,6 +1391,18 @@ Vai turpināt izvietošanu?</value>
   </data>
   <data name="StepResult.AutopilotHashUploadSkippedMissingMetadata" xml:space="preserve">
     <value>Autopilot aparatūras jaucējkoda augšupielāde tika izlaista, jo nepieciešamā datu nesēja sertifikāta informācija ir nepilnīga.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssigned" xml:space="preserve">
+    <value>Autopilot aparatūras jaucējkods ir importēts, un Autopilot profils ir piešķirts.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentFailed" xml:space="preserve">
+    <value>Autopilot aparatūras jaucējkods ir importēts, taču Intune ziņoja, ka Autopilot profila piešķiršana neizdevās.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentTimedOut" xml:space="preserve">
+    <value>Autopilot aparatūras jaucējkods ir importēts, taču 20 minūšu laikā Autopilot profils netika piešķirts.</value>
+  </data>
+  <data name="StepResult.AutopilotProfileAssignmentUnavailable" xml:space="preserve">
+    <value>Autopilot aparatūras jaucējkods ir importēts, taču Autopilot profila statusu nevarēja nolasīt.</value>
   </data>
   <data name="StepResult.AutopilotProfileMissing" xml:space="preserve">
     <value>Autopilot ir iespējots, taču nav atlasīts neviens profils.</value>
