@@ -12,4 +12,10 @@ public sealed class ConnectPhaseOptions
     /// or the deployment password prompt shown before it. It is not called when Connect fails before any window rendered.
     /// </summary>
     public required Action OnFirstWindowRendered { get; init; }
+
+    /// <summary>
+    /// Gets the hook called once, on the UI thread, when Connect loaded its configuration and built its services, before its
+    /// window is created, or <see langword="null"/>. It is not called when the configuration cannot be loaded.
+    /// </summary>
+    public Action? OnConfigurationLoaded { get; init; }
 }

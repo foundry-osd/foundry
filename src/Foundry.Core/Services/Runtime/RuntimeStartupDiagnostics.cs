@@ -88,19 +88,28 @@ public sealed class RuntimeStartupDiagnostics
 
     /// <summary>
     /// Creates the diagnostics of a phase hosted by the Foundry.WinPE UI process, which owns the startup protocol: nothing is
-    /// reported to the guardian and no failure evidence is captured for it, failures are only logged, and the first usable UI
-    /// calls <paramref name="onUiReady"/> once instead of reporting <c>ui_ready</c>.
+    /// reported to the guardian and no failure evidence is captured for it, failures are only logged, and the stages the host
+    /// reports for the phase reach it through hooks: <see cref="ReportConfigurationLoaded"/> calls
+    /// <paramref name="onConfigurationLoaded"/> and the first usable UI calls <paramref name="onUiReady"/> once.
     /// </summary>
     /// <param name="identity">The phase that starts, used for its log entries.</param>
     /// <param name="onUiReady">Called once, on the reporting thread, when the phase's first window or prompt rendered.</param>
-    public static RuntimeStartupDiagnostics CreateForHostedPhase(RuntimeApplicationIdentity identity, Action onUiReady)
+    /// <param name="onConfigurationLoaded">
+    /// Called on the reporting thread when the phase loaded its configuration and built its services, or
+    /// <see langword="null"/> when the host does not need it.
+    /// </param>
+    public static RuntimeStartupDiagnostics CreateForHostedPhase(
+        RuntimeApplicationIdentity identity,
+        Action onUiReady,
+        Action? onConfigurationLoaded = null)
     {
         ArgumentNullException.ThrowIfNull(identity);
         ArgumentNullException.ThrowIfNull(onUiReady);
         return new RuntimeStartupDiagnostics(identity,
             (stage, _, _) =>
             {
-                if (stage == StartupStage.UiReady) onUiReady();
+                if (stage == StartupStage.ConfigurationLoaded) onConfigurationLoaded?.Invoke();
+                else if (stage == StartupStage.UiReady) onUiReady();
             },
             static (_, _, _) => null,
             static () => Log.ForContext<RuntimeStartupDiagnostics>());

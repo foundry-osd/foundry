@@ -28,7 +28,8 @@ namespace Foundry.Deploy;
 /// The host has already done the process-wide setup: diagnostic clock, global exception handlers, Fluent backdrop switch,
 /// remote diagnostics, single-instance mutex, the startup protocol, and the application resources, with
 /// <c>/Foundry.Deploy;component/Themes/DeployApplicationResources.xaml</c> merged after Fluent and the Foundry.Wpf styles.
-/// While the phase runs, it owns <see cref="Log.Logger"/>, <see cref="Application.MainWindow"/> and a handler of
+/// While the phase runs, it owns <see cref="Log.Logger"/> (through <see cref="HostedPhaseScope"/>),
+/// <see cref="Application.MainWindow"/> and a handler of
 /// <see cref="Application.DispatcherUnhandledException"/>, which marks the exception handled and ends the phase with
 /// <see cref="FailureExitCode"/>.
 /// </remarks>
@@ -41,7 +42,6 @@ public static class DeployPhase
     public const int FailureExitCode = 1;
 
     private static readonly RuntimeApplicationIdentity Identity = new("Foundry.Deploy", TelemetryApps.FoundryDeploy, FoundryDeployApplicationInfo.Version);
-    private static readonly TimeSpan DiagnosticsShutdownTimeout = TimeSpan.FromSeconds(2);
 
     /// <summary>
     /// Shows Deploy's main window with the Connect theme and language and completes when the window closes or the phase
@@ -86,10 +86,9 @@ public static class DeployPhase
         }
 
         RuntimeStartupDiagnostics startup = RuntimeStartupDiagnostics.CreateForHostedPhase(Identity, OnFirstWindowRendered);
-        Serilog.ILogger previousLogger = Log.Logger;
-        Serilog.ILogger phaseLogger = CreatePhaseLogger(out string logFilePath);
-        Log.Logger = phaseLogger;
-        Serilog.ILogger logger = Log.ForContext(typeof(DeployPhase));
+        HostedPhaseScope scope = HostedPhaseScope.Begin(Identity, "Foundry Deploy", typeof(DeployPhase),
+            FoundryDeployLogging.ResolveStartupLogFilePath, FoundryDeployLogging.CreateLogger);
+        Serilog.ILogger logger = scope.Logger;
         IHost? host = null;
         ITelemetryService? telemetry = null;
         DispatcherUnhandledExceptionEventHandler? dispatcherHandler = null;
@@ -98,7 +97,7 @@ public static class DeployPhase
         {
             logger.Information(
                 "Foundry Deploy phase started. Version={Version}, SessionId={SessionId}, LogFilePath={LogFilePath}",
-                FoundryDeployApplicationInfo.Version, DiagnosticSessionContext.CurrentSessionId, logFilePath);
+                FoundryDeployApplicationInfo.Version, DiagnosticSessionContext.CurrentSessionId, scope.LogFilePath);
             if (!RuntimeStartupGuard.CanRun())
                 throw new InvalidOperationException("Foundry Deploy requires Windows PE outside a DEBUG debugger session.");
 
@@ -165,40 +164,15 @@ public static class DeployPhase
                 application.DispatcherUnhandledException -= dispatcherHandler;
             }
 
-            await FlushTelemetryAsync(telemetry, logger);
-            if (host is not null)
-            {
-                await DisposeHostAsync(host, logger);
-            }
-
-            logger.Information("Foundry Deploy phase shutdown completed. Closing its log.");
-            Log.Logger = previousLogger;
-            await CloseLoggerAsync(phaseLogger);
+            await scope.EndAsync(telemetry, host);
             try { FoundryDeployLogging.PersistCurrentLogs(); }
             catch { }
         }
     }
 
-    private static Serilog.ILogger CreatePhaseLogger(out string logFilePath)
-    {
-        try
-        {
-            logFilePath = FoundryDeployLogging.ResolveStartupLogFilePath();
-            return FoundryDeployLogging.CreateLogger(logFilePath);
-        }
-        catch (Exception exception)
-        {
-            logFilePath = "<unavailable>";
-            Serilog.ILogger fallback = FoundryLogConfiguration.CreateDebugLogger(
-                Identity.ApplicationId, DiagnosticSessionContext.CurrentSessionId,
-                Serilog.Events.LogEventLevel.Verbose, additionalSink: RemoteDiagnosticsSink.Instance);
-            fallback.ForContext(typeof(DeployPhase)).Error(exception, "File logging initialization failed. Falling back to debugger output.");
-            return fallback;
-        }
-    }
-
     private static IHost BuildHost(RuntimeStartupDiagnostics startup, DeployPhaseOptions options)
     {
+        // Kept here: Foundry.Core does not reference Microsoft.Extensions.Hosting or Serilog.Extensions.Logging.
         HostApplicationBuilder builder = Host.CreateApplicationBuilder();
         builder.Logging.ClearProviders();
         builder.Logging.SetMinimumLevel(LogLevel.Trace);
@@ -206,63 +180,5 @@ public static class DeployPhase
         builder.Services.AddSingleton(startup);
         builder.Services.AddFoundryDeployApplicationServices(options);
         return builder.Build();
-    }
-
-    /// <summary>Sends pending product analytics within the shutdown budget; the remote log stream belongs to the host.</summary>
-    private static async Task FlushTelemetryAsync(ITelemetryService? telemetry, Serilog.ILogger logger)
-    {
-        if (telemetry is null)
-        {
-            return;
-        }
-
-        try
-        {
-            await Task.Run(() => telemetry.FlushAsync()).WaitAsync(DiagnosticsShutdownTimeout);
-        }
-        catch (Exception exception)
-        {
-            logger.ForContext("PostHogTransportInternal", true).Warning(exception, "Telemetry flush did not complete within the shutdown budget.");
-        }
-    }
-
-    /// <summary>
-    /// Disposes the phase's container on the UI thread, which owns the view models it disposes; a disposal failure never
-    /// changes the phase result.
-    /// </summary>
-    private static async Task DisposeHostAsync(IHost host, Serilog.ILogger logger)
-    {
-        try
-        {
-            if (host is IAsyncDisposable asyncDisposable)
-            {
-                await asyncDisposable.DisposeAsync();
-            }
-            else
-            {
-                host.Dispose();
-            }
-        }
-        catch (Exception exception)
-        {
-            logger.Warning(exception, "Foundry Deploy service disposal failed.");
-        }
-    }
-
-    private static async Task CloseLoggerAsync(Serilog.ILogger logger)
-    {
-        if (logger is not IAsyncDisposable disposable)
-        {
-            return;
-        }
-
-        try
-        {
-            await Task.Run(() => disposable.DisposeAsync().AsTask()).WaitAsync(DiagnosticsShutdownTimeout);
-        }
-        catch
-        {
-            // Log closing is best effort: the phase outcome is already decided.
-        }
     }
 }

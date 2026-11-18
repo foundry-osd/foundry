@@ -17,7 +17,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Foundry.Connect.Tests.Network;
 
-// Resolving the page graph constructs the hand-off sender, which removes the process-wide hand-off variable.
 public sealed class NetworkServiceRegistrationTests
 {
     [Fact]
