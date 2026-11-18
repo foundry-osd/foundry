@@ -4,6 +4,7 @@
 
 using Foundry.Core.Models.Runtime;
 using Foundry.Deploy;
+using Foundry.Wpf.Shell;
 using Serilog;
 
 namespace Foundry.WinPE.Ui;
@@ -110,15 +111,16 @@ internal sealed class WinPeUiSession(
     {
         cancellationToken.ThrowIfCancellationRequested();
         EnterPhase(UiPhase.Deploy);
-        var options = new DeployPhaseOptions
+        DeployPhaseOptions CreateOptions(IShellHost shell) => new()
         {
+            Shell = shell,
             InitialDeploymentKey = connect?.DeploymentKey,
             ThemeMode = connect?.ThemeMode,
             CultureName = connect?.CultureName,
-            OnFirstWindowRendered = OnDeployFirstWindowRendered,
+            OnFirstContentRendered = OnDeployFirstWindowRendered,
             OnDestructiveStepStarted = OnDestructiveStepStarted
         };
-        int exitCode = await RunPhaseAsync(() => deployPhase.RunAsync(options, cancellationToken));
+        int exitCode = await RunPhaseAsync(() => deployPhase.RunAsync(CreateOptions, cancellationToken));
         logger.Information("UI session ended in Foundry Deploy with code {ExitCode}.", exitCode);
         return exitCode;
     }

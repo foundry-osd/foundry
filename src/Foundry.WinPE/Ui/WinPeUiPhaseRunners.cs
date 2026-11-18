@@ -8,6 +8,7 @@ using Foundry.Core.Models.Runtime;
 using Foundry.Deploy;
 using Foundry.WinPE.Shell;
 using Foundry.WinPE.SystemPreparation;
+using Foundry.Wpf.Shell;
 
 namespace Foundry.WinPE.Ui;
 
@@ -49,7 +50,7 @@ internal sealed class WpfConnectPhaseRunner : IConnectPhaseRunner
             new HandOverWindow(shell));
     }
 
-    private static void Close(WinPeShellWindow shell)
+    internal static void Close(WinPeShellWindow shell)
     {
         shell.AllowClose = true;
         try
@@ -69,16 +70,25 @@ internal sealed class WpfConnectPhaseRunner : IConnectPhaseRunner
 }
 
 /// <summary>
-/// Runs <see cref="DeployPhase"/> in the host's WPF application, after <paramref name="beforeDeploy"/> switched the host's log
+/// Runs <see cref="DeployPhase"/> in the host's WPF application, in a shell window it creates, shows and closes, after <paramref name="beforeDeploy"/> switched the host's log
 /// file and remote diagnostics application to Deploy.
 /// </summary>
 internal sealed class WpfDeployPhaseRunner(Action beforeDeploy) : IDeployPhaseRunner
 {
     /// <inheritdoc />
-    public Task<int> RunAsync(DeployPhaseOptions options, CancellationToken cancellationToken)
+    public async Task<int> RunAsync(Func<IShellHost, DeployPhaseOptions> createOptions, CancellationToken cancellationToken)
     {
         beforeDeploy();
-        return DeployPhase.RunAsync(options, cancellationToken);
+        var shell = new WinPeShellWindow();
+        shell.Show();
+        try
+        {
+            return await DeployPhase.RunAsync(createOptions(shell), cancellationToken);
+        }
+        finally
+        {
+            WpfConnectPhaseRunner.Close(shell);
+        }
     }
 }
 

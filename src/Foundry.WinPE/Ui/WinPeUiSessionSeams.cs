@@ -4,6 +4,7 @@
 
 using Foundry.Core.Services.Runtime;
 using Foundry.Deploy;
+using Foundry.Wpf.Shell;
 
 namespace Foundry.WinPE.Ui;
 
@@ -44,5 +45,7 @@ internal interface ISystemPreparationStep
 internal interface IDeployPhaseRunner
 {
     /// <summary>Runs the phase on the UI thread and returns its exit code.</summary>
-    Task<int> RunAsync(DeployPhaseOptions options, CancellationToken cancellationToken);
+    /// <param name="createOptions">Builds the phase options around the shell the runner shows the phase in.</param>
+    /// <param name="cancellationToken">Asks the phase to end.</param>
+    Task<int> RunAsync(Func<IShellHost, DeployPhaseOptions> createOptions, CancellationToken cancellationToken);
 }

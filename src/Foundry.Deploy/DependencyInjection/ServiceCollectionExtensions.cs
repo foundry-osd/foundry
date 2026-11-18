@@ -61,11 +61,11 @@ public static class ServiceCollectionExtensions
         => () => lifetime.TryEnd((int)ChildRuntimeExitCode.UserAborted);
 
     /// <summary>
-    /// Registers the Foundry Deploy phase window, lifetime, telemetry, startup and deployment services.
+    /// Registers the Foundry Deploy phase content, lifetime, telemetry, startup and deployment services.
     /// </summary>
     /// <remarks>
     /// The caller pre-registers the phase's <see cref="RuntimeStartupDiagnostics"/>. Nothing here ends the WPF application:
-    /// the shell service and the window end the phase through <see cref="DeployPhaseLifetime"/>.
+    /// the shell service and the close handler end the phase through <see cref="DeployPhaseLifetime"/>.
     /// </remarks>
     /// <param name="services">The service collection to update.</param>
     /// <param name="options">
@@ -77,10 +77,11 @@ public static class ServiceCollectionExtensions
     {
         ArgumentNullException.ThrowIfNull(options);
         services.AddSingleton<DeployPhaseLifetime>();
-        services.AddSingleton(sp => new MainWindow(
+        services.AddSingleton(sp => new DeployShellContent(
             sp.GetRequiredService<MainWindowViewModel>(),
             sp.GetRequiredService<RuntimeStartupDiagnostics>(),
-            sp.GetRequiredService<DeployPhaseLifetime>()));
+            sp.GetRequiredService<DeployPhaseLifetime>(),
+            sp.GetRequiredService<IShellHost>()));
         services.AddSingleton<MainWindowViewModel>();
 
         services.AddSingleton<ILocalizationService>(_ => new ResourceLocalizationService(LocalizationText.ResourceManager));
@@ -91,7 +92,7 @@ public static class ServiceCollectionExtensions
             sp.GetRequiredService<ILocalizationService>(),
             sp.GetRequiredService<WpfApplicationIdentity>(),
             CreateShellEndAction(sp.GetRequiredService<DeployPhaseLifetime>())));
-        services.AddSingleton(WpfApplicationIdentity.FromAssembly(typeof(MainWindow).Assembly));
+        services.AddSingleton(WpfApplicationIdentity.FromAssembly(typeof(DeployShellContent).Assembly));
         services.AddSingleton<IDeploymentWizardStateService, DeploymentWizardStateService>();
         services.AddSingleton<IDeploymentWizardContextFactory, DeploymentWizardContextFactory>();
         services.AddSingleton<IDeploymentStartupCoordinator, DeploymentStartupCoordinator>();

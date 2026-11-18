@@ -7,6 +7,7 @@ using Foundry.Core.Services.Runtime;
 using Foundry.Deploy;
 using Foundry.WinPE.Tests.Support;
 using Foundry.WinPE.Ui;
+using Foundry.Wpf.Shell;
 using Serilog;
 using Serilog.Events;
 using Xunit;
@@ -39,9 +40,9 @@ public sealed class WinPeUiSessionTests
         fixture.Deploy = options =>
         {
             Assert.Equal(0, fixture.Window.CloseCount);
-            options.OnFirstWindowRendered();
+            options.OnFirstContentRendered();
             Assert.Equal(1, fixture.Window.CloseCount);
-            options.OnFirstWindowRendered();
+            options.OnFirstContentRendered();
             return Task.FromResult(DeployPhase.SuccessExitCode);
         };
 
@@ -116,7 +117,7 @@ public sealed class WinPeUiSessionTests
         var fixture = new Fixture();
         fixture.Deploy = options =>
         {
-            options.OnFirstWindowRendered();
+            options.OnFirstContentRendered();
             return Task.FromResult(DeployPhase.SuccessExitCode);
         };
 
@@ -205,7 +206,7 @@ public sealed class WinPeUiSessionTests
         var fixture = new Fixture { SkipConnect = true };
         fixture.Deploy = options =>
         {
-            options.OnFirstWindowRendered();
+            options.OnFirstContentRendered();
             return Task.FromResult(DeployPhase.SuccessExitCode);
         };
 
@@ -279,6 +280,25 @@ public sealed class WinPeUiSessionTests
         Assert.False(session.IsPhaseRunning);
     }
 
+    private sealed class FakeShellHost : IShellHost
+    {
+        public System.Windows.Window Window => throw new NotSupportedException();
+
+        public event EventHandler<System.ComponentModel.CancelEventArgs>? CloseRequested
+        {
+            add { }
+            remove { }
+        }
+
+        public event EventHandler? FirstContentRendered
+        {
+            add { }
+            remove { }
+        }
+
+        public void ShowContent(System.Windows.FrameworkElement content) => throw new NotSupportedException();
+    }
+
     private sealed class Fixture : IConnectPhaseRunner, ISystemPreparationStep, IDeployPhaseRunner, IUiStateWriter, IUiReadinessReporter
     {
         private readonly ConcurrentQueue<LogEvent> events = new();
@@ -330,8 +350,9 @@ public sealed class WinPeUiSessionTests
             return SystemPreparationFails ? Task.FromException(new HttpRequestException("Offline")) : Task.CompletedTask;
         }
 
-        Task<int> IDeployPhaseRunner.RunAsync(DeployPhaseOptions options, CancellationToken cancellationToken)
+        Task<int> IDeployPhaseRunner.RunAsync(Func<IShellHost, DeployPhaseOptions> createOptions, CancellationToken cancellationToken)
         {
+            DeployPhaseOptions options = createOptions(new FakeShellHost());
             Calls.Add("deploy");
             DeployOptions = options;
             return Deploy?.Invoke(options) ?? Task.FromResult(DeployExitCode);
