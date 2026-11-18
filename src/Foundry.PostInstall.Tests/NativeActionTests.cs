@@ -117,6 +117,37 @@ public sealed class NativeActionTests
         Assert.Empty(processes.Commands);
         Assert.False(outcome.Succeeded);
         Assert.Equal("driver_package_empty", outcome.FailureCode);
+        Assert.Contains("No INF file", lenovo.ReadLog());
+    }
+
+    [Fact]
+    public async Task LenovoInstall_RunsPnputilFromTheRootWorkingDirectory()
+    {
+        using var lenovo = new LenovoFixture("SCCM\\pack\\Audio\\a.inf");
+        var processes = new RecordingProcesses(new(0, ""));
+
+        await lenovo.ExecuteAsync(processes, 1);
+
+        // An INF folder can be too long for a process working directory, which would throw instead of failing the INF.
+        Assert.Equal(lenovo.Root, Assert.Single(processes.Commands).WorkingDirectory);
+    }
+
+    [Fact]
+    public async Task LenovoInstall_WritesEachInfToTheLogBeforeTheNextOne()
+    {
+        using var lenovo = new LenovoFixture("a.inf", "b.inf");
+        string? logWhileSecondRuns = null;
+        var processes = new RecordingProcesses(new(0, ""))
+        {
+            OnRun = command =>
+            {
+                if (command.Arguments[1].EndsWith("b.inf", StringComparison.Ordinal)) logWhileSecondRuns = lenovo.ReadSharedLog();
+            }
+        };
+
+        await lenovo.ExecuteAsync(processes, 1);
+
+        Assert.Contains("a.inf: exit 0", logWhileSecondRuns);
     }
 
     [Fact]
@@ -260,9 +291,14 @@ public sealed class NativeActionTests
         public ProcessOutcome Result { get; set; } = outcome;
         /// <summary>Outcomes returned in order before <see cref="Result"/>.</summary>
         public Queue<ProcessOutcome> Results { get; } = new();
+        public Action<ProcessCommand>? OnRun { get; init; }
         public List<ProcessCommand> Commands { get; } = [];
         public Task<ProcessOutcome> RunAsync(ProcessCommand command, CancellationToken cancellationToken)
-        { Commands.Add(command); return Task.FromResult(Results.Count > 0 ? Results.Dequeue() : Result); }
+        {
+            Commands.Add(command);
+            OnRun?.Invoke(command);
+            return Task.FromResult(Results.Count > 0 ? Results.Dequeue() : Result);
+        }
     }
 
     /// <summary>A PostInstall root with a staged Lenovo installer and a drivers folder holding the given files.</summary>
@@ -285,7 +321,17 @@ public sealed class NativeActionTests
         public string Root => Path.Combine(directory, "Root");
         public string DriversRoot => Path.Combine(directory, "Drivers");
         public string Driver(string relativePath) => Path.Combine(DriversRoot, relativePath);
-        public string ReadLog() => File.ReadAllText(Path.Combine(Root, "Logs", "PreOobe", "lenovo-drivers.log"));
+        public string ReadLog() => File.ReadAllText(LogPath);
+
+        /// <summary>Reads the log while the action still holds it open for writing.</summary>
+        public string ReadSharedLog()
+        {
+            using var stream = new FileStream(LogPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using var reader = new StreamReader(stream);
+            return reader.ReadToEnd();
+        }
+
+        private string LogPath => Path.Combine(Root, "Logs", "PreOobe", "lenovo-drivers.log");
 
         public Task<ActionStepOutcome> ExecuteAsync(RecordingProcesses processes, int substep) =>
             new DriverAction(Root, Environment.GetFolderPath(Environment.SpecialFolder.Windows), processes, DriversRoot).ExecuteAsync(

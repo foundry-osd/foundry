@@ -61,14 +61,20 @@ public sealed class DriverAction(string root, string windowsRoot, IPreOobeProces
         string[] infFiles = Directory.Exists(drivers)
             ? Directory.EnumerateFiles(drivers, "*.inf", SearchOption.AllDirectories).Order(StringComparer.OrdinalIgnoreCase).ToArray()
             : [];
-        if (infFiles.Length == 0) return new(false, null, "driver_package_empty");
+        // Flushed per line: the log must show the INF in progress if the device loses power or the process is killed.
+        using var log = new StreamWriter(logPath, append: true) { AutoFlush = true };
+        if (infFiles.Length == 0)
+        {
+            await log.WriteLineAsync($"No INF file found under {drivers}.").ConfigureAwait(false);
+            return new(false, null, "driver_package_empty");
+        }
 
-        using var log = new StreamWriter(logPath, append: true);
         int? firstFailure = null;
         foreach (string inf in infFiles)
         {
-            ProcessOutcome result = await processes.RunAsync(new(pnputil, ["/add-driver", inf, "/install"],
-                Path.GetDirectoryName(inf)!, InfTimeout), cancellationToken).ConfigureAwait(false);
+            // The root, not the INF folder: a deep pack folder can exceed the length allowed for a working directory.
+            ProcessOutcome result = await processes.RunAsync(new(pnputil, ["/add-driver", inf, "/install"], root, InfTimeout),
+                cancellationToken).ConfigureAwait(false);
             await log.WriteLineAsync($"{Path.GetRelativePath(drivers, inf)}: exit {result.ExitCode?.ToString() ?? "none"}")
                 .ConfigureAwait(false);
             if (result.TerminationUncertain || result.TimedOut)
