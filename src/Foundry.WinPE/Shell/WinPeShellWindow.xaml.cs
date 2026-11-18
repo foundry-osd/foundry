@@ -90,12 +90,27 @@ public partial class WinPeShellWindow : Window, IShellHost
             return;
         }
 
-        content.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+        // A page that chose its own focus target (Connect does in Loaded) keeps it.
+        if (!ContainsFocus(content))
+        {
+            content.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+        }
+
         if (!_firstContentRenderedRaised)
         {
             _firstContentRenderedRaised = true;
             FirstContentRendered?.Invoke(this, EventArgs.Empty);
         }
+    }
+
+    private bool ContainsFocus(FrameworkElement content)
+    {
+        if (content.IsKeyboardFocusWithin)
+        {
+            return true;
+        }
+
+        return FocusManager.GetFocusedElement(this) is DependencyObject focused && (ReferenceEquals(focused, content) || content.IsAncestorOf(focused));
     }
 
     // Before the window is shown nothing has rendered yet: wait for its first render instead of the dispatcher queue.

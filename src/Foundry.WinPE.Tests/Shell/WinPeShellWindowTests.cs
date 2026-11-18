@@ -89,6 +89,42 @@ public sealed partial class WinPeShellWindowTests
     });
 
     [Fact]
+    public Task ShowContent_KeepsTheFocusThePageChoseItself() => WpfApplicationTestHost.RunAsync(async () =>
+    {
+        var window = new WinPeShellWindow();
+        try
+        {
+            window.Show();
+            Button chosen = new();
+            StackPanel page = new() { Children = { new Button(), chosen } };
+            page.Loaded += (_, _) => chosen.Focus();
+            window.ShowContent(page);
+            await Settle();
+
+            Assert.Same(chosen, System.Windows.Input.FocusManager.GetFocusedElement(window));
+        }
+        finally
+        {
+            CloseForTest(window);
+        }
+    });
+
+    [Fact]
+    public Task AllowClose_ClosesTheWindowDespiteACancellingHandler() => WpfApplicationTestHost.RunAsync(() =>
+    {
+        var window = new WinPeShellWindow();
+        bool closed = false;
+        window.Closed += (_, _) => closed = true;
+        window.CloseRequested += (_, e) => e.Cancel = true;
+        window.Show();
+        window.AllowClose = true;
+        window.Close();
+
+        Assert.True(closed);
+        return Task.CompletedTask;
+    });
+
+    [Fact]
     public Task FirstContentRendered_IsRaisedOnce() => WpfApplicationTestHost.RunAsync(async () =>
     {
         var window = new WinPeShellWindow();
