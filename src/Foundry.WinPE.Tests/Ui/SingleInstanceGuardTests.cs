@@ -2,16 +2,17 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using Foundry.Connect.Lifetime;
+using Foundry.WinPE.Ui;
+using Xunit;
 
-namespace Foundry.Connect.Tests;
+namespace Foundry.WinPE.Tests.Ui;
 
 public sealed class SingleInstanceGuardTests
 {
     [Fact]
     public void TryAcquire_SecondInstanceFails()
     {
-        string name = $"Local\\Foundry.Connect.Test.{Guid.NewGuid():N}";
+        string name = $"Local\\Foundry.WinPE.Ui.Test.{Guid.NewGuid():N}";
         Assert.True(SingleInstanceGuard.TryAcquire(name, out SingleInstanceGuard? first));
         using (first)
         {
@@ -22,7 +23,7 @@ public sealed class SingleInstanceGuardTests
     [Fact]
     public void Dispose_ReleasesInstanceName()
     {
-        string name = $"Local\\Foundry.Connect.Test.{Guid.NewGuid():N}";
+        string name = $"Local\\Foundry.WinPE.Ui.Test.{Guid.NewGuid():N}";
         Assert.True(SingleInstanceGuard.TryAcquire(name, out SingleInstanceGuard? first));
         first!.Dispose();
 

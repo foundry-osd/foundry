@@ -5,13 +5,14 @@
 using System.Collections.Concurrent;
 using System.Windows;
 using System.Windows.Threading;
+using Foundry.WinPE.Ui;
+using Xunit;
 
-namespace Foundry.Deploy.Tests;
+namespace Foundry.WinPE.Tests.Support;
 
 /// <summary>
-/// Runs test code on one process-wide STA thread that owns a WPF <see cref="Application"/> whose resources merge Fluent,
-/// the shared Foundry.Wpf styles and Deploy's application resources in the order the Foundry.WinPE host uses, so tests see
-/// the resources of the Deploy phase.
+/// Runs test code on one process-wide STA thread that owns a WPF <see cref="Application"/> whose resources are the UI
+/// process's own <see cref="WinPeUiHost.ResourcesUri"/> dictionary, so tests see the resources both phases run with.
 /// </summary>
 /// <remarks>
 /// WPF allows one <see cref="Application"/> per process, and view models capture <c>Application.Current.Dispatcher</c>, so the
@@ -20,13 +21,6 @@ namespace Foundry.Deploy.Tests;
 /// </remarks>
 internal static class WpfApplicationTestHost
 {
-    private static readonly string[] ResourceSources =
-    [
-        "pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml",
-        "pack://application:,,,/Foundry.Wpf;component/Themes/FoundryWpfStyles.xaml",
-        "pack://application:,,,/Foundry.Deploy;component/Themes/DeployApplicationResources.xaml"
-    ];
-
     private static readonly Lazy<Dispatcher> HostDispatcher = new(Start, LazyThreadSafetyMode.ExecutionAndPublication);
 
     /// <summary>Gets the exceptions that reached the host dispatcher without being observed by a test.</summary>
@@ -55,11 +49,12 @@ internal static class WpfApplicationTestHost
                     UnhandledExceptions.Enqueue(e.Exception);
                     e.Handled = true;
                 };
-                Application application = new() { ShutdownMode = ShutdownMode.OnExplicitShutdown };
-                foreach (string source in ResourceSources)
+                // Assigned as a whole, as the host does, so Fluent is the first merged dictionary of the application resources.
+                _ = new Application
                 {
-                    application.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(source, UriKind.Absolute) });
-                }
+                    ShutdownMode = ShutdownMode.OnExplicitShutdown,
+                    Resources = new ResourceDictionary { Source = new Uri(WinPeUiHost.ResourcesUri, UriKind.Absolute) }
+                };
 
                 ready.SetResult(dispatcher);
             }

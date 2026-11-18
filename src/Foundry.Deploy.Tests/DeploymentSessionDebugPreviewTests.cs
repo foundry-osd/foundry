@@ -10,11 +10,8 @@ using Foundry.Deploy.Services.Localization;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.System;
 using Foundry.Deploy.ViewModels;
-using Foundry.Utilities.Networking;
-using Foundry.Utilities.Processes;
 using Foundry.Wpf.Localization;
 using Foundry.Wpf.Progress;
-using Microsoft.Extensions.Logging.Abstractions;
 using DeployUnattendFile = Foundry.Core.Models.Configuration.Deploy.DeployUnattendFile;
 
 namespace Foundry.Deploy.Tests;
@@ -29,7 +26,7 @@ public sealed class DeploymentSessionDebugPreviewTests
     public Task Progress_UsesSelectedWorkflowAndAlignsActiveRowWithStatus(DeploymentMode mode, bool customUnattend) =>
         WithSession(session =>
         {
-            DeploymentContext request = Request() with
+            DeploymentContext request = DeploymentPreviewSession.Request() with
             {
                 Mode = mode,
                 Unattend = customUnattend ? new UnattendSelection(new DeployUnattendFile(), "answer.enc") : null,
@@ -73,7 +70,7 @@ public sealed class DeploymentSessionDebugPreviewTests
             var index = new Foundry.Core.Models.Configuration.CustomImageIndex { Index = 1, Name = "Custom", Architecture = "x64", EditionId = "Enterprise", ExpandedSizeBytes = 1024 };
             var asset = new CustomImageAsset { Id = "media", DisplayName = "Image", ImagePath = @"D:\Images\image.wim", VolumeRoot = @"D:\" };
 
-            session.ShowDebugProgress(Request() with { Mode = mode, OperatingSystem = new CustomImageSelection(asset, index) });
+            session.ShowDebugProgress(DeploymentPreviewSession.Request() with { Mode = mode, OperatingSystem = new CustomImageSelection(asset, index) });
 
             string[] names = session.TimelineEntries.Select(entry => entry.RawName).ToArray();
             Assert.True(Array.IndexOf(names, DeploymentStepNames.CheckWindowsImage) < Array.IndexOf(names, DeploymentStepNames.PrepareTargetDiskLayout));
@@ -86,7 +83,7 @@ public sealed class DeploymentSessionDebugPreviewTests
     public Task Progress_OnlyDisplaysWorkForSelectedDriverStrategy(DriverPackSelectionKind selection, int count) =>
         WithSession(session =>
         {
-            session.ShowDebugProgress(Request() with
+            session.ShowDebugProgress(DeploymentPreviewSession.Request() with
             {
                 DriverPackSelectionKind = selection,
                 DriverPack = selection == DriverPackSelectionKind.OemCatalog
@@ -118,7 +115,7 @@ public sealed class DeploymentSessionDebugPreviewTests
     public Task Success_PreservesSelectedAutopilotLabelAndCachedOutcome(AutopilotProvisioningMode mode, string labelKey) =>
         WithSession(session =>
         {
-            session.ShowDebugSuccess(Request() with { IsAutopilotEnabled = true, AutopilotProvisioningMode = mode });
+            session.ShowDebugSuccess(DeploymentPreviewSession.Request() with { IsAutopilotEnabled = true, AutopilotProvisioningMode = mode });
 
             ProgressTimelineEntry autopilot = Assert.Single(session.TimelineEntries,
                 entry => entry.RawName == DeploymentStepNames.ProvisionAutopilot);
@@ -141,7 +138,7 @@ public sealed class DeploymentSessionDebugPreviewTests
     public Task TerminalPreview_KeepsApplyStepAlignedAndProgressReentryClearsFailure(bool cancelled) =>
         WithSession(session =>
         {
-            DeploymentContext request = Request();
+            DeploymentContext request = DeploymentPreviewSession.Request();
             session.ShowDebugSuccess(request);
             if (cancelled)
                 session.ShowDebugCancelled(request);
@@ -173,14 +170,14 @@ public sealed class DeploymentSessionDebugPreviewTests
     [Fact]
     public Task ReenterPreview_RebuildsPlanAfterSelectionsChange() => WithSession(session =>
     {
-        session.ShowDebugSuccess(Request() with
+        session.ShowDebugSuccess(DeploymentPreviewSession.Request() with
         {
             Unattend = new UnattendSelection(new DeployUnattendFile(), "answer.enc"),
             IsAutopilotEnabled = true,
             DriverPackSelectionKind = DriverPackSelectionKind.MicrosoftUpdateCatalog
         });
 
-        session.ShowDebugProgress(Request());
+        session.ShowDebugProgress(DeploymentPreviewSession.Request());
 
         Assert.DoesNotContain(session.TimelineEntries, entry => entry.RawName is DeploymentStepNames.ValidateCustomUnattend
             or DeploymentStepNames.StageCustomUnattend or DeploymentStepNames.ProvisionAutopilot
@@ -212,17 +209,6 @@ public sealed class DeploymentSessionDebugPreviewTests
         Assert.Equal(LocalizationText.GetString("StepResult.OperatingSystemImageResolvedFromCache"), download.DetailText);
     }
 
-    internal static DeploymentContext Request() => new()
-    {
-        Mode = DeploymentMode.Usb,
-        CacheRootPath = "cache",
-        TargetDiskNumber = 1,
-        TargetComputerName = "PREVIEW-PC",
-        OperatingSystem = new OperatingSystemCatalogItem { LicenseChannel = "VOL" },
-        DriverPackSelectionKind = DriverPackSelectionKind.None,
-        ApplyFirmwareUpdates = false
-    };
-
     private static Task WithSession(Action<DeploymentSessionViewModel> test)
     {
         TaskCompletionSource completion = new(TaskCreationOptions.RunContinuationsAsynchronously);
@@ -231,7 +217,7 @@ public sealed class DeploymentSessionDebugPreviewTests
             Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
             try
             {
-                using DeploymentSessionViewModel session = CreateSession(dispatcher);
+                using DeploymentSessionViewModel session = DeploymentPreviewSession.Create(dispatcher);
                 test(session);
                 completion.SetResult();
             }
@@ -248,38 +234,5 @@ public sealed class DeploymentSessionDebugPreviewTests
         thread.SetApartmentState(ApartmentState.STA);
         thread.Start();
         return completion.Task;
-    }
-
-    /// <summary>Creates a debug-safe session that can only preview: it never runs a deployment step or a process.</summary>
-    internal static DeploymentSessionViewModel CreateSession(Dispatcher dispatcher) =>
-        new(dispatcher, NullLogger.Instance, new OperationProgressService(), new PreviewOnlyOrchestrator(), new RejectingProcessRunner(),
-            new ResourceLocalizationService(LocalizationText.ResourceManager), isDebugSafeMode: true, new EmptyNetworkSnapshotProvider());
-
-    private sealed class PreviewOnlyOrchestrator : IDeploymentOrchestrator
-    {
-        public event EventHandler<DeploymentStepProgress>? StepProgressChanged { add { } remove { } }
-        public event EventHandler? CompletionStarting { add { } remove { } }
-        public Task<DeploymentResult> RunAsync(DeploymentContext context, CancellationToken cancellationToken = default) =>
-            throw new InvalidOperationException("Previews must not execute deployment.");
-        public Task<DeploymentResult> RunAsync(DeploymentContext context, Foundry.Deploy.Services.DomainJoin.DomainJoinPreparedInput? input,
-            CancellationToken cancellationToken = default) => RunAsync(context, cancellationToken);
-    }
-
-    private sealed class EmptyNetworkSnapshotProvider : INetworkAdapterSnapshotProvider
-    {
-        public IReadOnlyList<NetworkAdapterSnapshot> GetAdapters() => [];
-    }
-
-    private sealed class RejectingProcessRunner : IProcessRunner
-    {
-        public Task<ProcessExecutionResult> RunAsync(string fileName, string arguments, string workingDirectory,
-            CancellationToken cancellationToken = default) => throw new InvalidOperationException("Previews must not run processes.");
-
-        public Task<ProcessExecutionResult> RunAsync(string fileName, IEnumerable<string> arguments, string workingDirectory,
-            CancellationToken cancellationToken = default) => throw new InvalidOperationException("Previews must not run processes.");
-
-        public Task<ProcessExecutionResult> RunAsync(string fileName, IEnumerable<string> arguments, string workingDirectory,
-            Action<string>? onOutputData, Action<string>? onErrorData, CancellationToken cancellationToken = default) =>
-            throw new InvalidOperationException("Previews must not run processes.");
     }
 }

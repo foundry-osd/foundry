@@ -8,4 +8,8 @@
     <PackageReference Include="xunit.v3" Version="4.0.2" />
     <ProjectReference Include="..\Foundry.WinPE\Foundry.WinPE.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- The debug-safe Deploy session the progress page binding test previews. -->
+    <Compile Include="..\Foundry.Deploy.Tests\Support\DeploymentPreviewSession.cs" Link="Support\DeploymentPreviewSession.cs" />
+  </ItemGroup>
 </Project>

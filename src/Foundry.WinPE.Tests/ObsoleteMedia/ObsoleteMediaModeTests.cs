@@ -37,11 +37,10 @@ public sealed class ObsoleteMediaModeTests
 
     [Theory]
     [InlineData(@"X:\Foundry\Foundry.WinPE.exe", "")]
-    [InlineData(@"X:\Foundry\Foundry.WinPE.exe", "--connect")]
-    [InlineData(@"X:\Foundry\Foundry.WinPE.exe", "--deploy")]
+    [InlineData(@"X:\Foundry\Foundry.WinPE.exe", "--ui")]
     [InlineData(@"X:\Foundry\Foundry.WinPE.exe", "--native-deployment-worker")]
     [InlineData(@"X:\Foundry\Foundry.Deploy.exe", "--native-deployment-worker")]
-    [InlineData(@"X:\Foundry\Foundry.Connect.exe", "--deploy --native-deployment-worker")]
+    [InlineData(@"X:\Foundry\Foundry.Connect.exe", "--ui --native-deployment-worker")]
     [InlineData(null, "")]
     public void TryGetApplicationId_IgnoresCurrentExecutableAndTheNativeWorker(string? processPath, string arguments)
     {

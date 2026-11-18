@@ -38,7 +38,8 @@ internal sealed class BootstrapTelemetry : ILogEventSink
             string version = typeof(BootstrapTelemetry).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "unknown";
             var context = TelemetryContextFactory.Create(TelemetryApps.FoundryBootstrap, version, TelemetryBuildConfiguration.Current,
                 "winpe", settings.RuntimePayloadSource, bootMediaTarget,
-                RuntimeInformation.OSArchitecture.ToString().ToLowerInvariant(), CultureInfo.CurrentUICulture.Name);
+                RuntimeInformation.OSArchitecture.ToString().ToLowerInvariant(), CultureInfo.CurrentUICulture.Name,
+                TelemetryRuntimeHosts.FoundryWinPe);
             pipeline = new BootstrapTelemetryPipeline(
                 new(settings.IsEnabled, settings.HostUrl, settings.ProjectToken, settings.InstallId), context,
                 new(settings.IsRemoteDiagnosticsEnabled, settings.HostUrl, settings.ProjectToken, settings.InstallId),

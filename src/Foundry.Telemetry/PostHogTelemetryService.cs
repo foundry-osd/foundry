@@ -156,7 +156,7 @@ public sealed class PostHogTelemetryService : ITelemetryService
             ["$geoip_disable"] = false
         };
 
-        foreach ((string key, object? value) in TelemetryEventPropertyPolicy.Sanitize(eventName, properties))
+        foreach ((string key, object? value) in TelemetryEventPropertyPolicy.Sanitize(eventName, AddRuntimeHost(context, properties)))
         {
             if (value is not null)
             {
@@ -167,6 +167,20 @@ public sealed class PostHogTelemetryService : ITelemetryService
         AddEventContext(context, eventName, finalProperties);
 
         return finalProperties;
+    }
+
+    // A candidate like any event property: the event allowlist decides whether the event carries it.
+    private static IReadOnlyDictionary<string, object?> AddRuntimeHost(TelemetryContext context, IReadOnlyDictionary<string, object?> properties)
+    {
+        if (context.RuntimeHost is null || properties.ContainsKey(TelemetryEventPropertyPolicy.RuntimeHostProperty))
+        {
+            return properties;
+        }
+
+        return new Dictionary<string, object?>(properties, StringComparer.Ordinal)
+        {
+            [TelemetryEventPropertyPolicy.RuntimeHostProperty] = context.RuntimeHost
+        };
     }
 
     private static void AddEventContext(TelemetryContext context, string eventName, IDictionary<string, object> finalProperties)

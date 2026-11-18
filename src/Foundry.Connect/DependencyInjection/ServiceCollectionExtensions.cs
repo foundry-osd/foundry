@@ -199,6 +199,7 @@ public static class ServiceCollectionExtensions
                 runtime,
                 Environment.GetEnvironmentVariable(DeploymentModeEnvironmentVariable)),
             RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant(),
-            CultureInfo.CurrentUICulture.Name);
+            CultureInfo.CurrentUICulture.Name,
+            TelemetryRuntimeHosts.FoundryWinPe);
     }
 }

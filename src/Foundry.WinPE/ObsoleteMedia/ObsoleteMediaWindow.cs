@@ -28,7 +28,7 @@ internal static class ObsoleteMediaWindow
         FreeConsole();
         AppContext.SetSwitch(DisableFluentBackdropSwitch, true);
         var application = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
-        // Same order as the WPF runtimes' App.xaml: the shared styles are based on the Fluent styles merged before them.
+        // Same order as Ui/WinPeApplicationResources.xaml: the shared styles are based on the Fluent styles merged before them.
         application.Resources.MergedDictionaries.Add(new ResourceDictionary
         {
             Source = new Uri("pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml", UriKind.Absolute)

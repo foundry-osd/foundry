@@ -125,6 +125,26 @@ public sealed class RuntimeStartupProtocolTests
         Assert.Null(CreateReporter(Path.Combine(directory.Path, "status.json"), Guid.Empty.ToString("N")));
     }
 
+    [Theory]
+    [InlineData("Foundry.WinPE", true)]
+    [InlineData("Foundry.Connect", true)]
+    [InlineData("Foundry.Deploy", true)]
+    [InlineData("Foundry.Unknown", false)]
+    public void OnlyKnownApplicationsReportStartup(string application, bool accepted)
+    {
+        using var directory = new TemporaryDirectory();
+        RuntimeStartupReporter? reporter = RuntimeStartupReporter.FromEnvironment(application, name => name switch
+        {
+            StartupProtocol.ProtocolEnvironmentVariable => "1",
+            StartupProtocol.LaunchIdEnvironmentVariable => Guid.NewGuid().ToString("N"),
+            StartupProtocol.SessionIdEnvironmentVariable => "SESSION_1",
+            StartupProtocol.StatusPathEnvironmentVariable => Path.Combine(directory.Path, "status.json"),
+            _ => null
+        });
+
+        Assert.Equal(accepted, reporter is not null);
+    }
+
     [Fact]
     public void FailedStatusWriteDoesNotThrowOrCommitStage()
     {

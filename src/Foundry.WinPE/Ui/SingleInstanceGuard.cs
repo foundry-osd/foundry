@@ -2,18 +2,18 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-namespace Foundry.Connect.Lifetime;
+namespace Foundry.WinPE.Ui;
 
 /// <summary>
-/// Holds a named system mutex so only one Foundry.Connect process runs at a time. The guard is owned by the thread that
+/// Holds a named system mutex so only one Foundry.WinPE UI process runs at a time. The guard is owned by the thread that
 /// acquired it and must be disposed on that thread.
 /// </summary>
-public sealed class SingleInstanceGuard : IDisposable
+internal sealed class SingleInstanceGuard : IDisposable
 {
     /// <summary>
-    /// The mutex name Foundry.Connect uses; the <c>Global\</c> prefix makes it visible across every session.
+    /// The mutex name of the UI process; the <c>Global\</c> prefix makes it visible across every session.
     /// </summary>
-    public const string ConnectInstanceName = @"Global\Foundry.Connect";
+    internal const string UiInstanceName = @"Global\Foundry.WinPE.Ui";
 
     private readonly Mutex _mutex;
     private bool _disposed;
@@ -29,7 +29,7 @@ public sealed class SingleInstanceGuard : IDisposable
     /// <param name="name">The system mutex name, including its <c>Global\</c> or <c>Local\</c> namespace prefix.</param>
     /// <param name="guard">The acquired guard, or <see langword="null"/> when another instance already holds the name.</param>
     /// <returns><see langword="true"/> when this call created and owns the named mutex.</returns>
-    public static bool TryAcquire(string name, out SingleInstanceGuard? guard)
+    internal static bool TryAcquire(string name, out SingleInstanceGuard? guard)
     {
         guard = null;
         Mutex mutex;
@@ -55,7 +55,7 @@ public sealed class SingleInstanceGuard : IDisposable
     }
 
     /// <summary>
-    /// Releases the instance name so a later Foundry.Connect process can start.
+    /// Releases the instance name so a later UI process can start.
     /// </summary>
     public void Dispose()
     {

@@ -9,14 +9,17 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Threading;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Tests;
 using Foundry.Deploy.ViewModels;
+using Foundry.WinPE.Tests.Support;
 using Foundry.Wpf.Progress;
+using Xunit;
 
-namespace Foundry.Deploy.Tests;
+namespace Foundry.WinPE.Tests.Ui;
 
 /// <summary>
-/// Smoke test of the shared progress page hosted with Deploy's resources: every resource resolves and every binding finds its
-/// source in each debug preview state.
+/// Smoke test of the shared progress page hosted with the UI process's resources (<c>WinPeApplicationResources.xaml</c>):
+/// every resource resolves and every binding finds its source in each debug preview state.
 /// </summary>
 [Collection(nameof(WpfApplicationHostCollection))]
 public sealed class ProgressPageViewBindingTests
@@ -35,7 +38,7 @@ public sealed class ProgressPageViewBindingTests
         PresentationTraceSources.DataBindingSource.Switch.Level = SourceLevels.Error;
         try
         {
-            using DeploymentSessionViewModel session = DeploymentSessionDebugPreviewTests.CreateSession(Dispatcher.CurrentDispatcher);
+            using DeploymentSessionViewModel session = DeploymentPreviewSession.Create(Dispatcher.CurrentDispatcher);
             ShowPreview(session, state);
 
             // A missing resource or a parse error throws from the constructor.
@@ -60,7 +63,7 @@ public sealed class ProgressPageViewBindingTests
 
     private static void ShowPreview(DeploymentSessionViewModel session, string state)
     {
-        DeploymentContext request = DeploymentSessionDebugPreviewTests.Request();
+        DeploymentContext request = DeploymentPreviewSession.Request();
         switch (state)
         {
             case "Progress":

@@ -19,8 +19,8 @@ using Serilog.Events;
 namespace Foundry.WinPE;
 
 /// <summary>
-/// Runs the WinPE boot workflow in the startnet console: Foundry Connect, system preparation, then Foundry Deploy, both
-/// applications launched from this executable. The guardian exits once Deploy reports UI readiness.
+/// Runs the WinPE boot workflow in the startnet console: environment preparation, then the UI process (Foundry Connect,
+/// system preparation and Foundry Deploy) launched from this executable. The guardian exits once the UI process exits.
 /// </summary>
 internal static class GuardianProgram
 {

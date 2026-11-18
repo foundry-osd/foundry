@@ -11,6 +11,12 @@ namespace Foundry.Telemetry;
 /// </summary>
 public static class TelemetryEventPropertyPolicy
 {
+    /// <summary>
+    /// The process hosting the application (<see cref="TelemetryRuntimeHosts"/>), allowed on the events of the WinPE
+    /// guardian, Foundry Connect and Foundry Deploy, with <see cref="TelemetryRuntimeHosts.FoundryWinPe"/> as its only value.
+    /// </summary>
+    public const string RuntimeHostProperty = "runtime_host";
+
     private static readonly HashSet<string> KnownLanguageNames = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
         .Where(culture => (culture.CultureTypes & CultureTypes.UserCustomCulture) == 0)
         .Select(culture => culture.Name)
@@ -62,7 +68,7 @@ public static class TelemetryEventPropertyPolicy
             {
                 "failure_category", "last_stage", "elapsed_seconds", "child_application",
                 "child_exit_code", "payload_source", "payload_version", "architecture", "child_startup_stage",
-                "boot_media_target"
+                "boot_media_target", RuntimeHostProperty
             },
             [TelemetryEvents.AppDailyActive] = new(StringComparer.Ordinal)
             {
@@ -213,7 +219,8 @@ public static class TelemetryEventPropertyPolicy
                 "connect_wifi_security_type",
                 "connect_wifi_source",
                 "connect_wired_dot1x_enabled",
-                "connect_wifi_provisioned"
+                "connect_wifi_provisioned",
+                RuntimeHostProperty
             },
             [TelemetryEvents.DeploySessionFinished] = new(StringComparer.Ordinal)
             {
@@ -264,7 +271,8 @@ public static class TelemetryEventPropertyPolicy
                 "deploy_completion_reboot_delay_seconds",
                 "deploy_network_cache_outcome",
                 "deploy_network_cache_writable",
-                "deploy_network_cache_downloads_reused"
+                "deploy_network_cache_downloads_reused",
+                RuntimeHostProperty
             }
         };
 
@@ -298,7 +306,7 @@ public static class TelemetryEventPropertyPolicy
         {
             if (!allowedProperties.Contains(key) || IsSensitiveKey(key) || !IsAllowedUnattendValue(key, value) ||
                 !IsAllowedCustomImageValue(key, value) || !IsAllowedPostInstallationValue(key, value) ||
-                !IsAllowedBootMediaValue(key, value) || !IsAllowedDeployOobeValue(key, value))
+                !IsAllowedBootMediaValue(key, value) || !IsAllowedDeployOobeValue(key, value) || !IsAllowedRuntimeHostValue(key, value))
             {
                 continue;
             }
@@ -343,6 +351,7 @@ public static class TelemetryEventPropertyPolicy
         "child_startup_stage" => value is "managed_started" or "configuration_loaded" or "ui_ready" or "startup_failed",
         "payload_version" => value.Length <= 64 && Version.TryParse(value, out _),
         "boot_media_target" => value is TelemetryBootMediaTargets.Iso or TelemetryBootMediaTargets.Usb,
+        RuntimeHostProperty => value is TelemetryRuntimeHosts.FoundryWinPe,
         _ => false
     };
 
@@ -382,6 +391,9 @@ public static class TelemetryEventPropertyPolicy
             TelemetryNetworkCachePublishResults.Failed or TelemetryNetworkCachePublishResults.None,
         _ => true
     };
+
+    private static bool IsAllowedRuntimeHostValue(string key, object? value) =>
+        key != RuntimeHostProperty || value is TelemetryRuntimeHosts.FoundryWinPe;
 
     private static bool IsAllowedDeployOobeValue(string key, object? value) => key switch
     {

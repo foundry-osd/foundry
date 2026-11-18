@@ -4,9 +4,7 @@
 
 using System.Diagnostics;
 using Foundry.WinPE.Processes;
-using Foundry.WinPE.Tests.Support;
 using Serilog;
-using Serilog.Events;
 using Xunit;
 
 namespace Foundry.WinPE.Tests.Processes;
@@ -17,7 +15,7 @@ public sealed class ApplicationLauncherTests
     [InlineData(0)]
     [InlineData(20)]
     [InlineData(22)]
-    public async Task CompletedConnectKeepsTheGuardianExecutable(int exitCode)
+    public async Task CompletedUiKeepsTheGuardianExecutable(int exitCode)
     {
         string directory = Directory.CreateTempSubdirectory("FoundryPayloadExit-").FullName;
         string executable = Path.Combine(directory, "Foundry.WinPE.exe");
@@ -34,7 +32,7 @@ public sealed class ApplicationLauncherTests
                 }));
 
             using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-            ApplicationLaunchResult result = await launcher.RunConnectAsync(executable,
+            ApplicationLaunchResult result = await launcher.RunUiAsync(executable,
                 new Dictionary<string, string?>(), deadline.Token);
 
             Assert.Equal(exitCode, result.ExitCode);
@@ -46,94 +44,10 @@ public sealed class ApplicationLauncherTests
     }
 
     [Fact]
-    public async Task RunConnectAsync_ReportsTheProcessIdAndHoldsTheProcessUntilReleased()
+    public async Task CancellingTheUiObservationRetainsTheRunningChildPayload()
     {
         string directory = Directory.CreateTempSubdirectory("FoundryPayloadExit-").FullName;
-        string executable = Path.Combine(directory, "Foundry.Connect.exe");
-        try
-        {
-            File.WriteAllText(executable, "prepared payload");
-            using var logger = new LoggerConfiguration().CreateLogger();
-            Process? launchedProcess = null;
-            int launchedProcessId = 0;
-            var launcher = new ApplicationLauncher(logger, startProcess: _ =>
-            {
-                launchedProcess = Process.Start(new ProcessStartInfo(Environment.GetEnvironmentVariable("ComSpec")!, "/d /c exit 0")
-                {
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                })!;
-                launchedProcessId = launchedProcess.Id;
-                return launchedProcess;
-            });
-            int? reportedProcessId = null;
-            var exitedWhenReleased = new List<bool>();
-
-            using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-            ApplicationLaunchResult result = await launcher.RunConnectAsync(executable,
-                new Dictionary<string, string?>(), deadline.Token,
-                processStarted: processId => reportedProcessId = processId,
-                processReleasing: () =>
-                {
-                    // A disposed Process throws here, and the launcher would swallow it: record instead of asserting.
-                    exitedWhenReleased.Add(launchedProcess!.HasExited);
-                    return Task.CompletedTask;
-                });
-
-            Assert.True(result.Succeeded);
-            Assert.Equal(launchedProcessId, reportedProcessId);
-            Assert.Equal([true], exitedWhenReleased);
-        }
-        finally { Directory.Delete(directory, recursive: true); }
-    }
-
-    [Fact]
-    public async Task RunConnectAsync_FailingKeyHandoffCallbacksAreLoggedWithoutExceptionAndDoNotChangeTheLaunch()
-    {
-        string directory = Directory.CreateTempSubdirectory("FoundryPayloadExit-").FullName;
-        string executable = Path.Combine(directory, "Foundry.Connect.exe");
-        try
-        {
-            File.WriteAllText(executable, "prepared payload");
-            var events = new List<LogEvent>();
-            using var logger = new LoggerConfiguration().WriteTo.Sink(new DelegatingSink(events.Add)).CreateLogger();
-            var launcher = new ApplicationLauncher(logger, startProcess: _ => Process.Start(new ProcessStartInfo(
-                Environment.GetEnvironmentVariable("ComSpec")!, "/d /c exit 0")
-            {
-                UseShellExecute = false,
-                CreateNoWindow = true
-            }));
-            int releases = 0;
-
-            using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-            ApplicationLaunchResult result = await launcher.RunConnectAsync(executable,
-                new Dictionary<string, string?>(), deadline.Token,
-                processStarted: _ => throw new InvalidOperationException("secret detail"),
-                processReleasing: () =>
-                {
-                    releases++;
-                    throw new IOException("secret detail");
-                });
-
-            Assert.True(result.Succeeded);
-            Assert.Equal(1, releases);
-            LogEvent[] failures = [.. events.Where(item => item.MessageTemplate.Text.StartsWith("Key hand-off callback failed", StringComparison.Ordinal))];
-            Assert.Equal(["\"InvalidOperationException\"", "\"IOException\""], failures.Select(item => item.Properties["FailureType"].ToString()));
-            Assert.All(failures, item =>
-            {
-                Assert.Equal(LogEventLevel.Warning, item.Level);
-                Assert.Null(item.Exception);
-                Assert.DoesNotContain("secret detail", item.RenderMessage(), StringComparison.Ordinal);
-            });
-        }
-        finally { Directory.Delete(directory, recursive: true); }
-    }
-
-    [Fact]
-    public async Task CancellingConnectRetainsTheRunningChildPayload()
-    {
-        string directory = Directory.CreateTempSubdirectory("FoundryPayloadExit-").FullName;
-        string executable = Path.Combine(directory, "Foundry.Connect.exe");
+        string executable = Path.Combine(directory, "Foundry.WinPE.exe");
         using Process child = Process.Start(new ProcessStartInfo("ping.exe", "-n 30 127.0.0.1")
         {
             UseShellExecute = false,
@@ -152,7 +66,7 @@ public sealed class ApplicationLauncherTests
                     return observed;
                 });
 
-            await Assert.ThrowsAnyAsync<OperationCanceledException>(() => launcher.RunConnectAsync(
+            await Assert.ThrowsAnyAsync<OperationCanceledException>(() => launcher.RunUiAsync(
                 executable, new Dictionary<string, string?>(), cancellation.Token));
 
             Assert.False(child.HasExited);
@@ -212,7 +126,7 @@ public sealed class ApplicationLauncherTests
     {
         using var logger = new LoggerConfiguration().CreateLogger();
         var launcher = new ApplicationLauncher(logger);
-        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => launcher.StartDeployAsync(
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => launcher.RunUiAsync(
             "missing.exe", new Dictionary<string, string?>(), new CancellationToken(true)));
     }
 
@@ -232,9 +146,13 @@ public sealed class ApplicationLauncherTests
                 Assert.False(start.Environment.ContainsKey("FOUNDRY_STARTUP_PROTOCOL"));
                 Assert.False(start.Environment.ContainsKey("FOUNDRY_STARTUP_LAUNCH_ID"));
                 Assert.False(start.Environment.ContainsKey("FOUNDRY_STARTUP_STATUS_PATH"));
-                return Process.GetCurrentProcess();
+                return Process.Start(new ProcessStartInfo(Environment.GetEnvironmentVariable("ComSpec")!, "/d /c exit 0")
+                {
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                });
             });
-            ApplicationLaunchResult result = await launcher.StartDeployAsync(Path.Combine(directory, "Foundry.Deploy.exe"),
+            ApplicationLaunchResult result = await launcher.RunUiAsync(Path.Combine(directory, "Foundry.WinPE.exe"),
                 new Dictionary<string, string?>
                 {
                     ["FOUNDRY_STARTUP_PROTOCOL"] = "1",
@@ -257,7 +175,7 @@ public sealed class ApplicationLauncherTests
             File.WriteAllText(Path.Combine(directory, "foundry.startup.json"), "invalid");
             using var logger = new LoggerConfiguration().CreateLogger();
             var launcher = new ApplicationLauncher(logger, startProcess: _ => throw new InvalidOperationException("Must not start"));
-            ApplicationLaunchResult result = await launcher.StartDeployAsync(Path.Combine(directory, "Foundry.Deploy.exe"),
+            ApplicationLaunchResult result = await launcher.RunUiAsync(Path.Combine(directory, "Foundry.WinPE.exe"),
                 new Dictionary<string, string?>(), TestContext.Current.CancellationToken);
             Assert.False(result.Succeeded);
             Assert.Equal("capability_invalid", result.FailureCategory);
@@ -285,16 +203,12 @@ public sealed class ApplicationLauncherTests
             });
 
             using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-            await launcher.RunConnectAsync(executable, new Dictionary<string, string?>(), deadline.Token);
-            await launcher.StartDeployAsync(executable, new Dictionary<string, string?>(), deadline.Token);
+            await launcher.RunUiAsync(executable, new Dictionary<string, string?>(), deadline.Token);
 
-            // Sharing the startnet console would let Ctrl+C there terminate Connect or Deploy.
-            Assert.Equal(2, starts.Count);
-            Assert.All(starts, start =>
-            {
-                Assert.True(start.CreateNoWindow);
-                Assert.False(start.UseShellExecute);
-            });
+            // Sharing the startnet console would let Ctrl+C there terminate the UI process.
+            ProcessStartInfo start = Assert.Single(starts);
+            Assert.True(start.CreateNoWindow);
+            Assert.False(start.UseShellExecute);
         }
         finally { Directory.Delete(directory, recursive: true); }
     }
@@ -320,10 +234,9 @@ public sealed class ApplicationLauncherTests
             var environment = new Dictionary<string, string?> { ["FOUNDRY_DIAGNOSTIC_SESSION_ID"] = "TEST", ["TO_REMOVE"] = null };
 
             using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-            await launcher.RunConnectAsync(executable, environment, deadline.Token);
-            await launcher.StartDeployAsync(executable, environment, deadline.Token);
+            await launcher.RunUiAsync(executable, environment, deadline.Token);
 
-            Assert.Equal([["--connect"], ["--deploy"]], starts.Select(start => start.ArgumentList.ToArray()));
+            Assert.Equal([["--ui"]], starts.Select(start => start.ArgumentList.ToArray()));
             Assert.All(starts, start =>
             {
                 Assert.Equal(executable, start.FileName);
@@ -351,7 +264,7 @@ public sealed class ApplicationLauncherTests
             using var logger = new LoggerConfiguration().CreateLogger();
             using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
             var launcher = new ApplicationLauncher(logger, Path.Combine(directory, "session"));
-            ApplicationLaunchResult result = await launcher.StartDeployAsync(executable,
+            ApplicationLaunchResult result = await launcher.RunUiAsync(executable,
                 new Dictionary<string, string?> { ["DOTNET_DISABLE_GUI_ERRORS"] = "1" }, deadline.Token);
             Assert.False(result.Succeeded);
             Assert.NotNull(result.ExitCode);
@@ -373,7 +286,7 @@ public sealed class ApplicationLauncherTests
         try
         {
             File.WriteAllText(Path.Combine(directory, "foundry.startup.json"), "{\"protocolVersions\":[1]}");
-            string executable = Path.Combine(directory, "Foundry.Deploy.exe");
+            string executable = Path.Combine(directory, "Foundry.WinPE.exe");
             File.WriteAllText(executable, "prepared payload");
             using var logger = new LoggerConfiguration().CreateLogger();
             var launcher = new ApplicationLauncher(logger, Path.Combine(directory, "session"),
@@ -394,7 +307,7 @@ public sealed class ApplicationLauncherTests
                         protocolVersion = 1,
                         sessionId = start.Environment["FOUNDRY_DIAGNOSTIC_SESSION_ID"],
                         launchId = start.Environment["FOUNDRY_STARTUP_LAUNCH_ID"],
-                        application = "Foundry.Deploy",
+                        application = "Foundry.WinPE",
                         processId = child.Id,
                         stage = "startup_failed",
                         timestampUtc = DateTimeOffset.UtcNow
@@ -402,7 +315,7 @@ public sealed class ApplicationLauncherTests
                     return child;
                 });
             using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-            ApplicationLaunchResult result = await launcher.StartDeployAsync(Path.Combine(directory, "Foundry.Deploy.exe"),
+            ApplicationLaunchResult result = await launcher.RunUiAsync(Path.Combine(directory, "Foundry.WinPE.exe"),
                 new Dictionary<string, string?> { ["FOUNDRY_DIAGNOSTIC_SESSION_ID"] = "TEST" }, deadline.Token);
             Assert.False(result.Succeeded);
             Assert.Equal("startup_failed", result.FailureCategory);

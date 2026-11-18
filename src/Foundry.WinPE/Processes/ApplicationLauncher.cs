@@ -7,6 +7,7 @@ using System.Globalization;
 using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
 using Foundry.Utilities.Diagnostics;
+using Foundry.WinPE.Ui;
 using Serilog;
 
 namespace Foundry.WinPE.Processes;
@@ -16,20 +17,13 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
     Action<string>? warning = null, Action<string, Guid, string>? recoverFailure = null,
     Func<ProcessStartInfo, Process?>? startProcess = null) : IApplicationLauncher
 {
-    public Task<ApplicationLaunchResult> RunConnectAsync(string executable,
-        IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken,
-        Action<int>? processStarted = null, Func<Task>? processReleasing = null) =>
-        LaunchAsync(executable, "Foundry.Connect", environment, [WinPeModes.ConnectArgument], true, cancellationToken,
-            processStarted, processReleasing);
-
-    public Task<ApplicationLaunchResult> StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment,
-        CancellationToken cancellationToken, Action<int>? processStarted = null, Func<Task>? processReleasing = null) =>
-        LaunchAsync(executable, "Foundry.Deploy", environment, [WinPeModes.DeployArgument], false, cancellationToken,
-            processStarted, processReleasing);
+    public Task<ApplicationLaunchResult> RunUiAsync(string executable, IReadOnlyDictionary<string, string?> environment,
+        CancellationToken cancellationToken) =>
+        LaunchAsync(executable, UiReadinessReporter.ApplicationId, environment, [WinPeModes.UiArgument], true, cancellationToken);
 
     private async Task<ApplicationLaunchResult> LaunchAsync(string executable, string application,
         IReadOnlyDictionary<string, string?> environment, string[] arguments, bool waitForCompletion,
-        CancellationToken cancellationToken, Action<int>? processStarted, Func<Task>? processReleasing)
+        CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         StartupCapabilityResult capability = RuntimeStartupCapabilities.Negotiate(executable);
@@ -68,12 +62,6 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
         using Process process = Start(start);
         try
         {
-            if (processStarted is not null)
-            {
-                try { processStarted(process.Id); }
-                catch (Exception exception) { LogHandoffCallbackFailure(application, exception); }
-            }
-
             if (!supported)
             {
                 if (!waitForCompletion) { return new(true); }
@@ -120,20 +108,8 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
                 try { recoverFailure?.Invoke(directory, launchId, application); }
                 catch (Exception exception) { logger.Warning(exception, "Child startup diagnostics could not be recovered"); }
             }
-
-            // Awaited before `using` disposes the process: its open handle keeps the process id from being reused while the
-            // key relay still trusts it.
-            if (processReleasing is not null)
-            {
-                try { await processReleasing().ConfigureAwait(false); }
-                catch (Exception exception) { LogHandoffCallbackFailure(application, exception); }
-            }
         }
     }
-
-    // Key hand-off code never attaches the exception object (its message is mirrored to remote logs).
-    private void LogHandoffCallbackFailure(string application, Exception exception) =>
-        logger.Warning("Key hand-off callback failed for {Component}. FailureType={FailureType}", application, exception.GetType().Name);
 
     internal async Task<int> ObserveAsync(Process process, CancellationToken cancellationToken)
     {

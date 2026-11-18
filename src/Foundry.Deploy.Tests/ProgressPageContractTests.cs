@@ -48,7 +48,7 @@ public sealed class ProgressPageContractTests
     [Fact]
     public Task CompletionAction_IsTheRebootLabel() => WpfApplicationTestHost.RunAsync(() =>
     {
-        using DeploymentSessionViewModel session = DeploymentSessionDebugPreviewTests.CreateSession(Dispatcher.CurrentDispatcher);
+        using DeploymentSessionViewModel session = DeploymentPreviewSession.Create(Dispatcher.CurrentDispatcher);
 
         Assert.Equal(LocalizationText.GetString("Success.RebootNow"), session.CompletionActionText);
         Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
@@ -137,7 +137,7 @@ public sealed class ProgressPageContractTests
         public DeploymentLaunchPreparationResult Prepare(DeploymentLaunchRequest request,
             Foundry.Core.Models.Configuration.Deploy.DeployDomainJoinSettings? domainJoin, DomainJoinSubmission? domainJoinSubmission = null)
         {
-            DeploymentContext context = DeploymentSessionDebugPreviewTests.Request();
+            DeploymentContext context = DeploymentPreviewSession.Request();
             return DeploymentLaunchPreparationResult.Success(context.TargetComputerName, new TargetDiskInfo { DiskNumber = 1 }, context);
         }
     }

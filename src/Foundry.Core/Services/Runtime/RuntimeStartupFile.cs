@@ -91,7 +91,9 @@ internal static class RuntimeStartupFile
     internal static bool IsIdentifier(string? value) =>
         value is { Length: 32 or 36 } && Guid.TryParseExact(value, value.Length == 32 ? "N" : "D", out Guid id) && id != Guid.Empty;
 
-    internal static bool IsApplication(string? value) => value is "Foundry.Connect" or "Foundry.Deploy";
+    // Foundry.WinPE is the UI process; Foundry.Connect and Foundry.Deploy stay for the obsolete-media mode, which answers the
+    // launchers of older boot media under those names.
+    internal static bool IsApplication(string? value) => value is "Foundry.WinPE" or "Foundry.Connect" or "Foundry.Deploy";
 
     internal static bool IsFailureCategory(string? value) => value is null ||
         (value is { Length: > 0 and <= 64 } && value.All(character => character is >= 'a' and <= 'z' or '_'));

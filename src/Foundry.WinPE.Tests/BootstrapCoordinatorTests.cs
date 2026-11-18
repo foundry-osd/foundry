@@ -2,14 +2,10 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Collections.Concurrent;
 using Foundry.WinPE.Diagnostics;
 using Foundry.WinPE.Processes;
 using Foundry.WinPE.SystemPreparation;
-using Foundry.WinPE.Tests.Support;
-using Foundry.Core.Services.Runtime;
 using Serilog;
-using Serilog.Events;
 using Xunit;
 
 namespace Foundry.WinPE.Tests;
@@ -19,32 +15,27 @@ public sealed class BootstrapCoordinatorTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
-    public async Task EarlyClockFailureDoesNotPreventConnectOrThePostConnectRetry(bool fails)
+    public async Task EarlyClockFailureDoesNotPreventTheUiProcess(bool fails)
     {
         using var fixture = new Fixture { EarlyClockFails = fails };
         Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
         Assert.True(fixture.Calls.IndexOf("clock") > fixture.Calls.IndexOf("network"));
-        Assert.True(fixture.Calls.IndexOf("clock") < fixture.Calls.IndexOf("connect"));
-        Assert.True(fixture.Calls.IndexOf("system") > fixture.Calls.IndexOf("connect"));
+        Assert.True(fixture.Calls.IndexOf("clock") < fixture.Calls.IndexOf("ui"));
     }
 
     [Theory]
     [InlineData(0)]
     [InlineData(20)]
     [InlineData(7)]
-    public async Task DiagnosticsObserveOneTerminalOutcomeAndDeliveryFollowsSystemPreparation(int exitCode)
+    public async Task DiagnosticsObserveOneTerminalOutcomeAndDeliveryFollowsTheUiProcess(int exitCode)
     {
-        using var fixture = new Fixture { ConnectExit = exitCode, ObserveDiagnostics = true };
+        using var fixture = new Fixture { UiExit = exitCode, ObserveDiagnostics = true };
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(exitCode == 0 ? BootstrapOutcome.Succeeded : exitCode == 20 ? BootstrapOutcome.Cancelled : BootstrapOutcome.Failed, result.Outcome);
         Assert.Equal(exitCode == 0 ? 0 : exitCode == 20 ? 20 : 1, result.ExitCode);
         Assert.Single(fixture.Outcomes);
         Assert.Equal(result, fixture.Outcomes[0]);
-        if (exitCode == 0)
-        {
-            Assert.True(fixture.Calls.IndexOf("system") < fixture.Calls.IndexOf("delivery"));
-            Assert.True(fixture.Calls.IndexOf("delivery") < fixture.Calls.IndexOf("deploy"));
-        }
+        if (exitCode == 0) { Assert.True(fixture.Calls.IndexOf("ui") < fixture.Calls.IndexOf("delivery")); }
         else { Assert.DoesNotContain("delivery", fixture.Calls); }
     }
 
@@ -53,184 +44,77 @@ public sealed class BootstrapCoordinatorTests
     [InlineData(21, false)]
     [InlineData(22, false)]
     [InlineData(7, false)]
-    public async Task ConnectNonzeroExitPreventsDeployAndPersistsLogs(int exitCode, bool cancelled)
+    public async Task UiNonzeroExitIsReportedAndPersistsLogs(int exitCode, bool cancelled)
     {
-        using var fixture = new Fixture { ConnectExit = exitCode };
+        using var fixture = new Fixture { UiExit = exitCode };
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(cancelled ? BootstrapOutcome.Cancelled : BootstrapOutcome.Failed, result.Outcome);
+        Assert.Equal(BootstrapStage.Connect, result.Stage);
         Assert.Equal(exitCode, result.ChildExitCode);
         Assert.Equal(cancelled ? 20 : 1, result.ExitCode);
-        Assert.DoesNotContain("deploy", fixture.Calls);
         Assert.Equal("persist", fixture.Calls[^1]);
     }
 
     [Fact]
-    public async Task ConnectAndDeployLaunchFromTheGuardianExecutableWithoutResolvingAnyRuntime()
+    public async Task TheUiProcessLaunchesOnceFromTheGuardianExecutableWithoutResolvingAnyRuntime()
     {
         using var fixture = new Fixture();
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(BootstrapOutcome.Succeeded, result.Outcome);
-        Assert.Equal(["network", "clock", "connect", "system", "deploy", "persist"], fixture.Calls);
-        Assert.Equal([GuardianPath, GuardianPath], fixture.LaunchedExecutables);
-        Assert.Equal("TEST", fixture.DeployEnvironment!["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
+        Assert.Equal(["network", "clock", "ui", "persist"], fixture.Calls);
+        Assert.Equal([GuardianPath], fixture.LaunchedExecutables);
+        Assert.Equal("TEST", fixture.UiEnvironment!["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
         // Deploy reads PostInstall and the debug AutopilotInteractive archive from fixed boot image paths.
-        Assert.DoesNotContain(fixture.DeployEnvironment.Keys, key => key.StartsWith("FOUNDRY_POSTINSTALL", StringComparison.Ordinal));
-        Assert.DoesNotContain(fixture.DeployEnvironment.Keys, key => key.StartsWith("FOUNDRY_AUTOPILOTINTERACTIVE", StringComparison.Ordinal));
+        Assert.DoesNotContain(fixture.UiEnvironment.Keys, key => key.StartsWith("FOUNDRY_POSTINSTALL", StringComparison.Ordinal));
+        Assert.DoesNotContain(fixture.UiEnvironment.Keys, key => key.StartsWith("FOUNDRY_AUTOPILOTINTERACTIVE", StringComparison.Ordinal));
         Assert.DoesNotContain(fixture.Progress, item => item.Message.Contains("PostInstall", StringComparison.Ordinal));
-        Assert.Equal([BootstrapStage.Environment, BootstrapStage.Connect, BootstrapStage.System, BootstrapStage.Deploy],
-            fixture.Progress.Select(item => item.Stage).Distinct());
+        Assert.Equal([BootstrapStage.Environment, BootstrapStage.Connect], fixture.Progress.Select(item => item.Stage).Distinct());
     }
 
     [Fact]
-    public async Task PreparationAndPersistenceFailuresDoNotReplaceSuccessfulHandoff()
+    public async Task PreparationAndPersistenceFailuresDoNotReplaceASuccessfulRun()
     {
         using var fixture = new Fixture { PreparationFails = true, PersistenceFails = true };
         Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
         Assert.Contains(fixture.Progress, item => item.Status == BootstrapStatus.Warning);
-        Assert.Contains("deploy", fixture.Calls);
+        Assert.Contains("ui", fixture.Calls);
     }
 
     [Fact]
-    public async Task CancellationDuringConnectStopsSequenceAndStillPersists()
+    public async Task CancellationWhileTheUiRunsStillPersists()
     {
-        using var fixture = new Fixture { CancelConnect = true };
+        using var fixture = new Fixture { CancelUi = true };
         Assert.Equal(BootstrapOutcome.Cancelled, (await fixture.RunAsync()).Outcome);
-        Assert.DoesNotContain("system", fixture.Calls);
-        Assert.DoesNotContain("deploy", fixture.Calls);
         Assert.Equal("persist", fixture.Calls[^1]);
     }
 
     [Fact]
-    public async Task DeployStartFailureRetainsFailedStageEvenWhenPersistenceFails()
+    public async Task UiStartFailureRetainsTheFailedStageEvenWhenPersistenceFails()
     {
-        using var fixture = new Fixture { DeployFails = true, PersistenceFails = true };
+        using var fixture = new Fixture { UiStartFails = true, PersistenceFails = true };
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(BootstrapOutcome.Failed, result.Outcome);
-        Assert.Equal(BootstrapStage.Deploy, result.Stage);
-        Assert.Equal(1, fixture.Calls.Count(item => item == "deploy"));
+        Assert.Equal(BootstrapStage.Connect, result.Stage);
+        Assert.Equal(1, fixture.Calls.Count(item => item == "ui"));
     }
 
     [Fact]
     public async Task InternalTimeoutIsFailureRatherThanOperatorCancellation()
     {
-        using var fixture = new Fixture { ConnectTimeout = true };
+        using var fixture = new Fixture { UiTimeout = true };
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(BootstrapOutcome.Failed, result.Outcome);
-        Assert.DoesNotContain("deploy", fixture.Calls);
     }
 
     [Fact]
-    public async Task ConnectFailureCarriesTheGuardianPayloadVersion()
+    public async Task UiFailureCarriesTheGuardianPayloadVersion()
     {
-        using var fixture = new Fixture { ConnectExit = 7, ReadPayloadVersion = ReadTestPayloadVersion };
+        using var fixture = new Fixture { UiExit = 7, ReadPayloadVersion = ReadTestPayloadVersion };
         BootstrapResult result = await fixture.RunAsync();
         Assert.Equal(BootstrapOutcome.Failed, result.Outcome);
         Assert.Equal("26.11.16.1", result.PayloadVersion);
     }
 
-    [Fact]
-    public async Task DeployFailureCarriesTheGuardianPayloadVersion()
-    {
-        using var fixture = new Fixture { DeployFails = true, ReadPayloadVersion = ReadTestPayloadVersion };
-        BootstrapResult result = await fixture.RunAsync();
-        Assert.Equal(BootstrapOutcome.Failed, result.Outcome);
-        Assert.Equal(BootstrapStage.Deploy, result.Stage);
-        Assert.Equal("26.11.16.1", result.PayloadVersion);
-    }
-
-    [Fact]
-    public async Task SystemPreparationCancellationHasNoPayloadVersion()
-    {
-        using var fixture = new Fixture { CancelSystemPreparation = true, ReadPayloadVersion = ReadTestPayloadVersion };
-        BootstrapResult result = await fixture.RunAsync();
-        Assert.Equal(BootstrapOutcome.Cancelled, result.Outcome);
-        Assert.Equal(BootstrapStage.System, result.Stage);
-        Assert.Null(result.PayloadVersion);
-    }
-
-    [Fact]
-    public async Task ConnectUnlock_IsRelayedToDeployOnly()
-    {
-        using var fixture = new Fixture();
-
-        Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
-
-        Assert.Equal(SendPipe, fixture.ConnectEnvironment![DeploymentKeyHandoff.SendPipeEnvironmentVariable]);
-        Assert.Null(fixture.ConnectEnvironment[DeploymentKeyHandoff.ReceivePipeEnvironmentVariable]);
-        Assert.Equal(ReceivePipe, fixture.DeployEnvironment![DeploymentKeyHandoff.ReceivePipeEnvironmentVariable]);
-        Assert.Null(fixture.DeployEnvironment[DeploymentKeyHandoff.SendPipeEnvironmentVariable]);
-        Assert.Equal(["begin-receive", "sender:4242", "end-receive", "begin-serve", "receiver:4343", "end-serve", "dispose"], fixture.Relay.Calls);
-        Assert.Equal(["delivered"], fixture.HandoffOutcomes());
-        fixture.AssertNoEventContains(SendPipe);
-        fixture.AssertNoEventContains(ReceivePipe);
-    }
-
-    [Fact]
-    public async Task NoUnlock_DeployGetsNoPipe()
-    {
-        using var fixture = new Fixture { Relay = new FakeKeyRelay { ReceivesKey = false } };
-
-        await fixture.RunAsync();
-
-        Assert.Null(fixture.DeployEnvironment![DeploymentKeyHandoff.ReceivePipeEnvironmentVariable]);
-        Assert.DoesNotContain("begin-serve", fixture.Relay.Calls);
-        Assert.Equal(["not_requested"], fixture.HandoffOutcomes());
-    }
-
-    [Theory]
-    [InlineData(20)]
-    [InlineData(22)]
-    public async Task ConnectFailure_DiscardsTheRelayBeforeDeploy(int exitCode)
-    {
-        using var fixture = new Fixture { ConnectExit = exitCode };
-
-        await fixture.RunAsync();
-
-        Assert.DoesNotContain("begin-serve", fixture.Relay.Calls);
-        Assert.Equal("dispose", fixture.Relay.Calls[^1]);
-    }
-
-    [Fact]
-    public async Task RelayFailure_NeverChangesTheBootOutcome()
-    {
-        using var fixture = new Fixture { Relay = new FakeKeyRelay { BeginReceiveThrows = true } };
-
-        Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
-        Assert.Null(fixture.ConnectEnvironment![DeploymentKeyHandoff.SendPipeEnvironmentVariable]);
-        Assert.Null(fixture.DeployEnvironment![DeploymentKeyHandoff.ReceivePipeEnvironmentVariable]);
-        Assert.Equal(["begin-receive", "dispose"], fixture.Relay.Calls);
-        LogEvent failure = Assert.Single(fixture.Events, item => item.MessageTemplate.Text.StartsWith("Deployment key hand-off failed", StringComparison.Ordinal));
-        Assert.Equal(LogEventLevel.Warning, failure.Level);
-        Assert.Null(failure.Exception);
-        Assert.Equal("\"IOException\"", failure.Properties["FailureType"].ToString());
-        Assert.Equal(["not_requested"], fixture.HandoffOutcomes());
-    }
-
-    [Fact]
-    public async Task LauncherWithoutHooks_EndsEachHandoffExactlyOnce()
-    {
-        using var fixture = new Fixture { SkipLaunchHooks = true };
-
-        Assert.Equal(BootstrapOutcome.Succeeded, (await fixture.RunAsync()).Outcome);
-
-        Assert.Equal(["begin-receive", "end-receive", "begin-serve", "end-serve", "dispose"], fixture.Relay.Calls);
-        Assert.Equal(["delivered"], fixture.HandoffOutcomes());
-    }
-
-    [Fact]
-    public async Task DeployStartFailure_EndsTheServeOnceAndReportsNotDelivered()
-    {
-        using var fixture = new Fixture { DeployFails = true, Relay = new FakeKeyRelay { Delivers = false } };
-
-        Assert.Equal(BootstrapOutcome.Failed, (await fixture.RunAsync()).Outcome);
-
-        Assert.Equal(ReceivePipe, fixture.DeployEnvironment![DeploymentKeyHandoff.ReceivePipeEnvironmentVariable]);
-        Assert.Equal(["begin-receive", "sender:4242", "end-receive", "begin-serve", "end-serve", "dispose"], fixture.Relay.Calls);
-        Assert.Equal(["not_delivered"], fixture.HandoffOutcomes());
-    }
-
-    private const string SendPipe = "Foundry.DeploymentKey.00000000000000000000000000000001";
-    private const string ReceivePipe = "Foundry.DeploymentKey.00000000000000000000000000000002";
     private const string GuardianPath = @"X:\Foundry\WinPE\Foundry.WinPE.exe";
 
     private static string? ReadTestPayloadVersion(string executable) => executable switch
@@ -239,117 +123,56 @@ public sealed class BootstrapCoordinatorTests
         _ => "1.0.0.0"
     };
 
-    private sealed class FakeKeyRelay : IDeploymentKeyRelay
-    {
-        internal bool ReceivesKey { get; init; } = true;
-        internal bool BeginReceiveThrows { get; init; }
-        internal bool Delivers { get; init; } = true;
-        internal List<string> Calls { get; } = [];
-        public string BeginReceive()
-        {
-            Calls.Add("begin-receive");
-            return BeginReceiveThrows ? throw new IOException() : SendPipe;
-        }
-        public void ExpectSender(int processId) => Calls.Add($"sender:{processId}");
-        public Task<bool> EndReceiveAsync() { Calls.Add("end-receive"); return Task.FromResult(ReceivesKey); }
-        public string? BeginServe() { Calls.Add("begin-serve"); return ReceivesKey ? ReceivePipe : null; }
-        public void ExpectReceiver(int processId) => Calls.Add($"receiver:{processId}");
-        public Task<bool> EndServeAsync() { Calls.Add("end-serve"); return Task.FromResult(Delivers); }
-        public void Dispose() => Calls.Add("dispose");
-    }
-
     private sealed class Fixture : IDisposable, ISystemPreparation, IApplicationLauncher, IBootstrapLogPersistence
     {
-        private readonly ConcurrentQueue<LogEvent> events = new();
-        private readonly Serilog.Core.Logger logger;
-        internal Fixture() => logger = new LoggerConfiguration().MinimumLevel.Verbose().WriteTo.Sink(new DelegatingSink(events.Enqueue)).CreateLogger();
+        private readonly Serilog.Core.Logger logger = new LoggerConfiguration().CreateLogger();
         private readonly CancellationTokenSource cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
         internal BootstrapContext Context { get; set; } = new(@"X:\Foundry", "win-x64", "TEST", @"D:\Logs\TEST");
         internal List<string> Calls { get; } = [];
         internal List<string> LaunchedExecutables { get; } = [];
         internal List<BootstrapProgress> Progress { get; } = [];
-        internal int ConnectExit { get; init; }
-        internal bool CancelSystemPreparation { get; init; }
+        internal int UiExit { get; init; }
         internal bool PreparationFails { get; init; }
         internal bool PersistenceFails { get; init; }
-        internal bool CancelConnect { get; init; }
-        internal bool DeployFails { get; init; }
-        internal IReadOnlyDictionary<string, string?>? DeployEnvironment { get; private set; }
-        internal bool ConnectTimeout { get; init; }
+        internal bool CancelUi { get; init; }
+        internal bool UiStartFails { get; init; }
+        internal IReadOnlyDictionary<string, string?>? UiEnvironment { get; private set; }
+        internal bool UiTimeout { get; init; }
         internal bool ObserveDiagnostics { get; init; }
         internal bool EarlyClockFails { get; init; }
-        internal bool SkipLaunchHooks { get; init; }
         internal Func<string, string?>? ReadPayloadVersion { get; init; }
         internal List<BootstrapResult> Outcomes { get; } = [];
-
-        internal FakeKeyRelay Relay { get; init; } = new();
-        internal IReadOnlyDictionary<string, string?>? ConnectEnvironment { get; private set; }
-        internal IReadOnlyList<LogEvent> Events => [.. events];
 
         internal Task<BootstrapResult> RunAsync() => new BootstrapCoordinator(Context, this, this, this,
             logger, Progress.Add,
             ObserveDiagnostics ? () => Calls.Add("delivery") : null,
-            ObserveDiagnostics ? (result, _) => Outcomes.Add(result) : null, ReadPayloadVersion, () => Relay, GuardianPath).RunAsync(cancellation.Token);
+            ObserveDiagnostics ? (result, _) => Outcomes.Add(result) : null, ReadPayloadVersion, GuardianPath).RunAsync(cancellation.Token);
 
-        internal List<string> HandoffOutcomes() =>
-            [.. events.Where(item => item.Properties.ContainsKey("HandoffOutcome"))
-                .Select(item => ((ScalarValue)item.Properties["HandoffOutcome"]).Value!.ToString()!)];
-
-        // Neither the template, the rendered message nor any property may carry the text.
-        internal void AssertNoEventContains(string text)
+        public Task PrepareNetworkAsync(CancellationToken cancellationToken)
         {
-            foreach (LogEvent logEvent in events)
-            {
-                Assert.DoesNotContain(text, logEvent.RenderMessage(), StringComparison.OrdinalIgnoreCase);
-                Assert.All(logEvent.Properties.Values, value => Assert.DoesNotContain(text, value.ToString(), StringComparison.OrdinalIgnoreCase));
-            }
+            Calls.Add("network");
+            return PreparationFails ? Task.FromException(new IOException()) : Task.CompletedTask;
         }
 
-        public Task PrepareNetworkAsync(CancellationToken cancellationToken) { Calls.Add("network"); return Task.CompletedTask; }
         public Task PrepareClockAsync(CancellationToken cancellationToken)
         {
             Calls.Add("clock");
             return EarlyClockFails ? Task.FromException(new HttpRequestException("Offline")) : Task.CompletedTask;
         }
-        public Task PrepareSystemAsync(CancellationToken cancellationToken)
-        {
-            Calls.Add("system");
-            if (CancelSystemPreparation) { cancellation.Cancel(); cancellationToken.ThrowIfCancellationRequested(); }
-            if (PreparationFails) { throw new IOException(); }
-            return Task.CompletedTask;
-        }
 
-        public async Task<ApplicationLaunchResult> RunConnectAsync(string executable,
-            IReadOnlyDictionary<string, string?> environment, CancellationToken cancellationToken,
-            Action<int>? processStarted = null, Func<Task>? processReleasing = null)
-        {
-            Calls.Add("connect");
-            LaunchedExecutables.Add(executable);
-            ConnectEnvironment = environment;
-            Assert.Equal("TEST", environment["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
-            if (CancelConnect) { cancellation.Cancel(); cancellationToken.ThrowIfCancellationRequested(); }
-            if (ConnectTimeout) { throw new TaskCanceledException("Internal operation timed out."); }
-            if (!SkipLaunchHooks)
-            {
-                processStarted?.Invoke(4242);
-                if (processReleasing is not null) { await processReleasing(); }
-            }
-            return new ApplicationLaunchResult(ConnectExit == 0, ConnectExit);
-        }
+        public Task PrepareSystemAsync(CancellationToken cancellationToken) =>
+            throw new InvalidOperationException("The UI process prepares the system, not the guardian.");
 
-        public async Task<ApplicationLaunchResult> StartDeployAsync(string executable, IReadOnlyDictionary<string, string?> environment,
-            CancellationToken cancellationToken, Action<int>? processStarted = null, Func<Task>? processReleasing = null)
+        public Task<ApplicationLaunchResult> RunUiAsync(string executable, IReadOnlyDictionary<string, string?> environment,
+            CancellationToken cancellationToken)
         {
-            Calls.Add("deploy");
+            Calls.Add("ui");
             LaunchedExecutables.Add(executable);
-            DeployEnvironment = environment;
-            if (DeployFails) { throw new IOException(); }
-            if (!SkipLaunchHooks)
-            {
-                processStarted?.Invoke(4343);
-                if (processReleasing is not null) { await processReleasing(); }
-            }
-            return new ApplicationLaunchResult(true, ReadinessConfirmed: true);
+            UiEnvironment = environment;
+            if (CancelUi) { cancellation.Cancel(); cancellationToken.ThrowIfCancellationRequested(); }
+            if (UiTimeout) { throw new TaskCanceledException("Internal operation timed out."); }
+            if (UiStartFails) { throw new IOException(); }
+            return Task.FromResult(new ApplicationLaunchResult(UiExit == 0, UiExit, ReadinessConfirmed: true));
         }
 
         public Task PersistAsync(CancellationToken cancellationToken)
