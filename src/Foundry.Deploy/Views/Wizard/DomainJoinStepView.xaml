@@ -187,7 +187,7 @@
                                     <ProgressBar
                                         Height="4"
                                         IsIndeterminate="True"
-                                        Style="{StaticResource DeployProgressBarStyle}" />
+                                        Style="{StaticResource FoundryProgressBarStyle}" />
                                 </Setter.Value>
                             </Setter>
                         </DataTrigger>

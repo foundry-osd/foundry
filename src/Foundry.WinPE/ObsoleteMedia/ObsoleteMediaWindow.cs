@@ -7,7 +7,6 @@ using System.Resources;
 using System.Runtime.InteropServices;
 using System.Windows;
 using Foundry.Wpf.Dialogs;
-using Foundry.Wpf.Theme;
 
 namespace Foundry.WinPE.ObsoleteMedia;
 
@@ -29,8 +28,11 @@ internal static class ObsoleteMediaWindow
         FreeConsole();
         AppContext.SetSwitch(DisableFluentBackdropSwitch, true);
         var application = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
-        // The constructor applies the Fluent dictionary to the current application; the instance itself is not needed.
-        _ = new ThemeService();
+        // Same order as the WPF runtimes' App.xaml: the shared styles are based on the Fluent styles merged before them.
+        application.Resources.MergedDictionaries.Add(new ResourceDictionary
+        {
+            Source = new Uri("pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml", UriKind.Absolute)
+        });
         application.Resources.MergedDictionaries.Add(new ResourceDictionary
         {
             Source = new Uri("pack://application:,,,/Foundry.Wpf;component/Themes/FoundryWpfStyles.xaml", UriKind.Absolute)

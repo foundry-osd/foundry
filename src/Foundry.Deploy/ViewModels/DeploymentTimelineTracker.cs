@@ -4,18 +4,23 @@
 
 using System.Collections.ObjectModel;
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Wpf.Progress;
 
 namespace Foundry.Deploy.ViewModels;
 
+/// <summary>
+/// Keeps the progress page timeline in step with the deployment plan and its step reports, showing each
+/// <see cref="DeploymentStepState"/> as the <see cref="ProgressStepState"/> of the same name.
+/// </summary>
 public sealed class DeploymentTimelineTracker
 {
     private readonly Func<string, string> _localizeStepName;
-    private readonly Func<DeploymentStepState, string> _localizeState;
+    private readonly Func<ProgressStepState, string> _localizeState;
     private readonly Func<string, string> _localizeMessage;
 
     public DeploymentTimelineTracker(
         Func<string, string> localizeStepName,
-        Func<DeploymentStepState, string> localizeState,
+        Func<ProgressStepState, string> localizeState,
         Func<string, string>? localizeMessage = null)
     {
         _localizeStepName = localizeStepName ?? throw new ArgumentNullException(nameof(localizeStepName));
@@ -23,7 +28,7 @@ public sealed class DeploymentTimelineTracker
         _localizeMessage = localizeMessage ?? (value => value);
     }
 
-    public ObservableCollection<DeploymentTimelineEntryViewModel> Entries { get; } = [];
+    public ObservableCollection<ProgressTimelineEntry> Entries { get; } = [];
 
     public void Reset(IReadOnlyList<DeploymentPlanEntry> plan)
     {
@@ -36,7 +41,7 @@ public sealed class DeploymentTimelineTracker
     {
         ArgumentNullException.ThrowIfNull(progress);
         if (progress.Plan is not null) Reconcile(progress.Plan);
-        DeploymentTimelineEntryViewModel? entry = Entries.FirstOrDefault(item => item.RawName == progress.StepName);
+        ProgressTimelineEntry? entry = Entries.FirstOrDefault(item => item.RawName == progress.StepName);
         if (entry is null)
         {
             return;
@@ -45,26 +50,27 @@ public sealed class DeploymentTimelineTracker
         entry.RawLabel = progress.StepLabel ?? entry.RawLabel;
         entry.RawMessage = progress.Message;
         entry.DetailText = _localizeMessage(progress.Message ?? string.Empty);
+        ProgressStepState state = ToProgressStepState(progress.State);
         entry.Update(
             _localizeStepName(entry.RawLabel),
-            progress.State,
-            _localizeState(progress.State));
+            state,
+            _localizeState(state));
     }
 
     /// <summary>Reconciles future work by stable identity while retaining observed outcomes and explanations.</summary>
     public void Reconcile(IReadOnlyList<DeploymentPlanEntry> plan)
     {
         HashSet<string> names = plan.Select(item => item.Name).ToHashSet(StringComparer.Ordinal);
-        foreach (DeploymentTimelineEntryViewModel entry in Entries.Where(entry => !names.Contains(entry.RawName)).ToArray())
+        foreach (ProgressTimelineEntry entry in Entries.Where(entry => !names.Contains(entry.RawName)).ToArray())
             Entries.Remove(entry);
         for (int index = 0; index < plan.Count; index++)
         {
             DeploymentPlanEntry planned = plan[index];
-            DeploymentTimelineEntryViewModel? entry = Entries.FirstOrDefault(item => item.RawName == planned.Name);
+            ProgressTimelineEntry? entry = Entries.FirstOrDefault(item => item.RawName == planned.Name);
             if (entry is null)
             {
-                entry = new DeploymentTimelineEntryViewModel(index + 1, planned.Name,
-                    _localizeStepName(planned.Label), _localizeState(DeploymentStepState.Pending));
+                entry = new ProgressTimelineEntry(index + 1, planned.Name,
+                    _localizeStepName(planned.Label), _localizeState(ProgressStepState.Pending));
                 Entries.Insert(index, entry);
             }
             else if (Entries.IndexOf(entry) != index)
@@ -81,7 +87,7 @@ public sealed class DeploymentTimelineTracker
     {
         int index = oneBasedStepIndex - 1;
         if (index < 0 || index >= Entries.Count ||
-            Entries[index].State is not (DeploymentStepState.Pending or DeploymentStepState.Running))
+            Entries[index].State is not (ProgressStepState.Pending or ProgressStepState.Running))
         {
             return;
         }
@@ -93,19 +99,31 @@ public sealed class DeploymentTimelineTracker
         int index = oneBasedStepIndex - 1;
         if (index >= 0 && index < Entries.Count)
         {
+            ProgressStepState progressState = ToProgressStepState(state);
             Entries[index].Update(
                 Entries[index].DisplayName,
-                state,
-                _localizeState(state));
+                progressState,
+                _localizeState(progressState));
         }
     }
 
     public void RefreshLocalization()
     {
-        foreach (DeploymentTimelineEntryViewModel entry in Entries)
+        foreach (ProgressTimelineEntry entry in Entries)
         {
             entry.RefreshLocalization(_localizeStepName(entry.RawLabel), _localizeState(entry.State));
             entry.DetailText = _localizeMessage(entry.RawMessage ?? string.Empty);
         }
     }
+
+    private static ProgressStepState ToProgressStepState(DeploymentStepState state) => state switch
+    {
+        DeploymentStepState.Pending => ProgressStepState.Pending,
+        DeploymentStepState.Running => ProgressStepState.Running,
+        DeploymentStepState.Succeeded => ProgressStepState.Succeeded,
+        DeploymentStepState.Failed => ProgressStepState.Failed,
+        DeploymentStepState.Skipped => ProgressStepState.Skipped,
+        DeploymentStepState.Cancelled => ProgressStepState.Cancelled,
+        _ => throw new ArgumentOutOfRangeException(nameof(state), state, "Unsupported deployment step state.")
+    };
 }

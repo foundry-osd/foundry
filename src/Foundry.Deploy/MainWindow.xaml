@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Foundry.Deploy"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:progress="clr-namespace:Foundry.Wpf.Progress;assembly=Foundry.Wpf"
     xmlns:runtime="clr-namespace:Foundry.Deploy.Services.Runtime"
     xmlns:views="clr-namespace:Foundry.Deploy.Views"
     Title="{Binding WindowTitle}"
@@ -441,7 +442,9 @@
             <Grid.RenderTransform>
                 <TranslateTransform x:Name="DeploymentStatusTransform" />
             </Grid.RenderTransform>
-            <views:DeploymentStatusView />
+            <progress:ProgressPageView
+                DataContext="{Binding Session}"
+                TechnicalDetailsRequested="ProgressPage_TechnicalDetailsRequested" />
         </Grid>
 
     </Grid>

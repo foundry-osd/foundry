@@ -11,6 +11,7 @@ using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.ViewModels;
 using Foundry.Telemetry;
+using Foundry.Wpf.Progress;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using DeployUnattendFile = Foundry.Core.Models.Configuration.Deploy.DeployUnattendFile;
@@ -61,7 +62,7 @@ public sealed class DeploymentOrchestratorTests
         Assert.Equal(hasFirmware, executed.Contains(DeploymentStepNames.ApplyFirmwareUpdate));
         Assert.All(tracker.Entries, entry => Assert.Equal(
             entry.RawName == driverStep.Name || entry.RawName == firmwareStep.Name
-                ? DeploymentStepState.Skipped : DeploymentStepState.Succeeded, entry.State));
+                ? ProgressStepState.Skipped : ProgressStepState.Succeeded, entry.State));
         Assert.DoesNotContain(driverStep.Name, state.CompletedSteps);
         Assert.DoesNotContain(firmwareStep.Name, state.CompletedSteps);
         Assert.Equal(hasDrivers ? "Reused verified payload." : "No matching payload.",

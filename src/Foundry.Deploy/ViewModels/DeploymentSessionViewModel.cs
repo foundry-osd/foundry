@@ -9,6 +9,7 @@ using System.IO;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -26,13 +27,18 @@ using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.System;
 using Foundry.Wpf.Dialogs;
 using Foundry.Wpf.Localization;
+using Foundry.Wpf.Progress;
 using Foundry.Wpf.ViewModels;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 
 namespace Foundry.Deploy.ViewModels;
 
-public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
+/// <summary>
+/// Deployment run state shown by the shared progress page. <see cref="MainWindowViewModel"/> owns the cancellation and mirrors
+/// it through <see cref="CancelCommand"/>, <see cref="CanCancel"/> and <see cref="IsCancellationPending"/>.
+/// </summary>
+public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase, IProgressPageViewModel
 {
     private const int ShellFolderPickerUnavailableHResult = unchecked((int)0x80040111);
     private readonly Dispatcher _dispatcher;
@@ -57,6 +63,9 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     private bool _isRebootInProgress;
     private bool _isDisposed;
     private DeploymentRebootPolicy _rebootPolicy = DeploymentRebootPolicy.Create(settings: null);
+    private bool _canCancel;
+    private bool _isCancellationPending;
+    private ICommand? _cancelCommand;
 
     public DeploymentSessionViewModel(
         Dispatcher dispatcher,
@@ -76,6 +85,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         _processRunner = processRunner ?? throw new ArgumentNullException(nameof(processRunner));
         _networkAdapterSnapshotProvider = networkAdapterSnapshotProvider ?? new WindowsNetworkAdapterSnapshotProvider();
         _isDebugSafeMode = isDebugSafeMode;
+        CompletionCommand = new AsyncRelayCommand(RebootNowAsync, CanRebootNow);
         _timelineTracker = new DeploymentTimelineTracker(
             DeploymentUiTextLocalizer.LocalizeStepName,
             LocalizeTimelineState,
@@ -99,7 +109,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     private DeploymentPage currentPage = DeploymentPage.Splash;
 
     [ObservableProperty]
-    private int deploymentProgress;
+    private double overallProgress;
 
     [ObservableProperty]
     private bool isGlobalProgressIndeterminate = true;
@@ -141,7 +151,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     private string elapsedTimeText = "00:00:00";
 
     [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(RebootNowCommand))]
+    [NotifyCanExecuteChangedFor(nameof(CompletionCommand))]
     [NotifyPropertyChangedFor(nameof(CompletionInstructionText))]
     private int rebootCountdownSeconds = DeploymentRebootDelay.DefaultSeconds;
 
@@ -155,7 +165,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(TerminalErrorTitle))]
     [NotifyPropertyChangedFor(nameof(TerminalErrorInstruction))]
-    [NotifyPropertyChangedFor(nameof(HasDeploymentFailure))]
+    [NotifyPropertyChangedFor(nameof(HasFailure))]
     private bool isCancelled;
 
     public bool IsSplashPage => CurrentPage == DeploymentPage.Splash;
@@ -163,11 +173,11 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     public bool IsSuccessPage => CurrentPage == DeploymentPage.Success;
     public bool IsProgressPage => CurrentPage == DeploymentPage.Progress;
     public bool IsErrorPage => CurrentPage == DeploymentPage.Error;
-    public bool HasDeploymentFailure => IsErrorPage && !IsCancelled;
+    public bool HasFailure => IsErrorPage && !IsCancelled;
     public bool IsDeploymentStatusPage => CurrentPage is DeploymentPage.Progress or DeploymentPage.Success or DeploymentPage.Error;
 
     public bool IsStartupReady => !IsStartupInitializing;
-    public ObservableCollection<DeploymentTimelineEntryViewModel> TimelineEntries => _timelineTracker.Entries;
+    public ObservableCollection<ProgressTimelineEntry> TimelineEntries => _timelineTracker.Entries;
 
     public string CompletionInstructionText => _rebootPolicy.AutomaticRebootEnabled && !_isDebugSafeMode
         ? Format("Success.RebootCountdownFormat", RebootCountdownSeconds)
@@ -176,6 +186,35 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
     public string FailedStepText => Format("Error.FailedStepFormat", FailedStepName);
     public string TerminalErrorTitle => GetString(IsCancelled ? "Status.DeploymentCancelled" : "Error.Title");
     public string TerminalErrorInstruction => IsCancelled ? GetString("Status.DeploymentCancelledInstruction") : FailedStepText;
+
+    /// <summary>Gets the label of the completion action, which restarts the computer.</summary>
+    public string CompletionActionText => GetString("Success.RebootNow");
+
+    /// <summary>Gets the action that restarts the computer from the success page.</summary>
+    public IAsyncRelayCommand CompletionCommand { get; }
+
+    ICommand? IProgressPageViewModel.CompletionCommand => CompletionCommand;
+
+    /// <summary>Gets the deployment cancel command, set once by <see cref="MainWindowViewModel"/>.</summary>
+    public ICommand? CancelCommand
+    {
+        get => _cancelCommand;
+        internal set => SetProperty(ref _cancelCommand, value);
+    }
+
+    /// <summary>Gets whether a deployment runs and can be cancelled, mirrored from <see cref="MainWindowViewModel"/>.</summary>
+    public bool CanCancel
+    {
+        get => _canCancel;
+        internal set => SetProperty(ref _canCancel, value);
+    }
+
+    /// <summary>Gets whether a cancellation was requested, mirrored from <see cref="MainWindowViewModel"/>.</summary>
+    public bool IsCancellationPending
+    {
+        get => _isCancellationPending;
+        internal set => SetProperty(ref _isCancellationPending, value);
+    }
 
     public void ConfigureRebootPolicy(DeploymentRebootPolicy rebootPolicy)
     {
@@ -215,7 +254,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         _activeStepIndex = 0;
         _timelineTracker.Reset(plan);
 
-        DeploymentProgress = 0;
+        OverallProgress = 0;
         UpdateGlobalProgressVisuals(0);
         SetCurrentStepName("Preparing deployment...");
         CurrentStepProgress = 0;
@@ -261,7 +300,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
             _lastLogsDirectoryPath = executionRunResult.LogsDirectoryPath;
             ClearFailureDetails();
             IsCancelled = true;
-            foreach (DeploymentTimelineEntryViewModel entry in TimelineEntries.Where(entry => entry.State == DeploymentStepState.Running))
+            foreach (ProgressTimelineEntry entry in TimelineEntries.Where(entry => entry.State == ProgressStepState.Running))
             {
                 _timelineTracker.SetState(entry.StepIndex, DeploymentStepState.Cancelled);
             }
@@ -292,8 +331,8 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         _lastLogsDirectoryPath = string.Empty;
         ClearFailureDetails();
         SeedDebugTimeline(request, DeploymentStepNames.ApplyOperatingSystemImage, DeploymentStepState.Running);
-        DeploymentProgress = (int)Math.Round((_activeStepIndex - 1 + 0.65) / _plannedStepCount * 100);
-        UpdateGlobalProgressVisuals(DeploymentProgress);
+        OverallProgress = (int)Math.Round((_activeStepIndex - 1 + 0.65) / _plannedStepCount * 100);
+        UpdateGlobalProgressVisuals(OverallProgress);
         ComputerNameText = request.TargetComputerName;
         CurrentStepProgress = 65;
         IsCurrentStepProgressIndeterminate = false;
@@ -311,7 +350,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         ShowDebugProgress(request);
         StopElapsedTimeTracking();
         SeedDebugTimeline(request, DeploymentStepNames.FinalizeDeploymentAndWriteLogs, DeploymentStepState.Succeeded);
-        DeploymentProgress = 100;
+        OverallProgress = 100;
         UpdateGlobalProgressVisuals(100);
         CurrentStepProgress = 100;
         IsCurrentStepProgressIndeterminate = false;
@@ -520,7 +559,6 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
             new WindowsVolumeDiscovery().GetVolumes());
     }
 
-    [RelayCommand(CanExecute = nameof(CanRebootNow))]
     private async Task RebootNowAsync()
     {
         await ExecuteRebootAsync().ConfigureAwait(false);
@@ -538,8 +576,8 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
             }
 
             int normalizedProgress = Math.Clamp(_operationProgressService.Progress, 0, 100);
-            DeploymentProgress = Math.Max(DeploymentProgress, normalizedProgress);
-            UpdateGlobalProgressVisuals(DeploymentProgress);
+            OverallProgress = Math.Max(OverallProgress, normalizedProgress);
+            UpdateGlobalProgressVisuals(OverallProgress);
 
         });
     }
@@ -561,8 +599,8 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
             StepCounterText = BuildStepCounterText(stepProgress.StepIndex);
             _timelineTracker.Apply(stepProgress);
 
-            DeploymentProgress = Math.Max(DeploymentProgress, stepProgress.ProgressPercent);
-            UpdateGlobalProgressVisuals(DeploymentProgress);
+            OverallProgress = Math.Max(OverallProgress, stepProgress.ProgressPercent);
+            UpdateGlobalProgressVisuals(OverallProgress);
             UpdateCurrentStepProgressVisuals(stepProgress);
 
             if (stepProgress.State == DeploymentStepState.Failed)
@@ -590,7 +628,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
 
     partial void OnCurrentPageChanged(DeploymentPage value)
     {
-        OnPropertyChanged(nameof(HasDeploymentFailure));
+        OnPropertyChanged(nameof(HasFailure));
         if (value == DeploymentPage.Success)
         {
             StartConfiguredReboot();
@@ -605,12 +643,12 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
             StopElapsedTimeTracking();
         }
 
-        RebootNowCommand.NotifyCanExecuteChanged();
+        CompletionCommand.NotifyCanExecuteChanged();
     }
 
-    private void UpdateGlobalProgressVisuals(int progressValue)
+    private void UpdateGlobalProgressVisuals(double progressValue)
     {
-        int clampedProgress = Math.Clamp(progressValue, 0, 100);
+        double clampedProgress = Math.Clamp(progressValue, 0, 100);
         IsGlobalProgressIndeterminate = _isDeploymentInProgress && clampedProgress <= 0;
     }
 
@@ -772,7 +810,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         }
 
         _isRebootInProgress = true;
-        RebootNowCommand.NotifyCanExecuteChanged();
+        CompletionCommand.NotifyCanExecuteChanged();
         StopRebootCountdown(resetSeconds: false);
 
         try
@@ -814,7 +852,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
             RunOnUi(() =>
             {
                 _isRebootInProgress = false;
-                RebootNowCommand.NotifyCanExecuteChanged();
+                CompletionCommand.NotifyCanExecuteChanged();
             });
         }
     }
@@ -958,6 +996,7 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
                 : DeploymentUiTextLocalizer.LocalizeMessage(_rawFailedStepErrorMessage);
             StepCounterText = BuildStepCounterText(_activeStepIndex);
             OnPropertyChanged(nameof(CompletionInstructionText));
+            OnPropertyChanged(nameof(CompletionActionText));
             OnPropertyChanged(nameof(TerminalErrorTitle));
             OnPropertyChanged(nameof(TerminalErrorInstruction));
             CaptureNetworkSnapshot();
@@ -998,15 +1037,15 @@ public sealed partial class DeploymentSessionViewModel : LocalizedViewModelBase
         return Strings[key];
     }
 
-    private string LocalizeTimelineState(DeploymentStepState state)
+    private string LocalizeTimelineState(ProgressStepState state)
     {
         return state switch
         {
-            DeploymentStepState.Running => GetString("Status.InProgress"),
-            DeploymentStepState.Succeeded => GetString("Status.StepCompleted"),
-            DeploymentStepState.Skipped => GetString("Status.StepSkipped"),
-            DeploymentStepState.Failed => GetString("Status.StepFailed"),
-            DeploymentStepState.Cancelled => GetString("Status.StepCancelled"),
+            ProgressStepState.Running => GetString("Status.InProgress"),
+            ProgressStepState.Succeeded => GetString("Status.StepCompleted"),
+            ProgressStepState.Skipped => GetString("Status.StepSkipped"),
+            ProgressStepState.Failed => GetString("Status.StepFailed"),
+            ProgressStepState.Cancelled => GetString("Status.StepCancelled"),
             _ => GetString("Status.WaitingForProgress")
         };
     }

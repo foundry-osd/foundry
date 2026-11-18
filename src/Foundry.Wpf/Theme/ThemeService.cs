@@ -34,11 +34,11 @@ public sealed class ThemeService : IThemeService, INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ThemeService" /> class using the system theme.
+    /// Initializes a new instance of the <see cref="ThemeService" /> class in <see cref="ThemeMode.System" /> mode
+    /// without touching application resources; hosts merge the Fluent dictionary first themselves, as App.xaml does.
     /// </summary>
     public ThemeService()
     {
-        CurrentTheme = ThemeMode.System;
     }
 
     /// <inheritdoc />
