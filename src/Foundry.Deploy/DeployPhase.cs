@@ -155,9 +155,7 @@ public static class DeployPhase
                         lifetime.TryEnd(SuccessExitCode);
                     }
                 }));
-            // Owner fallbacks (About, prompts, message dialogs) read Application.MainWindow: point it at the shell window.
-            application.MainWindow = options.Shell.Window;
-            options.Shell.ShowContent(content);
+            PresentContent(application, options.Shell, content);
 
             int exitCode = await lifetime.Completion;
             logger.Information("Foundry Deploy phase ended with code {ExitCode}.", exitCode);
@@ -223,6 +221,16 @@ public static class DeployPhase
                 action();
             }
         };
+    }
+
+    /// <summary>
+    /// Shows <paramref name="content"/> in the shell and makes the shell window the application's main window, which owner
+    /// fallbacks (About, prompts, message dialogs) read.
+    /// </summary>
+    internal static void PresentContent(Application application, IShellHost shell, FrameworkElement content)
+    {
+        application.MainWindow = shell.Window;
+        shell.ShowContent(content);
     }
 
     private sealed class CloseAttachment(Action detach) : IDisposable

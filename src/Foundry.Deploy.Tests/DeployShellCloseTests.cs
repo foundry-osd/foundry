@@ -5,9 +5,11 @@
 using System.ComponentModel;
 using System.Windows;
 using Foundry.Wpf.Shell;
+using Xunit;
 
 namespace Foundry.Deploy.Tests;
 
+[Collection(nameof(WpfApplicationHostCollection))]
 public sealed class DeployShellCloseTests
 {
     [Fact]
@@ -66,9 +68,38 @@ public sealed class DeployShellCloseTests
         Assert.Equal(1, calls);
     }
 
-    private sealed class FakeShellHost : IShellHost
+    [Fact]
+    public Task PresentContent_MakesTheShellWindowTheMainWindowAndShowsTheContentInIt() => WpfApplicationTestHost.RunAsync(() =>
     {
-        public Window Window => throw new NotSupportedException("Deploy must not touch the window while handling a close request.");
+        Application application = Application.Current;
+        Window? previous = application.MainWindow;
+        var window = new Window();
+        var content = new System.Windows.Controls.UserControl();
+        var shell = new FakeShellHost(window);
+        try
+        {
+            DeployPhase.PresentContent(application, shell, content);
+
+            Assert.Same(window, application.MainWindow);
+            Assert.Same(content, shell.ShownContent);
+            Assert.Equal(1, shell.ShowCount);
+        }
+        finally
+        {
+            application.MainWindow = previous;
+            window.Close();
+        }
+
+        return Task.CompletedTask;
+    });
+
+    private sealed class FakeShellHost(Window? window = null) : IShellHost
+    {
+        public FrameworkElement? ShownContent { get; private set; }
+
+        public int ShowCount { get; private set; }
+
+        public Window Window => window ?? throw new NotSupportedException("Deploy must not touch the window while handling a close request.");
 
         public event EventHandler<CancelEventArgs>? CloseRequested;
 
@@ -78,7 +109,11 @@ public sealed class DeployShellCloseTests
             remove { }
         }
 
-        public void ShowContent(FrameworkElement content) => throw new NotSupportedException();
+        public void ShowContent(FrameworkElement content)
+        {
+            ShownContent = content;
+            ShowCount++;
+        }
 
         public void RaiseCloseRequested(CancelEventArgs args) => CloseRequested?.Invoke(this, args);
     }
