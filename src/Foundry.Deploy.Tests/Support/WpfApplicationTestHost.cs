@@ -11,7 +11,7 @@ namespace Foundry.Deploy.Tests;
 
 /// <summary>
 /// Runs test code on one process-wide STA thread that owns a WPF <see cref="Application"/> whose resources each test project
-/// supplies in <c>WpfApplicationTestHost.Resources.cs</c> (<see cref="CreateResources"/>): Deploy's phase resources here, the
+/// supplies in <c>WpfApplicationTestHost.Resources.cs</c> (<see cref="AddResources"/>): Deploy's phase resources here, the
 /// UI process's complete resources in Foundry.WinPE.Tests, which compiles this file as a link.
 /// </summary>
 /// <remarks>
@@ -49,8 +49,7 @@ internal static partial class WpfApplicationTestHost
                     UnhandledExceptions.Enqueue(e.Exception);
                     e.Handled = true;
                 };
-                // Assigned as a whole, as the Foundry.WinPE host does: Fluent must be the first merged dictionary.
-                _ = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown, Resources = CreateResources() };
+                AddResources(new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown });
 
                 ready.SetResult(dispatcher);
             }
@@ -71,8 +70,11 @@ internal static partial class WpfApplicationTestHost
         return ready.Task.GetAwaiter().GetResult();
     }
 
-    /// <summary>Creates the application resources, with the Fluent dictionary as the first merged dictionary.</summary>
-    private static partial ResourceDictionary CreateResources();
+    /// <summary>
+    /// Sets the application resources as the Foundry.WinPE host does: the application dictionary is attached first, then the
+    /// merged dictionaries are added in order, Fluent first, so each StaticResource finds the styles merged before it.
+    /// </summary>
+    private static partial void AddResources(Application application);
 }
 
 /// <summary>Serializes the tests that share <see cref="WpfApplicationTestHost"/> and the process-wide binding trace source.</summary>

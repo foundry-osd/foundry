@@ -24,8 +24,8 @@ namespace Foundry.WinPE.Ui;
 /// The process-wide setup is done once here: diagnostic clock, readiness protocol (<c>managed_started</c> under
 /// <see cref="UiReadinessReporter.ApplicationId"/>), host log (<see cref="UiHostLog"/>), global exception handlers, remote
 /// diagnostics (<see cref="UiRemoteDiagnostics"/>), the single-instance mutex <see cref="SingleInstanceGuard.UiInstanceName"/>,
-/// the Fluent backdrop switch and the application resources (<see cref="ResourcesUri"/>). A setup failure is a startup
-/// failure (21, <c>startup_failed</c>); see <see cref="UiProcessExit"/>.
+/// the Fluent backdrop switch and the application resources (<see cref="WinPeApplicationResources.UiProcess"/>). A setup
+/// failure is a startup failure (21, <c>startup_failed</c>); see <see cref="UiProcessExit"/>.
 /// </para>
 /// <para>
 /// The application uses <see cref="ShutdownMode.OnExplicitShutdown"/>: closing a phase window never ends the process. The
@@ -45,9 +45,6 @@ namespace Foundry.WinPE.Ui;
 /// </remarks>
 internal static class WinPeUiHost
 {
-    /// <summary>The application resources of the UI process.</summary>
-    internal const string ResourcesUri = "pack://application:,,,/Foundry.WinPE;component/Ui/WinPeApplicationResources.xaml";
-
     private const string WinPeRoot = WinPeWorkspaceLayout.Root;
     private const string DisableFluentBackdropSwitch = "Switch.System.Windows.Appearance.DisableFluentThemeWindowBackdrop";
     private const string DisableFluentBackdropEnvironmentVariable = "FOUNDRY_DISABLE_FLUENT_BACKDROP";
@@ -143,7 +140,7 @@ internal static class WinPeUiHost
             skipConnect);
 
         var application = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
-        application.Resources = new ResourceDictionary { Source = new Uri(ResourcesUri, UriKind.Absolute) };
+        WinPeApplicationResources.Apply(application, WinPeApplicationResources.UiProcess);
         // Subscribed before any phase: every handler runs, so this one acts only when no phase owns the exception.
         application.DispatcherUnhandledException += (_, eventArgs) =>
         {

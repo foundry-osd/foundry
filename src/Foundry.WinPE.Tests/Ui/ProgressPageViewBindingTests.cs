@@ -11,14 +11,16 @@ using System.Windows.Threading;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Tests;
 using Foundry.Deploy.ViewModels;
+using Foundry.WinPE.Ui;
 using Foundry.Wpf.Progress;
 using Xunit;
 
 namespace Foundry.WinPE.Tests.Ui;
 
 /// <summary>
-/// Smoke test of the shared progress page hosted with the UI process's resources (<c>WinPeApplicationResources.xaml</c>):
-/// every resource resolves and every binding finds its source in each debug preview state.
+/// Smoke test of the shared progress page hosted with the UI process's resources
+/// (<see cref="WinPeApplicationResources.UiProcess"/>): every resource resolves and every binding finds its source in each
+/// debug preview state.
 /// </summary>
 [Collection(nameof(WpfApplicationHostCollection))]
 public sealed class ProgressPageViewBindingTests

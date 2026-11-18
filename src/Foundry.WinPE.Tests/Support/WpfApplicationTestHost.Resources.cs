@@ -11,6 +11,6 @@ namespace Foundry.Deploy.Tests;
 internal static partial class WpfApplicationTestHost
 {
     // The UI process's own application resources, so tests see what both phases run with.
-    private static partial ResourceDictionary CreateResources() =>
-        new() { Source = new Uri(WinPeUiHost.ResourcesUri, UriKind.Absolute) };
+    private static partial void AddResources(Application application) =>
+        WinPeApplicationResources.Apply(application, WinPeApplicationResources.UiProcess);
 }

@@ -28,7 +28,7 @@ namespace Foundry.Deploy;
 /// <remarks>
 /// The host has already done the process-wide setup: diagnostic clock, global exception handlers, Fluent backdrop switch,
 /// remote diagnostics, single-instance mutex, the startup protocol, and the application resources, with
-/// <c>/Foundry.Deploy;component/Themes/DeployApplicationResources.xaml</c> merged after Fluent and the Foundry.Wpf styles.
+/// <c>/Foundry.Deploy;component/Themes/DeployStyles.xaml</c> merged after Fluent and the Foundry.Wpf styles.
 /// While the phase runs, it owns <see cref="Log.Logger"/> (through <see cref="HostedPhaseScope"/>),
 /// <see cref="Application.MainWindow"/> and a handler of
 /// <see cref="Application.DispatcherUnhandledException"/>, which marks the exception handled and ends the phase with

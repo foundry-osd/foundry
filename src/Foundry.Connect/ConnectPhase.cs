@@ -33,7 +33,7 @@ namespace Foundry.Connect;
 /// <remarks>
 /// The host has already done the process-wide setup: diagnostic clock, global exception handlers, Fluent backdrop switch,
 /// remote diagnostics, single-instance mutex, the startup protocol, and the application resources, with
-/// <c>/Foundry.Connect;component/Themes/ConnectApplicationResources.xaml</c> merged after Fluent and the Foundry.Wpf styles.
+/// <c>/Foundry.Connect;component/Themes/ConnectStyles.xaml</c> merged after Fluent and the Foundry.Wpf styles.
 /// While the phase runs, it owns <see cref="Log.Logger"/> (through <see cref="HostedPhaseScope"/>),
 /// <see cref="Application.MainWindow"/> and a handler of <see cref="Application.DispatcherUnhandledException"/>, which marks
 /// the exception handled and ends the phase.

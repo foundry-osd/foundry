@@ -9,13 +9,18 @@ namespace Foundry.Deploy.Tests;
 internal static partial class WpfApplicationTestHost
 {
     // The Deploy phase's resources, in the order of the Foundry.WinPE application resources.
-    private static partial ResourceDictionary CreateResources() => new()
+    private static partial void AddResources(Application application)
     {
-        MergedDictionaries =
+        var resources = new ResourceDictionary();
+        application.Resources = resources;
+        foreach (string source in new[]
         {
-            new ResourceDictionary { Source = new Uri("pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml", UriKind.Absolute) },
-            new ResourceDictionary { Source = new Uri("pack://application:,,,/Foundry.Wpf;component/Themes/FoundryWpfStyles.xaml", UriKind.Absolute) },
-            new ResourceDictionary { Source = new Uri("pack://application:,,,/Foundry.Deploy;component/Themes/DeployApplicationResources.xaml", UriKind.Absolute) }
+            "pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml",
+            "pack://application:,,,/Foundry.Wpf;component/Themes/FoundryWpfStyles.xaml",
+            "pack://application:,,,/Foundry.Deploy;component/Themes/DeployStyles.xaml"
+        })
+        {
+            resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri(source, UriKind.Absolute) });
         }
-    };
+    }
 }

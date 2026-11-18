@@ -28,15 +28,7 @@ internal static class WinPeDialogApplication
         }
 
         var application = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
-        // Same order as Ui/WinPeApplicationResources.xaml: the shared styles are based on the Fluent styles merged before them.
-        application.Resources.MergedDictionaries.Add(new ResourceDictionary
-        {
-            Source = new Uri("pack://application:,,,/PresentationFramework.Fluent;component/Themes/Fluent.xaml", UriKind.Absolute)
-        });
-        application.Resources.MergedDictionaries.Add(new ResourceDictionary
-        {
-            Source = new Uri("pack://application:,,,/Foundry.Wpf;component/Themes/FoundryWpfStyles.xaml", UriKind.Absolute)
-        });
+        WinPeApplicationResources.Apply(application, WinPeApplicationResources.Standalone);
     }
 
     /// <summary>Returns the resource for the current UI culture, or the English text when the key is missing.</summary>
