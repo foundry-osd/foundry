@@ -30,6 +30,63 @@ public sealed class UiStateFileTests : IDisposable
     }
 
     [Fact]
+    public void Write_ThenRead_RoundTripsTheCulture()
+    {
+        string path = Path.Combine(directory, "ui-state.json");
+
+        UiStateFile.Write(path, new UiState(UiPhase.Deploy, DestructiveStarted: false, Culture: "fr-FR"));
+
+        using JsonDocument document = JsonDocument.Parse(File.ReadAllText(path));
+        Assert.Equal("fr-FR", document.RootElement.GetProperty("culture").GetString());
+        Assert.Equal(new UiState(UiPhase.Deploy, false, "fr-FR"), UiStateFile.Read(path));
+    }
+
+    [Fact]
+    public void Write_WithoutCulture_OmitsTheProperty()
+    {
+        string path = Path.Combine(directory, "ui-state.json");
+
+        UiStateFile.Write(path, new UiState(UiPhase.Connect, DestructiveStarted: false));
+
+        using JsonDocument document = JsonDocument.Parse(File.ReadAllText(path));
+        Assert.False(document.RootElement.TryGetProperty("culture", out _));
+        Assert.Null(UiStateFile.Read(path)!.Culture);
+    }
+
+    [Theory]
+    [InlineData("\"culture\":\"xx-INVALID\"")]
+    [InlineData("\"culture\":\"not a culture\"")]
+    [InlineData("\"culture\":\"es-AR\"")]
+    [InlineData("\"culture\":42")]
+    [InlineData("\"culture\":null")]
+    [InlineData("\"culture\":\"\"")]
+    public void Read_UnsupportedOrMalformedCulture_KeepsThePhaseAndDropsTheCulture(string property)
+    {
+        string path = Path.Combine(directory, "ui-state.json");
+        File.WriteAllText(path, "{\"phase\":\"deploy\",\"destructiveStarted\":true," + property + "}");
+
+        Assert.Equal(new UiState(UiPhase.Deploy, DestructiveStarted: true, Culture: null), UiStateFile.Read(path));
+    }
+
+    [Fact]
+    public void Read_TooLongCulture_DropsTheCulture()
+    {
+        string path = Path.Combine(directory, "ui-state.json");
+        File.WriteAllText(path, "{\"phase\":\"connect\",\"destructiveStarted\":false,\"culture\":\"" + new string('a', 86) + "\"}");
+
+        Assert.Null(UiStateFile.Read(path)!.Culture);
+    }
+
+    [Fact]
+    public void Read_SupportedCultureInAnotherCase_IsCanonical()
+    {
+        string path = Path.Combine(directory, "ui-state.json");
+        File.WriteAllText(path, "{\"phase\":\"connect\",\"destructiveStarted\":false,\"culture\":\"FR-fr\"}");
+
+        Assert.Equal("fr-FR", UiStateFile.Read(path)!.Culture);
+    }
+
+    [Fact]
     public void Write_ReplacesThePreviousStateWithoutLeavingATemporaryFile()
     {
         string path = Path.Combine(directory, "ui-state.json");

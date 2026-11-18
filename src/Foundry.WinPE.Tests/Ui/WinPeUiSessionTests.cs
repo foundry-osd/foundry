@@ -35,6 +35,52 @@ public sealed class WinPeUiSessionTests
     }
 
     [Fact]
+    public async Task Culture_IsRecordedAtConnectStartAfterALanguageChangeAndAtDeployStart()
+    {
+        var fixture = new Fixture();
+        fixture.OnConnect = () =>
+        {
+            fixture.ConnectOptions!.OnCultureChanged!("en-US");
+            fixture.ConnectOptions.OnCultureChanged("de-DE");
+        };
+        fixture.Deploy = options =>
+        {
+            options.OnCultureChanged!("fr-FR");
+            return Task.FromResult(DeployPhase.SuccessExitCode);
+        };
+
+        await fixture.RunAsync();
+
+        Assert.Equal(
+            [
+                (UiPhase.Connect, (string?)null),
+                (UiPhase.Connect, "en-US"),
+                (UiPhase.Connect, "de-DE"),
+                (UiPhase.System, "de-DE"),
+                // Deploy starts with the culture Connect ended with, then reports its own.
+                (UiPhase.Deploy, "fr-FR"),
+                (UiPhase.Deploy, "fr-FR")
+            ],
+            fixture.States.Select(state => (state.Phase, state.Culture)));
+    }
+
+    [Fact]
+    public async Task Culture_ChangeDuringDeploy_KeepsTheDestructiveFlag()
+    {
+        var fixture = new Fixture();
+        fixture.Deploy = options =>
+        {
+            options.OnDestructiveStepStarted();
+            options.OnCultureChanged!("it-IT");
+            return Task.FromResult(DeployPhase.SuccessExitCode);
+        };
+
+        await fixture.RunAsync();
+
+        Assert.Equal(new UiState(UiPhase.Deploy, DestructiveStarted: true, Culture: "it-IT"), fixture.States[^1]);
+    }
+
+    [Fact]
     public async Task BothPhases_ShowTheirContentInTheSameShellAndTheSessionNeverClosesIt()
     {
         var fixture = new Fixture();
@@ -163,7 +209,7 @@ public sealed class WinPeUiSessionTests
             var fixture = new Fixture { StateWriter = new UiStateFileWriter(path, new LoggerConfiguration().CreateLogger()) };
             fixture.Deploy = options =>
             {
-                Assert.Equal(new UiState(UiPhase.Deploy, DestructiveStarted: false), UiStateFile.Read(path));
+                Assert.Equal(new UiState(UiPhase.Deploy, DestructiveStarted: false, Culture: "fr-FR"), UiStateFile.Read(path));
                 options.OnDestructiveStepStarted();
                 recorded = UiStateFile.Read(path);
                 return Task.FromResult(DeployPhase.SuccessExitCode);
@@ -171,7 +217,7 @@ public sealed class WinPeUiSessionTests
 
             await fixture.RunAsync();
 
-            Assert.Equal(new UiState(UiPhase.Deploy, DestructiveStarted: true), recorded);
+            Assert.Equal(new UiState(UiPhase.Deploy, DestructiveStarted: true, Culture: "fr-FR"), recorded);
         }
         finally { Directory.Delete(directory, recursive: true); }
     }

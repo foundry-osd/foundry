@@ -4,6 +4,7 @@
 
 using System.Globalization;
 using System.Resources;
+using Foundry.WinPE.Shell;
 using Foundry.WinPE.Tests.Support;
 using Foundry.WinPE.Ui;
 using Xunit;
@@ -13,13 +14,54 @@ namespace Foundry.WinPE.Tests.Ui;
 public sealed class UiCrashWindowTests
 {
     [Theory]
-    [InlineData(true, true, (int)UiCrashChoice.Relaunch)]
-    [InlineData(true, false, (int)UiCrashChoice.Close)]
-    [InlineData(true, null, (int)UiCrashChoice.Close)]
-    [InlineData(false, true, (int)UiCrashChoice.Close)]
-    [InlineData(false, null, (int)UiCrashChoice.Close)]
-    public void OnlyTheRelaunchButtonOfAnAllowedWindowRelaunches(bool relaunchAllowed, bool? dialogResult, int expected)
-        => Assert.Equal((UiCrashChoice)expected, UiCrashWindow.ToChoice(relaunchAllowed, dialogResult));
+    [InlineData(true, (int)MessageChoice.Primary, (int)UiCrashChoice.Relaunch)]
+    [InlineData(true, (int)MessageChoice.Secondary, (int)UiCrashChoice.Close)]
+    [InlineData(true, (int)MessageChoice.None, (int)UiCrashChoice.Close)]
+    [InlineData(false, (int)MessageChoice.Primary, (int)UiCrashChoice.Close)]
+    [InlineData(false, (int)MessageChoice.None, (int)UiCrashChoice.Close)]
+    public void OnlyTheRelaunchButtonOfAnAllowedWindowRelaunches(bool relaunchAllowed, int choice, int expected)
+        => Assert.Equal((UiCrashChoice)expected, UiCrashWindow.ToChoice(relaunchAllowed, (MessageChoice)choice));
+
+    [Fact]
+    public void CreateModel_UsesTheStateCulture()
+    {
+        var strings = new ResourceManager("Foundry.WinPE.Strings.Resources", typeof(UiCrashWindow).Assembly);
+        CultureInfo french = CultureInfo.GetCultureInfo("fr-FR");
+
+        MessagePageModel model = UiCrashWindow.CreateModel(relaunchAllowed: true, @"X:\Logs", "fr-FR");
+
+        Assert.Equal(strings.GetString("UiCrash.Title", french), model.Title);
+        Assert.NotEqual(strings.GetString("UiCrash.Title", CultureInfo.InvariantCulture), model.Title);
+        Assert.Equal(strings.GetString("UiCrash.Relaunch", french), model.PrimaryText);
+        Assert.Equal(strings.GetString("UiCrash.Close", french), model.SecondaryText);
+        Assert.StartsWith(strings.GetString("UiCrash.MessageRelaunchAllowed", french), model.Message, StringComparison.Ordinal);
+        Assert.EndsWith(@"X:\Logs", model.Message, StringComparison.Ordinal);
+    }
+
+    [Theory]
+    [InlineData(null)]
+    [InlineData("")]
+    [InlineData("not a culture")]
+    [InlineData("es-AR")]
+    public void CreateModel_WithoutAValidCulture_KeepsTheCurrentUiCulture(string? culture)
+    {
+        var strings = new ResourceManager("Foundry.WinPE.Strings.Resources", typeof(UiCrashWindow).Assembly);
+
+        MessagePageModel model = UiCrashWindow.CreateModel(relaunchAllowed: false, logDirectory: null, culture);
+
+        Assert.Equal(strings.GetString("UiCrash.Title", CultureInfo.CurrentUICulture), model.Title);
+        Assert.Equal(strings.GetString("UiCrash.Close", CultureInfo.CurrentUICulture), model.PrimaryText);
+        Assert.Null(model.SecondaryText);
+        Assert.Equal(strings.GetString("UiCrash.MessageRelaunchRefused", CultureInfo.CurrentUICulture), model.Message);
+    }
+
+    [Theory]
+    [InlineData("fr-FR", "fr-FR")]
+    [InlineData("FR-fr", "fr-FR")]
+    [InlineData("xx-INVALID", null)]
+    [InlineData(null, null)]
+    public void ResolveCulture_ReturnsOnlyASupportedFoundryCulture(string? culture, string? expected) =>
+        Assert.Equal(expected, UiCrashWindow.ResolveCulture(culture)?.Name);
 
     [Fact]
     public void EveryCultureFormatsTheLogFolder()

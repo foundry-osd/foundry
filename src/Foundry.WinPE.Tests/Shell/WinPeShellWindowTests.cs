@@ -213,11 +213,13 @@ public sealed partial class WinPeShellWindowTests
 
     // The host merges every UI-process resource, so absence cannot be proven at runtime: the guardian hosts the window with
     // the standalone resources only, which the source must respect.
-    [Fact]
-    public void WindowSource_ReferencesNoConnectOrDeployOnlyResource()
+    [Theory]
+    [InlineData("WinPeShellWindow.xaml")]
+    [InlineData("MessagePage.xaml")]
+    public void ShellSource_ReferencesNoConnectOrDeployOnlyResource(string file)
     {
         string root = RepositoryRoot.Find();
-        string xaml = File.ReadAllText(Path.Combine(root, "src", "Foundry.WinPE", "Shell", "WinPeShellWindow.xaml"));
+        string xaml = File.ReadAllText(Path.Combine(root, "src", "Foundry.WinPE", "Shell", file));
         HashSet<string> applicationKeys = [.. ReadKeys(Path.Combine(root, "src", "Foundry.Connect", "Themes", "ConnectStyles.xaml")),
             .. ReadKeys(Path.Combine(root, "src", "Foundry.Deploy", "Themes", "DeployStyles.xaml"))];
         applicationKeys.ExceptWith(ReadKeys(Path.Combine(root, "src", "Foundry.Wpf", "Themes", "FoundryWpfStyles.xaml")));

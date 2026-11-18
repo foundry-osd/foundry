@@ -72,6 +72,7 @@ public static class ConnectPhase
         ApplicationLifetimeService? lifetime = null;
         DispatcherUnhandledExceptionEventHandler? dispatcherHandler = null;
         IDisposable? closeAttachment = null;
+        CultureChangeReporter? cultureReporter = null;
         ConnectShellContent? content = null;
         DeploymentKeyTransfer? takenKey = null;
         string category = "managed_startup";
@@ -96,6 +97,11 @@ public static class ConnectPhase
 
             category = "services";
             telemetry = host.Services.GetRequiredService<ITelemetryService>();
+            if (options.OnCultureChanged is not null)
+            {
+                cultureReporter = CultureChangeReporter.Start(
+                    host.Services.GetRequiredService<ILocalizationService>(), options.OnCultureChanged);
+            }
 
             category = "ui_startup";
             stage = ConnectStartupStage.UiStartup;
@@ -143,6 +149,7 @@ public static class ConnectPhase
         {
             // The close decision belongs to the next phase from here on; without a handler the shell refuses a close.
             closeAttachment?.Dispose();
+            cultureReporter?.Dispose();
             // The shell may keep showing the content, but no longer holds it (or its view model) through its events.
             content?.Detach();
             if (dispatcherHandler is not null)

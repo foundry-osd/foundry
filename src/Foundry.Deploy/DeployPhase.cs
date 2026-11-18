@@ -14,6 +14,7 @@ using Foundry.Deploy.Services.Logging;
 using Foundry.Deploy.ViewModels;
 using Foundry.Telemetry;
 using Foundry.Utilities.Diagnostics;
+using Foundry.Wpf.Localization;
 using Foundry.Wpf.Shell;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -91,6 +92,7 @@ public static class DeployPhase
         ITelemetryService? telemetry = null;
         DispatcherUnhandledExceptionEventHandler? dispatcherHandler = null;
         IDisposable? closeAttachment = null;
+        CultureChangeReporter? cultureReporter = null;
         DeployShellContent? content = null;
         string stage = "managed_startup";
         try
@@ -129,6 +131,12 @@ public static class DeployPhase
             // Before the content is resolved, so its first frame and its menus already use Connect's theme and language.
             MainWindowViewModel viewModel = host.Services.GetRequiredService<MainWindowViewModel>();
             viewModel.ApplyInitialPreferences(options.ThemeMode, options.CultureName);
+            if (options.OnCultureChanged is not null)
+            {
+                cultureReporter = CultureChangeReporter.Start(
+                    host.Services.GetRequiredService<ILocalizationService>(), options.OnCultureChanged);
+            }
+
             content = host.Services.GetRequiredService<DeployShellContent>();
             bool isEnded = false;
             closeAttachment = AttachCloseHandler(
@@ -172,6 +180,7 @@ public static class DeployPhase
         {
             // The close decision belongs to the host from here on; without a handler the shell refuses a close.
             closeAttachment?.Dispose();
+            cultureReporter?.Dispose();
             content?.Detach();
             if (dispatcherHandler is not null)
             {

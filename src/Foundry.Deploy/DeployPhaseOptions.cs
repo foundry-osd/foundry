@@ -42,4 +42,10 @@ public sealed class DeployPhaseOptions
     /// the first step that can wipe the target disk. Never called in a dry run.
     /// </summary>
     public required Action OnDestructiveStepStarted { get; init; }
+
+    /// <summary>
+    /// Gets the hook called with the UI culture name (for example <c>fr-FR</c>) once, on the UI thread, after the initial
+    /// preferences are applied, and again each time the operator changes the language, or <see langword="null"/>.
+    /// </summary>
+    public Action<string>? OnCultureChanged { get; init; }
 }

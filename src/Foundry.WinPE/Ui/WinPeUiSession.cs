@@ -27,7 +27,8 @@ namespace Foundry.WinPE.Ui;
 /// Readiness: <c>configuration_loaded</c> comes from Connect, <c>ui_ready</c> once from the first content of the session
 /// (Connect's page or its password prompt, or Deploy's content when Connect is skipped), and <c>startup_failed</c> when Connect
 /// fails before any content rendered.
-/// The UI state file follows each phase and records the start of a destructive deployment step before that step runs.
+/// The UI state file follows each phase, the language the operator works in, and the start of a destructive deployment step
+/// (before that step runs).
 /// System preparation runs only in Windows PE, because it sets the clock and time zone of the machine; its failure is a
 /// warning. The hooks given to the phases log their own failures: the phases swallow hook exceptions.
 /// </para>
@@ -84,6 +85,7 @@ internal sealed class WinPeUiSession(
         {
             Shell = shell,
             OnConfigurationLoaded = OnConnectConfigurationLoaded,
+            OnCultureChanged = OnCultureChanged,
             OnFirstContentRendered = OnConnectFirstContentRendered
         }, cancellationToken));
         try
@@ -117,7 +119,7 @@ internal sealed class WinPeUiSession(
     private async Task<int> RunDeployAsync(ConnectPhaseResult? connect, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        EnterPhase(UiPhase.Deploy);
+        EnterPhase(UiPhase.Deploy, connect?.CultureName);
         var options = new DeployPhaseOptions
         {
             Shell = shell,
@@ -125,7 +127,8 @@ internal sealed class WinPeUiSession(
             ThemeMode = connect?.ThemeMode,
             CultureName = connect?.CultureName,
             OnFirstContentRendered = OnDeployFirstContentRendered,
-            OnDestructiveStepStarted = OnDestructiveStepStarted
+            OnDestructiveStepStarted = OnDestructiveStepStarted,
+            OnCultureChanged = OnCultureChanged
         };
         int exitCode = await RunPhaseAsync(() => deployPhase.RunAsync(options, cancellationToken));
         logger.Information("UI session ended in Foundry Deploy with code {ExitCode}.", exitCode);
@@ -165,16 +168,28 @@ internal sealed class WinPeUiSession(
         }
     }
 
-    private void EnterPhase(UiPhase phase)
+    private void EnterPhase(UiPhase phase, string? connectCulture = null)
     {
         lock (_stateGate)
         {
-            _state = _state with { Phase = phase };
+            // Deploy starts in the language Connect ended with, before it reports its own.
+            _state = _state with { Phase = phase, Culture = connectCulture ?? _state.Culture };
             stateWriter.Write(_state);
         }
 
         logger.Information("UI phase {Phase} started.", phase);
     }
+
+    // Called from each phase's localization service, at its start and after a language change: the guardian shows its crash
+    // window in the language the operator works in.
+    private void OnCultureChanged(string culture) => RunHook("culture_changed", () =>
+    {
+        lock (_stateGate)
+        {
+            _state = _state with { Culture = culture };
+            stateWriter.Write(_state);
+        }
+    });
 
     private void OnConnectConfigurationLoaded() => RunHook("configuration_loaded", readiness.ReportConfigurationLoaded);
 

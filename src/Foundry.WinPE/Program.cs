@@ -56,7 +56,7 @@ public static class Program
     // The debug picker previews the crash window on this thread and only reports the choice: nothing is relaunched.
     private static void ShowCrashScreen(bool relaunchAllowed)
     {
-        UiCrashChoice choice = UiCrashWindow.Show(relaunchAllowed, Path.Combine(Path.GetTempPath(), "Foundry", "Logs"));
+        UiCrashChoice choice = UiCrashWindow.Show(relaunchAllowed, Path.Combine(Path.GetTempPath(), "Foundry", "Logs"), culture: null);
         MessageBox.Show($"Crash screen choice: {choice}.", "Foundry.WinPE debug mode");
     }
 }

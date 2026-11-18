@@ -27,4 +27,11 @@ public sealed class ConnectPhaseOptions
     /// content is created, or <see langword="null"/>. It is not called when the configuration cannot be loaded.
     /// </summary>
     public Action? OnConfigurationLoaded { get; init; }
+
+    /// <summary>
+    /// Gets the hook called with the UI culture name (for example <c>fr-FR</c>) once, on the UI thread, when Connect's services
+    /// are built, and again each time the operator changes the language, or <see langword="null"/>. It is not called when the
+    /// configuration cannot be loaded.
+    /// </summary>
+    public Action<string>? OnCultureChanged { get; init; }
 }
