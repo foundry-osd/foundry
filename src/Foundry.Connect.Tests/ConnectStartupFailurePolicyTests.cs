@@ -25,9 +25,21 @@ public sealed class ConnectStartupFailurePolicyTests
         => Assert.Equal(expected, ConnectStartupFailurePolicy.MapFailure(stage, isUiReady));
 
     [Theory]
-    [InlineData(ChildRuntimeExitCode.Success, (int)ChildRuntimeExitCode.RuntimeFailure, (int)ChildRuntimeExitCode.Success)]
-    [InlineData(ChildRuntimeExitCode.UserAborted, (int)ChildRuntimeExitCode.StartupFailure, (int)ChildRuntimeExitCode.UserAborted)]
-    [InlineData(null, (int)ChildRuntimeExitCode.RuntimeFailure, (int)ChildRuntimeExitCode.RuntimeFailure)]
-    public void ResolveProcessExitCode_AcceptedExitRequestWins(ChildRuntimeExitCode? requested, int fallback, int expected)
-        => Assert.Equal(expected, ConnectStartupFailurePolicy.ResolveProcessExitCode(requested, fallback));
+    [InlineData(ChildRuntimeExitCode.UserAborted, ChildRuntimeExitCode.StartupFailure, ChildRuntimeExitCode.UserAborted)]
+    [InlineData(ChildRuntimeExitCode.ConfigurationFailure, ChildRuntimeExitCode.RuntimeFailure, ChildRuntimeExitCode.ConfigurationFailure)]
+    [InlineData(null, ChildRuntimeExitCode.RuntimeFailure, ChildRuntimeExitCode.RuntimeFailure)]
+    public void ResolveFailureExitCode_AcceptedAbortOrFailureWins(
+        ChildRuntimeExitCode? requested, ChildRuntimeExitCode failure, ChildRuntimeExitCode expected)
+        => Assert.Equal((int)expected, ConnectStartupFailurePolicy.ResolveFailureExitCode(requested, failure));
+
+    [Theory]
+    [InlineData(ChildRuntimeExitCode.RuntimeFailure)]
+    [InlineData(ChildRuntimeExitCode.StartupFailure)]
+    public void ResolveFailureExitCode_AcceptedSuccessThenException_IsTheFailureNeverSuccess(ChildRuntimeExitCode failure)
+    {
+        int exitCode = ConnectStartupFailurePolicy.ResolveFailureExitCode(ChildRuntimeExitCode.Success, failure);
+
+        Assert.Equal((int)failure, exitCode);
+        Assert.NotEqual((int)ChildRuntimeExitCode.Success, exitCode);
+    }
 }

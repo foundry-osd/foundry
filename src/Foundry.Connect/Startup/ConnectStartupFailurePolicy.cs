@@ -34,12 +34,13 @@ public static class ConnectStartupFailurePolicy
         => Map(isUiReady ? ConnectStartupStage.Running : stage);
 
     /// <summary>
-    /// Chooses the code the process returns: an exit request accepted by the exit authority always wins, so a failure
-    /// raised while that exit is in progress cannot replace it.
+    /// Chooses the code the Connect phase returns when it ends with an exception. An accepted user abort or failure keeps its
+    /// code, so a failure raised while that exit is in progress cannot replace it; an accepted success never does, because
+    /// the phase did not complete it: the host must not start Foundry Deploy after it.
     /// </summary>
     /// <param name="requestedExitCode">The exit code accepted by the exit authority, or <see langword="null"/> when none was requested.</param>
-    /// <param name="fallbackExitCode">The code to return when no exit was requested: the WPF exit code or the mapped failure code.</param>
-    /// <returns>The process exit code.</returns>
-    public static int ResolveProcessExitCode(ChildRuntimeExitCode? requestedExitCode, int fallbackExitCode)
-        => requestedExitCode is { } requested ? (int)requested : fallbackExitCode;
+    /// <param name="failureExitCode">The mapped failure code (see <see cref="MapFailure"/>).</param>
+    /// <returns>The phase exit code; never <see cref="ChildRuntimeExitCode.Success"/>.</returns>
+    public static int ResolveFailureExitCode(ChildRuntimeExitCode? requestedExitCode, ChildRuntimeExitCode failureExitCode)
+        => requestedExitCode is { } requested && requested != ChildRuntimeExitCode.Success ? (int)requested : (int)failureExitCode;
 }

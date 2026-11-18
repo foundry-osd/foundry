@@ -139,8 +139,8 @@ public static class ConnectPhase
             startup.ReportFailure(exception, category);
             takenKey?.Dispose();
             CloseWindow(window, isWindowClosed);
-            int exitCode = ConnectStartupFailurePolicy.ResolveProcessExitCode(
-                lifetime?.RequestedExitCode, (int)GetFailureExitCode(stage, startup));
+            int exitCode = ConnectStartupFailurePolicy.ResolveFailureExitCode(
+                lifetime?.RequestedExitCode, GetFailureExitCode(stage, startup));
             return CreateEndedResult(exitCode, host?.Services);
         }
         finally
@@ -178,7 +178,17 @@ public static class ConnectPhase
         // Building the host is not a configuration failure for the exit code.
         enterStage(ConnectStartupStage.Services);
         IHost host = BuildHost(startup, configurationService, loadResult.Configuration, loadResult.Secrets);
-        startup.ReportConfigurationLoaded();
+        try
+        {
+            startup.ReportConfigurationLoaded();
+        }
+        catch
+        {
+            // The host hook failed: the caller never receives the container, so it is disposed here.
+            host.Dispose();
+            throw;
+        }
+
         return host;
     }
 
