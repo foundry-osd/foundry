@@ -109,7 +109,7 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
         try { await SynchronizeClockAsync(timeout.Token).ConfigureAwait(false); }
         catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
         {
-            _logger.Debug("Early clock synchronization timed out. Continuing to Foundry Connect.");
+            _logger.Debug("Clock synchronization probe timed out. Continuing.");
         }
     }
 
@@ -201,7 +201,7 @@ public sealed class WinPeSystemPreparation : ISystemPreparation
         if (targetTimeZoneId is null)
         {
             targetTimeZoneId = "UTC";
-            source = "bootstrap fallback";
+            source = "UTC fallback";
         }
 
         if (string.Equals(_platform.GetCurrentTimeZoneId(), targetTimeZoneId, StringComparison.OrdinalIgnoreCase))

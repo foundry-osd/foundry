@@ -25,10 +25,9 @@ public static class StartupStage
     public const string StartupFailed = "startup_failed";
 }
 
-/// <summary>Distinguishes explicit capabilities from legacy and invalid payloads.</summary>
+/// <summary>Distinguishes a supported protocol advertisement from incompatible and invalid ones.</summary>
 public enum StartupCapabilityMode
 {
-    Legacy,
     Supported,
     Incompatible,
     Invalid

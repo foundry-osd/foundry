@@ -20,7 +20,13 @@ internal enum DebugModeChoice
     DeployOnly,
 
     /// <summary>The obsolete-media screen, as under <c>Foundry.Deploy.exe</c>, without readiness reporting.</summary>
-    ObsoleteMedia
+    ObsoleteMedia,
+
+    /// <summary>The guardian's crash window with "Relaunch" offered; nothing is relaunched.</summary>
+    CrashScreenRelaunchAllowed,
+
+    /// <summary>The guardian's crash window after a destructive step, without "Relaunch".</summary>
+    CrashScreenRelaunchRefused
 }
 
 /// <summary>
@@ -37,17 +43,32 @@ internal static class DebugModePicker
     /// <summary>Returns whether the picker replaces the guardian: debug safety on and no argument.</summary>
     internal static bool ShouldShow(bool debugSafetyEnabled, IReadOnlyList<string> args) => debugSafetyEnabled && args.Count == 0;
 
-    /// <summary>Runs the chosen mode and returns its exit code; no choice exits with 0.</summary>
+    /// <summary>Runs the chosen mode and returns its exit code; no choice and the crash screens exit with 0.</summary>
     /// <param name="choice">The developer's choice.</param>
     /// <param name="runUi">Runs the UI process; its argument skips the Connect phase.</param>
     /// <param name="runObsoleteMedia">Shows the obsolete-media screen.</param>
-    internal static int Run(DebugModeChoice choice, Func<bool, int> runUi, Func<int> runObsoleteMedia) => choice switch
+    /// <param name="showCrashScreen">
+    /// Shows the crash window, with "Relaunch" when its argument is <see langword="true"/>, and reports the choice; it starts
+    /// no process.
+    /// </param>
+    internal static int Run(DebugModeChoice choice, Func<bool, int> runUi, Func<int> runObsoleteMedia, Action<bool> showCrashScreen)
     {
-        DebugModeChoice.ConnectThenDeploy => runUi(false),
-        DebugModeChoice.DeployOnly => runUi(true),
-        DebugModeChoice.ObsoleteMedia => runObsoleteMedia(),
-        _ => 0
-    };
+        switch (choice)
+        {
+            case DebugModeChoice.ConnectThenDeploy:
+                return runUi(false);
+            case DebugModeChoice.DeployOnly:
+                return runUi(true);
+            case DebugModeChoice.ObsoleteMedia:
+                return runObsoleteMedia();
+            case DebugModeChoice.CrashScreenRelaunchAllowed:
+            case DebugModeChoice.CrashScreenRelaunchRefused:
+                showCrashScreen(choice == DebugModeChoice.CrashScreenRelaunchAllowed);
+                return 0;
+            default:
+                return 0;
+        }
+    }
 
     /// <summary>Shows the picker modally on the calling STA thread and returns the choice.</summary>
     internal static DebugModeChoice Show()
@@ -70,6 +91,8 @@ internal static class DebugModePicker
         AddChoice("Connect then Deploy", DebugModeChoice.ConnectThenDeploy);
         AddChoice("Deploy only", DebugModeChoice.DeployOnly);
         AddChoice("Obsolete-media screen", DebugModeChoice.ObsoleteMedia);
+        AddChoice("Crash screen, relaunch allowed", DebugModeChoice.CrashScreenRelaunchAllowed);
+        AddChoice("Crash screen, relaunch refused", DebugModeChoice.CrashScreenRelaunchRefused);
         window.ShowDialog();
         return choice;
 

@@ -22,7 +22,10 @@ internal sealed class ObservedApplication(Process process) : IObservedApplicatio
     public Task WaitForExitAsync(CancellationToken cancellationToken) => process.WaitForExitAsync(cancellationToken);
 }
 
-/// <summary>Limits startup to two minutes; acknowledged Connect interaction has no startup deadline.</summary>
+/// <summary>
+/// Limits startup to two minutes; once the UI process reported <c>ui_ready</c> it has no deadline and is observed until it
+/// exits.
+/// </summary>
 internal sealed class ApplicationStartupObserver(TimeProvider? timeProvider = null,
     Func<CancellationToken, Task>? poll = null)
 {
@@ -30,7 +33,7 @@ internal sealed class ApplicationStartupObserver(TimeProvider? timeProvider = nu
     private readonly Func<CancellationToken, Task> delay = poll ?? (token => Task.Delay(100, token));
 
     internal async Task<ApplicationLaunchResult> ObserveAsync(IObservedApplication process,
-        Func<RuntimeStartupStatus?> readStatus, bool waitForCompletion, CancellationToken cancellationToken)
+        Func<RuntimeStartupStatus?> readStatus, CancellationToken cancellationToken)
     {
         long started = clock.GetTimestamp();
         RuntimeStartupStatus? last = null;
@@ -47,19 +50,9 @@ internal sealed class ApplicationStartupObserver(TimeProvider? timeProvider = nu
             }
             if (last?.Stage == StartupStage.UiReady)
             {
-                if (waitForCompletion)
-                {
-                    await process.WaitForExitAsync(cancellationToken).ConfigureAwait(false);
-                    last = readStatus() ?? last;
-                    return Exited();
-                }
+                await process.WaitForExitAsync(cancellationToken).ConfigureAwait(false);
                 last = readStatus() ?? last;
-                if (last.Stage == StartupStage.StartupFailed)
-                {
-                    return process.HasExited ? Exited() : new(false, FailureCategory: "startup_failed", LastStage: last.Stage);
-                }
-                // An exit observed before handoff takes precedence over an already written ready status.
-                return process.HasExited ? Exited() : new(true, ReadinessConfirmed: true, LastStage: last.Stage);
+                return Exited();
             }
             if (clock.GetElapsedTime(started) >= TimeSpan.FromSeconds(120))
             {
@@ -68,8 +61,7 @@ internal sealed class ApplicationStartupObserver(TimeProvider? timeProvider = nu
             await delay(cancellationToken).ConfigureAwait(false);
         }
 
-        ApplicationLaunchResult Exited() => new(waitForCompletion && process.ExitCode == 0, process.ExitCode,
-            readyAcknowledged,
-            waitForCompletion && process.ExitCode == 0 ? null : "child_exit", last?.Stage);
+        ApplicationLaunchResult Exited() => new(process.ExitCode == 0, process.ExitCode, readyAcknowledged,
+            process.ExitCode == 0 ? null : "child_exit", last?.Stage);
     }
 }

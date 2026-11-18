@@ -21,4 +21,22 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>Устаревший загрузочный носитель</value>
   </data>
+  <data name="UiCrash.Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="UiCrash.LogFolder" xml:space="preserve">
+    <value>Журналы: {0}</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchAllowed" xml:space="preserve">
+    <value>Работа Foundry неожиданно прервалась до того, как развертывание изменило целевой диск. Вы можете перезапустить Foundry: он начнет заново с сетевого подключения.</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchRefused" xml:space="preserve">
+    <value>Работа Foundry неожиданно прервалась. Развертывание могло уже изменить целевой диск, поэтому перезапустить Foundry нельзя. Перезагрузите компьютер, чтобы начать новое развертывание.</value>
+  </data>
+  <data name="UiCrash.Relaunch" xml:space="preserve">
+    <value>Перезапустить</value>
+  </data>
+  <data name="UiCrash.Title" xml:space="preserve">
+    <value>Работа Foundry прервана</value>
+  </data>
 </root>

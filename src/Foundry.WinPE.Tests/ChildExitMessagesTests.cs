@@ -13,13 +13,13 @@ public sealed class ChildExitMessagesTests
     [InlineData(22, "Recreate the boot media")]
     [InlineData(23, "stopped unexpectedly")]
     public void Describe_ConnectCodes_AreSpecific(int code, string expected)
-        => Assert.Contains(expected, ChildExitMessages.Describe(BootstrapStage.Connect, code));
+        => Assert.Contains(expected, ChildExitMessages.Describe(code));
 
-    [Fact]
-    public void Describe_UnknownCode_UsesGenericMessage()
-        => Assert.Equal("Foundry Connect stopped with exit code 7.", ChildExitMessages.Describe(BootstrapStage.Connect, 7));
-
-    [Fact]
-    public void Describe_DeployStage_UsesGenericMessageEvenForConnectCodes()
-        => Assert.Equal("Foundry Deploy stopped with exit code 21.", ChildExitMessages.Describe(BootstrapStage.Deploy, 21));
+    [Theory]
+    [InlineData(1)]
+    [InlineData(30)]
+    [InlineData(-1)]
+    public void Describe_OtherCodes_DescribeTheUiProcessAsFoundry(int code)
+        => Assert.Equal($"Foundry stopped unexpectedly with exit code {code}. Check the session log for details.",
+            ChildExitMessages.Describe(code));
 }

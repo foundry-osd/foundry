@@ -12,7 +12,7 @@ namespace Foundry.Core.Tests.Runtime;
 public sealed class RuntimeStartupProtocolTests
 {
     [Theory]
-    [InlineData(null, StartupCapabilityMode.Legacy)]
+    [InlineData(null, StartupCapabilityMode.Invalid)]
     [InlineData("{\"protocolVersions\":[1]}", StartupCapabilityMode.Supported)]
     [InlineData("{\"protocolVersions\":[2,1]}", StartupCapabilityMode.Supported)]
     [InlineData("{\"protocolVersions\":[2]}", StartupCapabilityMode.Incompatible)]
@@ -22,7 +22,7 @@ public sealed class RuntimeStartupProtocolTests
     [InlineData("{\"protocolVersions\":[\"1\"]}", StartupCapabilityMode.Invalid)]
     [InlineData("{\"protocolVersions\":[1],\"protocolVersions\":[2]}", StartupCapabilityMode.Invalid)]
     [InlineData("{", StartupCapabilityMode.Invalid)]
-    public void CapabilityNegotiationDistinguishesLegacyFromInvalidAdvertisement(string? json, StartupCapabilityMode expected)
+    public void CapabilityNegotiationAcceptsOnlyAValidAdvertisement(string? json, StartupCapabilityMode expected)
     {
         using var directory = new TemporaryDirectory();
         if (json is not null) File.WriteAllText(Path.Combine(directory.Path, StartupProtocol.ManifestFileName), json);
@@ -32,7 +32,7 @@ public sealed class RuntimeStartupProtocolTests
     }
 
     [Fact]
-    public void OversizedManifestIsInvalidRatherThanLegacy()
+    public void OversizedManifestIsInvalid()
     {
         using var directory = new TemporaryDirectory();
         File.WriteAllText(Path.Combine(directory.Path, StartupProtocol.ManifestFileName), new string(' ', StartupProtocol.MaximumFileBytes + 1));

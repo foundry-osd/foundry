@@ -30,6 +30,8 @@ public sealed class DebugModePickerTests
     [InlineData((int)DebugModeChoice.ConnectThenDeploy, "ui:connect", 7)]
     [InlineData((int)DebugModeChoice.DeployOnly, "ui:skip-connect", 7)]
     [InlineData((int)DebugModeChoice.ObsoleteMedia, "obsolete", 20)]
+    [InlineData((int)DebugModeChoice.CrashScreenRelaunchAllowed, "crash:allowed", 0)]
+    [InlineData((int)DebugModeChoice.CrashScreenRelaunchRefused, "crash:refused", 0)]
     [InlineData((int)DebugModeChoice.None, null, 0)]
     public void Run_StartsTheChosenMode(int choice, string? expectedCall, int expectedExitCode)
     {
@@ -45,7 +47,8 @@ public sealed class DebugModePickerTests
             {
                 calls.Add("obsolete");
                 return 20;
-            });
+            },
+            relaunchAllowed => calls.Add(relaunchAllowed ? "crash:allowed" : "crash:refused"));
 
         Assert.Equal(expectedExitCode, exitCode);
         Assert.Equal(expectedCall is null ? [] : [expectedCall], calls);

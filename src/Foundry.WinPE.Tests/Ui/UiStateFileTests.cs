@@ -42,9 +42,10 @@ public sealed class UiStateFileTests : IDisposable
     }
 
     [Fact]
-    public void Read_MissingFile_IsTheConnectPhaseWithoutDestructiveStep()
+    public void Read_MissingFile_IsUnknown()
     {
-        Assert.Equal(new UiState(UiPhase.Connect, DestructiveStarted: false), UiStateFile.Read(Path.Combine(directory, "missing.json")));
+        // The session records its state before any window, so a missing file means a failed write: never assumed safe.
+        Assert.Null(UiStateFile.Read(Path.Combine(directory, "missing.json")));
     }
 
     [Theory]

@@ -21,4 +21,22 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>Остарял носител за зареждане</value>
   </data>
+  <data name="UiCrash.Close" xml:space="preserve">
+    <value>Затвори</value>
+  </data>
+  <data name="UiCrash.LogFolder" xml:space="preserve">
+    <value>Журнали: {0}</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchAllowed" xml:space="preserve">
+    <value>Foundry спря неочаквано, преди внедряването да промени целевия диск. Можете да стартирате Foundry отново – той ще започне отначало от мрежовата връзка.</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchRefused" xml:space="preserve">
+    <value>Foundry спря неочаквано. Внедряването може вече да е променило целевия диск, затова Foundry не може да бъде стартиран отново. Рестартирайте компютъра, за да започнете ново внедряване.</value>
+  </data>
+  <data name="UiCrash.Relaunch" xml:space="preserve">
+    <value>Стартирай отново</value>
+  </data>
+  <data name="UiCrash.Title" xml:space="preserve">
+    <value>Foundry спря</value>
+  </data>
 </root>

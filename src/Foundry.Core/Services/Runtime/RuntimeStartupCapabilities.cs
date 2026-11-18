@@ -10,16 +10,16 @@ namespace Foundry.Core.Services.Runtime;
 /// <summary>Negotiates advertised protocol versions without guessing support from product versions.</summary>
 public static class RuntimeStartupCapabilities
 {
-    /// <summary>Reads the manifest adjacent to the executable; inaccessible or malformed manifests are invalid.</summary>
+    /// <summary>
+    /// Reads the manifest adjacent to the executable; a missing, inaccessible or malformed manifest is invalid, because every
+    /// supported Foundry.WinPE executable ships one.
+    /// </summary>
     public static StartupCapabilityResult Negotiate(string executablePath)
     {
         try
         {
             string path = Path.Combine(Path.GetDirectoryName(Path.GetFullPath(executablePath))!, StartupProtocol.ManifestFileName);
-            byte[] content;
-            try { content = RuntimeStartupFile.Read(path); }
-            catch (FileNotFoundException) { return new(StartupCapabilityMode.Legacy); }
-            using JsonDocument document = JsonDocument.Parse(content);
+            using JsonDocument document = JsonDocument.Parse(RuntimeStartupFile.Read(path));
             JsonElement root = document.RootElement;
             if (!RuntimeStartupFile.HasUniqueProperties(root) ||
                 !root.TryGetProperty("protocolVersions", out JsonElement versions) ||

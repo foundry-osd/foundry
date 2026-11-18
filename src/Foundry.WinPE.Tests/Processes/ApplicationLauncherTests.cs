@@ -4,6 +4,7 @@
 
 using System.Diagnostics;
 using Foundry.WinPE.Processes;
+using Foundry.WinPE.Ui;
 using Serilog;
 using Xunit;
 
@@ -22,8 +23,9 @@ public sealed class ApplicationLauncherTests
         try
         {
             File.WriteAllText(executable, "guardian");
+            WriteManifest(directory);
             using var logger = new LoggerConfiguration().CreateLogger();
-            var launcher = new ApplicationLauncher(logger,
+            var launcher = new ApplicationLauncher(logger, Path.Combine(directory, "session"),
                 startProcess: _ => Process.Start(new ProcessStartInfo(
                     Environment.GetEnvironmentVariable("ComSpec")!, $"/d /c exit {exitCode}")
                 {
@@ -56,9 +58,10 @@ public sealed class ApplicationLauncherTests
         try
         {
             File.WriteAllText(executable, "prepared payload");
+            WriteManifest(directory);
             using var logger = new LoggerConfiguration().CreateLogger();
             using var cancellation = new CancellationTokenSource();
-            var launcher = new ApplicationLauncher(logger,
+            var launcher = new ApplicationLauncher(logger, Path.Combine(directory, "session"),
                 startProcess: _ =>
                 {
                     Process observed = Process.GetProcessById(child.Id);
@@ -133,35 +136,18 @@ public sealed class ApplicationLauncherTests
     [Theory]
     [InlineData(null)]
     [InlineData("{\"protocolVersions\":[2]}")]
-    public async Task LegacyOrIncompatiblePayloadUsesExplicitUnverifiedHandoff(string? manifest)
+    public async Task MissingOrIncompatibleCapabilitiesAreInvalidAndNeverStartTheApplication(string? manifest)
     {
         string directory = Directory.CreateTempSubdirectory("FoundryStartup-").FullName;
         try
         {
             if (manifest is not null) File.WriteAllText(Path.Combine(directory, "foundry.startup.json"), manifest);
             using var logger = new LoggerConfiguration().CreateLogger();
-            var warnings = new List<string>();
-            var launcher = new ApplicationLauncher(logger, warning: warnings.Add, startProcess: start =>
-            {
-                Assert.False(start.Environment.ContainsKey("FOUNDRY_STARTUP_PROTOCOL"));
-                Assert.False(start.Environment.ContainsKey("FOUNDRY_STARTUP_LAUNCH_ID"));
-                Assert.False(start.Environment.ContainsKey("FOUNDRY_STARTUP_STATUS_PATH"));
-                return Process.Start(new ProcessStartInfo(Environment.GetEnvironmentVariable("ComSpec")!, "/d /c exit 0")
-                {
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                });
-            });
+            var launcher = new ApplicationLauncher(logger, startProcess: _ => throw new InvalidOperationException("Must not start"));
             ApplicationLaunchResult result = await launcher.RunUiAsync(Path.Combine(directory, "Foundry.WinPE.exe"),
-                new Dictionary<string, string?>
-                {
-                    ["FOUNDRY_STARTUP_PROTOCOL"] = "1",
-                    ["FOUNDRY_STARTUP_LAUNCH_ID"] = "stale",
-                    ["FOUNDRY_STARTUP_STATUS_PATH"] = "stale"
-                }, TestContext.Current.CancellationToken);
-            Assert.True(result.Succeeded);
-            Assert.False(result.ReadinessConfirmed);
-            Assert.Single(warnings);
+                new Dictionary<string, string?>(), TestContext.Current.CancellationToken);
+            Assert.False(result.Succeeded);
+            Assert.Equal("capability_invalid", result.FailureCategory);
         }
         finally { Directory.Delete(directory, recursive: true); }
     }
@@ -190,9 +176,10 @@ public sealed class ApplicationLauncherTests
         try
         {
             string executable = Path.Combine(directory, "Foundry.WinPE.exe");
+            WriteManifest(directory);
             var starts = new List<ProcessStartInfo>();
             using var logger = new LoggerConfiguration().CreateLogger();
-            var launcher = new ApplicationLauncher(logger, startProcess: start =>
+            var launcher = new ApplicationLauncher(logger, Path.Combine(directory, "session"), startProcess: start =>
             {
                 starts.Add(start);
                 return Process.Start(new ProcessStartInfo(Environment.GetEnvironmentVariable("ComSpec")!, "/d /c exit 0")
@@ -220,9 +207,10 @@ public sealed class ApplicationLauncherTests
         try
         {
             string executable = Path.Combine(directory, "Foundry.WinPE.exe");
+            WriteManifest(directory);
             var starts = new List<ProcessStartInfo>();
             using var logger = new LoggerConfiguration().CreateLogger();
-            var launcher = new ApplicationLauncher(logger, startProcess: start =>
+            var launcher = new ApplicationLauncher(logger, Path.Combine(directory, "session"), startProcess: start =>
             {
                 starts.Add(start);
                 return Process.Start(new ProcessStartInfo(Environment.GetEnvironmentVariable("ComSpec")!, "/d /c exit 0")
@@ -337,4 +325,88 @@ public sealed class ApplicationLauncherTests
             Directory.Delete(directory, recursive: true);
         }
     }
+
+    [Fact]
+    public async Task EachLaunchHasItsOwnIdentityStatusFileAndUiStateFile()
+    {
+        string directory = Directory.CreateTempSubdirectory("FoundryRelaunch-").FullName;
+        try
+        {
+            string executable = Path.Combine(directory, "Foundry.WinPE.exe");
+            WriteManifest(directory);
+            var starts = new List<ProcessStartInfo>();
+            using var logger = new LoggerConfiguration().CreateLogger();
+            var launcher = new ApplicationLauncher(logger, Path.Combine(directory, "session"), startProcess: start =>
+            {
+                starts.Add(start);
+                return Process.Start(new ProcessStartInfo(Environment.GetEnvironmentVariable("ComSpec")!, "/d /c exit 0")
+                {
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                });
+            });
+
+            using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            await launcher.RunUiAsync(executable, new Dictionary<string, string?>(), deadline.Token);
+            await launcher.RunUiAsync(executable, new Dictionary<string, string?>(), deadline.Token);
+
+            Assert.Equal(2, starts.Count);
+            Assert.NotEqual(starts[0].Environment["FOUNDRY_STARTUP_LAUNCH_ID"], starts[1].Environment["FOUNDRY_STARTUP_LAUNCH_ID"]);
+            Assert.NotEqual(starts[0].Environment["FOUNDRY_STARTUP_STATUS_PATH"], starts[1].Environment["FOUNDRY_STARTUP_STATUS_PATH"]);
+            Assert.NotEqual(starts[0].Environment["FOUNDRY_WINPE_UI_STATE_PATH"], starts[1].Environment["FOUNDRY_WINPE_UI_STATE_PATH"]);
+            Assert.All(starts, start => Assert.Equal(
+                Path.GetDirectoryName(start.Environment["FOUNDRY_STARTUP_STATUS_PATH"]),
+                Path.GetDirectoryName(start.Environment["FOUNDRY_WINPE_UI_STATE_PATH"])));
+        }
+        finally { Directory.Delete(directory, recursive: true); }
+    }
+
+    [Fact]
+    public async Task TheUiStateIsReadOnceTheUiProcessExitedAfterReadiness()
+    {
+        string directory = Directory.CreateTempSubdirectory("FoundryUiState-").FullName;
+        try
+        {
+            string executable = Path.Combine(directory, "Foundry.WinPE.exe");
+            WriteManifest(directory);
+            using var logger = new LoggerConfiguration().CreateLogger();
+            var launcher = new ApplicationLauncher(logger, Path.Combine(directory, "session"), startProcess: start =>
+            {
+                Process child = Process.Start(new ProcessStartInfo(Environment.GetEnvironmentVariable("ComSpec")!, "/d /c exit 30")
+                {
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                })!;
+                WriteReadyStatus(start, child.Id);
+                UiStateFile.Write(start.Environment["FOUNDRY_WINPE_UI_STATE_PATH"]!,
+                    new UiState(UiPhase.Deploy, DestructiveStarted: true));
+                return child;
+            });
+
+            using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+            ApplicationLaunchResult result = await launcher.RunUiAsync(executable,
+                new Dictionary<string, string?> { ["FOUNDRY_DIAGNOSTIC_SESSION_ID"] = "TEST" }, deadline.Token);
+
+            Assert.False(result.Succeeded);
+            Assert.True(result.ReadinessConfirmed);
+            Assert.Equal(30, result.ExitCode);
+            Assert.Equal(new UiState(UiPhase.Deploy, DestructiveStarted: true), result.UiState);
+        }
+        finally { Directory.Delete(directory, recursive: true); }
+    }
+
+    private static void WriteManifest(string directory) =>
+        File.WriteAllText(Path.Combine(directory, "foundry.startup.json"), "{\"protocolVersions\":[1]}");
+
+    private static void WriteReadyStatus(ProcessStartInfo start, int processId) =>
+        File.WriteAllText(start.Environment["FOUNDRY_STARTUP_STATUS_PATH"]!, System.Text.Json.JsonSerializer.Serialize(new
+        {
+            protocolVersion = 1,
+            sessionId = start.Environment["FOUNDRY_DIAGNOSTIC_SESSION_ID"],
+            launchId = start.Environment["FOUNDRY_STARTUP_LAUNCH_ID"],
+            application = "Foundry.WinPE",
+            processId,
+            stage = "ui_ready",
+            timestampUtc = DateTimeOffset.UtcNow
+        }));
 }

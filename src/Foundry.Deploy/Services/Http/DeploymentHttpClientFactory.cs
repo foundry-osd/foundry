@@ -37,7 +37,7 @@ public static class DeploymentHttpClientFactory
             }
             catch (HttpRequestException exception) when (HttpConnectionFailure.IsSecureConnectionFailure(exception))
             {
-                // Startup diagnostics also need guidance without delaying Bootstrap's failure handoff.
+                // The guidance travels in the message, so startup failure logs show it without another lookup.
                 throw new HttpRequestException(exception.HttpRequestError, HttpConnectionFailure.SecureConnectionMessage, exception);
             }
         }

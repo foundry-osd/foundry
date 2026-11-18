@@ -14,24 +14,26 @@ public sealed class BootstrapConsoleTests
     {
         using var output = new StringWriter();
         using var presenter = new BootstrapConsole(output);
-        presenter.Report(new(BootstrapStage.System, BootstrapStatus.Running, "Preparing the clock"));
-        presenter.ReportWarning("Time zone could not be applied.");
-        presenter.Report(new(BootstrapStage.System, BootstrapStatus.Completed, "System preparation completed"));
-        presenter.Complete(new(BootstrapOutcome.Succeeded, BootstrapStage.Deploy, ReadinessConfirmed: true), "SESSION", @"X:\Foundry\Logs\FoundryBootstrap.log");
+        presenter.Report(new(BootstrapStage.Environment, BootstrapStatus.Running, "Preparing network access"));
+        presenter.ReportWarning("Some network preparation was unavailable. Continuing.");
+        presenter.Report(new(BootstrapStage.Environment, BootstrapStatus.Completed, "Environment prepared"));
+        presenter.Report(new(BootstrapStage.Connect, BootstrapStatus.Completed, "Foundry closed."));
+        presenter.Complete(new(BootstrapOutcome.Succeeded, BootstrapStage.Connect), "SESSION", @"X:\Foundry\Logs\FoundryBootstrap.log");
 
         string text = output.ToString();
         Assert.Contains("Done (warning)", text);
-        Assert.Contains("Time zone could not be applied.", text);
-        Assert.Contains("Continue in Foundry Deploy.", text);
+        Assert.Contains("Some network preparation was unavailable. Continuing.", text);
+        Assert.Contains("Foundry closed.", text);
         Assert.Contains("Session: SESSION", text);
         Assert.Contains(@"X:\Foundry\Logs\FoundryBootstrap.log", text);
     }
 
     [Fact]
-    public void LegacyHandoffNeverClaimsReadinessAndLateCallbacksCannotReplaceOutcome()
+    public void LateCallbacksCannotReplaceTheOutcome()
     {
         using var output = new StringWriter();
         using var presenter = new BootstrapConsole(output);
+        presenter.Report(new(BootstrapStage.Connect, BootstrapStatus.Completed, "Foundry closed."));
         presenter.Complete(new(BootstrapOutcome.Succeeded, BootstrapStage.Deploy), "SESSION", null);
         string terminal = output.ToString();
 
@@ -40,22 +42,24 @@ public sealed class BootstrapConsoleTests
         presenter.Complete(new(BootstrapOutcome.Failed, BootstrapStage.Deploy), "SESSION", null);
 
         Assert.Equal(terminal, output.ToString());
-        Assert.Contains("Readiness is unverified", terminal);
-        Assert.DoesNotContain("Continue in Foundry Deploy", terminal);
+        Assert.DoesNotContain("Foundry Deploy", terminal);
         Assert.DoesNotContain('\u001b', terminal);
     }
 
     [Fact]
-    public void ProgressListsTheFourBootStagesWithoutAPostInstallStage()
+    public void EveryUiPhaseIsShownOnTheSingleFoundryLine()
     {
         using var output = new StringWriter();
         using var presenter = new BootstrapConsole(output);
-        presenter.Report(new(BootstrapStage.System, BootstrapStatus.Completed, "System preparation completed"));
-        presenter.Report(new(BootstrapStage.Deploy, BootstrapStatus.Running, "Starting Foundry Deploy"));
+        presenter.Report(new(BootstrapStage.Connect, BootstrapStatus.Running, "Starting Foundry"));
+        presenter.Report(new(BootstrapStage.Deploy, BootstrapStatus.Failed, "Foundry stopped unexpectedly."));
 
-        Assert.Equal([BootstrapStage.Environment, BootstrapStage.Connect, BootstrapStage.System, BootstrapStage.Deploy],
-            Enum.GetValues<BootstrapStage>());
-        Assert.DoesNotContain("Deployment files", output.ToString());
+        string text = output.ToString();
+        Assert.Contains("Foundry: In progress - Starting Foundry", text);
+        Assert.Contains("Foundry: Failed - Foundry stopped unexpectedly.", text);
+        Assert.DoesNotContain("Clock and time zone", text);
+        Assert.DoesNotContain("Deployment application", text);
+        Assert.DoesNotContain("Network connection", text);
     }
 
     [Fact]

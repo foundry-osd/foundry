@@ -26,7 +26,7 @@ public sealed class RuntimeStartupReporter
     public string SessionId { get; }
     public string LaunchId { get; }
 
-    /// <summary>Returns null when no complete, supported launch identity was explicitly supplied by Bootstrap.</summary>
+    /// <summary>Returns null when no complete, supported launch identity was explicitly supplied by the Foundry.WinPE guardian.</summary>
     public static RuntimeStartupReporter? FromEnvironment(string application) =>
         FromEnvironment(application, Environment.GetEnvironmentVariable);
 

@@ -21,4 +21,22 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>Média de démarrage obsolète</value>
   </data>
+  <data name="UiCrash.Close" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="UiCrash.LogFolder" xml:space="preserve">
+    <value>Journaux : {0}</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchAllowed" xml:space="preserve">
+    <value>Foundry s'est arrêté de manière inattendue avant que le déploiement ne modifie le disque cible. Vous pouvez relancer Foundry, qui redémarre à partir de la connexion réseau.</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchRefused" xml:space="preserve">
+    <value>Foundry s'est arrêté de manière inattendue. Le déploiement a peut-être déjà modifié le disque cible : Foundry ne peut donc pas être relancé. Redémarrez l'ordinateur pour lancer un nouveau déploiement.</value>
+  </data>
+  <data name="UiCrash.Relaunch" xml:space="preserve">
+    <value>Relancer</value>
+  </data>
+  <data name="UiCrash.Title" xml:space="preserve">
+    <value>Foundry s'est arrêté</value>
+  </data>
 </root>

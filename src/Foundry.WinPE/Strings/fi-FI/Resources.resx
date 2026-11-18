@@ -21,4 +21,22 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>Vanhentunut käynnistysmedia</value>
   </data>
+  <data name="UiCrash.Close" xml:space="preserve">
+    <value>Sulje</value>
+  </data>
+  <data name="UiCrash.LogFolder" xml:space="preserve">
+    <value>Lokit: {0}</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchAllowed" xml:space="preserve">
+    <value>Foundry pysähtyi odottamatta ennen kuin käyttöönotto muutti kohdelevyä. Voit käynnistää Foundryn uudelleen, jolloin se aloittaa alusta verkkoyhteydestä.</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchRefused" xml:space="preserve">
+    <value>Foundry pysähtyi odottamatta. Käyttöönotto on ehkä jo muuttanut kohdelevyä, joten Foundrya ei voi käynnistää uudelleen. Aloita uusi käyttöönotto käynnistämällä tietokone uudelleen.</value>
+  </data>
+  <data name="UiCrash.Relaunch" xml:space="preserve">
+    <value>Käynnistä uudelleen</value>
+  </data>
+  <data name="UiCrash.Title" xml:space="preserve">
+    <value>Foundry pysähtyi</value>
+  </data>
 </root>

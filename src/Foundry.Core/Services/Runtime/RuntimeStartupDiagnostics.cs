@@ -69,7 +69,7 @@ public sealed class RuntimeStartupDiagnostics
         };
     }
 
-    /// <summary>Indicates that Bootstrap supplied a valid negotiated launch identity.</summary>
+    /// <summary>Indicates that the Foundry.WinPE guardian supplied a valid negotiated launch identity.</summary>
     public bool ProtocolEnabled { get; }
 
     /// <summary>

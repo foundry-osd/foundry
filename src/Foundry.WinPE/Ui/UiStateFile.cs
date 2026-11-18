@@ -84,18 +84,14 @@ internal static class UiStateFile
     }
 
     /// <summary>
-    /// Reads the state file: a missing file is <see cref="UiState.Initial"/> (the UI process recorded nothing yet), and an
-    /// unreadable or invalid one is <see langword="null"/>, an unknown state the caller must not treat as safe.
+    /// Reads the state file. A missing, unreadable or invalid file is <see langword="null"/>, an unknown state the caller must
+    /// not treat as safe: the UI session records its state before it shows any window, so after readiness a missing file
+    /// means a failed write.
     /// </summary>
     internal static UiState? Read(string path)
     {
         try
         {
-            if (!File.Exists(path))
-            {
-                return UiState.Initial;
-            }
-
             using var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
             if (stream.Length > MaximumBytes)
             {

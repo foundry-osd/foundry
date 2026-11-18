@@ -21,4 +21,22 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>מדיית אתחול מיושנת</value>
   </data>
+  <data name="UiCrash.Close" xml:space="preserve">
+    <value>סגור</value>
+  </data>
+  <data name="UiCrash.LogFolder" xml:space="preserve">
+    <value>יומנים: {0}</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchAllowed" xml:space="preserve">
+    <value>Foundry הפסיק לפעול באופן בלתי צפוי לפני שהפריסה שינתה את דיסק היעד. באפשרותך להפעיל מחדש את Foundry, שיתחיל שוב מחיבור הרשת.</value>
+  </data>
+  <data name="UiCrash.MessageRelaunchRefused" xml:space="preserve">
+    <value>Foundry הפסיק לפעול באופן בלתי צפוי. ייתכן שהפריסה כבר שינתה את דיסק היעד, ולכן לא ניתן להפעיל מחדש את Foundry. הפעל מחדש את המחשב כדי להתחיל פריסה חדשה.</value>
+  </data>
+  <data name="UiCrash.Relaunch" xml:space="preserve">
+    <value>הפעל מחדש</value>
+  </data>
+  <data name="UiCrash.Title" xml:space="preserve">
+    <value>Foundry הפסיק לפעול</value>
+  </data>
 </root>

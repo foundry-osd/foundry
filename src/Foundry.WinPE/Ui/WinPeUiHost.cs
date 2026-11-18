@@ -39,7 +39,8 @@ namespace Foundry.WinPE.Ui;
 /// and ends the process with <see cref="UiProcessExit.UnhandledExceptionExitCode"/>, which the guardian treats as a crash.
 /// A phase removes its handler while it ends, before its task completes; an exception raised in that window is marked
 /// handled by nobody, leaves <see cref="Application.Run()"/> and is classified as a crash by <see cref="UiProcessExit"/>
-/// (the host fallback). Nothing is recorded as destructive on these paths.
+/// (the host fallback). The same fallback covers the window at the start of a phase, while it runs but has not subscribed
+/// its handler yet. Nothing is recorded as destructive on these paths.
 /// </para>
 /// </remarks>
 internal static class WinPeUiHost

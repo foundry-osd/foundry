@@ -21,6 +21,7 @@ internal sealed class BootstrapTelemetry : ILogEventSink
     private string? recoveryRoot;
     private Task recovery = Task.CompletedTask;
     private int terminalOutcomeRecorded;
+    private int deliveryStarted;
     private string bootMediaTarget = TelemetryBootMediaTargets.Unknown;
 
     /// <summary>
@@ -35,11 +36,7 @@ internal sealed class BootstrapTelemetry : ILogEventSink
             settings = ReadConsent(winPeRoot, Environment.GetEnvironmentVariable(WinPeConfigurationPath.OverrideEnvironmentVariable));
             recoveryRoot = Path.Combine(cacheRoot ?? winPeRoot, "Logs");
             if (settings is null) { return; }
-            string version = typeof(BootstrapTelemetry).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "unknown";
-            var context = TelemetryContextFactory.Create(TelemetryApps.FoundryBootstrap, version, TelemetryBuildConfiguration.Current,
-                "winpe", settings.RuntimePayloadSource, bootMediaTarget,
-                RuntimeInformation.OSArchitecture.ToString().ToLowerInvariant(), CultureInfo.CurrentUICulture.Name,
-                TelemetryRuntimeHosts.FoundryWinPe);
+            TelemetryContext context = CreateContext(settings.RuntimePayloadSource, bootMediaTarget);
             pipeline = new BootstrapTelemetryPipeline(
                 new(settings.IsEnabled, settings.HostUrl, settings.ProjectToken, settings.InstallId), context,
                 new(settings.IsRemoteDiagnosticsEnabled, settings.HostUrl, settings.ProjectToken, settings.InstallId),
@@ -58,15 +55,32 @@ internal sealed class BootstrapTelemetry : ILogEventSink
             Path.Combine(winPeRoot, "Config", WinPeWorkspaceLayout.ConfigurationFileName),
             configurationOverride).Path);
 
+    /// <summary>
+    /// Creates the guardian's event context: application <see cref="TelemetryApps.FoundryBootstrap"/> hosted by
+    /// <see cref="TelemetryRuntimeHosts.FoundryWinPe"/>, so its events carry <c>runtime_host</c>.
+    /// </summary>
+    internal static TelemetryContext CreateContext(string payloadSource, string bootMediaTarget)
+    {
+        string version = typeof(BootstrapTelemetry).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "unknown";
+        return TelemetryContextFactory.Create(TelemetryApps.FoundryBootstrap, version, TelemetryBuildConfiguration.Current,
+            "winpe", payloadSource, bootMediaTarget,
+            RuntimeInformation.OSArchitecture.ToString().ToLowerInvariant(), CultureInfo.CurrentUICulture.Name,
+            TelemetryRuntimeHosts.FoundryWinPe);
+    }
+
     public void Emit(LogEvent logEvent)
     {
         try { pipeline?.Emit(logEvent); }
         catch { }
     }
 
-    /// <summary>Starts background delivery once the coordinator permits it.</summary>
+    /// <summary>
+    /// Starts background delivery when the guardian has something to send; only the first call starts it, with the clock
+    /// usability the caller evaluated at that moment.
+    /// </summary>
     internal void StartDelivery(bool clockUsable)
     {
+        if (Interlocked.Exchange(ref deliveryStarted, 1) != 0) { return; }
         try
         {
             pipeline?.StartDelivery(clockUsable);
@@ -80,30 +94,44 @@ internal sealed class BootstrapTelemetry : ILogEventSink
     }
 
     /// <summary>
-    /// Maps only terminal failures to product events; diagnostics use their own consent. The payload version is the
-    /// version of the application that failed, not the Bootstrap version carried by the event context.
+    /// Maps only terminal failures to product events, at most once per boot; diagnostics use their own consent. The payload
+    /// version is the version of the application that failed, not the guardian version carried by the event context.
     /// </summary>
     internal void Complete(BootstrapResult result, TimeSpan elapsed)
     {
         if (Interlocked.Exchange(ref terminalOutcomeRecorded, 1) != 0 || result.Outcome != BootstrapOutcome.Failed) { return; }
         try
         {
-            pipeline?.CaptureTerminalFailure(new Dictionary<string, object?>
-            {
-                ["failure_category"] = result.FailureCategory ?? (result.ChildExitCode.HasValue ? "child_exit" : "stage_failed"),
-                ["last_stage"] = result.Stage.ToString().ToLowerInvariant(),
-                ["elapsed_seconds"] = elapsed.TotalSeconds,
-                ["child_application"] = result.Stage == BootstrapStage.Connect ? "foundry_connect" : result.Stage == BootstrapStage.Deploy ? "foundry_deploy" : "none",
-                ["child_exit_code"] = result.ChildExitCode,
-                ["child_startup_stage"] = result.ChildStartupStage,
-                ["payload_source"] = settings?.RuntimePayloadSource,
-                ["payload_version"] = result.PayloadVersion,
-                ["boot_media_target"] = bootMediaTarget,
-                ["architecture"] = RuntimeInformation.OSArchitecture.ToString().ToLowerInvariant()
-            });
+            pipeline?.CaptureTerminalFailure(FailureProperties(result, elapsed, settings?.RuntimePayloadSource, bootMediaTarget));
         }
         catch { }
     }
+
+    /// <summary>
+    /// Builds the <c>bootstrap:failed</c> properties. The UI process phases map to the application that runs them: Foundry
+    /// Connect for <see cref="BootstrapStage.Connect"/> and for the system preparation that follows it
+    /// (<see cref="BootstrapStage.System"/>), Foundry Deploy for <see cref="BootstrapStage.Deploy"/>, none for the guardian's
+    /// own environment stage.
+    /// </summary>
+    internal static IReadOnlyDictionary<string, object?> FailureProperties(BootstrapResult result, TimeSpan elapsed,
+        string? payloadSource, string bootMediaTarget) => new Dictionary<string, object?>
+        {
+            ["failure_category"] = result.FailureCategory ?? (result.ChildExitCode.HasValue ? "child_exit" : "stage_failed"),
+            ["last_stage"] = result.Stage.ToString().ToLowerInvariant(),
+            ["elapsed_seconds"] = elapsed.TotalSeconds,
+            ["child_application"] = result.Stage switch
+            {
+                BootstrapStage.Connect or BootstrapStage.System => TelemetryApps.FoundryConnect,
+                BootstrapStage.Deploy => TelemetryApps.FoundryDeploy,
+                _ => "none"
+            },
+            ["child_exit_code"] = result.ChildExitCode,
+            ["child_startup_stage"] = result.ChildStartupStage,
+            ["payload_source"] = payloadSource,
+            ["payload_version"] = result.PayloadVersion,
+            ["boot_media_target"] = bootMediaTarget,
+            ["architecture"] = RuntimeInformation.OSArchitecture.ToString().ToLowerInvariant()
+        };
 
     internal async Task ShutdownAsync(CancellationToken cancellationToken)
     {

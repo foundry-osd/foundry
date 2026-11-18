@@ -7,7 +7,7 @@ namespace Foundry.Core.Services.Runtime;
 /// <summary>
 /// Identifies a boot-media runtime application to the shared startup diagnostics.
 /// </summary>
-/// <param name="ApplicationId">Stable application name used in the Bootstrap handshake and the log context, for example <c>Foundry.Connect</c>.</param>
+/// <param name="ApplicationId">Stable application name used in the startup handshake with the Foundry.WinPE guardian and the log context, for example <c>Foundry.Connect</c>.</param>
 /// <param name="TelemetryApplication">Telemetry application identifier reported with remote diagnostics.</param>
 /// <param name="Version">Application version reported with remote diagnostics.</param>
 public sealed record RuntimeApplicationIdentity(string ApplicationId, string TelemetryApplication, string Version)

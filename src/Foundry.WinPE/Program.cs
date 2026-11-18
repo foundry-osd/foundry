@@ -7,6 +7,7 @@ using Foundry.WinPE.DebugPicker;
 using Foundry.WinPE.ObsoleteMedia;
 using Foundry.WinPE.Ui;
 using Foundry.Wpf.Runtime;
+using MessageBox = System.Windows.MessageBox;
 
 namespace Foundry.WinPE;
 
@@ -33,7 +34,7 @@ public static class Program
         {
             // WPF caches its AppContext switches when it first reads them, which the picker's window can already do.
             WinPeUiHost.ConfigureFluentBackdrop();
-            return DebugModePicker.Run(DebugModePicker.Show(), WinPeUiHost.Run, ShowObsoleteMediaScreen);
+            return DebugModePicker.Run(DebugModePicker.Show(), WinPeUiHost.Run, ShowObsoleteMediaScreen, ShowCrashScreen);
         }
 
         return WinPeModes.Parse(args) switch
@@ -50,5 +51,12 @@ public static class Program
     {
         ObsoleteMediaWindow.Show(static () => { });
         return ObsoleteMediaMode.ExitCode;
+    }
+
+    // The debug picker previews the crash window on this thread and only reports the choice: nothing is relaunched.
+    private static void ShowCrashScreen(bool relaunchAllowed)
+    {
+        UiCrashChoice choice = UiCrashWindow.Show(relaunchAllowed, Path.Combine(Path.GetTempPath(), "Foundry", "Logs"));
+        MessageBox.Show($"Crash screen choice: {choice}.", "Foundry.WinPE debug mode");
     }
 }
