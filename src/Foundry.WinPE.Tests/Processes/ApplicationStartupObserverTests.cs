@@ -87,18 +87,52 @@ public sealed class ApplicationStartupObserverTests
         Assert.False(process.HasExited);
     }
 
+    [Fact]
+    public async Task ReadyUiProcessIsSupervisedUntilItExits()
+    {
+        var exit = new TaskCompletionSource();
+        var process = new Child { ExitCode = 30, Exit = exit.Task };
+        int polls = 0;
+        int supervised = 0;
+        var observer = new ApplicationStartupObserver(supervisionPoll: _ =>
+        {
+            if (++polls == 3) { process.Exited = true; exit.SetResult(); }
+            return Task.CompletedTask;
+        });
+
+        ApplicationLaunchResult result = await observer.ObserveAsync(process, () => Status(StartupStage.UiReady),
+            TestContext.Current.CancellationToken, () => supervised++);
+
+        Assert.Equal(3, supervised);
+        Assert.True(result.ReadinessConfirmed);
+        Assert.Equal(30, result.ExitCode);
+    }
+
+    [Fact]
+    public async Task SupervisionNeverStartsBeforeReadiness()
+    {
+        int supervised = 0;
+        var process = new Child { Exited = true, ExitCode = 21 };
+
+        await new ApplicationStartupObserver().ObserveAsync(process, () => Status(StartupStage.ConfigurationLoaded),
+            TestContext.Current.CancellationToken, () => supervised++);
+
+        Assert.Equal(0, supervised);
+    }
+
     private static RuntimeStartupStatus Status(string stage) => new() { Stage = stage };
 
     private sealed class Child : IObservedApplication
     {
         internal bool Exited { get; set; }
-        internal Func<bool>? ProbeExit { get; init; }
         internal Action? OnWait { get; init; }
-        public bool HasExited => ProbeExit?.Invoke() ?? Exited;
+        public bool HasExited => Exited;
         public int ExitCode { get; init; }
+        internal Task? Exit { get; init; }
         public Task WaitForExitAsync(CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
+            if (Exit is not null) { return Exit; }
             OnWait?.Invoke();
             Exited = true;
             return Task.CompletedTask;

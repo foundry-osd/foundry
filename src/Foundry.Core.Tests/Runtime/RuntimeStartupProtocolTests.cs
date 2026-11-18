@@ -41,7 +41,7 @@ public sealed class RuntimeStartupProtocolTests
     }
 
     [Fact]
-    public void ReporterAtomicallyPublishesForwardStagesAndFailureIdentity()
+    public void ReporterAtomicallyPublishesForwardStagesAndFailureCategory()
     {
         using var directory = new TemporaryDirectory();
         string path = Path.Combine(directory.Path, "launch", "status.json");
@@ -58,9 +58,12 @@ public sealed class RuntimeStartupProtocolTests
         Assert.Equal(StartupStage.UiReady, reader.Read()?.Stage);
         Assert.Null(reader.Read());
         Assert.False(reporter.Report(StartupStage.ConfigurationLoaded));
-        string recordId = Guid.NewGuid().ToString("D");
-        Assert.True(reporter.Report(StartupStage.StartupFailed, "startup_failed", recordId));
-        Assert.Equal(recordId, reader.Read()?.FailureRecordId);
+        Assert.True(reporter.Report(StartupStage.StartupFailed, "startup_failed"));
+        RuntimeStartupStatus? failed = reader.Read();
+        Assert.Equal("startup_failed", failed?.FailureCategory);
+        // Kept in the file shape for v26.10.18.1 compatibility, never populated.
+        Assert.Null(failed?.FailureRecordId);
+        Assert.Contains("\"failureRecordId\":null", File.ReadAllText(path), StringComparison.Ordinal);
         Assert.False(reporter.Report(StartupStage.UiReady));
         Assert.Empty(Directory.GetFiles(Path.GetDirectoryName(path)!, "*.tmp"));
         Assert.True(new FileInfo(path).Length <= StartupProtocol.MaximumFileBytes);

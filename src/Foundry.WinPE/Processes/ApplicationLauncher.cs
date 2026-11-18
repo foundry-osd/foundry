@@ -15,10 +15,9 @@ namespace Foundry.WinPE.Processes;
 /// <summary>
 /// Launches the UI process and observes it until it exits, without terminating it or buffering its output. Each launch gets
 /// its own directory under <c>Startup\&lt;launch id&gt;</c> in the session directory, holding the readiness status file and
-/// the UI state file (<see cref="UiStateFile"/>).
+/// the UI state file (<see cref="UiStateFile"/>), which is read while the ready UI process runs and once it exited.
 /// </summary>
 internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirectory = null,
-    Action<string, Guid, string>? recoverFailure = null,
     Func<ProcessStartInfo, Process?>? startProcess = null) : IApplicationLauncher
 {
     /// <summary>The UI state file name, next to the launch's status file.</summary>
@@ -27,7 +26,7 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
     private const string Application = UiReadinessReporter.ApplicationId;
 
     public async Task<ApplicationLaunchResult> RunUiAsync(string executable, IReadOnlyDictionary<string, string?> environment,
-        CancellationToken cancellationToken)
+        Action<UiState>? onUiState, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
         StartupCapabilityResult capability = RuntimeStartupCapabilities.Negotiate(executable);
@@ -54,57 +53,51 @@ internal sealed class ApplicationLauncher(ILogger logger, string? sessionDirecto
         start.Environment[UiStateFile.PathEnvironmentVariable] = statePath;
         long launched = Stopwatch.GetTimestamp();
         using Process process = Start(start);
-        try
+        UiPhase? lastPhase = null;
+        var reader = new RuntimeStartupStatusReader(statusPath, sessionId, launchId.ToString("N"), Application, process.Id);
+        logger.Debug("Observing managed startup for {Component}; process {ProcessId}; protocol {ProtocolVersion}; launch {LaunchId}",
+            Application, process.Id, capability.ProtocolVersion, launchId.ToString("N"));
+        ApplicationLaunchResult result = await new ApplicationStartupObserver().ObserveAsync(
+            new ObservedApplication(process), ReadStatus, cancellationToken, Supervise).ConfigureAwait(false);
+        if (result.FailureCategory == "startup_failed" && !process.HasExited)
         {
-            var reader = new RuntimeStartupStatusReader(statusPath, sessionId, launchId.ToString("N"), Application, process.Id);
-            logger.Debug("Observing managed startup for {Component}; process {ProcessId}; protocol {ProtocolVersion}; launch {LaunchId}",
-                Application, process.Id, capability.ProtocolVersion, launchId.ToString("N"));
-            ApplicationLaunchResult result = await new ApplicationStartupObserver().ObserveAsync(
-                new ObservedApplication(process), ReadStatus, cancellationToken).ConfigureAwait(false);
-            if (result.FailureCategory == "startup_failed" && recoverFailure is not null && !process.HasExited)
-            {
-                // Allow orderly child cleanup to release its failure record before terminal telemetry shutdown.
-                using var exitGrace = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-                exitGrace.CancelAfter(TimeSpan.FromSeconds(5));
-                try { await process.WaitForExitAsync(exitGrace.Token).ConfigureAwait(false); }
-                catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested) { }
-                cancellationToken.ThrowIfCancellationRequested();
-                if (process.HasExited) { result = result with { ExitCode = process.ExitCode }; }
-            }
-            if (process.HasExited) { result = result with { UiState = UiStateFile.Read(statePath) }; }
-            logger.Information(
-                "Application run observed for {Component}: {Outcome}; stage {Stage}; exit {ExitCode}; reason {FailureReason}; UI phase {UiPhase}; destructive step started {DestructiveStarted}; duration {DurationMilliseconds:F0} ms",
-                Application, result.Succeeded ? "Succeeded" : "Stopped", result.LastStage, result.ExitCode, result.FailureCategory,
-                result.UiState?.Phase, result.UiState?.DestructiveStarted, Stopwatch.GetElapsedTime(launched).TotalMilliseconds);
-            return result;
-
-            RuntimeStartupStatus? ReadStatus()
-            {
-                RuntimeStartupStatus? status = reader.Read();
-                if (status is not null)
-                {
-                    logger.Information("Application {Component} acknowledged startup stage {Stage}; process {ProcessId}; elapsed {DurationMilliseconds:F0} ms",
-                        Application, status.Stage, process.Id, Stopwatch.GetElapsedTime(launched).TotalMilliseconds);
-                }
-                return status;
-            }
+            // A UI process that reported startup_failed is shutting down: wait briefly so child_exit_code carries its code.
+            using var exitGrace = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            exitGrace.CancelAfter(TimeSpan.FromSeconds(5));
+            try { await process.WaitForExitAsync(exitGrace.Token).ConfigureAwait(false); }
+            catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested) { }
+            cancellationToken.ThrowIfCancellationRequested();
+            if (process.HasExited) { result = result with { ExitCode = process.ExitCode }; }
         }
-        finally
+        if (process.HasExited) { result = result with { UiState = UiStateFile.Read(statePath) }; }
+        logger.Information(
+            "Application run observed for {Component}: {Outcome}; stage {Stage}; exit {ExitCode}; reason {FailureReason}; UI phase {UiPhase}; destructive step started {DestructiveStarted}; duration {DurationMilliseconds:F0} ms",
+            Application, result.Succeeded ? "Succeeded" : "Stopped", result.LastStage, result.ExitCode, result.FailureCategory,
+            result.UiState?.Phase, result.UiState?.DestructiveStarted, Stopwatch.GetElapsedTime(launched).TotalMilliseconds);
+        return result;
+
+        RuntimeStartupStatus? ReadStatus()
         {
-            // The child owns its failure file until process exit; timeout and cancellation never terminate it.
-            if (process.HasExited)
+            RuntimeStartupStatus? status = reader.Read();
+            if (status is not null)
             {
-                try { recoverFailure?.Invoke(directory, launchId, Application); }
-                catch (Exception exception) { logger.Warning(exception, "Child startup diagnostics could not be recovered"); }
+                logger.Information("Application {Component} acknowledged startup stage {Stage}; process {ProcessId}; elapsed {DurationMilliseconds:F0} ms",
+                    Application, status.Stage, process.Id, Stopwatch.GetElapsedTime(launched).TotalMilliseconds);
             }
+            return status;
         }
-    }
 
-    internal async Task<int> ObserveAsync(Process process, CancellationToken cancellationToken)
-    {
-        await process.WaitForExitAsync(cancellationToken).ConfigureAwait(false);
-        logger.Information("Application process {ProcessId} exited with code {ExitCode}", process.Id, process.ExitCode);
-        return process.ExitCode;
+        // Runs while the ready UI process is supervised: reports its state, and logs each phase it enters.
+        void Supervise()
+        {
+            if (UiStateFile.Read(statePath) is not UiState state) return;
+            if (state.Phase != lastPhase)
+            {
+                lastPhase = state.Phase;
+                logger.Information("Application {Component} entered UI phase {UiPhase}; process {ProcessId}", Application, state.Phase, process.Id);
+            }
+            onUiState?.Invoke(state);
+        }
     }
 
     internal static ProcessStartInfo CreateStartInfo(string executable,

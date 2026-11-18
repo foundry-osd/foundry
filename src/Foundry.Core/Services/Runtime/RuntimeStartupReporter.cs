@@ -48,7 +48,7 @@ public sealed class RuntimeStartupReporter
     }
 
     /// <summary>Atomically publishes a forward stage; failures cannot disrupt the application's startup path.</summary>
-    public bool Report(string stage, string? failureCategory = null, string? failureRecordId = null)
+    public bool Report(string stage, string? failureCategory = null)
     {
         lock (_gate)
         {
@@ -62,8 +62,7 @@ public sealed class RuntimeStartupReporter
                 ProcessId = Environment.ProcessId,
                 Stage = stage,
                 TimestampUtc = DateTimeOffset.UtcNow,
-                FailureCategory = failureCategory,
-                FailureRecordId = failureRecordId
+                FailureCategory = failureCategory
             };
             if (!RuntimeStartupStatusReader.IsValid(status)) return false;
             try

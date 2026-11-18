@@ -63,17 +63,6 @@ internal sealed class BootstrapTelemetryJournal
         }
     }
 
-    /// <summary>Transfers all destinations in one durable update without replacing prior receipts or attempt counts.</summary>
-    internal bool Import(IReadOnlyList<BootstrapPendingRecord> records)
-    {
-        if (records.Any(record => JsonSerializer.SerializeToUtf8Bytes(record).Length > MaximumRecordBytes)) return false;
-        foreach (BootstrapPendingRecord record in records)
-        {
-            if (!_records.Any(existing => existing.Id == record.Id)) _records.Add(record);
-        }
-        return Save();
-    }
-
     internal bool Update(BootstrapPendingRecord record)
     {
         int index = _records.FindIndex(candidate => candidate.Id == record.Id);
@@ -123,7 +112,7 @@ internal sealed class BootstrapTelemetryJournal
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException)
         {
-            System.Diagnostics.Debug.WriteLine("Bootstrap telemetry journal could not be read.");
+            System.Diagnostics.Debug.WriteLine("Guardian telemetry journal could not be read.");
         }
     }
 
@@ -208,7 +197,7 @@ internal sealed class BootstrapTelemetryJournal
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or ArgumentException)
         {
-            System.Diagnostics.Debug.WriteLine("Bootstrap telemetry remains in memory because its journal could not be written.");
+            System.Diagnostics.Debug.WriteLine("Guardian telemetry remains in memory because its journal could not be written.");
             return false;
         }
     }

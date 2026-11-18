@@ -18,8 +18,6 @@ internal sealed class BootstrapTelemetry : ILogEventSink
 {
     private BootstrapTelemetryPipeline? pipeline;
     private TelemetrySettings? settings;
-    private string? recoveryRoot;
-    private Task recovery = Task.CompletedTask;
     private int terminalOutcomeRecorded;
     private int deliveryStarted;
     private string bootMediaTarget = TelemetryBootMediaTargets.Unknown;
@@ -34,7 +32,6 @@ internal sealed class BootstrapTelemetry : ILogEventSink
         {
             bootMediaTarget = cacheRoot is null ? TelemetryBootMediaTargets.Iso : TelemetryBootMediaTargets.Usb;
             settings = ReadConsent(winPeRoot, Environment.GetEnvironmentVariable(WinPeConfigurationPath.OverrideEnvironmentVariable));
-            recoveryRoot = Path.Combine(cacheRoot ?? winPeRoot, "Logs");
             if (settings is null) { return; }
             TelemetryContext context = CreateContext(settings.RuntimePayloadSource, bootMediaTarget);
             pipeline = new BootstrapTelemetryPipeline(
@@ -81,15 +78,7 @@ internal sealed class BootstrapTelemetry : ILogEventSink
     internal void StartDelivery(bool clockUsable)
     {
         if (Interlocked.Exchange(ref deliveryStarted, 1) != 0) { return; }
-        try
-        {
-            pipeline?.StartDelivery(clockUsable);
-            recovery = Task.Run(() =>
-            {
-                try { RecoverPendingChildFailures(); }
-                catch { }
-            });
-        }
+        try { pipeline?.StartDelivery(clockUsable); }
         catch { }
     }
 
@@ -137,56 +126,8 @@ internal sealed class BootstrapTelemetry : ILogEventSink
     {
         try
         {
-            try { await recovery.WaitAsync(cancellationToken).ConfigureAwait(false); }
-            catch { }
             if (pipeline is not null) { await pipeline.ShutdownAsync(cancellationToken).ConfigureAwait(false); }
         }
         catch { }
     }
-
-    /// <summary>Called only after the launcher has observed child exit and released upload ownership.</summary>
-    internal void RecoverChildFailure(string directory, Guid launchId, string application)
-    {
-        try
-        {
-            var status = RuntimeStartupStatusReader.ReadValidated(Path.Combine(directory, "status.json"));
-            pipeline?.ImportChildStartupFailure(directory, launchId, TelemetryApplication(application), childExited: true,
-                expectedRecordId: Guid.TryParse(status?.FailureRecordId, out Guid recordId) ? recordId : null);
-        }
-        catch { }
-    }
-
-    private void RecoverPendingChildFailures()
-    {
-        if (pipeline is null || recoveryRoot is null || !Directory.Exists(recoveryRoot)) { return; }
-        var options = new EnumerationOptions
-        {
-            AttributesToSkip = FileAttributes.ReparsePoint,
-            IgnoreInaccessible = true,
-            RecurseSubdirectories = true,
-            MaxRecursionDepth = 3
-        };
-        foreach (string file in Directory.EnumerateFiles(recoveryRoot, ChildStartupFailureExchange.FileName, options).Take(100))
-        {
-            string directory = Path.GetDirectoryName(file)!;
-            DirectoryInfo? startup = Directory.GetParent(directory);
-            if (startup?.Name != "Startup" || startup.Parent?.Parent?.FullName != Path.GetFullPath(recoveryRoot)) { continue; }
-            var status = RuntimeStartupStatusReader.ReadValidated(Path.Combine(directory, "status.json"));
-            if (status is null || status.SessionId != startup.Parent.Name ||
-                status.LaunchId != Path.GetFileName(directory) || !Guid.TryParse(status.LaunchId, out Guid launchId)) { continue; }
-            // A reused PID is deliberately conservative: leave the record until ownership is certain.
-            try { using Process child = Process.GetProcessById(status.ProcessId); continue; }
-            catch (ArgumentException) { }
-            catch { continue; }
-            pipeline.ImportChildStartupFailure(directory, launchId, TelemetryApplication(status.Application), childExited: true,
-                expectedRecordId: Guid.TryParse(status.FailureRecordId, out Guid recordId) ? recordId : null);
-        }
-    }
-
-    private static string TelemetryApplication(string application) => application switch
-    {
-        "Foundry.Connect" => TelemetryApps.FoundryConnect,
-        "Foundry.Deploy" => TelemetryApps.FoundryDeploy,
-        _ => string.Empty
-    };
 }

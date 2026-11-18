@@ -97,7 +97,7 @@ internal static class GuardianProgram
             var preparation = new WinPeSystemPreparation(WinPeRoot, httpClient,
                 Log.ForContext<WinPeSystemPreparation>(), presenter.ReportWarning);
             var launcher = new ApplicationLauncher(Log.ForContext<ApplicationLauncher>(),
-                context.PersistenceDirectory ?? Path.Combine(WinPeRoot, "Logs", sessionId), telemetry.RecoverChildFailure);
+                context.PersistenceDirectory ?? Path.Combine(WinPeRoot, "Logs", sessionId));
             // The crash window points at the logs that survive a restart: the cache volume copy when there is one.
             var crashScreen = new UiCrashScreen(context.PersistenceDirectory ?? Path.GetDirectoryName(logPath));
             var coordinator = new BootstrapCoordinator(context, preparation, launcher, crashScreen, persistence,

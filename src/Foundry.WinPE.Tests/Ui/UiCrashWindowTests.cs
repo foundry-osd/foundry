@@ -4,6 +4,7 @@
 
 using System.Globalization;
 using System.Resources;
+using Foundry.WinPE.Tests.Support;
 using Foundry.WinPE.Ui;
 using Xunit;
 
@@ -24,9 +25,8 @@ public sealed class UiCrashWindowTests
     public void EveryCultureFormatsTheLogFolder()
     {
         var strings = new ResourceManager("Foundry.WinPE.Strings.Resources", typeof(UiCrashWindow).Assembly);
-        string[] cultures = CultureInfo.GetCultures(CultureTypes.AllCultures)
-            .Where(culture => strings.GetResourceSet(culture, createIfNotExists: true, tryParents: false) is not null)
-            .Select(culture => culture.Name)
+        string[] cultures = Directory.GetDirectories(Path.Combine(RepositoryRoot.Find(), "src", "Foundry.WinPE", "Strings"))
+            .Select(path => Path.GetFileName(path))
             .ToArray();
 
         Assert.True(cultures.Length > 30);

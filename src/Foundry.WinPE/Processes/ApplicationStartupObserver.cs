@@ -23,17 +23,26 @@ internal sealed class ObservedApplication(Process process) : IObservedApplicatio
 }
 
 /// <summary>
-/// Limits startup to two minutes; once the UI process reported <c>ui_ready</c> it has no deadline and is observed until it
+/// Limits startup to two minutes; once the UI process reported <c>ui_ready</c> it has no deadline and is supervised until it
 /// exits.
 /// </summary>
+/// <param name="timeProvider">The clock of the startup deadline.</param>
+/// <param name="poll">The wait between startup status reads, 100 ms by default.</param>
+/// <param name="supervisionPoll">The wait between supervision callbacks of a ready process, one second by default.</param>
 internal sealed class ApplicationStartupObserver(TimeProvider? timeProvider = null,
-    Func<CancellationToken, Task>? poll = null)
+    Func<CancellationToken, Task>? poll = null, Func<CancellationToken, Task>? supervisionPoll = null)
 {
     private readonly TimeProvider clock = timeProvider ?? TimeProvider.System;
     private readonly Func<CancellationToken, Task> delay = poll ?? (token => Task.Delay(100, token));
+    private readonly Func<CancellationToken, Task> supervisionDelay = supervisionPoll ?? (token => Task.Delay(1000, token));
 
+    /// <summary>Observes <paramref name="process"/> until it fails to start, times out or exits.</summary>
+    /// <param name="process">The UI process.</param>
+    /// <param name="readStatus">Reads its startup status file.</param>
+    /// <param name="cancellationToken">Stops observing; the process keeps running.</param>
+    /// <param name="whileRunning">Called periodically, never before <c>ui_ready</c>, while the ready process runs.</param>
     internal async Task<ApplicationLaunchResult> ObserveAsync(IObservedApplication process,
-        Func<RuntimeStartupStatus?> readStatus, CancellationToken cancellationToken)
+        Func<RuntimeStartupStatus?> readStatus, CancellationToken cancellationToken, Action? whileRunning = null)
     {
         long started = clock.GetTimestamp();
         RuntimeStartupStatus? last = null;
@@ -50,7 +59,15 @@ internal sealed class ApplicationStartupObserver(TimeProvider? timeProvider = nu
             }
             if (last?.Stage == StartupStage.UiReady)
             {
-                await process.WaitForExitAsync(cancellationToken).ConfigureAwait(false);
+                // One exit wait for the whole supervision, polled alongside the supervision delay.
+                Task exited = process.WaitForExitAsync(cancellationToken);
+                while (!exited.IsCompleted)
+                {
+                    whileRunning?.Invoke();
+                    await Task.WhenAny(exited, supervisionDelay(cancellationToken)).ConfigureAwait(false);
+                }
+
+                await exited.ConfigureAwait(false);
                 last = readStatus() ?? last;
                 return Exited();
             }

@@ -5,6 +5,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Threading;
+using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.DependencyInjection;
 using Foundry.Deploy.Services.Configuration;
@@ -31,15 +32,17 @@ namespace Foundry.Deploy;
 /// While the phase runs, it owns <see cref="Log.Logger"/> (through <see cref="HostedPhaseScope"/>),
 /// <see cref="Application.MainWindow"/> and a handler of
 /// <see cref="Application.DispatcherUnhandledException"/>, which marks the exception handled and ends the phase with
-/// <see cref="FailureExitCode"/>.
+/// <see cref="UnhandledExceptionExitCode"/>. A startup or configuration failure ends it with the <see cref="ChildRuntimeExitCode"/>
+/// failure codes that Foundry Connect uses (see <see cref="FailureExitCodeFor"/>), so the guardian reports it as a failure of
+/// the phase rather than a crash.
 /// </remarks>
 public static class DeployPhase
 {
     /// <summary>Exit code of a phase that ended normally: its window was closed, or it ended before the wizard by design.</summary>
     public const int SuccessExitCode = 0;
 
-    /// <summary>Exit code of a phase that failed: invalid configuration, a startup failure or an unhandled UI exception.</summary>
-    public const int FailureExitCode = 1;
+    /// <summary>Exit code of a phase ended by an unhandled UI exception: the guardian treats it as a crash.</summary>
+    public const int UnhandledExceptionExitCode = 1;
 
     private static readonly RuntimeApplicationIdentity Identity = new("Foundry.Deploy", TelemetryApps.FoundryDeploy, FoundryDeployApplicationInfo.Version);
 
@@ -53,7 +56,7 @@ public static class DeployPhase
     /// Asks a running phase to close its window, as the operator would; a running deployment keeps the window open and is
     /// asked to cancel instead.
     /// </param>
-    /// <returns><see cref="SuccessExitCode"/> or <see cref="FailureExitCode"/>.</returns>
+    /// <returns><see cref="SuccessExitCode"/>, a failure code of <see cref="FailureExitCodeFor"/> or <see cref="UnhandledExceptionExitCode"/>.</returns>
     /// <exception cref="InvalidOperationException">No WPF application runs on the calling thread.</exception>
     /// <exception cref="OperationCanceledException"><paramref name="cancellationToken"/> was cancelled before the phase started.</exception>
     public static async Task<int> RunAsync(DeployPhaseOptions options, CancellationToken cancellationToken)
@@ -107,7 +110,7 @@ public static class DeployPhase
             if (configuration.Exists && configuration.Document is null)
             {
                 startup.ReportFailure(configuration.FailureException ?? new InvalidDataException("Deployment configuration is invalid."), stage);
-                return FailureExitCode;
+                return FailureExitCodeFor(stage);
             }
 
             stage = "services";
@@ -119,7 +122,7 @@ public static class DeployPhase
             {
                 startup.ReportFailure(eventArgs.Exception, "dispatcher");
                 eventArgs.Handled = true;
-                lifetime.TryEnd(FailureExitCode);
+                lifetime.TryEnd(FailureExitCodeFor("dispatcher"));
             };
             application.DispatcherUnhandledException += dispatcherHandler;
 
@@ -155,7 +158,7 @@ public static class DeployPhase
         catch (Exception exception)
         {
             startup.ReportFailure(exception, stage);
-            return FailureExitCode;
+            return FailureExitCodeFor(stage);
         }
         finally
         {
@@ -169,6 +172,19 @@ public static class DeployPhase
             catch { }
         }
     }
+
+    /// <summary>
+    /// Maps the stage a phase failed at to its exit code: <see cref="ChildRuntimeExitCode.ConfigurationFailure"/> for the
+    /// configuration, <see cref="UnhandledExceptionExitCode"/> for an unhandled UI exception (<c>dispatcher</c>), and
+    /// <see cref="ChildRuntimeExitCode.StartupFailure"/> for the other startup stages (managed startup, services, window
+    /// startup and initialization).
+    /// </summary>
+    internal static int FailureExitCodeFor(string stage) => stage switch
+    {
+        "configuration" => (int)ChildRuntimeExitCode.ConfigurationFailure,
+        "dispatcher" => UnhandledExceptionExitCode,
+        _ => (int)ChildRuntimeExitCode.StartupFailure
+    };
 
     private static IHost BuildHost(RuntimeStartupDiagnostics startup, DeployPhaseOptions options)
     {

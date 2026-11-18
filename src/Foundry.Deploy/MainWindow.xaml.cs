@@ -78,7 +78,7 @@ public partial class MainWindow : Window
         catch (Exception exception)
         {
             _startup.ReportFailure(exception, "ui_initialization");
-            _lifetime.TryEnd(DeployPhase.FailureExitCode);
+            _lifetime.TryEnd(DeployPhase.FailureExitCodeFor("ui_initialization"));
         }
     }
 

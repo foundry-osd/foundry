@@ -15,5 +15,9 @@ public sealed record RuntimeStartupStatus
     public string Stage { get; init; } = string.Empty;
     public DateTimeOffset TimestampUtc { get; init; }
     public string? FailureCategory { get; init; }
+    /// <summary>
+    /// Always <see langword="null"/>: the failure-record exchange it identified is gone, but the property stays so the status
+    /// file keeps the shape that boot media of v26.10.18.1 read (the obsolete-media mode still writes it for them).
+    /// </summary>
     public string? FailureRecordId { get; init; }
 }

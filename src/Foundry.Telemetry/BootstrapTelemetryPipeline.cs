@@ -8,7 +8,7 @@ using Serilog.Events;
 namespace Foundry.Telemetry;
 
 /// <summary>
-/// Captures Bootstrap records before connectivity, then drains in the background after preparation.
+/// Captures the guardian's records before connectivity, then drains them in the background once delivery starts.
 /// A persistent journal is optional; a RAM-backed path does not survive a reboot.
 /// </summary>
 public sealed class BootstrapTelemetryPipeline : ILogEventSink, IAsyncDisposable
@@ -96,61 +96,7 @@ public sealed class BootstrapTelemetryPipeline : ILogEventSink, IAsyncDisposable
         }
     }
 
-    /// <summary>
-    /// Imports only after the caller has observed the child exit or proved a prior boot's process absent.
-    /// Retires the exchange after a durable transfer; original child context and destination IDs remain unchanged.
-    /// </summary>
-    public bool ImportChildStartupFailure(string launchDirectory, Guid launchId, string expectedApplication, bool childExited, Guid? expectedRecordId = null)
-    {
-        if (!childExited || launchId == Guid.Empty) return false;
-        ChildStartupFailureRecord? failure = ChildStartupFailureExchange.Read(launchDirectory, launchId, expectedApplication);
-        if (failure is null || (expectedRecordId.HasValue && failure.RecordId != expectedRecordId.Value)) return false;
-        lock (_gate)
-        {
-            if (_stopping) return false;
-            if (!_diagnosticsEnabled || failure.Scope != _diagnosticScope)
-            {
-                ChildStartupFailureExchange.Retire(launchDirectory);
-                return false;
-            }
-            RemoteDiagnosticRecord diagnostic = failure.Diagnostic;
-            bool priorBoot = !diagnostic.Attributes.TryGetValue("session.id", out object? session) || !Equals(session, _context.SessionId);
-            bool expiredException = priorBoot && _clockUsable && _time.GetUtcNow() - diagnostic.Timestamp > TimeSpan.FromDays(7);
-            var records = new List<BootstrapPendingRecord>();
-            if (diagnostic.Exception is not null && !expiredException)
-                records.Add(ImportedRecord(failure.RecordId, BootstrapTelemetryDestination.Exception, diagnostic));
-            if (records.Count > 0 && !_journal.Import(records)) return false;
-            RemoteDiagnosticRecord log = (failure.Log ?? diagnostic) with
-            {
-                Attributes = new Dictionary<string, object>((failure.Log ?? diagnostic).Attributes, StringComparer.Ordinal)
-                {
-                    ["diagnostics.record_id"] = failure.LogRecordId.ToString("N")
-                },
-                ShouldTrackException = false
-            };
-            if (_logs?.TryImport(log) != true) return false;
-            foreach (BootstrapPendingRecord record in records)
-            {
-                _replayIds.Add(record.Id);
-                if (priorBoot) _previousBootIds.Add(record.Id);
-            }
-            ChildStartupFailureExchange.Retire(launchDirectory);
-            Signal();
-            return true;
-        }
-    }
-
-    private BootstrapPendingRecord ImportedRecord(Guid id, BootstrapTelemetryDestination destination, RemoteDiagnosticRecord diagnostic) =>
-        new(id, _diagnosticScope, destination, diagnostic.Timestamp, null,
-            diagnostic with
-            {
-                Attributes = new Dictionary<string, object>(diagnostic.Attributes, StringComparer.Ordinal)
-                {
-                    ["diagnostics.record_id"] = id.ToString()
-                }
-            }, RetainAcknowledgement: true);
-
-    /// <summary>Enables nonterminal delivery after Connect and clock preparation; false defers age-based expiry.</summary>
+    /// <summary>Enables nonterminal delivery; a clock that is not usable defers age-based expiry.</summary>
     public void StartDelivery(bool clockUsable)
     {
         lock (_gate)

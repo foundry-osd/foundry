@@ -18,11 +18,11 @@ public sealed class WinPeUiSessionTests
     [Fact]
     public async Task ConnectSuccess_PreparesTheSystemOnceBetweenThePhasesAndHandsOverToDeploy()
     {
-        var fixture = new Fixture { DeployExitCode = DeployPhase.FailureExitCode };
+        var fixture = new Fixture { DeployExitCode = DeployPhase.UnhandledExceptionExitCode };
 
         int exitCode = await fixture.RunAsync();
 
-        Assert.Equal(DeployPhase.FailureExitCode, exitCode);
+        Assert.Equal(DeployPhase.UnhandledExceptionExitCode, exitCode);
         Assert.Equal(["connect", "system", "deploy"], fixture.Calls);
         Assert.Equal([UiPhase.Connect, UiPhase.System, UiPhase.Deploy], fixture.States.Select(state => state.Phase));
         Assert.All(fixture.States, state => Assert.False(state.DestructiveStarted));
@@ -52,7 +52,7 @@ public sealed class WinPeUiSessionTests
     [Fact]
     public async Task ConnectWindow_IsClosedWhenDeployEndsWithoutRendering()
     {
-        var fixture = new Fixture { DeployExitCode = DeployPhase.FailureExitCode };
+        var fixture = new Fixture { DeployExitCode = DeployPhase.UnhandledExceptionExitCode };
 
         await fixture.RunAsync();
 
@@ -190,10 +190,10 @@ public sealed class WinPeUiSessionTests
             fixture.Deploy = options =>
             {
                 options.OnDestructiveStepStarted();
-                return Task.FromResult(DeployPhase.FailureExitCode);
+                return Task.FromResult(DeployPhase.UnhandledExceptionExitCode);
             };
 
-            Assert.Equal(DeployPhase.FailureExitCode, await fixture.RunAsync());
+            Assert.Equal(DeployPhase.UnhandledExceptionExitCode, await fixture.RunAsync());
             Assert.Equal(["connect", "system", "deploy"], fixture.Calls);
         }
         finally { Directory.Delete(directory, recursive: true); }

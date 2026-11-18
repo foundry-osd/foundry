@@ -6,6 +6,7 @@ using Foundry.Core.Models.Runtime;
 using Foundry.WinPE.Diagnostics;
 using Foundry.WinPE.Processes;
 using Foundry.WinPE.SystemPreparation;
+using Foundry.WinPE.Tests.Support;
 using Foundry.WinPE.Ui;
 using Serilog;
 using Xunit;
@@ -49,16 +50,74 @@ public sealed class BootstrapCoordinatorTests
     [InlineData(20)]
     [InlineData(21)]
     [InlineData(30)]
-    public async Task DeliveryStartsAfterTheUiProcessWithTheClockEvaluatedAtThatMoment(int exitCode)
+    public async Task DeliveryStartsAtTheLatestWhenTheUiProcessExitsWithoutASecondClockSync(int exitCode)
     {
         using var fixture = new Fixture { ObserveDiagnostics = true };
         fixture.Launches.Enqueue(Exited(exitCode, ready: true, new UiState(UiPhase.Connect, false)));
         await fixture.RunAsync();
-        int ui = fixture.Calls.IndexOf("ui");
-        int delivery = fixture.Calls.IndexOf("delivery");
-        Assert.True(delivery > ui);
-        Assert.Equal("clock", fixture.Calls[delivery - 1]);
+        Assert.Equal("delivery", fixture.Calls[fixture.Calls.IndexOf("ui") + 1]);
         Assert.Single(fixture.Calls, call => call == "delivery");
+        // The UI process owns the clock synchronization: the guardian only probed it early.
+        Assert.Single(fixture.Calls, call => call == "clock");
+    }
+
+    [Fact]
+    public async Task DeliveryStartsWhileTheUiProcessRunsOnceItReachesDeploy()
+    {
+        using var fixture = new Fixture { ObserveDiagnostics = true };
+        fixture.ObservedStates.Enqueue([new UiState(UiPhase.Connect, false), new UiState(UiPhase.System, false)]);
+        fixture.ObservedStates.Enqueue([new UiState(UiPhase.Deploy, false), new UiState(UiPhase.Deploy, true)]);
+
+        BootstrapResult result = await fixture.RunAsync();
+
+        // A deployment ends with a reboot while the UI process still runs: delivery cannot wait for its exit.
+        Assert.Equal(["network", "clock", "ui", "state:connect", "state:system", "state:deploy", "delivery", "state:deploy", "persist"],
+            fixture.Calls);
+        Assert.Equal(BootstrapOutcome.Succeeded, result.Outcome);
+    }
+
+    [Fact]
+    public async Task CrashDuringSystemShutdownIsANormalEnd()
+    {
+        using var fixture = new Fixture { ObserveDiagnostics = true, ShuttingDown = true };
+        fixture.Launches.Enqueue(Exited(-1, ready: true, new UiState(UiPhase.Deploy, DestructiveStarted: true)));
+
+        BootstrapResult result = await fixture.RunAsync();
+
+        Assert.Equal(BootstrapOutcome.Succeeded, result.Outcome);
+        Assert.Equal(0, result.ExitCode);
+        Assert.Equal(BootstrapOutcome.Succeeded, Assert.Single(fixture.Outcomes).Outcome);
+        Assert.Empty(fixture.CrashWindows);
+        Assert.Contains(fixture.LogMessages, message => message.Contains("system shutdown", StringComparison.Ordinal));
+    }
+
+    [Theory]
+    [InlineData(21, "Foundry Deploy could not start.")]
+    [InlineData(22, "Foundry Deploy could not load its configuration.")]
+    public async Task DeployStartupFailuresAreNotCrashes(int exitCode, string message)
+    {
+        using var fixture = new Fixture { ObserveDiagnostics = true };
+        fixture.Launches.Enqueue(Exited(exitCode, ready: true, new UiState(UiPhase.Deploy, false)));
+
+        BootstrapResult result = await fixture.RunAsync();
+
+        Assert.Empty(fixture.CrashWindows);
+        Assert.Equal(BootstrapOutcome.Failed, result.Outcome);
+        Assert.Equal(BootstrapStage.Deploy, result.Stage);
+        Assert.Equal("child_exit", result.FailureCategory);
+        Assert.StartsWith(message, fixture.Progress[^1].Message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task SuccessReportsOneCompletionAndLogsTheUiRunAsTheFoundryUi()
+    {
+        using var fixture = new Fixture();
+        BootstrapResult result = await fixture.RunAsync();
+
+        Assert.Equal(BootstrapStage.Deploy, result.Stage);
+        Assert.Single(fixture.Progress, item => item.Stage != BootstrapStage.Environment && item.Status == BootstrapStatus.Completed);
+        Assert.Contains(fixture.LogMessages, message => message.Contains("Guardian stage \"Foundry UI\" started", StringComparison.Ordinal));
+        Assert.DoesNotContain(fixture.LogMessages, message => message.Contains("stage Connect", StringComparison.Ordinal));
     }
 
     [Fact]
@@ -104,7 +163,7 @@ public sealed class BootstrapCoordinatorTests
         Assert.Equal(exitCode, result.ChildExitCode);
         Assert.Equal("child_exit", result.FailureCategory);
         Assert.Equal(result, Assert.Single(fixture.Outcomes));
-        Assert.Equal(ChildExitMessages.Describe(exitCode), fixture.Progress[^1].Message);
+        Assert.Equal(ChildExitMessages.Describe(BootstrapStage.Connect, exitCode), fixture.Progress[^1].Message);
         Assert.Empty(fixture.CrashWindows);
         Assert.Equal("persist", fixture.Calls[^1]);
     }
@@ -158,8 +217,8 @@ public sealed class BootstrapCoordinatorTests
         Assert.Equal(30, crash.ChildExitCode);
         Assert.Equal("child_exit", crash.FailureCategory);
         // The failure is sent and the logs persisted before the operator answers the window.
-        Assert.Equal(["ui", "clock", "delivery", "persist", "crash", "ui"],
-            fixture.Calls.SkipWhile(call => call != "ui").Take(6));
+        Assert.Equal(["ui", "delivery", "persist", "crash", "ui"],
+            fixture.Calls.SkipWhile(call => call != "ui").Take(5));
         Assert.Equal(2, fixture.LaunchedExecutables.Count);
         Assert.Equal(BootstrapOutcome.Succeeded, result.Outcome);
         Assert.Equal(0, result.ExitCode);
@@ -303,7 +362,7 @@ public sealed class BootstrapCoordinatorTests
 
     private sealed class Fixture : IDisposable, ISystemPreparation, IApplicationLauncher, IBootstrapLogPersistence, IUiCrashScreen
     {
-        private readonly Serilog.Core.Logger logger = new LoggerConfiguration().CreateLogger();
+        private readonly Serilog.Core.Logger logger;
         private readonly CancellationTokenSource cancellation = CancellationTokenSource.CreateLinkedTokenSource(TestContext.Current.CancellationToken);
         internal BootstrapContext Context { get; set; } = new(@"X:\Foundry", "win-x64", "TEST", @"D:\Logs\TEST");
         internal List<string> Calls { get; } = [];
@@ -323,11 +382,18 @@ public sealed class BootstrapCoordinatorTests
         internal bool EarlyClockFails { get; init; }
         internal Func<string, string?>? ReadPayloadVersion { get; init; }
         internal List<BootstrapResult> Outcomes { get; } = [];
+        internal Queue<UiState[]> ObservedStates { get; } = [];
+        internal bool ShuttingDown { get; init; }
+        internal List<string> LogMessages { get; } = [];
+
+        internal Fixture() => logger = new LoggerConfiguration().MinimumLevel.Verbose()
+            .WriteTo.Sink(new DelegatingSink(entry => LogMessages.Add(entry.RenderMessage()))).CreateLogger();
 
         internal Task<BootstrapResult> RunAsync() => new BootstrapCoordinator(Context, this, this, this, this,
             logger, Progress.Add,
             ObserveDiagnostics ? () => Calls.Add("delivery") : null,
-            ObserveDiagnostics ? (result, _) => Outcomes.Add(result) : null, ReadPayloadVersion, GuardianPath).RunAsync(cancellation.Token);
+            ObserveDiagnostics ? (result, _) => Outcomes.Add(result) : null, ReadPayloadVersion, GuardianPath,
+            () => ShuttingDown).RunAsync(cancellation.Token);
 
         public Task PrepareNetworkAsync(CancellationToken cancellationToken)
         {
@@ -345,9 +411,17 @@ public sealed class BootstrapCoordinatorTests
             throw new InvalidOperationException("The UI process prepares the system, not the guardian.");
 
         public Task<ApplicationLaunchResult> RunUiAsync(string executable, IReadOnlyDictionary<string, string?> environment,
-            CancellationToken cancellationToken)
+            Action<UiState>? onUiState, CancellationToken cancellationToken)
         {
             Calls.Add("ui");
+            while (ObservedStates.TryDequeue(out UiState[]? states))
+            {
+                foreach (UiState state in states)
+                {
+                    Calls.Add("state:" + state.Phase.ToString().ToLowerInvariant());
+                    onUiState?.Invoke(state);
+                }
+            }
             LaunchedExecutables.Add(executable);
             UiEnvironments.Add(environment);
             if (CancelUi) { cancellation.Cancel(); cancellationToken.ThrowIfCancellationRequested(); }

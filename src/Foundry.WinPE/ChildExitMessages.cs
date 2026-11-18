@@ -10,14 +10,19 @@ namespace Foundry.WinPE;
 internal static class ChildExitMessages
 {
     /// <summary>
-    /// Returns a specific message for the <see cref="ChildRuntimeExitCode"/> failure codes, which the UI process returns only
-    /// when its Foundry Connect phase failed, and a generic message describing the UI process as "Foundry" for any other code.
+    /// Returns a specific message for the <see cref="ChildRuntimeExitCode"/> failure codes, naming the phase that returned
+    /// them (Foundry Deploy for <see cref="BootstrapStage.Deploy"/>, Foundry Connect otherwise), and a generic message
+    /// describing the UI process as "Foundry" for any other code.
     /// </summary>
-    internal static string Describe(int exitCode) => (ChildRuntimeExitCode)exitCode switch
+    internal static string Describe(BootstrapStage stage, int exitCode)
     {
-        ChildRuntimeExitCode.StartupFailure => "Foundry Connect could not start. Check the session log for details.",
-        ChildRuntimeExitCode.ConfigurationFailure => "Foundry Connect could not load its configuration. Recreate the boot media.",
-        ChildRuntimeExitCode.RuntimeFailure => "Foundry Connect stopped unexpectedly. Check the session log for details.",
-        _ => $"Foundry stopped unexpectedly with exit code {exitCode}. Check the session log for details."
-    };
+        string phase = stage == BootstrapStage.Deploy ? "Foundry Deploy" : "Foundry Connect";
+        return (ChildRuntimeExitCode)exitCode switch
+        {
+            ChildRuntimeExitCode.StartupFailure => $"{phase} could not start. Check the session log for details.",
+            ChildRuntimeExitCode.ConfigurationFailure => $"{phase} could not load its configuration. Recreate the boot media.",
+            ChildRuntimeExitCode.RuntimeFailure => $"{phase} stopped unexpectedly. Check the session log for details.",
+            _ => $"Foundry stopped unexpectedly with exit code {exitCode}. Check the session log for details."
+        };
+    }
 }
