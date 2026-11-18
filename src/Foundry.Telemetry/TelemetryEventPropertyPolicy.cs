@@ -335,8 +335,7 @@ public static class TelemetryEventPropertyPolicy
     private static bool IsAllowedBootstrapValue(string key, string value) => key switch
     {
         "failure_category" => value is "child_exit" or "stage_failed" or "readiness_timeout" or "startup_failed" or "capability_invalid",
-        // Older Bootstrap versions persisted "deploymentpreparation"; both spellings stay valid so journal records survive.
-        "last_stage" => value is "environment" or "connect" or "system" or "deploymentpreparation" or "deployment_preparation" or "deploy",
+        "last_stage" => value is "environment" or "connect" or "system" or "deploy",
         "child_application" => value is TelemetryApps.FoundryConnect or TelemetryApps.FoundryDeploy or "none",
         "payload_source" => value is TelemetryRuntimePayloadSources.None or TelemetryRuntimePayloadSources.Debug or
             TelemetryRuntimePayloadSources.Release or TelemetryRuntimePayloadSources.Unknown,

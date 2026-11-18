@@ -37,30 +37,22 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
     private static readonly (int Start, int End) UpdateContentProgressRange = (22, 34);
 
     private readonly IWinPeProcessRunner _processRunner;
-    private readonly IWinPeRuntimePayloadProvisioningService _runtimePayloadProvisioningService;
     private readonly IWinPeCustomImageMediaPublisher _customImagePublisher;
     private readonly IWinPeContentPackageMediaPublisher _postInstallationPublisher;
     private readonly IWinPeContentPackageMediaPublisher _customDriversPublisher;
 
     public WinPeUsbMediaService()
-        : this(new WinPeProcessRunner(), new WinPeRuntimePayloadProvisioningService())
-    {
-    }
-
-    internal WinPeUsbMediaService(IWinPeProcessRunner processRunner)
-        : this(processRunner, new WinPeRuntimePayloadProvisioningService(processRunner))
+        : this(new WinPeProcessRunner())
     {
     }
 
     internal WinPeUsbMediaService(
         IWinPeProcessRunner processRunner,
-        IWinPeRuntimePayloadProvisioningService runtimePayloadProvisioningService,
         IWinPeCustomImageMediaPublisher? customImagePublisher = null,
         IWinPeContentPackageMediaPublisher? postInstallationPublisher = null,
         IWinPeContentPackageMediaPublisher? customDriversPublisher = null)
     {
         _processRunner = processRunner;
-        _runtimePayloadProvisioningService = runtimePayloadProvisioningService;
         _customImagePublisher = customImagePublisher ?? new WinPeCustomImageMediaService();
         _postInstallationPublisher = postInstallationPublisher ?? new WinPeContentPackageMediaService(ContentPackageKind.PostInstallation);
         _customDriversPublisher = customDriversPublisher ?? new WinPeContentPackageMediaService(ContentPackageKind.Drivers);
@@ -356,21 +348,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         }
 
         ReportProgress(options.Progress, 92, WinPeProgressStatuses.PreparingUsbCachePartition);
-        InitializeCachePartitionDirectories(cacheRootPath);
-
-        if (options.RuntimePayloadProvisioning is not null)
-        {
-            ReportProgress(options.Progress, 95, WinPeProgressStatuses.ProvisioningUsbRuntimePayloads);
-            WinPeResult runtimePayloadResult = await _runtimePayloadProvisioningService.ProvisionAsync(
-                CreateUsbRuntimePayloadOptions(options.RuntimePayloadProvisioning, artifact, cacheRootPath),
-                options.DownloadProgress,
-                cancellationToken).ConfigureAwait(false);
-
-            if (!runtimePayloadResult.IsSuccess)
-            {
-                return WinPeResult<WinPeUsbProvisionResult>.Failure(runtimePayloadResult.Error!);
-            }
-        }
+        PrepareCachePartition(cacheRootPath);
 
         ReportProgress(options.Progress, 100, WinPeProgressStatuses.UsbMediaCompleted);
         return WinPeResult<WinPeUsbProvisionResult>.Success(provisionedUsb);
@@ -478,22 +456,7 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
         }
 
         await PruneCustomDriversAsync(options, $"{layout.CacheDriveLetter}\\", cancellationToken).ConfigureAwait(false);
-
-        if (options.RuntimePayloadProvisioning is not null)
-        {
-            string cacheRootPath = $"{layout.CacheDriveLetter}\\";
-            ReportProgress(options.Progress, 92, WinPeProgressStatuses.ProvisioningUsbRuntimePayloads);
-            InitializeCachePartitionDirectories(cacheRootPath);
-            WinPeResult runtimePayloadResult = await _runtimePayloadProvisioningService.ProvisionAsync(
-                CreateUsbRuntimePayloadOptions(options.RuntimePayloadProvisioning, artifact, cacheRootPath),
-                options.DownloadProgress,
-                cancellationToken).ConfigureAwait(false);
-
-            if (!runtimePayloadResult.IsSuccess)
-            {
-                return WinPeResult<WinPeUsbProvisionResult>.Failure(runtimePayloadResult.Error!);
-            }
-        }
+        await RemoveLegacyRuntimeCacheAsync(options, $"{layout.CacheDriveLetter}\\", cancellationToken).ConfigureAwait(false);
 
         ReportProgress(options.Progress, 100, WinPeProgressStatuses.UsbBootPartitionUpdated);
         return WinPeResult<WinPeUsbProvisionResult>.Success(layout);
@@ -735,30 +698,33 @@ public sealed partial class WinPeUsbMediaService : IWinPeUsbMediaService
                  """.ReplaceLineEndings(Environment.NewLine);
     }
 
-    internal static void InitializeCachePartitionDirectories(string cacheRootPath)
+    /// <summary>Creates the cache layout of a new USB drive, without any runtime payload directory.</summary>
+    internal static void PrepareCachePartition(string cacheRootPath)
     {
-        Directory.CreateDirectory(Path.Combine(cacheRootPath, "Runtime"));
+        RemoveLegacyRuntimeCache(cacheRootPath);
         Directory.CreateDirectory(Path.Combine(cacheRootPath, "Cache", "OperatingSystems"));
         Directory.CreateDirectory(Path.Combine(cacheRootPath, "Cache", "DriverPacks"));
         Directory.CreateDirectory(Path.Combine(cacheRootPath, "Cache", "Firmware"));
     }
 
-    internal static WinPeRuntimePayloadProvisioningOptions CreateUsbRuntimePayloadOptions(
-        WinPeRuntimePayloadProvisioningOptions options,
-        WinPeBuildArtifact artifact,
-        string cacheRootPath)
+    /// <summary>
+    /// Deletes the <c>Runtime</c> directory that drives created by Foundry OSD v26.10.18.1 and earlier keep on the cache
+    /// partition (Connect, Deploy, PostInstall and AutopilotInteractive archives, <c>original.zip</c> and <c>current.zip</c>):
+    /// every runtime now ships in boot.wim. Best effort: the media is already complete, so a failure is only logged.
+    /// </summary>
+    internal static void RemoveLegacyRuntimeCache(string cacheRootPath)
     {
-        return options with
+        string runtimeCache = Path.Combine(cacheRootPath, "Runtime");
+        try
         {
-            // Foundry.WinPE lives only in boot.wim; the cache partition receives the runtimes resolved from it.
-            WinPe = options.WinPe with { IsEnabled = false },
-            MountedImagePath = string.Empty,
-            UsbCacheRootPath = cacheRootPath,
-            WorkingDirectoryPath = string.IsNullOrWhiteSpace(options.WorkingDirectoryPath)
-                ? artifact.WorkingDirectoryPath
-                : options.WorkingDirectoryPath,
-            Architecture = artifact.Architecture
-        };
+            if (!Directory.Exists(runtimeCache)) return;
+            Directory.Delete(runtimeCache, recursive: true);
+            Log.ForContext<WinPeUsbMediaService>().Information("Legacy USB runtime cache removed. Path={RuntimeCachePath}", runtimeCache);
+        }
+        catch (Exception exception) when (exception is IOException or UnauthorizedAccessException)
+        {
+            Log.ForContext<WinPeUsbMediaService>().Warning(exception, "Legacy USB runtime cache could not be removed. Path={RuntimeCachePath}", runtimeCache);
+        }
     }
 
     /// <summary>

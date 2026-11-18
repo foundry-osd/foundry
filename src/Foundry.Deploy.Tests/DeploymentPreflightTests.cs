@@ -122,9 +122,36 @@ public sealed class DeploymentPreflightTests
         fixture.DomainJoinRequest = new(Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
         fixture.DomainJoinIntent = new("corp.test", "LAB01", null);
         using var context = fixture.CreateContext();
-        var resolver = new PreOobeContentResolver { RuntimeExecutablePath = NativeRuntimeFixture.CreateFiles(fixture.Root) };
+        var resolver = new PreOobeContentResolver { RuntimeDirectory = NativeRuntimeFixture.CreateFiles(fixture.Root) };
         var result = await fixture.CreatePostInstallPreflight(resolver).ExecuteAsync(context, TestContext.Current.CancellationToken);
         Assert.Equal(DeploymentStepState.Succeeded, result.State);
+        Assert.DoesNotContain("partition", fixture.Events);
+    }
+
+    [Theory]
+    [InlineData("missing")]
+    [InlineData("hash")]
+    public async Task MissingOrDamagedBootImagePostInstall_FailsPreflightWithALocalizedMessageBeforeDiskPreparation(string defect)
+    {
+        using var fixture = new PipelineFixture();
+        fixture.DomainJoinRequest = new(Services.DomainJoin.DomainJoinDeploymentDisposition.Ready);
+        fixture.DomainJoinIntent = new("corp.test", "LAB01", null);
+        using var context = fixture.CreateContext();
+        string runtimeDirectory = Path.Combine(fixture.Root, "missing", "PostInstall");
+        if (defect == "hash")
+        {
+            runtimeDirectory = NativeRuntimeFixture.CreateFiles(fixture.Root);
+            File.WriteAllText(Path.Combine(runtimeDirectory, "Foundry.PostInstall.exe"), "damaged");
+        }
+        var resolver = new PreOobeContentResolver { RuntimeDirectory = runtimeDirectory };
+
+        var result = await fixture.CreatePostInstallPreflight(resolver).ExecuteAsync(context, TestContext.Current.CancellationToken);
+
+        Assert.Equal(DeploymentStepState.Failed, result.State);
+        Assert.Equal("postinstall_runtime_missing", result.Failure?.Code);
+        Assert.NotEqual("PostInstall.RuntimeMissing", result.Message);
+        Assert.Equal(LocalizationText.GetString("PostInstall.RuntimeMissing"), result.Message);
+        Assert.Null(context.Preflight);
         Assert.DoesNotContain("partition", fixture.Events);
     }
 
@@ -194,7 +221,7 @@ public sealed class DeploymentPreflightTests
         fixture.UnmappedPathPrefix = share;
         var resolver = new PreOobeContentResolver
         {
-            RuntimeExecutablePath = NativeRuntimeFixture.CreateFiles(fixture.Root),
+            RuntimeDirectory = NativeRuntimeFixture.CreateFiles(fixture.Root),
             MediaRoots = () => []
         };
         DeploymentStepExecutionContext context = fixture.CreateContext();
@@ -233,7 +260,7 @@ public sealed class DeploymentPreflightTests
         fixture.PostInstall = new() { IsEnabled = true, Actions = settings.Actions, ManifestId = media.ManifestId, ManifestHash = media.ManifestHash };
         var resolver = new PreOobeContentResolver
         {
-            RuntimeExecutablePath = NativeRuntimeFixture.CreateFiles(fixture.Root),
+            RuntimeDirectory = NativeRuntimeFixture.CreateFiles(fixture.Root),
             MediaRoots = () => [fixture.CacheRoot]
         };
         string source = Path.Combine(fixture.CacheRoot, "Cache", "PreOobe", "Packages", reference.ContentHash, "files", "script.ps1");
@@ -262,12 +289,12 @@ public sealed class DeploymentPreflightTests
     [InlineData(DeploymentMode.Usb, false)]
     [InlineData(DeploymentMode.Iso, true)]
     [InlineData(DeploymentMode.Usb, true)]
-    public async Task MissingPostInstallContent_PreventsBothDestructiveBranches(DeploymentMode mode, bool recoveryFailed)
+    public async Task MissingPostInstallContent_PreventsBothDestructiveBranches(DeploymentMode mode, bool runtimeMissing)
     {
-        using var fixture = new PipelineFixture { Mode = mode, DeferredDriver = true, Failure = recoveryFailed ? "runtime_unavailable" : "missing_postinstall" };
+        using var fixture = new PipelineFixture { Mode = mode, DeferredDriver = true, Failure = runtimeMissing ? "runtime_missing" : "missing_postinstall" };
         DeploymentStepResult result = await fixture.RunAsync();
         Assert.Equal(DeploymentStepState.Failed, result.State);
-        Assert.Equal(recoveryFailed ? "postinstall_runtime_unavailable" : "postinstall_preflight_failed", result.Failure?.Code);
+        Assert.Equal(runtimeMissing ? "postinstall_runtime_missing" : "postinstall_preflight_failed", result.Failure?.Code);
         Assert.Empty(fixture.Events);
         Assert.Equal(DeploymentStepState.Failed, (await fixture.Prepare.ExecuteAsync(fixture.Context!, TestContext.Current.CancellationToken)).State);
         Assert.Empty(fixture.Events);
@@ -1173,7 +1200,7 @@ public sealed class DeploymentPreflightTests
             internal override Task<PreOobePreparedContent?> PrepareAsync(DeploymentStepExecutionContext context, CancellationToken cancellationToken)
             {
                 if (fixture.Failure == "missing_postinstall") throw new InvalidDataException("Required package or runtime is unavailable.");
-                if (fixture.Failure == "runtime_unavailable") throw new PostInstallRuntimeUnavailableException(new HttpRequestException("Release unavailable."));
+                if (fixture.Failure == "runtime_missing") throw new PostInstallRuntimeMissingException(new DirectoryNotFoundException("X:\\Foundry\\PostInstall is missing."));
                 return Task.FromResult<PreOobePreparedContent?>(IsRequired(context.Request) ? NativeRuntimeFixture.Create(fixture.Root) : null);
             }
         }

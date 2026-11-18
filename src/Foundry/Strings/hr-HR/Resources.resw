@@ -4552,9 +4552,6 @@ Licenciran prema MIT licenci.</value>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>Dodavanje Foundry komponenti…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Dodavanje Foundry komponenti na USB disk…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>Objavljivanje uvezenog sadržaja u mrežnu predmemoriju…</value>
   </data>

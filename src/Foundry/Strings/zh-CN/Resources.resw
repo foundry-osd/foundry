@@ -4552,9 +4552,6 @@
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>正在添加 Foundry 组件…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>正在将 Foundry 组件添加到 USB 驱动器…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>正在将导入的内容发布到网络缓存…</value>
   </data>

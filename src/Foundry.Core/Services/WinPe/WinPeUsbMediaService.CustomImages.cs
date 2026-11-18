@@ -25,19 +25,7 @@ public sealed partial class WinPeUsbMediaService
             if (options.CustomImages is not null) sourcePaths.AddRange(options.CustomImages.Files.Select(file => file.SourcePath));
             if (options.PostInstallation is not null) sourcePaths.AddRange(options.PostInstallation.Files.Select(file => file.SourcePath));
             if (options.CustomDrivers is not null) sourcePaths.AddRange(options.CustomDrivers.Files.Select(file => file.SourcePath));
-            long runtimeBytes = 0;
-            if (options.RuntimePayloadProvisioning is { } runtime)
-            {
-                foreach (WinPeRuntimePayloadApplicationOptions application in new[] { runtime.WinPe, runtime.PostInstall })
-                {
-                    if (!application.IsEnabled) continue;
-                    if (string.IsNullOrWhiteSpace(application.ArchivePath))
-                        throw new InvalidDataException("Runtime payloads must be prepared before custom-image USB creation.");
-                    sourcePaths.Add(application.ArchivePath);
-                }
-                // Foundry.WinPE is embedded in boot.wim; only PostInstall uses data-volume space.
-                runtimeBytes = runtime.PostInstall.IsEnabled ? new FileInfo(runtime.PostInstall.ArchivePath).Length : 0;
-            }
+            // Every runtime ships in boot.wim, which the BOOT capacity check measures, so no runtime uses data-volume space.
             await _customImagePublisher.ValidateInputDisksAsync(sourcePaths, options.TargetDiskNumber!.Value, cancellationToken).ConfigureAwait(false);
             if (options.CustomImages is not null)
                 await _customImagePublisher.ValidateSourcesAsync(options.CustomImages, cancellationToken).ConfigureAwait(false);
@@ -51,10 +39,9 @@ public sealed partial class WinPeUsbMediaService
                 // preserve old generations and reserve their replacement space before BOOT is changed.
                 ulong required = checked(WinPeUsbCapacityPolicy.NewBootPartitionSizeBytes +
                     (ulong)(options.CustomImages?.TotalBytes ?? 0) + (ulong)(options.PostInstallation?.TotalBytes ?? 0) +
-                    (ulong)(options.CustomDrivers?.TotalBytes ?? 0) +
-                    (ulong)runtimeBytes + 2UL * (ulong)WinPeCustomImageMediaService.DataReserveBytes);
+                    (ulong)(options.CustomDrivers?.TotalBytes ?? 0) + 2UL * (ulong)WinPeCustomImageMediaService.DataReserveBytes);
                 if (options.ExpectedDiskSizeBytes < required)
-                    throw new IOException("The USB disk has insufficient capacity for BOOT, custom images, post-installation content, driver sets and runtime payloads.");
+                    throw new IOException("The USB disk has insufficient capacity for BOOT, custom images, post-installation content and driver sets.");
                 await _customImagePublisher.ValidateInputDisksAsync(sourcePaths, options.TargetDiskNumber!.Value, cancellationToken).ConfigureAwait(false);
             }
             else
@@ -67,13 +54,13 @@ public sealed partial class WinPeUsbMediaService
                     long postInstallationBytes = options.PostInstallation is null ? 0 : await _postInstallationPublisher
                         .GetRequiredBytesAsync(options.PostInstallation, existingDataRoot, cancellationToken).ConfigureAwait(false);
                     await _customImagePublisher.ValidateCapacityAsync(options.CustomImages, existingDataRoot,
-                        checked(runtimeBytes + postInstallationBytes + driversBytes), cancellationToken).ConfigureAwait(false);
+                        checked(postInstallationBytes + driversBytes), cancellationToken).ConfigureAwait(false);
                 }
                 else if (options.PostInstallation is not null)
                     await _postInstallationPublisher.ValidateCapacityAsync(options.PostInstallation, existingDataRoot,
-                        checked(runtimeBytes + driversBytes), cancellationToken).ConfigureAwait(false);
+                        driversBytes, cancellationToken).ConfigureAwait(false);
                 else
-                    await _customDriversPublisher.ValidateCapacityAsync(options.CustomDrivers!, existingDataRoot, runtimeBytes, cancellationToken).ConfigureAwait(false);
+                    await _customDriversPublisher.ValidateCapacityAsync(options.CustomDrivers!, existingDataRoot, 0, cancellationToken).ConfigureAwait(false);
                 WinPeResult publication = await PublishCustomImagesAsync(options, artifact, tools, existingDataRoot,
                     UpdateContentProgressRange, updatesExistingMedia: true, cancellationToken).ConfigureAwait(false);
                 if (!publication.IsSuccess) return publication;
@@ -125,6 +112,27 @@ public sealed partial class WinPeUsbMediaService
         {
             return ExternalContentFailure(options, exception, updatesExistingMedia);
         }
+    }
+
+    /// <summary>
+    /// Removes the runtime cache that older Foundry OSD versions kept on the cache partition, once BOOT was rewritten and
+    /// verified. Runs only in the update flow and, like driver set pruning, never deletes from a cache drive that no longer
+    /// belongs to the target disk; a failure is logged without failing the update.
+    /// </summary>
+    private async Task RemoveLegacyRuntimeCacheAsync(UsbOutputOptions options, string dataRoot, CancellationToken cancellationToken)
+    {
+        try
+        {
+            // The cache drive letter may have been reassigned while BOOT was rewritten; never delete from another disk.
+            await _customImagePublisher.ValidateDestinationDiskAsync(dataRoot, options.TargetDiskNumber!.Value, cancellationToken).ConfigureAwait(false);
+        }
+        catch (Exception exception) when (exception is not OperationCanceledException)
+        {
+            Log.ForContext<WinPeUsbMediaService>().Warning(exception, "Legacy USB runtime cache was kept: the cache drive could not be verified.");
+            return;
+        }
+
+        RemoveLegacyRuntimeCache(dataRoot);
     }
 
     /// <summary>

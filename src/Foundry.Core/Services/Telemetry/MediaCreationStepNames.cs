@@ -49,7 +49,6 @@ public static class MediaCreationStepNames
     public const string CopyWinPeMediaToUsb = "Copy WinPE media to USB";
     public const string VerifyUsbBootMedia = "Verify USB boot media";
     public const string PrepareUsbCachePartition = "Prepare USB cache partition";
-    public const string ProvisionUsbRuntimePayloads = "Provision USB runtime payloads";
     public const string CreateFinalMedia = "Create final media";
     public const string CreateIsoMedia = "Create ISO media";
     public const string CreatePxeMedia = "Create PXE media";

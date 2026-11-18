@@ -67,7 +67,8 @@ public sealed class ResourceKeyParityTests
         { "Foundry", ".resw" },
         { "Foundry.AutopilotInteractive", ".resx" },
         { "Foundry.Connect", ".resx" },
-        { "Foundry.Deploy", ".resx" }
+        { "Foundry.Deploy", ".resx" },
+        { "Foundry.WinPE", ".resx" }
     };
 
     [Fact]
@@ -224,7 +225,8 @@ public sealed class ResourceKeyParityTests
     {
         "Foundry.AutopilotInteractive",
         "Foundry.Connect",
-        "Foundry.Deploy"
+        "Foundry.Deploy",
+        "Foundry.WinPE"
     };
 
     [Theory]

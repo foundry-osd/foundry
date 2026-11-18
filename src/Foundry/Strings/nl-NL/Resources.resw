@@ -4552,9 +4552,6 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>Foundry-componenten toevoegen…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Foundry-componenten toevoegen aan de USB-schijf…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>Geïmporteerde inhoud publiceren naar de netwerkcache…</value>
   </data>

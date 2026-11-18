@@ -7,7 +7,7 @@ using Foundry.Core.Models.Runtime;
 namespace Foundry.WinPE;
 
 /// <summary>Ordered user-visible stages; application launch is distinct from readiness.</summary>
-internal enum BootstrapStage { Environment, Connect, System, DeploymentPreparation, Deploy }
+internal enum BootstrapStage { Environment, Connect, System, Deploy }
 
 /// <summary>Textual status remains meaningful without terminal colors or cursor support.</summary>
 internal enum BootstrapStatus { Pending, Running, Completed, Warning, Failed, Cancelled }
@@ -20,7 +20,7 @@ internal enum BootstrapOutcome { Succeeded, Cancelled, Failed }
 
 /// <summary>
 /// Terminal result retains the failing stage and child code for diagnostics. <see cref="PayloadVersion"/> is the file
-/// version of the last runtime payload resolved before the result, or <see langword="null"/> when none was resolved.
+/// version of the Foundry.WinPE executable for the Connect and Deploy stages, or <see langword="null"/> for other stages.
 /// </summary>
 internal sealed record BootstrapResult(BootstrapOutcome Outcome, BootstrapStage Stage, int? ChildExitCode = null,
     string? FailureCategory = null, string? ChildStartupStage = null, bool ReadinessConfirmed = false, string? PayloadVersion = null)

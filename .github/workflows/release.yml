@@ -295,17 +295,17 @@ jobs:
               'GenerateDocumentationFile=false',
               "FoundryPostHogProjectToken=$env:FoundryPostHogProjectToken"
           )
-          # Runtimes started from the cache or the target OS ship as one self-extracting executable.
+          # Foundry.AutopilotInteractive runs from its archive in the target OS, so it ships as one self-extracting executable.
           $singleFilePublishProperties = @(
               'PublishSingleFile=true',
               'EnableCompressionInSingleFile=true',
               'IncludeNativeLibrariesForSelfExtract=true',
               'IncludeAllContentForSelfExtract=true'
           ) + $commonPublishProperties
-          # Foundry.WinPE is a single-file executable copied directly into the boot image. WPF's native libraries stay
-          # beside it so nothing is extracted into the WinPE RAM disk at startup, and the bundle is not compressed because
-          # boot.wim already compresses the payload.
-          $winPePublishProperties = @(
+          # Foundry.WinPE and Foundry.PostInstall are single-file executables copied directly into the boot image. They
+          # extract nothing at startup (WPF's native libraries stay beside Foundry.WinPE), and their bundles are not
+          # compressed because boot.wim already compresses the payload.
+          $bootImagePublishProperties = @(
               'PublishSingleFile=true',
               'EnableCompressionInSingleFile=false',
               'IncludeNativeLibrariesForSelfExtract=false',
@@ -373,9 +373,9 @@ jobs:
               }
 
               $winPePublishPath = Join-Path $publishRoot (Join-Path 'Foundry.WinPE' $runtimeIdentifier)
-              Invoke-Publish -ProjectPath $winPeProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $winPePublishPath -Properties $winPePublishProperties
+              Invoke-Publish -ProjectPath $winPeProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $winPePublishPath -Properties $bootImagePublishProperties
 
-              foreach ($winPeRequiredFile in @('Foundry.WinPE.exe', 'foundry.startup.json', 'foundry.runtime-trust-capability.json')) {
+              foreach ($winPeRequiredFile in @('Foundry.WinPE.exe', 'foundry.startup.json')) {
                   $winPeRequiredPath = Join-Path $winPePublishPath $winPeRequiredFile
                   if (-not (Test-Path -Path $winPeRequiredPath -PathType Leaf)) {
                       throw "Expected Foundry.WinPE publish file not found: '$winPeRequiredPath'."
@@ -390,6 +390,22 @@ jobs:
               $winPeAssetPath = Join-Path $releaseRoot "Foundry.WinPE-$runtimeIdentifier.zip"
               Compress-Archive -Path (Join-Path $winPePublishPath '*') -DestinationPath $winPeAssetPath -CompressionLevel Optimal -Force
 
+              # Launchers of boot media created by Foundry OSD v26.10.18.1 or earlier download these two assets and start
+              # the executable at their root. Foundry.WinPE renamed Foundry.Connect.exe or Foundry.Deploy.exe only shows
+              # the obsolete-media screen, so both are the same publish output under a legacy name.
+              foreach ($legacyApplication in @('Foundry.Connect', 'Foundry.Deploy')) {
+                  $legacyPublishPath = Join-Path $publishRoot (Join-Path $legacyApplication $runtimeIdentifier)
+                  if (Test-Path -Path $legacyPublishPath) {
+                      Remove-Item -Path $legacyPublishPath -Recurse -Force
+                  }
+
+                  New-Item -Path $legacyPublishPath -ItemType Directory -Force | Out-Null
+                  Copy-Item -Path (Join-Path $winPePublishPath '*') -Destination $legacyPublishPath -Recurse
+                  Rename-Item -LiteralPath (Join-Path $legacyPublishPath 'Foundry.WinPE.exe') -NewName "$legacyApplication.exe"
+                  $legacyAssetPath = Join-Path $releaseRoot "$legacyApplication-$runtimeIdentifier.zip"
+                  Compress-Archive -Path (Join-Path $legacyPublishPath '*') -DestinationPath $legacyAssetPath -CompressionLevel Optimal -Force
+              }
+
               $autopilotInteractivePublishPath = Join-Path $publishRoot (Join-Path 'Foundry.AutopilotInteractive' $runtimeIdentifier)
               Invoke-Publish -ProjectPath $autopilotInteractiveProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $autopilotInteractivePublishPath -Properties $singleFilePublishProperties
 
@@ -402,7 +418,7 @@ jobs:
               Compress-Archive -Path (Join-Path $autopilotInteractivePublishPath '*') -DestinationPath $autopilotInteractiveAssetPath -CompressionLevel Optimal -Force
 
               $postInstallPublishPath = Join-Path $publishRoot (Join-Path 'Foundry.PostInstall' $runtimeIdentifier)
-              Invoke-Publish -ProjectPath $postInstallProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $postInstallPublishPath -Properties $singleFilePublishProperties
+              Invoke-Publish -ProjectPath $postInstallProject -RuntimeIdentifier $runtimeIdentifier -Platform $platform -OutputPath $postInstallPublishPath -Properties $bootImagePublishProperties
 
               $postInstallExecutable = Join-Path $postInstallPublishPath 'Foundry.PostInstall.exe'
               if (-not (Test-Path -Path $postInstallExecutable -PathType Leaf)) {
@@ -413,12 +429,15 @@ jobs:
                   $path = Join-Path $postInstallPublishPath $_
                   [ordered]@{ relativePath = $_; length = (Get-Item -LiteralPath $path).Length; sha256 = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant() }
               })
-              # Foundry.Deploy accepts only the PostInstall runtime whose releaseTag matches its own release.
+              # The releaseTag is informational: Foundry.Deploy stages the runtime of its boot image without comparing it.
               $postInstallManifest = [ordered]@{ schemaVersion = 1; contractVersion = 1; runtimeIdentifier = $runtimeIdentifier; releaseTag = $releaseTag; files = $postInstallFiles } | ConvertTo-Json -Depth 10
               Set-Content -LiteralPath (Join-Path $postInstallPublishPath 'foundry.postinstall.json') -Value $postInstallManifest -Encoding utf8NoBOM
 
+              # Only the launch files enter the archive, executable at its root: Foundry OSD copies exactly these three files
+              # into the boot image, and launchers of older boot media still resolve this asset name.
               $postInstallAssetPath = Join-Path $releaseRoot "Foundry.PostInstall-$runtimeIdentifier.zip"
-              Compress-Archive -Path (Join-Path $postInstallPublishPath '*') -DestinationPath $postInstallAssetPath -CompressionLevel Optimal -Force
+              $postInstallLaunchFiles = @('Foundry.PostInstall.exe', 'Launch.cmd', 'foundry.postinstall.json' | ForEach-Object { Join-Path $postInstallPublishPath $_ })
+              Compress-Archive -LiteralPath $postInstallLaunchFiles -DestinationPath $postInstallAssetPath -CompressionLevel Optimal -Force
           }
 
       - name: Upload release assets
@@ -472,6 +491,10 @@ jobs:
           $assets = @(
               (Join-Path $releaseRoot 'Foundry.AutopilotInteractive-win-x64.zip'),
               (Join-Path $releaseRoot 'Foundry.AutopilotInteractive-win-arm64.zip'),
+              (Join-Path $releaseRoot 'Foundry.Connect-win-x64.zip'),
+              (Join-Path $releaseRoot 'Foundry.Connect-win-arm64.zip'),
+              (Join-Path $releaseRoot 'Foundry.Deploy-win-x64.zip'),
+              (Join-Path $releaseRoot 'Foundry.Deploy-win-arm64.zip'),
               (Join-Path $releaseRoot 'Foundry.PostInstall-win-x64.zip'),
               (Join-Path $releaseRoot 'Foundry.PostInstall-win-arm64.zip'),
               (Join-Path $releaseRoot 'Foundry.WinPE-win-x64.zip'),

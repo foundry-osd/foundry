@@ -4552,9 +4552,6 @@ Licencováno pod licencí MIT.</value>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>Přidávání komponent Foundry…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Přidávání komponent Foundry na disk USB…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>Publikování importovaného obsahu do síťové mezipaměti…</value>
   </data>

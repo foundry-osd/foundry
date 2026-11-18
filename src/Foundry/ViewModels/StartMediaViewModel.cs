@@ -1308,7 +1308,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             workspace = await PrepareMediaWorkspaceAsync(
                 options,
                 snapshot,
-                includeRuntimePayloadInImage: true,
                 deploymentProtectionMaterial,
                 telemetryProgressTracker: telemetryProgressTracker,
                 cancellationToken);
@@ -1370,7 +1369,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             workspace = await PrepareMediaWorkspaceAsync(
                 options,
                 snapshot,
-                includeRuntimePayloadInImage: true,
                 deploymentProtectionMaterial,
                 telemetryProgressTracker: telemetryProgressTracker,
                 cancellationToken);
@@ -1473,8 +1471,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             workspace = await PrepareMediaWorkspaceAsync(
                 options,
                 snapshot,
-                // A drive without cache has no partition for the runtimes, so they are embedded like on an ISO.
-                includeRuntimePayloadInImage: layout == UsbMediaLayout.WithoutCache,
                 deploymentProtectionMaterial,
                 telemetryProgressTracker: telemetryProgressTracker,
                 cancellationToken);
@@ -1496,13 +1492,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     PartitionStyle = options.UsbPartitionStyle,
                     FormatMode = options.UsbFormatMode,
                     Layout = layout,
-                    RuntimePayloadProvisioning = layout == UsbMediaLayout.WithCache ? workspace.RuntimePayloadProvisioning : null,
                     CustomImages = workspace.MediaCustomImages,
                     PostInstallation = workspace.MediaPostInstallation,
                     CustomDrivers = workspace.MediaCustomDrivers,
                     WinPeConfigurationJson = workspace.WinPeConfigurationJson,
-                    DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
-                        new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
                     Progress = telemetryProgressTracker.CreateFinalMediaProgress(
                         new Progress<WinPeMediaProgress>(ReportFinalMediaProgress))
                 },
@@ -1549,7 +1542,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             workspace = await PrepareMediaWorkspaceAsync(
                 options,
                 snapshot,
-                includeRuntimePayloadInImage: false,
                 deploymentProtectionMaterial,
                 telemetryProgressTracker: telemetryProgressTracker,
                 cancellationToken);
@@ -1567,13 +1559,10 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 CreateUsbTargetOptions(selectedDisk) with
                 {
                     FormatMode = options.UsbFormatMode,
-                    RuntimePayloadProvisioning = workspace.RuntimePayloadProvisioning,
                     CustomImages = workspace.MediaCustomImages,
                     PostInstallation = workspace.MediaPostInstallation,
                     CustomDrivers = workspace.MediaCustomDrivers,
                     WinPeConfigurationJson = workspace.WinPeConfigurationJson,
-                    DownloadProgress = telemetryProgressTracker.CreateDownloadProgress(
-                        new Progress<WinPeDownloadProgress>(ReportDownloadProgress)),
                     Progress = telemetryProgressTracker.CreateFinalMediaProgress(
                         new Progress<WinPeMediaProgress>(ReportFinalMediaProgress))
                 },
@@ -1601,7 +1590,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private async Task<PreparedMediaWorkspace> PrepareMediaWorkspaceAsync(
         MediaPreflightOptions options,
         BuildSnapshot snapshot,
-        bool includeRuntimePayloadInImage,
         DeploymentMediaProtectionMaterial deploymentProtectionMaterial,
         MediaCreationTelemetryProgressTracker telemetryProgressTracker,
         CancellationToken cancellationToken)
@@ -1629,23 +1617,17 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                 tools.MakeWinPeMediaPath);
 
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.PrepareRuntimePayloads);
-            WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning = CreateRuntimePayloadProvisioningOptions(
-                options.Architecture,
-                Constants.WorkspacesDirectoryPath,
-                Constants.WorkspacesDirectoryPath,
-                Constants.WorkspacesDirectoryPath);
-            runtimePayloadProvisioning = AddReleaseRuntimeProvisioning(runtimePayloadProvisioning);
-            runtimePayloadProvisioning = runtimePayloadProvisioning.WithDomainJoinRuntime(snapshot.Configuration.DomainJoin.IsEnabled);
+            WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning = AddReleaseRuntimeProvisioning(
+                CreateRuntimePayloadProvisioningOptions(options.Architecture, Constants.WorkspacesDirectoryPath, Constants.WorkspacesDirectoryPath));
             // The guardian, Connect and Deploy all run from the Foundry.WinPE payload and read one telemetry section.
             TelemetrySettings telemetrySettings = snapshot.Configuration.Telemetry with { RuntimePayloadSource = ResolveRuntimePayloadSource(runtimePayloadProvisioning.WinPe) };
 
             logger.Debug(
-                "Final media workspace preparation started. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, SignatureMode={SignatureMode}, IncludeWirelessSupport={IncludeWirelessSupport}, IncludeRuntimePayloadInImage={IncludeRuntimePayloadInImage}, DriverVendorCount={DriverVendorCount}, HasCustomDriverDirectory={HasCustomDriverDirectory}, IsAutopilotEnabled={IsAutopilotEnabled}, IsWinPeRuntimeProvisioningEnabled={IsWinPeRuntimeProvisioningEnabled}, WinPeRuntimeSource={WinPeRuntimeSource}, IsPostInstallRuntimeProvisioningEnabled={IsPostInstallRuntimeProvisioningEnabled}, PostInstallRuntimeSource={PostInstallRuntimeSource}",
+                "Final media workspace preparation started. Architecture={Architecture}, WinPeLanguage={WinPeLanguage}, SignatureMode={SignatureMode}, IncludeWirelessSupport={IncludeWirelessSupport}, DriverVendorCount={DriverVendorCount}, HasCustomDriverDirectory={HasCustomDriverDirectory}, IsAutopilotEnabled={IsAutopilotEnabled}, IsWinPeRuntimeProvisioningEnabled={IsWinPeRuntimeProvisioningEnabled}, WinPeRuntimeSource={WinPeRuntimeSource}, IsPostInstallRuntimeProvisioningEnabled={IsPostInstallRuntimeProvisioningEnabled}, PostInstallRuntimeSource={PostInstallRuntimeSource}",
                 options.Architecture,
                 NormalizeCultureName(options.WinPeLanguage),
                 options.SignatureMode,
                 options.IncludeWirelessSupport,
-                includeRuntimePayloadInImage,
                 options.DriverVendors.Count,
                 !string.IsNullOrWhiteSpace(options.CustomDriverDirectoryPath),
                 options.IsAutopilotEnabled,
@@ -1698,8 +1680,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             WinPeRuntimePayloadProvisioningOptions artifactRuntimePayloadProvisioning = runtimePayloadProvisioning with
             {
                 WorkingDirectoryPath = Path.Combine(operationLease.OperationDirectoryPath, "Runtime"),
-                MountedImagePath = artifact.MountDirectoryPath,
-                UsbCacheRootPath = string.Empty
+                MountedImagePath = artifact.MountDirectoryPath
             };
             telemetryProgressTracker.SetCurrentStep(MediaCreationStepNames.PrepareRuntimePayloads);
             ReportPhase(MediaCreationPhase.Preparing, 60, localizationService.GetString("StartMedia.Operation.PreparingComponents"));
@@ -1752,10 +1733,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
                     WinPeLanguage = options.WinPeLanguage,
                     WinPeKeyboardLayout = KeyboardLayoutSelection.Find(KeyboardLayoutCatalog.GetInstalled(), options.WinPeKeyboardLayoutId),
                     AssetProvisioning = assetProvisioning,
-                    RuntimePayloadProvisioning = artifactRuntimePayloadProvisioning with
-                    {
-                        IncludePayloadsInImage = includeRuntimePayloadInImage
-                    },
+                    RuntimePayloadProvisioning = artifactRuntimePayloadProvisioning,
                     WindowsSourceCacheDirectoryPath = Constants.WindowsSourceCacheDirectoryPath,
                     WinReCacheDirectoryPath = Constants.WinReCacheDirectoryPath,
                     LegacyWindowsSourceDirectoryPath = Constants.WinReTempDirectoryPath,
@@ -1778,19 +1756,13 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             }
 
             logger.Debug(
-                "WinPE workspace prepared. UseBootEx={UseBootEx}, RuntimePayloadInImage={RuntimePayloadInImage}",
-                preparationResult.Value!.UseBootEx,
-                includeRuntimePayloadInImage);
+                "WinPE workspace prepared. UseBootEx={UseBootEx}",
+                preparationResult.Value!.UseBootEx);
 
             return new PreparedMediaWorkspace(
                 operationLease,
                 preparationResult.Value!,
                 tools,
-                artifactRuntimePayloadProvisioning with
-                {
-                    MountedImagePath = string.Empty,
-                    UsbCacheRootPath = string.Empty
-                },
                 customImages,
                 postInstallation,
                 customDrivers,
@@ -2208,7 +2180,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
             WinPeProgressStatuses.CopyingWinPeMediaToUsb => "StartMedia.Operation.CopyingUsbMedia",
             WinPeProgressStatuses.VerifyingUsbBootMedia => "StartMedia.Operation.VerifyingUsbMedia",
             WinPeProgressStatuses.PreparingUsbCachePartition => "StartMedia.Operation.PreparingUsbCache",
-            WinPeProgressStatuses.ProvisioningUsbRuntimePayloads => "StartMedia.Operation.ProvisioningUsbRuntimePayloads",
             _ => null
         });
     }
@@ -2583,7 +2554,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     {
         WinPeRuntimePayloadProvisioningOptions runtimePayloadProvisioning = AddReleaseRuntimeProvisioning(CreateRuntimePayloadProvisioningOptions(
             options.Architecture,
-            Constants.WorkspacesDirectoryPath,
             Constants.WorkspacesDirectoryPath,
             Constants.WorkspacesDirectoryPath));
 
@@ -3424,14 +3394,12 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private WinPeRuntimePayloadProvisioningOptions CreateRuntimePayloadProvisioningOptions(
         WinPeArchitecture architecture,
         string workingDirectoryPath,
-        string mountedImagePath,
-        string usbCacheRootPath)
+        string mountedImagePath)
     {
         return WinPeRuntimePayloadProvisioningOptions.CreateDeveloperOptions(
             architecture,
             workingDirectoryPath,
             mountedImagePath,
-            usbCacheRootPath,
             FoundryApplicationInfo.Version,
             Debugger.IsAttached,
             projectDiscoveryStartPath: FindRepositoryRoot());
@@ -3440,7 +3408,7 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
     private static WinPeRuntimePayloadProvisioningOptions AddReleaseRuntimeProvisioning(
         WinPeRuntimePayloadProvisioningOptions options)
     {
-        // PostInstall joins only domain-join media, through WithDomainJoinRuntime.
+        // PostInstall is already enabled on every media by CreateDeveloperOptions.
         return options with
         {
             WinPe = options.WinPe.IsEnabled ? options.WinPe : new WinPeRuntimePayloadApplicationOptions
@@ -3528,7 +3496,6 @@ public sealed partial class StartMediaViewModel : ObservableObject, IDisposable
         WinPeWorkspaceLease Lease,
         WinPeWorkspacePreparationResult PreparedWorkspace,
         WinPeToolPaths Tools,
-        WinPeRuntimePayloadProvisioningOptions RuntimePayloadProvisioning,
         WinPeCustomImageMediaLease? CustomImages,
         WinPeContentPackageMediaLease PostInstallation,
         WinPeContentPackageMediaLease? CustomDrivers,

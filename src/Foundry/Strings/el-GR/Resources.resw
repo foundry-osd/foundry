@@ -4552,9 +4552,6 @@
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>Προσθήκη στοιχείων του Foundry…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Προσθήκη στοιχείων του Foundry στη μονάδα USB…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>Δημοσίευση εισαγόμενου περιεχομένου στην προσωρινή μνήμη δικτύου…</value>
   </data>

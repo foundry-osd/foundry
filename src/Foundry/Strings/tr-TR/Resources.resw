@@ -4552,9 +4552,6 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>Foundry bileşenleri ekleniyor…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Foundry bileşenleri USB sürücüsüne ekleniyor…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>İçeri aktarılan içerik ağ önbelleğinde yayımlanıyor…</value>
   </data>

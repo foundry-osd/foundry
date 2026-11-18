@@ -16,6 +16,14 @@ public interface IWinPeRuntimePayloadProvisioningService
         WinPeRuntimePayloadProvisioningOptions options,
         CancellationToken cancellationToken = default);
 
+    /// <summary>
+    /// Prepares the enabled archives when needed, then copies them into the mounted boot image: Foundry.WinPE into
+    /// <c>Foundry\WinPE</c>, the Foundry.PostInstall launch files into <c>Foundry\PostInstall</c> and the debug
+    /// Foundry.AutopilotInteractive archive into <c>Foundry\AutopilotInteractive</c>. Payloads of earlier media layouts are removed.
+    /// </summary>
+    /// <param name="options">The payload sources and the mounted image; <see cref="WinPeRuntimePayloadProvisioningOptions.MountedImagePath"/> is required.</param>
+    /// <param name="downloadProgress">Receives release archive download progress.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
     Task<WinPeResult> ProvisionAsync(
         WinPeRuntimePayloadProvisioningOptions options,
         IProgress<WinPeDownloadProgress>? downloadProgress = null,

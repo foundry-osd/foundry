@@ -4552,9 +4552,6 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>Agregando componentes de Foundry…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Agregando componentes de Foundry a la unidad USB…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>Publicando el contenido importado en la caché de red…</value>
   </data>

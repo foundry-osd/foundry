@@ -5,7 +5,8 @@
 namespace Foundry.Core.Services.WinPe;
 
 /// <summary>
-/// Describes how Foundry runtime payloads are staged into a mounted boot image.
+/// Describes how Foundry runtime payloads are staged into a mounted boot image. Every runtime ships in the boot image;
+/// nothing is staged on the USB data volume and nothing is downloaded at boot.
 /// </summary>
 public sealed record WinPeRuntimePayloadProvisioningOptions
 {
@@ -28,17 +29,6 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
     public string MountedImagePath { get; init; } = string.Empty;
 
     /// <summary>
-    /// Gets the USB cache root path staged into the boot image.
-    /// </summary>
-    public string UsbCacheRootPath { get; init; } = string.Empty;
-
-    /// <summary>
-    /// Gets whether original PostInstall and debug AutopilotInteractive archives enter the image. Trust anchors and the
-    /// Foundry.WinPE folder always enter the image.
-    /// </summary>
-    public bool IncludePayloadsInImage { get; init; } = true;
-
-    /// <summary>
     /// Gets the informational version of the Foundry OSD build creating the media. It selects the GitHub release that
     /// release runtimes come from, so the media run the runtimes of that Foundry OSD version; it is required whenever a
     /// runtime is provisioned from a release.
@@ -47,8 +37,8 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
 
     /// <summary>
     /// Gets the Foundry.WinPE payload. Its archive (the single-file executable, WPF's native libraries and the startup
-    /// manifests) is extracted into <c>Foundry\WinPE</c> of the mounted image only and never into the USB cache, so the
-    /// image holds no archive; the executable runs the guardian, Connect and Deploy from the boot image.
+    /// manifest) is extracted into <c>Foundry\WinPE</c> of the mounted image, so the image holds no archive; the executable
+    /// runs the guardian, Connect and Deploy from the boot image.
     /// </summary>
     public WinPeRuntimePayloadApplicationOptions WinPe { get; init; } = new();
 
@@ -57,30 +47,27 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
     /// </summary>
     public WinPeRuntimeReleaseSnapshot? ReleaseSnapshot { get; init; }
 
-    /// <summary>Gets Foundry.PostInstall payload options, following the WinPE debug selection.</summary>
+    /// <summary>
+    /// Gets Foundry.PostInstall payload options, following the WinPE debug selection. The executable, <c>Launch.cmd</c> and
+    /// the runtime manifest of its archive are extracted into <c>Foundry\PostInstall</c> of the mounted image, so Foundry
+    /// Deploy stages it into the target OS without any download.
+    /// </summary>
     public WinPeRuntimePayloadApplicationOptions PostInstall { get; init; } = new();
 
     /// <summary>
     /// Gets Foundry.AutopilotInteractive payload options. The application is provisioned only on debug media, from a local
     /// archive or project, and never from a release: release media do not carry it and Deploy downloads it into the target OS.
+    /// Its archive is written to <c>Foundry\AutopilotInteractive\Foundry.AutopilotInteractive.zip</c> of the mounted image.
     /// </summary>
     public WinPeRuntimePayloadApplicationOptions AutopilotInteractive { get; init; } = new();
 
-    /// <summary>Enables the selected local runtime or paired release source when domain actions require it.</summary>
-    public WinPeRuntimePayloadProvisioningOptions WithDomainJoinRuntime(bool enabled) => !enabled ? this : this with
-    {
-        PostInstall = PostInstall.IsEnabled || !string.IsNullOrWhiteSpace(PostInstall.ArchivePath) || !string.IsNullOrWhiteSpace(PostInstall.ProjectPath)
-            ? PostInstall with { IsEnabled = true }
-            : new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
-    };
-
     /// <summary>
-    /// Creates development-time payload options from debugger state and environment variables.
+    /// Creates development-time payload options from debugger state and environment variables. Foundry.PostInstall is always
+    /// enabled: from its local source on debug media or when one is set, else from the release.
     /// </summary>
     /// <param name="architecture">The target runtime architecture.</param>
     /// <param name="workingDirectoryPath">The working directory used for payload preparation.</param>
     /// <param name="mountedImagePath">The mounted image root path.</param>
-    /// <param name="usbCacheRootPath">The USB cache root path.</param>
     /// <param name="releaseVersion">The informational version of the Foundry OSD build creating the media.</param>
     /// <param name="isDebuggerAttached">Whether a debugger is attached to the app process.</param>
     /// <param name="getEnvironmentVariable">An optional environment variable accessor for tests.</param>
@@ -90,7 +77,6 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
         WinPeArchitecture architecture,
         string workingDirectoryPath,
         string mountedImagePath,
-        string usbCacheRootPath,
         string releaseVersion,
         bool isDebuggerAttached,
         Func<string, string?>? getEnvironmentVariable = null,
@@ -103,7 +89,6 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
             Architecture = architecture,
             WorkingDirectoryPath = workingDirectoryPath,
             MountedImagePath = mountedImagePath,
-            UsbCacheRootPath = usbCacheRootPath,
             ReleaseVersion = releaseVersion,
             WinPe = CreateApplicationOptions(
                 WinPeApplicationName,
@@ -120,13 +105,16 @@ public sealed record WinPeRuntimePayloadProvisioningOptions
         {
             string archive = (getEnvironmentVariable(WinPeRuntimePayloadEnvironmentVariables.DebugPostInstallArchive) ?? string.Empty).Trim();
             string project = (getEnvironmentVariable(WinPeRuntimePayloadEnvironmentVariables.DebugPostInstallProject) ?? string.Empty).Trim();
-            return string.IsNullOrWhiteSpace(archive) && string.IsNullOrWhiteSpace(project) ? options : options with
+            return options with
             {
-                PostInstall = new()
-                {
-                    ArchivePath = archive,
-                    ProjectPath = string.IsNullOrWhiteSpace(archive) ? project : string.Empty
-                }
+                PostInstall = string.IsNullOrWhiteSpace(archive) && string.IsNullOrWhiteSpace(project)
+                    ? new() { IsEnabled = true, ProvisioningSource = WinPeProvisioningSource.Release }
+                    : new()
+                    {
+                        IsEnabled = true,
+                        ArchivePath = archive,
+                        ProjectPath = string.IsNullOrWhiteSpace(archive) ? project : string.Empty
+                    }
             };
         }
         string? discoveryPath = string.IsNullOrWhiteSpace(options.WinPe.ProjectPath)

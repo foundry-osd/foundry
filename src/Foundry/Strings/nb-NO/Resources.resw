@@ -4552,9 +4552,6 @@ Lisensiert under MIT-lisensen.</value>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>Legger til Foundry-komponenter…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Legger til Foundry-komponenter på USB-stasjonen…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>Publiserer importert innhold til nettverksbufferen…</value>
   </data>

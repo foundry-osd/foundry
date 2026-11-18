@@ -20,20 +20,14 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
     private readonly string root = Path.Combine(Path.GetTempPath(), "foundry-custom-usb-" + Guid.NewGuid().ToString("N"));
 
     [Theory]
-    [InlineData(false, false)]
-    [InlineData(false, true)]
-    [InlineData(true, false)]
-    [InlineData(true, true)]
-    public async Task Update_PublishesDataBeforeFormattingAndStopsOnDataFailure(bool failPublication, bool postInstallEnabled)
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task Update_PublishesDataBeforeFormattingAndStopsOnDataFailure(bool failPublication)
     {
         WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
-        string winPeArchive = Path.Combine(root, "winpe.zip");
-        string postInstallArchive = Path.Combine(root, "postinstall.zip");
-        await File.WriteAllBytesAsync(winPeArchive, new byte[11], TestContext.Current.CancellationToken);
-        await File.WriteAllBytesAsync(postInstallArchive, new byte[17], TestContext.Current.CancellationToken);
         var publisher = new Publisher(failPublication);
         var runner = new Runner(publisher);
-        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher);
+        var service = new WinPeUsbMediaService(runner, publisher);
         using var package = new WinPeCustomImageMediaLease("build", Encoding.UTF8.GetBytes("{}"), [], []);
         string config = WinPeConfigurationTestDocuments.Json(new DeployRuntimeSettings
         {
@@ -48,12 +42,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
             ExpectedDiskBusType = "USB",
             ExpectedDiskSizeBytes = 64000000000,
             CustomImages = package,
-            WinPeConfigurationJson = config,
-            RuntimePayloadProvisioning = new()
-            {
-                WinPe = new() { IsEnabled = true, ArchivePath = winPeArchive },
-                PostInstall = new() { IsEnabled = postInstallEnabled, ArchivePath = postInstallArchive }
-            }
+            WinPeConfigurationJson = config
         };
 
         WinPeResult<WinPeUsbProvisionResult> result = await service.UpdateBootPartitionAsync(options,
@@ -63,12 +52,10 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         Assert.False(result.IsSuccess);
         Assert.True(publisher.PublishAttempted);
         Assert.Equal(!failPublication, runner.FormattingAttempted);
-        // The WinPE runtime is embedded in boot.wim, so only PostInstall consumes data-volume space.
-        Assert.Equal(postInstallEnabled ? 17L : 0L, publisher.AdditionalCapacityBytes);
-        Assert.Contains(root, publisher.ValidatedInputs);
-        Assert.Contains(winPeArchive, publisher.ValidatedInputs);
-        if (postInstallEnabled) Assert.Contains(postInstallArchive, publisher.ValidatedInputs);
-        else Assert.DoesNotContain(postInstallArchive, publisher.ValidatedInputs);
+        // Foundry.WinPE and Foundry.PostInstall ship in boot.wim, which the BOOT capacity check already measures, so no
+        // runtime payload uses data-volume space.
+        Assert.Equal(0L, publisher.AdditionalCapacityBytes);
+        Assert.Equal([root], publisher.ValidatedInputs);
     }
 
     public void Dispose() { if (Directory.Exists(root)) Directory.Delete(root, true); }
@@ -83,7 +70,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
         var publisher = new Publisher(fail);
         var runner = new Runner(publisher);
-        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher);
+        var service = new WinPeUsbMediaService(runner, publisher, publisher);
         using var images = new WinPeCustomImageMediaLease("images", Encoding.UTF8.GetBytes("{}"), [], []);
         using var post = new WinPeContentPackageMediaLease(ContentPackageKind.PostInstallation, new ContentPackageMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
         string config = WinPeConfigurationTestDocuments.Json(new DeployRuntimeSettings
@@ -118,7 +105,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
         var publisher = new Publisher(fail: false, reportProgress: true);
         var runner = new Runner(publisher);
-        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher);
+        var service = new WinPeUsbMediaService(runner, publisher, publisher);
         using var images = new WinPeCustomImageMediaLease("images", Encoding.UTF8.GetBytes("{}"), [], []);
         using var post = new WinPeContentPackageMediaLease(ContentPackageKind.PostInstallation, new ContentPackageMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
         string config = WinPeConfigurationTestDocuments.Json(new DeployRuntimeSettings
@@ -159,7 +146,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
         var publisher = new Publisher(fail: false, reportProgress: true);
         var runner = new CreateRunner();
-        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher, publisher);
+        var service = new WinPeUsbMediaService(runner, publisher, publisher, publisher);
         using var images = new WinPeCustomImageMediaLease("images", Encoding.UTF8.GetBytes("{}"), [], []);
         using var post = new WinPeContentPackageMediaLease(ContentPackageKind.PostInstallation, new ContentPackageMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
         string config = WinPeConfigurationTestDocuments.Json(new DeployRuntimeSettings
@@ -204,7 +191,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
         var publisher = new Publisher(fail: false);
         var runner = new Runner(publisher);
-        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher, publisher);
+        var service = new WinPeUsbMediaService(runner, publisher, publisher, publisher);
         using var images = new WinPeCustomImageMediaLease("images", Encoding.UTF8.GetBytes("{}"), [], []);
         using var post = new WinPeContentPackageMediaLease(ContentPackageKind.PostInstallation, new ContentPackageMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
         using var drivers = DriversLease();
@@ -238,7 +225,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         var publisher = new Publisher(fail: false);
         var runner = new Runner(publisher);
         var driversPublisher = new WinPeContentPackageMediaService(ContentPackageKind.Drivers, _ => 0);
-        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher, driversPublisher);
+        var service = new WinPeUsbMediaService(runner, publisher, publisher, driversPublisher);
         using var drivers = DriversLease();
         var options = new UsbOutputOptions
         {
@@ -271,7 +258,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         var publisher = new Publisher(fail: false);
         var runner = new Runner(publisher);
         var imagePublisher = new WinPeCustomImageMediaService(_ => 0, (_, _) => Task.FromResult<int?>(1));
-        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), imagePublisher);
+        var service = new WinPeUsbMediaService(runner, imagePublisher);
         using var images = new WinPeCustomImageMediaLease("images", Encoding.UTF8.GetBytes("{}"), [], []);
         UsbOutputOptions options = UpdateOptions(images, null, null);
 
@@ -295,7 +282,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
         var publisher = new Publisher(fail: false);
         var runner = new Runner(publisher);
-        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher, publisher);
+        var service = new WinPeUsbMediaService(runner, publisher, publisher, publisher);
         using var images = new WinPeCustomImageMediaLease("images", Encoding.UTF8.GetBytes("{}"), [], []);
         using var post = new WinPeContentPackageMediaLease(ContentPackageKind.PostInstallation, new ContentPackageMediaManifest { Id = "post" }, Encoding.UTF8.GetBytes("{}"), [], [], []);
         using var drivers = DriversLease();
@@ -320,7 +307,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
     {
         WinPeTestMediaLayout.Create(root, WinPeArchitecture.X64);
         var publisher = new Publisher(fail: false);
-        var service = new WinPeUsbMediaService(new CreateRunner(), new WinPeRuntimePayloadProvisioningService(new CreateRunner()), publisher, publisher, publisher);
+        var service = new WinPeUsbMediaService(new CreateRunner(), publisher, publisher, publisher);
         string hash = new('b', 64);
         using var drivers = new WinPeContentPackageMediaLease(ContentPackageKind.Drivers,
             new ContentPackageMediaManifest
@@ -355,7 +342,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         WinPeTestMediaLayout.Create(boot.RootPath, WinPeArchitecture.X64);
         var publisher = new Publisher(fail: false, failDestinationDisk: true);
         var runner = new Runner(publisher, boot.DriveLetter, cache.DriveLetter, formatSucceeds: true, expectPublication: false);
-        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher, publisher);
+        var service = new WinPeUsbMediaService(runner, publisher, publisher, publisher);
         var progress = new CollectingProgress<WinPeMediaProgress>();
         UsbOutputOptions options = UpdateOptions(null, null, null) with { Progress = progress };
 
@@ -398,7 +385,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
         WinPeTestMediaLayout.Create(boot.RootPath, WinPeArchitecture.X64);
         var publisher = new Publisher(fail: false, failPrune: true);
         var runner = new Runner(publisher, boot.DriveLetter, cache.DriveLetter, formatSucceeds: true);
-        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher, publisher);
+        var service = new WinPeUsbMediaService(runner, publisher, publisher, publisher);
         using var drivers = DriversLease();
         var progress = new CollectingProgress<WinPeMediaProgress>();
         var options = new UsbOutputOptions
@@ -475,7 +462,7 @@ public sealed class WinPeCustomImageUsbTests : IDisposable
     {
         var publisher = new Publisher(fail: false);
         var runner = new Runner(publisher, boot.DriveLetter, cache.DriveLetter, formatSucceeds: true, expectPublication: false);
-        var service = new WinPeUsbMediaService(runner, new WinPeRuntimePayloadProvisioningService(runner), publisher, publisher, driversPublisher);
+        var service = new WinPeUsbMediaService(runner, publisher, publisher, driversPublisher);
         var options = new UsbOutputOptions
         {
             TargetDiskNumber = 9,

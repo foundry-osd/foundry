@@ -29,7 +29,6 @@ public sealed class AutopilotInteractiveRuntimeSourceTests
     [Theory]
     [InlineData("FOUNDRY_DEPLOY_RELEASE_TAG", "v26.9.14.1")]
     [InlineData("FOUNDRY_RELEASE_TAG", "v26.9.14.1")]
-    [InlineData("FOUNDRY_POSTINSTALL_RELEASE_TAG", "v26.11.3.1")]
     public async Task Resolve_UsesDeployReleaseTagOverride(string variable, string expectedTag)
     {
         using var fixture = new Fixture();
@@ -78,30 +77,34 @@ public sealed class AutopilotInteractiveRuntimeSourceTests
     }
 
     [Fact]
-    public async Task Resolve_UsesForwardedDebugArchive_WithoutNetwork()
+    public async Task Resolve_UsesTheBootImageArchive_OnDebugMediaWithoutNetwork()
     {
         using var fixture = new Fixture();
         fixture.MarkDebugMedia();
-        fixture.ForwardArchive(fixture.ArchivePath, fixture.Sha256);
+        string bootImageArchive = fixture.PlaceBootImageArchive();
+
+        AutopilotInteractiveRuntimeOrigin origin = await fixture.Source.ResolveAsync("win-x64", TestContext.Current.CancellationToken);
+        await fixture.Source.InstallAsync(origin, fixture.TargetRuntime, null, TestContext.Current.CancellationToken);
+
+        Assert.True(origin.IsLocalArchive);
+        Assert.Equal(bootImageArchive, origin.Source);
+        Assert.Equal(fixture.Sha256, origin.Sha256, ignoreCase: true);
+        Assert.Empty(fixture.Requests);
+        Assert.Equal("app", File.ReadAllText(Path.Combine(fixture.TargetRuntime, "Foundry.AutopilotInteractive.exe")));
+        Assert.True(File.Exists(bootImageArchive));
+    }
+
+    [Fact]
+    public async Task Resolve_IgnoresTheBootImageArchive_OnReleaseMedia()
+    {
+        using var fixture = new Fixture();
+        fixture.PlaceBootImageArchive();
 
         AutopilotInteractiveRuntimeOrigin origin = await fixture.Source.ResolveAsync("win-x64", TestContext.Current.CancellationToken);
 
-        Assert.True(origin.IsLocalArchive);
-        Assert.Equal(fixture.ArchivePath, origin.Source);
-        Assert.Equal(fixture.Sha256, origin.Sha256, ignoreCase: true);
-        Assert.Empty(fixture.Requests);
-    }
-
-    [Theory]
-    [InlineData("not-a-hash")]
-    [InlineData("")]
-    public async Task Resolve_Throws_WhenForwardedArchiveHasNoTrustedHash(string sha256)
-    {
-        using var fixture = new Fixture();
-        fixture.ForwardArchive(fixture.ArchivePath, sha256);
-
-        await Assert.ThrowsAsync<InvalidDataException>(() => fixture.Source.ResolveAsync("win-x64", TestContext.Current.CancellationToken));
-        Assert.Empty(fixture.Requests);
+        Assert.False(origin.IsLocalArchive);
+        Assert.Equal("https://example.test/Foundry.AutopilotInteractive-win-x64.zip", origin.Source);
+        Assert.Single(fixture.Requests);
     }
 
     [Fact]
@@ -284,10 +287,13 @@ public sealed class AutopilotInteractiveRuntimeSourceTests
             File.WriteAllText(Path.Combine(WinPeRoot, "Config", "foundry.winpe.provisioning-source.txt"), "debug");
         }
 
-        public void ForwardArchive(string path, string sha256)
+        /// <summary>Copies the fixture archive where debug media carry it in boot.wim, under the fixture WinPE root.</summary>
+        public string PlaceBootImageArchive()
         {
-            EnvironmentValues["FOUNDRY_AUTOPILOTINTERACTIVE_ARCHIVE"] = path;
-            EnvironmentValues["FOUNDRY_AUTOPILOTINTERACTIVE_ARCHIVE_SHA256"] = sha256;
+            string path = Path.Combine(WinPeRoot, "AutopilotInteractive", "Foundry.AutopilotInteractive.zip");
+            Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+            File.Copy(ArchivePath, path);
+            return path;
         }
 
         public void Dispose()

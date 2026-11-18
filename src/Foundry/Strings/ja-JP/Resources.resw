@@ -4552,9 +4552,6 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="StartMedia.Operation.ProvisioningRuntimePayloads" xml:space="preserve">
     <value>Foundry コンポーネントを追加しています…</value>
   </data>
-  <data name="StartMedia.Operation.ProvisioningUsbRuntimePayloads" xml:space="preserve">
-    <value>Foundry コンポーネントを USB ドライブに追加しています…</value>
-  </data>
   <data name="StartMedia.Operation.PublishingToNetworkCache" xml:space="preserve">
     <value>インポートしたコンテンツをネットワーク キャッシュに発行しています…</value>
   </data>

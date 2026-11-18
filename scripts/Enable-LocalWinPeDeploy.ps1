@@ -19,7 +19,8 @@ if (-not (Test-Path -Path $AutopilotInteractiveProjectPath -PathType Leaf)) {
     throw "Foundry.AutopilotInteractive project not found: '$AutopilotInteractiveProjectPath'."
 }
 
-# PostInstall and AutopilotInteractive follow the WinPE debug flag.
+# PostInstall and AutopilotInteractive follow the WinPE debug flag: their projects are found beside Foundry.WinPE and
+# their local builds are copied into boot.wim (X:\Foundry\PostInstall and X:\Foundry\AutopilotInteractive).
 $env:FOUNDRY_WINPE_DEBUG_WINPE = '1'
 $env:FOUNDRY_WINPE_DEBUG_WINPE_PROJECT = $WinPeProjectPath
 $env:FOUNDRY_WINPE_DEBUG_AUTOPILOTINTERACTIVE_PROJECT = $AutopilotInteractiveProjectPath
@@ -36,7 +37,7 @@ else {
     $env:FOUNDRY_WINPE_DEBUG_WINPE_ARCHIVE = $resolvedWinPeArchivePath
 }
 
-Write-Host "Local WinPE/AutopilotInteractive mode enabled."
+Write-Host "Local WinPE/PostInstall/AutopilotInteractive mode enabled."
 Write-Host "FOUNDRY_WINPE_DEBUG_WINPE=$($env:FOUNDRY_WINPE_DEBUG_WINPE)"
 Write-Host "FOUNDRY_WINPE_DEBUG_WINPE_PROJECT=$($env:FOUNDRY_WINPE_DEBUG_WINPE_PROJECT)"
 if (-not [string]::IsNullOrWhiteSpace($env:FOUNDRY_WINPE_DEBUG_WINPE_ARCHIVE)) {

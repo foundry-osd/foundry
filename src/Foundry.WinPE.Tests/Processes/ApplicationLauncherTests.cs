@@ -17,27 +17,21 @@ public sealed class ApplicationLauncherTests
     [InlineData(0)]
     [InlineData(20)]
     [InlineData(22)]
-    public async Task CompletedConnectReleasesItsPayloadAfterProcessExit(int exitCode)
+    public async Task CompletedConnectKeepsTheGuardianExecutable(int exitCode)
     {
         string directory = Directory.CreateTempSubdirectory("FoundryPayloadExit-").FullName;
-        string executable = Path.Combine(directory, "Foundry.Connect.exe");
+        string executable = Path.Combine(directory, "Foundry.WinPE.exe");
         try
         {
-            File.WriteAllText(executable, "prepared payload");
+            File.WriteAllText(executable, "guardian");
             using var logger = new LoggerConfiguration().CreateLogger();
-            Process? launchedProcess = null;
             var launcher = new ApplicationLauncher(logger,
-                startProcess: _ => launchedProcess = Process.Start(new ProcessStartInfo(
+                startProcess: _ => Process.Start(new ProcessStartInfo(
                     Environment.GetEnvironmentVariable("ComSpec")!, $"/d /c exit {exitCode}")
                 {
                     UseShellExecute = false,
                     CreateNoWindow = true
-                }),
-                releasePayload: path =>
-                {
-                    Assert.True(launchedProcess!.HasExited);
-                    File.Delete(path);
-                });
+                }));
 
             using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
             ApplicationLaunchResult result = await launcher.RunConnectAsync(executable,
@@ -45,7 +39,8 @@ public sealed class ApplicationLauncherTests
 
             Assert.Equal(exitCode, result.ExitCode);
             Assert.Equal(exitCode == 0, result.Succeeded);
-            Assert.False(File.Exists(executable));
+            // Connect and Deploy run from the read-only boot image executable, which is never released after a child exits.
+            Assert.True(File.Exists(executable));
         }
         finally { Directory.Delete(directory, recursive: true); }
     }
@@ -155,8 +150,7 @@ public sealed class ApplicationLauncherTests
                     Process observed = Process.GetProcessById(child.Id);
                     cancellation.Cancel();
                     return observed;
-                },
-                releasePayload: File.Delete);
+                });
 
             await Assert.ThrowsAnyAsync<OperationCanceledException>(() => launcher.RunConnectAsync(
                 executable, new Dictionary<string, string?>(), cancellation.Token));
@@ -170,41 +164,6 @@ public sealed class ApplicationLauncherTests
             await child.WaitForExitAsync(CancellationToken.None);
             Directory.Delete(directory, recursive: true);
         }
-    }
-
-    [Fact]
-    public async Task PayloadCleanupFailureDoesNotReplaceConnectOutcome()
-    {
-        string directory = Directory.CreateTempSubdirectory("FoundryPayloadExit-").FullName;
-        string executable = Path.Combine(directory, "Foundry.Connect.exe");
-        string cleanupAttempt = Path.Combine(directory, "cleanup-attempt.txt");
-        try
-        {
-            File.WriteAllText(executable, "prepared payload");
-            using var logger = new LoggerConfiguration().CreateLogger();
-            var launcher = new ApplicationLauncher(logger,
-                startProcess: _ => Process.Start(new ProcessStartInfo(Environment.GetEnvironmentVariable("ComSpec")!, "/d /c exit 0")
-                {
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                }),
-                releasePayload: _ =>
-                {
-                    File.WriteAllText(cleanupAttempt, "attempted");
-                    throw new IOException("Payload is still locked.");
-                });
-
-            using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
-            ApplicationLaunchResult result = await launcher.RunConnectAsync(executable,
-                new Dictionary<string, string?>(), deadline.Token);
-
-            Assert.True(result.Succeeded);
-            Assert.Equal(0, result.ExitCode);
-            Assert.True(File.Exists(executable));
-            Assert.True(File.Exists(cleanupAttempt));
-            Assert.Equal("attempted", File.ReadAllText(cleanupAttempt));
-        }
-        finally { Directory.Delete(directory, recursive: true); }
     }
 
     [Fact]
@@ -373,7 +332,6 @@ public sealed class ApplicationLauncherTests
                 Assert.Equal(directory, start.WorkingDirectory);
                 Assert.Equal("TEST", start.Environment["FOUNDRY_DIAGNOSTIC_SESSION_ID"]);
                 Assert.False(start.Environment.ContainsKey("TO_REMOVE"));
-                Assert.False(start.Environment.ContainsKey("DOTNET_BUNDLE_EXTRACT_BASE_DIR"));
             });
         }
         finally { Directory.Delete(directory, recursive: true); }
@@ -442,10 +400,6 @@ public sealed class ApplicationLauncherTests
                         timestampUtc = DateTimeOffset.UtcNow
                     }));
                     return child;
-                }, releasePayload: path =>
-                {
-                    Assert.True(recovered);
-                    File.Delete(path);
                 });
             using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(15));
             ApplicationLaunchResult result = await launcher.StartDeployAsync(Path.Combine(directory, "Foundry.Deploy.exe"),
@@ -455,7 +409,7 @@ public sealed class ApplicationLauncherTests
             Assert.Equal(exitsDuringGrace, recovered);
             Assert.Equal(exitsDuringGrace, fixture!.HasExited);
             Assert.Equal(exitsDuringGrace ? 0 : (int?)null, result.ExitCode);
-            Assert.Equal(!exitsDuringGrace, File.Exists(executable));
+            Assert.True(File.Exists(executable));
         }
         finally
         {

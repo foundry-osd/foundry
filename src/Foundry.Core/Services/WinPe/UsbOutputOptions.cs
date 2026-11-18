@@ -31,14 +31,12 @@ public sealed record UsbOutputOptions
     public string? CustomDriverDirectoryPath { get; init; }
     /// <summary>Gets the WinPE configuration provisioned into boot.wim, which the published content packages must be bound to.</summary>
     public string? WinPeConfigurationJson { get; init; }
-    public WinPeRuntimePayloadProvisioningOptions? RuntimePayloadProvisioning { get; init; }
     /// <summary>Retains custom image inputs until data publication and BOOT creation complete.</summary>
     public WinPeCustomImageMediaLease? CustomImages { get; init; }
     /// <summary>Retains verified custom post-installation packages outside boot.wim.</summary>
     public WinPeContentPackageMediaLease? PostInstallation { get; init; }
     /// <summary>Retains verified custom driver set packages outside boot.wim; published after post-installation content.</summary>
     public WinPeContentPackageMediaLease? CustomDrivers { get; init; }
-    public IProgress<WinPeDownloadProgress>? DownloadProgress { get; init; }
     public IProgress<WinPeMediaProgress>? Progress { get; init; }
     public bool PreserveBuildWorkspace { get; init; }
 }

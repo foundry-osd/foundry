@@ -11,14 +11,16 @@ using Foundry.Deploy.Services.Deployment.PreOobe;
 
 namespace Foundry.Deploy.Tests;
 
+/// <summary>Creates the PostInstall launch files that boot media carry in <c>X:\Foundry\PostInstall</c>.</summary>
 internal static class NativeRuntimeFixture
 {
-    /// <summary>Release of the fixture runtime; matches the Deploy version of <see cref="PostInstallRuntimeRecoveryTests.Fixture"/>.</summary>
+    /// <summary>Informational release of the fixture runtime; Deploy never compares it.</summary>
     public const string ReleaseTag = "v26.9.29.1";
 
     public static PreOobePreparedContent Create(string root) =>
-        PostInstallRuntimeSource.AcquireAsync(CreateFiles(root), "win-x64", ReleaseTag, CancellationToken.None).GetAwaiter().GetResult();
+        PostInstallRuntimeSource.AcquireAsync(CreateFiles(root), "win-x64", CancellationToken.None).GetAwaiter().GetResult();
 
+    /// <summary>Writes the executable, <c>Launch.cmd</c> and their manifest, and returns the runtime directory.</summary>
     public static string CreateFiles(string root)
     {
         string directory = Path.Combine(root, "postinstall-runtime");
@@ -31,7 +33,7 @@ internal static class NativeRuntimeFixture
             files.Add(new() { RelativePath = name, Length = bytes.Length, Sha256 = Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant() });
         }
         WriteManifest(directory, new() { RuntimeIdentifier = "win-x64", ReleaseTag = ReleaseTag, Files = files });
-        return Path.Combine(directory, "Foundry.PostInstall.exe");
+        return directory;
     }
 
     public static void WriteManifest(string directory, PostInstallRuntimeManifest manifest) =>

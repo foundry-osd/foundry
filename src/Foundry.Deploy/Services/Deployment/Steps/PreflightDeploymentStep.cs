@@ -51,11 +51,11 @@ public sealed class PreflightDeploymentStep(
                 context.PostInstallContent = await (postInstallResolver ?? new PreOobe.PreOobeContentResolver())
                     .PrepareAsync(context, cancellationToken).ConfigureAwait(false);
             }
-            catch (PreOobe.PostInstallRuntimeUnavailableException exception)
+            catch (PreOobe.PostInstallRuntimeMissingException exception)
             {
                 context.ClearDomainJoinInput();
-                Serilog.Log.ForContext<PreflightDeploymentStep>().Error(exception, "Post-installation runtime recovery failed.");
-                return Failed("PostInstall.RuntimeUnavailable", "postinstall_runtime_unavailable");
+                Serilog.Log.ForContext<PreflightDeploymentStep>().Error(exception, "The boot media PostInstall runtime is missing or damaged.");
+                return Failed("PostInstall.RuntimeMissing", "postinstall_runtime_missing");
             }
             catch (Exception exception) when (exception is InvalidDataException or IOException or UnauthorizedAccessException or InvalidOperationException or HttpRequestException)
             {
@@ -272,7 +272,7 @@ public sealed class PreflightDeploymentStep(
 
     /// <summary>
     /// When interactive Autopilot is selected, confirms before any disk operation that the runtime archive exists with a trusted
-    /// SHA256 (a release asset, or the media archive Bootstrap forwarded) and keeps its origin for the Autopilot step.
+    /// SHA256 (a release asset, or the debug archive read from the boot image, whose hash is pinned when resolved) and keeps its origin for the Autopilot step.
     /// </summary>
     /// <returns>
     /// <see langword="null"/> when the runtime is available or not needed; otherwise the failure, with a distinct message when

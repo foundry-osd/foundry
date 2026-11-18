@@ -7,8 +7,7 @@ using Foundry.Utilities.Diagnostics;
 namespace Foundry.WinPE;
 
 /// <summary>Immutable media selection and diagnostic context shared by boot stages.</summary>
-internal sealed record BootstrapContext(string WinPeRoot, string RuntimeRoot, string RuntimeIdentifier,
-    string SessionId, string? PersistenceDirectory, bool DeployIsDebug)
+internal sealed record BootstrapContext(string WinPeRoot, string RuntimeIdentifier, string SessionId, string? PersistenceDirectory)
 {
     internal bool IsUsb => PersistenceDirectory is not null;
 

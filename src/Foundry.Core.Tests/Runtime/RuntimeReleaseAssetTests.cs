@@ -18,13 +18,13 @@ public sealed class RuntimeReleaseAssetTests
     {
         using JsonDocument release = JsonDocument.Parse($$"""
             {"assets":[
-                {"name":"Foundry.Deploy-win-x64.zip","digest":"sha256:{{Hash}}","browser_download_url":"https://example.com/deploy.zip"},
-                {"name":"Foundry.PostInstall-win-x64.zip","digest":"SHA256:{{Hash.ToUpperInvariant()}}","browser_download_url":"https://example.com/x64.zip"},
-                {"name":"Foundry.PostInstall-win-arm64.zip","digest":"sha256:{{Hash}}","browser_download_url":"https://example.com/arm64.zip"}
+                {"name":"Foundry.WinPE-win-x64.zip","digest":"sha256:{{Hash}}","browser_download_url":"https://example.com/winpe.zip"},
+                {"name":"Foundry.AutopilotInteractive-win-x64.zip","digest":"SHA256:{{Hash.ToUpperInvariant()}}","browser_download_url":"https://example.com/x64.zip"},
+                {"name":"Foundry.AutopilotInteractive-win-arm64.zip","digest":"sha256:{{Hash}}","browser_download_url":"https://example.com/arm64.zip"}
             ]}
             """);
 
-        RuntimeReleaseAsset asset = RuntimeReleaseAsset.Parse(release.RootElement, "Foundry.PostInstall", runtime);
+        RuntimeReleaseAsset asset = RuntimeReleaseAsset.Parse(release.RootElement, "Foundry.AutopilotInteractive", runtime);
 
         Assert.Equal(expectedUrl, asset.DownloadUrl);
         Assert.Equal(Hash, asset.Sha256);
@@ -38,13 +38,13 @@ public sealed class RuntimeReleaseAssetTests
     [InlineData("{\"assets\":[null]}")]
     [InlineData("{\"assets\":[{}]}")]
     [InlineData("{\"assets\":[{\"name\":42}]}")]
-    [InlineData("{\"assets\":[{\"name\":\"Foundry.PostInstall-win-arm64.zip\"}]}")]
-    [InlineData("{\"assets\":[{\"name\":\"Foundry.PostInstall-win-x64.zip\"},{\"name\":\"Foundry.PostInstall-win-x64.zip\"}]}")]
+    [InlineData("{\"assets\":[{\"name\":\"Foundry.AutopilotInteractive-win-arm64.zip\"}]}")]
+    [InlineData("{\"assets\":[{\"name\":\"Foundry.AutopilotInteractive-win-x64.zip\"},{\"name\":\"Foundry.AutopilotInteractive-win-x64.zip\"}]}")]
     public void Parse_WhenAssetsAreMalformedMissingOrDuplicated_Rejects(string json)
     {
         using JsonDocument release = JsonDocument.Parse(json);
 
-        Assert.Throws<InvalidDataException>(() => RuntimeReleaseAsset.Parse(release.RootElement, "Foundry.PostInstall", "win-x64"));
+        Assert.Throws<InvalidDataException>(() => RuntimeReleaseAsset.Parse(release.RootElement, "Foundry.AutopilotInteractive", "win-x64"));
     }
 
     [Theory]
@@ -57,7 +57,7 @@ public sealed class RuntimeReleaseAssetTests
     {
         using JsonDocument release = CreateRelease(digest, "https://example.com/runtime.zip");
 
-        Assert.Throws<InvalidDataException>(() => RuntimeReleaseAsset.Parse(release.RootElement, "Foundry.PostInstall", "win-x64"));
+        Assert.Throws<InvalidDataException>(() => RuntimeReleaseAsset.Parse(release.RootElement, "Foundry.AutopilotInteractive", "win-x64"));
     }
 
     [Theory]
@@ -70,12 +70,13 @@ public sealed class RuntimeReleaseAssetTests
     {
         using JsonDocument release = CreateRelease("sha256:" + Hash, url);
 
-        Assert.Throws<InvalidDataException>(() => RuntimeReleaseAsset.Parse(release.RootElement, "Foundry.PostInstall", "win-x64"));
+        Assert.Throws<InvalidDataException>(() => RuntimeReleaseAsset.Parse(release.RootElement, "Foundry.AutopilotInteractive", "win-x64"));
     }
 
     [Theory]
     [InlineData("../evil", "win-x64")]
-    [InlineData("Foundry.PostInstall", "../evil")]
+    [InlineData("Foundry.PostInstall", "win-x64")]
+    [InlineData("Foundry.AutopilotInteractive", "../evil")]
     public void Parse_WhenIdentityIsUnsupported_Rejects(string application, string runtime)
     {
         using JsonDocument release = CreateRelease("sha256:" + Hash, "https://example.com/runtime.zip");
@@ -85,6 +86,6 @@ public sealed class RuntimeReleaseAssetTests
 
     private static JsonDocument CreateRelease(string? digest, string? url) => JsonDocument.Parse(JsonSerializer.Serialize(new
     {
-        assets = new[] { new { name = "Foundry.PostInstall-win-x64.zip", digest, browser_download_url = url } }
+        assets = new[] { new { name = "Foundry.AutopilotInteractive-win-x64.zip", digest, browser_download_url = url } }
     }));
 }

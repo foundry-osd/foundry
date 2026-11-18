@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.WinPE.Console;
-using Foundry.WinPE.Runtime;
 using Xunit;
 
 namespace Foundry.WinPE.Tests.Console;
@@ -38,13 +37,25 @@ public sealed class BootstrapConsoleTests
 
         presenter.Report(new(BootstrapStage.Deploy, BootstrapStatus.Failed, "Late failure"));
         presenter.ReportWarning("Late warning");
-        presenter.ReportDownload(new RuntimeDownloadProgress("Foundry.Deploy", 100, 100));
         presenter.Complete(new(BootstrapOutcome.Failed, BootstrapStage.Deploy), "SESSION", null);
 
         Assert.Equal(terminal, output.ToString());
         Assert.Contains("Readiness is unverified", terminal);
         Assert.DoesNotContain("Continue in Foundry Deploy", terminal);
         Assert.DoesNotContain('\u001b', terminal);
+    }
+
+    [Fact]
+    public void ProgressListsTheFourBootStagesWithoutAPostInstallStage()
+    {
+        using var output = new StringWriter();
+        using var presenter = new BootstrapConsole(output);
+        presenter.Report(new(BootstrapStage.System, BootstrapStatus.Completed, "System preparation completed"));
+        presenter.Report(new(BootstrapStage.Deploy, BootstrapStatus.Running, "Starting Foundry Deploy"));
+
+        Assert.Equal([BootstrapStage.Environment, BootstrapStage.Connect, BootstrapStage.System, BootstrapStage.Deploy],
+            Enum.GetValues<BootstrapStage>());
+        Assert.DoesNotContain("Deployment files", output.ToString());
     }
 
     [Fact]

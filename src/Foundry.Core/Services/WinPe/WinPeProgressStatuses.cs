@@ -91,7 +91,6 @@ public static class WinPeProgressStatuses
     public const string CopyingWinPeMediaToUsb = "Copying WinPE media to USB.";
     public const string VerifyingUsbBootMedia = "Verifying USB boot media.";
     public const string PreparingUsbCachePartition = "Preparing USB cache partition.";
-    public const string ProvisioningUsbRuntimePayloads = "Provisioning USB runtime payloads.";
     public const string UsbMediaCompleted = "USB media completed.";
     public const string UsbBootPartitionUpdated = "USB boot partition updated.";
 
