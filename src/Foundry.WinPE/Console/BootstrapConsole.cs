@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Diagnostics;
+using Foundry.Core.Models.Runtime;
 
 namespace Foundry.WinPE.Console;
 
@@ -169,9 +170,15 @@ internal sealed class BootstrapConsole : IDisposable
     {
         BootstrapOutcome.Succeeded => "Foundry finished",
         BootstrapOutcome.Cancelled => "Startup cancelled",
-        BootstrapOutcome.Failed => "Startup failed",
+        BootstrapOutcome.Failed => result is not null && IsStoppedAfterStartup(result) ? "Foundry stopped" : "Startup failed",
         _ => "Preparing your deployment environment"
     };
+
+    // The UI process ended with an exit code other than its own startup or configuration failure codes: it had started, so
+    // "Startup failed" would mislead (a crash during the deployment, for example).
+    private static bool IsStoppedAfterStartup(BootstrapResult value) =>
+        value.Stage != BootstrapStage.Environment && value.FailureCategory == "child_exit" &&
+        value.ChildExitCode is not null and not (int)ChildRuntimeExitCode.StartupFailure and not (int)ChildRuntimeExitCode.ConfigurationFailure;
 
     private string FinalMessage() => current?.Message ?? "Preparing your deployment environment";
 

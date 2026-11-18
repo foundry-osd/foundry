@@ -104,9 +104,12 @@ public static class DeployPhase
             if (!RuntimeStartupGuard.CanRun())
                 throw new InvalidOperationException("Foundry Deploy requires Windows PE outside a DEBUG debugger session.");
 
-            stage = "configuration";
+            // Building the host and resolving services is the services stage; only the configuration read below is "configuration".
+            stage = "services";
             host = BuildHost(startup, options);
-            DeployConfigurationLoadResult configuration = host.Services.GetRequiredService<IDeployConfigurationService>().LoadOptional();
+            IDeployConfigurationService configurationService = host.Services.GetRequiredService<IDeployConfigurationService>();
+            stage = "configuration";
+            DeployConfigurationLoadResult configuration = configurationService.LoadOptional();
             if (configuration.Exists && configuration.Document is null)
             {
                 startup.ReportFailure(configuration.FailureException ?? new InvalidDataException("Deployment configuration is invalid."), stage);

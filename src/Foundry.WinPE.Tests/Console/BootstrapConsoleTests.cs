@@ -63,6 +63,30 @@ public sealed class BootstrapConsoleTests
     }
 
     [Fact]
+    public void CrashAfterStartupIsNotReportedAsAStartupFailure()
+    {
+        using var output = new StringWriter();
+        using var presenter = new BootstrapConsole(output);
+        presenter.Complete(new(BootstrapOutcome.Failed, BootstrapStage.Deploy, -1073741819, "child_exit"), "SESSION", null);
+
+        Assert.Contains("Foundry stopped", output.ToString());
+        Assert.DoesNotContain("Startup failed", output.ToString());
+    }
+
+    [Theory]
+    [InlineData(21, "child_exit")]
+    [InlineData(22, "child_exit")]
+    [InlineData(null, "readiness_timeout")]
+    public void FailureBeforeTheUiIsReadyIsReportedAsAStartupFailure(int? exitCode, string category)
+    {
+        using var output = new StringWriter();
+        using var presenter = new BootstrapConsole(output);
+        presenter.Complete(new(BootstrapOutcome.Failed, BootstrapStage.Connect, exitCode, category), "SESSION", null);
+
+        Assert.Contains("Startup failed", output.ToString());
+    }
+
+    [Fact]
     public void NormalCancellationDoesNotDisplayDiagnosticFooter()
     {
         using var output = new StringWriter();

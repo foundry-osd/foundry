@@ -21,9 +21,6 @@ public static class NativeDeploymentWorker
     /// <summary>The first argument of a worker invocation.</summary>
     public const string Command = "--native-deployment-worker";
 
-    /// <summary>Returns whether <paramref name="args"/> starts with <see cref="Command"/>.</summary>
-    public static bool IsWorkerInvocation(string[] args) => args.Length > 0 && args[0] == Command;
-
     /// <summary>Runs one worker request and returns the process exit code.</summary>
     /// <param name="args"><see cref="Command"/> followed by the path of the request file.</param>
     public static int Run(string[] args)

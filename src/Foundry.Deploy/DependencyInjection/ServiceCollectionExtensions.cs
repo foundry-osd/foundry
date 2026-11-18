@@ -5,6 +5,7 @@
 using System.Globalization;
 using System.Net.Http;
 using System.Runtime.InteropServices;
+using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Autopilot;
 using Foundry.Core.Services.DomainJoin;
 using Foundry.Core.Services.Runtime;
@@ -52,6 +53,14 @@ public static class ServiceCollectionExtensions
     private const string DeploymentModeEnvironmentVariable = "FOUNDRY_DEPLOYMENT_MODE";
 
     /// <summary>
+    /// Returns the shell's end action. The shell shuts down only when the operator leaves before the wizard opens (the password
+    /// prompt was cancelled or the network cache start was closed), so the phase ends with <see cref="ChildRuntimeExitCode.UserAborted"/>
+    /// and the guardian reports a cancelled boot, as it does when Foundry Connect is closed.
+    /// </summary>
+    internal static Action CreateShellEndAction(DeployPhaseLifetime lifetime)
+        => () => lifetime.TryEnd((int)ChildRuntimeExitCode.UserAborted);
+
+    /// <summary>
     /// Registers the Foundry Deploy phase window, lifetime, telemetry, startup and deployment services.
     /// </summary>
     /// <remarks>
@@ -77,11 +86,11 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ILocalizationService>(_ => new ResourceLocalizationService(LocalizationText.ResourceManager));
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<IKeyboardLayoutSwitcher>(_ => new WindowsKeyboardLayoutSwitcher());
-        // Before the wizard (access denied, network cache closed) the shell's Shutdown ends the phase normally.
+        // Before the wizard (access denied, network cache start closed by the operator) the shell's Shutdown ends the phase as an operator abort.
         services.AddSingleton<IApplicationShellService>(sp => new ApplicationShellService(
             sp.GetRequiredService<ILocalizationService>(),
             sp.GetRequiredService<WpfApplicationIdentity>(),
-            () => sp.GetRequiredService<DeployPhaseLifetime>().TryEnd(DeployPhase.SuccessExitCode)));
+            CreateShellEndAction(sp.GetRequiredService<DeployPhaseLifetime>())));
         services.AddSingleton(WpfApplicationIdentity.FromAssembly(typeof(MainWindow).Assembly));
         services.AddSingleton<IDeploymentWizardStateService, DeploymentWizardStateService>();
         services.AddSingleton<IDeploymentWizardContextFactory, DeploymentWizardContextFactory>();
