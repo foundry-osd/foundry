@@ -37,30 +37,108 @@ public sealed class NativeActionTests
     [Fact]
     public async Task LenovoRestart_CheckpointsBeforeRemainingProvisioning()
     {
-        string root = Path.Combine(Path.GetTempPath(), "Foundry.PostInstall.Tests", Guid.NewGuid().ToString("N"));
-        Directory.CreateDirectory(Path.Combine(root, "Payloads", "Drivers"));
-        File.WriteAllText(Path.Combine(root, "Payloads", "Drivers", "driver.exe"), "fixture");
-        try
-        {
-            var processes = new RecordingProcesses(new(3010, ""));
-            var action = new PreOobeExecutionAction
-            {
-                Id = "driver",
-                BuiltInKind = PreOobeBuiltInKind.Driver,
-                Parameters = JsonSerializer.SerializeToElement(new { commandKind = "LenovoExecutable", packagePath = "Payloads/Drivers/driver.exe" })
-            };
-            var driver = new DriverAction(root, Environment.GetFolderPath(Environment.SpecialFolder.Windows), processes);
-            ActionStepOutcome first = await driver.ExecuteAsync(action, 0, TestContext.Current.CancellationToken);
-            Assert.True(first.RestartRequested);
-            Assert.Equal(1, first.NextSubstep);
-            Assert.Single(processes.Commands);
-            processes.Result = new(0, "");
-            ActionStepOutcome resumed = await driver.ExecuteAsync(action, 1, TestContext.Current.CancellationToken);
-            Assert.Equal(2, resumed.NextSubstep);
-            Assert.EndsWith("reg.exe", processes.Commands[^1].FileName);
-            Assert.DoesNotContain(processes.Commands.Skip(1), command => command.FileName.EndsWith("driver.exe", StringComparison.Ordinal));
-        }
-        finally { Directory.Delete(root, true); }
+        using var lenovo = new LenovoFixture("Audio\\driver.inf");
+        var processes = new RecordingProcesses(new(3010, ""));
+        ActionStepOutcome first = await lenovo.ExecuteAsync(processes, 0);
+        Assert.True(first.RestartRequested);
+        Assert.Equal(1, first.NextSubstep);
+        Assert.Single(processes.Commands);
+        processes.Result = new(0, "");
+        ActionStepOutcome resumed = await lenovo.ExecuteAsync(processes, 1);
+        Assert.True(resumed.Succeeded);
+        Assert.Null(resumed.NextSubstep);
+        Assert.EndsWith(Path.Combine("System32", "pnputil.exe"), processes.Commands[^1].FileName, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain(processes.Commands.Skip(1), command => command.FileName.EndsWith("driver.exe", StringComparison.Ordinal));
+    }
+
+    [Fact]
+    public async Task LenovoInstall_RunsPnputilOncePerInf()
+    {
+        using var lenovo = new LenovoFixture("SCCM\\pack\\Audio\\a.inf", "SCCM\\pack\\Video Card\\b.inf", "SCCM\\pack\\readme.txt");
+        var processes = new RecordingProcesses(new(0, ""));
+        processes.Results.Enqueue(new(0, ""));
+        processes.Results.Enqueue(new(259, ""));
+
+        ActionStepOutcome outcome = await lenovo.ExecuteAsync(processes, 1);
+
+        Assert.True(outcome.Succeeded);
+        Assert.False(outcome.RestartRequested);
+        Assert.Null(outcome.NextSubstep);
+        Assert.Equal(2, processes.Commands.Count);
+        Assert.All(processes.Commands, command =>
+            Assert.EndsWith(Path.Combine("System32", "pnputil.exe"), command.FileName, StringComparison.OrdinalIgnoreCase));
+        Assert.Equal(["/add-driver", lenovo.Driver("SCCM\\pack\\Audio\\a.inf"), "/install"], processes.Commands[0].Arguments);
+        Assert.Equal(["/add-driver", lenovo.Driver("SCCM\\pack\\Video Card\\b.inf"), "/install"], processes.Commands[1].Arguments);
+        string log = lenovo.ReadLog();
+        Assert.Contains(Path.Combine("SCCM", "pack", "Audio", "a.inf") + ": exit 0", log);
+        Assert.Contains(Path.Combine("SCCM", "pack", "Video Card", "b.inf") + ": exit 259", log);
+    }
+
+    [Fact]
+    public async Task LenovoInstall_WithRebootRequired_SucceedsWithoutRestart()
+    {
+        using var lenovo = new LenovoFixture("a.inf");
+        var processes = new RecordingProcesses(new(3010, ""));
+
+        ActionStepOutcome outcome = await lenovo.ExecuteAsync(processes, 1);
+
+        Assert.True(outcome.Succeeded);
+        Assert.False(outcome.RestartRequested);
+        Assert.Null(outcome.NextSubstep);
+    }
+
+    [Fact]
+    public async Task LenovoInstall_WithFailedInf_RunsTheRestAndFails()
+    {
+        using var lenovo = new LenovoFixture("a.inf", "b.inf", "c.inf");
+        var processes = new RecordingProcesses(new(0, ""));
+        processes.Results.Enqueue(new(0, ""));
+        processes.Results.Enqueue(new(5, ""));
+        processes.Results.Enqueue(new(0, ""));
+
+        ActionStepOutcome outcome = await lenovo.ExecuteAsync(processes, 1);
+
+        Assert.Equal(3, processes.Commands.Count);
+        Assert.False(outcome.Succeeded);
+        Assert.False(outcome.TerminationUncertain);
+        Assert.Equal(5, outcome.ExitCode);
+        Assert.Equal("driver_install_incomplete", outcome.FailureCode);
+        Assert.Null(outcome.NextSubstep);
+    }
+
+    [Fact]
+    public async Task LenovoInstall_WithoutInf_Fails()
+    {
+        using var lenovo = new LenovoFixture("readme.txt");
+        var processes = new RecordingProcesses(new(0, ""));
+
+        ActionStepOutcome outcome = await lenovo.ExecuteAsync(processes, 1);
+
+        Assert.Empty(processes.Commands);
+        Assert.False(outcome.Succeeded);
+        Assert.Equal("driver_package_empty", outcome.FailureCode);
+    }
+
+    [Fact]
+    public async Task LenovoInstall_StopsOnUncertainTermination()
+    {
+        using var lenovo = new LenovoFixture("a.inf", "b.inf");
+        var processes = new RecordingProcesses(new(0, ""));
+        processes.Results.Enqueue(new(null, "", TimedOut: true, TerminationUncertain: true));
+
+        ActionStepOutcome outcome = await lenovo.ExecuteAsync(processes, 1);
+
+        Assert.Single(processes.Commands);
+        Assert.False(outcome.Succeeded);
+        Assert.True(outcome.TerminationUncertain);
+        Assert.Equal("execution_uncertain", outcome.FailureCode);
+    }
+
+    [Fact]
+    public async Task LenovoSubstep2_IsRejected()
+    {
+        using var lenovo = new LenovoFixture("a.inf");
+        await Assert.ThrowsAsync<InvalidDataException>(() => lenovo.ExecuteAsync(new RecordingProcesses(new(0, "")), 2));
     }
 
     [Fact]
@@ -180,8 +258,46 @@ public sealed class NativeActionTests
     private sealed class RecordingProcesses(ProcessOutcome outcome) : IPreOobeProcessExecutor
     {
         public ProcessOutcome Result { get; set; } = outcome;
+        /// <summary>Outcomes returned in order before <see cref="Result"/>.</summary>
+        public Queue<ProcessOutcome> Results { get; } = new();
         public List<ProcessCommand> Commands { get; } = [];
         public Task<ProcessOutcome> RunAsync(ProcessCommand command, CancellationToken cancellationToken)
-        { Commands.Add(command); return Task.FromResult(Result); }
+        { Commands.Add(command); return Task.FromResult(Results.Count > 0 ? Results.Dequeue() : Result); }
+    }
+
+    /// <summary>A PostInstall root with a staged Lenovo installer and a drivers folder holding the given files.</summary>
+    private sealed class LenovoFixture : IDisposable
+    {
+        private readonly string directory = Path.Combine(Path.GetTempPath(), "Foundry.PostInstall.Tests", Guid.NewGuid().ToString("N"));
+
+        public LenovoFixture(params string[] driverFiles)
+        {
+            Directory.CreateDirectory(Path.Combine(Root, "Payloads", "Drivers"));
+            File.WriteAllText(Path.Combine(Root, "Payloads", "Drivers", "driver.exe"), "fixture");
+            Directory.CreateDirectory(DriversRoot);
+            foreach (string file in driverFiles)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(Driver(file))!);
+                File.WriteAllText(Driver(file), "fixture");
+            }
+        }
+
+        public string Root => Path.Combine(directory, "Root");
+        public string DriversRoot => Path.Combine(directory, "Drivers");
+        public string Driver(string relativePath) => Path.Combine(DriversRoot, relativePath);
+        public string ReadLog() => File.ReadAllText(Path.Combine(Root, "Logs", "PreOobe", "lenovo-drivers.log"));
+
+        public Task<ActionStepOutcome> ExecuteAsync(RecordingProcesses processes, int substep) =>
+            new DriverAction(Root, Environment.GetFolderPath(Environment.SpecialFolder.Windows), processes, DriversRoot).ExecuteAsync(
+                new PreOobeExecutionAction
+                {
+                    Id = "driver",
+                    BuiltInKind = PreOobeBuiltInKind.Driver,
+                    Parameters = JsonSerializer.SerializeToElement(new { commandKind = "LenovoExecutable", packagePath = "Payloads/Drivers/driver.exe" })
+                },
+                substep,
+                TestContext.Current.CancellationToken);
+
+        public void Dispose() => Directory.Delete(directory, true);
     }
 }
