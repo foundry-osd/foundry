@@ -1,0 +1,14 @@
+<Window x:Class="Foundry.WinPE.Shell.WinPeShellWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Foundry"
+    Icon="pack://application:,,,/Foundry.Connect;component/Assets/Icons/app.ico"
+    ResizeMode="NoResize"
+    WindowState="Maximized"
+    WindowStyle="None">
+    <ContentPresenter x:Name="ContentHost">
+        <ContentPresenter.RenderTransform>
+            <TranslateTransform x:Name="ContentTransform" />
+        </ContentPresenter.RenderTransform>
+    </ContentPresenter>
+</Window>
