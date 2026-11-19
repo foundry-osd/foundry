@@ -4,7 +4,9 @@
 
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 using Foundry.Wpf.Motion;
 using Foundry.Wpf.Shell;
@@ -29,6 +31,7 @@ namespace Foundry.WinPE.Shell;
 public partial class WinPeShellWindow : Window, IShellHost
 {
     private const double SlideOffset = 24;
+    private const int MaxMenuFocusSteps = 32;
 
     private readonly Func<bool> _isSystemShuttingDown;
     private bool _hasContent;
@@ -113,10 +116,36 @@ public partial class WinPeShellWindow : Window, IShellHost
         // A page that chose its own focus target (Connect does in Loaded) keeps it.
         if (!ContainsFocus(content))
         {
-            content.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+            FocusFirstControl(content);
         }
 
         ShellContentRendered?.Invoke(this, new ShellContentRenderedEventArgs(content));
+    }
+
+    // The menu row comes first in the tab order of the Connect and Deploy pages, but the page body is the useful target.
+    private static void FocusFirstControl(FrameworkElement content)
+    {
+        content.MoveFocus(new TraversalRequest(FocusNavigationDirection.First));
+        for (int step = 0; step < MaxMenuFocusSteps && Keyboard.FocusedElement is FrameworkElement focused && IsInMenu(focused); step++)
+        {
+            if (!focused.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next)))
+            {
+                return;
+            }
+        }
+    }
+
+    private static bool IsInMenu(DependencyObject element)
+    {
+        for (DependencyObject? current = element; current is not null; current = LogicalTreeHelper.GetParent(current) ?? (current is Visual ? VisualTreeHelper.GetParent(current) : null))
+        {
+            if (current is MenuBase)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private bool ContainsFocus(FrameworkElement content)

@@ -4,6 +4,7 @@
 
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using Foundry.Deploy.Tests;
 using Foundry.WinPE.Shell;
 using Foundry.WinPE.Tests.Support;
@@ -61,6 +62,28 @@ public sealed class MessagePageTests
         one.Measure(new Size(800, 600));
         Assert.Equal(["Close"], FindButtons(one).Where(button => button.IsCancel).Select(button => (string)button.Content));
         return Task.CompletedTask;
+    });
+
+    [Fact]
+    public Task ShowContent_FocusesThePrimaryButtonSoEnterRelaunches() => WpfApplicationTestHost.RunAsync(async () =>
+    {
+        var window = new WinPeShellWindow();
+        try
+        {
+            var page = new MessagePage(new MessagePageModel("Title", "Message", "Relaunch", "Close"));
+
+            window.ShowContent(page);
+            await Dispatcher.CurrentDispatcher.InvokeAsync(() => { }, System.Windows.Threading.DispatcherPriority.ApplicationIdle).Task;
+
+            Button focused = Assert.IsType<Button>(System.Windows.Input.FocusManager.GetFocusedElement(window));
+            Assert.Equal("Relaunch", focused.Content);
+            Assert.True(focused.IsDefault);
+        }
+        finally
+        {
+            window.AllowClose = true;
+            window.Close();
+        }
     });
 
     private static IEnumerable<Button> FindButtons(DependencyObject root)

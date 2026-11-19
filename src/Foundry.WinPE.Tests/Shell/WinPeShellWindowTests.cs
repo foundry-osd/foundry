@@ -193,17 +193,19 @@ public sealed partial class WinPeShellWindowTests
     });
 
     [Fact]
-    public Task Window_RendersWithTheStandaloneResourcesOnly() => WpfApplicationTestHost.RunAsync(async () =>
+    public Task ShowContent_FocusesTheFirstControlAfterTheMenuRow() => WpfApplicationTestHost.RunAsync(async () =>
     {
         var window = new WinPeShellWindow();
         try
         {
-            window.Show();
-            window.ShowContent(new TextBlock { Text = "page" });
+            Button target = new();
+            Menu menu = new() { Items = { new MenuItem { Header = "Theme" } } };
+            StackPanel page = new() { Children = { menu, target } };
+
+            window.ShowContent(page);
             await Settle();
 
-            Assert.True(window.IsVisible);
-            Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
+            Assert.Same(target, System.Windows.Input.FocusManager.GetFocusedElement(window));
         }
         finally
         {
