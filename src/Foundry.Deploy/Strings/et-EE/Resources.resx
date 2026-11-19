@@ -92,7 +92,7 @@ Litsentsitud MIT-i litsentsi alusel.</value>
     <value>Versioon</value>
   </data>
   <data name="CatalogStartup.Message" xml:space="preserve">
-    <value>Windowsi ja draiverite kataloogide laadimine ebaõnnestus. Kontrollige võrguühendust ja valige Proovi uuesti. Sulge lõpetab Foundry Deploy töö.</value>
+    <value>Windowsi ja draiverite kataloogide laadimine ebaõnnestus. Kontrollige võrguühendust ja valige Proovi uuesti. Sule lõpetab Foundry Deploy töö.</value>
   </data>
   <data name="CatalogStartup.Title" xml:space="preserve">
     <value>Kataloogid pole saadaval</value>

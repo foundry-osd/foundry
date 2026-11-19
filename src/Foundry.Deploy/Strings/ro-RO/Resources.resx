@@ -92,7 +92,7 @@ Licențiat sub licența MIT.</value>
     <value>Versiune</value>
   </data>
   <data name="CatalogStartup.Message" xml:space="preserve">
-    <value>Cataloagele Windows și de drivere nu au putut fi încărcate. Verificați conexiunea la rețea, apoi selectați Reîncercați. Închidere oprește Foundry Deploy.</value>
+    <value>Cataloagele Windows și de drivere nu au putut fi încărcate. Verificați conexiunea la rețea, apoi selectați Reîncearcă. Închide oprește Foundry Deploy.</value>
   </data>
   <data name="CatalogStartup.Title" xml:space="preserve">
     <value>Cataloage indisponibile</value>

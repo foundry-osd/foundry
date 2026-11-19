@@ -92,7 +92,7 @@ Licencjonowany na licencji MIT.</value>
     <value>Wersja</value>
   </data>
   <data name="CatalogStartup.Message" xml:space="preserve">
-    <value>Nie można załadować katalogów systemu Windows i sterowników. Sprawdź połączenie sieciowe, a następnie wybierz Ponów. Zamknij kończy działanie Foundry Deploy.</value>
+    <value>Nie można załadować katalogów systemu Windows i sterowników. Sprawdź połączenie sieciowe, a następnie wybierz Ponów próbę. Zamknij kończy działanie Foundry Deploy.</value>
   </data>
   <data name="CatalogStartup.Title" xml:space="preserve">
     <value>Katalogi niedostępne</value>

@@ -92,7 +92,7 @@ Lizenziert unter der MIT-Lizenz.</value>
     <value>Version</value>
   </data>
   <data name="CatalogStartup.Message" xml:space="preserve">
-    <value>Die Windows- und Treiberkataloge konnten nicht geladen werden. Prüfen Sie die Netzwerkverbindung und wählen Sie dann Wiederholen. Schließen beendet Foundry Deploy.</value>
+    <value>Die Windows- und Treiberkataloge konnten nicht geladen werden. Prüfen Sie die Netzwerkverbindung und wählen Sie dann Erneut versuchen. Schließen beendet Foundry Deploy.</value>
   </data>
   <data name="CatalogStartup.Title" xml:space="preserve">
     <value>Kataloge nicht verfügbar</value>
