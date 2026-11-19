@@ -30,6 +30,7 @@ using Foundry.Deploy.Services.DomainJoin;
 
 namespace Foundry.Deploy.Tests;
 
+[Collection(nameof(ProcessCultureCollection))]
 public sealed class UnattendRuntimeTests
 {
     [Theory]
@@ -271,6 +272,8 @@ public sealed class UnattendRuntimeTests
     {
         CultureInfo originalCulture = CultureInfo.CurrentCulture;
         CultureInfo originalUiCulture = CultureInfo.CurrentUICulture;
+        CultureInfo? defaultCulture = CultureInfo.DefaultThreadCurrentCulture;
+        CultureInfo? defaultUiCulture = CultureInfo.DefaultThreadCurrentUICulture;
         try
         {
             using var fixture = new Fixture();
@@ -304,6 +307,8 @@ public sealed class UnattendRuntimeTests
         {
             CultureInfo.CurrentCulture = originalCulture;
             CultureInfo.CurrentUICulture = originalUiCulture;
+            CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = defaultUiCulture;
         }
     }
 

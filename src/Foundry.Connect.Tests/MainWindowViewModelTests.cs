@@ -16,6 +16,7 @@ using Foundry.Wpf.Localization;
 
 namespace Foundry.Connect.Tests;
 
+[Collection(nameof(ProcessCultureCollection))]
 public sealed class MainWindowViewModelTests
 {
     private readonly ManualTimeProvider _clock = new();

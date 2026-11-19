@@ -17,6 +17,7 @@ using Foundry.Connect.Configuration;
 
 namespace Foundry.Connect.Tests.ViewModels;
 
+[Collection(nameof(ProcessCultureCollection))]
 public sealed class ConnectPageViewModelTests : IDisposable
 {
     private readonly ManualTimeProvider _clock = new();
