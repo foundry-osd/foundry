@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.Concurrent;
+using System.Globalization;
 using Foundry.Connect;
 using Foundry.Connect.Network;
 using Foundry.Core.Services.Runtime;
@@ -182,8 +183,17 @@ public sealed class WinPeUiSessionTests
         var fixture = new Fixture();
         int shown = -1;
         fixture.OnSystemPreparation = () => shown = fixture.Shell.ShowCount;
-
-        await fixture.RunAsync();
+        // An English process language proves the page does not fall back to it: the result does not depend on the machine.
+        CultureInfo previous = CultureInfo.CurrentUICulture;
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+        try
+        {
+            await fixture.RunAsync();
+        }
+        finally
+        {
+            CultureInfo.CurrentUICulture = previous;
+        }
 
         Assert.Equal(["connect", "status", "system", "deploy"], fixture.Calls);
         // The page is on screen before the preparation starts.
