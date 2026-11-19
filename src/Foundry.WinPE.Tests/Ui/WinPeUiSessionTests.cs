@@ -94,6 +94,7 @@ public sealed class WinPeUiSessionTests
         Assert.Equal(DeployPhase.SuccessExitCode, await fixture.RunAsync());
 
         Assert.Same(fixture.Shell, fixture.ConnectOptions!.Shell);
+        Assert.Equal(WinPeUiSession.StatusPageTitle, fixture.ConnectOptions.StatusPageTitle);
         Assert.Same(fixture.Shell, fixture.DeployOptions!.Shell);
         Assert.Equal(3, fixture.Shell.ShowCount);
         Assert.Equal(0, fixture.Shell.WindowAccessCount);
@@ -188,7 +189,8 @@ public sealed class WinPeUiSessionTests
         StatusPageModel model = Assert.Single(fixture.StatusPages);
         // The fixture's Connect ends in French, the language the page follows.
         Assert.Equal("Réglage de l'horloge et du fuseau horaire…", model.Status);
-        Assert.False(string.IsNullOrWhiteSpace(model.Title));
+        Assert.Equal(WinPeUiSession.StatusPageTitle, model.Title);
+        Assert.Equal(model.Title, fixture.ConnectOptions!.StatusPageTitle);
     }
 
     [Fact]

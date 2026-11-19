@@ -130,7 +130,8 @@ public static class ConnectPhase
             // prompt while the gate runs, and the close handler applies to the status page as well.
             content = host.Services.GetRequiredService<ConnectShellContent>();
             closeAttachment = AttachCloseHandler(options.Shell, host.Services.GetRequiredService<MainWindowViewModel>().HandleWindowClosing);
-            Task gate = RunNetworkGateAsync(application, options.Shell, host.Services, content, startup, exitAuthority, cancellationToken);
+            Task gate = RunNetworkGateAsync(
+                application, options.Shell, host.Services, content, startup, exitAuthority, options.StatusPageTitle, cancellationToken);
 
             var exitCode = (int)await exitAuthority.Completion;
 
@@ -188,6 +189,7 @@ public static class ConnectPhase
         ConnectShellContent content,
         RuntimeStartupDiagnostics startup,
         ApplicationLifetimeService exitAuthority,
+        string? statusPageTitle,
         CancellationToken cancellationToken)
     {
         ShellContentAttachment? attachment = null;
@@ -196,7 +198,7 @@ public static class ConnectPhase
             ILocalizationService localization = services.GetRequiredService<ILocalizationService>();
             var statusPage = new StatusPageView
             {
-                DataContext = new StatusPageModel(localization.GetString("App.Name"), localization.GetString("Status.LookingForNetwork"))
+                DataContext = CreateStatusPageModel(statusPageTitle, localization)
             };
             attachment = new ShellContentAttachment(shell, statusPage);
             PresentContent(application, shell, statusPage);
@@ -298,6 +300,10 @@ public static class ConnectPhase
 
         return new ConnectPhaseResult(exitCode, DeploymentKey: null, theme, culture);
     }
+
+    /// <summary>Creates the "Looking for the network" status page model, titled with the host's title when it gave one.</summary>
+    internal static StatusPageModel CreateStatusPageModel(string? hostTitle, ILocalizationService localization) =>
+        new(string.IsNullOrWhiteSpace(hostTitle) ? localization.GetString("App.Name") : hostTitle, localization.GetString("Status.LookingForNetwork"));
 
     /// <summary>
     /// Routes the shell's close requests to <paramref name="handleClosing"/> (the operator abort) and keeps the window open:

@@ -27,7 +27,8 @@ namespace Foundry.WinPE.Ui;
 /// </para>
 /// <para>
 /// Readiness: <c>configuration_loaded</c> comes from Connect, <c>ui_ready</c> once from the first content of the session
-/// (Connect's page or its password prompt, or Deploy's content when Connect is skipped), and <c>startup_failed</c> when Connect
+/// (Connect's "Looking for the network" status page, or Deploy's content in the debug Deploy-only mode where the Connect
+/// phase is skipped entirely; the network gate skipping Connect's page does not change it), and <c>startup_failed</c> when Connect
 /// fails before any content rendered.
 /// The UI state file follows each phase, the language the operator works in, and the start of a destructive deployment step
 /// (before that step runs).
@@ -69,7 +70,9 @@ internal sealed class WinPeUiSession(
     /// <summary>The minimum time the status page stays on screen, so a fast step does not flash.</summary>
     internal static readonly TimeSpan StatusPageMinimumDisplay = TimeSpan.FromSeconds(1);
 
-    private const string StatusPageTitle = "Foundry OSD";
+    /// <summary>The title shared by every status page of the startup: Connect's and the session's.</summary>
+    internal const string StatusPageTitle = "Foundry OSD";
+
     private const string StatusPageStatusKey = "SystemPreparation.Status";
     private const string StatusPageStatusEnglish = "Setting the clock and time zone…";
 
@@ -108,7 +111,8 @@ internal sealed class WinPeUiSession(
             Shell = shell,
             OnConfigurationLoaded = OnConnectConfigurationLoaded,
             OnCultureChanged = OnCultureChanged,
-            OnFirstContentRendered = OnConnectFirstContentRendered
+            OnFirstContentRendered = OnConnectFirstContentRendered,
+            StatusPageTitle = StatusPageTitle
         }, cancellationToken));
         try
         {

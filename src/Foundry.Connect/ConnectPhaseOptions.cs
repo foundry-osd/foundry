@@ -18,10 +18,16 @@ public sealed class ConnectPhaseOptions
 
     /// <summary>
     /// Gets the readiness hook: called once, on the UI thread, when Connect's first content renders, which is its "Looking for
-    /// the network" status page (or, should it render first, the deployment password prompt shown over it). It is not called
-    /// when Connect fails before any content rendered.
+    /// the network" status page (the deployment password prompt and the other dialogs open over it, only after it rendered).
+    /// It is not called when Connect fails before any content rendered.
     /// </summary>
     public required Action OnFirstContentRendered { get; init; }
+
+    /// <summary>
+    /// Gets the title of Connect's status page, or <see langword="null"/> to use Connect's own application name. The host
+    /// sets it so the status pages of the whole startup share one title.
+    /// </summary>
+    public string? StatusPageTitle { get; init; }
 
     /// <summary>
     /// Gets the hook called once, on the UI thread, when Connect loaded its configuration and built its services, before its
