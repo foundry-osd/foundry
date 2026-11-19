@@ -459,6 +459,26 @@ public sealed class WinPeUiSessionTests
     [Theory]
     [InlineData(false)]
     [InlineData(true)]
+    public async Task NetworkPage_ThatDoesNotSucceedAfterALanguageChange_RecordsDeploysLanguageAgain(bool connectThrows)
+    {
+        var fixture = new Fixture { ClockUsableAfterPreparation = true, RevisitExitCode = 20 };
+        fixture.OnRevisit = () => fixture.RevisitOptions!.OnCultureChanged!("de-DE");
+        if (connectThrows)
+        {
+            fixture.Revisit = (_, _) => Task.FromException<ConnectPhaseResult>(new InvalidOperationException("Revisit failed."));
+        }
+
+        fixture.ReopenNetworkPageInDeploy();
+
+        await fixture.RunAsync();
+
+        // Deploy keeps its own language (it-IT in the request) when the page did not succeed.
+        Assert.Equal(["fr-FR", "de-DE", "it-IT"], fixture.States.Where(state => state.Phase == UiPhase.Deploy).Select(state => state.Culture));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
     public async Task NetworkPage_DisposesTheRequestKeyWhateverConnectDoes(bool connectThrows)
     {
         var fixture = new Fixture();

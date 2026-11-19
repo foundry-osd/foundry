@@ -174,7 +174,8 @@ internal sealed class WinPeUiSession(
     /// prepares the system again when the clock is still unusable (the page may have brought the network it needed).
     /// </summary>
     /// <remarks>
-    /// Runs inside the Deploy phase: the state file keeps the Deploy phase (only the language and the clock state change),
+    /// Runs inside the Deploy phase: the state file keeps the Deploy phase (only the language and the clock state change; a
+    /// page that did not succeed records Deploy's language again),
     /// Deploy keeps the close requests and the dispatcher exceptions, and the readiness is not reported again. A cancellation
     /// (Deploy ending) ends the page as Connect's user abort and skips the system preparation.
     /// </remarks>
@@ -191,6 +192,10 @@ internal sealed class WinPeUiSession(
     private async Task<NetworkPageResult> OpenNetworkPageAsync(
         ProvisioningOutcome? previousProvisioning, NetworkPageRequest request, CancellationToken cancellationToken)
     {
+        // The last language the page reported: a page that did not succeed leaves Deploy in its own language, which the state
+        // file then records again.
+        string? pageCulture = null;
+        bool succeeded = false;
         try
         {
             logger.Information("Foundry Connect was reopened from the Network menu.");
@@ -199,7 +204,11 @@ internal sealed class WinPeUiSession(
                 Shell = shell,
                 // Required by the options; a reopened Connect never calls it, and the UI process reported its readiness already.
                 OnFirstContentRendered = static () => { },
-                OnCultureChanged = OnCultureChanged,
+                OnCultureChanged = culture =>
+                {
+                    pageCulture = culture;
+                    OnCultureChanged(culture);
+                },
                 StatusPageTitle = StatusPageTitle,
                 ThemeMode = request.ThemeMode,
                 CultureName = request.CultureName,
@@ -219,12 +228,19 @@ internal sealed class WinPeUiSession(
             logger.Information(
                 "Foundry Connect reopened from the Network menu ended. ExitCode={ExitCode}, SystemPreparedAgain={SystemPreparedAgain}",
                 result.ExitCode, preparesSystemAgain);
-            return result.ExitCode == (int)ChildRuntimeExitCode.Success
+            succeeded = result.ExitCode == (int)ChildRuntimeExitCode.Success;
+            return succeeded
                 ? new NetworkPageResult(result.ThemeMode, result.CultureName)
                 : new NetworkPageResult(ThemeMode: null, CultureName: null);
         }
         finally
         {
+            if (!succeeded && pageCulture is not null && request.CultureName is { } deployCulture
+                && !string.Equals(pageCulture, deployCulture, StringComparison.OrdinalIgnoreCase))
+            {
+                OnCultureChanged(deployCulture);
+            }
+
             // Connect zeroes the copy too; disposing twice is safe.
             request.DeploymentKey?.Dispose();
         }
