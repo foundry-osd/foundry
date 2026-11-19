@@ -102,7 +102,7 @@ internal static class GuardianProgram
             var crashScreen = new UiCrashScreen(context.PersistenceDirectory ?? Path.GetDirectoryName(logPath));
             var coordinator = new BootstrapCoordinator(context, preparation, launcher, crashScreen, persistence,
                 Log.ForContext<BootstrapCoordinator>(), presenter.Report,
-                () => telemetry.StartDelivery(preparation.IsClockUsable), telemetry.Complete);
+                uiClockUsable => telemetry.StartDelivery(preparation.IsClockUsable || uiClockUsable), telemetry.Complete);
             coordinatorStarted = true;
             BootstrapResult result = await coordinator.RunAsync(cancellation.Token).ConfigureAwait(false);
             presenter.Complete(result, sessionId, logPath);

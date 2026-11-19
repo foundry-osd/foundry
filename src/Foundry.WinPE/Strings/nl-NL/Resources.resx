@@ -21,6 +21,9 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>Verouderd opstartmedium</value>
   </data>
+  <data name="SystemPreparation.Status" xml:space="preserve">
+    <value>De klok en tijdzone worden ingesteld…</value>
+  </data>
   <data name="UiCrash.Close" xml:space="preserve">
     <value>Sluiten</value>
   </data>

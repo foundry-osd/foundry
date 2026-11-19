@@ -21,6 +21,9 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>Supporto di avvio obsoleto</value>
   </data>
+  <data name="SystemPreparation.Status" xml:space="preserve">
+    <value>Impostazione di orologio e fuso orario…</value>
+  </data>
   <data name="UiCrash.Close" xml:space="preserve">
     <value>Chiudi</value>
   </data>

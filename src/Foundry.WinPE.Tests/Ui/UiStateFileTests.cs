@@ -41,6 +41,32 @@ public sealed class UiStateFileTests : IDisposable
         Assert.Equal(new UiState(UiPhase.Deploy, false, "fr-FR"), UiStateFile.Read(path));
     }
 
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void Write_ThenRead_RoundTripsTheClockState(bool clockUsable)
+    {
+        string path = Path.Combine(directory, "ui-state.json");
+
+        UiStateFile.Write(path, new UiState(UiPhase.Deploy, DestructiveStarted: false, ClockUsable: clockUsable));
+
+        using JsonDocument document = JsonDocument.Parse(File.ReadAllText(path));
+        Assert.Equal(clockUsable, document.RootElement.GetProperty("clockUsable").GetBoolean());
+        Assert.Equal(clockUsable, UiStateFile.Read(path)!.ClockUsable);
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData(",\"clockUsable\":\"yes\"")]
+    [InlineData(",\"clockUsable\":null")]
+    public void Read_StateWithoutAValidClockState_IsReadWithTheClockUnusable(string property)
+    {
+        string path = Path.Combine(directory, "ui-state.json");
+        File.WriteAllText(path, "{\"phase\":\"deploy\",\"destructiveStarted\":true" + property + "}");
+
+        Assert.Equal(new UiState(UiPhase.Deploy, DestructiveStarted: true), UiStateFile.Read(path));
+    }
+
     [Fact]
     public void Write_WithoutCulture_OmitsTheProperty()
     {

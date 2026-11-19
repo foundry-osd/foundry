@@ -21,7 +21,11 @@ internal interface IConnectPhaseRunner
 internal interface ISystemPreparationStep
 {
     /// <summary>Runs the preparation off the UI thread; a failure is the caller's to tolerate.</summary>
-    Task RunAsync(CancellationToken cancellationToken);
+    /// <returns>
+    /// Whether the system clock is usable afterwards: <see langword="true"/> when it was set or verified against an internet
+    /// time source (or was already usable), <see langword="false"/> when the sync failed or the process is not in Windows PE.
+    /// </returns>
+    Task<bool> RunAsync(CancellationToken cancellationToken);
 }
 
 /// <summary>Runs the Foundry Deploy phase for <see cref="WinPeUiSession"/>.</summary>
