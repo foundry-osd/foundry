@@ -443,6 +443,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Juhtmega 802.1X-autentimine on pooleli.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Võrgu otsimine…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Võrk valmis</value>
   </data>

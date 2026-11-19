@@ -34,12 +34,16 @@ public sealed class ConnectUnlockService(
 {
     private readonly SemaphoreSlim _gate = new(1, 1);
     private DeploymentKeyTransfer? _deploymentKey;
+    private int _promptOpen;
 
     /// <inheritdoc />
     public bool IsWiredUnlockRequired => secrets.IsWiredLocked && configuration.Dot1x.IsEnabled;
 
     /// <inheritdoc />
     public bool IsWifiUnlockRequired => secrets.IsWifiLocked;
+
+    /// <inheritdoc />
+    public bool IsPromptOpen => Volatile.Read(ref _promptOpen) != 0;
 
     /// <inheritdoc />
     public async Task<ConnectUnlockResult> UnlockAsync(ConnectUnlockTrigger trigger, CancellationToken cancellationToken)
@@ -56,7 +60,16 @@ public sealed class ConnectUnlockService(
                 return ConnectUnlockResult.NotRequired;
             }
 
-            return await PromptUntilUnlockedAsync(protection, trigger, cancellationToken).ConfigureAwait(false);
+            // Set before the first prompt, which may run a nested modal loop inside this call on the UI thread.
+            Volatile.Write(ref _promptOpen, 1);
+            try
+            {
+                return await PromptUntilUnlockedAsync(protection, trigger, cancellationToken).ConfigureAwait(false);
+            }
+            finally
+            {
+                Volatile.Write(ref _promptOpen, 0);
+            }
         }
         finally
         {

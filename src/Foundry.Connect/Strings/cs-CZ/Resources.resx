@@ -443,6 +443,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Probíhá kabelové ověřování 802.1X.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Hledání sítě…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Síť připravena</value>
   </data>

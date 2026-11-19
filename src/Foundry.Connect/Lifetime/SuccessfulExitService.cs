@@ -28,7 +28,7 @@ public enum SuccessfulExitResult
 }
 
 /// <summary>
-/// The single exit path of Continue and auto-continue.
+/// The single exit path of Continue, auto-continue and the network gate that skips the Connect page.
 /// </summary>
 public interface ISuccessfulExitService
 {
@@ -36,10 +36,14 @@ public interface ISuccessfulExitService
     /// Confirms internet access with a final probe, then captures roaming profiles, sends the session-ready event, clears
     /// the secrets and requests the successful exit.
     /// </summary>
+    /// <param name="connectSkipped">
+    /// Whether the network gate leaves without showing the Connect page; recorded as <c>connect_skipped</c> in the
+    /// session-ready event.
+    /// </param>
     /// <param name="cancellationToken">Caller cancellation; cancelling it abandons the exit and throws.</param>
     /// <returns>What happened.</returns>
     /// <exception cref="OperationCanceledException">The caller cancelled before the exit was requested.</exception>
-    Task<SuccessfulExitResult> TryCompleteAsync(CancellationToken cancellationToken);
+    Task<SuccessfulExitResult> TryCompleteAsync(bool connectSkipped, CancellationToken cancellationToken);
 }
 
 /// <summary>
@@ -109,7 +113,7 @@ public sealed class SuccessfulExitService : ISuccessfulExitService
     }
 
     /// <inheritdoc />
-    public async Task<SuccessfulExitResult> TryCompleteAsync(CancellationToken cancellationToken)
+    public async Task<SuccessfulExitResult> TryCompleteAsync(bool connectSkipped, CancellationToken cancellationToken)
     {
         await _gate.WaitAsync(cancellationToken).ConfigureAwait(false);
         try
@@ -129,7 +133,7 @@ public sealed class SuccessfulExitService : ISuccessfulExitService
 
             NetworkState state = _coordinator.State with { Internet = InternetStatus.Online };
             await CaptureRoamingAsync(state, cancellationToken).ConfigureAwait(false);
-            await TrackSessionReadyAsync(state, cancellationToken).ConfigureAwait(false);
+            await TrackSessionReadyAsync(state, connectSkipped, cancellationToken).ConfigureAwait(false);
 
             _coordinator.ReleaseProvisionedProfile();
             _secrets.ClearAll();
@@ -171,14 +175,14 @@ public sealed class SuccessfulExitService : ISuccessfulExitService
         }
     }
 
-    private async Task TrackSessionReadyAsync(NetworkState state, CancellationToken cancellationToken)
+    private async Task TrackSessionReadyAsync(NetworkState state, bool connectSkipped, CancellationToken cancellationToken)
     {
         Task? tracking = null;
         try
         {
             using var budget = new CancellationTokenSource(TelemetryBudget, _timeProvider);
             using CancellationTokenSource linked = CancellationTokenSource.CreateLinkedTokenSource(budget.Token, cancellationToken);
-            tracking = _telemetry.TrackAsync(TelemetryEvents.ConnectSessionReady, ConnectSessionReadyTelemetry.Build(state, _configuration, connectSkipped: false), linked.Token);
+            tracking = _telemetry.TrackAsync(TelemetryEvents.ConnectSessionReady, ConnectSessionReadyTelemetry.Build(state, _configuration, connectSkipped), linked.Token);
             await tracking.WaitAsync(TelemetryBudget, _timeProvider, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception exception) when (exception is TimeoutException || (exception is OperationCanceledException && !cancellationToken.IsCancellationRequested))

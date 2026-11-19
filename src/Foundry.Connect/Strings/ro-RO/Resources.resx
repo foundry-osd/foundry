@@ -443,6 +443,9 @@ Licențiat sub licența MIT.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Autentificarea 802.1X prin cablu este în curs.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Se caută rețeaua…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Rețea gata</value>
   </data>

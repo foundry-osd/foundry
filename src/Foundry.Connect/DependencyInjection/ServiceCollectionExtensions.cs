@@ -103,7 +103,7 @@ public static class ServiceCollectionExtensions
     }
 
     /// <summary>
-    /// Registers the single page and its sections as singletons with the phase's lifetime. One
+    /// Registers the single page, its sections and the network gate as singletons with the phase's lifetime. One
     /// <see cref="ConnectNetworkActions"/> is shared by the page and every section, so a debug scenario set on the page
     /// gates every network action and every action pauses the countdown.
     /// </summary>
@@ -126,6 +126,20 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<WifiNetworksViewModel>();
         services.AddSingleton<DiagnosticsViewModel>();
         services.AddSingleton<ConnectPageViewModel>();
+
+        // Never skips the page while a debugger is attached, like the countdown, so F5 always shows Connect.
+        services.AddSingleton(sp => new NetworkGate(
+            sp.GetRequiredService<ConnectNetworkActions>(),
+            sp.GetRequiredService<IConnectionCoordinator>(),
+            sp.GetRequiredService<INetworkMonitor>(),
+            sp.GetRequiredService<IConnectivityProbe>(),
+            sp.GetRequiredService<IConnectUnlockService>(),
+            sp.GetRequiredService<ISuccessfulExitService>(),
+            sp.GetRequiredService<IApplicationLifetimeService>(),
+            sp.GetRequiredService<ProvisionedWifiViewModel>(),
+            sp.GetRequiredService<TimeProvider>(),
+            sp.GetRequiredService<ILogger<NetworkGate>>(),
+            isAutoContinueEnabled: !Debugger.IsAttached));
     }
 
     /// <summary>

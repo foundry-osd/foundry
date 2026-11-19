@@ -443,6 +443,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Die kabelgebundene 802.1X-Authentifizierung wird ausgeführt.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Netzwerk wird gesucht…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Netzwerkbereit</value>
   </data>

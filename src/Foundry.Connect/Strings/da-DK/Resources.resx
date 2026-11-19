@@ -443,6 +443,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Kablet 802.1X-godkendelse er i gang.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Søger efter netværket…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Netværk klar</value>
   </data>

@@ -9,7 +9,8 @@ namespace Foundry.Connect.Tests.Support;
 
 /// <summary>
 /// Scriptable <see cref="IConnectUnlockService"/> for view-model tests. Every call is recorded, runs
-/// <see cref="OnUnlock"/> synchronously (as the first prompt runs inside the real call) and returns <see cref="Result"/>.
+/// <see cref="OnUnlock"/> synchronously (as the first prompt runs inside the real call) and returns <see cref="Result"/>,
+/// or the result of <see cref="Gate"/> once the test completes it. <see cref="IsPromptOpen"/> is set for the whole call.
 /// </summary>
 internal sealed class FakeUnlockService : IConnectUnlockService
 {
@@ -19,8 +20,14 @@ internal sealed class FakeUnlockService : IConnectUnlockService
     /// <inheritdoc />
     public bool IsWifiUnlockRequired { get; set; }
 
-    /// <summary>Gets or sets the result of every <see cref="UnlockAsync"/> call.</summary>
+    /// <inheritdoc />
+    public bool IsPromptOpen { get; private set; }
+
+    /// <summary>Gets or sets the result of every <see cref="UnlockAsync"/> call when no gate is set.</summary>
     public ConnectUnlockResult Result { get; set; } = ConnectUnlockResult.NotRequired;
+
+    /// <summary>Gets or sets a gate that keeps the simulated prompt open until the test completes it.</summary>
+    public TaskCompletionSource<ConnectUnlockResult>? Gate { get; set; }
 
     /// <summary>Gets the trigger of every <see cref="UnlockAsync"/> call.</summary>
     public List<ConnectUnlockTrigger> Calls { get; } = [];
@@ -29,11 +36,19 @@ internal sealed class FakeUnlockService : IConnectUnlockService
     public Action? OnUnlock { get; set; }
 
     /// <inheritdoc />
-    public Task<ConnectUnlockResult> UnlockAsync(ConnectUnlockTrigger trigger, CancellationToken cancellationToken)
+    public async Task<ConnectUnlockResult> UnlockAsync(ConnectUnlockTrigger trigger, CancellationToken cancellationToken)
     {
         Calls.Add(trigger);
-        OnUnlock?.Invoke();
-        return Task.FromResult(Result);
+        IsPromptOpen = true;
+        try
+        {
+            OnUnlock?.Invoke();
+            return Gate is null ? Result : await Gate.Task;
+        }
+        finally
+        {
+            IsPromptOpen = false;
+        }
     }
 
     /// <inheritdoc />

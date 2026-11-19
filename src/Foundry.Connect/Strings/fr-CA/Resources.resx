@@ -443,6 +443,9 @@ Sous licence MIT.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>L'authentification 802.1X filaire est en cours.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Recherche du réseau…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Prêt pour le réseau</value>
   </data>

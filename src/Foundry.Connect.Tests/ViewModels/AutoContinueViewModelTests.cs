@@ -85,7 +85,7 @@ public sealed class AutoContinueViewModelTests : IDisposable
         await viewModel.PendingCompletion!;
         Tick(30);
 
-        Assert.Equal(1, _exit.Calls);
+        Assert.Equal([false], _exit.ConnectSkipped);
         Assert.Equal(0, _clock.ActiveTimerCount);
     }
 
@@ -255,7 +255,7 @@ public sealed class AutoContinueViewModelTests : IDisposable
         await manual;
         await (viewModel.PendingCompletion ?? Task.CompletedTask);
 
-        Assert.Equal(1, _exit.Calls);
+        Assert.Equal([false], _exit.ConnectSkipped);
     }
 
     [Fact]

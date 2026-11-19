@@ -36,7 +36,7 @@ public sealed class SuccessfulExitServiceTests
     {
         SuccessfulExitService service = Create(InternetStatus.Online);
 
-        Task<SuccessfulExitResult> exit = service.TryCompleteAsync(TestContext.Current.CancellationToken);
+        Task<SuccessfulExitResult> exit = service.TryCompleteAsync(connectSkipped: false, TestContext.Current.CancellationToken);
         await AsyncAssert.EventuallyAsync(() => _telemetry.Calls == 1 && _clock.ActiveTimerCount > 0, "telemetry was sent with a budget timer");
         Assert.False(exit.IsCompleted);
         _clock.Advance(SuccessfulExitService.TelemetryBudget);
@@ -54,7 +54,7 @@ public sealed class SuccessfulExitServiceTests
         _telemetry.IgnoreCancellation = true;
         SuccessfulExitService service = Create(InternetStatus.Online);
 
-        Task<SuccessfulExitResult> exit = service.TryCompleteAsync(TestContext.Current.CancellationToken);
+        Task<SuccessfulExitResult> exit = service.TryCompleteAsync(connectSkipped: false, TestContext.Current.CancellationToken);
         await AsyncAssert.EventuallyAsync(() => _telemetry.Calls == 1 && _clock.ActiveTimerCount > 0, "telemetry was sent with a budget timer");
         Assert.False(exit.IsCompleted);
         _clock.Advance(SuccessfulExitService.TelemetryBudget);
@@ -69,11 +69,28 @@ public sealed class SuccessfulExitServiceTests
     {
         _telemetry.CompleteImmediately = true;
 
-        await Create(InternetStatus.Online).TryCompleteAsync(TestContext.Current.CancellationToken);
+        await Create(InternetStatus.Online).TryCompleteAsync(connectSkipped: false, TestContext.Current.CancellationToken);
 
         Assert.Equal(TelemetryEvents.ConnectSessionReady, _telemetry.LastEventName);
         Assert.NotNull(_telemetry.LastProperties);
         Assert.Equal("unknown", _telemetry.LastProperties["connect_network_connection_type"]);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public async Task TryComplete_RecordsWhetherConnectWasSkipped(bool connectSkipped)
+    {
+        _telemetry.CompleteImmediately = true;
+
+        SuccessfulExitResult result = await Create(InternetStatus.Online).TryCompleteAsync(connectSkipped, TestContext.Current.CancellationToken);
+
+        Assert.Equal(SuccessfulExitResult.Exited, result);
+        Assert.Equal(connectSkipped, _telemetry.LastProperties?["connect_skipped"]);
+        Assert.Equal(1, _roaming.Calls);
+        Assert.Equal(1, _coordinator.ReleaseCalls);
+        Assert.Equal(ConnectSecretStatus.Cleared, _secrets.WifiPassphrase.Status);
+        Assert.Equal([ChildRuntimeExitCode.Success], _lifetime.Codes);
     }
 
     [Theory]
@@ -83,7 +100,7 @@ public sealed class SuccessfulExitServiceTests
     {
         SuccessfulExitService service = Create(finalProbe);
 
-        SuccessfulExitResult result = await service.TryCompleteAsync(TestContext.Current.CancellationToken);
+        SuccessfulExitResult result = await service.TryCompleteAsync(connectSkipped: false, TestContext.Current.CancellationToken);
 
         Assert.Equal(SuccessfulExitResult.NotOnline, result);
         Assert.Empty(_lifetime.Codes);
@@ -99,7 +116,7 @@ public sealed class SuccessfulExitServiceTests
     {
         SuccessfulExitService service = Create(new StubProbe(new InvalidOperationException("probe failed")));
 
-        SuccessfulExitResult result = await service.TryCompleteAsync(TestContext.Current.CancellationToken);
+        SuccessfulExitResult result = await service.TryCompleteAsync(connectSkipped: false, TestContext.Current.CancellationToken);
 
         Assert.Equal(SuccessfulExitResult.NotOnline, result);
         Assert.Empty(_lifetime.Codes);
@@ -111,7 +128,7 @@ public sealed class SuccessfulExitServiceTests
         _roaming.Failure = new IOException("disk full");
         _telemetry.CompleteImmediately = true;
 
-        SuccessfulExitResult result = await Create(InternetStatus.Online).TryCompleteAsync(TestContext.Current.CancellationToken);
+        SuccessfulExitResult result = await Create(InternetStatus.Online).TryCompleteAsync(connectSkipped: false, TestContext.Current.CancellationToken);
 
         Assert.Equal(SuccessfulExitResult.Exited, result);
         Assert.Equal([ChildRuntimeExitCode.Success], _lifetime.Codes);
@@ -124,7 +141,7 @@ public sealed class SuccessfulExitServiceTests
     {
         _telemetry.Failure = new HttpRequestException("offline");
 
-        SuccessfulExitResult result = await Create(InternetStatus.Online).TryCompleteAsync(TestContext.Current.CancellationToken);
+        SuccessfulExitResult result = await Create(InternetStatus.Online).TryCompleteAsync(connectSkipped: false, TestContext.Current.CancellationToken);
 
         Assert.Equal(SuccessfulExitResult.Exited, result);
         Assert.Equal([ChildRuntimeExitCode.Success], _lifetime.Codes);
@@ -136,7 +153,7 @@ public sealed class SuccessfulExitServiceTests
         using var cancellation = new CancellationTokenSource();
         SuccessfulExitService service = Create(InternetStatus.Online);
 
-        Task<SuccessfulExitResult> exit = service.TryCompleteAsync(cancellation.Token);
+        Task<SuccessfulExitResult> exit = service.TryCompleteAsync(connectSkipped: false, cancellation.Token);
         await AsyncAssert.EventuallyAsync(() => _telemetry.Calls == 1, "telemetry was sent");
         await cancellation.CancelAsync();
 
@@ -149,7 +166,7 @@ public sealed class SuccessfulExitServiceTests
     {
         _lifetime.TryExit(ChildRuntimeExitCode.UserAborted);
 
-        SuccessfulExitResult result = await Create(InternetStatus.Online).TryCompleteAsync(TestContext.Current.CancellationToken);
+        SuccessfulExitResult result = await Create(InternetStatus.Online).TryCompleteAsync(connectSkipped: false, TestContext.Current.CancellationToken);
 
         Assert.Equal(SuccessfulExitResult.AlreadyExiting, result);
         Assert.Equal(0, _telemetry.Calls);
@@ -168,7 +185,7 @@ public sealed class SuccessfulExitServiceTests
             }
         };
 
-        await Create(InternetStatus.Online).TryCompleteAsync(TestContext.Current.CancellationToken);
+        await Create(InternetStatus.Online).TryCompleteAsync(connectSkipped: false, TestContext.Current.CancellationToken);
 
         Assert.NotEmpty(_logger.Entries);
         foreach (RecordedLogEntry entry in _logger.Entries)

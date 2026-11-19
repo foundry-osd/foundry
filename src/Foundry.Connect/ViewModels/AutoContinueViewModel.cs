@@ -343,7 +343,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
         try
         {
             // No ConfigureAwait(false): the continuation changes bound properties on the UI thread.
-            SuccessfulExitResult result = await _successfulExit.TryCompleteAsync(token);
+            SuccessfulExitResult result = await _successfulExit.TryCompleteAsync(connectSkipped: false, token);
             if (_isDisposed)
             {
                 return;

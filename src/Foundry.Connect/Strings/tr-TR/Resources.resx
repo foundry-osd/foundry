@@ -443,6 +443,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Kablolu 802.1X kimlik doğrulaması devam ediyor.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Ağ aranıyor…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Ağa hazır</value>
   </data>

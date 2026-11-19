@@ -20,9 +20,10 @@ namespace Foundry.Connect.ViewModels;
 /// </para>
 /// <para>
 /// The two unlock entry points, <see cref="UnlockWiredAtStartupAsync"/> and <see cref="UnlockProvisionedWifiAsync"/>, are
-/// raised by Connect, not by the technician, so they report no networking interaction; the caller holds the countdown
-/// while they run (<see cref="AutoContinueViewModel.OnPasswordPromptOpened"/>), so Connect never exits while a prompt is
-/// open. Only the prompt that the provisioned Wi-Fi Connect button opens counts as an interaction, through the click. They
+/// raised by Connect, not by the technician, so they report no networking interaction. The wired prompt runs in the network
+/// gate before the monitor starts; the page holds the countdown while the Wi-Fi prompt runs
+/// (<see cref="AutoContinueViewModel.OnPasswordPromptOpened"/>), and the gate never skips while a prompt is open
+/// (<see cref="IConnectUnlockService.IsPromptOpen"/>), so Connect never exits while a prompt is open. Only the prompt that the provisioned Wi-Fi Connect button opens counts as an interaction, through the click. They
 /// throw only <see cref="OperationCanceledException"/>. The first prompt may run synchronously inside the call (a nested
 /// modal loop on the UI thread); the provisioned Wi-Fi is refreshed only after the unlock has completed.
 /// </para>
@@ -84,8 +85,8 @@ public sealed class ConnectNetworkActions(IConnectionCoordinator coordinator, IC
         Run(NetworkOperationKind.DisconnectWifi, () => _coordinator.DisconnectWifiAsync(cancellationToken));
 
     /// <summary>
-    /// Asks for the deployment password at startup when wired 802.1X needs a locked secret. Call it before the
-    /// provisioning, once the Connect content is shown; a cancel leaves wired 802.1X unavailable for the session.
+    /// Asks for the deployment password at startup when wired 802.1X needs a locked secret. The network gate calls it before
+    /// the provisioning, once the status page is shown; a cancel leaves wired 802.1X unavailable for the session.
     /// </summary>
     /// <param name="cancellationToken">Caller cancellation.</param>
     /// <returns><see cref="ConnectUnlockResult.NotRequired"/> without a prompt unless a wired secret is locked; else the unlock outcome.</returns>

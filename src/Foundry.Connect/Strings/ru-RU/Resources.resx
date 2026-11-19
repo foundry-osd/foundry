@@ -443,6 +443,9 @@
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Выполняется проводная проверка подлинности 802.1X.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Поиск сети…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Сеть готова</value>
   </data>

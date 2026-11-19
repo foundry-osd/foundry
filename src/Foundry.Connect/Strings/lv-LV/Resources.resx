@@ -443,6 +443,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Notiek vadu 802.1X autentifikācija.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Notiek tīkla meklēšana…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Tīkls gatavs</value>
   </data>

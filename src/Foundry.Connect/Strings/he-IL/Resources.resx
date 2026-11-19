@@ -443,6 +443,9 @@
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>אימות 802.1X קווי מתבצע.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>מחפש את הרשת…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>מוכן לרשת</value>
   </data>

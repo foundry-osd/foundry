@@ -443,6 +443,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>有線 802.1X 認証を実行しています。</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>ネットワークを探しています…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>ネットワーク対応</value>
   </data>

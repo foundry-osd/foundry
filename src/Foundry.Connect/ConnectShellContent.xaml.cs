@@ -16,12 +16,11 @@ namespace Foundry.Connect;
 
 /// <summary>
 /// The Foundry Connect page of the WinPE shell window: the menu row, the boot media banner, the version and the network
-/// page. It runs the page initialization once it is loaded and reports the phase's readiness once it rendered;
-/// <see cref="Detach"/> releases it from the shell when the phase ends.
+/// page, shown by the phase when the network gate does not skip Connect. It reports the phase's readiness once it rendered,
+/// when the status page shown before it has not already; <see cref="Detach"/> releases it from the shell when the phase ends.
 /// </summary>
 public partial class ConnectShellContent : UserControl
 {
-    private readonly MainWindowViewModel _viewModel;
     private readonly IApplicationLifetimeService _applicationLifetimeService;
     private readonly ILogger<ConnectShellContent> _logger;
     private readonly RuntimeStartupDiagnostics _startup;
@@ -40,7 +39,6 @@ public partial class ConnectShellContent : UserControl
         RuntimeStartupDiagnostics startup,
         IShellHost shell)
     {
-        _viewModel = viewModel;
         _applicationLifetimeService = applicationLifetimeService;
         _logger = logger;
         _startup = startup;
@@ -59,13 +57,13 @@ public partial class ConnectShellContent : UserControl
     private async void OnLoadedAsync(object sender, RoutedEventArgs e)
     {
         Loaded -= OnLoadedAsync;
-        _logger.LogInformation("Connect content loaded. Starting asynchronous initialization.");
+        _logger.LogInformation("Connect content loaded.");
 
         try
         {
-            await _startup.ObserveInitializationAsync(_viewModel.InitializeAsync, WaitForRenderedAsync,
+            // The network gate already ran: only the readiness remains, a no-op once the status page reported it.
+            await _startup.ObserveInitializationAsync(static () => Task.CompletedTask, WaitForRenderedAsync,
                 () => !_shellAttachment.IsEnded && _applicationLifetimeService.RequestedExitCode is null);
-            _logger.LogInformation("Connect content asynchronous initialization finished.");
         }
         catch (OperationCanceledException) when (_shellAttachment.IsEnded || _applicationLifetimeService.RequestedExitCode is not null)
         {

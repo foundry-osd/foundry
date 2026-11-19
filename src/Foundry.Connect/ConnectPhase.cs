@@ -9,6 +9,7 @@ using System.Windows.Threading;
 using Foundry.Connect.Configuration;
 using Foundry.Connect.DependencyInjection;
 using Foundry.Connect.Lifetime;
+using Foundry.Connect.Network.Policy;
 using Foundry.Connect.Security;
 using Foundry.Connect.Services.Logging;
 using Foundry.Connect.Startup;
@@ -43,15 +44,23 @@ namespace Foundry.Connect;
 /// </remarks>
 public static class ConnectPhase
 {
+    /// <summary>Shortest time the status page stays shown, so a network gate that ends at once does not flash it.</summary>
+    internal static readonly TimeSpan StatusPageMinimumDisplay = TimeSpan.FromSeconds(1);
+
     private static readonly RuntimeApplicationIdentity Identity = new("Foundry.Connect", TelemetryApps.FoundryConnect, FoundryConnectApplicationInfo.Version);
 
     /// <summary>
-    /// Loads the configuration, shows Connect's content in the shell and completes when Connect's lifetime ends: Continue or
-    /// auto-continue (success), a close request of the shell window (user abort), or a failure. Must be called on the application's UI thread.
+    /// Loads the configuration, shows the "Looking for the network" status page while the <see cref="NetworkGate"/> provisions
+    /// and probes the internet, then either completes at once when the internet is online (the Connect page is skipped) or
+    /// shows Connect's content, and completes when Connect's lifetime ends: the gate's skip, Continue or auto-continue
+    /// (success), a close request of the shell window (user abort), or a failure. Must be called on the application's UI thread.
     /// </summary>
     /// <param name="options">The host hooks.</param>
     /// <param name="cancellationToken">Ends a running phase as a user abort, like closing its window.</param>
-    /// <returns>The phase result; its deployment key is handed to the caller; its content stays shown (disabled) in the shell after a success.</returns>
+    /// <returns>
+    /// The phase result; its deployment key is handed to the caller; after a success its content (disabled), or the status
+    /// page when the gate skipped it, stays shown in the shell.
+    /// </returns>
     /// <exception cref="InvalidOperationException">No WPF application runs on the calling thread.</exception>
     /// <exception cref="OperationCanceledException"><paramref name="cancellationToken"/> was cancelled before the phase started.</exception>
     public static async Task<ConnectPhaseResult> RunAsync(ConnectPhaseOptions options, CancellationToken cancellationToken)
@@ -117,11 +126,16 @@ public static class ConnectPhase
             using CancellationTokenRegistration cancellation = cancellationToken.Register(
                 () => exitAuthority.TryExit(ChildRuntimeExitCode.UserAborted));
 
+            // Created before the gate: the page view models render the network state and open the automatic Wi-Fi unlock
+            // prompt while the gate runs, and the close handler applies to the status page as well.
             content = host.Services.GetRequiredService<ConnectShellContent>();
             closeAttachment = AttachCloseHandler(options.Shell, host.Services.GetRequiredService<MainWindowViewModel>().HandleWindowClosing);
-            PresentContent(application, options.Shell, content);
+            Task gate = RunNetworkGateAsync(application, options.Shell, host.Services, content, startup, exitAuthority, cancellationToken);
 
             var exitCode = (int)await exitAuthority.Completion;
+
+            // Every exit ends the gate; a skip also waits for the status page's minimum display time. It never throws.
+            await gate;
             logger.Information("Foundry Connect phase ended with code {ExitCode}.", exitCode);
             if (exitCode != (int)ChildRuntimeExitCode.Success)
             {
@@ -158,6 +172,62 @@ public static class ConnectPhase
             }
 
             await scope.EndAsync(telemetry, host);
+        }
+    }
+
+    /// <summary>
+    /// Shows the status page, reports the phase ready once it rendered, runs the <see cref="NetworkGate"/> behind it for at
+    /// least <see cref="StatusPageMinimumDisplay"/>, then shows <paramref name="content"/> unless the gate skipped Connect or
+    /// another exit was requested. The wired unlock prompt and the automatic Wi-Fi prompt open over the status page. A gate
+    /// failure ends the phase like a failure of the page; never throws.
+    /// </summary>
+    private static async Task RunNetworkGateAsync(
+        Application application,
+        IShellHost shell,
+        IServiceProvider services,
+        ConnectShellContent content,
+        RuntimeStartupDiagnostics startup,
+        ApplicationLifetimeService exitAuthority,
+        CancellationToken cancellationToken)
+    {
+        ShellContentAttachment? attachment = null;
+        try
+        {
+            ILocalizationService localization = services.GetRequiredService<ILocalizationService>();
+            var statusPage = new StatusPageView
+            {
+                DataContext = new StatusPageModel(localization.GetString("App.Name"), localization.GetString("Status.LookingForNetwork"))
+            };
+            attachment = new ShellContentAttachment(shell, statusPage);
+            PresentContent(application, shell, statusPage);
+            await attachment.Rendered;
+            await application.Dispatcher.InvokeAsync(static () => { }, DispatcherPriority.ContextIdle);
+            if (exitAuthority.RequestedExitCode is not null)
+            {
+                return;
+            }
+
+            startup.ReportUiReady();
+            Task<NetworkGateOutcome> run = services.GetRequiredService<NetworkGate>().RunAsync(cancellationToken);
+            await StatusPageModel.EnsureMinimumDisplayAsync(run, StatusPageMinimumDisplay, services.GetRequiredService<TimeProvider>());
+            if (await run == NetworkGateOutcome.ShowConnect && exitAuthority.RequestedExitCode is null)
+            {
+                PresentContent(application, shell, content);
+            }
+        }
+        catch (OperationCanceledException) when (exitAuthority.RequestedExitCode is not null || attachment?.IsEnded == true)
+        {
+            // Another exit ended the gate, or the shell window closed.
+        }
+        catch (Exception exception)
+        {
+            // Ends the phase: RunAsync awaits the exit authority before this task.
+            startup.ReportFailure(exception, "network_gate");
+            exitAuthority.TryExit(GetFailureExitCode(ConnectStartupStage.UiStartup, startup));
+        }
+        finally
+        {
+            attachment?.Dispose();
         }
     }
 

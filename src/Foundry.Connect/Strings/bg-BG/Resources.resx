@@ -443,6 +443,9 @@
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Извършва се кабелно удостоверяване с 802.1X.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Търсене на мрежата…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Готова мрежа</value>
   </data>

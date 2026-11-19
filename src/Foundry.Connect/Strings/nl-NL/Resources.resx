@@ -443,6 +443,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>De bekabelde 802.1X-verificatie wordt uitgevoerd.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Netwerk zoeken…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Netwerk klaar</value>
   </data>

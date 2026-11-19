@@ -26,7 +26,7 @@ namespace Foundry.Connect.ViewModels;
 /// boot-media banner and the version, around the single <see cref="ConnectPageViewModel"/>.
 /// </summary>
 /// <remarks>
-/// The shell holds no network state: the page renders it and owns the startup sequence. The Debug menu and its
+/// The shell holds no network state: the page renders it and the network gate owns the startup sequence. The Debug menu and its
 /// command exist only in debug safety mode: outside it the menu is hidden and the command refuses to run, so a
 /// simulated state can never be shown in a shipped runtime. The page, its children and the diagnostics are DI
 /// singletons disposed by the container, not by <see cref="Dispose"/>.
@@ -39,8 +39,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly IConnectConfigurationService _configurationService;
     private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
     private readonly ILogger<MainWindowViewModel> _logger;
-    private readonly CancellationTokenSource _disposeCts = new();
-    private bool _isInitialized;
     private bool _isDisposed;
 
     /// <summary>
@@ -162,25 +160,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public bool IsDebugMenuVisible { get; }
 
     /// <summary>
-    /// Initializes the page once: provisioning, then the network monitor. Later calls do nothing. Connect never looks up
-    /// the latest release online: it often runs before the network is ready, and Foundry Deploy shows that notice.
-    /// </summary>
-    /// <returns>A task that completes once the page is initialized, or when the shell is disposed first.</returns>
-    public async Task InitializeAsync()
-    {
-        if (_isDisposed || _isInitialized)
-        {
-            return;
-        }
-
-        _isInitialized = true;
-
-        // Read before the first await: Dispose disposes the source.
-        CancellationToken lifetime = _disposeCts.Token;
-        await Page.InitializeAsync(lifetime);
-    }
-
-    /// <summary>
     /// Handles a user closing the window before Foundry.Connect has completed successfully.
     /// </summary>
     public void HandleWindowClosing()
@@ -193,7 +172,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
-    /// Unsubscribes from language changes and cancels a pending initialization. Idempotent.
+    /// Unsubscribes from language changes. Idempotent.
     /// </summary>
     public override void Dispose()
     {
@@ -204,8 +183,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         _isDisposed = true;
         LocalizationService.LanguageChanged -= OnLanguageChanged;
-        _disposeCts.Cancel();
-        _disposeCts.Dispose();
         base.Dispose();
     }
 
