@@ -41,17 +41,37 @@ internal static class UiCrashWindow
     /// </param>
     internal static UiCrashChoice Show(bool relaunchAllowed, string? logDirectory, string? culture)
     {
+        WinPeUiHost.ConfigureFluentBackdrop();
+        WinPeDialogApplication.EnsureCreated();
+        return WithUiCulture(culture, () =>
+        {
+            MessagePageModel model = CreateModel(relaunchAllowed, logDirectory, culture);
+            return ToChoice(relaunchAllowed, MessageWindow.ShowModal(model, topmost: true));
+        });
+    }
+
+    /// <summary>
+    /// Runs <paramref name="action"/> with the thread's UI culture set to the supported culture named by
+    /// <paramref name="culture"/> (unchanged when it is not supported), and restores the previous UI culture afterwards: the
+    /// crash thread's dispatcher is reused by a later crash page, which must not inherit this language.
+    /// </summary>
+    internal static T WithUiCulture<T>(string? culture, Func<T> action)
+    {
+        CultureInfo previous = CultureInfo.CurrentUICulture;
         CultureInfo? resolved = ResolveCulture(culture);
         if (resolved is not null)
         {
             CultureInfo.CurrentUICulture = resolved;
         }
 
-        WinPeUiHost.ConfigureFluentBackdrop();
-        WinPeDialogApplication.EnsureCreated();
-        MessagePageModel model = CreateModel(relaunchAllowed, logDirectory, culture);
-        MessageChoice choice = MessageWindow.ShowModal(model, topmost: true);
-        return ToChoice(relaunchAllowed, choice);
+        try
+        {
+            return action();
+        }
+        finally
+        {
+            CultureInfo.CurrentUICulture = previous;
+        }
     }
 
     /// <summary>

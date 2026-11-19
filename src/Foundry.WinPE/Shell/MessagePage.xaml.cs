@@ -28,6 +28,8 @@ public partial class MessagePage : UserControl
         PrimaryButton.Content = model.PrimaryText;
         SecondaryButton.Content = model.SecondaryText;
         SecondaryButton.Visibility = model.SecondaryText is null ? Visibility.Collapsed : Visibility.Visible;
+        // Escape presses the closing button: the secondary one when the page has two, else the only one.
+        (model.SecondaryText is null ? PrimaryButton : SecondaryButton).IsCancel = true;
     }
 
     private void PrimaryButton_OnClick(object sender, RoutedEventArgs e) => _model.Choose(MessageChoice.Primary);

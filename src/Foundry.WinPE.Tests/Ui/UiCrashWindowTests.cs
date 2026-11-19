@@ -63,6 +63,45 @@ public sealed class UiCrashWindowTests
     public void ResolveCulture_ReturnsOnlyASupportedFoundryCulture(string? culture, string? expected) =>
         Assert.Equal(expected, UiCrashWindow.ResolveCulture(culture)?.Name);
 
+    [Theory]
+    [InlineData("fr-FR")]
+    [InlineData("not a culture")]
+    public void WithUiCulture_RestoresThePreviousUiCulture(string culture)
+    {
+        CultureInfo original = CultureInfo.CurrentUICulture;
+        try
+        {
+            CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("de-DE");
+
+            string? during = UiCrashWindow.WithUiCulture(culture, () => CultureInfo.CurrentUICulture.Name);
+
+            Assert.Equal(culture == "fr-FR" ? "fr-FR" : "de-DE", during);
+            Assert.Equal("de-DE", CultureInfo.CurrentUICulture.Name);
+        }
+        finally
+        {
+            CultureInfo.CurrentUICulture = original;
+        }
+    }
+
+    [Fact]
+    public void WithUiCulture_RestoresTheCultureWhenTheActionThrows()
+    {
+        CultureInfo original = CultureInfo.CurrentUICulture;
+        try
+        {
+            CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("de-DE");
+
+            Assert.Throws<InvalidOperationException>(() => UiCrashWindow.WithUiCulture<int>("fr-FR", () => throw new InvalidOperationException()));
+
+            Assert.Equal("de-DE", CultureInfo.CurrentUICulture.Name);
+        }
+        finally
+        {
+            CultureInfo.CurrentUICulture = original;
+        }
+    }
+
     [Fact]
     public void EveryCultureFormatsTheLogFolder()
     {

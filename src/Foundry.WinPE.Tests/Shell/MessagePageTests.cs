@@ -49,6 +49,20 @@ public sealed class MessagePageTests
         return Task.CompletedTask;
     });
 
+    [Fact]
+    public Task Escape_PressesTheClosingButton() => WpfApplicationTestHost.RunAsync(() =>
+    {
+        // Two buttons: Close is the secondary one; one button: it is the primary one.
+        var two = new MessagePage(new MessagePageModel("Title", "Message", "Relaunch", "Close"));
+        two.Measure(new Size(800, 600));
+        Assert.Equal(["Close"], FindButtons(two).Where(button => button.IsCancel).Select(button => (string)button.Content));
+
+        var one = new MessagePage(new MessagePageModel("Title", "Message", "Close"));
+        one.Measure(new Size(800, 600));
+        Assert.Equal(["Close"], FindButtons(one).Where(button => button.IsCancel).Select(button => (string)button.Content));
+        return Task.CompletedTask;
+    });
+
     private static IEnumerable<Button> FindButtons(DependencyObject root)
     {
         for (int index = 0; index < System.Windows.Media.VisualTreeHelper.GetChildrenCount(root); index++)
