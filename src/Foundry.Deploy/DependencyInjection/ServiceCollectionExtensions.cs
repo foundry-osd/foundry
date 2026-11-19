@@ -53,8 +53,9 @@ public static class ServiceCollectionExtensions
     private const string DeploymentModeEnvironmentVariable = "FOUNDRY_DEPLOYMENT_MODE";
 
     /// <summary>
-    /// Returns the shell's end action. The shell shuts down only when the operator leaves before the wizard opens (the password
-    /// prompt was cancelled or the network cache start was closed), so the phase ends with <see cref="ChildRuntimeExitCode.UserAborted"/>
+    /// Returns the shell's end action. The shell shuts down when the operator leaves before the wizard opens (the password
+    /// prompt was cancelled or the network cache start was closed), or when Close is chosen in the network cache failure dialog
+    /// after a return from the Network page with the wizard open. The phase ends with <see cref="ChildRuntimeExitCode.UserAborted"/>,
     /// and the guardian reports a cancelled boot, as it does when Foundry Connect is closed.
     /// </summary>
     internal static Action CreateShellEndAction(DeployPhaseLifetime lifetime)
