@@ -132,7 +132,7 @@ internal sealed class WinPeUiSession(
             cancellationToken.ThrowIfCancellationRequested();
             // No close handler from here until Deploy attaches its own: the shell refuses a close while the system is prepared.
             EnterPhase(UiPhase.System);
-            await PrepareSystemAsync(cancellationToken);
+            await PrepareSystemAsync(connect.CultureName, cancellationToken);
             return await RunDeployAsync(connect, cancellationToken);
         }
         finally
@@ -174,7 +174,7 @@ internal sealed class WinPeUiSession(
         }
     }
 
-    private async Task PrepareSystemAsync(CancellationToken cancellationToken)
+    private async Task PrepareSystemAsync(string? cultureName, CancellationToken cancellationToken)
     {
         if (!isWinPeRuntime())
         {
@@ -186,7 +186,7 @@ internal sealed class WinPeUiSession(
         bool clockUsable = false;
         try
         {
-            shell.ShowContent(_createStatusPage(CreateStatusPageModel()));
+            shell.ShowContent(_createStatusPage(CreateStatusPageModel(cultureName)));
             Task<bool> run = systemPreparation.RunAsync(cancellationToken);
             await StatusPageModel.EnsureMinimumDisplayAsync(run, StatusPageMinimumDisplay, _timeProvider);
             clockUsable = await run;
@@ -204,9 +204,12 @@ internal sealed class WinPeUiSession(
         }
     }
 
-    private StatusPageModel CreateStatusPageModel()
+    // The page follows the language Connect ended with, then the last one a phase reported, then the process language.
+    private StatusPageModel CreateStatusPageModel(string? cultureName)
     {
-        CultureInfo culture = UiStateFile.TryGetSupportedCulture(_state.Culture) ?? CultureInfo.CurrentUICulture;
+        CultureInfo culture = UiStateFile.TryGetSupportedCulture(cultureName)
+            ?? UiStateFile.TryGetSupportedCulture(_state.Culture)
+            ?? CultureInfo.CurrentUICulture;
         return new StatusPageModel(StatusPageTitle,
             WinPeDialogApplication.Localize(StatusPageStatusKey, StatusPageStatusEnglish, culture));
     }
