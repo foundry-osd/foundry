@@ -5,8 +5,10 @@
 using System.Globalization;
 using System.Windows;
 using Foundry.Connect;
+using Foundry.Connect.Network;
 using Foundry.Core.Models.Runtime;
 using Foundry.Deploy;
+using Foundry.Deploy.Services.Network;
 using Foundry.Wpf.Shell;
 using Serilog;
 
@@ -36,6 +38,10 @@ namespace Foundry.WinPE.Ui;
 /// warning. It runs behind the shared status page ("Setting the clock and time zone…", at least
 /// <see cref="StatusPageMinimumDisplay"/>), and whether the clock is usable afterwards is recorded in the Deploy-phase state
 /// the session writes next, so the guardian sees it before it starts its telemetry delivery. The hooks given to the phases log their own failures: the phases swallow hook exceptions.
+/// </para>
+/// <para>
+/// Deploy's Network menu shows the Connect page again inside the Deploy phase (<see cref="DeployPhaseOptions.OpenNetworkPage"/>):
+/// Connect reopened with the first page's provisioning outcome, then system preparation again while the clock is unusable.
 /// </para>
 /// </remarks>
 /// <param name="shell">The shell window both phases show their content in, created by the host.</param>
@@ -146,6 +152,7 @@ internal sealed class WinPeUiSession(
     {
         cancellationToken.ThrowIfCancellationRequested();
         EnterPhase(UiPhase.Deploy, connect?.CultureName);
+        ProvisioningOutcome? provisioning = connect?.Provisioning;
         var options = new DeployPhaseOptions
         {
             Shell = shell,
@@ -154,11 +161,81 @@ internal sealed class WinPeUiSession(
             CultureName = connect?.CultureName,
             OnFirstContentRendered = OnDeployFirstContentRendered,
             OnDestructiveStepStarted = OnDestructiveStepStarted,
-            OnCultureChanged = OnCultureChanged
+            OnCultureChanged = OnCultureChanged,
+            OpenNetworkPage = (request, token) => OpenNetworkPageAsync(provisioning, request, token)
         };
         int exitCode = await RunPhaseAsync(() => deployPhase.RunAsync(options, cancellationToken));
         logger.Information("UI session ended in Foundry Deploy with code {ExitCode}.", exitCode);
         return exitCode;
+    }
+
+    /// <summary>
+    /// Shows the Foundry Connect page again from Deploy's Network menu, while the Deploy phase stays alive underneath, then
+    /// prepares the system again when the clock is still unusable (the page may have brought the network it needed).
+    /// </summary>
+    /// <remarks>
+    /// Runs inside the Deploy phase: the state file keeps the Deploy phase (only the language and the clock state change),
+    /// Deploy keeps the close requests and the dispatcher exceptions, and the readiness is not reported again. A cancellation
+    /// (Deploy ending) ends the page as Connect's user abort and skips the system preparation.
+    /// </remarks>
+    /// <param name="previousProvisioning">
+    /// The first Connect page's provisioning outcome, replayed by the reopened page; <see langword="null"/> when the first page
+    /// did not provision or did not run (debug Deploy-only mode).
+    /// </param>
+    /// <param name="request">Deploy's key copy, theme and language; the key is disposed here on every path.</param>
+    /// <param name="cancellationToken">Cancelled by Deploy, on the UI thread, when its phase ends.</param>
+    /// <returns>
+    /// The theme and language the page ended with, or <see langword="null"/> values (Deploy keeps its own) when it did not
+    /// succeed, since a failed page may only report defaults.
+    /// </returns>
+    private async Task<NetworkPageResult> OpenNetworkPageAsync(
+        ProvisioningOutcome? previousProvisioning, NetworkPageRequest request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            logger.Information("Foundry Connect was reopened from the Network menu.");
+            ConnectPhaseResult result = await connectPhase.RunAsync(new ConnectPhaseOptions
+            {
+                Shell = shell,
+                // Required by the options; a reopened Connect never calls it, and the UI process reported its readiness already.
+                OnFirstContentRendered = static () => { },
+                OnCultureChanged = OnCultureChanged,
+                StatusPageTitle = StatusPageTitle,
+                ThemeMode = request.ThemeMode,
+                CultureName = request.CultureName,
+                Revisit = new ConnectRevisit(previousProvisioning, request.DeploymentKey)
+            }, cancellationToken);
+
+            bool preparesSystemAgain = !cancellationToken.IsCancellationRequested && !IsClockUsable();
+            if (preparesSystemAgain)
+            {
+                await PrepareSystemAsync(cancellationToken);
+                lock (_stateGate)
+                {
+                    stateWriter.Write(_state);
+                }
+            }
+
+            logger.Information(
+                "Foundry Connect reopened from the Network menu ended. ExitCode={ExitCode}, SystemPreparedAgain={SystemPreparedAgain}",
+                result.ExitCode, preparesSystemAgain);
+            return result.ExitCode == (int)ChildRuntimeExitCode.Success
+                ? new NetworkPageResult(result.ThemeMode, result.CultureName)
+                : new NetworkPageResult(ThemeMode: null, CultureName: null);
+        }
+        finally
+        {
+            // Connect zeroes the copy too; disposing twice is safe.
+            request.DeploymentKey?.Dispose();
+        }
+    }
+
+    private bool IsClockUsable()
+    {
+        lock (_stateGate)
+        {
+            return _state.ClockUsable;
+        }
     }
 
     private async Task<T> RunPhaseAsync<T>(Func<Task<T>> run)
@@ -194,10 +271,11 @@ internal sealed class WinPeUiSession(
         }
         catch (Exception exception) when (exception is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
         {
-            logger.Warning(exception, "System preparation failed. Foundry Deploy starts anyway.");
+            logger.Warning(exception, "System preparation failed. Foundry Deploy runs anyway.");
         }
 
-        // Written with the Deploy phase state that follows: the guardian reads it before it starts its telemetry delivery.
+        // Written by the caller: with the Deploy phase state that follows, which the guardian reads before it starts its
+        // telemetry delivery, or right after the Connect page reopened from Deploy's Network menu.
         lock (_stateGate)
         {
             _state = _state with { ClockUsable = clockUsable };
