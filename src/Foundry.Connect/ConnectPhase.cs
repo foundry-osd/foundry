@@ -452,11 +452,12 @@ public static class ConnectPhase
         {
             try
             {
+                // The secrets go first, so a failing read of the preferences cannot leave them behind.
                 services.GetService<IConnectUnlockService>()?.TakeDeploymentKey()?.Dispose();
-                theme = services.GetService<IThemeService>()?.CurrentTheme.ToString() ?? theme;
-                culture = services.GetService<ILocalizationService>()?.CurrentCulture.Name ?? culture;
                 services.GetService<IConnectionCoordinator>()?.ReleaseProvisionedProfile();
                 services.GetService<ConnectRuntimeSecrets>()?.ClearAll();
+                theme = services.GetService<IThemeService>()?.CurrentTheme.ToString() ?? theme;
+                culture = services.GetService<ILocalizationService>()?.CurrentCulture.Name ?? culture;
                 provisioning = services.GetService<IProvisioningStep>()?.LastOutcome;
                 provisioning?.WifiProfile?.Clear();
             }
