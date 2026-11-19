@@ -70,6 +70,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Versione: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Torna alla distribuzione</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: indirizzo autoassegnato</value>
   </data>
@@ -359,11 +362,26 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Lingua</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Rete</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Strumenti</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Non connesso</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Connesso tramite Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Nessuna connessione a Internet</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Connesso tramite Wi-Fi</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Applicazione delle impostazioni di rete dal supporto di avvio.</value>

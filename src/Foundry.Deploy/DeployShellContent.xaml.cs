@@ -65,7 +65,8 @@ public partial class DeployShellContent : UserControl
         {
             await _startup.ObserveInitializationAsync(_viewModel.InitializeAsync, WaitForRenderedAsync, () => !_closed);
         }
-        catch (OperationCanceledException) when (_closed)
+        // The phase may end while a startup dialog's Network page is shown: the startup then stops before the page is released.
+        catch (OperationCanceledException) when (_closed || _lifetime.Completion.IsCompleted)
         {
         }
         catch (Exception exception)

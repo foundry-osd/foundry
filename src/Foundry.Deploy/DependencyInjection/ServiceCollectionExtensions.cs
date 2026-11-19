@@ -53,8 +53,9 @@ public static class ServiceCollectionExtensions
     private const string DeploymentModeEnvironmentVariable = "FOUNDRY_DEPLOYMENT_MODE";
 
     /// <summary>
-    /// Returns the shell's end action. The shell shuts down only when the operator leaves before the wizard opens (the password
-    /// prompt was cancelled or the network cache start was closed), so the phase ends with <see cref="ChildRuntimeExitCode.UserAborted"/>
+    /// Returns the shell's end action. The shell shuts down when the operator leaves before the wizard opens (the password
+    /// prompt was cancelled or the network cache start was closed), or when Close is chosen in the network cache failure dialog
+    /// after a return from the Network page with the wizard open. The phase ends with <see cref="ChildRuntimeExitCode.UserAborted"/>,
     /// and the guardian reports a cancelled boot, as it does when Foundry Connect is closed.
     /// </summary>
     internal static Action CreateShellEndAction(DeployPhaseLifetime lifetime)
@@ -83,11 +84,15 @@ public static class ServiceCollectionExtensions
             sp.GetRequiredService<DeployPhaseLifetime>(),
             sp.GetRequiredService<IShellHost>()));
         services.AddSingleton<MainWindowViewModel>();
+        services.AddSingleton<INetworkReturnRefresh>(sp => new NetworkReturnRefresh(sp.GetRequiredService<MainWindowViewModel>));
+        services.AddSingleton<INetworkPageNavigator>(sp => CreateNetworkPageNavigator(sp, options));
+        services.AddSingleton(sp => new DeployNetworkIndicator(sp.GetRequiredService<INetworkAdapterSnapshotProvider>(), TimeProvider.System));
 
         services.AddSingleton<ILocalizationService>(_ => new ResourceLocalizationService(LocalizationText.ResourceManager));
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<IKeyboardLayoutSwitcher>(_ => new WindowsKeyboardLayoutSwitcher());
-        // Before the wizard (access denied, network cache start closed by the operator) the shell's Shutdown ends the phase as an operator abort.
+        // Access denied, or Close in the network cache failure dialog (at startup or after a return from the Network page): the
+        // shell's Shutdown ends the phase as an operator abort.
         services.AddSingleton<IApplicationShellService>(sp => new ApplicationShellService(
             sp.GetRequiredService<ILocalizationService>(),
             sp.GetRequiredService<WpfApplicationIdentity>(),
@@ -252,6 +257,24 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
+
+    /// <summary>
+    /// Creates the phase's navigator to the Foundry Connect page. The content and the view model are resolved only when a page
+    /// returns, because both depend on the navigator.
+    /// </summary>
+    private static NetworkPageNavigator CreateNetworkPageNavigator(IServiceProvider serviceProvider, DeployPhaseOptions options) => new(
+        options.OpenNetworkPage,
+        serviceProvider.GetRequiredService<IDeploymentSecretKeySession>(),
+        serviceProvider.GetRequiredService<IThemeService>(),
+        serviceProvider.GetRequiredService<ILocalizationService>(),
+        // The same content instance: its initialization runs once, on its first load, and its shell attachment stays active.
+        () => DeployPhase.PresentContent(
+            System.Windows.Application.Current,
+            serviceProvider.GetRequiredService<IShellHost>(),
+            serviceProvider.GetRequiredService<DeployShellContent>()),
+        (themeMode, cultureName) => serviceProvider.GetRequiredService<MainWindowViewModel>().ApplyInitialPreferences(themeMode, cultureName),
+        serviceProvider.GetRequiredService<INetworkReturnRefresh>(),
+        serviceProvider.GetRequiredService<ILogger<NetworkPageNavigator>>());
 
     /// <summary>Reads the latest published Foundry release through the Deploy HTTPS client, bounded by the reader timeout.</summary>
     private static LatestReleaseVersionReader CreateLatestReleaseVersionReader(IServiceProvider serviceProvider)

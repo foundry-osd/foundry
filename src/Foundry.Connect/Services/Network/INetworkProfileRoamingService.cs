@@ -12,7 +12,8 @@ public interface INetworkProfileRoamingService
     /// <summary>
     /// Captures ordered Wi-Fi profiles into the runtime roaming artifact, replacing the captured Wi-Fi profiles. The
     /// first written profile is the preferred one; a request whose source is unavailable is skipped with a Warning and
-    /// the next one takes its place.
+    /// the next one takes its place. A service that keeps the artifact of an earlier Connect page of the session keeps
+    /// that page's profiles after the new ones, except those of the same profile name, which the new capture replaces.
     /// </summary>
     /// <param name="requests">The capture requests, most preferred first.</param>
     /// <param name="cancellationToken">Cancellation token.</param>

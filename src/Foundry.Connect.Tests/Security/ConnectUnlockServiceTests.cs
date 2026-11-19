@@ -156,6 +156,66 @@ public sealed class ConnectUnlockServiceTests
     }
 
     [Fact]
+    public async Task TryAcceptDeploymentKey_RightKey_UnlocksWithoutAPromptAndConsumesTheTransfer()
+    {
+        ConnectRuntimeSecrets secrets = LockedSecrets();
+        using ConnectUnlockService service = Create(secrets);
+        using DeploymentKeyTransfer transfer = DeploymentKeyTransfer.FromKey(_key);
+
+        bool accepted = service.TryAcceptDeploymentKey(transfer);
+
+        Assert.True(accepted);
+        Assert.Empty(_prompt.Calls);
+        Assert.False(service.IsPromptOpen);
+        Assert.False(service.IsWifiUnlockRequired);
+        Assert.Equal("lab-passphrase", new string(secrets.WifiPassphrase.Value));
+        Assert.False(transfer.TryTake(new byte[DeploymentKeyTransfer.KeyLength]));
+        Assert.Null(service.TakeDeploymentKey());
+        RecordedLogEntry entry = Assert.Single(_logger.Entries);
+        Assert.Equal(LogLevel.Information, entry.Level);
+
+        // An automatic request afterwards finds nothing locked.
+        Assert.Equal(ConnectUnlockResult.NotRequired, await service.UnlockAsync(ConnectUnlockTrigger.AutomaticWifi, TestContext.Current.CancellationToken));
+        Assert.Empty(_prompt.Calls);
+    }
+
+    [Fact]
+    public async Task TryAcceptDeploymentKey_WrongKey_KeepsTheSecretsLockedForAPromptAndConsumesTheTransfer()
+    {
+        ConnectRuntimeSecrets secrets = LockedSecrets();
+        using ConnectUnlockService service = Create(secrets);
+        using DeploymentKeyTransfer transfer = DeploymentKeyTransfer.FromKey(AesGcmEncryption.GenerateKey());
+
+        bool accepted = service.TryAcceptDeploymentKey(transfer);
+
+        Assert.False(accepted);
+        Assert.Empty(_prompt.Calls);
+        Assert.True(secrets.IsWifiLocked);
+        Assert.False(secrets.IsUnlockDeclined);
+        Assert.False(transfer.TryTake(new byte[DeploymentKeyTransfer.KeyLength]));
+        RecordedLogEntry warning = Assert.Single(_logger.Entries, static entry => entry.Level == LogLevel.Warning);
+        Assert.Equal("key_check_failed", warning.Properties["FailureCode"]);
+
+        // The prompt stays available on demand, as when Connect runs first.
+        _prompt.Answers.Enqueue("right password".ToCharArray());
+        Assert.Equal(ConnectUnlockResult.Unlocked, await service.UnlockAsync(ConnectUnlockTrigger.AutomaticWifi, TestContext.Current.CancellationToken));
+    }
+
+    [Fact]
+    public void TryAcceptDeploymentKey_MediaWithoutAKeyCheck_RefusesTheUnverifiableKey()
+    {
+        var secrets = new ConnectRuntimeSecrets(
+            ConnectSecret.Locked(MediaSecretEnvelopeProtector.EncryptString("lab-passphrase", _key, MediaSecretEnvelopeProtector.DeploymentKeyId)),
+            ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned(), protection: new DeployProtectionSettings { IsEnabled = true });
+        using ConnectUnlockService service = Create(secrets);
+        using DeploymentKeyTransfer transfer = DeploymentKeyTransfer.FromKey(_key);
+
+        Assert.False(service.TryAcceptDeploymentKey(transfer));
+        Assert.True(secrets.IsWifiLocked);
+        Assert.False(transfer.TryTake(new byte[DeploymentKeyTransfer.KeyLength]));
+    }
+
+    [Fact]
     public async Task UnlockAsync_NoUnlock_KeepsNoKey()
     {
         using ConnectUnlockService service = Create(ConnectRuntimeSecrets.None());

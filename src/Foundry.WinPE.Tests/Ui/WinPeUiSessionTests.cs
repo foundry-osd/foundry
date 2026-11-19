@@ -5,8 +5,10 @@
 using System.Collections.Concurrent;
 using System.Globalization;
 using Foundry.Connect;
+using Foundry.Connect.Network;
 using Foundry.Core.Services.Runtime;
 using Foundry.Deploy;
+using Foundry.Deploy.Services.Network;
 using Foundry.WinPE.Tests.Support;
 using Foundry.WinPE.Ui;
 using Foundry.Wpf.Shell;
@@ -400,6 +402,151 @@ public sealed class WinPeUiSessionTests
         Assert.False(session.IsPhaseRunning);
     }
 
+    [Fact]
+    public async Task NetworkPage_ReopensConnectWithTheFirstProvisioningOutcomeAndReturnsItsPreferences()
+    {
+        var fixture = new Fixture { ClockUsableAfterPreparation = true };
+        fixture.ReopenNetworkPageInDeploy();
+
+        Assert.Equal(DeployPhase.SuccessExitCode, await fixture.RunAsync());
+
+        // A usable clock is not prepared again.
+        Assert.Equal(["connect", "status", "system", "deploy", "reconnect"], fixture.Calls);
+        ConnectPhaseOptions options = fixture.RevisitOptions!;
+        Assert.Same(fixture.FirstProvisioning, options.Revisit!.PreviousProvisioning);
+        Assert.Same(fixture.RequestKey, options.Revisit.DeploymentKey);
+        Assert.Same(fixture.Shell, options.Shell);
+        Assert.Equal(WinPeUiSession.StatusPageTitle, options.StatusPageTitle);
+        Assert.Equal("Light", options.ThemeMode);
+        Assert.Equal("it-IT", options.CultureName);
+        Assert.Null(options.OnConfigurationLoaded);
+        Assert.Equal(new NetworkPageResult("Dark", "de-DE"), fixture.PageResult);
+        Assert.Equal(2, fixture.Events.Count(item => item.Level == LogEventLevel.Information &&
+            item.MessageTemplate.Text.Contains("Network menu", StringComparison.Ordinal)));
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(20)]
+    [InlineData(23)]
+    public async Task NetworkPage_PreparesTheSystemAgainWhileTheClockIsUnusable(int revisitExitCode)
+    {
+        var fixture = new Fixture { RevisitExitCode = revisitExitCode };
+        fixture.OnRevisit = () => fixture.ClockUsableAfterPreparation = true;
+        fixture.ReopenNetworkPageInDeploy();
+
+        await fixture.RunAsync();
+
+        Assert.Equal(["connect", "status", "system", "deploy", "reconnect", "status", "system"], fixture.Calls);
+        Assert.Equal(new UiState(UiPhase.Deploy, DestructiveStarted: false, Culture: "fr-FR", ClockUsable: true), fixture.States[^1]);
+        // A page that did not succeed leaves Deploy's theme and language.
+        Assert.Equal(revisitExitCode == 0 ? new NetworkPageResult("Dark", "de-DE") : new NetworkPageResult(null, null),
+            fixture.PageResult);
+    }
+
+    [Fact]
+    public async Task NetworkPage_StaysInTheDeployPhaseAndReportsNoReadinessAgain()
+    {
+        var fixture = new Fixture { ClockUsableAfterPreparation = true };
+        WinPeUiSession? session = null;
+        bool? phaseRunning = null;
+        fixture.OnRevisit = () =>
+        {
+            fixture.RevisitOptions!.OnCultureChanged!("de-DE");
+            phaseRunning = session!.IsPhaseRunning;
+        };
+        fixture.ReopenNetworkPageInDeploy();
+        session = fixture.CreateSession();
+
+        await session.RunAsync(TestContext.Current.CancellationToken);
+
+        Assert.True(phaseRunning);
+        Assert.Equal([UiPhase.Connect, UiPhase.System, UiPhase.Deploy, UiPhase.Deploy], fixture.States.Select(state => state.Phase));
+        Assert.Equal(new UiState(UiPhase.Deploy, DestructiveStarted: false, Culture: "de-DE", ClockUsable: true), fixture.States[^1]);
+        Assert.Equal(["configuration_loaded", "ui_ready"], fixture.Readiness);
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task NetworkPage_ThatDoesNotSucceedAfterALanguageChange_RecordsDeploysLanguageAgain(bool connectThrows)
+    {
+        var fixture = new Fixture { ClockUsableAfterPreparation = true, RevisitExitCode = 20 };
+        fixture.OnRevisit = () => fixture.RevisitOptions!.OnCultureChanged!("de-DE");
+        if (connectThrows)
+        {
+            fixture.Revisit = (_, _) => Task.FromException<ConnectPhaseResult>(new InvalidOperationException("Revisit failed."));
+        }
+
+        fixture.ReopenNetworkPageInDeploy();
+
+        await fixture.RunAsync();
+
+        // Deploy keeps its own language (it-IT in the request) when the page did not succeed.
+        Assert.Equal(["fr-FR", "de-DE", "it-IT"], fixture.States.Where(state => state.Phase == UiPhase.Deploy).Select(state => state.Culture));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task NetworkPage_DisposesTheRequestKeyWhateverConnectDoes(bool connectThrows)
+    {
+        var fixture = new Fixture();
+        if (connectThrows)
+        {
+            fixture.Revisit = (_, _) => Task.FromException<ConnectPhaseResult>(new InvalidOperationException("Revisit failed."));
+        }
+
+        fixture.ReopenNetworkPageInDeploy();
+
+        await fixture.RunAsync();
+
+        Assert.Equal(connectThrows, fixture.PageFailure is InvalidOperationException);
+        Assert.False(fixture.RequestKey.TryTake(new byte[DeploymentKeyTransfer.KeyLength]));
+    }
+
+    [Fact]
+    public async Task NetworkPage_CancelledByDeploy_EndsTheReopenedConnectWithoutPreparingTheSystemAgain()
+    {
+        var fixture = new Fixture();
+        using var deployCancellation = new CancellationTokenSource();
+        fixture.Revisit = (_, token) =>
+        {
+            var aborted = new TaskCompletionSource<ConnectPhaseResult>(TaskCreationOptions.RunContinuationsAsynchronously);
+            token.Register(() => aborted.TrySetResult(new ConnectPhaseResult(20, null, "Dark", "de-DE")));
+            return aborted.Task;
+        };
+        bool pageWasOpen = false;
+        fixture.Deploy = async options =>
+        {
+            Task<NetworkPageResult> page = options.OpenNetworkPage!(
+                new NetworkPageRequest(fixture.RequestKey, "Light", "it-IT"), deployCancellation.Token);
+            pageWasOpen = !page.IsCompleted;
+            await deployCancellation.CancelAsync();
+            await page;
+            return DeployPhase.SuccessExitCode;
+        };
+
+        Assert.Equal(DeployPhase.SuccessExitCode, await fixture.RunAsync());
+
+        Assert.True(pageWasOpen);
+        Assert.Equal(["connect", "status", "system", "deploy", "reconnect"], fixture.Calls);
+        Assert.False(fixture.RequestKey.TryTake(new byte[DeploymentKeyTransfer.KeyLength]));
+    }
+
+    [Fact]
+    public async Task NetworkPage_AfterTheDebugSkipOfConnect_HasNoPreviousProvisioningOutcome()
+    {
+        var fixture = new Fixture { SkipConnect = true, ClockUsableAfterPreparation = true };
+        fixture.ReopenNetworkPageInDeploy();
+
+        await fixture.RunAsync();
+
+        ConnectRevisit revisit = fixture.RevisitOptions!.Revisit!;
+        Assert.Null(revisit.PreviousProvisioning);
+        Assert.Same(fixture.RequestKey, revisit.DeploymentKey);
+    }
+
     /// <summary>
     /// The shared shell as the session sees it: it counts the contents shown, refuses a close request without a handler as
     /// the WinPE shell window does, and records any access to its window, which the session must never need.
@@ -474,7 +621,16 @@ public sealed class WinPeUiSessionTests
         internal int ConnectExitCode { get; init; }
         internal bool ConnectRenders { get; init; } = true;
         internal bool SystemPreparationFails { get; init; }
-        internal bool ClockUsableAfterPreparation { get; init; }
+        internal bool ClockUsableAfterPreparation { get; set; }
+        internal ProvisioningOutcome FirstProvisioning { get; } =
+            new(Dot1xState.NotConfigured, ProvisionedWifiState.NotConfigured, null, []);
+        internal int RevisitExitCode { get; init; }
+        internal Func<ConnectPhaseOptions, CancellationToken, Task<ConnectPhaseResult>>? Revisit { get; set; }
+        internal Action? OnRevisit { get; set; }
+        internal ConnectPhaseOptions? RevisitOptions { get; private set; }
+        internal DeploymentKeyTransfer RequestKey { get; } = DeploymentKeyTransfer.FromKey(new byte[DeploymentKeyTransfer.KeyLength]);
+        internal NetworkPageResult? PageResult { get; private set; }
+        internal Exception? PageFailure { get; private set; }
         internal List<StatusPageModel> StatusPages { get; } = [];
         internal bool IsWinPe { get; init; } = true;
         internal bool SkipConnect { get; init; }
@@ -499,15 +655,43 @@ public sealed class WinPeUiSessionTests
 
         internal Task<int> RunWithTokenAsync(CancellationToken cancellationToken) => CreateSession().RunAsync(cancellationToken);
 
+        /// <summary>Makes Deploy open the network page once, with <see cref="RequestKey"/>, and record what it returned.</summary>
+        internal void ReopenNetworkPageInDeploy() => Deploy = async options =>
+        {
+            try
+            {
+                PageResult = await options.OpenNetworkPage!(new NetworkPageRequest(RequestKey, "Light", "it-IT"),
+                    TestContext.Current.CancellationToken);
+            }
+            catch (Exception exception)
+            {
+                // Deploy shows its own content again whatever the page did.
+                PageFailure = exception;
+            }
+
+            return DeployPhase.SuccessExitCode;
+        };
+
         Task<ConnectPhaseResult> IConnectPhaseRunner.RunAsync(ConnectPhaseOptions options, CancellationToken cancellationToken)
         {
+            if (options.Revisit is not null)
+            {
+                Calls.Add("reconnect");
+                RevisitOptions = options;
+                // A reopened Connect never calls the readiness hooks; the no-op the session gives must stay harmless anyway.
+                options.OnFirstContentRendered();
+                OnRevisit?.Invoke();
+                return Revisit?.Invoke(options, cancellationToken)
+                    ?? Task.FromResult(new ConnectPhaseResult(RevisitExitCode, null, "Dark", "de-DE"));
+            }
+
             Calls.Add("connect");
             ConnectOptions = options;
             OnConnect?.Invoke();
             options.OnConfigurationLoaded?.Invoke();
             if (ConnectRenders) options.OnFirstContentRendered();
 
-            return Task.FromResult(new ConnectPhaseResult(ConnectExitCode, Key, "Dark", "fr-FR"));
+            return Task.FromResult(new ConnectPhaseResult(ConnectExitCode, Key, "Dark", "fr-FR") { Provisioning = FirstProvisioning });
         }
 
         Task<bool> ISystemPreparationStep.RunAsync(CancellationToken cancellationToken)

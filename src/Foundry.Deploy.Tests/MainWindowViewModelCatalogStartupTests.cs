@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Net.Http;
+using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.DomainJoin;
@@ -30,6 +31,7 @@ public sealed class MainWindowViewModelCatalogStartupTests
         await viewModel.InitializeAsync();
 
         Assert.Same(failure, Assert.Single(dialog.Failures));
+        Assert.Equal([false], dialog.OfferedNetwork);
         Assert.Equal(1, coordinator.Initializations);
         Assert.Equal(1, coordinator.ReloadCount);
         Assert.True(viewModel.Session.IsStartupReady);
@@ -48,6 +50,25 @@ public sealed class MainWindowViewModelCatalogStartupTests
 
         Assert.Equal(3, dialog.Failures.Count);
         Assert.Equal(3, coordinator.ReloadCount);
+        Assert.Equal(1, coordinator.Initializations);
+        Assert.True(viewModel.Session.IsStartupReady);
+        Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
+    });
+
+    [Fact]
+    public Task NetworkInTheDialog_ShowsTheNetworkPageThenReloadsTheCatalogs() => WpfApplicationTestHost.RunAsync(async () =>
+    {
+        var order = new List<string>();
+        var coordinator = new FakeCoordinator(new HttpRequestException("Catalog unavailable"), reloads: [null], onReload: () => order.Add("reload"));
+        var dialog = new FakeDialog(CatalogStartupChoice.Network);
+        var navigator = new CallbackNetworkPageNavigator { OnPage = () => order.Add("page") };
+        using MainWindowViewModel viewModel = Create(coordinator, dialog, navigator: navigator);
+        navigator.Refresh = viewModel.RefreshAfterNetworkReturnAsync;
+
+        await viewModel.InitializeAsync();
+
+        Assert.Equal([true], dialog.OfferedNetwork);
+        Assert.Equal(["page", "reload"], order);
         Assert.Equal(1, coordinator.Initializations);
         Assert.True(viewModel.Session.IsStartupReady);
         Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
@@ -100,9 +121,10 @@ public sealed class MainWindowViewModelCatalogStartupTests
         Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
     });
 
-    private static MainWindowViewModel Create(FakeCoordinator coordinator, FakeDialog dialog, RecordingShell? shell = null) =>
+    private static MainWindowViewModel Create(FakeCoordinator coordinator, FakeDialog dialog, RecordingShell? shell = null,
+        CallbackNetworkPageNavigator? navigator = null) =>
         ProgressPageContractTests.CreateMainWindowViewModel(new UnusedExecution(), accessGate: new OpenGate(), coordinator: coordinator,
-            shell: shell ?? new RecordingShell(), catalogDialog: dialog);
+            shell: shell ?? new RecordingShell(), catalogDialog: dialog, networkPageNavigator: navigator);
 
     private sealed class OpenGate : IDeploymentAccessGate
     {
@@ -121,16 +143,19 @@ public sealed class MainWindowViewModelCatalogStartupTests
     {
         private readonly Queue<CatalogStartupChoice> _choices = new(choices);
         public List<Exception> Failures { get; } = [];
+        public List<bool> OfferedNetwork { get; } = [];
 
-        public CatalogStartupChoice ShowFailure(Exception failure)
+        public CatalogStartupChoice ShowFailure(Exception failure, bool canOpenNetwork)
         {
             Failures.Add(failure);
+            OfferedNetwork.Add(canOpenNetwork);
             return _choices.Dequeue();
         }
     }
 
     /// <summary>Starts with a catalog failure; each reload takes the next scripted outcome (null is a success).</summary>
-    private sealed class FakeCoordinator(Exception initialFailure, Exception?[] reloads, bool blockReload = false) : IDeploymentStartupCoordinator
+    private sealed class FakeCoordinator(Exception initialFailure, Exception?[] reloads, bool blockReload = false, Action? onReload = null)
+        : IDeploymentStartupCoordinator
     {
         private readonly Queue<Exception?> _reloads = new(reloads);
         public int Initializations { get; private set; }
@@ -157,6 +182,7 @@ public sealed class MainWindowViewModelCatalogStartupTests
         public async Task<DeploymentCatalogSnapshot> ReloadCatalogsAsync(CancellationToken cancellationToken = default)
         {
             ReloadCount++;
+            onReload?.Invoke();
             if (blockReload)
             {
                 ReloadStarted.TrySetResult();
@@ -166,6 +192,14 @@ public sealed class MainWindowViewModelCatalogStartupTests
             Exception? outcome = _reloads.Dequeue();
             return outcome is null ? new DeploymentCatalogSnapshot([], []) : throw outcome;
         }
+
+        public Task<AutopilotGroupTagRefresh> RefreshAutopilotGroupTagsAsync(CancellationToken cancellationToken = default) =>
+            throw new NotSupportedException("The return refresh must not run during startup.");
+
+        public bool ShouldResolveNetworkCacheAgain() => throw new NotSupportedException("The return refresh must not run during startup.");
+
+        public Task<NetworkCacheStartupResult?> ResolveNetworkCacheAsync(CancellationToken cancellationToken = default) =>
+            throw new NotSupportedException("The return refresh must not run during startup.");
     }
 
     private sealed class UnusedExecution : IDeploymentExecutionService

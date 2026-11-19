@@ -121,6 +121,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Įjungta</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>Tinklas</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>Kitas</value>
   </data>
@@ -693,11 +696,26 @@ Tęsti diegimą?</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Kalba</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>Ti_nklas</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Įrankiai</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Neprisijungta</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Prisijungta per Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Nėra interneto</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Prisijungta per Wi-Fi</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>Tinklo talpyklos bendrinamas aplankas atmetė šį įrenginį. Foundry OSD puslapyje Tinklo talpykla patikrinkite bendrinamo aplanko paskyrą ir jos slaptažodį; serveryje patikrinkite bendrinamo aplanko teises.</value>

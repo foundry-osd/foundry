@@ -9,6 +9,7 @@ using System.Windows.Threading;
 using Foundry.Connect.Configuration;
 using Foundry.Connect.DependencyInjection;
 using Foundry.Connect.Lifetime;
+using Foundry.Connect.Network;
 using Foundry.Connect.Network.Policy;
 using Foundry.Connect.Security;
 using Foundry.Connect.Services.Logging;
@@ -41,6 +42,12 @@ namespace Foundry.Connect;
 /// While the phase runs, it owns <see cref="Log.Logger"/> (through <see cref="HostedPhaseScope"/>),
 /// <see cref="Application.MainWindow"/> (set to the shell window), the shell's close requests and a handler of <see cref="Application.DispatcherUnhandledException"/>, which marks
 /// the exception handled and ends the phase.
+/// <para>
+/// The deployment can reopen Connect (<see cref="ConnectPhaseOptions.Revisit"/>) while the Foundry Deploy phase stays alive
+/// underneath: a new container and a new <see cref="HostedPhaseScope"/>, nested in Deploy's, which the caller ends in reverse
+/// order. That run owns only <see cref="Log.Logger"/>, <see cref="Application.MainWindow"/> and the shown content; Deploy keeps
+/// the close requests, the dispatcher's unhandled exceptions and the startup hooks.
+/// </para>
 /// </remarks>
 public static class ConnectPhase
 {
@@ -55,20 +62,33 @@ public static class ConnectPhase
     /// shows Connect's content, and completes when Connect's lifetime ends: the gate's skip, Continue or auto-continue
     /// (success), a close request of the shell window (user abort), or a failure. Must be called on the application's UI thread.
     /// </summary>
-    /// <param name="options">The host hooks.</param>
+    /// <param name="options">The host hooks; with <see cref="ConnectPhaseOptions.Revisit"/> set, Connect is reopened from the deployment.</param>
     /// <param name="cancellationToken">Ends a running phase as a user abort, like closing its window.</param>
     /// <returns>
-    /// The phase result; its deployment key is handed to the caller; after a success its content (disabled), or the status
-    /// page when the gate skipped it, stays shown in the shell.
+    /// The phase result; its deployment key (never set for a reopened Connect) is handed to the caller; after a success its
+    /// content (disabled), or the status page when the gate skipped it, stays shown in the shell.
     /// </returns>
     /// <exception cref="InvalidOperationException">No WPF application runs on the calling thread.</exception>
     /// <exception cref="OperationCanceledException"><paramref name="cancellationToken"/> was cancelled before the phase started.</exception>
     public static async Task<ConnectPhaseResult> RunAsync(ConnectPhaseOptions options, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(options);
-        Application application = Application.Current
-            ?? throw new InvalidOperationException("The Foundry Connect phase runs inside a WPF application.");
-        application.Dispatcher.VerifyAccess();
+        if (options.Revisit is { } revisit)
+        {
+            try
+            {
+                Application revisitApplication = GetCallingApplication();
+                cancellationToken.ThrowIfCancellationRequested();
+                return await RunRevisitAsync(revisitApplication, options, revisit, cancellationToken);
+            }
+            finally
+            {
+                // The deployment's copy of its key is zeroed on every path, early exits included; Dispose is idempotent.
+                revisit.DeploymentKey?.Dispose();
+            }
+        }
+
+        Application application = GetCallingApplication();
         cancellationToken.ThrowIfCancellationRequested();
 
         RuntimeStartupDiagnostics startup = RuntimeStartupDiagnostics.CreateForHostedPhase(
@@ -83,7 +103,6 @@ public static class ConnectPhase
         IDisposable? closeAttachment = null;
         CultureChangeReporter? cultureReporter = null;
         ConnectShellContent? content = null;
-        DeploymentKeyTransfer? takenKey = null;
         string category = "managed_startup";
         // Managed startup (logging, runtime checks) precedes the policy stages.
         ConnectStartupStage? stage = null;
@@ -143,19 +162,13 @@ public static class ConnectPhase
                 return CreateEndedResult(exitCode, host.Services);
             }
 
-            string theme = host.Services.GetRequiredService<IThemeService>().CurrentTheme.ToString();
-            string culture = host.Services.GetRequiredService<ILocalizationService>().CurrentCulture.Name;
             // Left shown and disabled so the next page replaces it without a blank screen.
             content.IsEnabled = false;
-
-            // Taken last: nothing below can fail, so the caller always receives the key it must dispose.
-            takenKey = host.Services.GetRequiredService<IConnectUnlockService>().TakeDeploymentKey();
-            return new ConnectPhaseResult((int)ChildRuntimeExitCode.Success, takenKey, theme, culture);
+            return CreateSuccessResult(host.Services, isRevisit: false);
         }
         catch (Exception exception)
         {
             startup.ReportFailure(exception, category);
-            takenKey?.Dispose();
             int exitCode = ConnectStartupFailurePolicy.ResolveFailureExitCode(
                 lifetime?.RequestedExitCode, GetFailureExitCode(stage, startup));
             return CreateEndedResult(exitCode, host?.Services);
@@ -173,6 +186,126 @@ public static class ConnectPhase
             }
 
             await scope.EndAsync(telemetry, host);
+        }
+    }
+
+    /// <summary>
+    /// Runs Connect reopened from the deployment, inside Deploy's phase: no status page, network gate, startup hooks, close
+    /// handler or dispatcher handler. It applies the deployment's theme and language, takes the deployment's key before any
+    /// prompt can open, replays the first page's provisioning, shows the page with "Back to deployment" and completes on that
+    /// button (success), the caller's cancellation (user abort) or a failure.
+    /// </summary>
+    private static async Task<ConnectPhaseResult> RunRevisitAsync(
+        Application application,
+        ConnectPhaseOptions options,
+        ConnectRevisit revisit,
+        CancellationToken cancellationToken)
+    {
+        // No host hook: the UI process is already ready; the diagnostics only log failures and pick their exit code.
+        RuntimeStartupDiagnostics startup = RuntimeStartupDiagnostics.CreateForHostedPhase(Identity, static () => { });
+        HostedPhaseScope scope = HostedPhaseScope.Begin(Identity, "Foundry Connect", typeof(ConnectPhase),
+            FoundryConnectLogging.ResolveStartupLogFilePath, FoundryConnectLogging.CreateLogger);
+        Serilog.ILogger logger = scope.Logger;
+        IHost? host = null;
+        ApplicationLifetimeService? lifetime = null;
+        CultureChangeReporter? cultureReporter = null;
+        ConnectShellContent? content = null;
+        string category = "managed_startup";
+        ConnectStartupStage? stage = null;
+        try
+        {
+            logger.Information(
+                "Foundry Connect reopened from the deployment. Version={Version}, SessionId={SessionId}, LogFilePath={LogFilePath}, HasPreviousProvisioning={HasPreviousProvisioning}, HasDeploymentKey={HasDeploymentKey}",
+                FoundryConnectApplicationInfo.Version, DiagnosticSessionContext.CurrentSessionId, scope.LogFilePath,
+                revisit.PreviousProvisioning is not null, revisit.DeploymentKey is not null);
+
+            category = "configuration";
+            var configurationService = new ConnectConfigurationService(
+                new SerilogLoggerFactory(Log.Logger).CreateLogger<ConnectConfigurationService>());
+            host = LoadServices(startup, configurationService, options.Shell, current => stage = current, isRevisit: true);
+            if (host is null)
+            {
+                return CreateEndedResult((int)ConnectStartupFailurePolicy.Map(ConnectStartupStage.Configuration), services: null);
+            }
+
+            category = "services";
+            IServiceProvider services = host.Services;
+            services.GetRequiredService<MainWindowViewModel>().ApplyInitialPreferences(options.ThemeMode, options.CultureName);
+            if (options.OnCultureChanged is not null)
+            {
+                cultureReporter = CultureChangeReporter.Start(services.GetRequiredService<ILocalizationService>(), options.OnCultureChanged);
+            }
+
+            category = "ui_startup";
+            stage = ConnectStartupStage.UiStartup;
+            ApplicationLifetimeService exitAuthority = services.GetRequiredService<ApplicationLifetimeService>();
+            lifetime = exitAuthority;
+            using CancellationTokenRegistration cancellation = cancellationToken.Register(
+                () => exitAuthority.TryExit(ChildRuntimeExitCode.UserAborted));
+
+            content = services.GetRequiredService<ConnectShellContent>();
+            if (revisit.DeploymentKey is { } deploymentKey)
+            {
+                services.GetRequiredService<IConnectUnlockService>().TryAcceptDeploymentKey(deploymentKey);
+            }
+
+            await ShowRevisitedPageAsync(
+                application, options.Shell, services, content, startup, exitAuthority, revisit.PreviousProvisioning, cancellationToken);
+
+            var exitCode = (int)await exitAuthority.Completion;
+            logger.Information("Foundry Connect reopened from the deployment ended with code {ExitCode}.", exitCode);
+            if (exitCode != (int)ChildRuntimeExitCode.Success)
+            {
+                return CreateEndedResult(exitCode, services);
+            }
+
+            // Left shown and disabled until the deployment shows its own content again.
+            content.IsEnabled = false;
+            return CreateSuccessResult(services, isRevisit: true);
+        }
+        catch (Exception exception)
+        {
+            startup.ReportFailure(exception, category);
+            int exitCode = ConnectStartupFailurePolicy.ResolveFailureExitCode(
+                lifetime?.RequestedExitCode, GetFailureExitCode(stage, startup));
+            return CreateEndedResult(exitCode, host?.Services);
+        }
+        finally
+        {
+            cultureReporter?.Dispose();
+            content?.Detach();
+
+            // Nothing to flush: the reopened page has no telemetry.
+            await scope.EndAsync(telemetry: null, host);
+        }
+    }
+
+    /// <summary>
+    /// Shows the reopened page at once, then starts its network services (<see cref="NetworkGate.StartForRevisitAsync"/>)
+    /// behind it; "Back to deployment" is available meanwhile and ends the start.
+    /// </summary>
+    private static async Task ShowRevisitedPageAsync(
+        Application application,
+        IShellHost shell,
+        IServiceProvider services,
+        ConnectShellContent content,
+        RuntimeStartupDiagnostics startup,
+        ApplicationLifetimeService exitAuthority,
+        ProvisioningOutcome? previousProvisioning,
+        CancellationToken cancellationToken)
+    {
+        PresentContent(application, shell, content);
+
+        // Failures from here on are runtime failures.
+        startup.ReportUiReady();
+        services.GetRequiredService<AutoContinueViewModel>().OnPageShown();
+        try
+        {
+            await services.GetRequiredService<NetworkGate>().StartForRevisitAsync(previousProvisioning, cancellationToken);
+        }
+        catch (OperationCanceledException) when (exitAuthority.RequestedExitCode is not null || cancellationToken.IsCancellationRequested)
+        {
+            // "Back to deployment" or the caller's cancellation (its registration requested the user abort) ended the start.
         }
     }
 
@@ -244,12 +377,14 @@ public static class ConnectPhase
     /// <param name="configurationService">Loads the Foundry.WinPE runtime configuration.</param>
     /// <param name="shell">The shell that shows Connect's content, registered for the content to resolve.</param>
     /// <param name="enterStage">Receives the startup stage before configuration loading and before the container build.</param>
+    /// <param name="isRevisit">Whether the container serves a Connect page reopened from the deployment.</param>
     /// <returns>The phase's container, or <see langword="null"/> when the configuration cannot be loaded.</returns>
     internal static IHost? LoadServices(
         RuntimeStartupDiagnostics startup,
         IConnectConfigurationService configurationService,
         IShellHost shell,
-        Action<ConnectStartupStage> enterStage)
+        Action<ConnectStartupStage> enterStage,
+        bool isRevisit = false)
     {
         enterStage(ConnectStartupStage.Configuration);
         ConnectConfigurationLoadResult loadResult = configurationService.Load();
@@ -261,7 +396,7 @@ public static class ConnectPhase
 
         // Building the host is not a configuration failure for the exit code.
         enterStage(ConnectStartupStage.Services);
-        IHost host = BuildHost(startup, configurationService, shell, loadResult.Configuration, loadResult.Secrets);
+        IHost host = BuildHost(startup, configurationService, shell, loadResult.Configuration, loadResult.Secrets, isRevisit);
         try
         {
             startup.ReportConfigurationLoaded();
@@ -277,20 +412,54 @@ public static class ConnectPhase
     }
 
     /// <summary>
-    /// Builds the result of a phase that did not succeed: no content change, and no key (an unlocked key is taken and zeroed here).
-    /// Reading the end state never fails the result.
+    /// Builds the result of a successful phase: its theme, culture and provisioning outcome, and the deployment key for the
+    /// first Connect page only; a page reopened from the deployment zeroes a key it obtained, since the deployment keeps its own.
     /// </summary>
-    private static ConnectPhaseResult CreateEndedResult(int exitCode, IServiceProvider? services)
+    /// <param name="services">The phase's container.</param>
+    /// <param name="isRevisit">Whether Connect was reopened from the deployment.</param>
+    /// <returns>The success result; the caller owns and disposes its key.</returns>
+    internal static ConnectPhaseResult CreateSuccessResult(IServiceProvider services, bool isRevisit)
+    {
+        string theme = services.GetRequiredService<IThemeService>().CurrentTheme.ToString();
+        string culture = services.GetRequiredService<ILocalizationService>().CurrentCulture.Name;
+        ProvisioningOutcome? provisioning = services.GetRequiredService<IProvisioningStep>().LastOutcome;
+
+        // Taken last: nothing below can fail, so the caller always receives the key it must dispose.
+        DeploymentKeyTransfer? key = services.GetRequiredService<IConnectUnlockService>().TakeDeploymentKey();
+        if (isRevisit)
+        {
+            key?.Dispose();
+            key = null;
+        }
+
+        return new ConnectPhaseResult((int)ChildRuntimeExitCode.Success, key, theme, culture) { Provisioning = provisioning };
+    }
+
+    /// <summary>
+    /// Builds the result of a phase that did not succeed: no content change, and no key (an unlocked key is taken and zeroed here).
+    /// The provisioned profile document is released and the secrets are cleared before the provisioning outcome is read, as
+    /// the successful exits do, so the result never carries profile key material. Reading the end state never fails the result.
+    /// </summary>
+    /// <param name="exitCode">The phase's exit code.</param>
+    /// <param name="services">The phase's container, or <see langword="null"/> when it was never built.</param>
+    /// <returns>The ended result.</returns>
+    internal static ConnectPhaseResult CreateEndedResult(int exitCode, IServiceProvider? services)
     {
         string theme = nameof(Foundry.Wpf.Theme.ThemeMode.System);
         string culture = CultureInfo.CurrentUICulture.Name;
+        ProvisioningOutcome? provisioning = null;
         if (services is not null)
         {
             try
             {
+                // The secrets go first, so a failing read of the preferences cannot leave them behind.
                 services.GetService<IConnectUnlockService>()?.TakeDeploymentKey()?.Dispose();
+                services.GetService<IConnectionCoordinator>()?.ReleaseProvisionedProfile();
+                services.GetService<ConnectRuntimeSecrets>()?.ClearAll();
                 theme = services.GetService<IThemeService>()?.CurrentTheme.ToString() ?? theme;
                 culture = services.GetService<ILocalizationService>()?.CurrentCulture.Name ?? culture;
+                provisioning = services.GetService<IProvisioningStep>()?.LastOutcome;
+                provisioning?.WifiProfile?.Clear();
             }
             catch (Exception exception) when (exception is InvalidOperationException or ObjectDisposedException)
             {
@@ -298,12 +467,22 @@ public static class ConnectPhase
             }
         }
 
-        return new ConnectPhaseResult(exitCode, DeploymentKey: null, theme, culture);
+        return new ConnectPhaseResult(exitCode, DeploymentKey: null, theme, culture) { Provisioning = provisioning };
     }
 
     /// <summary>Creates the "Looking for the network" status page model, titled with the host's title when it gave one.</summary>
     internal static StatusPageModel CreateStatusPageModel(string? hostTitle, ILocalizationService localization) =>
         new(string.IsNullOrWhiteSpace(hostTitle) ? localization.GetString("App.Name") : hostTitle, localization.GetString("Status.LookingForNetwork"));
+
+    /// <summary>Returns the calling thread's WPF application.</summary>
+    /// <exception cref="InvalidOperationException">No WPF application runs on the calling thread.</exception>
+    private static Application GetCallingApplication()
+    {
+        Application application = Application.Current
+            ?? throw new InvalidOperationException("The Foundry Connect phase runs inside a WPF application.");
+        application.Dispatcher.VerifyAccess();
+        return application;
+    }
 
     /// <summary>
     /// Routes the shell's close requests to <paramref name="handleClosing"/> (the operator abort) and keeps the window open:
@@ -358,7 +537,8 @@ public static class ConnectPhase
         IConnectConfigurationService configurationService,
         IShellHost shell,
         FoundryConnectConfigurationDocument configuration,
-        ConnectRuntimeSecrets secrets)
+        ConnectRuntimeSecrets secrets,
+        bool isRevisit)
     {
         // Kept here: Foundry.Core does not reference Microsoft.Extensions.Hosting or Serilog.Extensions.Logging.
         HostApplicationBuilder builder = Host.CreateApplicationBuilder();
@@ -370,7 +550,7 @@ public static class ConnectPhase
         builder.Services.AddSingleton(configurationService);
         builder.Services.AddSingleton(configuration);
         builder.Services.AddSingleton(secrets);
-        builder.Services.AddFoundryConnectApplicationServices();
+        builder.Services.AddFoundryConnectApplicationServices(isRevisit);
         return builder.Build();
     }
 }

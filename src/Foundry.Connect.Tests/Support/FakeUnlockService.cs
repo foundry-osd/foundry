@@ -51,6 +51,23 @@ internal sealed class FakeUnlockService : IConnectUnlockService
         }
     }
 
+    /// <summary>Gets or sets the key handed out once by <see cref="TakeDeploymentKey"/>.</summary>
+    public DeploymentKeyTransfer? DeploymentKey { get; set; }
+
+    /// <summary>Refuses every key, which it zeroes, like a media whose key check the key fails.</summary>
+    /// <param name="key">The transferred key.</param>
+    /// <returns>Always <see langword="false"/>.</returns>
+    public bool TryAcceptDeploymentKey(DeploymentKeyTransfer key)
+    {
+        key.Dispose();
+        return false;
+    }
+
     /// <inheritdoc />
-    public DeploymentKeyTransfer? TakeDeploymentKey() => null;
+    public DeploymentKeyTransfer? TakeDeploymentKey()
+    {
+        DeploymentKeyTransfer? key = DeploymentKey;
+        DeploymentKey = null;
+        return key;
+    }
 }

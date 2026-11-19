@@ -121,6 +121,9 @@
   <data name="Common.Enabled" xml:space="preserve">
     <value>Включено</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>Сеть</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>Далее</value>
   </data>
@@ -693,11 +696,26 @@
   <data name="Menu.Language" xml:space="preserve">
     <value>_Язык</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Сеть</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Тема</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Инструменты</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Нет подключения</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Подключено через Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Нет доступа к интернету</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Подключено через Wi-Fi</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>Общий ресурс сетевого кэша отклонил это устройство. В Foundry OSD на странице «Сетевой кэш» проверьте учетную запись общего ресурса и ее пароль; на сервере проверьте разрешения общего ресурса.</value>

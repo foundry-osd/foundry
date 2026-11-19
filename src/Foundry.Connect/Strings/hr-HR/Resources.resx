@@ -70,6 +70,9 @@ Licenciran prema MIT licenci.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Verzija: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Natrag na implementaciju</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: samododijeljena adresa</value>
   </data>
@@ -359,11 +362,26 @@ Licenciran prema MIT licenci.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Jezik</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Mreža</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Alati</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Nije povezano</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Povezano putem Etherneta</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Nema interneta</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Povezano putem Wi-Fi-ja</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Primjenjuju se mrežne postavke s medija za pokretanje.</value>

@@ -148,6 +148,21 @@ public sealed partial class WinPeShellWindowTests
     });
 
     [Fact]
+    public Task ShowContent_AfterTheWindowClosed_DoesNothing() => WpfApplicationTestHost.RunAsync(() =>
+    {
+        var window = new WinPeShellWindow();
+        Button first = new();
+        window.ShowContent(first);
+        CloseForTest(window);
+
+        window.ShowContent(new Button());
+
+        Assert.Same(first, GetPresenter(window).Content);
+        Assert.False(window.IsVisible);
+        return Task.CompletedTask;
+    });
+
+    [Fact]
     public Task Close_WhileWindowsShutsDown_IsAcceptedWithoutAHandler() => WpfApplicationTestHost.RunAsync(() =>
     {
         var window = new WinPeShellWindow(isSystemShuttingDown: () => true);

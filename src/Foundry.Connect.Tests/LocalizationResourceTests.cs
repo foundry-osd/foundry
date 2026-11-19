@@ -57,7 +57,7 @@ public sealed class LocalizationResourceTests
     // Texts of the page, its bindings and the unlock prompt: the parity tests keep the key sets equal, this keeps them filled.
     public static TheoryData<string> PageKeys => new()
     {
-        "Action.Retry", "Action.StayHere", "Debug.Scenario.ApipaAddress", "Debug.Scenario.CaptivePortal", "Debug.Scenario.Checking",
+        "Action.Retry", "Action.StayHere", "Connect.BackToDeployment", "Debug.Scenario.ApipaAddress", "Debug.Scenario.CaptivePortal", "Debug.Scenario.Checking",
         "Debug.Scenario.Dot1xAuthenticating", "Debug.Scenario.Dot1xFailed", "Debug.Scenario.EthernetNoInternet",
         "Debug.Scenario.EthernetReady", "Debug.Scenario.Live", "Debug.Scenario.NoAdapter", "Debug.Scenario.NoLink",
         "Debug.Scenario.NoWifiAdapter", "Debug.Scenario.ProvisionedWifiLocked", "Debug.Scenario.ProvisionedWifiUnavailable",
@@ -74,7 +74,7 @@ public sealed class LocalizationResourceTests
         "Status.BlockedNoInternetDescription", "Status.BlockedNoIpAddressDescription", "Status.BlockedNoIpAddressTitle",
         "Status.BlockedNoLinkDescription", "Status.BlockedNoLinkTitle", "Status.BlockedTitle", "Status.CheckingTitle",
         "Status.ConnectingDescription", "Status.ConnectingTitle", "Status.DisconnectingTitle", "Status.Dot1xAuthenticatingDescription",
-        "Status.LookingForNetwork",
+        "Status.LookingForNetwork", "Network.State.Disconnected", "Network.State.Ethernet", "Network.State.Limited", "Network.State.Wifi",
         "Unlock.Continue", "Unlock.Description", "Unlock.Heading", "Unlock.InvalidPassword", "Unlock.PasswordPlaceholder", "Unlock.Title",
         "Unlock.TogglePasswordVisibility", "Wifi.ActionConnectTimedOut", "Wifi.ActionInvalidPassphrase", "Wifi.ActionNetworkNotVisible",
         "Wifi.ConnectProvisionedAutomationName", "Wifi.ConnectSelectedAutomationFormat", "Wifi.DisconnectProvisionedAutomationName",
@@ -178,9 +178,29 @@ public sealed class LocalizationResourceTests
         ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(ConnectShellContent).Assembly);
         ResourceSet resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
 
-        foreach (string key in new[] { "Menu.About", "Menu.Debug", "Menu.Keyboard", "Menu.KeyboardFormat", "Menu.Language", "Menu.Theme", "Menu.Tools" })
+        foreach (string key in new[] { "Menu.About", "Menu.Debug", "Menu.Keyboard", "Menu.KeyboardFormat", "Menu.Language", "Menu.Network", "Menu.Theme", "Menu.Tools" })
         {
             Assert.Contains("_", resourceSet.GetString(key), StringComparison.Ordinal);
+        }
+    }
+
+    [Theory]
+    [MemberData(nameof(SupportedCultures))]
+    public void NetworkMenuAccessKey_DiffersFromTheOtherTopLevelHeaders(string cultureName)
+    {
+        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(ConnectShellContent).Assembly);
+        ResourceSet resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
+
+        string AccessKey(string key)
+        {
+            string value = resourceSet.GetString(key)!;
+            return value[(value.IndexOf('_', StringComparison.Ordinal) + 1)..][..1].ToUpper(CultureInfo.GetCultureInfo(cultureName));
+        }
+
+        string network = AccessKey("Menu.Network");
+        foreach (string key in new[] { "Menu.About", "Menu.Debug", "Menu.Keyboard", "Menu.Language", "Menu.Theme", "Menu.Tools" })
+        {
+            Assert.NotEqual(AccessKey(key), network);
         }
     }
 }

@@ -16,7 +16,8 @@ namespace Foundry.Connect.Security;
 /// <summary>
 /// Runs the deployment password prompt loop: Deploy's retry delay after each wrong password, cancel → the secrets
 /// stay locked for the session, success → every locked secret is decrypted and, when the media carries a key check, a
-/// copy of the key is kept for the Foundry Deploy phase.
+/// copy of the key is kept for the Foundry Deploy phase. A Connect page reopened from the deployment can instead accept
+/// the deployment's key without a prompt (<see cref="TryAcceptDeploymentKey"/>).
 /// </summary>
 /// <remarks>
 /// The password, its length and the key are never logged. The password is zeroed after each unwrap attempt and the unwrapped
@@ -183,7 +184,7 @@ public sealed class ConnectUnlockService(
 
     /// <summary>
     /// Logs each protected file that the unlocked key could not decrypt (tampered or foreign) once, by its role and exception type
-    /// only. Runs after the only successful unlock of the session.
+    /// only. Runs after the only successful unlock of the session, by a prompt or by the key from the deployment.
     /// </summary>
     private void LogUndecryptableContent()
     {
@@ -215,6 +216,48 @@ public sealed class ConnectUnlockService(
         finally
         {
             CryptographicOperations.ZeroMemory(MemoryMarshal.AsBytes(password.AsSpan()));
+        }
+    }
+
+    /// <inheritdoc />
+    public bool TryAcceptDeploymentKey(DeploymentKeyTransfer key)
+    {
+        ArgumentNullException.ThrowIfNull(key);
+        byte[] taken = GC.AllocateArray<byte>(DeploymentKeyTransfer.KeyLength, pinned: true);
+        try
+        {
+            if (!key.TryTake(taken))
+            {
+                return false;
+            }
+
+            // Without a key check the key cannot be authenticated, and a foreign key would leave every secret undecryptable.
+            if (secrets.Protection?.KeyCheck is null)
+            {
+                logger.LogInformation("The deployment key from the deployment is not used because the media has no key check; the password is asked on demand.");
+                return false;
+            }
+
+            try
+            {
+                int unlockedSecretCount = secrets.Unlock(taken);
+                logger.LogInformation(
+                    "Network secrets unlocked with the deployment key from the deployment. UnlockedSecretCount={UnlockedSecretCount}",
+                    unlockedSecretCount);
+                LogUndecryptableContent();
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                logger.LogWarning(
+                    "The deployment key from the deployment does not match the media's key check; the password is asked on demand. FailureCode={FailureCode}",
+                    "key_check_failed");
+                return false;
+            }
+        }
+        finally
+        {
+            CryptographicOperations.ZeroMemory(taken);
         }
     }
 

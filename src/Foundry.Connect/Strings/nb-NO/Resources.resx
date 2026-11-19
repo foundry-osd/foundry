@@ -70,6 +70,9 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Versjon: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Tilbake til distribusjonen</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: selvtildelt adresse</value>
   </data>
@@ -359,11 +362,26 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Språk</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Nettverk</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Verktøy</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Ikke tilkoblet</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Tilkoblet via Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Ingen internettilgang</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Tilkoblet via Wi-Fi</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Bruker nettverksinnstillingene fra oppstartsmediet.</value>

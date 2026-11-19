@@ -70,6 +70,9 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Version: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Zurück zur Bereitstellung</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: selbst zugewiesene Adresse</value>
   </data>
@@ -359,11 +362,26 @@ Lizenziert unter der MIT-Lizenz.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Sprache</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Netzwerk</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Design</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Extras</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Nicht verbunden</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Über Ethernet verbunden</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Kein Internet</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Über Wi-Fi verbunden</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Die Netzwerkeinstellungen des Startmediums werden angewendet.</value>

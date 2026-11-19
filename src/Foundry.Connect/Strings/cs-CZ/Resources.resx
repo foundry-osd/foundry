@@ -70,6 +70,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Verze: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Zpět k nasazení</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: automaticky přiřazená adresa</value>
   </data>
@@ -359,11 +362,26 @@ Licencováno pod licencí MIT.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Jazyk</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Síť</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Motiv</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Nástroje</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Nepřipojeno</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Připojeno přes Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Bez internetu</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Připojeno přes Wi-Fi</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Používá se nastavení sítě ze spouštěcího média.</value>

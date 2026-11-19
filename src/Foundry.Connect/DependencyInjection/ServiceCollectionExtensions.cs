@@ -50,12 +50,16 @@ public static class ServiceCollectionExtensions
     /// single-instance mutex.
     /// </remarks>
     /// <param name="services">The service collection to update.</param>
+    /// <param name="isRevisit">
+    /// Whether the services are those of a Connect page reopened from the deployment: no telemetry at all (the first page sent
+    /// the session's events), "Back to deployment" without a countdown, and the roaming artifact of the first page kept.
+    /// </param>
     /// <returns>The same service collection.</returns>
-    public static IServiceCollection AddFoundryConnectApplicationServices(this IServiceCollection services)
+    public static IServiceCollection AddFoundryConnectApplicationServices(this IServiceCollection services, bool isRevisit = false)
     {
         services.AddSingleton<ConnectShellContent>();
         services.AddSingleton<MainWindowViewModel>();
-        AddPageViewModels(services);
+        AddPageViewModels(services, isRevisit);
 
         // Connect reports its outcome through its exit code, so the shell's Shutdown ends the phase as a user abort.
         services.AddSingleton<IApplicationShellService>(sp => new ApplicationShellService(
@@ -69,6 +73,11 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(CreateTelemetryContext);
         services.AddSingleton<ITelemetryService>(sp =>
         {
+            if (isRevisit)
+            {
+                return new NullTelemetryService();
+            }
+
             TelemetryOptions options = sp.GetRequiredService<TelemetryOptions>();
             ILogger<PostHogTelemetryService> logger = sp.GetRequiredService<ILogger<PostHogTelemetryService>>();
             logger.LogDebug(
@@ -93,7 +102,18 @@ public static class ServiceCollectionExtensions
         });
         services.AddSingleton<ILocalizationService>(_ => new ResourceLocalizationService(new ResourceManager("Foundry.Connect.Strings.Resources", typeof(ConnectShellContent).Assembly)));
         services.AddSingleton<INetworkAdapterSnapshotProvider, WindowsNetworkAdapterSnapshotProvider>();
-        services.AddSingleton<INetworkProfileRoamingService, NetworkProfileRoamingService>();
+        if (isRevisit)
+        {
+            services.AddSingleton<INetworkProfileRoamingService>(sp => new NetworkProfileRoamingService(
+                sp.GetRequiredService<FoundryConnectConfigurationDocument>(),
+                sp.GetRequiredService<ILogger<NetworkProfileRoamingService>>(),
+                keepsExistingArtifact: true));
+        }
+        else
+        {
+            services.AddSingleton<INetworkProfileRoamingService, NetworkProfileRoamingService>();
+        }
+
         AddNetworkServices(services);
         AddSecurityServices(services);
         services.AddSingleton<IThemeService, ThemeService>();
@@ -107,7 +127,7 @@ public static class ServiceCollectionExtensions
     /// <see cref="ConnectNetworkActions"/> is shared by the page and every section, so a debug scenario set on the page
     /// gates every network action and every action pauses the countdown.
     /// </summary>
-    private static void AddPageViewModels(IServiceCollection services)
+    private static void AddPageViewModels(IServiceCollection services, bool isRevisit)
     {
         // The phase runs inside the host's Application, so this is the UI dispatcher whatever the resolving thread; without
         // an Application (tests) it falls back to the resolving thread's dispatcher.
@@ -121,7 +141,8 @@ public static class ServiceCollectionExtensions
             sp.GetRequiredService<IUiDispatcher>(),
             sp.GetRequiredService<ILogger<AutoContinueViewModel>>(),
             isAutoContinueEnabled: !Debugger.IsAttached,
-            isPageShown: false));
+            isPageShown: false,
+            isRevisit: isRevisit));
         services.AddSingleton<EthernetSectionViewModel>();
         services.AddSingleton<ProvisionedWifiViewModel>();
         services.AddSingleton<WifiNetworksViewModel>();

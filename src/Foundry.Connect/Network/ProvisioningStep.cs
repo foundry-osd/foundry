@@ -138,6 +138,21 @@ public sealed class ProvisioningStep : IProvisioningStep
     }
 
     /// <inheritdoc />
+    public void Restore(ProvisioningOutcome previous)
+    {
+        ArgumentNullException.ThrowIfNull(previous);
+        lock (_gate)
+        {
+            if (_run is not null)
+            {
+                throw new InvalidOperationException("The provisioning already ran in this session.");
+            }
+
+            _run = Task.FromResult(previous);
+        }
+    }
+
+    /// <inheritdoc />
     public async Task<ProvisioningOutcome> RefreshWifiAsync(CancellationToken cancellationToken)
     {
         await RunAsync(cancellationToken).ConfigureAwait(false);

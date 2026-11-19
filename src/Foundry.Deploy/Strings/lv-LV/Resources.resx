@@ -121,6 +121,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Iespējots</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>Tīkls</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>Tālāk</value>
   </data>
@@ -693,11 +696,26 @@ Vai turpināt izvietošanu?</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Valoda</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>Tī_kls</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tēma</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Rīki</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Nav savienojuma</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Savienots, izmantojot Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Nav interneta</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Savienots, izmantojot Wi-Fi</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>Tīkla kešatmiņas koplietojums noraidīja šo ierīci. Programmas Foundry OSD lapā Tīkla kešatmiņa pārbaudiet koplietojuma kontu un tā paroli; serverī pārbaudiet koplietojuma atļaujas.</value>

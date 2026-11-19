@@ -31,6 +31,8 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
     private bool _defaultsApplied;
     private int? _rememberedIndex;
     private int _configurationVersion;
+    // Only the latest discovery applies its results; ReloadAsync starts a new one even for unchanged settings.
+    private int _discoveryGeneration;
     private Task? _refreshTask;
     private int _refreshVersion = -1;
     private CustomImageAsset? _inspectedAsset;
@@ -79,6 +81,8 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
     private void ConfigureSelection(DeployCustomImagesSettings settings)
     {
         _configurationVersion++;
+        // A discovery for the previous settings no longer applies its results.
+        _discoveryGeneration++;
         _inspection?.Cancel();
         _inspection?.Dispose();
         _inspection = null;
@@ -98,31 +102,53 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
         _applyingCatalog = false;
     }
 
-    public Task RefreshAsync()
+    /// <summary>
+    /// Applies the settings again after the network cache was resolved again and discovers the images again, because the share
+    /// they are read from may have changed. Unchanged settings keep the selected image when it is still offered; changed
+    /// settings start over from their defaults, as when they were first configured.
+    /// </summary>
+    /// <param name="settings">The custom image section of the configuration the network cache check returned.</param>
+    /// <remarks>
+    /// Always starts a new discovery, even while one runs for the same settings: that one may have read the previous share.
+    /// The latest discovery wins and the results of an earlier one are ignored.
+    /// </remarks>
+    public Task ReloadAsync(DeployCustomImagesSettings settings)
     {
-        if (!IsEnabled || _lifetime.IsCancellationRequested) return Task.CompletedTask;
-        if (_refreshTask is { IsCompleted: false } && _refreshVersion == _configurationVersion) return _refreshTask;
-        _refreshVersion = _configurationVersion;
-        return _refreshTask = DiscoverAndInspectAsync();
+        ArgumentNullException.ThrowIfNull(settings);
+        if (settings != _configuredSettings) Configure(settings);
+        return StartDiscovery();
     }
 
-    private async Task DiscoverAndInspectAsync()
+    /// <summary>Discovers the images, or returns the discovery that already runs for the current settings.</summary>
+    public Task RefreshAsync()
     {
-        int version = _configurationVersion;
+        if (_refreshTask is { IsCompleted: false } && _refreshVersion == _configurationVersion) return _refreshTask;
+        return StartDiscovery();
+    }
+
+    private Task StartDiscovery()
+    {
+        if (!IsEnabled || _lifetime.IsCancellationRequested) return Task.CompletedTask;
+        _refreshVersion = _configurationVersion;
+        return _refreshTask = DiscoverAndInspectAsync(++_discoveryGeneration);
+    }
+
+    private async Task DiscoverAndInspectAsync(int generation)
+    {
         IsBusy = true;
         try
         {
             CustomImageCatalogResult result = _debugSnapshot is { } debug
                 ? GetDebugCatalog(debug)
                 : await _catalog.DiscoverAsync(_settings, _lifetime.Token);
-            if (version != _configurationVersion) return;
+            if (generation != _discoveryGeneration) return;
             ApplyCatalog(result.Images);
             if (ErrorKey.Length == 0) ErrorKey = result.ErrorKey;
         }
         catch (OperationCanceledException) { }
-        catch (Exception) { if (version == _configurationVersion) ErrorKey = "CustomImages.InvalidManifest"; }
-        finally { if (version == _configurationVersion) IsBusy = false; }
-        if (version == _configurationVersion && SelectedAsset is not null) await InspectAsync(SelectedAsset);
+        catch (Exception) { if (generation == _discoveryGeneration) ErrorKey = "CustomImages.InvalidManifest"; }
+        finally { if (generation == _discoveryGeneration) IsBusy = false; }
+        if (generation == _discoveryGeneration && SelectedAsset is not null) await InspectAsync(SelectedAsset);
     }
 
     public void ApplyCatalog(IReadOnlyList<CustomImageAsset> images)

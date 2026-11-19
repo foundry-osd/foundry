@@ -121,6 +121,9 @@ Licencované podľa licencie MIT.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Povolené</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>Sieť</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>Ďalej</value>
   </data>
@@ -693,11 +696,26 @@ Pokračovať v nasadzovaní?</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Jazyk</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Sieť</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Motív</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Nástroje</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Nepripojené</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Pripojené cez Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Bez internetu</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Pripojené cez Wi-Fi</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>Zdieľaný priečinok sieťovej vyrovnávacej pamäte odmietol toto zariadenie. V aplikácii Foundry OSD na stránke Sieťová vyrovnávacia pamäť skontrolujte konto zdieľaného priečinka a jeho heslo; na serveri skontrolujte povolenia zdieľaného priečinka.</value>

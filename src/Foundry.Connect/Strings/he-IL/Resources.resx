@@ -70,6 +70,9 @@
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>גרסה: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>חזרה לפריסה</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: כתובת שהוקצתה עצמית</value>
   </data>
@@ -359,11 +362,26 @@
   <data name="Menu.Language" xml:space="preserve">
     <value>_שפה</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_רשת</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_ערכת נושא</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_כלים</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>לא מחובר</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>מחובר דרך Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>אין אינטרנט</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>מחובר דרך Wi-Fi</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>מחיל את הגדרות הרשת ממדיית האתחול.</value>

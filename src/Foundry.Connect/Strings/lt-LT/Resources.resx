@@ -70,6 +70,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Versija: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Grįžti į diegimą</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: automatiškai priskirtas adresas</value>
   </data>
@@ -359,11 +362,26 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Kalba</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>Ti_nklas</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Įrankiai</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Neprisijungta</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Prisijungta per Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Nėra interneto</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Prisijungta per Wi-Fi</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Taikomi tinklo parametrai iš įkrovos laikmenos.</value>

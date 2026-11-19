@@ -70,6 +70,9 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Versio: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Takaisin käyttöönottoon</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: itse määritetty osoite</value>
   </data>
@@ -359,11 +362,26 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Kieli</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>Ve_rkko</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Teema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Työkalut</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Ei yhteyttä</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Yhdistetty Ethernetin kautta</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Ei internetyhteyttä</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Yhdistetty Wi-Fin kautta</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Otetaan käyttöön käynnistysmedian verkkoasetuksia.</value>

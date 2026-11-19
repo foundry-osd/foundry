@@ -70,6 +70,9 @@ Licencirano pod licenco MIT.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Različica: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Nazaj na uvajanje</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: samodejno dodeljen naslov</value>
   </data>
@@ -359,11 +362,26 @@ Licencirano pod licenco MIT.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Jezik</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>Om_režje</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Orodja</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Ni povezave</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Povezano prek etherneta</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Brez interneta</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Povezano prek Wi-Fi</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Uporaba omrežnih nastavitev z zagonskega medija.</value>

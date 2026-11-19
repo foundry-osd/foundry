@@ -121,6 +121,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Engedélyezve</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>Hálózat</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>Tovább</value>
   </data>
@@ -693,11 +696,26 @@ Folytatja a telepítést?</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Nyelv</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>Há_lózat</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Téma</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Eszközök</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Nincs kapcsolat</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Csatlakozva Etherneten keresztül</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Nincs internet</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Csatlakozva Wi-Fi-n keresztül</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>A hálózati gyorsítótár megosztása elutasította ezt az eszközt. A Foundry OSD Hálózati gyorsítótár lapján ellenőrizze a megosztás fiókját és jelszavát; a kiszolgálón ellenőrizze a megosztás engedélyeit.</value>

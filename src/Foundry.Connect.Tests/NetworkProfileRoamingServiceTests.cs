@@ -57,6 +57,65 @@ public sealed class NetworkProfileRoamingServiceTests
     }
 
     [Fact]
+    public async Task Constructor_KeepingTheExistingArtifact_LeavesTheFirstConnectPageCaptureInPlace()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string profilePath = tempDirectory.CreateFile("source", "wifi.xml", "<WLANProfile><name>Guest</name></WLANProfile>");
+        var firstRun = new NetworkProfileRoamingService(
+            CreateEnabledConfiguration(),
+            NullLogger<NetworkProfileRoamingService>.Instance,
+            tempDirectory.ArtifactPath);
+        await firstRun.CaptureWifiProfilesAsync(
+            [new NetworkProfileRoamingCaptureRequest(
+                profilePath,
+                NetworkProfileRoamingProfileSource.ManualWifi,
+                NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable)],
+            TestContext.Current.CancellationToken);
+        string manifestPath = Path.Combine(tempDirectory.ArtifactPath, "manifest.json");
+        string manifest = File.ReadAllText(manifestPath);
+
+        _ = new NetworkProfileRoamingService(
+            CreateEnabledConfiguration(),
+            NullLogger<NetworkProfileRoamingService>.Instance,
+            tempDirectory.ArtifactPath,
+            keepsExistingArtifact: true);
+
+        Assert.Equal(manifest, File.ReadAllText(manifestPath));
+        Assert.True(File.Exists(Path.Combine(tempDirectory.ArtifactPath, "wifi-profile.xml")));
+    }
+
+    [Fact]
+    public async Task CaptureWifiProfilesAsync_KeepingTheExistingArtifact_PutsTheNewProfilesFirstAndNeverDropsTheOthers()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string corp = WlanProfile("Corp", "first page");
+        string guest = WlanProfile("Guest", "first page");
+        string cafe = WlanProfile("Cafe", "reopened page");
+        string guestAgain = WlanProfile("Guest", "reopened page");
+        var firstPage = new NetworkProfileRoamingService(
+            CreateEnabledConfiguration(), NullLogger<NetworkProfileRoamingService>.Instance, tempDirectory.ArtifactPath);
+        await firstPage.CaptureWifiProfilesAsync(
+            [XmlRequest(corp, NetworkProfileRoamingProfileSource.ProvisionedWifi), XmlRequest(guest, NetworkProfileRoamingProfileSource.ManualWifi)],
+            TestContext.Current.CancellationToken);
+
+        var reopenedPage = new NetworkProfileRoamingService(
+            CreateEnabledConfiguration(), NullLogger<NetworkProfileRoamingService>.Instance, tempDirectory.ArtifactPath, keepsExistingArtifact: true);
+        await reopenedPage.CaptureWifiProfilesAsync(
+            [XmlRequest(cafe, NetworkProfileRoamingProfileSource.ManualWifi), XmlRequest(guestAgain, NetworkProfileRoamingProfileSource.ManualWifi)],
+            TestContext.Current.CancellationToken);
+
+        using JsonDocument manifest = JsonDocument.Parse(File.ReadAllText(Path.Combine(tempDirectory.ArtifactPath, "manifest.json")));
+        JsonElement[] profiles = manifest.RootElement.GetProperty("wifiProfiles").EnumerateArray().ToArray();
+        Assert.Equal(
+            [cafe, guestAgain, corp],
+            profiles.Select(profile => File.ReadAllText(Path.Combine(tempDirectory.ArtifactPath, profile.GetProperty("relativePath").GetString()!))));
+        Assert.Equal(["manualWifi", "manualWifi", "provisionedWifi"], profiles.Select(static profile => profile.GetProperty("source").GetString()));
+        Assert.Equal(
+            profiles[0].GetProperty("relativePath").GetString(),
+            manifest.RootElement.GetProperty("wifiProfile").GetProperty("relativePath").GetString());
+    }
+
+    [Fact]
     public async Task CaptureWifiProfilesAsync_WhenManualWifiSucceeds_WritesWifiProfileAndManifest()
     {
         using var tempDirectory = new TemporaryDirectory();
@@ -460,6 +519,12 @@ public sealed class NetworkProfileRoamingServiceTests
         Assert.Contains(relativePaths, path => File.ReadAllText(Path.Combine(tempDirectory.ArtifactPath, path)) == "wired-certificate");
         Assert.Contains(relativePaths, path => File.ReadAllText(Path.Combine(tempDirectory.ArtifactPath, path)) == "wifi-certificate");
     }
+
+    private static string WlanProfile(string name, string comment) =>
+        $"<WLANProfile xmlns=\"http://www.microsoft.com/networking/WLAN/profile/v1\"><name>{name}</name><!-- {comment} --></WLANProfile>";
+
+    private static NetworkProfileRoamingCaptureRequest XmlRequest(string xml, NetworkProfileRoamingProfileSource source) =>
+        new(null, source, NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable, ProfileXml: xml);
 
     private static FoundryConnectConfigurationDocument CreateEnabledConfiguration(
         bool includePrivateKeyMaterial = false,

@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Network;
+using Foundry.Connect.Network.Policy;
 using Foundry.Connect.Services.Runtime;
 using Microsoft.Extensions.Logging;
 using Foundry.Connect.Configuration;
@@ -29,6 +30,7 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
     private readonly FoundryConnectConfigurationDocument _configuration;
     private readonly ILogger<NetworkProfileRoamingService> _logger;
     private readonly string _artifactRootPath;
+    private readonly bool _keepsExistingArtifact;
     private bool _artifactRootPrepared;
 
     /// <summary>
@@ -43,16 +45,44 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
     {
     }
 
+    /// <summary>
+    /// Initializes a network profile roaming service that continues the session's artifact when
+    /// <paramref name="keepsExistingArtifact"/> is set: a Connect page reopened from the deployment keeps what the first page
+    /// captured, and its own Wi-Fi capture comes first and replaces only the profiles of the same name it captures again.
+    /// </summary>
+    /// <param name="configuration">The loaded runtime configuration.</param>
+    /// <param name="logger">Logger.</param>
+    /// <param name="keepsExistingArtifact">Whether the artifact of an earlier Connect page of this session is kept.</param>
     internal NetworkProfileRoamingService(
         FoundryConnectConfigurationDocument configuration,
         ILogger<NetworkProfileRoamingService> logger,
-        string artifactRootPath)
+        bool keepsExistingArtifact)
+        : this(configuration, logger, ConnectWorkspacePaths.GetNetworkProfileRoamingDirectory(), keepsExistingArtifact)
+    {
+    }
+
+    internal NetworkProfileRoamingService(
+        FoundryConnectConfigurationDocument configuration,
+        ILogger<NetworkProfileRoamingService> logger,
+        string artifactRootPath,
+        bool keepsExistingArtifact = false)
     {
         _configuration = configuration;
         _logger = logger;
         _artifactRootPath = artifactRootPath;
+        _keepsExistingArtifact = keepsExistingArtifact;
 
-        if (_configuration.Network.ProfileRoaming.IsAnyEnabled)
+        if (!_configuration.Network.ProfileRoaming.IsAnyEnabled)
+        {
+            return;
+        }
+
+        if (keepsExistingArtifact)
+        {
+            Directory.CreateDirectory(_artifactRootPath);
+            _artifactRootPrepared = true;
+        }
+        else
         {
             PrepareArtifactRoot();
         }
@@ -76,15 +106,26 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
         }
 
         bool startedFreshSession = PrepareArtifactRoot();
-        var profiles = new NetworkProfileRoamingProfile[available.Length];
-        for (int index = 0; index < available.Length; index++)
+        NetworkProfileRoamingManifest existingManifest = await LoadExistingManifestAsync(startedFreshSession, cancellationToken).ConfigureAwait(false);
+        NetworkProfileRoamingProfile[] kept = _keepsExistingArtifact ? KeepWifiProfilesNotCapturedAgain(existingManifest, available) : [];
+        var usedFileNames = new HashSet<string>(kept.Select(static profile => profile.RelativePath), StringComparer.OrdinalIgnoreCase);
+        var profiles = new List<NetworkProfileRoamingProfile>(available.Length + kept.Length);
+        int fileIndex = 0;
+        foreach (NetworkProfileRoamingCaptureRequest request in available)
         {
-            string fileName = NetworkProfileRoamingArtifacts.GetWifiProfileFileName(index);
-            await WriteProfileFileAsync(available[index], fileName, cancellationToken).ConfigureAwait(false);
-            profiles[index] = CreateProfile(available[index], fileName);
+            string fileName;
+            do
+            {
+                fileName = NetworkProfileRoamingArtifacts.GetWifiProfileFileName(fileIndex++);
+            }
+            while (usedFileNames.Contains(fileName));
+
+            await WriteProfileFileAsync(request, fileName, cancellationToken).ConfigureAwait(false);
+            profiles.Add(CreateProfile(request, fileName));
         }
 
-        NetworkProfileRoamingManifest existingManifest = await LoadExistingManifestAsync(startedFreshSession, cancellationToken).ConfigureAwait(false);
+        // The profiles captured now are the most recent choice, so they come first.
+        profiles.AddRange(kept);
         IReadOnlyList<NetworkProfileRoamingCertificate> certificates = await ReplaceCertificatesAsync(existingManifest, available, transportSettings, cancellationToken)
             .ConfigureAwait(false);
         NetworkProfileRoamingManifest manifest = existingManifest with
@@ -92,15 +133,16 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
             SchemaVersion = NetworkProfileRoamingManifest.CurrentSchemaVersion,
             UpdatedAtUtc = DateTimeOffset.UtcNow,
             WifiProfile = profiles[0],
-            WifiProfiles = profiles,
+            WifiProfiles = profiles.ToArray(),
             Certificates = certificates
         };
 
         await WriteManifestAsync(manifest, cancellationToken).ConfigureAwait(false);
         _logger.LogInformation(
-            "Network profile roaming capture completed. ProfileKind={ProfileKind}, ProfileCount={ProfileCount}, ProvisionedCount={ProvisionedCount}, ManualCount={ManualCount}, CertificateCount={CertificateCount}, PrivateKeyRoamingEnabled={PrivateKeyRoamingEnabled}",
+            "Network profile roaming capture completed. ProfileKind={ProfileKind}, ProfileCount={ProfileCount}, KeptProfileCount={KeptProfileCount}, ProvisionedCount={ProvisionedCount}, ManualCount={ManualCount}, CertificateCount={CertificateCount}, PrivateKeyRoamingEnabled={PrivateKeyRoamingEnabled}",
             "Wifi",
             available.Length,
+            kept.Length,
             available.Count(static request => request.Source == NetworkProfileRoamingProfileSource.ProvisionedWifi),
             available.Count(static request => request.Source == NetworkProfileRoamingProfileSource.ManualWifi),
             manifest.Certificates.Count,
@@ -141,6 +183,38 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
             manifest.Certificates.Count,
             transportSettings.IncludePrivateKeyMaterial);
     }
+
+    /// <summary>
+    /// Returns the Wi-Fi profiles of the existing manifest that <paramref name="requests"/> do not capture again, in their
+    /// order. A profile is captured again when a request has the same WLAN profile name (ordinal); an entry whose name cannot
+    /// be read is kept.
+    /// </summary>
+    private NetworkProfileRoamingProfile[] KeepWifiProfilesNotCapturedAgain(
+        NetworkProfileRoamingManifest existingManifest,
+        IReadOnlyList<NetworkProfileRoamingCaptureRequest> requests)
+    {
+        var capturedNames = new HashSet<string>(StringComparer.Ordinal);
+        foreach (NetworkProfileRoamingCaptureRequest request in requests)
+        {
+            string xml = request.ProfileXml ?? File.ReadAllText(request.ProfilePath!);
+            if (ReadProfileName(xml) is { } name)
+            {
+                capturedNames.Add(name);
+            }
+        }
+
+        return existingManifest.GetOrderedWifiProfiles()
+            .Where(profile => ReadExistingProfileName(profile) is not { } name || !capturedNames.Contains(name))
+            .ToArray();
+    }
+
+    private string? ReadExistingProfileName(NetworkProfileRoamingProfile profile)
+    {
+        string path = Path.Combine(_artifactRootPath, profile.RelativePath);
+        return File.Exists(path) ? ReadProfileName(File.ReadAllText(path)) : null;
+    }
+
+    private static string? ReadProfileName(string xml) => WifiProfileDocument.FromXml(xml)?.Name;
 
     private bool IsSourceAvailable(NetworkProfileRoamingCaptureRequest request, bool isWifiProfile)
     {

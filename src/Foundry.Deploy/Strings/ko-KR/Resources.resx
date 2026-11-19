@@ -121,6 +121,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>활성화됨</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>네트워크</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>다음</value>
   </data>
@@ -693,11 +696,26 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_언어</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_네트워크</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_테마</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_도구</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>연결 안 됨</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>이더넷으로 연결됨</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>인터넷 없음</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Wi-Fi로 연결됨</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>네트워크 캐시 공유에서 이 장치를 거부했습니다. Foundry OSD의 [네트워크 캐시] 페이지에서 공유 계정과 해당 암호를 확인하고, 서버에서 공유 권한을 확인하세요.</value>

@@ -666,6 +666,46 @@ public sealed class ConnectionCoordinatorTests
             && entry.Message.Contains("network.apply_provisioned_settings", StringComparison.Ordinal));
     }
 
+    [Fact]
+    public async Task RestoreProvisioning_ReleasedProfile_PublishesItAndConnectsByNameWithoutRunningTheStep()
+    {
+        ProvisioningOutcome previous = ReadyLab();
+        // The exit of the first Connect page released the document; the interface keeps the profile it set.
+        previous.WifiProfile!.Clear();
+        _wlan.Profiles[(WifiInterface, "Lab")] = "<WLANProfile />";
+        _wlan.Snapshot = new WlanSnapshot(WifiAvailability.Available, [FakeWlanClient.Interface(WifiInterface)], []);
+        var step = new FakeProvisioningStep(ProvisioningOutcome.NotConfigured);
+        var coordinator = new ConnectionCoordinator(step, _wlan,
+            new ConnectNetworkOptions(true, TimeSpan.FromSeconds(10)), new NetworkRefreshSignal(), _clock, _logger);
+
+        coordinator.RestoreProvisioning(previous);
+        await coordinator.ApplyObservationAsync(Observation(InternetStatus.NoInternet, null, "Lab"), Token);
+
+        Assert.Same(previous, step.Restored);
+        Assert.Equal(0, step.RunCalls);
+        Assert.Equal(ProvisionedWifiStatus.Ready, coordinator.State.Wifi.Provisioned.Status);
+        Assert.Empty(_wlan.SetProfileCalls);
+        Assert.Equal([(WifiInterface, "Lab")], _wlan.ConnectCalls);
+    }
+
+    [Fact]
+    public async Task ConnectProvisionedWifi_ReleasedProfileOnAnInterfaceWithoutIt_FailsAsUnavailableWithoutSettingIt()
+    {
+        ProvisioningOutcome previous = ReadyLab();
+        previous.WifiProfile!.Clear();
+        _wlan.Snapshot = new WlanSnapshot(WifiAvailability.Available, [FakeWlanClient.Interface(WifiInterface)], []);
+        var coordinator = new ConnectionCoordinator(new FakeProvisioningStep(ProvisioningOutcome.NotConfigured), _wlan,
+            new ConnectNetworkOptions(true, TimeSpan.FromSeconds(10)), new NetworkRefreshSignal(), _clock, _logger);
+        coordinator.RestoreProvisioning(previous);
+        await coordinator.ApplyObservationAsync(Observation(InternetStatus.Online, null, "Lab"), Token);
+
+        OperationOutcome outcome = await coordinator.ConnectProvisionedWifiAsync(Token);
+
+        Assert.Equal(NetworkFailureCode.ProvisionedProfileUnavailable, outcome.Failure);
+        Assert.Empty(_wlan.SetProfileCalls);
+        Assert.Empty(_wlan.ConnectCalls);
+    }
+
     private static bool Mentions(RecordedLogEntry entry, string text) =>
         entry.Message.Contains(text, StringComparison.Ordinal)
         || entry.Properties.Values.Any(value => value?.ToString()?.Contains(text, StringComparison.Ordinal) == true)
@@ -714,9 +754,19 @@ public sealed class ConnectionCoordinatorTests
 
         public int RefreshCalls { get; private set; }
 
-        public ProvisioningOutcome? LastOutcome => outcome;
+        public int RunCalls { get; private set; }
 
-        public Task<ProvisioningOutcome> RunAsync(CancellationToken cancellationToken) => Task.FromResult(outcome);
+        public ProvisioningOutcome? Restored { get; private set; }
+
+        public ProvisioningOutcome? LastOutcome => Restored ?? outcome;
+
+        public Task<ProvisioningOutcome> RunAsync(CancellationToken cancellationToken)
+        {
+            RunCalls++;
+            return Task.FromResult(outcome);
+        }
+
+        public void Restore(ProvisioningOutcome previous) => Restored = previous;
 
         public async Task<ProvisioningOutcome> RefreshWifiAsync(CancellationToken cancellationToken)
         {

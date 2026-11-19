@@ -7,8 +7,10 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
 using Foundry.Core.Services.Images;
 using Foundry.Deploy.Models;
+using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Images;
 using Foundry.Deploy.ViewModels;
+using Foundry.Utilities.Networking;
 using Foundry.Utilities.Storage;
 
 namespace Foundry.Deploy.Tests;
@@ -40,6 +42,35 @@ public sealed class CustomImageSelectionViewModelTests
         model.Configure(new DeployCustomImagesSettings());
         await model.RefreshAsync();
         Assert.Equal(2, volumes.DiscoveryCount);
+    }
+
+    [Fact]
+    public async Task Reload_WithUnchangedSettingsDuringADiscovery_DiscoversAgainFromTheNewShare()
+    {
+        // Missing local folders stand in for the shares: a share without a manifest offers no image.
+        string root = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N"));
+        var accessor = new RecordingAccessor();
+        using NetworkCacheSession previous = NetworkCacheSession.Connected(Path.Combine(root, "previous"), canWrite: false, new NoopConnector());
+        using NetworkCacheSession resolved = NetworkCacheSession.Connected(Path.Combine(root, "resolved"), canWrite: false, new NoopConnector());
+        using var model = new CustomImageSelectionViewModel(new CustomImageCatalogService(new EmptyVolumes(), accessor));
+        var settings = new DeployCustomImagesSettings
+        {
+            IsEnabled = true,
+            DefaultSource = CustomImageSource.Custom,
+            ManifestId = "build",
+            ManifestHash = new string('a', 64)
+        };
+        model.Configure(settings);
+        accessor.Current = previous;
+        Task first = model.RefreshAsync();
+
+        // The network cache was resolved again while the first discovery still reads the previous share.
+        accessor.Current = resolved;
+        Task second = model.ReloadAsync(settings);
+        await Task.WhenAll(first, second).WaitAsync(TimeSpan.FromSeconds(30), TestContext.Current.CancellationToken);
+
+        Assert.Same(resolved, accessor.Reads[^1]);
+        Assert.False(model.IsBusy);
     }
 
     [Fact]
@@ -175,6 +206,29 @@ public sealed class CustomImageSelectionViewModelTests
             ReadCount++;
             throw new IOException("The image must not be read.");
         }
+    }
+
+    private sealed class RecordingAccessor : INetworkCacheSessionAccessor
+    {
+        private NetworkCacheSession? _current;
+
+        public List<NetworkCacheSession?> Reads { get; } = [];
+
+        public NetworkCacheSession? Current
+        {
+            get
+            {
+                Reads.Add(_current);
+                return _current;
+            }
+            set => _current = value;
+        }
+    }
+
+    private sealed class NoopConnector : ISmbConnector
+    {
+        public SmbConnectResult Connect(string uncPath, string? userName, ReadOnlySpan<char> password) => new(SmbConnectStatus.Connected, 0);
+        public void Disconnect(string uncPath) { }
     }
 
     private sealed class EmptyVolumes : IVolumeDiscovery

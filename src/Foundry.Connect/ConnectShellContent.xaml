@@ -150,6 +150,24 @@
                 <MenuItem
                     Command="{Binding ShowAboutCommand}"
                     Header="{Binding Strings[Menu.About]}" />
+                <!--  The current page, so it stays disabled; the icon and the tooltip show the connection state.  -->
+                <MenuItem
+                    IsEnabled="False"
+                    ToolTip="{Binding NetworkIndicatorToolTip}"
+                    ToolTipService.ShowOnDisabled="True">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,6,0"
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                Text="{Binding NetworkIndicatorGlyph}" />
+                            <AccessText
+                                VerticalAlignment="Center"
+                                Text="{Binding Strings[Menu.Network]}" />
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
             </Menu>
 
             <!--  The menu keeps its width; the banner gets what is left, at most 360 px, and trims its caption (800 px wide windows).  -->

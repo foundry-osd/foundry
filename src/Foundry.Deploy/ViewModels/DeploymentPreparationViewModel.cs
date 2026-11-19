@@ -273,6 +273,26 @@ public sealed partial class DeploymentPreparationViewModel : LocalizedViewModelB
         RaiseStateChanged();
     }
 
+    /// <summary>
+    /// Offers the group tags discovered after a return from the Network page in place of the known ones. The selected tag, or
+    /// None, stays selected when it is still offered; otherwise the default applies, as when the configuration is applied.
+    /// </summary>
+    /// <param name="knownGroupTags">The discovered group tags.</param>
+    public void ApplyDiscoveredHardwareHashGroupTags(IReadOnlyList<string> knownGroupTags)
+    {
+        ArgumentNullException.ThrowIfNull(knownGroupTags);
+
+        string? selectedGroupTag = SelectedHardwareHashGroupTag?.GroupTag;
+        bool hasSelection = SelectedHardwareHashGroupTag is not null;
+        // The change handler offers the new tags and selects the default.
+        AutopilotHardwareHashUpload = AutopilotHardwareHashUpload with { KnownGroupTags = knownGroupTags };
+        if (hasSelection && HardwareHashGroupTagOptions.FirstOrDefault(option =>
+                string.Equals(option.GroupTag, selectedGroupTag, StringComparison.OrdinalIgnoreCase)) is { } kept)
+        {
+            SelectedHardwareHashGroupTag = kept;
+        }
+    }
+
     public void SetDetectedHardware(HardwareProfile? profile)
     {
         _detectedHardware = profile;

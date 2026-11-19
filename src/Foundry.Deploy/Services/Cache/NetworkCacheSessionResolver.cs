@@ -35,6 +35,12 @@ public interface INetworkCacheSessionResolver
     /// <param name="cancellationToken">Cancels the resolution.</param>
     Task<NetworkCacheSession> ResolveAsync(string workspaceRootPath, string sessionId,
         Func<NetworkCacheSession, CancellationToken, Task<NetworkCacheStartupFailure?>>? validateShare, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Reads the addresses of the adapters that are up, the ones a resolution selects the scope from and records in
+    /// <see cref="NetworkCacheSession.DeviceAddresses"/>.
+    /// </summary>
+    IReadOnlyList<IPAddress> ReadLocalAddresses();
 }
 
 public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
@@ -105,7 +111,7 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
             return NetworkCacheSession.Unavailable(NetworkCacheOutcome.Disabled);
         }
 
-        IPAddress[] localAddresses = ReadLocalAddresses();
+        IReadOnlyList<IPAddress> localAddresses = ReadLocalAddresses();
         IReadOnlyList<DeployNetworkCacheShare> candidates = NetworkCacheShareSelector.Select(settings, localAddresses);
         logger.LogInformation("Resolving network cache. CandidateShares={CandidateShares}", candidates.Count);
         if (candidates.Count == 0)
@@ -114,7 +120,8 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
             logger.LogInformation("Network cache not used. Outcome={Outcome}, DeviceAddress={DeviceAddress}", NetworkCacheOutcome.NoMatchingScope, deviceAddress);
             return NetworkCacheSession.Unavailable(
                 NetworkCacheOutcome.NoMatchingScope,
-                new(NetworkCacheStartupFailureKind.NoScope, DeviceAddress: deviceAddress));
+                new(NetworkCacheStartupFailureKind.NoScope, DeviceAddress: deviceAddress),
+                localAddresses);
         }
 
         NetworkCacheStartupFailure? connectionFailure = null;
@@ -122,7 +129,8 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
         for (int index = 0; index < candidates.Count; index++)
         {
             DeployNetworkCacheShare share = candidates[index];
-            (NetworkCacheSession? session, NetworkCacheStartupFailure? failure) = await TryShareAsync(share, workspaceRootPath, sessionId, cancellationToken).ConfigureAwait(false);
+            (NetworkCacheSession? session, NetworkCacheStartupFailure? failure) =
+                await TryShareAsync(share, localAddresses, workspaceRootPath, sessionId, cancellationToken).ConfigureAwait(false);
             if (session is null)
             {
                 connectionFailure = failure;
@@ -148,7 +156,7 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
         NetworkCacheStartupFailure? reportedFailure = validationFailure ?? connectionFailure;
         logger.LogWarning("Network cache unavailable; startup stops when the boot media use its content index. Outcome={Outcome}, FailureKind={FailureKind}, SharePath={SharePath}",
             NetworkCacheOutcome.Unavailable, reportedFailure?.Kind, reportedFailure?.SharePath);
-        return NetworkCacheSession.Unavailable(NetworkCacheOutcome.Unavailable, reportedFailure);
+        return NetworkCacheSession.Unavailable(NetworkCacheOutcome.Unavailable, reportedFailure, localAddresses);
     }
 
     /// <summary>Runs the caller's check on a connected share and disconnects the share unless it is selected.</summary>
@@ -169,7 +177,8 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
     }
 
     private async Task<(NetworkCacheSession? Session, NetworkCacheStartupFailure? Failure)> TryShareAsync(
-        DeployNetworkCacheShare share, string workspaceRootPath, string sessionId, CancellationToken cancellationToken)
+        DeployNetworkCacheShare share, IReadOnlyList<IPAddress> localAddresses, string workspaceRootPath, string sessionId,
+        CancellationToken cancellationToken)
     {
         bool hasAccount = !string.IsNullOrWhiteSpace(share.AccountName) && share.EncryptedCredentials is not null;
         string? accountName = hasAccount ? share.AccountName : null;
@@ -221,7 +230,7 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
 
         bool canWrite = hasAccount &&
                         await ProbeAsync(token => probe.CanWriteAsync(contentRoot, sessionId, token), cancellationToken).ConfigureAwait(false);
-        return (NetworkCacheSession.Connected(share.Path, canWrite, connector), null);
+        return (NetworkCacheSession.Connected(share.Path, canWrite, connector, localAddresses), null);
     }
 
     private SmbConnectResult Connect(DeployNetworkCacheShare share, byte[]? key)
@@ -259,7 +268,8 @@ public sealed class NetworkCacheSessionResolver : INetworkCacheSessionResolver
         }
     }
 
-    private IPAddress[] ReadLocalAddresses() => adapters.GetAdapters()
+    /// <inheritdoc />
+    public IReadOnlyList<IPAddress> ReadLocalAddresses() => adapters.GetAdapters()
         .Where(adapter => adapter.OperationalStatus == OperationalStatus.Up)
         .SelectMany(adapter => adapter.UnicastAddresses)
         .Select(text => IPAddress.TryParse(text, out IPAddress? address) ? address : null)

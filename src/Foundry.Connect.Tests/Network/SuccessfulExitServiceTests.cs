@@ -173,6 +173,27 @@ public sealed class SuccessfulExitServiceTests
     }
 
     [Fact]
+    public async Task TryReturnToDeployment_NeverProbesNorSendsTelemetry_CapturesReleasesClearsAndExitsOnce()
+    {
+        var probe = new StubProbe(InternetStatus.NoInternet);
+        SuccessfulExitService service = Create(probe);
+
+        SuccessfulExitResult result = await service.TryReturnToDeploymentAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(SuccessfulExitResult.Exited, result);
+        Assert.Equal(0, probe.Calls);
+        Assert.Equal(0, _telemetry.Calls);
+        Assert.Equal(1, _roaming.Calls);
+        Assert.Equal(1, _coordinator.ReleaseCalls);
+        Assert.Equal(ConnectSecretStatus.Cleared, _secrets.WifiPassphrase.Status);
+        Assert.Equal([ChildRuntimeExitCode.Success], _lifetime.Codes);
+
+        Assert.Equal(SuccessfulExitResult.AlreadyExiting, await service.TryReturnToDeploymentAsync(TestContext.Current.CancellationToken));
+        Assert.Equal(1, _roaming.Calls);
+        Assert.Equal([ChildRuntimeExitCode.Success], _lifetime.Codes);
+    }
+
+    [Fact]
     public async Task TryComplete_LogsNoWifiIdentity()
     {
         _telemetry.CompleteImmediately = true;
@@ -226,8 +247,13 @@ public sealed class SuccessfulExitServiceTests
 
         public StubProbe(Exception failure) => _failure = failure;
 
-        public Task<InternetStatus> CheckAsync(CancellationToken cancellationToken) =>
-            _failure is null ? Task.FromResult(_status) : Task.FromException<InternetStatus>(_failure);
+        public int Calls { get; private set; }
+
+        public Task<InternetStatus> CheckAsync(CancellationToken cancellationToken)
+        {
+            Calls++;
+            return _failure is null ? Task.FromResult(_status) : Task.FromException<InternetStatus>(_failure);
+        }
     }
 
     private sealed class StateCoordinator(NetworkState state) : IConnectionCoordinator
@@ -251,6 +277,10 @@ public sealed class SuccessfulExitServiceTests
         public void ReleaseProvisionedProfile() => ReleaseCalls++;
 
         public Task<ProvisioningOutcome> ApplyProvisioningAsync(CancellationToken cancellationToken) => throw new NotSupportedException();
+
+        public void RestoreProvisioning(ProvisioningOutcome outcome) => throw new NotSupportedException();
+
+        public ProvisioningOutcome? Provisioning => null;
 
         public Task<ProvisionedWifiState> RefreshProvisionedWifiAsync(CancellationToken cancellationToken) => Task.FromResult(State.Wifi.Provisioned);
 

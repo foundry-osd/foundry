@@ -131,6 +131,63 @@ public sealed class LocalizationResourceTests
     [Theory]
     [InlineData("en-US")]
     [MemberData(nameof(SatelliteCultures))]
+    public void MenuHeaders_HaveAccessKeys(string cultureName)
+    {
+        ResourceSet resourceSet = LocalizationText.ResourceManager.GetResourceSet(
+            CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
+
+        foreach (string key in TopLevelMenuHeaderKeys.Append("Menu.Network"))
+        {
+            Assert.Contains("_", resourceSet.GetString(key), StringComparison.Ordinal);
+        }
+
+        foreach (string key in new[] { "Network.State.Disconnected", "Network.State.Ethernet", "Network.State.Limited", "Network.State.Wifi" })
+        {
+            Assert.False(string.IsNullOrWhiteSpace(resourceSet.GetString(key)), $"Resource '{key}' is missing for '{cultureName}'.");
+        }
+    }
+
+    // The Keyboard header has no access key in Deploy, so only these headers can collide with the Network item.
+    [Theory]
+    [InlineData("en-US")]
+    [MemberData(nameof(SatelliteCultures))]
+    public void NetworkMenuAccessKey_DiffersFromTheOtherTopLevelHeaders(string cultureName)
+    {
+        CultureInfo culture = CultureInfo.GetCultureInfo(cultureName);
+        ResourceSet resourceSet = LocalizationText.ResourceManager.GetResourceSet(culture, createIfNotExists: true, tryParents: false)!;
+
+        string AccessKey(string key)
+        {
+            string value = resourceSet.GetString(key)!;
+            return value[(value.IndexOf('_', StringComparison.Ordinal) + 1)..][..1].ToUpper(culture);
+        }
+
+        string network = AccessKey("Menu.Network");
+        foreach (string key in TopLevelMenuHeaderKeys)
+        {
+            Assert.NotEqual(AccessKey(key), network);
+        }
+    }
+
+    // Dialog buttons have no access key; the caption is the Network menu header's.
+    [Theory]
+    [InlineData("en-US")]
+    [MemberData(nameof(SatelliteCultures))]
+    public void NetworkDialogButton_IsTheMenuHeaderWithoutItsAccessKey(string cultureName)
+    {
+        ResourceSet resourceSet = LocalizationText.ResourceManager.GetResourceSet(
+            CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
+
+        string header = Regex.Replace(resourceSet.GetString("Menu.Network")!, @"\(_.\)$", string.Empty).Replace("_", string.Empty, StringComparison.Ordinal);
+
+        Assert.Equal(header, resourceSet.GetString("Common.Network"));
+    }
+
+    private static readonly string[] TopLevelMenuHeaderKeys = ["Menu.About", "Menu.Debug", "Menu.Language", "Menu.Theme", "Menu.Tools"];
+
+    [Theory]
+    [InlineData("en-US")]
+    [MemberData(nameof(SatelliteCultures))]
     public void ProvisioningModeTitles_MatchFoundryPageTitles(string cultureName)
     {
         string repositoryRoot = FindRepositoryRoot();

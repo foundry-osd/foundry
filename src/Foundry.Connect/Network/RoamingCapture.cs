@@ -188,8 +188,8 @@ public sealed class RoamingCapture : IRoamingCapture
             if (wifi.IsEnterpriseProfileTemplateProtected)
             {
                 // Capture runs before the exit releases the profile document; the cached outcome is read, never re-run.
-                decryptedXml = _provisioning.LastOutcome?.WifiProfile?.Xml;
-                if (decryptedXml is null)
+                // A document released when an earlier Connect page ended is not available either.
+                if (_provisioning.LastOutcome?.WifiProfile is not { } document || !document.TryGetXml(out decryptedXml))
                 {
                     _logger.LogWarning("Wi-Fi roaming capture skipped because the protected profile is not available. Source={Source}", connection.Source);
                     return null;

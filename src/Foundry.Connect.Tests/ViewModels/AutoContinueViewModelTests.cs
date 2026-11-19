@@ -23,9 +23,10 @@ public sealed class AutoContinueViewModelTests : IDisposable
 
     public void Dispose() => _viewModel?.Dispose();
 
-    private AutoContinueViewModel Create(bool enabled = true, RecordingLogger<AutoContinueViewModel>? logger = null, bool pageShown = true) =>
+    private AutoContinueViewModel Create(
+        bool enabled = true, RecordingLogger<AutoContinueViewModel>? logger = null, bool pageShown = true, bool isRevisit = false) =>
         _viewModel = new AutoContinueViewModel(
-            _localization, _exit, _lifetime, _clock, new ImmediateUiDispatcher(), logger ?? new RecordingLogger<AutoContinueViewModel>(), enabled, pageShown);
+            _localization, _exit, _lifetime, _clock, new ImmediateUiDispatcher(), logger ?? new RecordingLogger<AutoContinueViewModel>(), enabled, pageShown, isRevisit);
 
     private void Tick(int seconds)
     {
@@ -72,6 +73,51 @@ public sealed class AutoContinueViewModelTests : IDisposable
         await viewModel.PendingCompletion!;
         Assert.Equal([10, 9, 8, 7, 6, 5, 4, 3, 2, 1], shownBeforeEachTick);
         Assert.Equal(1, _exit.Calls);
+    }
+
+    [Fact]
+    public void FirstRun_ContinueButtonSaysContinue()
+    {
+        AutoContinueViewModel viewModel = Create();
+
+        Assert.Equal(_localization.GetString("Action.Continue"), viewModel.ContinueButtonText);
+    }
+
+    [Fact]
+    public async Task Revisit_NeverCountsAndOffersBackToDeploymentWhileOffline()
+    {
+        AutoContinueViewModel viewModel = Create(isRevisit: true);
+
+        Assert.Equal(_localization.GetString("Connect.BackToDeployment"), viewModel.ContinueButtonText);
+        Assert.True(viewModel.CanContinue);
+        viewModel.OnInternetStatusChanged(InternetStatus.NoInternet);
+        Assert.True(viewModel.CanContinue);
+        viewModel.OnInternetStatusChanged(InternetStatus.Online);
+        Tick(AutoContinuePolicy.CountdownSeconds + 1);
+
+        Assert.False(viewModel.IsCounting);
+        Assert.Equal(string.Empty, viewModel.CaptionText);
+        Assert.False(viewModel.HasCaption);
+        Assert.Equal(0, _clock.ActiveTimerCount);
+        Assert.Equal(0, _exit.Calls);
+        Assert.Equal(0, _exit.ReturnCalls);
+
+        await viewModel.ContinueCommand.ExecuteAsync(null);
+
+        Assert.Equal(1, _exit.ReturnCalls);
+        Assert.Equal(0, _exit.Calls);
+    }
+
+    [Fact]
+    public async Task Revisit_UnderADebugScenario_StillReturnsToTheDeployment()
+    {
+        AutoContinueViewModel viewModel = Create(isRevisit: true);
+        viewModel.IsSimulation = true;
+
+        await viewModel.ContinueCommand.ExecuteAsync(null);
+
+        Assert.False(viewModel.IsCounting);
+        Assert.Equal(1, _exit.ReturnCalls);
     }
 
     [Fact]

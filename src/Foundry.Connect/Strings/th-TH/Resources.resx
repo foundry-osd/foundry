@@ -70,6 +70,9 @@
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>เวอร์ชัน: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>กลับไปที่การปรับใช้</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: ที่อยู่ที่กำหนดเองโดยอัตโนมัติ</value>
   </data>
@@ -359,11 +362,26 @@
   <data name="Menu.Language" xml:space="preserve">
     <value>_ภาษา</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>เ_ครือข่าย</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_ธีม</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_เครื่องมือ</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>ไม่ได้เชื่อมต่อ</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>เชื่อมต่อผ่าน Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>ไม่มีอินเทอร์เน็ต</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>เชื่อมต่อผ่าน Wi-Fi</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>กำลังนำการตั้งค่าเครือข่ายจากสื่อบูตไปใช้</value>

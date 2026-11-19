@@ -22,6 +22,7 @@ using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.DomainJoin;
+using Foundry.Deploy.Services.Network;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Wpf.Runtime;
@@ -36,6 +37,7 @@ using Foundry.Deploy.Services.Wizard;
 using Foundry.Localization;
 using Foundry.Telemetry;
 using Foundry.Wpf.Localization;
+using Foundry.Wpf.Network;
 using Foundry.Wpf.ViewModels;
 using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
 using Microsoft.Extensions.Logging;
@@ -65,6 +67,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
     private readonly LatestReleaseVersionReader _readLatestReleaseVersion;
     private readonly Dispatcher _dispatcher;
+    private readonly INetworkPageNavigator? _networkPageNavigator;
+    private readonly DeployNetworkIndicator? _networkIndicator;
     private readonly DeploymentRuntimeContext _deploymentRuntimeContext;
     private readonly DeploymentWizardContext _wizardContext;
     private readonly DeploymentWizardNavigationState _wizardNavigationState;
@@ -107,6 +111,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [NotifyCanExecuteChangedFor(nameof(ToggleDebugBootMediaUpdateReasonCommand))]
     [NotifyCanExecuteChangedFor(nameof(SetDebugCustomImageScenarioCommand))]
     [NotifyCanExecuteChangedFor(nameof(CancelDeploymentCommand))]
+    [NotifyCanExecuteChangedFor(nameof(OpenNetworkCommand))]
     private bool isDeploymentRunning;
 
     [ObservableProperty]
@@ -224,7 +229,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         ITelemetryService telemetryService,
         LatestReleaseVersionReader readLatestReleaseVersion,
         ILogger<MainWindowViewModel> logger,
-        INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)
+        INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null,
+        INetworkPageNavigator? networkPageNavigator = null,
+        DeployNetworkIndicator? networkIndicator = null)
         : base(localizationService)
     {
         _keyboardLayoutSwitcher = keyboardLayoutSwitcher;
@@ -245,6 +252,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _readLatestReleaseVersion = readLatestReleaseVersion;
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
+        _networkPageNavigator = networkPageNavigator;
         _deploymentRuntimeContext = deploymentRuntimeContextService.Resolve();
         _wizardContext = deploymentWizardContextFactory.Create(IsDebugSafeMode);
         _wizardContext.StateChanged += OnWizardContextStateChanged;
@@ -266,11 +274,37 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             networkAdapterSnapshotProvider);
         Session.CancelCommand = CancelDeploymentCommand;
         Session.PropertyChanged += OnSessionPropertyChanged;
+        StartDeploymentCommand.PropertyChanged += OnStartDeploymentCommandPropertyChanged;
         _deploymentOrchestrator.CompletionStarting += OnDeploymentCompletionStarting;
         LocalizationService.LanguageChanged += OnLocalizationLanguageChanged;
         RefreshSupportedCultures();
         RefreshKeyboardMenu();
+        // The state is shown only next to a visible Network item.
+        if (IsNetworkMenuVisible && networkIndicator is not null)
+        {
+            _networkIndicator = networkIndicator;
+            _networkIndicator.StateChanged += OnNetworkIndicatorStateChanged;
+            _networkIndicator.Start();
+        }
     }
+
+    /// <summary>Gets whether the menu bar shows the Network item: only when the host can reopen the Foundry Connect page.</summary>
+    public bool IsNetworkMenuVisible => _networkPageNavigator?.IsAvailable == true;
+
+    /// <summary>Gets the connection state shown by the Network menu item.</summary>
+    public NetworkIndicatorState NetworkIndicator => _networkIndicator?.State ?? NetworkIndicatorState.Disconnected;
+
+    /// <summary>Gets the Segoe Fluent glyph of <see cref="NetworkIndicator"/>.</summary>
+    public string NetworkIndicatorGlyph => NetworkIndicatorGlyphs.For(NetworkIndicator);
+
+    /// <summary>Gets the localized state text shown as the tooltip of the Network menu item.</summary>
+    public string NetworkIndicatorToolTip => GetString(NetworkIndicator switch
+    {
+        NetworkIndicatorState.Ethernet => "Network.State.Ethernet",
+        NetworkIndicatorState.Wifi => "Network.State.Wifi",
+        NetworkIndicatorState.Limited => "Network.State.Limited",
+        _ => "Network.State.Disconnected"
+    });
 
     /// <summary>
     /// Gets the keyboard menu entries: the active language's layouts, then the other languages.
@@ -308,17 +342,23 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             await RunStartupCoordinatorAsync(cancellationToken).ConfigureAwait(false), cancellationToken).ConfigureAwait(false);
 
         // The wizard never opens on the snapshot of a failed network cache start: it still carries the boot image sections,
-        // which an active network cache no longer uses. Continuing without the network cache removes them first.
-        while (startupSnapshot.NetworkCacheFailure is { } failure)
+        // which an active network cache no longer uses. Continuing without the network cache removes them first. Retry, and
+        // Network once the page closed, run the whole startup again.
+        if (startupSnapshot.NetworkCacheFailure is { } failure)
         {
-            NetworkCacheStartupChoice choice = NetworkCacheStartupChoice.Close;
-            RunOnUi(() => choice = _networkCacheStartupDialog.ShowFailure(failure));
-            if (choice == NetworkCacheStartupChoice.ContinueWithout)
+            NetworkCacheFailureResolution resolution = await ResolveNetworkCacheFailureAsync(failure, async token =>
             {
-                // The failed session is already unavailable, so downloads neither read from nor publish to a share.
-                _logger.LogWarning(
-                    "Deployment continues without the network cache: custom images, custom driver sets and post-installation actions are not available. FailureKind={FailureKind}",
-                    failure.Kind);
+                startupSnapshot = await EnsureCatalogsAsync(
+                    await RunStartupCoordinatorAsync(token).ConfigureAwait(false), token).ConfigureAwait(false);
+                return startupSnapshot.NetworkCacheFailure;
+            }, cancellationToken).ConfigureAwait(false);
+            if (resolution == NetworkCacheFailureResolution.Closed)
+            {
+                return;
+            }
+
+            if (resolution == NetworkCacheFailureResolution.ContinueWithout)
+            {
                 startupSnapshot = startupSnapshot with
                 {
                     DeployConfigurationDocument = startupSnapshot.DeployConfigurationDocument is { } document
@@ -326,58 +366,42 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                         : null,
                     NetworkCacheFailure = null
                 };
-                break;
             }
-
-            if (choice == NetworkCacheStartupChoice.Close)
-            {
-                _logger.LogWarning("Deployment closed before the wizard because the network cache cannot be used. FailureKind={FailureKind}", failure.Kind);
-                // The blocked start ends the session: report it as one. The network is often what failed, so Close waits for the
-                // send only briefly.
-                try
-                {
-                    await _telemetryService.TrackAsync(TelemetryEvents.DeploySessionFinished, NetworkCacheTelemetry.DescribeBlockedStart(failure),
-                        CancellationToken.None).WaitAsync(BlockedStartTelemetryTimeout).ConfigureAwait(false);
-                }
-                catch (TimeoutException)
-                {
-                    _logger.LogDebug("The blocked start telemetry was not sent before Foundry Deploy closed.");
-                }
-
-                RunOnUi(_applicationShellService.Shutdown);
-                return;
-            }
-
-            cancellationToken.ThrowIfCancellationRequested();
-            _logger.LogInformation("Network cache startup check retried after FailureKind={FailureKind}.", failure.Kind);
-            startupSnapshot = await EnsureCatalogsAsync(
-                await RunStartupCoordinatorAsync(cancellationToken).ConfigureAwait(false), cancellationToken).ConfigureAwait(false);
         }
 
         RunOnUi(() =>
         {
             cancellationToken.ThrowIfCancellationRequested();
             ApplyStartupSnapshot(startupSnapshot);
+            _autopilotGroupTagsFailed = startupSnapshot.AutopilotGroupTagsFailed;
+            _latestReleaseCheck = startupSnapshot.LatestReleaseCheck;
+            if (_latestReleaseCheck is not null)
+            {
+                _releaseNoticeTask = ShowNewerReleaseNoticeAsync(_latestReleaseCheck, cancellationToken);
+            }
+
             _isInitialized = true;
         });
-
-        if (startupSnapshot.LatestReleaseCheck is { } latestReleaseCheck)
-        {
-            _ = ShowNewerReleaseNoticeAsync(latestReleaseCheck, cancellationToken);
-        }
     }
 
     /// <summary>
     /// Shows the newer release notice when the latest published Foundry release is newer than the boot media. Runs after
-    /// the wizard opens and never delays it; any failure leaves the notice hidden.
+    /// the wizard opens and never delays it; any failure leaves the notice hidden. A read release version, newer or not, is a
+    /// result; without one, a return from the Network page runs the check again.
     /// </summary>
     private async Task ShowNewerReleaseNoticeAsync(BootMediaLatestReleaseCheck latestReleaseCheck, CancellationToken cancellationToken)
     {
         try
         {
+            string? latestReleaseVersion = null;
             BootMediaUpdateReason reason = await latestReleaseCheck
-                .EvaluateAsync(_readLatestReleaseVersion, cancellationToken)
+                .EvaluateAsync(async token => latestReleaseVersion = await _readLatestReleaseVersion(token).ConfigureAwait(false), cancellationToken)
                 .ConfigureAwait(false);
+            if (latestReleaseVersion is not null)
+            {
+                Volatile.Write(ref _isReleaseNoticeResolved, true);
+            }
+
             if (reason != BootMediaUpdateReason.NewerRelease)
             {
                 return;
@@ -407,8 +431,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
-    /// Offers Retry or Close while the operating system and driver pack catalogs cannot be loaded, and returns the snapshot with
-    /// the catalogs. Retry reloads only the catalogs. Close, like a failure that Retry cannot resolve to the operator's
+    /// Offers Retry, Network (when the host can show the Foundry Connect page) or Close while the operating system and driver
+    /// pack catalogs cannot be loaded, and returns the snapshot with the catalogs. Retry reloads only the catalogs; Network shows
+    /// the Foundry Connect page, then does the same. Close, like a failure that Retry cannot resolve to the operator's
     /// satisfaction, ends startup with the original load failure, so Deploy ends as a startup failure exactly as it did before
     /// the dialog existed. The caller's cancellation ends the wait the same way.
     /// </summary>
@@ -420,11 +445,16 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             cancellationToken.ThrowIfCancellationRequested();
             CatalogStartupChoice choice = CatalogStartupChoice.Close;
             Exception shown = failure;
-            RunOnUi(() => choice = _catalogStartupDialog.ShowFailure(shown));
+            RunOnUi(() => choice = _catalogStartupDialog.ShowFailure(shown, CanOfferNetworkInDialogs));
             if (choice == CatalogStartupChoice.Close)
             {
                 _logger.LogWarning("Deployment closed before the wizard because the catalogs cannot be loaded. FailureType={FailureType}", failure.GetType().Name);
                 ExceptionDispatchInfo.Capture(failure).Throw();
+            }
+
+            if (choice == CatalogStartupChoice.Network)
+            {
+                await OpenNetworkPageFromDialogAsync(cancellationToken).ConfigureAwait(false);
             }
 
             _logger.LogInformation("Catalog load retried after FailureType={FailureType}.", failure.GetType().Name);
@@ -484,10 +514,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
-    /// Applies the theme and language chosen in the Foundry Connect phase. Call once, before the window's first layout, so the
-    /// first frame and the menu check marks already use them. A missing or unknown value keeps the default, and a failure
-    /// while applying them is logged as a warning: the preferences never fail Deploy's startup. The keyboard layout needs no
-    /// hand-over: Connect activated it for this process.
+    /// Applies the theme and language chosen in the Foundry Connect phase: at startup, before the window's first layout, so the
+    /// first frame and the menu check marks already use them, and again when a reopened Connect page returns to Deploy. A
+    /// missing or unknown value keeps the current one, and a failure while applying them is logged as a warning: the
+    /// preferences never fail Deploy. The keyboard layout needs no hand-over: Connect activated it for this process.
     /// </summary>
     /// <param name="themeMode">A <see cref="DeployThemeMode"/> name, for example <c>Dark</c>, or <see langword="null"/>.</param>
     /// <param name="cultureName">A culture name, for example <c>fr-FR</c>, or <see langword="null"/>.</param>
@@ -591,6 +621,44 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private void ShowAbout()
     {
         _applicationShellService.ShowAbout();
+    }
+
+    /// <summary>
+    /// Reopens the Foundry Connect page; Deploy's content comes back when it closes. The command stays disabled while it runs.
+    /// </summary>
+    [RelayCommand(CanExecute = nameof(CanOpenNetwork))]
+    private async Task OpenNetworkAsync()
+    {
+        if (!CanOpenNetwork())
+        {
+            return;
+        }
+
+        // The navigator reports its own outcome and never throws for a page that failed or was cancelled.
+        Task<bool> open = _networkPageNavigator!.OpenAsync(CancellationToken.None);
+        StartDeploymentCommand.NotifyCanExecuteChanged();
+        await open;
+        StartDeploymentCommand.NotifyCanExecuteChanged();
+    }
+
+    // Only from the wizard: the splash page is still starting up, and the status pages belong to a deployment. Never while Start
+    // waits on its launch checks either: the deployment would start behind the Foundry Connect page.
+    private bool CanOpenNetwork() =>
+        IsNetworkMenuVisible
+        && Session.CurrentPage == DeploymentPage.Wizard
+        && !IsDeploymentRunning
+        && !StartDeploymentCommand.IsRunning
+        && !_isCheckingLaunchCredentials
+        && !DomainJoinStep.IsCheckingCredentials
+        && !_isRefreshingAfterNetworkReturn
+        && !_networkPageNavigator!.IsOpen;
+
+    private void OnStartDeploymentCommandPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(IAsyncRelayCommand.IsRunning))
+        {
+            OpenNetworkCommand.NotifyCanExecuteChanged();
+        }
     }
 
     [RelayCommand(CanExecute = nameof(CanUseCustomImageDebugTools))]
@@ -876,6 +944,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _isCheckingLaunchCredentials = value;
         UpdateWizardStepStates();
         PreviousWizardStepCommand.NotifyCanExecuteChanged();
+        OpenNetworkCommand.NotifyCanExecuteChanged();
     }
 
     /// <summary>
@@ -1013,6 +1082,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
         NextWizardStepCommand.NotifyCanExecuteChanged();
         StartDeploymentCommand.NotifyCanExecuteChanged();
+        // The Domain Join credential check reports its state through the wizard context.
+        OpenNetworkCommand.NotifyCanExecuteChanged();
     }
 
     private void OnSessionPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -1026,6 +1097,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         BeginWizardCommand.NotifyCanExecuteChanged();
         SetDebugCustomImageScenarioCommand.NotifyCanExecuteChanged();
+        OpenNetworkCommand.NotifyCanExecuteChanged();
     }
 
     [RelayCommand(CanExecute = nameof(CanUseDebugTools))]
@@ -1154,9 +1226,13 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         return _deploymentWizardStateService.CanGoNext(BuildWizardStateSnapshot());
     }
 
+    // Never while the Foundry Connect page is shown, nor while a return from it replaces the network cache session and the
+    // content it publishes.
     private bool CanStartDeployment()
     {
-        return _deploymentWizardStateService.CanStartDeployment(BuildWizardStateSnapshot());
+        return _networkPageNavigator?.IsOpen != true
+            && !_isRefreshingAfterNetworkReturn
+            && _deploymentWizardStateService.CanStartDeployment(BuildWizardStateSnapshot());
     }
 
     private bool HasValidDriverPackSelection()
@@ -1594,8 +1670,15 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _startupCancellation.Dispose();
         _wizardContext.StateChanged -= OnWizardContextStateChanged;
         Session.PropertyChanged -= OnSessionPropertyChanged;
+        StartDeploymentCommand.PropertyChanged -= OnStartDeploymentCommandPropertyChanged;
         _deploymentOrchestrator.CompletionStarting -= OnDeploymentCompletionStarting;
         LocalizationService.LanguageChanged -= OnLocalizationLanguageChanged;
+        if (_networkIndicator is not null)
+        {
+            _networkIndicator.StateChanged -= OnNetworkIndicatorStateChanged;
+            _networkIndicator.Dispose();
+        }
+
         _wizardContext.Dispose();
         Session.Dispose();
         _debugCredentialVerifier?.Dispose();
@@ -1613,6 +1696,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(VersionDisplay));
             OnPropertyChanged(nameof(BootMediaUpdateRecommendedText));
             OnPropertyChanged(nameof(BootMediaUpdateRecommendedToolTip));
+            OnPropertyChanged(nameof(NetworkIndicatorToolTip));
             OperatingSystemCatalog.RefreshLocalizedMediaOptions();
             CustomImages.RefreshLocalization();
             DomainJoinStep.RefreshLocalizedText();
@@ -1624,6 +1708,22 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
             RefreshWizardSteps();
             RefreshSummaryCategories();
+        });
+    }
+
+    // Raised on a timer thread; posted so the poll never waits for the UI thread.
+    private void OnNetworkIndicatorStateChanged(object? sender, EventArgs e)
+    {
+        _dispatcher.BeginInvoke(() =>
+        {
+            if (_isDisposed)
+            {
+                return;
+            }
+
+            OnPropertyChanged(nameof(NetworkIndicator));
+            OnPropertyChanged(nameof(NetworkIndicatorGlyph));
+            OnPropertyChanged(nameof(NetworkIndicatorToolTip));
         });
     }
 

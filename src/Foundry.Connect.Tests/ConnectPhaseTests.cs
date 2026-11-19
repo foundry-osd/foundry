@@ -5,6 +5,9 @@
 using System.ComponentModel;
 using System.Windows;
 using Foundry.Connect.Configuration;
+using Foundry.Connect.Network;
+using Foundry.Connect.Network.Policy;
+using Foundry.Connect.Security;
 using Foundry.Connect.Startup;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Runtime;
@@ -14,6 +17,8 @@ using Foundry.Deploy.Tests;
 using Foundry.Telemetry;
 using Foundry.Wpf.Localization;
 using Foundry.Wpf.Shell;
+using Foundry.Wpf.Theme;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Foundry.Connect.Tests;
@@ -128,6 +133,93 @@ public sealed class ConnectPhaseTests
 
         return Task.CompletedTask;
     });
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void CreateSuccessResult_CarriesTheProvisioningAndHandsTheKeyOverOnlyOnTheFirstRun(bool isRevisit)
+    {
+        var provisioning = new ProvisioningOutcome(Dot1xState.NotConfigured, ProvisionedWifiState.NotConfigured, null, []);
+        using DeploymentKeyTransfer key = DeploymentKeyTransfer.FromKey(Enumerable.Repeat((byte)7, DeploymentKeyTransfer.KeyLength).ToArray());
+        ResourceLocalizationService localization = TestLocalization.Create();
+        using ServiceProvider services = new ServiceCollection()
+            .AddSingleton<IThemeService>(new ThemeService())
+            .AddSingleton<ILocalizationService>(localization)
+            .AddSingleton<IProvisioningStep>(new StubProvisioningStep(provisioning))
+            .AddSingleton<IConnectUnlockService>(new FakeUnlockService { DeploymentKey = key })
+            .BuildServiceProvider();
+
+        ConnectPhaseResult result = ConnectPhase.CreateSuccessResult(services, isRevisit);
+
+        Assert.Equal((int)ChildRuntimeExitCode.Success, result.ExitCode);
+        Assert.Same(provisioning, result.Provisioning);
+        Assert.Equal(nameof(Foundry.Wpf.Theme.ThemeMode.System), result.ThemeMode);
+        Assert.Equal(localization.CurrentCulture.Name, result.CultureName);
+        if (isRevisit)
+        {
+            // The deployment keeps its own key: a key Connect obtained while reopened is zeroed.
+            Assert.Null(result.DeploymentKey);
+            Assert.False(key.TryTake(new byte[DeploymentKeyTransfer.KeyLength]));
+        }
+        else
+        {
+            Assert.Same(key, result.DeploymentKey);
+        }
+    }
+
+    [Fact]
+    public void CreateEndedResult_ReleasesTheProfileAndClearsTheSecretsBeforeHandingTheProvisioningOver()
+    {
+        var document = new WifiProfileDocument("Lab", WifiSsid.FromText("Lab"), false, "<WLANProfile><name>Lab</name></WLANProfile>");
+        var provisioning = new ProvisioningOutcome(
+            Dot1xState.NotConfigured, new ProvisionedWifiState(ProvisionedWifiStatus.Ready, Ssid: WifiSsid.FromText("Lab")), document, []);
+        var secrets = new ConnectRuntimeSecrets(ConnectSecret.Available("lab-passphrase".ToCharArray()), ConnectSecret.NotProvisioned(), ConnectSecret.NotProvisioned());
+        var coordinator = new FakeConnectionCoordinator();
+        using ServiceProvider services = new ServiceCollection()
+            .AddSingleton<IThemeService>(new ThemeService())
+            .AddSingleton<ILocalizationService>(TestLocalization.Create())
+            .AddSingleton<IProvisioningStep>(new StubProvisioningStep(provisioning))
+            .AddSingleton<IConnectUnlockService>(new FakeUnlockService())
+            .AddSingleton<IConnectionCoordinator>(coordinator)
+            .AddSingleton(secrets)
+            .BuildServiceProvider();
+
+        ConnectPhaseResult result = ConnectPhase.CreateEndedResult((int)ChildRuntimeExitCode.UserAborted, services);
+
+        Assert.Equal((int)ChildRuntimeExitCode.UserAborted, result.ExitCode);
+        Assert.Same(provisioning, result.Provisioning);
+        Assert.False(document.TryGetXml(out _));
+        Assert.Equal(1, coordinator.ReleaseCalls);
+        Assert.Equal(ConnectSecretStatus.Cleared, secrets.WifiPassphrase.Status);
+        Assert.Null(result.DeploymentKey);
+    }
+
+    [Fact]
+    public Task RunAsync_RevisitCancelledBeforeItStarts_ZeroesTheDeploymentKeyCopy() => WpfApplicationTestHost.RunAsync(async () =>
+    {
+        using DeploymentKeyTransfer key = DeploymentKeyTransfer.FromKey(Enumerable.Repeat((byte)7, DeploymentKeyTransfer.KeyLength).ToArray());
+        var options = new ConnectPhaseOptions
+        {
+            Shell = new FakeShellHost(),
+            OnFirstContentRendered = static () => { },
+            Revisit = new ConnectRevisit(PreviousProvisioning: null, key)
+        };
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => ConnectPhase.RunAsync(options, new CancellationToken(canceled: true)));
+
+        Assert.False(key.TryTake(new byte[DeploymentKeyTransfer.KeyLength]));
+    });
+
+    private sealed class StubProvisioningStep(ProvisioningOutcome outcome) : IProvisioningStep
+    {
+        public ProvisioningOutcome? LastOutcome => outcome;
+
+        public Task<ProvisioningOutcome> RunAsync(CancellationToken cancellationToken) => throw new NotSupportedException();
+
+        public Task<ProvisioningOutcome> RefreshWifiAsync(CancellationToken cancellationToken) => throw new NotSupportedException();
+
+        public void Restore(ProvisioningOutcome previous) => throw new NotSupportedException();
+    }
 
     private sealed class FakeShellHost(Window? window = null) : IShellHost
     {

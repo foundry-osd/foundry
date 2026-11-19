@@ -121,6 +121,9 @@
   <data name="Common.Enabled" xml:space="preserve">
     <value>מופעל</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>רשת</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>הבא</value>
   </data>
@@ -693,11 +696,26 @@ ErrorCode=0x80070005
   <data name="Menu.Language" xml:space="preserve">
     <value>_שפה</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_רשת</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_ערכת נושא</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_כלים</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>לא מחובר</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>מחובר דרך Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>אין אינטרנט</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>מחובר דרך Wi-Fi</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>השיתוף של מטמון הרשת דחה מכשיר זה. ב-Foundry OSD, בדף 'מטמון רשת', בדוק את החשבון של השיתוף ואת הסיסמה שלו; בשרת, בדוק את ההרשאות של השיתוף.</value>

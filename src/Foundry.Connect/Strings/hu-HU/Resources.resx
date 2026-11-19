@@ -70,6 +70,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Verzió: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Vissza a telepítéshez</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: automatikusan kiosztott cím</value>
   </data>
@@ -359,11 +362,26 @@ Licenc az MIT licenc alatt.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Nyelv</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>Há_lózat</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Téma</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Eszközök</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Nincs kapcsolat</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Csatlakozva Etherneten keresztül</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Nincs internet</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Csatlakozva Wi-Fi-n keresztül</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>A rendszerindító adathordozó hálózati beállításainak alkalmazása.</value>

@@ -121,6 +121,9 @@ Licențiat sub licența MIT.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Activat</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>Rețea</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>Înainte</value>
   </data>
@@ -693,11 +696,26 @@ Continuați cu implementarea?</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Limba</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Rețea</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Temă</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Instrumente</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Neconectat</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Conectat prin Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Fără internet</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Conectat prin Wi-Fi</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>Partajarea cache-ului de rețea a refuzat acest dispozitiv. În Foundry OSD, pe pagina Cache de rețea, verificați contul partajării și parola acestuia; pe server, verificați permisiunile partajării.</value>

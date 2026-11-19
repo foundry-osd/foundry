@@ -12,6 +12,7 @@ using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
 using Foundry.Telemetry;
+using Foundry.Wpf.Localization;
 using Foundry.Wpf.Shell;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -68,6 +69,23 @@ public sealed class NetworkServiceRegistrationTests
     }
 
     [Fact]
+    public void AddFoundryConnectApplicationServices_Revisit_SendsNoTelemetryAndOffersBackToDeployment()
+    {
+        var configuration = new FoundryConnectConfigurationDocument
+        {
+            Telemetry = new TelemetrySettings { IsEnabled = true, InstallId = "install-id", ProjectToken = "phc_test" }
+        };
+        using ServiceProvider firstRun = BuildProvider(configuration);
+        using ServiceProvider revisit = BuildProvider(configuration, isRevisit: true);
+
+        Assert.IsType<PostHogTelemetryService>(firstRun.GetRequiredService<ITelemetryService>());
+        Assert.IsType<NullTelemetryService>(revisit.GetRequiredService<ITelemetryService>());
+        AutoContinueViewModel autoContinue = revisit.GetRequiredService<AutoContinueViewModel>();
+        Assert.Equal(revisit.GetRequiredService<ILocalizationService>().GetString("Connect.BackToDeployment"), autoContinue.ContinueButtonText);
+        Assert.True(autoContinue.CanContinue);
+    }
+
+    [Fact]
     public async Task AddFoundryConnectApplicationServices_ComposesThePageAroundOneNetworkActions()
     {
         using ServiceProvider provider = BuildProvider();
@@ -89,9 +107,9 @@ public sealed class NetworkServiceRegistrationTests
         Assert.Same(provider.GetRequiredService<DiagnosticsViewModel>(), page.Diagnostics);
     }
 
-    private static ServiceProvider BuildProvider()
+    private static ServiceProvider BuildProvider(FoundryConnectConfigurationDocument? configuration = null, bool isRevisit = false)
     {
-        var configuration = new FoundryConnectConfigurationDocument();
+        configuration ??= new FoundryConnectConfigurationDocument();
         var services = new ServiceCollection();
         services.AddLogging();
         services.AddSingleton<IConnectConfigurationService>(new StubConfigurationService(configuration));
@@ -99,7 +117,7 @@ public sealed class NetworkServiceRegistrationTests
         services.AddSingleton(ConnectRuntimeSecrets.None());
         services.AddSingleton(RuntimeStartupDiagnostics.CreateForHostedPhase(
             new RuntimeApplicationIdentity("Foundry.Connect", TelemetryApps.FoundryConnect, "1.0.0.0"), static () => { }));
-        services.AddFoundryConnectApplicationServices();
+        services.AddFoundryConnectApplicationServices(isRevisit);
         return services.BuildServiceProvider();
     }
 

@@ -70,6 +70,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Sürüm: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Dağıtıma geri dön</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: otomatik atanan adres</value>
   </data>
@@ -359,11 +362,26 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Dil</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>A_ğ</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Araçlar</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Bağlı değil</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Ethernet ile bağlı</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>İnternet yok</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Wi-Fi ile bağlı</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Önyükleme medyasındaki ağ ayarları uygulanıyor.</value>

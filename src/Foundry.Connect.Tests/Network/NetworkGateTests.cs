@@ -174,6 +174,90 @@ public sealed class NetworkGateTests : IDisposable
     }
 
     [Fact]
+    public async Task StartForRevisitAsync_PreviousOutcome_ReplaysItWithoutProvisioningThenStartsTheMonitor()
+    {
+        _unlock.IsWiredUnlockRequired = true;
+        var previous = new ProvisioningOutcome(
+            Dot1xState.NotConfigured,
+            new ProvisionedWifiState(ProvisionedWifiStatus.Ready, Ssid: WifiSsid.FromText("Foundry Lab")),
+            null,
+            [NetworkFailureCode.WifiProfileRejected]);
+        NetworkGate gate = CreateGate();
+
+        await gate.StartForRevisitAsync(previous, TestContext.Current.CancellationToken);
+
+        Assert.Equal(0, _coordinator.ApplyProvisioningCalls);
+        Assert.Same(previous, Assert.Single(_coordinator.RestoredProvisioning));
+        Assert.Equal(_localization.GetString("Wifi.ActionApplyProvisionedFailed"), _provisionedWifi.FeedbackText);
+        Assert.Equal(1, _monitor.RunCalls);
+        Assert.Empty(_unlock.Calls);
+        Assert.Empty(_probe.Times);
+        Assert.Equal(0, _exit.Calls);
+    }
+
+    [Fact]
+    public async Task StartForRevisitAsync_NoPreviousOutcome_ProvisionsOnceWithoutTheWiredPromptOrAProbe()
+    {
+        _unlock.IsWiredUnlockRequired = true;
+        NetworkGate gate = CreateGate();
+
+        await gate.StartForRevisitAsync(null, TestContext.Current.CancellationToken);
+
+        Assert.Equal(1, _coordinator.ApplyProvisioningCalls);
+        Assert.Empty(_coordinator.RestoredProvisioning);
+        Assert.Equal(1, _monitor.RunCalls);
+        Assert.Empty(_unlock.Calls);
+        Assert.Empty(_probe.Times);
+        Assert.Equal(0, _exit.Calls);
+    }
+
+    [Theory]
+    [InlineData(false, 1)]
+    [InlineData(true, 0)]
+    public async Task StartForRevisitAsync_LockedPreviousWifi_RefreshesItOnlyWhenTheSecretsAreUnlocked(bool isWifiStillLocked, int expectedRefreshes)
+    {
+        _unlock.IsWifiUnlockRequired = isWifiStillLocked;
+        var previous = new ProvisioningOutcome(Dot1xState.NotConfigured, new ProvisionedWifiState(ProvisionedWifiStatus.Locked), null, []);
+        NetworkGate gate = CreateGate();
+
+        await gate.StartForRevisitAsync(previous, TestContext.Current.CancellationToken);
+
+        Assert.Equal(expectedRefreshes, _coordinator.RefreshProvisionedWifiCalls);
+        Assert.Equal(0, _coordinator.ApplyProvisioningCalls);
+        Assert.Empty(_unlock.Calls);
+    }
+
+    [Fact]
+    public async Task StartForRevisitAsync_RefreshThatRejectsTheProfile_ShowsTheFeedbackOfTheMergedOutcome()
+    {
+        var previous = new ProvisioningOutcome(Dot1xState.NotConfigured, new ProvisionedWifiState(ProvisionedWifiStatus.Locked), null, []);
+        _coordinator.RefreshedProvisioning = previous with
+        {
+            Wifi = new ProvisionedWifiState(ProvisionedWifiStatus.Ready, Ssid: WifiSsid.FromText("Foundry Lab")),
+            Failures = [NetworkFailureCode.WifiProfileRejected]
+        };
+        NetworkGate gate = CreateGate();
+
+        await gate.StartForRevisitAsync(previous, TestContext.Current.CancellationToken);
+
+        Assert.Equal(1, _coordinator.RefreshProvisionedWifiCalls);
+        Assert.Equal(_localization.GetString("Wifi.ActionApplyProvisionedFailed"), _provisionedWifi.FeedbackText);
+    }
+
+    [Fact]
+    public async Task StartForRevisitAsync_RunsOnce()
+    {
+        NetworkGate gate = CreateGate();
+        await gate.StartForRevisitAsync(null, TestContext.Current.CancellationToken);
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() => gate.StartForRevisitAsync(null, TestContext.Current.CancellationToken));
+        await Assert.ThrowsAsync<InvalidOperationException>(() => gate.RunAsync(TestContext.Current.CancellationToken));
+
+        Assert.Equal(1, _coordinator.ApplyProvisioningCalls);
+        Assert.Equal(1, _monitor.RunCalls);
+    }
+
+    [Fact]
     public async Task RunAsync_ShowsTheProvisionedWifiFeedback()
     {
         _coordinator.ProvisioningResult = new ProvisioningOutcome(
