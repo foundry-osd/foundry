@@ -139,16 +139,18 @@ public static class DeployPhase
 
             content = host.Services.GetRequiredService<DeployShellContent>();
             bool isEnded = false;
+            void CancelDeployment()
+            {
+                if (viewModel.CancelDeploymentCommand.CanExecute(null))
+                {
+                    viewModel.CancelDeploymentCommand.Execute(null);
+                }
+            }
+
             closeAttachment = AttachCloseHandler(
                 options.Shell,
                 () => viewModel.IsDeploymentRunning,
-                () =>
-                {
-                    if (viewModel.CancelDeploymentCommand.CanExecute(null))
-                    {
-                        viewModel.CancelDeploymentCommand.Execute(null);
-                    }
-                },
+                CancelDeployment,
                 () => lifetime.TryEnd(SuccessExitCode));
             using CancellationTokenRegistration cancellation = cancellationToken.Register(() =>
                 application.Dispatcher.BeginInvoke(() =>
@@ -157,7 +159,7 @@ public static class DeployPhase
                     if (isEnded) return;
                     if (viewModel.IsDeploymentRunning)
                     {
-                        if (viewModel.CancelDeploymentCommand.CanExecute(null)) viewModel.CancelDeploymentCommand.Execute(null);
+                        CancelDeployment();
                     }
                     else
                     {
@@ -181,7 +183,12 @@ public static class DeployPhase
             // The close decision belongs to the host from here on; without a handler the shell refuses a close.
             closeAttachment?.Dispose();
             cultureReporter?.Dispose();
-            content?.Detach();
+            if (content is not null)
+            {
+                // The page stays shown until the process ends: a click must not reach the disposed view model.
+                content.IsEnabled = false;
+                content.Detach();
+            }
             if (dispatcherHandler is not null)
             {
                 application.DispatcherUnhandledException -= dispatcherHandler;
