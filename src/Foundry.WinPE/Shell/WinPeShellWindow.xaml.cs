@@ -35,6 +35,7 @@ public partial class WinPeShellWindow : Window, IShellHost
 
     private readonly Func<bool> _isSystemShuttingDown;
     private bool _hasContent;
+    private bool _isClosed;
 
     /// <summary>Initializes the window, hidden until its first content.</summary>
     public WinPeShellWindow()
@@ -66,10 +67,17 @@ public partial class WinPeShellWindow : Window, IShellHost
     internal bool AllowClose { get; set; }
 
     /// <inheritdoc />
-    /// <remarks>The first content also shows the window when it is still hidden.</remarks>
+    /// <remarks>
+    /// The first content also shows the window when it is still hidden. Once the window closed (Alt+F4 or a Windows shutdown
+    /// while a phase still ends) it does nothing: a closed window cannot be shown again.
+    /// </remarks>
     public void ShowContent(FrameworkElement content)
     {
         ArgumentNullException.ThrowIfNull(content);
+        if (_isClosed)
+        {
+            return;
+        }
 
         bool animate = _hasContent;
         _hasContent = true;
@@ -103,6 +111,13 @@ public partial class WinPeShellWindow : Window, IShellHost
         }
 
         handler(this, e);
+    }
+
+    /// <inheritdoc />
+    protected override void OnClosed(EventArgs e)
+    {
+        _isClosed = true;
+        base.OnClosed(e);
     }
 
     private void OnContentRendered(FrameworkElement content)
