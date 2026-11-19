@@ -363,7 +363,7 @@ Licenc az MIT licenc alatt.</value>
     <value>_Nyelv</value>
   </data>
   <data name="Menu.Network" xml:space="preserve">
-    <value>_Hálózat</value>
+    <value>Há_lózat</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Téma</value>

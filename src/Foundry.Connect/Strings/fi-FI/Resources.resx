@@ -363,7 +363,7 @@ Lisensoitu MIT-lisenssillä.</value>
     <value>_Kieli</value>
   </data>
   <data name="Menu.Network" xml:space="preserve">
-    <value>_Verkko</value>
+    <value>Ve_rkko</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Teema</value>

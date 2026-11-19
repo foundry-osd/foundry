@@ -183,4 +183,24 @@ public sealed class LocalizationResourceTests
             Assert.Contains("_", resourceSet.GetString(key), StringComparison.Ordinal);
         }
     }
+
+    [Theory]
+    [MemberData(nameof(SupportedCultures))]
+    public void NetworkMenuAccessKey_DiffersFromTheOtherTopLevelHeaders(string cultureName)
+    {
+        ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(ConnectShellContent).Assembly);
+        ResourceSet resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
+
+        string AccessKey(string key)
+        {
+            string value = resourceSet.GetString(key)!;
+            return value[(value.IndexOf('_', StringComparison.Ordinal) + 1)..][..1].ToUpper(CultureInfo.GetCultureInfo(cultureName));
+        }
+
+        string network = AccessKey("Menu.Network");
+        foreach (string key in new[] { "Menu.About", "Menu.Debug", "Menu.Keyboard", "Menu.Language", "Menu.Theme", "Menu.Tools" })
+        {
+            Assert.NotEqual(AccessKey(key), network);
+        }
+    }
 }

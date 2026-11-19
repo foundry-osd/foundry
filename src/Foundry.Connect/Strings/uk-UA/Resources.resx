@@ -363,7 +363,7 @@
     <value>_Мова</value>
   </data>
   <data name="Menu.Network" xml:space="preserve">
-    <value>_Мережа</value>
+    <value>М_ережа</value>
   </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Тема</value>
