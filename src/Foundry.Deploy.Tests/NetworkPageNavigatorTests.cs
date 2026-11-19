@@ -117,21 +117,21 @@ public sealed class NetworkPageNavigatorTests
     }
 
     [Fact]
-    public async Task PhaseEnd_DuringAReopen_CancelsThePageAndCancelAndWaitWaitsForIt()
+    public async Task CancelAndWait_DuringAReopen_CancelsThePageOnTheCallingThreadAndWaitsForIt()
     {
-        var pageCancelled = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        int? cancellationThread = null;
         var pageEnded = new TaskCompletionSource<NetworkPageResult>(TaskCreationOptions.RunContinuationsAsynchronously);
         var harness = new Harness((_, cancellationToken) =>
         {
-            cancellationToken.Register(pageCancelled.SetResult);
+            cancellationToken.Register(() => cancellationThread = Environment.CurrentManagedThreadId);
             return pageEnded.Task;
         });
 
         Task<bool> open = harness.Navigator.OpenAsync(CancellationToken.None);
-        harness.Lifetime.TryEnd(0);
-        await pageCancelled.Task.WaitAsync(TimeSpan.FromSeconds(10));
+        int callingThread = Environment.CurrentManagedThreadId;
         Task wait = harness.Navigator.CancelAndWaitAsync();
 
+        Assert.Equal(callingThread, cancellationThread);
         Assert.False(wait.IsCompleted);
         pageEnded.SetException(new OperationCanceledException());
         await wait.WaitAsync(TimeSpan.FromSeconds(10));
@@ -139,6 +139,62 @@ public sealed class NetworkPageNavigatorTests
         Assert.False(harness.Navigator.IsOpen);
         Assert.Equal(0, harness.PreferenceCount);
         Assert.DoesNotContain(harness.Logger.Entries, static entry => entry.Level == LogLevel.Warning);
+    }
+
+    [Fact]
+    public async Task CancelAndWait_WhenAHostCancellationCallbackFails_LogsItsTypeAndStillWaitsForThePage()
+    {
+        var pageEnded = new TaskCompletionSource<NetworkPageResult>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var harness = new Harness((_, cancellationToken) =>
+        {
+            cancellationToken.Register(static () => throw new InvalidOperationException("secret detail"));
+            return pageEnded.Task;
+        });
+
+        Task<bool> open = harness.Navigator.OpenAsync(CancellationToken.None);
+        Task wait = harness.Navigator.CancelAndWaitAsync();
+
+        Assert.False(wait.IsCompleted);
+        (_, string message) = Assert.Single(harness.Logger.Entries, static entry => entry.Level == LogLevel.Warning);
+        Assert.Contains(nameof(InvalidOperationException), message, StringComparison.Ordinal);
+        Assert.DoesNotContain("secret detail", message, StringComparison.Ordinal);
+        pageEnded.SetException(new OperationCanceledException());
+        await wait.WaitAsync(TimeSpan.FromSeconds(10));
+        Assert.False(await open);
+    }
+
+    [Fact]
+    public async Task OpenAsync_WhenThePageAndTheReturnToDeployBothFail_LogsBothFailureTypes()
+    {
+        var harness = new Harness(
+            (_, _) => throw new InvalidOperationException(),
+            showDeployContent: static () => throw new NotSupportedException());
+
+        bool opened = await harness.Navigator.OpenAsync(CancellationToken.None);
+
+        Assert.False(opened);
+        Assert.False(harness.Navigator.IsOpen);
+        (_, string message) = Assert.Single(harness.Logger.Entries, static entry => entry.Level == LogLevel.Warning);
+        Assert.Contains(nameof(InvalidOperationException), message, StringComparison.Ordinal);
+        Assert.Contains(nameof(NotSupportedException), message, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public async Task Dispose_RefusesLaterRequests()
+    {
+        int calls = 0;
+        var harness = new Harness((_, _) =>
+        {
+            calls++;
+            return Task.FromResult(new NetworkPageResult(null, null));
+        });
+
+        harness.Navigator.Dispose();
+        harness.Navigator.Dispose();
+
+        Assert.False(await harness.Navigator.OpenAsync(CancellationToken.None));
+        await harness.Navigator.CancelAndWaitAsync();
+        Assert.Equal(0, calls);
     }
 
     [Fact]
@@ -160,7 +216,10 @@ public sealed class NetworkPageNavigatorTests
 
     private sealed class Harness
     {
-        public Harness(Func<NetworkPageRequest, CancellationToken, Task<NetworkPageResult>>? openNetworkPage, List<string>? order = null)
+        public Harness(
+            Func<NetworkPageRequest, CancellationToken, Task<NetworkPageResult>>? openNetworkPage,
+            List<string>? order = null,
+            Action? showDeployContent = null)
         {
             order ??= [];
             Navigator = new NetworkPageNavigator(
@@ -172,6 +231,7 @@ public sealed class NetworkPageNavigatorTests
                 {
                     ShowCount++;
                     order.Add("show");
+                    showDeployContent?.Invoke();
                 },
                 (theme, culture) =>
                 {
@@ -179,13 +239,10 @@ public sealed class NetworkPageNavigatorTests
                     order.Add($"preferences:{theme}/{culture}");
                 },
                 new RecordingRefresh(order),
-                Lifetime,
                 Logger);
         }
 
         public DeploymentSecretKeySession KeySession { get; } = new();
-
-        public DeployPhaseLifetime Lifetime { get; } = new();
 
         public RecordingLogger Logger { get; } = new();
 

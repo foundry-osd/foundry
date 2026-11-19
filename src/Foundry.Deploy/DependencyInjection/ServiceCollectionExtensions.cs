@@ -272,7 +272,6 @@ public static class ServiceCollectionExtensions
             serviceProvider.GetRequiredService<DeployShellContent>()),
         (themeMode, cultureName) => serviceProvider.GetRequiredService<MainWindowViewModel>().ApplyInitialPreferences(themeMode, cultureName),
         serviceProvider.GetRequiredService<INetworkReturnRefresh>(),
-        serviceProvider.GetRequiredService<DeployPhaseLifetime>(),
         serviceProvider.GetRequiredService<ILogger<NetworkPageNavigator>>());
 
     /// <summary>Reads the latest published Foundry release through the Deploy HTTPS client, bounded by the reader timeout.</summary>

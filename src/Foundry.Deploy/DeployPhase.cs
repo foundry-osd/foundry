@@ -186,8 +186,8 @@ public static class DeployPhase
             // The close decision belongs to the host from here on; without a handler the shell refuses a close.
             closeAttachment?.Dispose();
             cultureReporter?.Dispose();
-            // A reopened Foundry Connect page closes first, so its log scope ends before Deploy's and nothing it returns
-            // reaches the released content.
+            // A reopened Foundry Connect page closes first, cancelled here on the UI thread, so its log scope ends before
+            // Deploy's and nothing it returns reaches the released content.
             if (networkPageNavigator is not null)
             {
                 await networkPageNavigator.CancelAndWaitAsync();

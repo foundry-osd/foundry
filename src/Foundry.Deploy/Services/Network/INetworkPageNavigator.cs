@@ -29,7 +29,8 @@ public interface INetworkPageNavigator
 
     /// <summary>
     /// Closes a page that is still open, refuses later requests, and completes once the reopen in flight has finished, so the
-    /// page's own log scope ends before Deploy's. Never throws.
+    /// page's own log scope ends before Deploy's. Call it on the UI thread when the phase ends: the host's token callbacks run
+    /// on the calling thread. Never throws.
     /// </summary>
     Task CancelAndWaitAsync();
 }

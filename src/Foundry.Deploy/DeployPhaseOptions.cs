@@ -54,8 +54,8 @@ public sealed class DeployPhaseOptions
     /// Gets the hook that shows the Foundry Connect page in the shell while Deploy stays alive, or <see langword="null"/> to hide
     /// Deploy's Network menu item. Called on the UI thread, at most once at a time; its task completes when the page closes,
     /// with the theme and language chosen there. The host owns and disposes <see cref="NetworkPageRequest.DeploymentKey"/>.
-    /// The token is cancelled when the Deploy phase ends: the page then closes, and Deploy waits for the task before it ends.
-    /// Deploy shows its own content again when the task completes, whatever its outcome.
+    /// The token is cancelled on the UI thread when the Deploy phase ends: the page then closes, and Deploy waits for the task
+    /// before it ends. Deploy shows its own content again when the task completes, whatever its outcome.
     /// </summary>
     public Func<NetworkPageRequest, CancellationToken, Task<NetworkPageResult>>? OpenNetworkPage { get; init; }
 }

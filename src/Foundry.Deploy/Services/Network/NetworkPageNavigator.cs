@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Runtime.ExceptionServices;
 using System.Security.Cryptography;
 using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.Services.Security;
@@ -16,11 +17,11 @@ namespace Foundry.Deploy.Services.Network;
 /// content again, applies the theme and language chosen on the page and runs the <see cref="INetworkReturnRefresh"/>.
 /// </summary>
 /// <remarks>
-/// Owned by the Deploy phase: the end of the phase (<see cref="DeployPhaseLifetime"/>) cancels a page in flight, and the phase
-/// awaits <see cref="CancelAndWaitAsync"/> before it releases its content and ends its log scope. Used on the UI thread; the
-/// host's callback and the refresh resume on it.
+/// Owned by the Deploy phase, which calls <see cref="CancelAndWaitAsync"/> on the UI thread as soon as the phase ends, before
+/// it releases its content and ends its log scope. Everything runs on the UI thread, the cancellation of the host's token
+/// included, so the host's token callbacks may touch WPF; the host's callback and the refresh resume on it.
 /// </remarks>
-internal sealed class NetworkPageNavigator : INetworkPageNavigator
+internal sealed class NetworkPageNavigator : INetworkPageNavigator, IDisposable
 {
     private readonly Func<NetworkPageRequest, CancellationToken, Task<NetworkPageResult>>? _openNetworkPage;
     private readonly IDeploymentSecretKeySession _keySession;
@@ -33,6 +34,7 @@ internal sealed class NetworkPageNavigator : INetworkPageNavigator
     private readonly CancellationTokenSource _phaseCancellation = new();
     private Task<bool>? _inFlight;
     private bool _isOpen;
+    private bool _isDisposed;
 
     /// <param name="openNetworkPage">The host callback, or <see langword="null"/> when the host cannot show the page.</param>
     /// <param name="keySession">Source of the key copy passed to the page while Deploy is unlocked.</param>
@@ -41,7 +43,6 @@ internal sealed class NetworkPageNavigator : INetworkPageNavigator
     /// <param name="showDeployContent">Shows Deploy's content in the shell again; it must not initialize it a second time.</param>
     /// <param name="applyPreferences">Applies the returned theme and culture name through Deploy's preference path.</param>
     /// <param name="returnRefresh">Runs after the preferences are applied.</param>
-    /// <param name="lifetime">The phase lifetime; its end cancels a page in flight.</param>
     /// <param name="logger">Records the start and the outcome of each reopen.</param>
     public NetworkPageNavigator(
         Func<NetworkPageRequest, CancellationToken, Task<NetworkPageResult>>? openNetworkPage,
@@ -51,10 +52,8 @@ internal sealed class NetworkPageNavigator : INetworkPageNavigator
         Action showDeployContent,
         Action<string?, string?> applyPreferences,
         INetworkReturnRefresh returnRefresh,
-        DeployPhaseLifetime lifetime,
         ILogger<NetworkPageNavigator> logger)
     {
-        ArgumentNullException.ThrowIfNull(lifetime);
         _openNetworkPage = openNetworkPage;
         _keySession = keySession ?? throw new ArgumentNullException(nameof(keySession));
         _themeService = themeService ?? throw new ArgumentNullException(nameof(themeService));
@@ -63,12 +62,6 @@ internal sealed class NetworkPageNavigator : INetworkPageNavigator
         _applyPreferences = applyPreferences ?? throw new ArgumentNullException(nameof(applyPreferences));
         _returnRefresh = returnRefresh ?? throw new ArgumentNullException(nameof(returnRefresh));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        _ = lifetime.Completion.ContinueWith(
-            static (_, state) => ((NetworkPageNavigator)state!).CancelPhase(),
-            this,
-            CancellationToken.None,
-            TaskContinuationOptions.ExecuteSynchronously,
-            TaskScheduler.Default);
     }
 
     /// <inheritdoc />
@@ -80,7 +73,8 @@ internal sealed class NetworkPageNavigator : INetworkPageNavigator
     /// <inheritdoc />
     public Task<bool> OpenAsync(CancellationToken cancellationToken)
     {
-        if (_openNetworkPage is null || _isOpen || _phaseCancellation.IsCancellationRequested || cancellationToken.IsCancellationRequested)
+        if (_openNetworkPage is null || _isOpen || _isDisposed || _phaseCancellation.IsCancellationRequested
+            || cancellationToken.IsCancellationRequested)
         {
             return Task.FromResult(false);
         }
@@ -93,14 +87,44 @@ internal sealed class NetworkPageNavigator : INetworkPageNavigator
     }
 
     /// <inheritdoc />
+    /// <remarks>Call it on the UI thread: the host's token callbacks run on the calling thread.</remarks>
     public async Task CancelAndWaitAsync()
     {
-        CancelPhase();
+        if (_isDisposed)
+        {
+            return;
+        }
+
+        try
+        {
+            _phaseCancellation.Cancel();
+        }
+        catch (AggregateException exception)
+        {
+            // A callback the host registered on the token failed (nested in the linked token's aggregate); the page may still
+            // end on its own, so the wait goes on.
+            _logger.LogWarning(
+                "Network page cancellation failed. FailureType={FailureType}",
+                exception.Flatten().InnerExceptions[0].GetType().Name);
+        }
+
         if (_inFlight is { } inFlight)
         {
             // RunAsync reports its own failures and never throws.
             await inFlight;
         }
+    }
+
+    /// <summary>Releases the cancellation source; later requests are refused. Idempotent.</summary>
+    public void Dispose()
+    {
+        if (_isDisposed)
+        {
+            return;
+        }
+
+        _isDisposed = true;
+        _phaseCancellation.Dispose();
     }
 
     private async Task<bool> RunAsync(
@@ -109,24 +133,47 @@ internal sealed class NetworkPageNavigator : INetworkPageNavigator
     {
         using CancellationTokenSource linked = CancellationTokenSource.CreateLinkedTokenSource(_phaseCancellation.Token, cancellationToken);
         CancellationToken token = linked.Token;
+        NetworkPageRequest? request = null;
+        bool isHandedOver = false;
         try
         {
-            NetworkPageRequest request = CreateRequest();
+            request = CreateRequest();
             _logger.LogInformation("Network page opened from Foundry Deploy. HasDeploymentKey={HasDeploymentKey}", request.DeploymentKey is not null);
-            NetworkPageResult result;
+            NetworkPageResult? result = null;
+            Exception? pageFailure = null;
             try
             {
                 // The host owns the request's key from here on, whatever the callback does.
+                isHandedOver = true;
                 result = await openNetworkPage(request, token);
             }
-            finally
+            catch (Exception exception)
+            {
+                pageFailure = exception;
+            }
+
+            try
             {
                 _showDeployContent();
+            }
+            catch (Exception showFailure) when (pageFailure is not null)
+            {
+                // The exceptions are not attached because every log level is mirrored remotely.
+                _logger.LogWarning(
+                    "Network page failed and Foundry Deploy could not be shown again. FailureType={FailureType}, ShowFailureType={ShowFailureType}",
+                    pageFailure.GetType().Name,
+                    showFailure.GetType().Name);
+                return false;
+            }
+
+            if (pageFailure is not null)
+            {
+                ExceptionDispatchInfo.Throw(pageFailure);
             }
 
             // A page that returns after the phase ended changes nothing in a Deploy that is closing.
             token.ThrowIfCancellationRequested();
-            _applyPreferences(result.ThemeMode, result.CultureName);
+            _applyPreferences(result!.ThemeMode, result.CultureName);
             await _returnRefresh.RefreshAsync(token);
         }
         catch (OperationCanceledException) when (token.IsCancellationRequested)
@@ -145,6 +192,10 @@ internal sealed class NetworkPageNavigator : INetworkPageNavigator
         finally
         {
             _isOpen = false;
+            if (!isHandedOver)
+            {
+                request?.DeploymentKey?.Dispose();
+            }
         }
 
         _logger.LogInformation("Network page closed. Outcome={Outcome}", "Returned");
@@ -171,18 +222,5 @@ internal sealed class NetworkPageNavigator : INetworkPageNavigator
         }
 
         return new NetworkPageRequest(deploymentKey, themeMode, cultureName);
-    }
-
-    private void CancelPhase()
-    {
-        try
-        {
-            _phaseCancellation.Cancel();
-        }
-        catch (AggregateException)
-        {
-            // A callback the host registered on the token failed; the host reports its own failures, and ending the phase
-            // must not fail because of it.
-        }
     }
 }
