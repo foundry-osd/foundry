@@ -91,6 +91,12 @@ Sous licence MIT.</value>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Version</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>Les catalogues Windows et pilotes n'ont pas pu être chargés. Vérifiez la connexion réseau, puis sélectionnez Réessayer. Fermer met fin à Foundry Deploy.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>Catalogues indisponibles</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Annuler</value>
   </data>

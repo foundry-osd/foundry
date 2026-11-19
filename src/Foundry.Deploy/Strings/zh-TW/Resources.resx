@@ -91,6 +91,12 @@
   <data name="Catalog.Version" xml:space="preserve">
     <value>版本</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>無法載入 Windows 和驅動程式目錄。請檢查網路連線，然後選取「重試」。選取「關閉」會結束 Foundry Deploy。</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>目錄無法使用</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>取消</value>
   </data>

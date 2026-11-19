@@ -91,6 +91,12 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Catalog.Version" xml:space="preserve">
     <value>バージョン</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>Windows とドライバーのカタログを読み込めませんでした。ネットワーク接続を確認してから、[再試行] を選択してください。[閉じる] を選択すると Foundry Deploy が終了します。</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>カタログを利用できません</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>キャンセル</value>
   </data>

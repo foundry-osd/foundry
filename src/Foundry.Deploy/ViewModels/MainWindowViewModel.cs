@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Runtime.ExceptionServices;
 using System.Windows;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -18,6 +19,7 @@ using Foundry.Deploy;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Cache;
+using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Operations;
@@ -57,6 +59,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly IZeroTouchMediaCredentialCheck _zeroTouchMediaCredentialCheck;
     private readonly IZeroTouchDomainCredentialCheck _zeroTouchDomainCredentialCheck;
     private readonly INetworkCacheStartupDialogService _networkCacheStartupDialog;
+    private readonly ICatalogStartupDialogService _catalogStartupDialog;
     private readonly ITelemetryService _telemetryService;
     private readonly ILogger<MainWindowViewModel> _logger;
     private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
@@ -217,6 +220,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IZeroTouchMediaCredentialCheck zeroTouchMediaCredentialCheck,
         IZeroTouchDomainCredentialCheck zeroTouchDomainCredentialCheck,
         INetworkCacheStartupDialogService networkCacheStartupDialog,
+        ICatalogStartupDialogService catalogStartupDialog,
         ITelemetryService telemetryService,
         LatestReleaseVersionReader readLatestReleaseVersion,
         ILogger<MainWindowViewModel> logger,
@@ -236,6 +240,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _zeroTouchMediaCredentialCheck = zeroTouchMediaCredentialCheck;
         _zeroTouchDomainCredentialCheck = zeroTouchDomainCredentialCheck;
         _networkCacheStartupDialog = networkCacheStartupDialog;
+        _catalogStartupDialog = catalogStartupDialog;
         _telemetryService = telemetryService;
         _readLatestReleaseVersion = readLatestReleaseVersion;
         _logger = logger;
@@ -299,7 +304,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        DeploymentStartupSnapshot startupSnapshot = await RunStartupCoordinatorAsync(cancellationToken).ConfigureAwait(false);
+        DeploymentStartupSnapshot startupSnapshot = await EnsureCatalogsAsync(
+            await RunStartupCoordinatorAsync(cancellationToken).ConfigureAwait(false), cancellationToken).ConfigureAwait(false);
 
         // The wizard never opens on the snapshot of a failed network cache start: it still carries the boot image sections,
         // which an active network cache no longer uses. Continuing without the network cache removes them first.
@@ -344,7 +350,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
             cancellationToken.ThrowIfCancellationRequested();
             _logger.LogInformation("Network cache startup check retried after FailureKind={FailureKind}.", failure.Kind);
-            startupSnapshot = await RunStartupCoordinatorAsync(cancellationToken).ConfigureAwait(false);
+            startupSnapshot = await EnsureCatalogsAsync(
+                await RunStartupCoordinatorAsync(cancellationToken).ConfigureAwait(false), cancellationToken).ConfigureAwait(false);
         }
 
         RunOnUi(() =>
@@ -397,6 +404,42 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         {
             _logger.LogDebug("The newer release notice could not be shown. FailureType={FailureType}", exception.GetType().Name);
         }
+    }
+
+    /// <summary>
+    /// Offers Retry or Close while the operating system and driver pack catalogs cannot be loaded, and returns the snapshot with
+    /// the catalogs. Retry reloads only the catalogs. Close, like a failure that Retry cannot resolve to the operator's
+    /// satisfaction, ends startup with the original load failure, so Deploy ends as a startup failure exactly as it did before
+    /// the dialog existed. The caller's cancellation ends the wait the same way.
+    /// </summary>
+    private async Task<DeploymentStartupSnapshot> EnsureCatalogsAsync(DeploymentStartupSnapshot snapshot, CancellationToken cancellationToken)
+    {
+        Exception? failure = snapshot.CatalogFailure;
+        while (failure is not null)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            CatalogStartupChoice choice = CatalogStartupChoice.Close;
+            Exception shown = failure;
+            RunOnUi(() => choice = _catalogStartupDialog.ShowFailure(shown));
+            if (choice == CatalogStartupChoice.Close)
+            {
+                _logger.LogWarning("Deployment closed before the wizard because the catalogs cannot be loaded. FailureType={FailureType}", failure.GetType().Name);
+                ExceptionDispatchInfo.Capture(failure).Throw();
+            }
+
+            _logger.LogInformation("Catalog load retried after FailureType={FailureType}.", failure.GetType().Name);
+            try
+            {
+                DeploymentCatalogSnapshot catalogs = await _deploymentStartupCoordinator.ReloadCatalogsAsync(cancellationToken).ConfigureAwait(false);
+                return snapshot with { CatalogSnapshot = catalogs, CatalogFailure = null };
+            }
+            catch (Exception ex) when (!cancellationToken.IsCancellationRequested)
+            {
+                failure = ex;
+            }
+        }
+
+        return snapshot;
     }
 
     private Task<DeploymentStartupSnapshot> RunStartupCoordinatorAsync(CancellationToken cancellationToken) =>

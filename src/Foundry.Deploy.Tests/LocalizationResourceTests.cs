@@ -40,7 +40,8 @@ public sealed class LocalizationResourceTests
             "DomainJoin.ZeroTouchCredentialsRejected", "DomainJoin.ZeroTouchAccountLocked", "DomainJoin.ZeroTouchPasswordExpired",
             "DomainJoin.ZeroTouchAccountDisabled", "DomainJoin.ZeroTouchDomainUnreachable", "DomainJoin.ZeroTouchCheckInconclusive",
             "DomainJoin.CredentialsVerified",
-            "Step.StageCustomDrivers", "StepResult.CustomDriversStaged", "StepResult.CustomDriversUnavailable"
+            "Step.StageCustomDrivers", "StepResult.CustomDriversStaged", "StepResult.CustomDriversUnavailable",
+            "CatalogStartup.Title", "CatalogStartup.Message"
         ];
         foreach (string key in requiredKeys)
         {

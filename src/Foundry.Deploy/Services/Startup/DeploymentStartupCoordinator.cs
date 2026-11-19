@@ -4,6 +4,7 @@
 
 using System.IO;
 using System.Net.Http;
+using System.Runtime.ExceptionServices;
 using System.Security.Cryptography;
 using System.Text.Json;
 using Foundry.Deploy.Models;
@@ -84,7 +85,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         Task<string> computerNameTask = ResolveComputerNameAsync(request.FallbackComputerName);
         Task<HardwareLoadResult> hardwareTask = LoadHardwareAsync();
         Task<TargetDiskLoadResult> targetDisksTask = LoadTargetDisksAsync();
-        Task<DeploymentCatalogSnapshot> catalogTask = _deploymentCatalogLoadService.LoadAsync();
+        Task<CatalogLoadResult> catalogTask = LoadCatalogsAsync(cancellationToken);
         Task<NetworkCacheStartupResult?> networkCacheTask = ResolveNetworkCacheAsync(request, cacheRootPath, deployConfigurationDocument, cancellationToken);
 
         await Task.WhenAll(computerNameTask, hardwareTask, targetDisksTask, catalogTask, networkCacheTask).ConfigureAwait(false);
@@ -121,8 +122,44 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
             DetectedHardware = hardwareTask.Result.Profile,
             HardwareDetectionFailureMessage = hardwareTask.Result.ErrorMessage,
             TargetDisks = targetDisksTask.Result.Disks,
-            CatalogSnapshot = catalogTask.Result
+            CatalogSnapshot = catalogTask.Result.Snapshot,
+            CatalogFailure = catalogTask.Result.Failure
         };
+    }
+
+    /// <inheritdoc />
+    public async Task<DeploymentCatalogSnapshot> ReloadCatalogsAsync(CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        CatalogLoadResult result = await LoadCatalogsAsync(cancellationToken).ConfigureAwait(false);
+        cancellationToken.ThrowIfCancellationRequested();
+        if (result.Failure is { } failure)
+        {
+            ExceptionDispatchInfo.Capture(failure).Throw();
+        }
+
+        return result.Snapshot;
+    }
+
+    /// <summary>
+    /// Loads the catalogs once. A failure (the downloads already retried) is returned, not thrown, so the window can offer a
+    /// retry; the caller's own cancellation is not a failure and is never logged as one. One warning per failed attempt.
+    /// </summary>
+    private async Task<CatalogLoadResult> LoadCatalogsAsync(CancellationToken cancellationToken)
+    {
+        try
+        {
+            return new CatalogLoadResult(await _deploymentCatalogLoadService.LoadAsync().ConfigureAwait(false), null);
+        }
+        catch (Exception ex) when (!cancellationToken.IsCancellationRequested)
+        {
+            _logger.LogWarning("Operating system and driver pack catalogs could not be loaded. FailureType={FailureType}", ex.GetType().Name);
+            return new CatalogLoadResult(new DeploymentCatalogSnapshot([], []), ex);
+        }
+        catch (Exception) when (cancellationToken.IsCancellationRequested)
+        {
+            return new CatalogLoadResult(new DeploymentCatalogSnapshot([], []), null);
+        }
     }
 
     private async Task<string> ResolveComputerNameAsync(string fallbackComputerName)
@@ -330,6 +367,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         };
     }
 
+    private sealed record CatalogLoadResult(DeploymentCatalogSnapshot Snapshot, Exception? Failure);
     private sealed record HardwareLoadResult(HardwareProfile? Profile, string? ErrorMessage);
     private sealed record TargetDiskLoadResult(IReadOnlyList<TargetDiskInfo> Disks);
 }

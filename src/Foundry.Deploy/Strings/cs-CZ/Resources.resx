@@ -91,6 +91,12 @@ Licencováno pod licencí MIT.</value>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Verze</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>Katalogy Windows a ovladačů se nepodařilo načíst. Zkontrolujte síťové připojení a vyberte Opakovat. Zavřít ukončí Foundry Deploy.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>Katalogy nejsou k dispozici</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Zrušit</value>
   </data>

@@ -91,6 +91,12 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Catalog.Version" xml:space="preserve">
     <value>버전</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>Windows 및 드라이버 카탈로그를 로드할 수 없습니다. 네트워크 연결을 확인한 다음 다시 시도를 선택하세요. 닫기를 선택하면 Foundry Deploy가 종료됩니다.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>카탈로그를 사용할 수 없음</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>취소</value>
   </data>

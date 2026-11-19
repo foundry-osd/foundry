@@ -165,6 +165,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<INetworkCacheSessionAccessor, NetworkCacheSessionAccessor>();
         services.AddSingleton<NetworkCacheStartupCheck>();
         services.AddSingleton<INetworkCacheStartupDialogService, NetworkCacheStartupDialogService>();
+        services.AddSingleton<ICatalogStartupDialogService, CatalogStartupDialogService>();
         services.AddSingleton<INetworkCacheReader, NetworkCacheReader>();
         services.AddSingleton<INetworkCachePublisher, NetworkCachePublisher>();
         services.AddSingleton<IDeploymentLogService, DeploymentLogService>();

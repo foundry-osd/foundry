@@ -91,6 +91,12 @@
   <data name="Catalog.Version" xml:space="preserve">
     <value>Έκδοση</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>Δεν ήταν δυνατή η φόρτωση των καταλόγων των Windows και των προγραμμάτων οδήγησης. Ελέγξτε τη σύνδεση δικτύου και επιλέξτε Επανάληψη. Το Κλείσιμο τερματίζει το Foundry Deploy.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>Οι κατάλογοι δεν είναι διαθέσιμοι</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Ακύρωση</value>
   </data>

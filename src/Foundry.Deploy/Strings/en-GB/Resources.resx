@@ -91,6 +91,12 @@ Licensed under the MIT License.</value>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Version</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>The Windows and driver catalogues could not be loaded. Check the network connection, then select Retry. Close ends Foundry Deploy.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>Catalogues unavailable</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>

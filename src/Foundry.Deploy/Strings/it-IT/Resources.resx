@@ -91,6 +91,12 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Versione</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>Impossibile caricare i cataloghi di Windows e dei driver. Controlla la connessione di rete, quindi seleziona Riprova. Chiudi termina Foundry Deploy.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>Cataloghi non disponibili</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Annulla</value>
   </data>

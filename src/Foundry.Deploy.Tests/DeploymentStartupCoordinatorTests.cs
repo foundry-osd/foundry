@@ -77,6 +77,104 @@ public sealed class DeploymentStartupCoordinatorTests
     }
 
     [Fact]
+    public async Task InitializeAsync_WhenTheCatalogsCannotBeLoaded_ReturnsTheFailureWithoutFailingStartup()
+    {
+        var failure = new HttpRequestException("Catalog unavailable");
+        var dependencies = new StartupDependencies(enabled: false, catalog: () => Task.FromException<DeploymentCatalogSnapshot>(failure));
+        var logger = new RecordingLogger();
+        var coordinator = new DeploymentStartupCoordinator(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies,
+            new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start.")), logger);
+
+        DeploymentStartupSnapshot snapshot = await coordinator.InitializeAsync(CreateRequest(), TestContext.Current.CancellationToken);
+
+        Assert.Same(failure, snapshot.CatalogFailure);
+        Assert.Empty(snapshot.CatalogSnapshot.OperatingSystems);
+        Assert.NotNull(snapshot.DetectedHardware);
+        Assert.Single(logger.Levels, level => level == LogLevel.Warning);
+        Assert.DoesNotContain(LogLevel.Error, logger.Levels);
+    }
+
+    [Fact]
+    public async Task InitializeAsync_WhenTheCatalogsLoad_HasNoCatalogFailure()
+    {
+        DeploymentStartupCoordinator coordinator = CreateCoordinator(
+            new StubDiscovery(_ => Task.FromResult<IReadOnlyList<string>>([])), new RecordingLogger());
+
+        DeploymentStartupSnapshot snapshot = await coordinator.InitializeAsync(CreateRequest(), TestContext.Current.CancellationToken);
+
+        Assert.Null(snapshot.CatalogFailure);
+    }
+
+    [Fact]
+    public async Task InitializeAsync_WhenTheCallerCancelsDuringTheCatalogLoad_ThrowsInsteadOfReportingAFailure()
+    {
+        using var caller = new CancellationTokenSource();
+        var pending = new TaskCompletionSource<DeploymentCatalogSnapshot>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var dependencies = new StartupDependencies(enabled: false, catalog: () => pending.Task);
+        var coordinator = new DeploymentStartupCoordinator(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies,
+            new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start.")), new RecordingLogger());
+        Task<DeploymentStartupSnapshot> startup = coordinator.InitializeAsync(CreateRequest(), caller.Token);
+
+        caller.Cancel();
+        pending.SetException(new HttpRequestException("Canceled download"));
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => startup);
+    }
+
+    [Fact]
+    public async Task ReloadCatalogsAsync_ReloadsOnlyTheCatalogs()
+    {
+        int loads = 0;
+        var expected = new DeploymentCatalogSnapshot([], []);
+        var dependencies = new StartupDependencies(enabled: false, catalog: () =>
+        {
+            loads++;
+            return Task.FromResult(expected);
+        });
+        var coordinator = new DeploymentStartupCoordinator(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies,
+            new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start.")), new RecordingLogger());
+
+        DeploymentCatalogSnapshot snapshot = await coordinator.ReloadCatalogsAsync(TestContext.Current.CancellationToken);
+
+        Assert.Same(expected, snapshot);
+        Assert.Equal(1, loads);
+    }
+
+    [Fact]
+    public async Task ReloadCatalogsAsync_WhenItFailsAgain_LogsOneWarningAndRethrows()
+    {
+        var failure = new HttpRequestException("Catalog unavailable");
+        var dependencies = new StartupDependencies(enabled: false, catalog: () => Task.FromException<DeploymentCatalogSnapshot>(failure));
+        var logger = new RecordingLogger();
+        var coordinator = new DeploymentStartupCoordinator(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies,
+            new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start.")), logger);
+
+        HttpRequestException thrown = await Assert.ThrowsAsync<HttpRequestException>(
+            () => coordinator.ReloadCatalogsAsync(TestContext.Current.CancellationToken));
+
+        Assert.Same(failure, thrown);
+        Assert.Single(logger.Levels, level => level == LogLevel.Warning);
+    }
+
+    [Fact]
+    public async Task ReloadCatalogsAsync_WhenTheCallerCancels_ThrowsCancellationWithoutWarning()
+    {
+        using var caller = new CancellationTokenSource();
+        var pending = new TaskCompletionSource<DeploymentCatalogSnapshot>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var dependencies = new StartupDependencies(enabled: false, catalog: () => pending.Task);
+        var logger = new RecordingLogger();
+        var coordinator = new DeploymentStartupCoordinator(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies,
+            new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start.")), logger);
+        Task<DeploymentCatalogSnapshot> reload = coordinator.ReloadCatalogsAsync(caller.Token);
+
+        caller.Cancel();
+        pending.SetException(new HttpRequestException("Canceled download"));
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => reload);
+        Assert.DoesNotContain(LogLevel.Warning, logger.Levels);
+    }
+
+    [Fact]
     public async Task InitializeAsync_WhenDiscoverySucceeds_UsesFreshTagsWithoutChangingDefault()
     {
         var discovery = new StubDiscovery(_ => Task.FromResult<IReadOnlyList<string>>(["New tag", "Sales"]));
@@ -438,7 +536,8 @@ public sealed class DeploymentStartupCoordinatorTests
     // Replace machine/tenant I/O; exercise the real startup coordinator and its returned configuration.
     private sealed class StartupDependencies(bool enabled = true, BootMediaUpdateReason reason = BootMediaUpdateReason.None,
         Foundry.Core.Models.Configuration.Deploy.DeployNetworkCacheSettings? networkCache = null,
-        BootMediaLatestReleaseCheck? latestReleaseCheck = null) : IDeployConfigurationService, IAutopilotProfileCatalogService,
+        BootMediaLatestReleaseCheck? latestReleaseCheck = null,
+        Func<Task<DeploymentCatalogSnapshot>>? catalog = null) : IDeployConfigurationService, IAutopilotProfileCatalogService,
         IHardwareProfileService, IOfflineWindowsComputerNameService, ITargetDiskService, IDeploymentCatalogLoadService
     {
         public DeployConfigurationLoadResult LoadOptional() => new()
@@ -473,7 +572,7 @@ public sealed class DeploymentStartupCoordinatorTests
         public Task<IReadOnlyList<TargetDiskInfo>> GetDisksAsync(CancellationToken cancellationToken = default, bool includeExcludedDisks = false)
             => Task.FromResult<IReadOnlyList<TargetDiskInfo>>([]);
         public Task<int?> GetDiskNumberForPathAsync(string path, CancellationToken cancellationToken = default) => throw new NotSupportedException();
-        public Task<DeploymentCatalogSnapshot> LoadAsync() => Task.FromResult(new DeploymentCatalogSnapshot([], []));
+        public Task<DeploymentCatalogSnapshot> LoadAsync() => catalog?.Invoke() ?? Task.FromResult(new DeploymentCatalogSnapshot([], []));
     }
 
     private sealed class RecordingLogger : ILogger<DeploymentStartupCoordinator>

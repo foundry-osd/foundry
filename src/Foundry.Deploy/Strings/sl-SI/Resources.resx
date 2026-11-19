@@ -91,6 +91,12 @@ Licencirano pod licenco MIT.</value>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Različica</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>Katalogov sistema Windows in gonilnikov ni bilo mogoče naložiti. Preverite omrežno povezavo in izberite Poskusi znova. Zapri konča Foundry Deploy.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>Katalogi niso na voljo</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Prekliči</value>
   </data>

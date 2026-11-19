@@ -91,6 +91,12 @@
   <data name="Catalog.Version" xml:space="preserve">
     <value>Версия</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>Не удалось загрузить каталоги Windows и драйверов. Проверьте сетевое подключение и нажмите Повторить. Кнопка Закрыть завершает работу Foundry Deploy.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>Каталоги недоступны</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>

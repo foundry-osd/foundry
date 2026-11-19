@@ -91,6 +91,12 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Versija</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>Nepavyko įkelti „Windows“ ir tvarkyklių katalogų. Patikrinkite tinklo ryšį ir pasirinkite Bandyti dar kartą. Uždaryti baigia „Foundry Deploy“ darbą.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>Katalogai nepasiekiami</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Atšaukti</value>
   </data>
