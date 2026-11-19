@@ -16,7 +16,7 @@ namespace Foundry.Core.Services.Runtime;
 /// <remarks>
 /// <see cref="EndAsync"/> flushes the phase's product analytics, disposes the phase's DI container, restores the logger that
 /// was current before <see cref="Begin"/> and closes the phase's log, each within <see cref="ShutdownBudget"/> and never
-/// throwing: teardown failures never change the phase result. The WPF parts of a phase (its window, its dispatcher exception
+/// throwing: teardown failures never change the phase result. The WPF parts of a phase (its shell content, its dispatcher exception
 /// handler) stay in the phase, because Foundry.Core has no UI dependency. Not thread-safe: begin and end it on one thread.
 /// </remarks>
 public sealed class HostedPhaseScope

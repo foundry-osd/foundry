@@ -64,7 +64,7 @@ public static class ServiceCollectionExtensions
     /// Registers the Foundry Deploy phase content, lifetime, telemetry, startup and deployment services.
     /// </summary>
     /// <remarks>
-    /// The caller pre-registers the phase's <see cref="RuntimeStartupDiagnostics"/>. Nothing here ends the WPF application:
+    /// The caller pre-registers the <see cref="IShellHost"/> that shows the page and the phase's <see cref="RuntimeStartupDiagnostics"/>. Nothing here ends the WPF application:
     /// the shell service and the close handler end the phase through <see cref="DeployPhaseLifetime"/>.
     /// </remarks>
     /// <param name="services">The service collection to update.</param>

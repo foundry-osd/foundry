@@ -46,7 +46,7 @@ public sealed class NetworkCacheStartupDialogService(ILocalizationService locali
             ? new LocalizedMessageDialog(title, message, localizationService.GetString("Common.Retry"), close, continueWithout)
             : new LocalizedMessageDialog(title, message, continueWithout, close);
 
-        // The message can be Deploy's first rendered window; the host must not wait for the main window while it is open.
+        // The message can be Deploy's first rendered UI; the host must not wait for the shell content while it is open.
         dialog.ContentRendered += (_, _) => startup.ReportUiReady();
         bool primary = dialog.ShowDialog() == true;
         return (canRetry, primary, dialog.IsSecondaryButtonSelected) switch

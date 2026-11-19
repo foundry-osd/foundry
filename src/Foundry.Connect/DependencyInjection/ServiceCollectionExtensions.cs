@@ -41,10 +41,10 @@ public static class ServiceCollectionExtensions
     internal static readonly TimeSpan TelemetryHttpTimeout = TimeSpan.FromSeconds(10);
 
     /// <summary>
-    /// Registers the Foundry Connect phase window, lifetime, telemetry and network services.
+    /// Registers the Foundry Connect phase content, lifetime, telemetry and network services.
     /// </summary>
     /// <remarks>
-    /// The caller pre-registers <see cref="IConnectConfigurationService"/>, the loaded <see cref="FoundryConnectConfigurationDocument"/>,
+    /// The caller pre-registers the <see cref="IShellHost"/> that shows the page, <see cref="IConnectConfigurationService"/>, the loaded <see cref="FoundryConnectConfigurationDocument"/>,
     /// its <see cref="ConnectRuntimeSecrets"/> and the phase's <see cref="RuntimeStartupDiagnostics"/>. Nothing here ends the
     /// WPF application: the lifetime service and the shell service end the phase, and the Foundry.WinPE UI host owns the
     /// single-instance mutex.
@@ -103,7 +103,7 @@ public static class ServiceCollectionExtensions
     }
 
     /// <summary>
-    /// Registers the single page and its sections as singletons with the window's lifetime. One
+    /// Registers the single page and its sections as singletons with the phase's lifetime. One
     /// <see cref="ConnectNetworkActions"/> is shared by the page and every section, so a debug scenario set on the page
     /// gates every network action and every action pauses the countdown.
     /// </summary>

@@ -43,9 +43,6 @@ Licencováno pod licencí MIT.</value>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
-  <data name="App.WindowTitle" xml:space="preserve">
-    <value>Foundry Connect</value>
-  </data>
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
     <value>Verzi Foundry OSD použitou k vytvoření tohoto spouštěcího média nelze určit. Nejprve aktualizujte Foundry OSD na počítači pro tvorbu médií a potom znovu vytvořte ISO nebo aktualizujte spouštěcí médium USB.</value>
   </data>

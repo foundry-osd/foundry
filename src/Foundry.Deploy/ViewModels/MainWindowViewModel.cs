@@ -129,7 +129,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     public CustomImageSelectionViewModel CustomImages => _wizardContext.CustomImages;
     public DomainJoinStepViewModel DomainJoinStep => _wizardContext.DomainJoinStep;
     public OperatingSystemMetadata? SelectedOperatingSystem => _wizardContext.SelectedOperatingSystem;
-    public string WindowTitle => GetString("App.WindowTitle");
     public string VersionDisplay => Format("Common.VersionFormat", FoundryDeployApplicationInfo.Version);
 
     /// <summary>Indicates whether the startup reason or active Debug preview displays the boot media banner.</summary>
@@ -1568,7 +1567,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             RefreshSupportedCultures();
             RefreshKeyboardMenu();
             OnPropertyChanged(nameof(CurrentCulture));
-            OnPropertyChanged(nameof(WindowTitle));
             OnPropertyChanged(nameof(VersionDisplay));
             OnPropertyChanged(nameof(BootMediaUpdateRecommendedText));
             OnPropertyChanged(nameof(BootMediaUpdateRecommendedToolTip));

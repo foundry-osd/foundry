@@ -28,9 +28,6 @@ Licenciran prema MIT licenci.</value>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Deploy</value>
   </data>
-  <data name="App.WindowTitle" xml:space="preserve">
-    <value>Foundry Deploy</value>
-  </data>
   <data name="Autopilot.ConfigurationDetails" xml:space="preserve">
     <value>Detalji konfiguracije</value>
   </data>

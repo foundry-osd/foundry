@@ -43,9 +43,6 @@ Licenseret under MIT-licensen.</value>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
-  <data name="App.WindowTitle" xml:space="preserve">
-    <value>Foundry Connect</value>
-  </data>
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
     <value>Den version af Foundry OSD, der blev brugt til at oprette dette startmedie, kan ikke fastslås. Opdater først Foundry OSD på din oprettelses-pc, og opret derefter ISO-filen igen eller opdater USB-startmediet.</value>
   </data>

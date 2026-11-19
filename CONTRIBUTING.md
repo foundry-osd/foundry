@@ -83,7 +83,7 @@ foreach ($testProject in $testProjects) {
 
 Validate ARM64 when the change affects runtime behavior, packaging, architecture-specific code, or deployment assets. CI runs formatting, Release builds, and all test projects for both x64 and ARM64.
 
-Run Foundry.WinPE from Visual Studio (F5) in a Debug build with the debugger attached and no argument: it opens a debug mode picker instead of the guardian. Choose "Connect then Deploy" (the `--ui` session), "Deploy only" (Connect skipped, no key, default theme and language), "Obsolete-media page", or one of the two crash-page previews (relaunch allowed or refused). Debug runs are dry runs: they never partition a disk. Production runs use `Foundry.WinPE.exe` (guardian) and its internal `--ui` and `--native-deployment-worker` arguments; there are no `--connect` or `--deploy` modes.
+Run Foundry.WinPE from Visual Studio (F5) in a Debug build with the debugger attached and no argument: it opens a debug mode picker instead of the guardian. Choose "Connect then Deploy" (the `--ui` session), "Deploy only" (Connect skipped, no key, default theme and language), "Obsolete-media screen", or one of the two crash screens (relaunch allowed or refused). Debug runs are dry runs: they never partition a disk. Production runs use `Foundry.WinPE.exe` (guardian) and its internal `--ui` and `--native-deployment-worker` arguments; there are no `--connect` or `--deploy` modes.
 
 CI treats build warnings as errors. Existing targeted suppressions remain in effect; fix new warnings instead of adding blanket suppressions.
 
