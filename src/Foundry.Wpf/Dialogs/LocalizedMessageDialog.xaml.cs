@@ -11,7 +11,8 @@ namespace Foundry.Wpf.Dialogs;
 /// application styling. The primary button sets <c>DialogResult</c> to <see langword="true"/>; the cancel
 /// button is only shown when cancel text is supplied. The secondary button, shown between them when its text is
 /// supplied, closes the window with <c>DialogResult</c> <see langword="false"/> and sets
-/// <see cref="IsSecondaryButtonSelected"/>. The window is owned by the main window when one exists.
+/// <see cref="IsSecondaryButtonSelected"/>. The tertiary button, shown between the cancel and secondary buttons
+/// when its text is supplied, behaves the same way and sets <see cref="IsTertiaryButtonSelected"/>. The window is owned by the main window when one exists.
 /// </summary>
 public partial class LocalizedMessageDialog : Window
 {
@@ -20,12 +21,14 @@ public partial class LocalizedMessageDialog : Window
     /// <param name="primaryButtonText">Caption of the confirming button.</param>
     /// <param name="cancelButtonText">Caption of the cancel button; <see langword="null"/> hides the button.</param>
     /// <param name="secondaryButtonText">Caption of the secondary button; <see langword="null"/> hides the button.</param>
+    /// <param name="tertiaryButtonText">Caption of the tertiary button; <see langword="null"/> hides the button.</param>
     public LocalizedMessageDialog(
         string title,
         string message,
         string primaryButtonText,
         string? cancelButtonText = null,
-        string? secondaryButtonText = null)
+        string? secondaryButtonText = null,
+        string? tertiaryButtonText = null)
     {
         DialogTitle = title;
         Message = message;
@@ -34,6 +37,8 @@ public partial class LocalizedMessageDialog : Window
         CancelButtonVisibility = cancelButtonText is null ? Visibility.Collapsed : Visibility.Visible;
         SecondaryButtonText = secondaryButtonText ?? string.Empty;
         SecondaryButtonVisibility = secondaryButtonText is null ? Visibility.Collapsed : Visibility.Visible;
+        TertiaryButtonText = tertiaryButtonText ?? string.Empty;
+        TertiaryButtonVisibility = tertiaryButtonText is null ? Visibility.Collapsed : Visibility.Visible;
         InitializeComponent();
         // Without a main window yet, the application adopts this dialog as its main window; a window cannot own itself.
         Window? owner = Application.Current?.MainWindow;
@@ -54,6 +59,13 @@ public partial class LocalizedMessageDialog : Window
 
     public Visibility SecondaryButtonVisibility { get; }
 
+    public string TertiaryButtonText { get; }
+
+    public Visibility TertiaryButtonVisibility { get; }
+
+    /// <summary>Gets whether the window was closed with the tertiary button.</summary>
+    public bool IsTertiaryButtonSelected { get; private set; }
+
     /// <summary>Gets whether the window was closed with the secondary button.</summary>
     public bool IsSecondaryButtonSelected { get; private set; }
 
@@ -65,6 +77,12 @@ public partial class LocalizedMessageDialog : Window
     private void SecondaryButton_OnClick(object sender, RoutedEventArgs e)
     {
         IsSecondaryButtonSelected = true;
+        DialogResult = false;
+    }
+
+    private void TertiaryButton_OnClick(object sender, RoutedEventArgs e)
+    {
+        IsTertiaryButtonSelected = true;
         DialogResult = false;
     }
 }

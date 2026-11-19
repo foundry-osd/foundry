@@ -33,6 +33,12 @@
             <Button
                 MinWidth="96"
                 Margin="8,8,0,0"
+                Click="TertiaryButton_OnClick"
+                Content="{Binding TertiaryButtonText, RelativeSource={RelativeSource AncestorType=Window}}"
+                Visibility="{Binding TertiaryButtonVisibility, RelativeSource={RelativeSource AncestorType=Window}}" />
+            <Button
+                MinWidth="96"
+                Margin="8,8,0,0"
                 Click="SecondaryButton_OnClick"
                 Content="{Binding SecondaryButtonText, RelativeSource={RelativeSource AncestorType=Window}}"
                 Visibility="{Binding SecondaryButtonVisibility, RelativeSource={RelativeSource AncestorType=Window}}" />
