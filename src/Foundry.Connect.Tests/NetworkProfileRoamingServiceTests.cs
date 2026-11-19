@@ -57,6 +57,34 @@ public sealed class NetworkProfileRoamingServiceTests
     }
 
     [Fact]
+    public async Task Constructor_KeepingTheExistingArtifact_LeavesTheFirstConnectPageCaptureInPlace()
+    {
+        using var tempDirectory = new TemporaryDirectory();
+        string profilePath = tempDirectory.CreateFile("source", "wifi.xml", "<WLANProfile><name>Guest</name></WLANProfile>");
+        var firstRun = new NetworkProfileRoamingService(
+            CreateEnabledConfiguration(),
+            NullLogger<NetworkProfileRoamingService>.Instance,
+            tempDirectory.ArtifactPath);
+        await firstRun.CaptureWifiProfilesAsync(
+            [new NetworkProfileRoamingCaptureRequest(
+                profilePath,
+                NetworkProfileRoamingProfileSource.ManualWifi,
+                NetworkProfileRoamingConnectivityExpectation.PreOobeConnectable)],
+            TestContext.Current.CancellationToken);
+        string manifestPath = Path.Combine(tempDirectory.ArtifactPath, "manifest.json");
+        string manifest = File.ReadAllText(manifestPath);
+
+        _ = new NetworkProfileRoamingService(
+            CreateEnabledConfiguration(),
+            NullLogger<NetworkProfileRoamingService>.Instance,
+            tempDirectory.ArtifactPath,
+            keepsExistingArtifact: true);
+
+        Assert.Equal(manifest, File.ReadAllText(manifestPath));
+        Assert.True(File.Exists(Path.Combine(tempDirectory.ArtifactPath, "wifi-profile.xml")));
+    }
+
+    [Fact]
     public async Task CaptureWifiProfilesAsync_WhenManualWifiSucceeds_WritesWifiProfileAndManifest()
     {
         using var tempDirectory = new TemporaryDirectory();

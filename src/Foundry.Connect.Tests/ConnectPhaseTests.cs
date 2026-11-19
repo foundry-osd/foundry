@@ -5,6 +5,8 @@
 using System.ComponentModel;
 using System.Windows;
 using Foundry.Connect.Configuration;
+using Foundry.Connect.Network;
+using Foundry.Connect.Security;
 using Foundry.Connect.Startup;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Runtime;
@@ -14,6 +16,8 @@ using Foundry.Deploy.Tests;
 using Foundry.Telemetry;
 using Foundry.Wpf.Localization;
 using Foundry.Wpf.Shell;
+using Foundry.Wpf.Theme;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Foundry.Connect.Tests;
@@ -128,6 +132,50 @@ public sealed class ConnectPhaseTests
 
         return Task.CompletedTask;
     });
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void CreateSuccessResult_CarriesTheProvisioningAndHandsTheKeyOverOnlyOnTheFirstRun(bool isRevisit)
+    {
+        var provisioning = new ProvisioningOutcome(Dot1xState.NotConfigured, ProvisionedWifiState.NotConfigured, null, []);
+        using DeploymentKeyTransfer key = DeploymentKeyTransfer.FromKey(Enumerable.Repeat((byte)7, DeploymentKeyTransfer.KeyLength).ToArray());
+        ResourceLocalizationService localization = TestLocalization.Create();
+        using ServiceProvider services = new ServiceCollection()
+            .AddSingleton<IThemeService>(new ThemeService())
+            .AddSingleton<ILocalizationService>(localization)
+            .AddSingleton<IProvisioningStep>(new StubProvisioningStep(provisioning))
+            .AddSingleton<IConnectUnlockService>(new FakeUnlockService { DeploymentKey = key })
+            .BuildServiceProvider();
+
+        ConnectPhaseResult result = ConnectPhase.CreateSuccessResult(services, isRevisit);
+
+        Assert.Equal((int)ChildRuntimeExitCode.Success, result.ExitCode);
+        Assert.Same(provisioning, result.Provisioning);
+        Assert.Equal(nameof(Foundry.Wpf.Theme.ThemeMode.System), result.ThemeMode);
+        Assert.Equal(localization.CurrentCulture.Name, result.CultureName);
+        if (isRevisit)
+        {
+            // The deployment keeps its own key: a key Connect obtained while reopened is zeroed.
+            Assert.Null(result.DeploymentKey);
+            Assert.False(key.TryTake(new byte[DeploymentKeyTransfer.KeyLength]));
+        }
+        else
+        {
+            Assert.Same(key, result.DeploymentKey);
+        }
+    }
+
+    private sealed class StubProvisioningStep(ProvisioningOutcome outcome) : IProvisioningStep
+    {
+        public ProvisioningOutcome? LastOutcome => outcome;
+
+        public Task<ProvisioningOutcome> RunAsync(CancellationToken cancellationToken) => throw new NotSupportedException();
+
+        public Task<ProvisioningOutcome> RefreshWifiAsync(CancellationToken cancellationToken) => throw new NotSupportedException();
+
+        public void Restore(ProvisioningOutcome previous) => throw new NotSupportedException();
+    }
 
     private sealed class FakeShellHost(Window? window = null) : IShellHost
     {

@@ -70,6 +70,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Verzió: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Vissza a telepítéshez</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: automatikusan kiosztott cím</value>
   </data>

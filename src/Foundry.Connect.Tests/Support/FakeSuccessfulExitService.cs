@@ -7,7 +7,8 @@ using Foundry.Connect.Lifetime;
 namespace Foundry.Connect.Tests.Support;
 
 /// <summary>
-/// <see cref="ISuccessfulExitService"/> that counts calls and returns a configured result, without any probe or exit.
+/// <see cref="ISuccessfulExitService"/> that counts the calls of both exits and returns a configured result, without any
+/// probe or exit.
 /// A <see cref="Gate"/> holds every call open until the test completes it, faults it or cancels it.
 /// </summary>
 internal sealed class FakeSuccessfulExitService : ISuccessfulExitService
@@ -26,6 +27,16 @@ internal sealed class FakeSuccessfulExitService : ISuccessfulExitService
 
     /// <summary>Gets the <c>connectSkipped</c> argument of every call.</summary>
     public List<bool> ConnectSkipped { get; } = [];
+
+    /// <summary>Gets the number of <see cref="TryReturnToDeploymentAsync"/> calls.</summary>
+    public int ReturnCalls { get; private set; }
+
+    /// <inheritdoc />
+    public Task<SuccessfulExitResult> TryReturnToDeploymentAsync(CancellationToken cancellationToken)
+    {
+        ReturnCalls++;
+        return Gate?.Task ?? Task.FromResult(Results.Count > 0 ? Results.Dequeue() : Result);
+    }
 
     /// <inheritdoc />
     public Task<SuccessfulExitResult> TryCompleteAsync(bool connectSkipped, CancellationToken cancellationToken)

@@ -60,6 +60,9 @@ internal sealed class FakeConnectionCoordinator : IConnectionCoordinator
     /// <summary>Gets the number of <see cref="DisconnectWifiAsync"/> calls.</summary>
     public int DisconnectCalls { get; private set; }
 
+    /// <summary>Gets the outcome of every <see cref="RestoreProvisioning"/> call.</summary>
+    public List<ProvisioningOutcome> RestoredProvisioning { get; } = [];
+
     /// <summary>Gets the number of <see cref="ReleaseProvisionedProfile"/> calls.</summary>
     public int ReleaseCalls { get; private set; }
 
@@ -105,6 +108,9 @@ internal sealed class FakeConnectionCoordinator : IConnectionCoordinator
 
         return ProvisioningIgnoresCancellation ? gate.Task : gate.Task.WaitAsync(cancellationToken);
     }
+
+    /// <inheritdoc />
+    public void RestoreProvisioning(ProvisioningOutcome outcome) => RestoredProvisioning.Add(outcome);
 
     /// <inheritdoc />
     public Task ApplyObservationAsync(NetworkObservation observation, CancellationToken cancellationToken) =>

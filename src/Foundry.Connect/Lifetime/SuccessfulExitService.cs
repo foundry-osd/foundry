@@ -13,14 +13,14 @@ using Microsoft.Extensions.Logging;
 namespace Foundry.Connect.Lifetime;
 
 /// <summary>
-/// Outcome of <see cref="ISuccessfulExitService.TryCompleteAsync"/>.
+/// Outcome of <see cref="ISuccessfulExitService.TryCompleteAsync"/> and <see cref="ISuccessfulExitService.TryReturnToDeploymentAsync"/>.
 /// </summary>
 public enum SuccessfulExitResult
 {
     /// <summary>The successful exit was requested from the lifetime service.</summary>
     Exited,
 
-    /// <summary>The final probe did not confirm internet access; Connect stays open.</summary>
+    /// <summary>The final probe did not confirm internet access; Connect stays open. Never returned when returning to the deployment.</summary>
     NotOnline,
 
     /// <summary>Another exit was already requested, or won the race.</summary>
@@ -28,7 +28,8 @@ public enum SuccessfulExitResult
 }
 
 /// <summary>
-/// The single exit path of Continue, auto-continue and the network gate that skips the Connect page.
+/// The single exit path of Continue, auto-continue and the network gate that skips the Connect page, and of "Back to
+/// deployment" on a Connect page reopened from the deployment.
 /// </summary>
 public interface ISuccessfulExitService
 {
@@ -44,10 +45,20 @@ public interface ISuccessfulExitService
     /// <returns>What happened.</returns>
     /// <exception cref="OperationCanceledException">The caller cancelled before the exit was requested.</exception>
     Task<SuccessfulExitResult> TryCompleteAsync(bool connectSkipped, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Leaves a Connect page reopened from the deployment whatever the internet status: captures roaming profiles, releases
+    /// the provisioned profile, clears the secrets and requests the successful exit, without a final probe and without the
+    /// session-ready event (sent once, by the first page).
+    /// </summary>
+    /// <param name="cancellationToken">Caller cancellation; cancelling it abandons the exit and throws.</param>
+    /// <returns><see cref="SuccessfulExitResult.Exited"/>, or <see cref="SuccessfulExitResult.AlreadyExiting"/> when another exit won.</returns>
+    /// <exception cref="OperationCanceledException">The caller cancelled before the exit was requested.</exception>
+    Task<SuccessfulExitResult> TryReturnToDeploymentAsync(CancellationToken cancellationToken);
 }
 
 /// <summary>
-/// Leaves Foundry Connect once, after a final probe has confirmed the internet.
+/// Leaves Foundry Connect once, after a final probe has confirmed the internet, or at once when it returns to the deployment.
 /// </summary>
 /// <remarks>
 /// Order matters: roaming is captured while the profiles still exist, the session-ready event waits at most
@@ -141,6 +152,35 @@ public sealed class SuccessfulExitService : ISuccessfulExitService
             _logger.LogInformation(
                 "Network ready; leaving Foundry Connect. ConnectionType={ConnectionType}",
                 ConnectSessionReadyTelemetry.ConnectionType(state.ActiveInternetPath));
+            return _lifetime.TryExit(ChildRuntimeExitCode.Success) ? SuccessfulExitResult.Exited : SuccessfulExitResult.AlreadyExiting;
+        }
+        finally
+        {
+            _gate.Release();
+        }
+    }
+
+    /// <inheritdoc />
+    public async Task<SuccessfulExitResult> TryReturnToDeploymentAsync(CancellationToken cancellationToken)
+    {
+        await _gate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try
+        {
+            if (_lifetime.RequestedExitCode is not null)
+            {
+                return SuccessfulExitResult.AlreadyExiting;
+            }
+
+            NetworkState state = _coordinator.State;
+            await CaptureRoamingAsync(state, cancellationToken).ConfigureAwait(false);
+
+            _coordinator.ReleaseProvisionedProfile();
+            _secrets.ClearAll();
+
+            _logger.LogInformation(
+                "Returning to the deployment; leaving Foundry Connect. ConnectionType={ConnectionType}, Internet={Internet}",
+                ConnectSessionReadyTelemetry.ConnectionType(state.ActiveInternetPath),
+                state.Internet);
             return _lifetime.TryExit(ChildRuntimeExitCode.Success) ? SuccessfulExitResult.Exited : SuccessfulExitResult.AlreadyExiting;
         }
         finally

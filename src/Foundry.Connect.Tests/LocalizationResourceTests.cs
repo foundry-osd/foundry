@@ -57,7 +57,7 @@ public sealed class LocalizationResourceTests
     // Texts of the page, its bindings and the unlock prompt: the parity tests keep the key sets equal, this keeps them filled.
     public static TheoryData<string> PageKeys => new()
     {
-        "Action.Retry", "Action.StayHere", "Debug.Scenario.ApipaAddress", "Debug.Scenario.CaptivePortal", "Debug.Scenario.Checking",
+        "Action.Retry", "Action.StayHere", "Connect.BackToDeployment", "Debug.Scenario.ApipaAddress", "Debug.Scenario.CaptivePortal", "Debug.Scenario.Checking",
         "Debug.Scenario.Dot1xAuthenticating", "Debug.Scenario.Dot1xFailed", "Debug.Scenario.EthernetNoInternet",
         "Debug.Scenario.EthernetReady", "Debug.Scenario.Live", "Debug.Scenario.NoAdapter", "Debug.Scenario.NoLink",
         "Debug.Scenario.NoWifiAdapter", "Debug.Scenario.ProvisionedWifiLocked", "Debug.Scenario.ProvisionedWifiUnavailable",

@@ -70,6 +70,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Versija: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Atpakaļ uz izvietošanu</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: automātiski piešķirta adrese</value>
   </data>

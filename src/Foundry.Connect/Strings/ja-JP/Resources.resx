@@ -70,6 +70,9 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>バージョン: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>導入に戻る</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: 自己割り当てアドレス</value>
   </data>

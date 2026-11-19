@@ -70,6 +70,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>버전: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>배포로 돌아가기</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: 자체 할당 주소</value>
   </data>

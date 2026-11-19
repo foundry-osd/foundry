@@ -198,9 +198,9 @@
                             Orientation="Horizontal">
                             <Button x:Name="ContinueButton"
                                 Margin="8,0,0,0"
-                                AutomationProperties.Name="{Binding Strings[Action.Continue]}"
+                                AutomationProperties.Name="{Binding AutoContinue.ContinueButtonText}"
                                 Command="{Binding AutoContinue.ContinueCommand}"
-                                Content="{Binding Strings[Action.Continue]}"
+                                Content="{Binding AutoContinue.ContinueButtonText}"
                                 IsDefault="{Binding AutoContinue.IsContinueDefault}"
                                 Style="{StaticResource ConnectAccentActionButtonStyle}"
                                 Visibility="{Binding AutoContinue.CanContinue, Converter={StaticResource BooleanToVisibilityConverter}}" />

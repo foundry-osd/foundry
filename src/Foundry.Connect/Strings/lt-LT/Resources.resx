@@ -70,6 +70,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Versija: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Grįžti į diegimą</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: automatiškai priskirtas adresas</value>
   </data>

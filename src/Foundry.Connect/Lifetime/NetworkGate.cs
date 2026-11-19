@@ -29,7 +29,12 @@ namespace Foundry.Connect.Lifetime;
 /// is open (<see cref="IConnectUnlockService.IsPromptOpen"/>); its deadline does not move, so a prompt still open at the
 /// deadline leaves the page shown behind it. A final probe of the successful exit that is not online keeps the gate
 /// probing until its deadline. Call <see cref="RunAsync"/> on the UI thread: the wired prompt runs a nested modal loop
-/// inside it, and the provisioned Wi-Fi feedback is a bound property. The only log entry is the gate outcome.
+/// inside it, and the provisioned Wi-Fi feedback is a bound property.
+/// </para>
+/// <para>
+/// A Connect page reopened from the deployment calls <see cref="StartForRevisitAsync"/> instead: no wired prompt, no probe
+/// and no skip, only the provisioning (replayed when the first page ran) and the monitor. Either start runs once and logs
+/// one entry: the gate outcome or the revisit start.
 /// </para>
 /// </remarks>
 public sealed class NetworkGate : IDisposable
@@ -134,6 +139,60 @@ public sealed class NetworkGate : IDisposable
         }
 
         return await ProbeUntilDecidedAsync(token);
+    }
+
+    /// <summary>
+    /// Starts a Connect page reopened from the deployment: replays <paramref name="previous"/> without provisioning (the
+    /// provisioning reconnects every linked Ethernet interface, which would drop the operator's link), refreshes a locked
+    /// provisioned Wi-Fi once the deployment key already unlocked its secrets, shows the provisioned Wi-Fi feedback and starts
+    /// the monitor. Without a previous outcome it provisions once, as <see cref="RunAsync"/> does. It never asks for the wired
+    /// password, never probes and never leaves Connect: the page always shows.
+    /// </summary>
+    /// <param name="previous">The provisioning outcome of the first Connect page, or <see langword="null"/> when it did not run.</param>
+    /// <param name="cancellationToken">Caller cancellation.</param>
+    /// <returns>A task that completes once the monitor started.</returns>
+    /// <exception cref="InvalidOperationException">The gate already ran or started.</exception>
+    /// <exception cref="OperationCanceledException">
+    /// The caller cancelled, an exit was requested, or the gate was disposed before the monitor started.
+    /// </exception>
+    public async Task StartForRevisitAsync(ProvisioningOutcome? previous, CancellationToken cancellationToken)
+    {
+        ObjectDisposedException.ThrowIf(_isDisposed, this);
+        if (_hasRun)
+        {
+            throw new InvalidOperationException("The network gate runs once per session.");
+        }
+
+        _hasRun = true;
+        using CancellationTokenSource linked = CancellationTokenSource.CreateLinkedTokenSource(
+            cancellationToken, _lifetime.ExitRequested, _disposeCts.Token);
+        CancellationToken token = linked.Token;
+        token.ThrowIfCancellationRequested();
+
+        // No ConfigureAwait(false): the provisioned Wi-Fi feedback belongs to the UI thread.
+        ProvisioningOutcome provisioning;
+        if (previous is null)
+        {
+            provisioning = await _coordinator.ApplyProvisioningAsync(token);
+        }
+        else
+        {
+            _coordinator.RestoreProvisioning(previous);
+            provisioning = previous;
+
+            // The refresh a successful prompt runs: only the Wi-Fi part, which never touches the Ethernet interfaces.
+            if (previous.Wifi.Status == ProvisionedWifiStatus.Locked && !_unlock.IsWifiUnlockRequired)
+            {
+                await _coordinator.RefreshProvisionedWifiAsync(token);
+            }
+        }
+
+        token.ThrowIfCancellationRequested();
+        _provisionedWifi.ApplyProvisioningOutcome(provisioning);
+        StartMonitor();
+        _logger.LogInformation(
+            "Network gate skipped for the Connect page reopened from the deployment. Provisioning={Provisioning}",
+            previous is null ? "Applied" : "Replayed");
     }
 
     /// <summary>

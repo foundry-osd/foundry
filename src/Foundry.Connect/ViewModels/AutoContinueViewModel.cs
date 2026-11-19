@@ -28,6 +28,11 @@ namespace Foundry.Connect.ViewModels;
 /// available whenever the internet is online and no exit was requested; only one final probe runs at a time, and a probe
 /// that throws counts as a failed probe. Every member runs on the UI thread; timer and completion callbacks that arrive
 /// after <see cref="Dispose"/> are ignored.
+/// <para>
+/// On a Connect page reopened from the deployment (<c>isRevisit</c>) there is no countdown and no caption: the button reads
+/// "Back to deployment", stays available whatever the internet status until an exit is requested, and returns through
+/// <see cref="ISuccessfulExitService.TryReturnToDeploymentAsync"/>, under a debug scenario too.
+/// </para>
 /// </remarks>
 public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
 {
@@ -42,6 +47,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     private readonly IUiDispatcher _dispatcher;
     private readonly ILogger<AutoContinueViewModel> _logger;
     private readonly bool _isAutoContinueEnabled;
+    private readonly bool _isRevisit;
     private readonly CancellationTokenSource _disposeCts = new();
     private InternetStatus _internet = InternetStatus.Checking;
     private ITimer? _timer;
@@ -67,6 +73,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     /// the page lives behind the network gate's status page first, and its countdown must start from the full delay on the
     /// visible page and never leave from behind the status page.
     /// </param>
+    /// <param name="isRevisit">Whether the Connect page was reopened from the deployment: "Back to deployment", no countdown.</param>
     public AutoContinueViewModel(
         ILocalizationService localization,
         ISuccessfulExitService successfulExit,
@@ -75,7 +82,8 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
         IUiDispatcher dispatcher,
         ILogger<AutoContinueViewModel> logger,
         bool isAutoContinueEnabled,
-        bool isPageShown = true)
+        bool isPageShown = true,
+        bool isRevisit = false)
         : base(localization)
     {
         _successfulExit = successfulExit ?? throw new ArgumentNullException(nameof(successfulExit));
@@ -85,6 +93,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _isAutoContinueEnabled = isAutoContinueEnabled;
         _isPageShown = isPageShown;
+        _isRevisit = isRevisit;
     }
 
     /// <summary>
@@ -124,9 +133,14 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     public bool HasCaption => _internet == InternetStatus.Online && CaptionText.Length > 0;
 
     /// <summary>
-    /// Gets whether Continue is available: the internet is online and no exit was requested yet.
+    /// Gets whether Continue is available: the internet is online (always on a reopened page) and no exit was requested yet.
     /// </summary>
-    public bool CanContinue => _internet == InternetStatus.Online && _lifetime.RequestedExitCode is null;
+    public bool CanContinue => (_isRevisit || _internet == InternetStatus.Online) && _lifetime.RequestedExitCode is null;
+
+    /// <summary>
+    /// Gets the Continue button text: "Continue", or "Back to deployment" on a Connect page reopened from the deployment.
+    /// </summary>
+    public string ContinueButtonText => LocalizationService.GetString(_isRevisit ? "Connect.BackToDeployment" : "Action.Continue");
 
     /// <summary>
     /// Gets whether Continue is the default button. It stops being the default for the rest of the session after the
@@ -168,7 +182,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     /// </summary>
     internal Task? PendingCompletion { get; private set; }
 
-    private bool IsCountdownAllowed => _isAutoContinueEnabled || _isSimulation;
+    private bool IsCountdownAllowed => !_isRevisit && (_isAutoContinueEnabled || _isSimulation);
 
     /// <summary>
     /// Applies the latest internet status: online starts the countdown (or offers Continue without counting after a
@@ -251,9 +265,14 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
-    /// Raises <see cref="CaptionText"/> again after a language change; the countdown keeps its seconds.
+    /// Raises <see cref="CaptionText"/> and <see cref="ContinueButtonText"/> again after a language change; the countdown keeps
+    /// its seconds.
     /// </summary>
-    public void RefreshTexts() => OnPropertyChanged(nameof(CaptionText));
+    public void RefreshTexts()
+    {
+        OnPropertyChanged(nameof(CaptionText));
+        OnPropertyChanged(nameof(ContinueButtonText));
+    }
 
     /// <summary>
     /// Stops the timer and cancels a pending completion. Idempotent.
@@ -353,7 +372,8 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
             return;
         }
 
-        if (_isSimulation)
+        // Returning to the deployment does not depend on the network, so a debug scenario does not simulate it.
+        if (_isSimulation && !_isRevisit)
         {
             _logger.LogInformation("Debug scenario active; continue is simulated. Automatic={Automatic}", automatic);
             return;
@@ -369,7 +389,9 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
         try
         {
             // No ConfigureAwait(false): the continuation changes bound properties on the UI thread.
-            SuccessfulExitResult result = await _successfulExit.TryCompleteAsync(connectSkipped: false, token);
+            SuccessfulExitResult result = _isRevisit
+                ? await _successfulExit.TryReturnToDeploymentAsync(token)
+                : await _successfulExit.TryCompleteAsync(connectSkipped: false, token);
             if (_isDisposed)
             {
                 return;

@@ -362,6 +362,9 @@ public sealed class RoamingCaptureTests
 
         public Task<ProvisioningOutcome> RefreshWifiAsync(CancellationToken cancellationToken) =>
             throw new InvalidOperationException("Roaming capture must not refresh provisioning.");
+
+        public void Restore(ProvisioningOutcome previous) =>
+            throw new InvalidOperationException("Roaming capture must not restore provisioning.");
     }
 
     private sealed class StubHistory : IWifiConnectionHistory

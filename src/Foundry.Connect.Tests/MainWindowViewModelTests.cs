@@ -125,6 +125,31 @@ public sealed class MainWindowViewModelTests
     }
 
     [Fact]
+    public void ApplyInitialPreferences_AppliesTheDeploymentThemeAndLanguageAndKeepsThemOverUnknownValues()
+    {
+        CultureInfo original = CultureInfo.CurrentUICulture;
+        string target = original.Name == "fr-FR" ? "de-DE" : "fr-FR";
+        using MainWindowViewModel viewModel = CreateViewModel();
+
+        try
+        {
+            viewModel.ApplyInitialPreferences("Dark", target);
+
+            Assert.Equal(ThemeMode.Dark, viewModel.CurrentTheme);
+            Assert.Equal(target, viewModel.CurrentCulture.Name);
+
+            viewModel.ApplyInitialPreferences("Sepia", "xx-NOTACULTURE");
+
+            Assert.Equal(ThemeMode.Dark, viewModel.CurrentTheme);
+            Assert.Equal(target, viewModel.CurrentCulture.Name);
+        }
+        finally
+        {
+            _localization.SetCulture(original);
+        }
+    }
+
+    [Fact]
     public void HandleWindowClosing_RequestsUserAbortedUnlessAnExitWon()
     {
         using MainWindowViewModel viewModel = CreateViewModel();
@@ -202,11 +227,9 @@ public sealed class MainWindowViewModelTests
 
     private sealed class FakeThemeService : IThemeService
     {
-        public ThemeMode CurrentTheme => ThemeMode.System;
+        public ThemeMode CurrentTheme { get; private set; } = ThemeMode.System;
 
-        public void SetTheme(ThemeMode theme)
-        {
-        }
+        public void SetTheme(ThemeMode theme) => CurrentTheme = theme;
     }
 
     private sealed class FakeApplicationShellService : IApplicationShellService

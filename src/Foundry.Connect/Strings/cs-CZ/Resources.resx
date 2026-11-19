@@ -70,6 +70,9 @@ Licencováno pod licencí MIT.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Verze: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Zpět k nasazení</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: automaticky přiřazená adresa</value>
   </data>

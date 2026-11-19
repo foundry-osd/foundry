@@ -43,16 +43,43 @@ public sealed class NetworkProfileRoamingService : INetworkProfileRoamingService
     {
     }
 
+    /// <summary>
+    /// Initializes a network profile roaming service that continues the session's artifact when
+    /// <paramref name="keepsExistingArtifact"/> is set: a Connect page reopened from the deployment keeps what the first page
+    /// captured, and its own capture replaces only the profiles it captures again.
+    /// </summary>
+    /// <param name="configuration">The loaded runtime configuration.</param>
+    /// <param name="logger">Logger.</param>
+    /// <param name="keepsExistingArtifact">Whether the artifact of an earlier Connect page of this session is kept.</param>
     internal NetworkProfileRoamingService(
         FoundryConnectConfigurationDocument configuration,
         ILogger<NetworkProfileRoamingService> logger,
-        string artifactRootPath)
+        bool keepsExistingArtifact)
+        : this(configuration, logger, ConnectWorkspacePaths.GetNetworkProfileRoamingDirectory(), keepsExistingArtifact)
+    {
+    }
+
+    internal NetworkProfileRoamingService(
+        FoundryConnectConfigurationDocument configuration,
+        ILogger<NetworkProfileRoamingService> logger,
+        string artifactRootPath,
+        bool keepsExistingArtifact = false)
     {
         _configuration = configuration;
         _logger = logger;
         _artifactRootPath = artifactRootPath;
 
-        if (_configuration.Network.ProfileRoaming.IsAnyEnabled)
+        if (!_configuration.Network.ProfileRoaming.IsAnyEnabled)
+        {
+            return;
+        }
+
+        if (keepsExistingArtifact)
+        {
+            Directory.CreateDirectory(_artifactRootPath);
+            _artifactRootPrepared = true;
+        }
+        else
         {
             PrepareArtifactRoot();
         }

@@ -123,6 +123,19 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnect
     }
 
     /// <inheritdoc />
+    public void RestoreProvisioning(ProvisioningOutcome outcome)
+    {
+        ArgumentNullException.ThrowIfNull(outcome);
+        _provisioningStep.Restore(outcome);
+        lock (_stateLock)
+        {
+            _provisioning = outcome;
+        }
+
+        Publish();
+    }
+
+    /// <inheritdoc />
     public async Task<ProvisionedWifiState> RefreshProvisionedWifiAsync(CancellationToken cancellationToken)
     {
         OperationOutcome outcome = await RunOperationAsync(

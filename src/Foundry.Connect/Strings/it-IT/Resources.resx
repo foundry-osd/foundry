@@ -70,6 +70,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Versione: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Torna alla distribuzione</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: indirizzo autoassegnato</value>
   </data>

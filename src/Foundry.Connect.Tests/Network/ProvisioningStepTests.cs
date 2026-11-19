@@ -39,6 +39,24 @@ public sealed class ProvisioningStepTests
     }
 
     [Fact]
+    public async Task Restore_MakesThePreviousOutcomeTheRunWithoutReconnectingEthernet()
+    {
+        using var directory = new TemporaryDirectory();
+        var wired = new RecordingWiredClient();
+        ProvisioningStep step = CreateStep(directory, WiredConfiguration(directory), ConnectRuntimeSecrets.None(), wired: wired);
+        var previous = new ProvisioningOutcome(new Dot1xState(Dot1xAuthenticationStatus.ProfileApplied), ProvisionedWifiState.NotConfigured, null, []);
+
+        step.Restore(previous);
+
+        Assert.Same(previous, step.LastOutcome);
+        Assert.Same(previous, await step.RunAsync(TestContext.Current.CancellationToken));
+        Assert.Same(previous, await step.RefreshWifiAsync(TestContext.Current.CancellationToken));
+        Assert.Empty(wired.AddedProfiles);
+        Assert.Empty(wired.Reconnected);
+        Assert.Throws<InvalidOperationException>(() => step.Restore(previous));
+    }
+
+    [Fact]
     public async Task Wired_ReconnectsEveryLinkedEthernetInterface()
     {
         using var directory = new TemporaryDirectory();

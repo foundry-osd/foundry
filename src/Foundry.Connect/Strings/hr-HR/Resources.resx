@@ -70,6 +70,9 @@ Licenciran prema MIT licenci.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Verzija: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Natrag na implementaciju</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: samododijeljena adresa</value>
   </data>

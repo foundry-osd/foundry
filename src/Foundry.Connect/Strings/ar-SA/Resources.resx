@@ -70,6 +70,9 @@
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>الإصدار: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>العودة إلى النشر</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: عنوان معيّن ذاتيًا</value>
   </data>

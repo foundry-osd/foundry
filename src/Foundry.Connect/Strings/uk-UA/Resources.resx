@@ -70,6 +70,9 @@
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Версія: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Повернутися до розгортання</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: автоматично призначена адреса</value>
   </data>

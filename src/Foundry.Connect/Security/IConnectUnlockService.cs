@@ -90,6 +90,23 @@ public interface IConnectUnlockService
     Task<ConnectUnlockResult> UnlockAsync(ConnectUnlockTrigger trigger, CancellationToken cancellationToken);
 
     /// <summary>
+    /// Unlocks the network secrets with the deployment key the deployment hands to a Connect page reopened from it, without a
+    /// prompt. Call it before the page shows any prompt.
+    /// </summary>
+    /// <remarks>
+    /// The key bytes are taken from <paramref name="key"/>, which is left zeroed, and the taken copy is zeroed on every path.
+    /// The key is accepted only when the media's key check authenticates it; a refused key leaves the secrets locked and the
+    /// prompt available on demand. The accepted key is not kept: the reopened page hands no key back. The caller refreshes the
+    /// provisioned Wi-Fi afterwards, as after a successful prompt.
+    /// </remarks>
+    /// <param name="key">The transferred deployment key.</param>
+    /// <returns>
+    /// <see langword="true"/> when the secrets were unlocked; <see langword="false"/> when the key was already taken, the media
+    /// has no protection or no key check, or the key fails the key check.
+    /// </returns>
+    bool TryAcceptDeploymentKey(DeploymentKeyTransfer key);
+
+    /// <summary>
     /// Transfers the deployment key kept by the last successful unlock to the caller, which then owns and disposes it.
     /// </summary>
     /// <returns>

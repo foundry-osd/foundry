@@ -70,6 +70,9 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Common.VersionFormat" xml:space="preserve">
     <value>Versie: {0}</value>
   </data>
+  <data name="Connect.BackToDeployment" xml:space="preserve">
+    <value>Terug naar de implementatie</value>
+  </data>
   <data name="Debug.Scenario.ApipaAddress" xml:space="preserve">
     <value>Ethernet: zelf toegewezen adres</value>
   </data>

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using CommunityToolkit.Mvvm.Input;
 using Foundry.Core.Models.Configuration;
@@ -172,6 +173,48 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
+    /// Applies the theme and language the deployment shows when it reopens Connect, before the content's first layout, so
+    /// the page and the menu check marks already use them. A missing or unknown value keeps the current one, and a failure
+    /// while applying them is logged as a warning: the preferences never fail Connect's startup.
+    /// </summary>
+    /// <param name="themeMode">A <see cref="ConnectThemeMode"/> name, for example <c>Dark</c>, or <see langword="null"/>.</param>
+    /// <param name="cultureName">A culture name, for example <c>fr-FR</c>, or <see langword="null"/>.</param>
+    public void ApplyInitialPreferences(string? themeMode, string? cultureName)
+    {
+        bool applied = false;
+        try
+        {
+            if (Enum.TryParse(themeMode, ignoreCase: true, out ConnectThemeMode theme) && Enum.IsDefined(theme))
+            {
+                SetTheme(theme);
+                applied = true;
+            }
+
+            if (TryGetPredefinedCulture(cultureName, out CultureInfo? culture))
+            {
+                LocalizationService.SetCulture(culture);
+                applied = true;
+            }
+        }
+        catch (Exception exception)
+        {
+            // The exception is not attached because every log level is mirrored remotely.
+            _logger.LogWarning(
+                "Theme and language from the deployment could not be applied. FailureType={FailureType}",
+                exception.GetType().Name);
+            return;
+        }
+
+        if (applied)
+        {
+            _logger.LogInformation(
+                "Theme and language applied from the deployment. Theme={Theme}, Culture={Culture}",
+                CurrentTheme,
+                CurrentCulture.Name);
+        }
+    }
+
+    /// <summary>
     /// Unsubscribes from language changes. Idempotent.
     /// </summary>
     public override void Dispose()
@@ -250,6 +293,25 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         _themeService.SetTheme(theme);
         OnPropertyChanged(nameof(CurrentTheme));
+    }
+
+    private static bool TryGetPredefinedCulture(string? cultureName, [NotNullWhen(true)] out CultureInfo? culture)
+    {
+        culture = null;
+        if (string.IsNullOrWhiteSpace(cultureName))
+        {
+            return false;
+        }
+
+        try
+        {
+            culture = CultureInfo.GetCultureInfo(cultureName, predefinedOnly: true);
+            return true;
+        }
+        catch (CultureNotFoundException)
+        {
+            return false;
+        }
     }
 
     private void RefreshKeyboardMenu()

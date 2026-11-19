@@ -44,6 +44,15 @@ public interface IProvisioningStep
     ProvisioningOutcome? LastOutcome { get; }
 
     /// <summary>
+    /// Makes <paramref name="previous"/> the outcome every later call returns, without provisioning anything: a Connect page
+    /// reopened from the deployment replays the outcome of the first page instead of reconnecting the Ethernet interfaces.
+    /// <see cref="RefreshWifiAsync"/> then re-runs only the Wi-Fi part of a locked outcome, as after a first run.
+    /// </summary>
+    /// <param name="previous">The outcome of the first Connect page.</param>
+    /// <exception cref="InvalidOperationException">A run already started in this container.</exception>
+    void Restore(ProvisioningOutcome previous);
+
+    /// <summary>
     /// Re-runs only the Wi-Fi part when the cached outcome's Wi-Fi is <see cref="ProvisionedWifiStatus.Locked"/>, after the
     /// deployment password unlocked the secrets, and makes the merged outcome the one every later call returns. The wired
     /// part is never re-run: a wired secret the unlock made readable is zeroed and the wired state is kept.
