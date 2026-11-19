@@ -208,7 +208,7 @@ public sealed class NetworkPageNavigatorTests
         Assert.Equal(callingThread, cancellationThread);
         Assert.False(wait.IsCompleted);
         pageEnded.SetException(new OperationCanceledException());
-        await wait.WaitAsync(TimeSpan.FromSeconds(10));
+        await wait.WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
         Assert.False(await open);
         Assert.False(harness.Navigator.IsOpen);
         Assert.Equal(0, harness.PreferenceCount);
@@ -233,7 +233,7 @@ public sealed class NetworkPageNavigatorTests
         Assert.Contains(nameof(InvalidOperationException), message, StringComparison.Ordinal);
         Assert.DoesNotContain("secret detail", message, StringComparison.Ordinal);
         pageEnded.SetException(new OperationCanceledException());
-        await wait.WaitAsync(TimeSpan.FromSeconds(10));
+        await wait.WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
         Assert.False(await open);
     }
 
