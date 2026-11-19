@@ -362,11 +362,26 @@ Licențiat sub licența MIT.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Limba</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Rețea</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Temă</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Instrumente</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Neconectat</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Conectat prin Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Fără internet</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Conectat prin Wi-Fi</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Se aplică setările de rețea de pe suportul de pornire.</value>

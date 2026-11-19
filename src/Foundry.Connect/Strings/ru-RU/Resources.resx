@@ -362,11 +362,26 @@
   <data name="Menu.Language" xml:space="preserve">
     <value>_Язык</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Сеть</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Тема</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Инструменты</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Нет подключения</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Подключено через Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Нет доступа к интернету</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Подключено через Wi-Fi</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Применяются сетевые параметры с загрузочного носителя.</value>

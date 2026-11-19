@@ -362,11 +362,26 @@ Licencované podľa licencie MIT.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Jazyk</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Sieť</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Motív</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Nástroje</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Nepripojené</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Pripojené cez Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Bez internetu</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Pripojené cez Wi-Fi</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Používajú sa nastavenia siete zo zavádzacieho média.</value>

@@ -362,11 +362,26 @@
   <data name="Menu.Language" xml:space="preserve">
     <value>_Γλώσσα</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Δίκτυο</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Θέμα</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Εργαλεία</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Μη συνδεδεμένο</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Συνδεδεμένο μέσω Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Χωρίς πρόσβαση στο internet</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Συνδεδεμένο μέσω Wi-Fi</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Εφαρμογή των ρυθμίσεων δικτύου από το μέσο εκκίνησης.</value>

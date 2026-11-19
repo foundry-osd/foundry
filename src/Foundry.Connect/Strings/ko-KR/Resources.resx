@@ -362,11 +362,26 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_언어</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_네트워크</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_테마</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_도구</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>연결 안 됨</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>이더넷으로 연결됨</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>인터넷 없음</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Wi-Fi로 연결됨</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>부팅 미디어의 네트워크 설정을 적용하는 중입니다.</value>

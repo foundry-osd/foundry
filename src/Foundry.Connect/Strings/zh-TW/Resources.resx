@@ -362,11 +362,26 @@
   <data name="Menu.Language" xml:space="preserve">
     <value>語言(_L)</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>網路(_N)</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>主題(_T)</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>工具(_T)</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>未連線</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>已透過乙太網路連線</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>沒有網際網路</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>已透過 Wi-Fi 連線</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>正在套用開機媒體中的網路設定。</value>

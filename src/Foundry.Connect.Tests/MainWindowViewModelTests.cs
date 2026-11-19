@@ -13,6 +13,8 @@ using Foundry.Wpf.Theme;
 using Foundry.Connect.ViewModels;
 using Foundry.Utilities.Globalization;
 using Foundry.Wpf.Localization;
+using Foundry.Connect.Network;
+using Foundry.Wpf.Network;
 
 namespace Foundry.Connect.Tests;
 
@@ -160,6 +162,82 @@ public sealed class MainWindowViewModelTests
         Assert.Equal([ChildRuntimeExitCode.UserAborted], _lifetime.Codes);
     }
 
+    [Fact]
+    public void NetworkIndicator_StartsDisconnectedWithItsToolTip()
+    {
+        using MainWindowViewModel viewModel = CreateViewModel();
+
+        Assert.Equal(NetworkIndicatorState.Disconnected, viewModel.NetworkIndicator);
+        Assert.Equal(NetworkIndicatorGlyphs.For(NetworkIndicatorState.Disconnected), viewModel.NetworkIndicatorGlyph);
+        Assert.Equal(viewModel.Strings["Network.State.Disconnected"], viewModel.NetworkIndicatorToolTip);
+    }
+
+    [Theory]
+    [InlineData(InternetStatus.Online, true, false, NetworkIndicatorState.Ethernet, "Network.State.Ethernet")]
+    [InlineData(InternetStatus.Online, false, true, NetworkIndicatorState.Wifi, "Network.State.Wifi")]
+    [InlineData(InternetStatus.Online, true, true, NetworkIndicatorState.Ethernet, "Network.State.Ethernet")]
+    [InlineData(InternetStatus.NoInternet, true, false, NetworkIndicatorState.Limited, "Network.State.Limited")]
+    [InlineData(InternetStatus.CaptivePortal, false, true, NetworkIndicatorState.Limited, "Network.State.Limited")]
+    [InlineData(InternetStatus.Checking, false, true, NetworkIndicatorState.Limited, "Network.State.Limited")]
+    [InlineData(InternetStatus.NoInternet, false, false, NetworkIndicatorState.Disconnected, "Network.State.Disconnected")]
+    [InlineData(InternetStatus.Online, false, false, NetworkIndicatorState.Disconnected, "Network.State.Disconnected")]
+    public void NetworkIndicator_FollowsTheCoordinatorState(
+        InternetStatus internet,
+        bool ethernetConnected,
+        bool wifiConnected,
+        NetworkIndicatorState expected,
+        string toolTipKey)
+    {
+        using MainWindowViewModel viewModel = CreateViewModel();
+        var changed = new List<string?>();
+        viewModel.PropertyChanged += (_, e) => changed.Add(e.PropertyName);
+
+        _coordinator.Publish(CreateNetworkState(internet, ethernetConnected, wifiConnected));
+
+        Assert.Equal(expected, viewModel.NetworkIndicator);
+        Assert.Equal(NetworkIndicatorGlyphs.For(expected), viewModel.NetworkIndicatorGlyph);
+        Assert.Equal(viewModel.Strings[toolTipKey], viewModel.NetworkIndicatorToolTip);
+        Assert.Equal(expected != NetworkIndicatorState.Disconnected, changed.Contains(nameof(MainWindowViewModel.NetworkIndicator)));
+    }
+
+    [Fact]
+    public void NetworkIndicator_ReadsTheCurrentStateInsteadOfAStaleArgument()
+    {
+        using MainWindowViewModel viewModel = CreateViewModel();
+        _coordinator.State = CreateNetworkState(InternetStatus.Online, ethernetConnected: true, wifiConnected: false);
+
+        _coordinator.RaiseStale(CreateNetworkState(InternetStatus.NoInternet, ethernetConnected: false, wifiConnected: false));
+
+        Assert.Equal(NetworkIndicatorState.Ethernet, viewModel.NetworkIndicator);
+    }
+
+    [Fact]
+    public void NetworkIndicator_StopsFollowingTheCoordinatorOnceDisposed()
+    {
+        MainWindowViewModel viewModel = CreateViewModel();
+        viewModel.Dispose();
+
+        _coordinator.Publish(CreateNetworkState(InternetStatus.Online, ethernetConnected: true, wifiConnected: false));
+
+        Assert.Equal(NetworkIndicatorState.Disconnected, viewModel.NetworkIndicator);
+    }
+
+    private static NetworkState CreateNetworkState(InternetStatus internet, bool ethernetConnected, bool wifiConnected)
+    {
+        EthernetState ethernet = ethernetConnected
+            ? new EthernetState([new EthernetInterfaceState("eth0", "Ethernet", true, IpConfigurationKind.Dhcp, "192.168.1.20", "192.168.1.1")], Dot1xState.NotConfigured)
+            : EthernetState.Empty;
+        WifiState wifi = wifiConnected
+            ? new WifiState(
+                WifiAvailability.Available,
+                new WifiConnection(Guid.NewGuid(), WifiSsid.FromText("Foundry Lab"), "Foundry Lab", WifiSecurityType.Wpa2Personal),
+                [],
+                ProvisionedWifiState.NotConfigured)
+            : WifiState.Initial;
+
+        return new NetworkState(ethernet, wifi, internet, ConnectionMode.Automatic, null, null, new DateTimeOffset(2026, 10, 29, 8, 0, 0, TimeSpan.Zero));
+    }
+
     private MainWindowViewModel CreateViewModel(
         BootMediaUpdateReason bootMediaUpdateReason = BootMediaUpdateReason.None,
         IKeyboardLayoutSwitcher? keyboardLayoutSwitcher = null,
@@ -189,8 +267,8 @@ public sealed class MainWindowViewModelTests
         var logger = new RecordingLogger<MainWindowViewModel>();
 
         return isDebugSafeMode is bool debugSafeMode
-            ? new MainWindowViewModel(themeService, _localization, shell, _lifetime, configurationService, switcher, page, diagnostics, logger, debugSafeMode)
-            : new MainWindowViewModel(themeService, _localization, shell, _lifetime, configurationService, switcher, page, diagnostics, logger);
+            ? new MainWindowViewModel(themeService, _localization, shell, _lifetime, configurationService, switcher, _coordinator, page, diagnostics, logger, debugSafeMode)
+            : new MainWindowViewModel(themeService, _localization, shell, _lifetime, configurationService, switcher, _coordinator, page, diagnostics, logger);
     }
 
     private sealed class FakeKeyboardLayoutSwitcher(string activeLayoutId) : IKeyboardLayoutSwitcher

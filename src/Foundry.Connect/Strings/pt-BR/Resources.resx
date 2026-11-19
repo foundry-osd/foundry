@@ -362,11 +362,26 @@ Licenciado sob a licença MIT.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Idioma</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Rede</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Ferramentas</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Não conectado</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Conectado via Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Sem internet</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Conectado via Wi-Fi</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Aplicando as configurações de rede da mídia de inicialização.</value>

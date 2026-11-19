@@ -362,11 +362,26 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Keel</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Võrk</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Teema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Tööriistad</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Ühendus puudub</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Ühendatud Etherneti kaudu</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Internet puudub</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Ühendatud Wi-Fi kaudu</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Alglaadimismeediumi võrgusätete rakendamine.</value>

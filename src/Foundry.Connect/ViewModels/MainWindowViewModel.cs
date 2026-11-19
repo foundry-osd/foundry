@@ -11,6 +11,8 @@ using Foundry.Core.Models.Runtime;
 using Foundry.Wpf.Shell;
 using Foundry.Connect.Lifetime;
 using Foundry.Connect.Configuration;
+using Foundry.Connect.Network;
+using Foundry.Wpf.Network;
 using Foundry.Wpf.Theme;
 using Foundry.Localization;
 using Foundry.Utilities.Globalization;
@@ -39,6 +41,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly IApplicationLifetimeService _applicationLifetimeService;
     private readonly IConnectConfigurationService _configurationService;
     private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
+    private readonly IConnectionCoordinator _coordinator;
     private readonly ILogger<MainWindowViewModel> _logger;
     private bool _isDisposed;
 
@@ -51,6 +54,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// <param name="applicationLifetimeService">Receives the user-aborted exit when the window closes.</param>
     /// <param name="configurationService">Tells whether a boot-media update is recommended.</param>
     /// <param name="keyboardLayoutSwitcher">Lists and applies the keyboard layouts.</param>
+    /// <param name="coordinator">Source of the network state shown by the Network menu item.</param>
     /// <param name="page">The single Connect page.</param>
     /// <param name="diagnostics">The Tools menu diagnostics.</param>
     /// <param name="logger">Logger for keyboard layout changes and the window close.</param>
@@ -61,6 +65,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IApplicationLifetimeService applicationLifetimeService,
         IConnectConfigurationService configurationService,
         IKeyboardLayoutSwitcher keyboardLayoutSwitcher,
+        IConnectionCoordinator coordinator,
         ConnectPageViewModel page,
         DiagnosticsViewModel diagnostics,
         ILogger<MainWindowViewModel> logger)
@@ -71,6 +76,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             applicationLifetimeService,
             configurationService,
             keyboardLayoutSwitcher,
+            coordinator,
             page,
             diagnostics,
             logger,
@@ -88,6 +94,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IApplicationLifetimeService applicationLifetimeService,
         IConnectConfigurationService configurationService,
         IKeyboardLayoutSwitcher keyboardLayoutSwitcher,
+        IConnectionCoordinator coordinator,
         ConnectPageViewModel page,
         DiagnosticsViewModel diagnostics,
         ILogger<MainWindowViewModel> logger,
@@ -99,12 +106,15 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _applicationLifetimeService = applicationLifetimeService ?? throw new ArgumentNullException(nameof(applicationLifetimeService));
         _configurationService = configurationService ?? throw new ArgumentNullException(nameof(configurationService));
         _keyboardLayoutSwitcher = keyboardLayoutSwitcher ?? throw new ArgumentNullException(nameof(keyboardLayoutSwitcher));
+        _coordinator = coordinator ?? throw new ArgumentNullException(nameof(coordinator));
         Page = page ?? throw new ArgumentNullException(nameof(page));
         Diagnostics = diagnostics ?? throw new ArgumentNullException(nameof(diagnostics));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         IsDebugMenuVisible = isDebugSafeMode;
 
+        NetworkIndicator = MapNetworkIndicator(_coordinator.State);
         LocalizationService.LanguageChanged += OnLanguageChanged;
+        _coordinator.StateChanged += OnCoordinatorStateChanged;
         RefreshSupportedCultures();
         RefreshKeyboardMenu();
         RefreshDebugScenarios();
@@ -127,6 +137,24 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// Empty outside debug safety mode.
     /// </summary>
     public ObservableCollection<DebugScenarioOption> DebugScenarios { get; } = [];
+
+    /// <summary>
+    /// Gets the connection state shown by the Network menu item: the active internet path, a connected interface without
+    /// internet, or no connection.
+    /// </summary>
+    public NetworkIndicatorState NetworkIndicator { get; private set; }
+
+    /// <summary>Gets the Segoe Fluent glyph of <see cref="NetworkIndicator"/>.</summary>
+    public string NetworkIndicatorGlyph => NetworkIndicatorGlyphs.For(NetworkIndicator);
+
+    /// <summary>Gets the localized state text shown as the tooltip of the Network menu item.</summary>
+    public string NetworkIndicatorToolTip => LocalizationService.GetString(NetworkIndicator switch
+    {
+        NetworkIndicatorState.Ethernet => "Network.State.Ethernet",
+        NetworkIndicatorState.Wifi => "Network.State.Wifi",
+        NetworkIndicatorState.Limited => "Network.State.Limited",
+        _ => "Network.State.Disconnected"
+    });
 
     /// <summary>Gets the keyboard menu header, including the active layout's short name when it is known.</summary>
     public string KeyboardMenuHeader { get; private set; } = string.Empty;
@@ -215,7 +243,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
-    /// Unsubscribes from language changes. Idempotent.
+    /// Unsubscribes from language and network state changes. Idempotent.
     /// </summary>
     public override void Dispose()
     {
@@ -226,6 +254,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         _isDisposed = true;
         LocalizationService.LanguageChanged -= OnLanguageChanged;
+        _coordinator.StateChanged -= OnCoordinatorStateChanged;
         base.Dispose();
     }
 
@@ -373,7 +402,53 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(VersionDisplay));
             OnPropertyChanged(nameof(BootMediaUpdateRecommendedText));
             OnPropertyChanged(nameof(BootMediaUpdateRecommendedToolTip));
+            OnPropertyChanged(nameof(NetworkIndicatorToolTip));
         });
+    }
+
+    // The argument may be stale and arrives on any thread: map the coordinator's current state on the UI thread.
+    private void OnCoordinatorStateChanged(object? sender, NetworkState ignored)
+    {
+        RunOnUiThread(() =>
+        {
+            if (_isDisposed)
+            {
+                return;
+            }
+
+            NetworkIndicatorState indicator = MapNetworkIndicator(_coordinator.State);
+            if (indicator == NetworkIndicator)
+            {
+                return;
+            }
+
+            NetworkIndicator = indicator;
+            OnPropertyChanged(nameof(NetworkIndicator));
+            OnPropertyChanged(nameof(NetworkIndicatorGlyph));
+            OnPropertyChanged(nameof(NetworkIndicatorToolTip));
+        });
+    }
+
+    // Online follows the active internet path, falling back to a connected interface when the path is unknown; any other
+    // connected interface (APIPA excluded) is a network without confirmed internet.
+    private static NetworkIndicatorState MapNetworkIndicator(NetworkState state)
+    {
+        bool ethernetConnected = state.Ethernet.HasUsableAddress;
+        bool wifiConnected = state.Wifi.Connection is not null;
+
+        if (state.Internet == InternetStatus.Online)
+        {
+            return state.ActiveInternetPath switch
+            {
+                InternetPath.Ethernet => NetworkIndicatorState.Ethernet,
+                InternetPath.Wifi => NetworkIndicatorState.Wifi,
+                _ when ethernetConnected => NetworkIndicatorState.Ethernet,
+                _ when wifiConnected => NetworkIndicatorState.Wifi,
+                _ => NetworkIndicatorState.Disconnected
+            };
+        }
+
+        return ethernetConnected || wifiConnected ? NetworkIndicatorState.Limited : NetworkIndicatorState.Disconnected;
     }
 }
 

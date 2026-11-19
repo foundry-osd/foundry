@@ -362,11 +362,26 @@ Sous licence MIT.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Langue</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Réseau</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Thème</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Outils</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Non connecté</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Connecté par Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Aucun accès à Internet</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Connecté par Wi-Fi</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Application des paramètres réseau du support de démarrage.</value>

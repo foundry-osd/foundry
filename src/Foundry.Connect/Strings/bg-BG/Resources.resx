@@ -362,11 +362,26 @@
   <data name="Menu.Language" xml:space="preserve">
     <value>_Език</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Мрежа</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Тема</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Инструменти</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Няма връзка</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Свързан чрез Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Няма интернет</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Свързан чрез Wi-Fi</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Прилагане на мрежовите настройки от носителя за стартиране.</value>

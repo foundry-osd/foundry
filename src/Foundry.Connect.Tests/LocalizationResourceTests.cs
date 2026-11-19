@@ -74,7 +74,7 @@ public sealed class LocalizationResourceTests
         "Status.BlockedNoInternetDescription", "Status.BlockedNoIpAddressDescription", "Status.BlockedNoIpAddressTitle",
         "Status.BlockedNoLinkDescription", "Status.BlockedNoLinkTitle", "Status.BlockedTitle", "Status.CheckingTitle",
         "Status.ConnectingDescription", "Status.ConnectingTitle", "Status.DisconnectingTitle", "Status.Dot1xAuthenticatingDescription",
-        "Status.LookingForNetwork",
+        "Status.LookingForNetwork", "Network.State.Disconnected", "Network.State.Ethernet", "Network.State.Limited", "Network.State.Wifi",
         "Unlock.Continue", "Unlock.Description", "Unlock.Heading", "Unlock.InvalidPassword", "Unlock.PasswordPlaceholder", "Unlock.Title",
         "Unlock.TogglePasswordVisibility", "Wifi.ActionConnectTimedOut", "Wifi.ActionInvalidPassphrase", "Wifi.ActionNetworkNotVisible",
         "Wifi.ConnectProvisionedAutomationName", "Wifi.ConnectSelectedAutomationFormat", "Wifi.DisconnectProvisionedAutomationName",
@@ -178,7 +178,7 @@ public sealed class LocalizationResourceTests
         ResourceManager resourceManager = new("Foundry.Connect.Strings.Resources", typeof(ConnectShellContent).Assembly);
         ResourceSet resourceSet = resourceManager.GetResourceSet(CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
 
-        foreach (string key in new[] { "Menu.About", "Menu.Debug", "Menu.Keyboard", "Menu.KeyboardFormat", "Menu.Language", "Menu.Theme", "Menu.Tools" })
+        foreach (string key in new[] { "Menu.About", "Menu.Debug", "Menu.Keyboard", "Menu.KeyboardFormat", "Menu.Language", "Menu.Network", "Menu.Theme", "Menu.Tools" })
         {
             Assert.Contains("_", resourceSet.GetString(key), StringComparison.Ordinal);
         }

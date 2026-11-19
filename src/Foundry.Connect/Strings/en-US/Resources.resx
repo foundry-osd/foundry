@@ -362,11 +362,26 @@ Licensed under the MIT License.</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Language</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Network</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Theme</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Tools</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Not connected</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Connected through Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>No internet</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Connected through Wi-Fi</value>
   </data>
   <data name="Status.ApplyingProvisioningDescription" xml:space="preserve">
     <value>Applying the network settings from the boot media.</value>
