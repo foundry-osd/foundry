@@ -121,6 +121,9 @@ Litsentsitud MIT-i litsentsi alusel.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Lubatud</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>Võrk</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>Edasi</value>
   </data>

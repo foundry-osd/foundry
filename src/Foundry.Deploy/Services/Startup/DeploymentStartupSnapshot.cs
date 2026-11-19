@@ -27,6 +27,12 @@ public sealed record DeploymentStartupSnapshot
     /// </summary>
     public required FoundryDeployConfigurationDocument? DeployConfigurationDocument { get; init; }
 
+    /// <summary>
+    /// Gets whether the Autopilot group tag discovery ran and failed, so <see cref="DeployConfigurationDocument"/> keeps the
+    /// configured tags; a return from the Network page runs it again.
+    /// </summary>
+    public bool AutopilotGroupTagsFailed { get; init; }
+
     /// <summary>Gets why the network cache prevents the deployment from starting, or <see langword="null"/> when it does not.</summary>
     public NetworkCacheStartupFailure? NetworkCacheFailure { get; init; }
 

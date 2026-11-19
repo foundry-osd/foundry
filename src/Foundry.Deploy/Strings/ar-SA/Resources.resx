@@ -121,6 +121,9 @@
   <data name="Common.Enabled" xml:space="preserve">
     <value>ممكّن</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>الشبكة</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>التالي</value>
   </data>

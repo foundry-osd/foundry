@@ -5,6 +5,7 @@
 using System.Windows.Threading;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Services.DomainJoin;
+using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Cache;
@@ -92,7 +93,8 @@ public sealed class ProgressPageContractTests
     /// <summary>Creates the Deploy main window view model around test doubles; the services a test does not reach throw.</summary>
     internal static MainWindowViewModel CreateMainWindowViewModel(IDeploymentExecutionService execution, IThemeService? theme = null,
         IDeploymentAccessGate? accessGate = null, IDeploymentStartupCoordinator? coordinator = null, IApplicationShellService? shell = null,
-        ICatalogStartupDialogService? catalogDialog = null, INetworkPageNavigator? networkPageNavigator = null)
+        ICatalogStartupDialogService? catalogDialog = null, INetworkPageNavigator? networkPageNavigator = null,
+        INetworkCacheStartupDialogService? networkCacheDialog = null, LatestReleaseVersionReader? readLatestReleaseVersion = null)
     {
         var localization = new ResourceLocalizationService(LocalizationText.ResourceManager);
         return new MainWindowViewModel(
@@ -113,10 +115,10 @@ public sealed class ProgressPageContractTests
             new Unused(),
             new Unused(),
             new StartingCredentialCheck(),
-            new Unused(),
+            networkCacheDialog ?? new Unused(),
             catalogDialog ?? new Unused(),
             new NullTelemetryService(),
-            _ => Task.FromResult<string?>(null),
+            readLatestReleaseVersion ?? (_ => Task.FromResult<string?>(null)),
             NullLogger<MainWindowViewModel>.Instance,
             new NoNetwork(),
             networkPageNavigator);
@@ -201,7 +203,15 @@ public sealed class ProgressPageContractTests
 
         public Task<DeploymentCatalogSnapshot> ReloadCatalogsAsync(CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
-        public CatalogStartupChoice ShowFailure(Exception failure) => throw new NotSupportedException();
+        public Task<AutopilotGroupTagRefresh> RefreshAutopilotGroupTagsAsync(CancellationToken cancellationToken = default) =>
+            throw new NotSupportedException();
+
+        public bool ShouldResolveNetworkCacheAgain() => throw new NotSupportedException();
+
+        public Task<NetworkCacheStartupResult?> ResolveNetworkCacheAsync(CancellationToken cancellationToken = default) =>
+            throw new NotSupportedException();
+
+        public CatalogStartupChoice ShowFailure(Exception failure, bool canOpenNetwork) => throw new NotSupportedException();
 
         public void ShowAbout() => throw new NotSupportedException();
         public bool ConfirmWarning(string title, string message) => throw new NotSupportedException();
@@ -222,6 +232,6 @@ public sealed class ProgressPageContractTests
             Foundry.Core.Models.Configuration.Deploy.DeployDomainJoinSettings settings, string? selectedDomainId,
             IDomainCredentialVerifier verifier, CancellationToken token) => throw new NotSupportedException();
 
-        public NetworkCacheStartupChoice ShowFailure(NetworkCacheStartupFailure failure) => throw new NotSupportedException();
+        public NetworkCacheStartupChoice ShowFailure(NetworkCacheStartupFailure failure, bool canOpenNetwork) => throw new NotSupportedException();
     }
 }

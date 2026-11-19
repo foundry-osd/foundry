@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Net;
 using System.Net.NetworkInformation;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Configuration.Deploy;
@@ -93,6 +94,17 @@ public sealed class NetworkCacheSessionResolverTests
         using NetworkCacheSession session = await harness.ResolveAsync();
 
         Assert.Null(session.Failure);
+    }
+
+    [Fact]
+    public async Task Resolve_RecordsTheLocalAddressesTheScopeWasSelectedFrom()
+    {
+        using NetworkCacheSession connected = await new Harness(Settings(), addresses: ["10.10.4.2", "fe80::1"]).ResolveAsync();
+        using NetworkCacheSession noScope = await new Harness(Settings(), addresses: ["192.168.50.1"]).ResolveAsync();
+
+        Assert.Equal(NetworkCacheOutcome.Connected, connected.Outcome);
+        Assert.Equal([IPAddress.Parse("10.10.4.2"), IPAddress.Parse("fe80::1")], connected.DeviceAddresses);
+        Assert.Equal([IPAddress.Parse("192.168.50.1")], noScope.DeviceAddresses);
     }
 
     [Fact]

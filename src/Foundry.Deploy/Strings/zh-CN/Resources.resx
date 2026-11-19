@@ -121,6 +121,9 @@
   <data name="Common.Enabled" xml:space="preserve">
     <value>已启用</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>网络</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>下一步</value>
   </data>

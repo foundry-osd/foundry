@@ -169,6 +169,20 @@ public sealed class LocalizationResourceTests
         }
     }
 
+    // Dialog buttons have no access key; the caption is the Network menu header's.
+    [Theory]
+    [InlineData("en-US")]
+    [MemberData(nameof(SatelliteCultures))]
+    public void NetworkDialogButton_IsTheMenuHeaderWithoutItsAccessKey(string cultureName)
+    {
+        ResourceSet resourceSet = LocalizationText.ResourceManager.GetResourceSet(
+            CultureInfo.GetCultureInfo(cultureName), createIfNotExists: true, tryParents: false)!;
+
+        string header = Regex.Replace(resourceSet.GetString("Menu.Network")!, @"\(_.\)$", string.Empty).Replace("_", string.Empty, StringComparison.Ordinal);
+
+        Assert.Equal(header, resourceSet.GetString("Common.Network"));
+    }
+
     private static readonly string[] TopLevelMenuHeaderKeys = ["Menu.About", "Menu.Debug", "Menu.Language", "Menu.Theme", "Menu.Tools"];
 
     [Theory]

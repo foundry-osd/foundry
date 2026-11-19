@@ -121,6 +121,9 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Etkin</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>Ağ</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>İleri</value>
   </data>

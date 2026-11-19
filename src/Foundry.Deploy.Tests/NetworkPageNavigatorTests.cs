@@ -117,6 +117,80 @@ public sealed class NetworkPageNavigatorTests
     }
 
     [Fact]
+    public async Task OpenAsync_DuringTheReturnRefresh_IsClosedSoTheRefreshCanOpenThePageAgain()
+    {
+        int pages = 0;
+        bool? isOpenDuringRefresh = null;
+        bool? reopened = null;
+        Harness? harness = null;
+        harness = new Harness((_, _) =>
+        {
+            pages++;
+            return Task.FromResult(new NetworkPageResult(null, null));
+        }, refresh: async token =>
+        {
+            if (pages > 1)
+            {
+                return;
+            }
+
+            isOpenDuringRefresh = harness!.Navigator.IsOpen;
+            reopened = await harness.Navigator.OpenAsync(token);
+        });
+
+        Assert.True(await harness.Navigator.OpenAsync(CancellationToken.None));
+
+        Assert.False(isOpenDuringRefresh);
+        Assert.True(reopened);
+        Assert.Equal(2, pages);
+        Assert.False(harness.Navigator.IsOpen);
+    }
+
+    [Fact]
+    public async Task CancelAndWait_WaitsForTheRunWhoseRefreshReopenedThePage()
+    {
+        int pages = 0;
+        var refreshEnd = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var reopened = new TaskCompletionSource<Task<bool>>(TaskCreationOptions.RunContinuationsAsynchronously);
+        Harness? harness = null;
+        harness = new Harness((_, token) =>
+        {
+            if (++pages == 1)
+            {
+                return Task.FromResult(new NetworkPageResult(null, null));
+            }
+
+            var page = new TaskCompletionSource<NetworkPageResult>(TaskCreationOptions.RunContinuationsAsynchronously);
+            token.Register(() => page.TrySetCanceled(token));
+            return page.Task;
+        }, refresh: async token =>
+        {
+            if (pages > 1)
+            {
+                return;
+            }
+
+            // The refresh reopens the page after a wait of its own, as a failure dialog does.
+            await Task.Yield();
+            Task<bool> reopen = harness!.Navigator.OpenAsync(token);
+            reopened.SetResult(reopen);
+            await reopen;
+            await refreshEnd.Task;
+        });
+
+        Task<bool> open = harness.Navigator.OpenAsync(CancellationToken.None);
+        Task<bool> reopen = await reopened.Task.WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
+        Task wait = harness.Navigator.CancelAndWaitAsync();
+        Assert.False(await reopen.WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken));
+
+        // The first run is still in its refresh, so the wait goes on after the reopened page ended.
+        Assert.NotSame(wait, await Task.WhenAny(wait, Task.Delay(200, TestContext.Current.CancellationToken)));
+        refreshEnd.SetResult();
+        await wait.WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
+        Assert.True(open.IsCompleted);
+    }
+
+    [Fact]
     public async Task CancelAndWait_DuringAReopen_CancelsThePageOnTheCallingThreadAndWaitsForIt()
     {
         int? cancellationThread = null;
@@ -219,7 +293,8 @@ public sealed class NetworkPageNavigatorTests
         public Harness(
             Func<NetworkPageRequest, CancellationToken, Task<NetworkPageResult>>? openNetworkPage,
             List<string>? order = null,
-            Action? showDeployContent = null)
+            Action? showDeployContent = null,
+            Func<CancellationToken, Task>? refresh = null)
         {
             order ??= [];
             Navigator = new NetworkPageNavigator(
@@ -238,7 +313,7 @@ public sealed class NetworkPageNavigatorTests
                     PreferenceCount++;
                     order.Add($"preferences:{theme}/{culture}");
                 },
-                new RecordingRefresh(order),
+                refresh is null ? new RecordingRefresh(order) : new DelegateRefresh(refresh),
                 Logger);
         }
 
@@ -260,6 +335,11 @@ public sealed class NetworkPageNavigatorTests
             order.Add("refresh");
             return Task.CompletedTask;
         }
+    }
+
+    private sealed class DelegateRefresh(Func<CancellationToken, Task> refresh) : INetworkReturnRefresh
+    {
+        public Task RefreshAsync(CancellationToken cancellationToken) => refresh(cancellationToken);
     }
 
     private sealed class RecordingLogger : ILogger<NetworkPageNavigator>

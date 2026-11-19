@@ -70,6 +70,7 @@ public sealed class DeploymentStartupCoordinatorTests
 
         Assert.Equal("Sales", snapshot.DeployConfigurationDocument!.Autopilot.HardwareHashUpload.DefaultGroupTag);
         Assert.Equal(["Kiosk"], snapshot.DeployConfigurationDocument.Autopilot.HardwareHashUpload.KnownGroupTags);
+        Assert.True(snapshot.AutopilotGroupTagsFailed);
         Assert.NotNull(snapshot.DetectedHardware);
         Assert.NotNull(snapshot.CatalogSnapshot);
         Assert.Single(logger.Levels, level => level == LogLevel.Warning);
@@ -190,6 +191,107 @@ public sealed class DeploymentStartupCoordinatorTests
 
         Assert.Equal(["New tag", "Sales"], snapshot.DeployConfigurationDocument!.Autopilot.HardwareHashUpload.KnownGroupTags);
         Assert.Equal("Sales", snapshot.DeployConfigurationDocument.Autopilot.HardwareHashUpload.DefaultGroupTag);
+        Assert.False(snapshot.AutopilotGroupTagsFailed);
+    }
+
+    [Fact]
+    public async Task RefreshAutopilotGroupTagsAsync_AfterAFailedStartup_DiscoversAgainOnTheLoadedConfiguration()
+    {
+        int attempts = 0;
+        var discovery = new StubDiscovery(_ => ++attempts == 1
+            ? Task.FromException<IReadOnlyList<string>>(new HttpRequestException("Unavailable"))
+            : Task.FromResult<IReadOnlyList<string>>(["Kiosk", "Lab"]));
+        DeploymentStartupCoordinator coordinator = CreateCoordinator(discovery, new RecordingLogger());
+        DeploymentStartupSnapshot snapshot = await coordinator.InitializeAsync(CreateRequest(), TestContext.Current.CancellationToken);
+
+        AutopilotGroupTagRefresh refresh = await coordinator.RefreshAutopilotGroupTagsAsync(TestContext.Current.CancellationToken);
+
+        Assert.True(snapshot.AutopilotGroupTagsFailed);
+        Assert.False(refresh.Failed);
+        Assert.Equal(["Kiosk", "Lab"], refresh.Document.Autopilot.HardwareHashUpload.KnownGroupTags);
+        Assert.Equal("Sales", refresh.Document.Autopilot.HardwareHashUpload.DefaultGroupTag);
+    }
+
+    [Fact]
+    public async Task RefreshAutopilotGroupTagsAsync_WhenItFailsAgain_ReportsTheFailureWithTheConfiguredTags()
+    {
+        var discovery = new StubDiscovery(_ => Task.FromException<IReadOnlyList<string>>(new HttpRequestException("Unavailable")));
+        DeploymentStartupCoordinator coordinator = CreateCoordinator(discovery, new RecordingLogger());
+        await coordinator.InitializeAsync(CreateRequest(), TestContext.Current.CancellationToken);
+
+        AutopilotGroupTagRefresh refresh = await coordinator.RefreshAutopilotGroupTagsAsync(TestContext.Current.CancellationToken);
+
+        Assert.True(refresh.Failed);
+        Assert.Equal(["Kiosk"], refresh.Document.Autopilot.HardwareHashUpload.KnownGroupTags);
+    }
+
+    [Theory]
+    [InlineData(new[] { "10.10.4.6", "10.10.4.2" }, false)]
+    [InlineData(new[] { "10.10.4.2" }, true)]
+    [InlineData(new[] { "10.10.4.2", "10.10.4.6", "10.20.0.9" }, true)]
+    public void ShouldResolveNetworkCacheAgain_ComparesTheLocalAddressesAsASet(string[] currentAddresses, bool expected)
+    {
+        var dependencies = new StartupDependencies(enabled: false);
+        IPAddress[] resolvedFor = [IPAddress.Parse("10.10.4.2"), IPAddress.Parse("10.10.4.6")];
+        var accessor = new NetworkCacheSessionAccessor { Current = NetworkCacheSession.Connected(@"\\srv\cache", false, new NoopConnector(), resolvedFor) };
+        var resolver = new RecordingNetworkCacheResolver(accessor.Current, localAddresses: [.. currentAddresses.Select(IPAddress.Parse)]);
+        var coordinator = new DeploymentStartupCoordinator(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies,
+            new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start.")), new RecordingLogger(),
+            networkCacheResolver: resolver, networkCacheAccessor: accessor);
+
+        Assert.Equal(expected, coordinator.ShouldResolveNetworkCacheAgain());
+    }
+
+    [Theory]
+    [InlineData(NetworkCacheOutcome.Unavailable, true)]
+    [InlineData(NetworkCacheOutcome.NoMatchingScope, true)]
+    [InlineData(NetworkCacheOutcome.Disabled, false)]
+    public void ShouldResolveNetworkCacheAgain_WithoutAShare_ResolvesAgainUnlessTheCacheIsDisabled(NetworkCacheOutcome outcome, bool expected)
+    {
+        var dependencies = new StartupDependencies(enabled: false);
+        IPAddress[] addresses = [IPAddress.Parse("10.10.4.2")];
+        var accessor = new NetworkCacheSessionAccessor { Current = NetworkCacheSession.Unavailable(outcome, deviceAddresses: addresses) };
+        var coordinator = new DeploymentStartupCoordinator(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies,
+            new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start.")), new RecordingLogger(),
+            networkCacheResolver: new RecordingNetworkCacheResolver(accessor.Current, localAddresses: addresses), networkCacheAccessor: accessor);
+
+        Assert.Equal(expected, coordinator.ShouldResolveNetworkCacheAgain());
+    }
+
+    [Fact]
+    public void ShouldResolveNetworkCacheAgain_WithoutASession_IsFalse()
+    {
+        var dependencies = new StartupDependencies(enabled: false);
+        var coordinator = new DeploymentStartupCoordinator(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies,
+            new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start.")), new RecordingLogger(),
+            networkCacheResolver: new RecordingNetworkCacheResolver(NetworkCacheSession.Unavailable(NetworkCacheOutcome.Unavailable)),
+            networkCacheAccessor: new NetworkCacheSessionAccessor());
+
+        Assert.False(coordinator.ShouldResolveNetworkCacheAgain());
+    }
+
+    [Fact]
+    public async Task ResolveNetworkCacheAsync_AfterStartup_ClosesTheSessionAndResolvesAgain()
+    {
+        var dependencies = new StartupDependencies(enabled: false);
+        var connector = new RecordingConnector();
+        var first = NetworkCacheSession.Connected(@"\\srv\cache", canWrite: false, connector);
+        var resolver = new RecordingNetworkCacheResolver(first);
+        var accessor = new NetworkCacheSessionAccessor();
+        var coordinator = new DeploymentStartupCoordinator(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies,
+            new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start.")), new RecordingLogger(),
+            networkCacheResolver: resolver, networkCacheAccessor: accessor);
+        await coordinator.InitializeAsync(CreateLiveRequest(), TestContext.Current.CancellationToken);
+        using NetworkCacheSession next = NetworkCacheSession.Unavailable(NetworkCacheOutcome.NoMatchingScope);
+        resolver.Session = next;
+
+        NetworkCacheStartupResult? result = await coordinator.ResolveNetworkCacheAsync(TestContext.Current.CancellationToken);
+
+        Assert.Equal(2, resolver.SessionIds.Count);
+        Assert.Equal([@"\\srv\cache"], connector.Disconnected);
+        Assert.Same(next, accessor.Current);
+        Assert.NotNull(result);
+        Assert.Null(result.Failure);
     }
 
     [Fact]
@@ -499,10 +601,17 @@ public sealed class DeploymentStartupCoordinatorTests
         public void Disconnect(string uncPath) => Disconnected.Add(uncPath);
     }
 
-    private sealed class RecordingNetworkCacheResolver(NetworkCacheSession session, Action? onResolve = null) : INetworkCacheSessionResolver
+    private sealed class RecordingNetworkCacheResolver(NetworkCacheSession session, Action? onResolve = null,
+        IReadOnlyList<IPAddress>? localAddresses = null) : INetworkCacheSessionResolver
     {
         public List<string> WorkspaceRoots { get; } = [];
         public List<string> SessionIds { get; } = [];
+
+        public NetworkCacheSession Session { get; set; } = session;
+
+        public IReadOnlyList<IPAddress> LocalAddresses { get; set; } = localAddresses ?? [];
+
+        public IReadOnlyList<IPAddress> ReadLocalAddresses() => LocalAddresses;
 
         public Task<NetworkCacheSession> ResolveAsync(string workspaceRootPath, string sessionId,
             Func<NetworkCacheSession, CancellationToken, Task<NetworkCacheStartupFailure?>>? validateShare, CancellationToken cancellationToken)
@@ -510,13 +619,15 @@ public sealed class DeploymentStartupCoordinatorTests
             onResolve?.Invoke();
             WorkspaceRoots.Add(workspaceRootPath);
             SessionIds.Add(sessionId);
-            return Task.FromResult(session);
+            return Task.FromResult(Session);
         }
     }
 
     /// <summary>Selects the first candidate session the coordinator's validation accepts, as the real resolver does.</summary>
     private sealed class ValidatingNetworkCacheResolver(IReadOnlyList<NetworkCacheSession> candidates) : INetworkCacheSessionResolver
     {
+        public IReadOnlyList<IPAddress> ReadLocalAddresses() => [];
+
         public async Task<NetworkCacheSession> ResolveAsync(string workspaceRootPath, string sessionId,
             Func<NetworkCacheSession, CancellationToken, Task<NetworkCacheStartupFailure?>>? validateShare, CancellationToken cancellationToken)
         {

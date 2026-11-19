@@ -105,6 +105,33 @@ public sealed class DeploymentWizardContext : IDisposable
         ApplyCatalogSnapshot(startupSnapshot.CatalogSnapshot);
     }
 
+    /// <summary>
+    /// Applies the custom image, custom driver and post-installation sections of a network cache resolved again after a return
+    /// from the Network page; every other choice is kept. The custom images and the custom driver sets are discovered again,
+    /// because the share they are read from may have changed: the selected image and set stay selected while they are offered.
+    /// </summary>
+    /// <param name="document">The configuration the network cache check returned, without its content when the operator continued without the cache.</param>
+    public void ApplyNetworkCacheContent(FoundryDeployConfigurationDocument document)
+    {
+        ArgumentNullException.ThrowIfNull(document);
+
+        PreOobe = document.PreOobe ?? new();
+        CustomDrivers = document.CustomDrivers ?? new();
+        if (CustomDrivers.IsEnabled)
+        {
+            _ = DiscoverCustomDriverSetsAsync(CustomDrivers);
+        }
+        else
+        {
+            // Discovery leaves a disabled section alone; sets offered from a share that is no longer used must go.
+            ++_customDriverDiscoveryVersion;
+            DriverPackSelection.ConfigureCustomDriverSets(new(CustomDriverSetCatalogStatus.Unavailable, []), CustomDrivers.DefaultSetId);
+        }
+
+        _ = CustomImages.ReloadAsync(document.CustomImages ?? new());
+        StateChanged?.Invoke(this, EventArgs.Empty);
+    }
+
     /// <summary>Replaces the media Domain Join configuration with a debug scenario and resets the technician's inputs.</summary>
     public void ApplyDebugDomainJoin(Foundry.Core.Models.Configuration.Deploy.DeployDomainJoinSettings domainJoin)
     {

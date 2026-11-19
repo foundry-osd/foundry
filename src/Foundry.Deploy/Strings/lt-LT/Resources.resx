@@ -121,6 +121,9 @@ Licencijuota pagal MIT licenciją.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Įjungta</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>Tinklas</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>Kitas</value>
   </data>

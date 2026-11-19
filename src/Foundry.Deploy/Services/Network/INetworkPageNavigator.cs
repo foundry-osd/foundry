@@ -13,7 +13,11 @@ public interface INetworkPageNavigator
     /// <summary>Gets whether the host can show the Connect page (it supplied <see cref="DeployPhaseOptions.OpenNetworkPage"/>).</summary>
     bool IsAvailable { get; }
 
-    /// <summary>Gets whether the Connect page is shown, from the request until Deploy's content is shown again.</summary>
+    /// <summary>
+    /// Gets whether the Connect page is shown, from the request until Deploy's content is shown again with the returned
+    /// preferences. It is already <see langword="false"/> while <see cref="INetworkReturnRefresh"/> runs, so a failure dialog of
+    /// the refresh can open the page again.
+    /// </summary>
     bool IsOpen { get; }
 
     /// <summary>

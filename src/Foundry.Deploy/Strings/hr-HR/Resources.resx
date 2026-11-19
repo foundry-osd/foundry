@@ -121,6 +121,9 @@ Licenciran prema MIT licenci.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Omogućeno</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>Mreža</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>Dalje</value>
   </data>

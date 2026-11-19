@@ -14,10 +14,3 @@ public interface INetworkReturnRefresh
     /// <param name="cancellationToken">Cancelled when the phase ends.</param>
     Task RefreshAsync(CancellationToken cancellationToken);
 }
-
-/// <summary>The refresh that refreshes nothing.</summary>
-internal sealed class NoNetworkReturnRefresh : INetworkReturnRefresh
-{
-    /// <inheritdoc />
-    public Task RefreshAsync(CancellationToken cancellationToken) => Task.CompletedTask;
-}

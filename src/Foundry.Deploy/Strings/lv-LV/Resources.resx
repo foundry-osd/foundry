@@ -121,6 +121,9 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Iespējots</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>Tīkls</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>Tālāk</value>
   </data>

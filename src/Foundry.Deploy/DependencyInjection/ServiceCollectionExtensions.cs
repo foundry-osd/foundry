@@ -83,7 +83,7 @@ public static class ServiceCollectionExtensions
             sp.GetRequiredService<DeployPhaseLifetime>(),
             sp.GetRequiredService<IShellHost>()));
         services.AddSingleton<MainWindowViewModel>();
-        services.AddSingleton<INetworkReturnRefresh, NoNetworkReturnRefresh>();
+        services.AddSingleton<INetworkReturnRefresh>(sp => new NetworkReturnRefresh(sp.GetRequiredService<MainWindowViewModel>));
         services.AddSingleton<INetworkPageNavigator>(sp => CreateNetworkPageNavigator(sp, options));
         services.AddSingleton(sp => new DeployNetworkIndicator(sp.GetRequiredService<INetworkAdapterSnapshotProvider>(), TimeProvider.System));
 

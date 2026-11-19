@@ -32,7 +32,7 @@ internal sealed class NetworkPageNavigator : INetworkPageNavigator, IDisposable
     private readonly INetworkReturnRefresh _returnRefresh;
     private readonly ILogger<NetworkPageNavigator> _logger;
     private readonly CancellationTokenSource _phaseCancellation = new();
-    private Task<bool>? _inFlight;
+    private Task? _inFlight;
     private bool _isOpen;
     private bool _isDisposed;
 
@@ -82,7 +82,8 @@ internal sealed class NetworkPageNavigator : INetworkPageNavigator, IDisposable
         // Set before the run starts: a page that completes synchronously clears it again before the task is returned.
         _isOpen = true;
         Task<bool> run = RunAsync(_openNetworkPage, cancellationToken);
-        _inFlight = run;
+        // A page opened again from a dialog of the return refresh runs while the first run still waits for that refresh.
+        _inFlight = _inFlight is { IsCompleted: false } previous ? Task.WhenAll(previous, run) : run;
         return run;
     }
 
@@ -110,7 +111,7 @@ internal sealed class NetworkPageNavigator : INetworkPageNavigator, IDisposable
 
         if (_inFlight is { } inFlight)
         {
-            // RunAsync reports its own failures and never throws.
+            // RunAsync reports its own failures and never throws; a nested reopen is included in the wait.
             await inFlight;
         }
     }
@@ -174,6 +175,8 @@ internal sealed class NetworkPageNavigator : INetworkPageNavigator, IDisposable
             // A page that returns after the phase ended changes nothing in a Deploy that is closing.
             token.ThrowIfCancellationRequested();
             _applyPreferences(result!.ThemeMode, result.CultureName);
+            // The page is closed once Deploy is shown again: a failure dialog of the refresh may offer to open it again.
+            _isOpen = false;
             await _returnRefresh.RefreshAsync(token);
         }
         catch (OperationCanceledException) when (token.IsCancellationRequested)

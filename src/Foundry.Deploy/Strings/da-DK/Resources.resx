@@ -121,6 +121,9 @@ Licenseret under MIT-licensen.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Aktiveret</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>Netværk</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>Næste</value>
   </data>

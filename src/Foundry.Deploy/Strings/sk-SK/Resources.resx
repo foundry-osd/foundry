@@ -121,6 +121,9 @@ Licencované podľa licencie MIT.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Povolené</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>Sieť</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>Ďalej</value>
   </data>

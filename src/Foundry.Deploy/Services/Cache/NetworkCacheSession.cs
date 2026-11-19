@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Net;
 using Foundry.Utilities.Networking;
 
 namespace Foundry.Deploy.Services.Cache;
@@ -47,6 +48,12 @@ public sealed class NetworkCacheSession : IDisposable
     /// <summary>Gets the connected UNC share, or <see langword="null"/> when no share is used.</summary>
     public string? SharePath { get; }
 
+    /// <summary>
+    /// Gets the local addresses the share was selected for, in no particular order; empty when the cache is disabled or the
+    /// addresses could not be read. A change in this set means the device may now belong to another scope.
+    /// </summary>
+    public IReadOnlyList<IPAddress> DeviceAddresses { get; private init; } = [];
+
     /// <summary>Gets <c>&lt;share&gt;\Foundry</c>, the root of downloads and of imported content mirrored from media.</summary>
     public string? ContentRoot => SharePath is null ? null : Core.Services.NetworkCache.NetworkCacheLayout.ContentRoot(SharePath);
 
@@ -65,11 +72,13 @@ public sealed class NetworkCacheSession : IDisposable
     /// <summary>Counts one download served by the share.</summary>
     public void RecordReuse() => Interlocked.Increment(ref downloadsReused);
 
-    public static NetworkCacheSession Unavailable(NetworkCacheOutcome outcome, NetworkCacheStartupFailure? failure = null) =>
-        new(outcome, null, false, null, failure);
+    public static NetworkCacheSession Unavailable(NetworkCacheOutcome outcome, NetworkCacheStartupFailure? failure = null,
+        IReadOnlyList<IPAddress>? deviceAddresses = null) =>
+        new(outcome, null, false, null, failure) { DeviceAddresses = deviceAddresses ?? [] };
 
-    internal static NetworkCacheSession Connected(string sharePath, bool canWrite, ISmbConnector connector) =>
-        new(NetworkCacheOutcome.Connected, sharePath, canWrite, connector);
+    internal static NetworkCacheSession Connected(string sharePath, bool canWrite, ISmbConnector connector,
+        IReadOnlyList<IPAddress>? deviceAddresses = null) =>
+        new(NetworkCacheOutcome.Connected, sharePath, canWrite, connector) { DeviceAddresses = deviceAddresses ?? [] };
 
     public void Dispose()
     {

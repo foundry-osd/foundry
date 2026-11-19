@@ -121,6 +121,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Aktiverad</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>Nätverk</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>Nästa</value>
   </data>

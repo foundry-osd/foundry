@@ -341,17 +341,23 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             await RunStartupCoordinatorAsync(cancellationToken).ConfigureAwait(false), cancellationToken).ConfigureAwait(false);
 
         // The wizard never opens on the snapshot of a failed network cache start: it still carries the boot image sections,
-        // which an active network cache no longer uses. Continuing without the network cache removes them first.
-        while (startupSnapshot.NetworkCacheFailure is { } failure)
+        // which an active network cache no longer uses. Continuing without the network cache removes them first. Retry, and
+        // Network once the page closed, run the whole startup again.
+        if (startupSnapshot.NetworkCacheFailure is { } failure)
         {
-            NetworkCacheStartupChoice choice = NetworkCacheStartupChoice.Close;
-            RunOnUi(() => choice = _networkCacheStartupDialog.ShowFailure(failure));
-            if (choice == NetworkCacheStartupChoice.ContinueWithout)
+            NetworkCacheFailureResolution resolution = await ResolveNetworkCacheFailureAsync(failure, async token =>
             {
-                // The failed session is already unavailable, so downloads neither read from nor publish to a share.
-                _logger.LogWarning(
-                    "Deployment continues without the network cache: custom images, custom driver sets and post-installation actions are not available. FailureKind={FailureKind}",
-                    failure.Kind);
+                startupSnapshot = await EnsureCatalogsAsync(
+                    await RunStartupCoordinatorAsync(token).ConfigureAwait(false), token).ConfigureAwait(false);
+                return startupSnapshot.NetworkCacheFailure;
+            }, cancellationToken).ConfigureAwait(false);
+            if (resolution == NetworkCacheFailureResolution.Closed)
+            {
+                return;
+            }
+
+            if (resolution == NetworkCacheFailureResolution.ContinueWithout)
+            {
                 startupSnapshot = startupSnapshot with
                 {
                     DeployConfigurationDocument = startupSnapshot.DeployConfigurationDocument is { } document
@@ -359,58 +365,42 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
                         : null,
                     NetworkCacheFailure = null
                 };
-                break;
             }
-
-            if (choice == NetworkCacheStartupChoice.Close)
-            {
-                _logger.LogWarning("Deployment closed before the wizard because the network cache cannot be used. FailureKind={FailureKind}", failure.Kind);
-                // The blocked start ends the session: report it as one. The network is often what failed, so Close waits for the
-                // send only briefly.
-                try
-                {
-                    await _telemetryService.TrackAsync(TelemetryEvents.DeploySessionFinished, NetworkCacheTelemetry.DescribeBlockedStart(failure),
-                        CancellationToken.None).WaitAsync(BlockedStartTelemetryTimeout).ConfigureAwait(false);
-                }
-                catch (TimeoutException)
-                {
-                    _logger.LogDebug("The blocked start telemetry was not sent before Foundry Deploy closed.");
-                }
-
-                RunOnUi(_applicationShellService.Shutdown);
-                return;
-            }
-
-            cancellationToken.ThrowIfCancellationRequested();
-            _logger.LogInformation("Network cache startup check retried after FailureKind={FailureKind}.", failure.Kind);
-            startupSnapshot = await EnsureCatalogsAsync(
-                await RunStartupCoordinatorAsync(cancellationToken).ConfigureAwait(false), cancellationToken).ConfigureAwait(false);
         }
 
         RunOnUi(() =>
         {
             cancellationToken.ThrowIfCancellationRequested();
             ApplyStartupSnapshot(startupSnapshot);
+            _autopilotGroupTagsFailed = startupSnapshot.AutopilotGroupTagsFailed;
+            _latestReleaseCheck = startupSnapshot.LatestReleaseCheck;
+            if (_latestReleaseCheck is not null)
+            {
+                _releaseNoticeTask = ShowNewerReleaseNoticeAsync(_latestReleaseCheck, cancellationToken);
+            }
+
             _isInitialized = true;
         });
-
-        if (startupSnapshot.LatestReleaseCheck is { } latestReleaseCheck)
-        {
-            _ = ShowNewerReleaseNoticeAsync(latestReleaseCheck, cancellationToken);
-        }
     }
 
     /// <summary>
     /// Shows the newer release notice when the latest published Foundry release is newer than the boot media. Runs after
-    /// the wizard opens and never delays it; any failure leaves the notice hidden.
+    /// the wizard opens and never delays it; any failure leaves the notice hidden. A read release version, newer or not, is a
+    /// result; without one, a return from the Network page runs the check again.
     /// </summary>
     private async Task ShowNewerReleaseNoticeAsync(BootMediaLatestReleaseCheck latestReleaseCheck, CancellationToken cancellationToken)
     {
         try
         {
+            string? latestReleaseVersion = null;
             BootMediaUpdateReason reason = await latestReleaseCheck
-                .EvaluateAsync(_readLatestReleaseVersion, cancellationToken)
+                .EvaluateAsync(async token => latestReleaseVersion = await _readLatestReleaseVersion(token).ConfigureAwait(false), cancellationToken)
                 .ConfigureAwait(false);
+            if (latestReleaseVersion is not null)
+            {
+                Volatile.Write(ref _isReleaseNoticeResolved, true);
+            }
+
             if (reason != BootMediaUpdateReason.NewerRelease)
             {
                 return;
@@ -440,8 +430,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
-    /// Offers Retry or Close while the operating system and driver pack catalogs cannot be loaded, and returns the snapshot with
-    /// the catalogs. Retry reloads only the catalogs. Close, like a failure that Retry cannot resolve to the operator's
+    /// Offers Retry, Network (when the host can show the Foundry Connect page) or Close while the operating system and driver
+    /// pack catalogs cannot be loaded, and returns the snapshot with the catalogs. Retry reloads only the catalogs; Network shows
+    /// the Foundry Connect page, then does the same. Close, like a failure that Retry cannot resolve to the operator's
     /// satisfaction, ends startup with the original load failure, so Deploy ends as a startup failure exactly as it did before
     /// the dialog existed. The caller's cancellation ends the wait the same way.
     /// </summary>
@@ -453,11 +444,17 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             cancellationToken.ThrowIfCancellationRequested();
             CatalogStartupChoice choice = CatalogStartupChoice.Close;
             Exception shown = failure;
-            RunOnUi(() => choice = _catalogStartupDialog.ShowFailure(shown));
+            RunOnUi(() => choice = _catalogStartupDialog.ShowFailure(shown, CanOfferNetworkInDialogs));
             if (choice == CatalogStartupChoice.Close)
             {
                 _logger.LogWarning("Deployment closed before the wizard because the catalogs cannot be loaded. FailureType={FailureType}", failure.GetType().Name);
                 ExceptionDispatchInfo.Capture(failure).Throw();
+            }
+
+            if (choice == CatalogStartupChoice.Network)
+            {
+                await OpenNetworkPageFromDialogAsync(cancellationToken).ConfigureAwait(false);
+                cancellationToken.ThrowIfCancellationRequested();
             }
 
             _logger.LogInformation("Catalog load retried after FailureType={FailureType}.", failure.GetType().Name);
@@ -646,6 +643,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         IsNetworkMenuVisible
         && Session.CurrentPage == DeploymentPage.Wizard
         && !IsDeploymentRunning
+        && !_isRefreshingAfterNetworkReturn
         && !_networkPageNavigator!.IsOpen;
 
     [RelayCommand(CanExecute = nameof(CanUseCustomImageDebugTools))]
@@ -1210,9 +1208,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         return _deploymentWizardStateService.CanGoNext(BuildWizardStateSnapshot());
     }
 
+    // Never while a return from the Network page replaces the network cache session and the content it publishes.
     private bool CanStartDeployment()
     {
-        return _deploymentWizardStateService.CanStartDeployment(BuildWizardStateSnapshot());
+        return !_isRefreshingAfterNetworkReturn && _deploymentWizardStateService.CanStartDeployment(BuildWizardStateSnapshot());
     }
 
     private bool HasValidDriverPackSelection()

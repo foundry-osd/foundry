@@ -38,6 +38,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
     private readonly INetworkCacheSessionResolver? _networkCacheResolver;
     private readonly INetworkCacheSessionAccessor? _networkCacheAccessor;
     private readonly NetworkCacheStartupCheck _networkCacheStartupCheck;
+    private StartupState? _lastStartup;
 
     public DeploymentStartupCoordinator(
         IDeployConfigurationService deployConfigurationService,
@@ -76,9 +77,11 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         DeployConfigurationLoadResult deployConfigLoadResult = _deployConfigurationService.LoadOptional();
         IReadOnlyList<AutopilotProfileCatalogItem> autopilotProfiles = _autopilotProfileCatalogService.LoadAvailableProfiles();
         string cacheRootPath = ResolveCacheRootPath(request.RuntimeContext, request.IsDebugSafeMode);
-        FoundryDeployConfigurationDocument? deployConfigurationDocument = deployConfigLoadResult.Document is null
+        AutopilotGroupTagRefresh? groupTags = deployConfigLoadResult.Document is null
             ? null
             : await RefreshAutopilotGroupTagsAsync(deployConfigLoadResult.Document, cacheRootPath, cancellationToken).ConfigureAwait(false);
+        FoundryDeployConfigurationDocument? deployConfigurationDocument = groupTags?.Document;
+        _lastStartup = new StartupState(request, cacheRootPath, deployConfigLoadResult.Document, deployConfigurationDocument);
 
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -114,6 +117,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
             ConfigurationFailureMessage = deployConfigLoadResult.FailureMessage,
             CacheRootPath = cacheRootPath,
             DeployConfigurationDocument = deployConfigurationDocument,
+            AutopilotGroupTagsFailed = groupTags?.Failed == true,
             NetworkCacheFailure = networkCache?.Failure,
             BootMediaUpdateReason = deployConfigLoadResult.BootMediaUpdateReason,
             LatestReleaseCheck = deployConfigLoadResult.LatestReleaseCheck,
@@ -139,6 +143,39 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         }
 
         return result.Snapshot;
+    }
+
+    /// <inheritdoc />
+    public Task<AutopilotGroupTagRefresh> RefreshAutopilotGroupTagsAsync(CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        if (_lastStartup is not { LoadedDocument: { } document } startup)
+        {
+            throw new InvalidOperationException("Startup has not loaded a Deploy configuration.");
+        }
+
+        return RefreshAutopilotGroupTagsAsync(document, startup.CacheRootPath, cancellationToken);
+    }
+
+    /// <inheritdoc />
+    public bool ShouldResolveNetworkCacheAgain()
+    {
+        if (_networkCacheResolver is null || _networkCacheAccessor?.Current is not { } session || session.Outcome == NetworkCacheOutcome.Disabled)
+        {
+            return false;
+        }
+
+        // Compared as sets: adapters may list the same addresses in another order.
+        return !session.IsAvailable || !session.DeviceAddresses.ToHashSet().SetEquals(_networkCacheResolver.ReadLocalAddresses());
+    }
+
+    /// <inheritdoc />
+    public Task<NetworkCacheStartupResult?> ResolveNetworkCacheAsync(CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        return _lastStartup is { } startup
+            ? ResolveNetworkCacheAsync(startup.Request, startup.CacheRootPath, startup.Document, cancellationToken)
+            : Task.FromResult<NetworkCacheStartupResult?>(null);
     }
 
     /// <summary>
@@ -204,8 +241,8 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
             return null;
         }
 
-        // A retry after a startup failure resolves again. The previous session is closed first: disconnecting it afterwards
-        // would close the same UNC path the new session may have just connected.
+        // A retry after a startup failure, or a return from the Network page, resolves again. The previous session is closed
+        // first: disconnecting it afterwards would close the same UNC path the new session may have just connected.
         _networkCacheAccessor.Current?.Dispose();
         _networkCacheAccessor.Current = null;
 
@@ -278,7 +315,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         return WinPeTransientRuntimeRoot;
     }
 
-    private async Task<FoundryDeployConfigurationDocument> RefreshAutopilotGroupTagsAsync(
+    private async Task<AutopilotGroupTagRefresh> RefreshAutopilotGroupTagsAsync(
         FoundryDeployConfigurationDocument document,
         string cacheRootPath,
         CancellationToken cancellationToken)
@@ -286,7 +323,7 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
         DeployAutopilotHardwareHashUploadSettings hardwareHashUpload = document.Autopilot.HardwareHashUpload;
         if (!CanDiscoverHardwareHashGroupTags(document.Autopilot, hardwareHashUpload))
         {
-            return document;
+            return new AutopilotGroupTagRefresh(document, Failed: false);
         }
 
         // One budget covers authentication, Graph pagination and retry delays; await cleanup before continuing.
@@ -299,19 +336,19 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
                 .DiscoverAsync(hardwareHashUpload, workspaceRootPath, discoveryCancellation.Token)
                 .ConfigureAwait(false);
             cancellationToken.ThrowIfCancellationRequested();
-            _logger.LogInformation("Discovered {GroupTagCount} Autopilot group tag(s) at Deploy startup.", groupTags.Count);
-            return WithRuntimeGroupTags(document, groupTags);
+            _logger.LogInformation("Discovered {GroupTagCount} Autopilot group tag(s).", groupTags.Count);
+            return new AutopilotGroupTagRefresh(WithRuntimeGroupTags(document, groupTags), Failed: false);
         }
         catch (OperationCanceledException ex) when (!cancellationToken.IsCancellationRequested)
         {
             _logger.LogWarning(ex, "Optional Autopilot group tag discovery timed out. Deploy will keep the configured group tags and default.");
-            return document;
+            return new AutopilotGroupTagRefresh(document, Failed: true);
         }
         catch (Exception ex) when (ex is InvalidOperationException or ArgumentException or FileNotFoundException or CryptographicException or HttpRequestException or JsonException)
         {
             cancellationToken.ThrowIfCancellationRequested();
             _logger.LogWarning(ex, "Optional Autopilot group tag discovery failed. Deploy will keep the configured group tags and default.");
-            return document;
+            return new AutopilotGroupTagRefresh(document, Failed: true);
         }
     }
 
@@ -366,6 +403,14 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
             }
         };
     }
+
+    /// <summary>What the last startup resolved from, so a return from the Network page can run its network steps again.</summary>
+    /// <param name="Request">The startup request.</param>
+    /// <param name="CacheRootPath">The cache root the startup resolved.</param>
+    /// <param name="LoadedDocument">The configuration as loaded, before the group tag discovery.</param>
+    /// <param name="Document">The configuration with the startup's group tags, the one the network cache check ran on.</param>
+    private sealed record StartupState(DeploymentStartupRequest Request, string CacheRootPath,
+        FoundryDeployConfigurationDocument? LoadedDocument, FoundryDeployConfigurationDocument? Document);
 
     private sealed record CatalogLoadResult(DeploymentCatalogSnapshot Snapshot, Exception? Failure);
     private sealed record HardwareLoadResult(HardwareProfile? Profile, string? ErrorMessage);

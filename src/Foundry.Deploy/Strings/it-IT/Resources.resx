@@ -121,6 +121,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Common.Enabled" xml:space="preserve">
     <value>Abilitato</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>Rete</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>Avanti</value>
   </data>

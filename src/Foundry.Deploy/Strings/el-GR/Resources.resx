@@ -121,6 +121,9 @@
   <data name="Common.Enabled" xml:space="preserve">
     <value>Ενεργοποιημένο</value>
   </data>
+  <data name="Common.Network" xml:space="preserve">
+    <value>Δίκτυο</value>
+  </data>
   <data name="Common.Next" xml:space="preserve">
     <value>Επόμενο</value>
   </data>

@@ -98,6 +98,19 @@ public partial class CustomImageSelectionViewModel : ObservableObject, IDisposab
         _applyingCatalog = false;
     }
 
+    /// <summary>
+    /// Applies the settings again after the network cache was resolved again and discovers the images again, because the share
+    /// they are read from may have changed. Unchanged settings keep the selected image when it is still offered; changed
+    /// settings start over from their defaults, as when they were first configured.
+    /// </summary>
+    /// <param name="settings">The custom image section of the configuration the network cache check returned.</param>
+    public Task ReloadAsync(DeployCustomImagesSettings settings)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        if (settings != _configuredSettings) Configure(settings);
+        return RefreshAsync();
+    }
+
     public Task RefreshAsync()
     {
         if (!IsEnabled || _lifetime.IsCancellationRequested) return Task.CompletedTask;
