@@ -29,8 +29,9 @@ public static class ConnectSessionReadyTelemetry
     /// </summary>
     /// <param name="state">Network state at exit; its internet status is expected to be <see cref="InternetStatus.Online"/>.</param>
     /// <param name="configuration">Runtime configuration.</param>
+    /// <param name="connectSkipped"><see langword="true"/> when the network gate found the internet and Foundry Connect was never shown.</param>
     /// <returns>The telemetry properties.</returns>
-    public static IReadOnlyDictionary<string, object?> Build(NetworkState state, FoundryConnectConfigurationDocument configuration)
+    public static IReadOnlyDictionary<string, object?> Build(NetworkState state, FoundryConnectConfigurationDocument configuration, bool connectSkipped)
     {
         ArgumentNullException.ThrowIfNull(state);
         ArgumentNullException.ThrowIfNull(configuration);
@@ -46,7 +47,8 @@ public static class ConnectSessionReadyTelemetry
             ["connect_wifi_security_type"] = connection is null ? None : WifiSecurityClassifier.TelemetryCategory(connection.Security),
             ["connect_wifi_source"] = connection is null ? None : connection.Source == WifiConnectionSource.Provisioned ? "provisioned" : "manual",
             ["connect_wired_dot1x_enabled"] = configuration.Dot1x.IsEnabled,
-            ["connect_wifi_provisioned"] = configuration.Capabilities.WifiProvisioned && configuration.Wifi.IsEnabled
+            ["connect_wifi_provisioned"] = configuration.Capabilities.WifiProvisioned && configuration.Wifi.IsEnabled,
+            ["connect_skipped"] = connectSkipped
         };
     }
 

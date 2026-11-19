@@ -220,6 +220,7 @@ public static class TelemetryEventPropertyPolicy
                 "connect_wifi_source",
                 "connect_wired_dot1x_enabled",
                 "connect_wifi_provisioned",
+                "connect_skipped",
                 RuntimeHostProperty
             },
             [TelemetryEvents.DeploySessionFinished] = new(StringComparer.Ordinal)
@@ -306,7 +307,8 @@ public static class TelemetryEventPropertyPolicy
         {
             if (!allowedProperties.Contains(key) || IsSensitiveKey(key) || !IsAllowedUnattendValue(key, value) ||
                 !IsAllowedCustomImageValue(key, value) || !IsAllowedPostInstallationValue(key, value) ||
-                !IsAllowedBootMediaValue(key, value) || !IsAllowedDeployOobeValue(key, value) || !IsAllowedRuntimeHostValue(key, value))
+                !IsAllowedBootMediaValue(key, value) || !IsAllowedDeployOobeValue(key, value) || !IsAllowedRuntimeHostValue(key, value) ||
+                key == "connect_skipped" && value is not bool)
             {
                 continue;
             }

@@ -178,7 +178,7 @@ public sealed class SuccessfulExitService : ISuccessfulExitService
         {
             using var budget = new CancellationTokenSource(TelemetryBudget, _timeProvider);
             using CancellationTokenSource linked = CancellationTokenSource.CreateLinkedTokenSource(budget.Token, cancellationToken);
-            tracking = _telemetry.TrackAsync(TelemetryEvents.ConnectSessionReady, ConnectSessionReadyTelemetry.Build(state, _configuration), linked.Token);
+            tracking = _telemetry.TrackAsync(TelemetryEvents.ConnectSessionReady, ConnectSessionReadyTelemetry.Build(state, _configuration, connectSkipped: false), linked.Token);
             await tracking.WaitAsync(TelemetryBudget, _timeProvider, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception exception) when (exception is TimeoutException || (exception is OperationCanceledException && !cancellationToken.IsCancellationRequested))
