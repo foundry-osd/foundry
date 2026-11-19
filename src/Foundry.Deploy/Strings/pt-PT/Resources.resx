@@ -693,11 +693,26 @@ Continuar com a implementação?</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Idioma</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Rede</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Ferramentas</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Não ligado</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Ligado através de Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Sem internet</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Ligado através de Wi-Fi</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>A partilha da cache de rede recusou este dispositivo. No Foundry OSD, na página Cache de rede, verifique a conta da partilha e a respetiva palavra-passe; no servidor, verifique as permissões da partilha.</value>

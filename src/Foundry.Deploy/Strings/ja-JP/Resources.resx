@@ -693,11 +693,26 @@ MITライセンスに基づいてライセンスされています。</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_言語</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_ネットワーク</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_テーマ</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_ツール</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>未接続</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Ethernet で接続済み</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>インターネットなし</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Wi-Fi で接続済み</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>ネットワーク キャッシュの共有がこのデバイスを拒否しました。Foundry OSD の [ネットワーク キャッシュ] ページで共有のアカウントとそのパスワードを確認し、サーバーで共有のアクセス許可を確認してください。</value>

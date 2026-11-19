@@ -693,11 +693,26 @@ Continuare con la distribuzione?</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Lingua</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Rete</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Strumenti</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Non connesso</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Connesso tramite Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Nessuna connessione a Internet</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Connesso tramite Wi-Fi</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>La condivisione della cache di rete ha rifiutato questo dispositivo. In Foundry OSD, nella pagina Cache di rete, verifica l'account della condivisione e la relativa password; sul server, verifica le autorizzazioni della condivisione.</value>

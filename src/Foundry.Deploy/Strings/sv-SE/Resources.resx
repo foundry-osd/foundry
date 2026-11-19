@@ -693,11 +693,26 @@ Fortsätt med implementeringen?</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Språk</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Nätverk</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Verktyg</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Inte ansluten</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Ansluten via Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Inget internet</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Ansluten via Wi-Fi</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>Nätverkscachens resurs nekade den här enheten. Kontrollera resursens konto och dess lösenord på sidan Nätverkscache i Foundry OSD; kontrollera resursens behörigheter på servern.</value>

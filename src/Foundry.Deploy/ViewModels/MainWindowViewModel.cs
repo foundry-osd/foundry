@@ -22,6 +22,7 @@ using Foundry.Deploy.Services.Cache;
 using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.DomainJoin;
+using Foundry.Deploy.Services.Network;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Wpf.Runtime;
@@ -36,6 +37,7 @@ using Foundry.Deploy.Services.Wizard;
 using Foundry.Localization;
 using Foundry.Telemetry;
 using Foundry.Wpf.Localization;
+using Foundry.Wpf.Network;
 using Foundry.Wpf.ViewModels;
 using ComputerNameRules = Foundry.Core.Services.Configuration.ComputerNameRules;
 using Microsoft.Extensions.Logging;
@@ -65,6 +67,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     private readonly IKeyboardLayoutSwitcher _keyboardLayoutSwitcher;
     private readonly LatestReleaseVersionReader _readLatestReleaseVersion;
     private readonly Dispatcher _dispatcher;
+    private readonly INetworkPageNavigator? _networkPageNavigator;
+    private readonly DeployNetworkIndicator? _networkIndicator;
     private readonly DeploymentRuntimeContext _deploymentRuntimeContext;
     private readonly DeploymentWizardContext _wizardContext;
     private readonly DeploymentWizardNavigationState _wizardNavigationState;
@@ -107,6 +111,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     [NotifyCanExecuteChangedFor(nameof(ToggleDebugBootMediaUpdateReasonCommand))]
     [NotifyCanExecuteChangedFor(nameof(SetDebugCustomImageScenarioCommand))]
     [NotifyCanExecuteChangedFor(nameof(CancelDeploymentCommand))]
+    [NotifyCanExecuteChangedFor(nameof(OpenNetworkCommand))]
     private bool isDeploymentRunning;
 
     [ObservableProperty]
@@ -224,7 +229,9 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         ITelemetryService telemetryService,
         LatestReleaseVersionReader readLatestReleaseVersion,
         ILogger<MainWindowViewModel> logger,
-        INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null)
+        INetworkAdapterSnapshotProvider? networkAdapterSnapshotProvider = null,
+        INetworkPageNavigator? networkPageNavigator = null,
+        DeployNetworkIndicator? networkIndicator = null)
         : base(localizationService)
     {
         _keyboardLayoutSwitcher = keyboardLayoutSwitcher;
@@ -245,6 +252,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _readLatestReleaseVersion = readLatestReleaseVersion;
         _logger = logger;
         _dispatcher = Application.Current?.Dispatcher ?? Dispatcher.CurrentDispatcher;
+        _networkPageNavigator = networkPageNavigator;
         _deploymentRuntimeContext = deploymentRuntimeContextService.Resolve();
         _wizardContext = deploymentWizardContextFactory.Create(IsDebugSafeMode);
         _wizardContext.StateChanged += OnWizardContextStateChanged;
@@ -270,7 +278,32 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         LocalizationService.LanguageChanged += OnLocalizationLanguageChanged;
         RefreshSupportedCultures();
         RefreshKeyboardMenu();
+        // The state is shown only next to a visible Network item.
+        if (IsNetworkMenuVisible && networkIndicator is not null)
+        {
+            _networkIndicator = networkIndicator;
+            _networkIndicator.StateChanged += OnNetworkIndicatorStateChanged;
+            _networkIndicator.Start();
+        }
     }
+
+    /// <summary>Gets whether the menu bar shows the Network item: only when the host can reopen the Foundry Connect page.</summary>
+    public bool IsNetworkMenuVisible => _networkPageNavigator?.IsAvailable == true;
+
+    /// <summary>Gets the connection state shown by the Network menu item.</summary>
+    public NetworkIndicatorState NetworkIndicator => _networkIndicator?.State ?? NetworkIndicatorState.Disconnected;
+
+    /// <summary>Gets the Segoe Fluent glyph of <see cref="NetworkIndicator"/>.</summary>
+    public string NetworkIndicatorGlyph => NetworkIndicatorGlyphs.For(NetworkIndicator);
+
+    /// <summary>Gets the localized state text shown as the tooltip of the Network menu item.</summary>
+    public string NetworkIndicatorToolTip => GetString(NetworkIndicator switch
+    {
+        NetworkIndicatorState.Ethernet => "Network.State.Ethernet",
+        NetworkIndicatorState.Wifi => "Network.State.Wifi",
+        NetworkIndicatorState.Limited => "Network.State.Limited",
+        _ => "Network.State.Disconnected"
+    });
 
     /// <summary>
     /// Gets the keyboard menu entries: the active language's layouts, then the other languages.
@@ -484,10 +517,10 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
-    /// Applies the theme and language chosen in the Foundry Connect phase. Call once, before the window's first layout, so the
-    /// first frame and the menu check marks already use them. A missing or unknown value keeps the default, and a failure
-    /// while applying them is logged as a warning: the preferences never fail Deploy's startup. The keyboard layout needs no
-    /// hand-over: Connect activated it for this process.
+    /// Applies the theme and language chosen in the Foundry Connect phase: at startup, before the window's first layout, so the
+    /// first frame and the menu check marks already use them, and again when a reopened Connect page returns to Deploy. A
+    /// missing or unknown value keeps the current one, and a failure while applying them is logged as a warning: the
+    /// preferences never fail Deploy. The keyboard layout needs no hand-over: Connect activated it for this process.
     /// </summary>
     /// <param name="themeMode">A <see cref="DeployThemeMode"/> name, for example <c>Dark</c>, or <see langword="null"/>.</param>
     /// <param name="cultureName">A culture name, for example <c>fr-FR</c>, or <see langword="null"/>.</param>
@@ -592,6 +625,28 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     {
         _applicationShellService.ShowAbout();
     }
+
+    /// <summary>
+    /// Reopens the Foundry Connect page; Deploy's content comes back when it closes. The command stays disabled while it runs.
+    /// </summary>
+    [RelayCommand(CanExecute = nameof(CanOpenNetwork))]
+    private async Task OpenNetworkAsync()
+    {
+        if (!CanOpenNetwork())
+        {
+            return;
+        }
+
+        // The navigator reports its own outcome and never throws for a page that failed or was cancelled.
+        await _networkPageNavigator!.OpenAsync(CancellationToken.None);
+    }
+
+    // Only from the wizard: the splash page is still starting up, and the status pages belong to a deployment.
+    private bool CanOpenNetwork() =>
+        IsNetworkMenuVisible
+        && Session.CurrentPage == DeploymentPage.Wizard
+        && !IsDeploymentRunning
+        && !_networkPageNavigator!.IsOpen;
 
     [RelayCommand(CanExecute = nameof(CanUseCustomImageDebugTools))]
     private async Task SetDebugCustomImageScenarioAsync(DebugCustomImageScenario scenario)
@@ -1026,6 +1081,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
 
         BeginWizardCommand.NotifyCanExecuteChanged();
         SetDebugCustomImageScenarioCommand.NotifyCanExecuteChanged();
+        OpenNetworkCommand.NotifyCanExecuteChanged();
     }
 
     [RelayCommand(CanExecute = nameof(CanUseDebugTools))]
@@ -1596,6 +1652,12 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         Session.PropertyChanged -= OnSessionPropertyChanged;
         _deploymentOrchestrator.CompletionStarting -= OnDeploymentCompletionStarting;
         LocalizationService.LanguageChanged -= OnLocalizationLanguageChanged;
+        if (_networkIndicator is not null)
+        {
+            _networkIndicator.StateChanged -= OnNetworkIndicatorStateChanged;
+            _networkIndicator.Dispose();
+        }
+
         _wizardContext.Dispose();
         Session.Dispose();
         _debugCredentialVerifier?.Dispose();
@@ -1613,6 +1675,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(VersionDisplay));
             OnPropertyChanged(nameof(BootMediaUpdateRecommendedText));
             OnPropertyChanged(nameof(BootMediaUpdateRecommendedToolTip));
+            OnPropertyChanged(nameof(NetworkIndicatorToolTip));
             OperatingSystemCatalog.RefreshLocalizedMediaOptions();
             CustomImages.RefreshLocalization();
             DomainJoinStep.RefreshLocalizedText();
@@ -1624,6 +1687,22 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
             RefreshWizardSteps();
             RefreshSummaryCategories();
+        });
+    }
+
+    // Raised on a timer thread; posted so the poll never waits for the UI thread.
+    private void OnNetworkIndicatorStateChanged(object? sender, EventArgs e)
+    {
+        _dispatcher.BeginInvoke(() =>
+        {
+            if (_isDisposed)
+            {
+                return;
+            }
+
+            OnPropertyChanged(nameof(NetworkIndicator));
+            OnPropertyChanged(nameof(NetworkIndicatorGlyph));
+            OnPropertyChanged(nameof(NetworkIndicatorToolTip));
         });
     }
 

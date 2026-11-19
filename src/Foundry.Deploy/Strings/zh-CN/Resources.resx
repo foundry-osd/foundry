@@ -693,11 +693,26 @@
   <data name="Menu.Language" xml:space="preserve">
     <value>_语言</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_网络</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_主题</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_工具</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>未连接</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>已通过以太网连接</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>无法访问互联网</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>已通过 Wi-Fi 连接</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>网络缓存共享拒绝了此设备。请在 Foundry OSD 的“网络缓存”页上检查该共享的帐户及其密码，并在服务器上检查该共享的权限。</value>

@@ -13,6 +13,7 @@ using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.DriverPacks;
 using Foundry.Deploy.Services.Localization;
+using Foundry.Deploy.Services.Network;
 using Foundry.Deploy.Services.Operations;
 using Foundry.Deploy.Services.Runtime;
 using Foundry.Deploy.Services.Security;
@@ -91,7 +92,7 @@ public sealed class ProgressPageContractTests
     /// <summary>Creates the Deploy main window view model around test doubles; the services a test does not reach throw.</summary>
     internal static MainWindowViewModel CreateMainWindowViewModel(IDeploymentExecutionService execution, IThemeService? theme = null,
         IDeploymentAccessGate? accessGate = null, IDeploymentStartupCoordinator? coordinator = null, IApplicationShellService? shell = null,
-        ICatalogStartupDialogService? catalogDialog = null)
+        ICatalogStartupDialogService? catalogDialog = null, INetworkPageNavigator? networkPageNavigator = null)
     {
         var localization = new ResourceLocalizationService(LocalizationText.ResourceManager);
         return new MainWindowViewModel(
@@ -117,7 +118,8 @@ public sealed class ProgressPageContractTests
             new NullTelemetryService(),
             _ => Task.FromResult<string?>(null),
             NullLogger<MainWindowViewModel>.Instance,
-            new NoNetwork());
+            new NoNetwork(),
+            networkPageNavigator);
     }
 
     /// <summary>Execution that stays running until the test completes it, so cancellation can be observed mid-deployment.</summary>

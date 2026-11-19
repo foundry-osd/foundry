@@ -693,11 +693,26 @@
   <data name="Menu.Language" xml:space="preserve">
     <value>_اللغة</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>ال_شبكة</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_النسق</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_الأدوات</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>غير متصل</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>متصل عبر Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>لا يوجد إنترنت</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>متصل عبر Wi-Fi</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>رفضت مشاركة ذاكرة التخزين المؤقت للشبكة هذا الجهاز. في Foundry OSD، في صفحة "ذاكرة التخزين المؤقت للشبكة"، تحقق من حساب المشاركة وكلمة المرور الخاصة به؛ وعلى الخادم، تحقق من أذونات المشاركة.</value>

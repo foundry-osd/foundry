@@ -693,11 +693,26 @@ Dağıtıma devam edilsin mi?</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Dil</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>A_ğ</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Araçlar</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Bağlı değil</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Ethernet ile bağlı</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>İnternet yok</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Wi-Fi ile bağlı</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>Ağ önbelleği paylaşımı bu cihazı reddetti. Foundry OSD'de Ağ önbelleği sayfasında paylaşımın hesabını ve parolasını denetleyin; sunucuda paylaşımın izinlerini denetleyin.</value>

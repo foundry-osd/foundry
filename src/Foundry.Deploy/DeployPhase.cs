@@ -11,6 +11,7 @@ using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.DependencyInjection;
 using Foundry.Deploy.Services.Configuration;
 using Foundry.Deploy.Services.Logging;
+using Foundry.Deploy.Services.Network;
 using Foundry.Deploy.ViewModels;
 using Foundry.Telemetry;
 using Foundry.Utilities.Diagnostics;
@@ -93,6 +94,7 @@ public static class DeployPhase
         DispatcherUnhandledExceptionEventHandler? dispatcherHandler = null;
         IDisposable? closeAttachment = null;
         CultureChangeReporter? cultureReporter = null;
+        INetworkPageNavigator? networkPageNavigator = null;
         DeployShellContent? content = null;
         string stage = "managed_startup";
         try
@@ -120,6 +122,7 @@ public static class DeployPhase
 
             stage = "ui_startup";
             DeployPhaseLifetime lifetime = host.Services.GetRequiredService<DeployPhaseLifetime>();
+            networkPageNavigator = host.Services.GetRequiredService<INetworkPageNavigator>();
             dispatcherHandler = (_, eventArgs) =>
             {
                 startup.ReportFailure(eventArgs.Exception, "dispatcher");
@@ -183,6 +186,13 @@ public static class DeployPhase
             // The close decision belongs to the host from here on; without a handler the shell refuses a close.
             closeAttachment?.Dispose();
             cultureReporter?.Dispose();
+            // A reopened Foundry Connect page closes first, so its log scope ends before Deploy's and nothing it returns
+            // reaches the released content.
+            if (networkPageNavigator is not null)
+            {
+                await networkPageNavigator.CancelAndWaitAsync();
+            }
+
             if (content is not null)
             {
                 // The page stays shown until the process ends: a click must not reach the disposed view model.

@@ -328,6 +328,25 @@
                 <MenuItem
                     Command="{Binding ShowAboutCommand}"
                     Header="{Binding Strings[Menu.About]}" />
+                <!--  Reopens the Foundry Connect page from the wizard; the icon and the tooltip show the connection state.  -->
+                <MenuItem
+                    Command="{Binding OpenNetworkCommand}"
+                    ToolTip="{Binding NetworkIndicatorToolTip}"
+                    ToolTipService.ShowOnDisabled="True"
+                    Visibility="{Binding IsNetworkMenuVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <MenuItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,6,0"
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                Text="{Binding NetworkIndicatorGlyph}" />
+                            <AccessText
+                                VerticalAlignment="Center"
+                                Text="{Binding Strings[Menu.Network]}" />
+                        </StackPanel>
+                    </MenuItem.Header>
+                </MenuItem>
             </Menu>
 
             <StackPanel

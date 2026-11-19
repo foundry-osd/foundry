@@ -83,6 +83,9 @@ public static class ServiceCollectionExtensions
             sp.GetRequiredService<DeployPhaseLifetime>(),
             sp.GetRequiredService<IShellHost>()));
         services.AddSingleton<MainWindowViewModel>();
+        services.AddSingleton<INetworkReturnRefresh, NoNetworkReturnRefresh>();
+        services.AddSingleton<INetworkPageNavigator>(sp => CreateNetworkPageNavigator(sp, options));
+        services.AddSingleton(sp => new DeployNetworkIndicator(sp.GetRequiredService<INetworkAdapterSnapshotProvider>(), TimeProvider.System));
 
         services.AddSingleton<ILocalizationService>(_ => new ResourceLocalizationService(LocalizationText.ResourceManager));
         services.AddSingleton<IThemeService, ThemeService>();
@@ -252,6 +255,25 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
+
+    /// <summary>
+    /// Creates the phase's navigator to the Foundry Connect page. The content and the view model are resolved only when a page
+    /// returns, because both depend on the navigator.
+    /// </summary>
+    private static NetworkPageNavigator CreateNetworkPageNavigator(IServiceProvider serviceProvider, DeployPhaseOptions options) => new(
+        options.OpenNetworkPage,
+        serviceProvider.GetRequiredService<IDeploymentSecretKeySession>(),
+        serviceProvider.GetRequiredService<IThemeService>(),
+        serviceProvider.GetRequiredService<ILocalizationService>(),
+        // The same content instance: its initialization runs once, on its first load, and its shell attachment stays active.
+        () => DeployPhase.PresentContent(
+            System.Windows.Application.Current,
+            serviceProvider.GetRequiredService<IShellHost>(),
+            serviceProvider.GetRequiredService<DeployShellContent>()),
+        (themeMode, cultureName) => serviceProvider.GetRequiredService<MainWindowViewModel>().ApplyInitialPreferences(themeMode, cultureName),
+        serviceProvider.GetRequiredService<INetworkReturnRefresh>(),
+        serviceProvider.GetRequiredService<DeployPhaseLifetime>(),
+        serviceProvider.GetRequiredService<ILogger<NetworkPageNavigator>>());
 
     /// <summary>Reads the latest published Foundry release through the Deploy HTTPS client, bounded by the reader timeout.</summary>
     private static LatestReleaseVersionReader CreateLatestReleaseVersionReader(IServiceProvider serviceProvider)

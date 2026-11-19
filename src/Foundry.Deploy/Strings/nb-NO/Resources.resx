@@ -693,11 +693,26 @@ Vil du fortsette med distribusjonen?</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Språk</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Nettverk</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Verktøy</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Ikke tilkoblet</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Tilkoblet via Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Ingen internettilgang</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Tilkoblet via Wi-Fi</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>Den delte ressursen for nettverksbufferen avviste denne enheten. I Foundry OSD, på Nettverksbuffer-siden, kontrollerer du kontoen for den delte ressursen og passordet; på serveren kontrollerer du tillatelsene for den delte ressursen.</value>

@@ -693,11 +693,26 @@ Doorgaan met de implementatie?</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Taal</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Netwerk</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Thema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Hulpmiddelen</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Niet verbonden</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Verbonden via Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Geen internet</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Verbonden via Wi-Fi</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>De share van de netwerkcache heeft dit apparaat geweigerd. Controleer in Foundry OSD op de pagina Netwerkcache het account van de share en het wachtwoord ervan; controleer op de server de machtigingen van de share.</value>

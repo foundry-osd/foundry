@@ -693,11 +693,26 @@ Operativni sistem: {4}
   <data name="Menu.Language" xml:space="preserve">
     <value>_Jezik</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Mreža</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Alati</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Nije povezano</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Povezano preko Etherneta</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Nema interneta</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Povezano preko Wi-Fi mreže</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>Deljeni resurs mrežnog keša je odbio ovaj uređaj. U aplikaciji Foundry OSD, na stranici Mrežni keš, proverite nalog deljenog resursa i njegovu lozinku; na serveru proverite dozvole deljenog resursa.</value>

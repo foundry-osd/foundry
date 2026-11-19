@@ -693,11 +693,26 @@ Vil du fortsætte med implementeringen?</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Sprog</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Netværk</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Værktøjer</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Ikke forbundet</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Forbundet via Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Ingen internetforbindelse</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Forbundet via Wi-Fi</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>Den delte mappe til netværkscachen afviste denne enhed. I Foundry OSD skal du på siden Netværkscache kontrollere den delte mappes konto og dens adgangskode; på serveren skal du kontrollere den delte mappes tilladelser.</value>

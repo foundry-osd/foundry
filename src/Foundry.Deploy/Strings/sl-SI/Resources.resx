@@ -693,11 +693,26 @@ Ali želite nadaljevati z uvajanjem?</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Jezik</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>Om_režje</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Orodja</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Ni povezave</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Povezano prek etherneta</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Brez interneta</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Povezano prek Wi-Fi</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>Skupna mapa omrežnega predpomnilnika je zavrnila to napravo. V aplikaciji Foundry OSD na strani Omrežni predpomnilnik preverite račun skupne mape in njegovo geslo; v strežniku preverite dovoljenja skupne mape.</value>

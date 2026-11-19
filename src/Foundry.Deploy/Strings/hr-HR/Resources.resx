@@ -693,11 +693,26 @@ Nastaviti s implementacijom?</value>
   <data name="Menu.Language" xml:space="preserve">
     <value>_Jezik</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>_Mreža</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Tema</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Alati</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Nije povezano</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Povezano putem Etherneta</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Nema interneta</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Povezano putem Wi-Fi-ja</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>Zajednički resurs mrežne predmemorije odbio je ovaj uređaj. U aplikaciji Foundry OSD na stranici Mrežna predmemorija provjerite račun zajedničkog resursa i njegovu lozinku; na poslužitelju provjerite dozvole zajedničkog resursa.</value>

@@ -693,11 +693,26 @@ ErrorCode=0x80070005
   <data name="Menu.Language" xml:space="preserve">
     <value>_Мова</value>
   </data>
+  <data name="Menu.Network" xml:space="preserve">
+    <value>М_ережа</value>
+  </data>
   <data name="Menu.Theme" xml:space="preserve">
     <value>_Тема</value>
   </data>
   <data name="Menu.Tools" xml:space="preserve">
     <value>_Інструменти</value>
+  </data>
+  <data name="Network.State.Disconnected" xml:space="preserve">
+    <value>Не підключено</value>
+  </data>
+  <data name="Network.State.Ethernet" xml:space="preserve">
+    <value>Підключено через Ethernet</value>
+  </data>
+  <data name="Network.State.Limited" xml:space="preserve">
+    <value>Немає інтернету</value>
+  </data>
+  <data name="Network.State.Wifi" xml:space="preserve">
+    <value>Підключено через Wi-Fi</value>
   </data>
   <data name="NetworkCacheStartup.AccessDenied" xml:space="preserve">
     <value>Спільний ресурс мережевого кешу відхилив цей пристрій. У Foundry OSD на сторінці «Мережевий кеш» перевірте обліковий запис спільного ресурсу та його пароль; на сервері перевірте дозволи спільного ресурсу.</value>
