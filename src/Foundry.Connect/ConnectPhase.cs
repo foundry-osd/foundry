@@ -177,8 +177,8 @@ public static class ConnectPhase
 
     /// <summary>
     /// Shows the status page, reports the phase ready once it rendered, runs the <see cref="NetworkGate"/> behind it for at
-    /// least <see cref="StatusPageMinimumDisplay"/>, then shows <paramref name="content"/> unless the gate skipped Connect or
-    /// another exit was requested. The wired unlock prompt and the automatic Wi-Fi prompt open over the status page. A gate
+    /// least <see cref="StatusPageMinimumDisplay"/>, then shows <paramref name="content"/> and releases its auto-continue
+    /// countdown unless the gate skipped Connect or another exit was requested. The wired unlock prompt and the automatic Wi-Fi prompt open over the status page. A gate
     /// failure ends the phase like a failure of the page; never throws.
     /// </summary>
     private static async Task RunNetworkGateAsync(
@@ -213,6 +213,9 @@ public static class ConnectPhase
             if (await run == NetworkGateOutcome.ShowConnect && exitAuthority.RequestedExitCode is null)
             {
                 PresentContent(application, shell, content);
+
+                // Only now: the countdown starts from its full delay on the visible page, never behind the status page.
+                services.GetRequiredService<AutoContinueViewModel>().OnPageShown();
             }
         }
         catch (OperationCanceledException) when (exitAuthority.RequestedExitCode is not null || attachment?.IsEnded == true)

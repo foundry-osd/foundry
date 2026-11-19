@@ -246,6 +246,28 @@ public sealed class NetworkGateTests : IDisposable
     }
 
     [Fact]
+    public async Task RunAsync_MonitorOnlineWhileTheGateShowsConnect_StartsNoCountdownUntilThePageIsShown()
+    {
+        // The monitor sees the internet while every gate probe misses it: the hidden page must not count down or leave.
+        _monitor.OnRun = () => _coordinator.Publish(DebugScenarioCatalog.Create(ConnectDebugScenario.EthernetReady, _clock.GetUtcNow()));
+        _probe.Script = static _ => InternetStatus.NoInternet;
+        using ConnectPageViewModel page = CreatePage();
+        NetworkGate gate = CreateGate();
+
+        NetworkGateOutcome outcome = await DriveAsync(gate.RunAsync(TestContext.Current.CancellationToken));
+
+        Assert.Equal(NetworkGateOutcome.ShowConnect, outcome);
+        Assert.Equal(ConnectPageStatus.Ready, page.Status);
+        Assert.False(page.AutoContinue.IsCounting);
+        Assert.Equal(0, _exit.Calls);
+
+        page.AutoContinue.OnPageShown();
+
+        Assert.True(page.AutoContinue.IsCounting);
+        Assert.Equal(AutoContinuePolicy.CountdownSeconds, page.AutoContinue.SecondsRemaining);
+    }
+
+    [Fact]
     public async Task RunAsync_FinalProbeNotOnline_KeepsProbing()
     {
         _probe.Script = static _ => InternetStatus.Online;
@@ -428,7 +450,8 @@ public sealed class NetworkGateTests : IDisposable
         var dispatcher = new ImmediateUiDispatcher();
         return new ConnectPageViewModel(
             _localization, _coordinator, _monitor, _actions,
-            new AutoContinueViewModel(_localization, _exit, _lifetime, _clock, dispatcher, new RecordingLogger<AutoContinueViewModel>(), isAutoContinueEnabled: true),
+            new AutoContinueViewModel(
+                _localization, _exit, _lifetime, _clock, dispatcher, new RecordingLogger<AutoContinueViewModel>(), isAutoContinueEnabled: true, isPageShown: false),
             new EthernetSectionViewModel(_localization),
             _provisionedWifi,
             new WifiNetworksViewModel(_localization, _actions, _monitor),

@@ -120,7 +120,8 @@ public static class ServiceCollectionExtensions
             sp.GetRequiredService<TimeProvider>(),
             sp.GetRequiredService<IUiDispatcher>(),
             sp.GetRequiredService<ILogger<AutoContinueViewModel>>(),
-            isAutoContinueEnabled: !Debugger.IsAttached));
+            isAutoContinueEnabled: !Debugger.IsAttached,
+            isPageShown: false));
         services.AddSingleton<EthernetSectionViewModel>();
         services.AddSingleton<ProvisionedWifiViewModel>();
         services.AddSingleton<WifiNetworksViewModel>();
