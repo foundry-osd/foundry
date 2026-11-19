@@ -455,7 +455,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             if (choice == CatalogStartupChoice.Network)
             {
                 await OpenNetworkPageFromDialogAsync(cancellationToken).ConfigureAwait(false);
-                cancellationToken.ThrowIfCancellationRequested();
             }
 
             _logger.LogInformation("Catalog load retried after FailureType={FailureType}.", failure.GetType().Name);

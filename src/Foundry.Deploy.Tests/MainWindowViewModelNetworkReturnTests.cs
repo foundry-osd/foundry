@@ -172,15 +172,74 @@ public sealed class MainWindowViewModelNetworkReturnTests
         Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
     });
 
+    [Fact]
+    public Task Return_NetworkInTheCacheDialog_WhenThePhaseEnds_StopsWithoutResolvingAgain() => WpfApplicationTestHost.RunAsync(async () =>
+    {
+        var coordinator = new FakeCoordinator(Snapshot()) { NetworkCacheNeedsResolution = true };
+        coordinator.Resolutions.Enqueue(new NetworkCacheStartupResult(Document(), Unreachable));
+        var dialog = new FakeCacheDialog(NetworkCacheStartupChoice.Network);
+        var navigator = new CallbackNetworkPageNavigator { EndPhaseAtOpen = 2 };
+        using MainWindowViewModel viewModel = await StartAsync(coordinator, navigator, dialog);
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => navigator.OpenAsync(CancellationToken.None));
+
+        Assert.Equal(1, coordinator.NetworkCacheResolutions);
+        Assert.Single(dialog.Failures);
+        Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
+    });
+
+    [Fact]
+    public Task Startup_NetworkInTheCacheDialog_WhenThePhaseEnds_StopsWithoutRunningTheStartupAgain() => WpfApplicationTestHost.RunAsync(async () =>
+    {
+        var coordinator = new FakeCoordinator(Snapshot(networkCacheFailure: Unreachable), Snapshot());
+        var dialog = new FakeCacheDialog(NetworkCacheStartupChoice.Network);
+        var navigator = new CallbackNetworkPageNavigator { EndPhaseAtOpen = 1 };
+        using MainWindowViewModel viewModel = Create(coordinator, navigator, dialog);
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(viewModel.InitializeAsync);
+
+        Assert.Equal(1, coordinator.Initializations);
+        Assert.Single(dialog.Failures);
+        Assert.False(viewModel.Session.IsStartupReady);
+        Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
+    });
+
+    [Fact]
+    public Task Return_WhileTheRefreshRuns_KeepsStartAndNetworkDisabled() => WpfApplicationTestHost.RunAsync(async () =>
+    {
+        var refresh = new TaskCompletionSource<AutopilotGroupTagRefresh>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var coordinator = new FakeCoordinator(Snapshot(groupTagsFailed: true)) { PendingGroupTagRefresh = refresh.Task };
+        var navigator = new CallbackNetworkPageNavigator();
+        using MainWindowViewModel viewModel = await StartAsync(coordinator, navigator);
+        Assert.True(viewModel.StartDeploymentCommand.CanExecute(null));
+
+        Task<bool> open = navigator.OpenAsync(CancellationToken.None);
+
+        Assert.False(viewModel.StartDeploymentCommand.CanExecute(null));
+        Assert.False(viewModel.OpenNetworkCommand.CanExecute(null));
+        refresh.SetResult(new AutopilotGroupTagRefresh(Document(), Failed: false));
+        Assert.True(await open);
+        Assert.True(viewModel.StartDeploymentCommand.CanExecute(null));
+        Assert.True(viewModel.OpenNetworkCommand.CanExecute(null));
+        Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
+    });
+
     private static async Task<MainWindowViewModel> StartAsync(FakeCoordinator coordinator, CallbackNetworkPageNavigator navigator,
+        FakeCacheDialog? dialog = null, RecordingShell? shell = null, ScriptedReleaseReader? reader = null)
+    {
+        MainWindowViewModel viewModel = Create(coordinator, navigator, dialog, shell, reader);
+        await viewModel.InitializeAsync();
+        viewModel.Session.ShowWizard();
+        return viewModel;
+    }
+
+    private static MainWindowViewModel Create(FakeCoordinator coordinator, CallbackNetworkPageNavigator navigator,
         FakeCacheDialog? dialog = null, RecordingShell? shell = null, ScriptedReleaseReader? reader = null)
     {
         MainWindowViewModel viewModel = ProgressPageContractTests.CreateMainWindowViewModel(new UnusedExecution(), accessGate: new OpenGate(),
             coordinator: coordinator, shell: shell ?? new RecordingShell(), networkPageNavigator: navigator,
             networkCacheDialog: dialog ?? new FakeCacheDialog(), readLatestReleaseVersion: (reader ?? new ScriptedReleaseReader("26.10.3.1")).ReadAsync);
         navigator.Refresh = viewModel.RefreshAfterNetworkReturnAsync;
-        await viewModel.InitializeAsync();
-        viewModel.Session.ShowWizard();
         return viewModel;
     }
 
@@ -227,6 +286,7 @@ public sealed class MainWindowViewModelNetworkReturnTests
         public int NetworkCacheResolutions { get; private set; }
         public bool NetworkCacheNeedsResolution { get; set; }
         public AutopilotGroupTagRefresh? GroupTagRefresh { get; set; }
+        public Task<AutopilotGroupTagRefresh>? PendingGroupTagRefresh { get; set; }
         public Queue<NetworkCacheStartupResult?> Resolutions { get; } = new();
         public Action? OnInitialize { get; set; }
 
@@ -242,7 +302,8 @@ public sealed class MainWindowViewModelNetworkReturnTests
         public Task<AutopilotGroupTagRefresh> RefreshAutopilotGroupTagsAsync(CancellationToken cancellationToken = default)
         {
             GroupTagRefreshes++;
-            return Task.FromResult(GroupTagRefresh ?? throw new InvalidOperationException("No group tag refresh is scripted."));
+            return PendingGroupTagRefresh
+                ?? Task.FromResult(GroupTagRefresh ?? throw new InvalidOperationException("No group tag refresh is scripted."));
         }
 
         public bool ShouldResolveNetworkCacheAgain()

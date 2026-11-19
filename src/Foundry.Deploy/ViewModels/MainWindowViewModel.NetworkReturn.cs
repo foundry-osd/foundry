@@ -216,6 +216,10 @@ public partial class MainWindowViewModel
     /// Shows the Foundry Connect page from a failure dialog and waits until Deploy is shown again. The return refresh does
     /// nothing meanwhile: the dialog's retry follows.
     /// </summary>
+    /// <exception cref="OperationCanceledException">
+    /// The phase ended or <paramref name="cancellationToken"/> was cancelled while the page was shown: Deploy is closing, so
+    /// the dialog's retry must not follow. A page that failed otherwise returns normally and the retry follows.
+    /// </exception>
     private async Task OpenNetworkPageFromDialogAsync(CancellationToken cancellationToken)
     {
         Task<bool> open = Task.FromResult(false);
@@ -224,15 +228,27 @@ public partial class MainWindowViewModel
             _isNetworkPageOpenFromDialog = true;
             open = _networkPageNavigator!.OpenAsync(cancellationToken);
         });
+        bool opened;
         try
         {
             // The navigator reports its own outcome and never throws for a page that failed or was cancelled.
-            await open.ConfigureAwait(false);
+            opened = await open.ConfigureAwait(false);
         }
         finally
         {
-            RunOnUi(() => _isNetworkPageOpenFromDialog = false);
+            RunOnUi(() =>
+            {
+                _isNetworkPageOpenFromDialog = false;
+                StartDeploymentCommand.NotifyCanExecuteChanged();
+            });
         }
+
+        if (!opened && _networkPageNavigator!.HasEnded)
+        {
+            throw new OperationCanceledException("The Deploy phase ended while the Network page was shown.");
+        }
+
+        cancellationToken.ThrowIfCancellationRequested();
     }
 
     private void SetRefreshingAfterNetworkReturn(bool value)
