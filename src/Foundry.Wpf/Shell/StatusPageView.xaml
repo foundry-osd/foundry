@@ -1,0 +1,38 @@
+<UserControl x:Class="Foundry.Wpf.Shell.StatusPageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Foundry.Wpf.Controls">
+    <!--  Standalone resources only (Fluent and Foundry.Wpf): the guardian hosts this page without the Connect and Deploy styles.  -->
+    <Grid
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+        <StackPanel
+            MaxWidth="640"
+            Margin="32">
+            <controls:CustomProgressRing
+                Width="64"
+                Height="64"
+                Margin="0,0,0,24"
+                HorizontalAlignment="Center"
+                AutomationProperties.Name="{Binding Status}"
+                IsIndeterminate="True"
+                ProgressBrush="{DynamicResource AccentFillColorDefaultBrush}"
+                Thickness="6"
+                TrackBrush="{DynamicResource ControlStrongFillColorDefaultBrush}" />
+            <TextBlock
+                FontSize="28"
+                FontWeight="SemiBold"
+                Text="{Binding Title}"
+                TextAlignment="Center"
+                TextWrapping="Wrap" />
+            <!--  Polite live region: screen readers announce each new status without interrupting.  -->
+            <TextBlock
+                Margin="0,16,0,0"
+                AutomationProperties.LiveSetting="Polite"
+                FontSize="16"
+                Text="{Binding Status}"
+                TextAlignment="Center"
+                TextWrapping="Wrap" />
+        </StackPanel>
+    </Grid>
+</UserControl>
