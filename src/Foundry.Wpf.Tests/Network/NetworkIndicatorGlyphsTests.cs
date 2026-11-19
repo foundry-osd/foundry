@@ -11,7 +11,7 @@ public sealed class NetworkIndicatorGlyphsTests
     [Theory]
     [InlineData(NetworkIndicatorState.Ethernet, "\uE839")]
     [InlineData(NetworkIndicatorState.Wifi, "\uE701")]
-    [InlineData(NetworkIndicatorState.Limited, "\uE871")]
+    [InlineData(NetworkIndicatorState.Limited, "\uE7BA")]
     [InlineData(NetworkIndicatorState.Disconnected, "\uF384")]
     public void For_ReturnsTheGlyphOfTheState(NetworkIndicatorState state, string expected)
     {

@@ -6,7 +6,7 @@ namespace Foundry.Wpf.Network;
 
 /// <summary>
 /// Maps a <see cref="NetworkIndicatorState"/> to its Segoe Fluent Icons glyph. Ethernet and Wi-Fi use the same
-/// code points as the Foundry Connect pages.
+/// code points as the Foundry Connect pages; Limited uses the Warning glyph of the Connect boot media banner.
 /// </summary>
 public static class NetworkIndicatorGlyphs
 {
@@ -15,7 +15,7 @@ public static class NetworkIndicatorGlyphs
     {
         NetworkIndicatorState.Ethernet => "\uE839",
         NetworkIndicatorState.Wifi => "\uE701",
-        NetworkIndicatorState.Limited => "\uE871",
+        NetworkIndicatorState.Limited => "\uE7BA",
         _ => "\uF384"
     };
 }
