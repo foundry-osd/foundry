@@ -33,6 +33,7 @@ public sealed class MainWindowViewModelCatalogStartupTests
         Assert.Equal(1, coordinator.Initializations);
         Assert.Equal(1, coordinator.ReloadCount);
         Assert.True(viewModel.Session.IsStartupReady);
+        Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
     });
 
     [Fact]
@@ -49,6 +50,7 @@ public sealed class MainWindowViewModelCatalogStartupTests
         Assert.Equal(3, coordinator.ReloadCount);
         Assert.Equal(1, coordinator.Initializations);
         Assert.True(viewModel.Session.IsStartupReady);
+        Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
     });
 
     [Fact]
@@ -65,6 +67,7 @@ public sealed class MainWindowViewModelCatalogStartupTests
         Assert.Equal(2, dialog.Failures.Count);
         Assert.False(viewModel.Session.IsStartupReady);
         Assert.Equal(0, shell.ShutdownCount);
+        Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
     });
 
     [Fact]
@@ -78,6 +81,7 @@ public sealed class MainWindowViewModelCatalogStartupTests
 
         Assert.Same(failure, thrown);
         Assert.Equal(0, coordinator.ReloadCount);
+        Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
     });
 
     [Fact]
@@ -88,11 +92,12 @@ public sealed class MainWindowViewModelCatalogStartupTests
         using MainWindowViewModel viewModel = Create(coordinator, dialog);
 
         Task startup = viewModel.InitializeAsync();
-        await coordinator.ReloadStarted.Task;
+        await coordinator.ReloadStarted.Task.WaitAsync(TimeSpan.FromSeconds(30));
         viewModel.Dispose();
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => startup);
         Assert.Single(dialog.Failures);
+        Assert.Empty(WpfApplicationTestHost.UnhandledExceptions);
     });
 
     private static MainWindowViewModel Create(FakeCoordinator coordinator, FakeDialog dialog, RecordingShell? shell = null) =>

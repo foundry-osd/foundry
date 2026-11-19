@@ -110,11 +110,17 @@ public sealed class DeploymentStartupCoordinatorTests
     {
         using var caller = new CancellationTokenSource();
         var pending = new TaskCompletionSource<DeploymentCatalogSnapshot>(TaskCreationOptions.RunContinuationsAsynchronously);
-        var dependencies = new StartupDependencies(enabled: false, catalog: () => pending.Task);
+        var loadStarted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var dependencies = new StartupDependencies(enabled: false, catalog: () =>
+        {
+            loadStarted.TrySetResult();
+            return pending.Task;
+        });
         var coordinator = new DeploymentStartupCoordinator(dependencies, dependencies, dependencies, dependencies, dependencies, dependencies,
             new StubDiscovery(_ => throw new InvalidOperationException("Discovery must not start.")), new RecordingLogger());
         Task<DeploymentStartupSnapshot> startup = coordinator.InitializeAsync(CreateRequest(), caller.Token);
 
+        await loadStarted.Task.WaitAsync(TimeSpan.FromSeconds(30), TestContext.Current.CancellationToken);
         caller.Cancel();
         pending.SetException(new HttpRequestException("Canceled download"));
 
