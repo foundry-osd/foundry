@@ -24,7 +24,7 @@ public enum NetworkCacheStartupChoice
     Network
 }
 
-/// <summary>Shows the network cache startup failure before the wizard opens.</summary>
+/// <summary>Shows the network cache failure before the wizard opens and after a return from the Network page.</summary>
 public interface INetworkCacheStartupDialogService
 {
     /// <summary>

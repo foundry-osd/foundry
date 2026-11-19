@@ -90,7 +90,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ILocalizationService>(_ => new ResourceLocalizationService(LocalizationText.ResourceManager));
         services.AddSingleton<IThemeService, ThemeService>();
         services.AddSingleton<IKeyboardLayoutSwitcher>(_ => new WindowsKeyboardLayoutSwitcher());
-        // Before the wizard (access denied, network cache start closed by the operator) the shell's Shutdown ends the phase as an operator abort.
+        // Access denied, or Close in the network cache failure dialog (at startup or after a return from the Network page): the
+        // shell's Shutdown ends the phase as an operator abort.
         services.AddSingleton<IApplicationShellService>(sp => new ApplicationShellService(
             sp.GetRequiredService<ILocalizationService>(),
             sp.GetRequiredService<WpfApplicationIdentity>(),

@@ -184,7 +184,7 @@ public partial class MainWindowViewModel
             }
 
             cancellationToken.ThrowIfCancellationRequested();
-            _logger.LogInformation("Network cache startup check retried after FailureKind={FailureKind}.", failure.Kind);
+            _logger.LogInformation("Network cache check retried after FailureKind={FailureKind}.", failure.Kind);
             if (await retryAsync(cancellationToken).ConfigureAwait(false) is not { } next)
             {
                 return NetworkCacheFailureResolution.Resolved;

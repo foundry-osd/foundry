@@ -219,8 +219,8 @@ public sealed class DeploymentStartupCoordinator : IDeploymentStartupCoordinator
     }
 
     /// <summary>
-    /// Connects the network cache share before the wizard opens, so content imported to the share is offered with the
-    /// media content and the deployment reuses the same session. The published index and its content are checked as part of
+    /// Connects the network cache share before the wizard opens, and again after a return from the Network page, so content
+    /// imported to the share is offered with the media content and the deployment reuses the same session. The published index and its content are checked as part of
     /// share selection: a share whose index is missing, too old or incomplete is skipped for the next share of the scope,
     /// and startup is blocked only when no share passes. Retry runs this whole selection again. The resolver never throws
     /// for share problems. Returns <see langword="null"/> when no session is resolved or no configuration is loaded. A
