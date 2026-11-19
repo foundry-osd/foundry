@@ -94,6 +94,8 @@ public sealed class MainWindowViewModelNetworkTests
 
         public bool IsOpen => _pending is not null;
 
+        public bool HasEnded => false;
+
         public int Opens { get; private set; }
 
         public Task<bool> OpenAsync(CancellationToken cancellationToken)

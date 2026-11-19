@@ -40,7 +40,9 @@ internal sealed class NetworkPageNavigator : INetworkPageNavigator, IDisposable
     /// <param name="keySession">Source of the key copy passed to the page while Deploy is unlocked.</param>
     /// <param name="themeService">Source of the theme passed to the page.</param>
     /// <param name="localizationService">Source of the culture passed to the page.</param>
-    /// <param name="showDeployContent">Shows Deploy's content in the shell again; it must not initialize it a second time.</param>
+    /// <param name="showDeployContent">
+    /// Shows Deploy's content in the shell again; it must not initialize it a second time. Not called once the phase ended.
+    /// </param>
     /// <param name="applyPreferences">Applies the returned theme and culture name through Deploy's preference path.</param>
     /// <param name="returnRefresh">Runs after the preferences are applied.</param>
     /// <param name="logger">Records the start and the outcome of each reopen.</param>
@@ -69,6 +71,9 @@ internal sealed class NetworkPageNavigator : INetworkPageNavigator, IDisposable
 
     /// <inheritdoc />
     public bool IsOpen => _isOpen;
+
+    /// <inheritdoc />
+    public bool HasEnded => _isDisposed || _phaseCancellation.IsCancellationRequested;
 
     /// <inheritdoc />
     public Task<bool> OpenAsync(CancellationToken cancellationToken)
@@ -151,6 +156,13 @@ internal sealed class NetworkPageNavigator : INetworkPageNavigator, IDisposable
             catch (Exception exception)
             {
                 pageFailure = exception;
+            }
+
+            if (_phaseCancellation.IsCancellationRequested)
+            {
+                // Deploy's content is being released and the shell window may be closed already (Alt+F4, Windows shutdown).
+                _logger.LogDebug("Foundry Deploy is not shown again because its phase ended.");
+                token.ThrowIfCancellationRequested();
             }
 
             try

@@ -238,6 +238,25 @@ public sealed class NetworkPageNavigatorTests
     }
 
     [Fact]
+    public async Task CancelAndWait_WhenThePageReturnsAfterThePhaseEnded_DoesNotShowDeployAgain()
+    {
+        // The shell window may be closed already (Alt+F4, Windows shutdown): showing Deploy there would throw.
+        var pageEnded = new TaskCompletionSource<NetworkPageResult>(TaskCreationOptions.RunContinuationsAsynchronously);
+        var harness = new Harness((_, _) => pageEnded.Task, showDeployContent: static () => throw new InvalidOperationException());
+
+        Task<bool> open = harness.Navigator.OpenAsync(CancellationToken.None);
+        Task wait = harness.Navigator.CancelAndWaitAsync();
+        pageEnded.SetResult(new NetworkPageResult("Light", "en-US"));
+        await wait.WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
+
+        Assert.False(await open);
+        Assert.True(harness.Navigator.HasEnded);
+        Assert.Equal(0, harness.ShowCount);
+        Assert.Equal(0, harness.PreferenceCount);
+        Assert.DoesNotContain(harness.Logger.Entries, static entry => entry.Level == LogLevel.Warning);
+    }
+
+    [Fact]
     public async Task OpenAsync_WhenThePageAndTheReturnToDeployBothFail_LogsBothFailureTypes()
     {
         var harness = new Harness(

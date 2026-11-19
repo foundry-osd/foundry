@@ -21,6 +21,12 @@ public interface INetworkPageNavigator
     bool IsOpen { get; }
 
     /// <summary>
+    /// Gets whether the phase ended (<see cref="CancelAndWaitAsync"/> was called): later requests are refused, and a page still
+    /// open was cancelled without Deploy's content being shown again.
+    /// </summary>
+    bool HasEnded { get; }
+
+    /// <summary>
     /// Shows the Connect page and, when it closes, Deploy's content with the theme and language chosen there, then refreshes
     /// what depends on the network (<see cref="INetworkReturnRefresh"/>).
     /// </summary>

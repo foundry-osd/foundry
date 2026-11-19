@@ -15,17 +15,25 @@ internal sealed class CallbackNetworkPageNavigator : INetworkPageNavigator
 
     public bool IsOpen { get; private set; }
 
+    public bool HasEnded { get; private set; }
+
     public int Opens { get; private set; }
 
     /// <summary>Runs while the page is shown.</summary>
     public Action? OnPage { get; set; }
+
+    /// <summary>
+    /// The number of the open (from 1) during which the phase ends: that page is cancelled and its open returns
+    /// <see langword="false"/> without a refresh, as the real navigator does.
+    /// </summary>
+    public int? EndPhaseAtOpen { get; set; }
 
     /// <summary>The return refresh, usually the view model's.</summary>
     public Func<CancellationToken, Task>? Refresh { get; set; }
 
     public async Task<bool> OpenAsync(CancellationToken cancellationToken)
     {
-        if (IsOpen)
+        if (IsOpen || HasEnded)
         {
             return false;
         }
@@ -34,6 +42,12 @@ internal sealed class CallbackNetworkPageNavigator : INetworkPageNavigator
         IsOpen = true;
         OnPage?.Invoke();
         IsOpen = false;
+        if (Opens == EndPhaseAtOpen)
+        {
+            HasEnded = true;
+            return false;
+        }
+
         if (Refresh is not null)
         {
             await Refresh(cancellationToken);
