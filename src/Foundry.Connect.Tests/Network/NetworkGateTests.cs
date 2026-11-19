@@ -228,6 +228,23 @@ public sealed class NetworkGateTests : IDisposable
     }
 
     [Fact]
+    public async Task StartForRevisitAsync_RefreshThatRejectsTheProfile_ShowsTheFeedbackOfTheMergedOutcome()
+    {
+        var previous = new ProvisioningOutcome(Dot1xState.NotConfigured, new ProvisionedWifiState(ProvisionedWifiStatus.Locked), null, []);
+        _coordinator.RefreshedProvisioning = previous with
+        {
+            Wifi = new ProvisionedWifiState(ProvisionedWifiStatus.Ready, Ssid: WifiSsid.FromText("Foundry Lab")),
+            Failures = [NetworkFailureCode.WifiProfileRejected]
+        };
+        NetworkGate gate = CreateGate();
+
+        await gate.StartForRevisitAsync(previous, TestContext.Current.CancellationToken);
+
+        Assert.Equal(1, _coordinator.RefreshProvisionedWifiCalls);
+        Assert.Equal(_localization.GetString("Wifi.ActionApplyProvisionedFailed"), _provisionedWifi.FeedbackText);
+    }
+
+    [Fact]
     public async Task StartForRevisitAsync_RunsOnce()
     {
         NetworkGate gate = CreateGate();

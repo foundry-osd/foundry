@@ -73,14 +73,23 @@ public static class ConnectPhase
     public static async Task<ConnectPhaseResult> RunAsync(ConnectPhaseOptions options, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(options);
-        Application application = Application.Current
-            ?? throw new InvalidOperationException("The Foundry Connect phase runs inside a WPF application.");
-        application.Dispatcher.VerifyAccess();
-        cancellationToken.ThrowIfCancellationRequested();
         if (options.Revisit is { } revisit)
         {
-            return await RunRevisitAsync(application, options, revisit, cancellationToken);
+            try
+            {
+                Application revisitApplication = GetCallingApplication();
+                cancellationToken.ThrowIfCancellationRequested();
+                return await RunRevisitAsync(revisitApplication, options, revisit, cancellationToken);
+            }
+            finally
+            {
+                // The deployment's copy of its key is zeroed on every path, early exits included; Dispose is idempotent.
+                revisit.DeploymentKey?.Dispose();
+            }
         }
+
+        Application application = GetCallingApplication();
+        cancellationToken.ThrowIfCancellationRequested();
 
         RuntimeStartupDiagnostics startup = RuntimeStartupDiagnostics.CreateForHostedPhase(
             Identity, options.OnFirstContentRendered, options.OnConfigurationLoaded);
@@ -272,8 +281,8 @@ public static class ConnectPhase
     }
 
     /// <summary>
-    /// Starts the reopened page's network services (<see cref="NetworkGate.StartForRevisitAsync"/>), then shows the page and
-    /// releases its "Back to deployment" button, unless an exit was requested meanwhile.
+    /// Shows the reopened page at once, then starts its network services (<see cref="NetworkGate.StartForRevisitAsync"/>)
+    /// behind it; "Back to deployment" is available meanwhile and ends the start.
     /// </summary>
     private static async Task ShowRevisitedPageAsync(
         Application application,
@@ -285,26 +294,19 @@ public static class ConnectPhase
         ProvisioningOutcome? previousProvisioning,
         CancellationToken cancellationToken)
     {
+        PresentContent(application, shell, content);
+
+        // Failures from here on are runtime failures.
+        startup.ReportUiReady();
+        services.GetRequiredService<AutoContinueViewModel>().OnPageShown();
         try
         {
             await services.GetRequiredService<NetworkGate>().StartForRevisitAsync(previousProvisioning, cancellationToken);
         }
         catch (OperationCanceledException) when (exitAuthority.RequestedExitCode is not null || cancellationToken.IsCancellationRequested)
         {
-            // The caller cancelled: its registration requested the user abort the phase awaits.
-            return;
+            // "Back to deployment" or the caller's cancellation (its registration requested the user abort) ended the start.
         }
-
-        if (exitAuthority.RequestedExitCode is not null)
-        {
-            return;
-        }
-
-        PresentContent(application, shell, content);
-
-        // Failures from here on are runtime failures.
-        startup.ReportUiReady();
-        services.GetRequiredService<AutoContinueViewModel>().OnPageShown();
     }
 
     /// <summary>
@@ -435,9 +437,13 @@ public static class ConnectPhase
 
     /// <summary>
     /// Builds the result of a phase that did not succeed: no content change, and no key (an unlocked key is taken and zeroed here).
-    /// Reading the end state never fails the result.
+    /// The provisioned profile document is released and the secrets are cleared before the provisioning outcome is read, as
+    /// the successful exits do, so the result never carries profile key material. Reading the end state never fails the result.
     /// </summary>
-    private static ConnectPhaseResult CreateEndedResult(int exitCode, IServiceProvider? services)
+    /// <param name="exitCode">The phase's exit code.</param>
+    /// <param name="services">The phase's container, or <see langword="null"/> when it was never built.</param>
+    /// <returns>The ended result.</returns>
+    internal static ConnectPhaseResult CreateEndedResult(int exitCode, IServiceProvider? services)
     {
         string theme = nameof(Foundry.Wpf.Theme.ThemeMode.System);
         string culture = CultureInfo.CurrentUICulture.Name;
@@ -449,7 +455,10 @@ public static class ConnectPhase
                 services.GetService<IConnectUnlockService>()?.TakeDeploymentKey()?.Dispose();
                 theme = services.GetService<IThemeService>()?.CurrentTheme.ToString() ?? theme;
                 culture = services.GetService<ILocalizationService>()?.CurrentCulture.Name ?? culture;
+                services.GetService<IConnectionCoordinator>()?.ReleaseProvisionedProfile();
+                services.GetService<ConnectRuntimeSecrets>()?.ClearAll();
                 provisioning = services.GetService<IProvisioningStep>()?.LastOutcome;
+                provisioning?.WifiProfile?.Clear();
             }
             catch (Exception exception) when (exception is InvalidOperationException or ObjectDisposedException)
             {
@@ -463,6 +472,16 @@ public static class ConnectPhase
     /// <summary>Creates the "Looking for the network" status page model, titled with the host's title when it gave one.</summary>
     internal static StatusPageModel CreateStatusPageModel(string? hostTitle, ILocalizationService localization) =>
         new(string.IsNullOrWhiteSpace(hostTitle) ? localization.GetString("App.Name") : hostTitle, localization.GetString("Status.LookingForNetwork"));
+
+    /// <summary>Returns the calling thread's WPF application.</summary>
+    /// <exception cref="InvalidOperationException">No WPF application runs on the calling thread.</exception>
+    private static Application GetCallingApplication()
+    {
+        Application application = Application.Current
+            ?? throw new InvalidOperationException("The Foundry Connect phase runs inside a WPF application.");
+        application.Dispatcher.VerifyAccess();
+        return application;
+    }
 
     /// <summary>
     /// Routes the shell's close requests to <paramref name="handleClosing"/> (the operator abort) and keeps the window open:

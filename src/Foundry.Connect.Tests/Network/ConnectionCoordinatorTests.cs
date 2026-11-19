@@ -688,6 +688,24 @@ public sealed class ConnectionCoordinatorTests
         Assert.Equal([(WifiInterface, "Lab")], _wlan.ConnectCalls);
     }
 
+    [Fact]
+    public async Task ConnectProvisionedWifi_ReleasedProfileOnAnInterfaceWithoutIt_FailsAsUnavailableWithoutSettingIt()
+    {
+        ProvisioningOutcome previous = ReadyLab();
+        previous.WifiProfile!.Clear();
+        _wlan.Snapshot = new WlanSnapshot(WifiAvailability.Available, [FakeWlanClient.Interface(WifiInterface)], []);
+        var coordinator = new ConnectionCoordinator(new FakeProvisioningStep(ProvisioningOutcome.NotConfigured), _wlan,
+            new ConnectNetworkOptions(true, TimeSpan.FromSeconds(10)), new NetworkRefreshSignal(), _clock, _logger);
+        coordinator.RestoreProvisioning(previous);
+        await coordinator.ApplyObservationAsync(Observation(InternetStatus.Online, null, "Lab"), Token);
+
+        OperationOutcome outcome = await coordinator.ConnectProvisionedWifiAsync(Token);
+
+        Assert.Equal(NetworkFailureCode.ProvisionedProfileUnavailable, outcome.Failure);
+        Assert.Empty(_wlan.SetProfileCalls);
+        Assert.Empty(_wlan.ConnectCalls);
+    }
+
     private static bool Mentions(RecordedLogEntry entry, string text) =>
         entry.Message.Contains(text, StringComparison.Ordinal)
         || entry.Properties.Values.Any(value => value?.ToString()?.Contains(text, StringComparison.Ordinal) == true)

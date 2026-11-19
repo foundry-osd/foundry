@@ -48,10 +48,17 @@ public interface IConnectionCoordinator
     Task<ProvisioningOutcome> ApplyProvisioningAsync(CancellationToken cancellationToken);
 
     /// <summary>
+    /// Gets the provisioning outcome the coordinator keeps (applied, restored or merged by the last Wi-Fi refresh), or
+    /// <see langword="null"/> before provisioning.
+    /// </summary>
+    ProvisioningOutcome? Provisioning { get; }
+
+    /// <summary>
     /// Keeps the provisioning outcome of the first Connect page instead of running the provisioning, and publishes the state:
     /// a Connect page reopened from the deployment must not reconnect the Ethernet interfaces. The provisioning step returns
     /// the same outcome from then on (<see cref="IProvisioningStep.Restore"/>). A provisioned profile document released when
-    /// the first page ended still connects by name on the interfaces that already have the profile.
+    /// the first page ended still connects by name on the interfaces that already have the profile; an interface without it
+    /// fails as <see cref="NetworkFailureCode.ProvisionedProfileUnavailable"/>.
     /// </summary>
     /// <param name="outcome">The outcome of the first Connect page.</param>
     /// <exception cref="InvalidOperationException">The provisioning already ran in this container.</exception>

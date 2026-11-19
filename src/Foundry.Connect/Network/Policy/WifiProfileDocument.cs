@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using System.Xml;
@@ -63,11 +64,23 @@ public sealed class WifiProfileDocument
     public string Xml => _xml ?? throw new ObjectDisposedException(nameof(WifiProfileDocument));
 
     /// <summary>
+    /// Gets the profile XML unless the document was cleared, without throwing: a document released when a first Connect page
+    /// ended can still be read by a page reopened from the deployment.
+    /// </summary>
+    /// <param name="xml">The profile XML, or <see langword="null"/> once cleared.</param>
+    /// <returns><see langword="false"/> once <see cref="Clear"/> ran.</returns>
+    public bool TryGetXml([NotNullWhen(true)] out string? xml)
+    {
+        xml = Volatile.Read(ref _xml);
+        return xml is not null;
+    }
+
+    /// <summary>
     /// Drops the XML reference. Name, SSID and visibility stay readable.
     /// </summary>
     public void Clear()
     {
-        _xml = null;
+        Volatile.Write(ref _xml, null);
     }
 
     /// <summary>

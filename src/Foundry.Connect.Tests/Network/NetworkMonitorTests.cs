@@ -279,6 +279,8 @@ public sealed class NetworkMonitorTests
 
         public void RestoreProvisioning(ProvisioningOutcome outcome) => throw new NotSupportedException();
 
+        public ProvisioningOutcome? Provisioning => null;
+
         public Task<ProvisionedWifiState> RefreshProvisionedWifiAsync(CancellationToken cancellationToken) => Task.FromResult(State.Wifi.Provisioned);
 
         public Task<OperationOutcome> ConnectProvisionedWifiAsync(CancellationToken cancellationToken) => throw new NotSupportedException();

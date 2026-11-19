@@ -280,6 +280,8 @@ public sealed class SuccessfulExitServiceTests
 
         public void RestoreProvisioning(ProvisioningOutcome outcome) => throw new NotSupportedException();
 
+        public ProvisioningOutcome? Provisioning => null;
+
         public Task<ProvisionedWifiState> RefreshProvisionedWifiAsync(CancellationToken cancellationToken) => Task.FromResult(State.Wifi.Provisioned);
 
         public Task ApplyObservationAsync(NetworkObservation observation, CancellationToken cancellationToken) => throw new NotSupportedException();

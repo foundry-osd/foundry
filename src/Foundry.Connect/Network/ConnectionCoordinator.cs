@@ -123,6 +123,18 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnect
     }
 
     /// <inheritdoc />
+    public ProvisioningOutcome? Provisioning
+    {
+        get
+        {
+            lock (_stateLock)
+            {
+                return _provisioning;
+            }
+        }
+    }
+
+    /// <inheritdoc />
     public void RestoreProvisioning(ProvisioningOutcome outcome)
     {
         ArgumentNullException.ThrowIfNull(outcome);
@@ -433,7 +445,13 @@ public sealed class ConnectionCoordinator : IConnectionCoordinator, IWifiConnect
         // WLAN profiles are per interface: an adapter that appeared after provisioning gets the profile now.
         if (!_wlan.HasProfile(target, profile.Name))
         {
-            WlanOperationResult set = _wlan.SetProfile(target, profile.Xml);
+            // A document released when the first Connect page ended can no longer be set on a new interface.
+            if (!profile.TryGetXml(out string? xml))
+            {
+                return OperationOutcome.Failed(Kind, NetworkFailureCode.ProvisionedProfileUnavailable);
+            }
+
+            WlanOperationResult set = _wlan.SetProfile(target, xml);
             if (!set.IsSuccess)
             {
                 return MapSetProfileFailure(Kind, set);

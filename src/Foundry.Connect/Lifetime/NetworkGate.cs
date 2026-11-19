@@ -144,8 +144,8 @@ public sealed class NetworkGate : IDisposable
     /// <summary>
     /// Starts a Connect page reopened from the deployment: replays <paramref name="previous"/> without provisioning (the
     /// provisioning reconnects every linked Ethernet interface, which would drop the operator's link), refreshes a locked
-    /// provisioned Wi-Fi once the deployment key already unlocked its secrets, shows the provisioned Wi-Fi feedback and starts
-    /// the monitor. Without a previous outcome it provisions once, as <see cref="RunAsync"/> does. It never asks for the wired
+    /// provisioned Wi-Fi once the deployment key already unlocked its secrets, shows the provisioned Wi-Fi feedback of the
+    /// resulting outcome and starts the monitor. Without a previous outcome it provisions once, as <see cref="RunAsync"/> does. It never asks for the wired
     /// password, never probes and never leaves Connect: the page always shows.
     /// </summary>
     /// <param name="previous">The provisioning outcome of the first Connect page, or <see langword="null"/> when it did not run.</param>
@@ -180,10 +180,12 @@ public sealed class NetworkGate : IDisposable
             _coordinator.RestoreProvisioning(previous);
             provisioning = previous;
 
-            // The refresh a successful prompt runs: only the Wi-Fi part, which never touches the Ethernet interfaces.
+            // The refresh a successful prompt runs: only the Wi-Fi part, which never touches the Ethernet interfaces. Its merged
+            // outcome, not the locked one, feeds the provisioned Wi-Fi feedback.
             if (previous.Wifi.Status == ProvisionedWifiStatus.Locked && !_unlock.IsWifiUnlockRequired)
             {
                 await _coordinator.RefreshProvisionedWifiAsync(token);
+                provisioning = _coordinator.Provisioning ?? previous;
             }
         }
 

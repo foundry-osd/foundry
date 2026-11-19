@@ -63,6 +63,15 @@ internal sealed class FakeConnectionCoordinator : IConnectionCoordinator
     /// <summary>Gets the outcome of every <see cref="RestoreProvisioning"/> call.</summary>
     public List<ProvisioningOutcome> RestoredProvisioning { get; } = [];
 
+    /// <inheritdoc />
+    public ProvisioningOutcome? Provisioning { get; set; }
+
+    /// <summary>
+    /// Gets or sets the merged outcome <see cref="RefreshProvisionedWifiAsync"/> makes <see cref="Provisioning"/>, or
+    /// <see langword="null"/> to keep it.
+    /// </summary>
+    public ProvisioningOutcome? RefreshedProvisioning { get; set; }
+
     /// <summary>Gets the number of <see cref="ReleaseProvisionedProfile"/> calls.</summary>
     public int ReleaseCalls { get; private set; }
 
@@ -94,6 +103,7 @@ internal sealed class FakeConnectionCoordinator : IConnectionCoordinator
     public Task<ProvisionedWifiState> RefreshProvisionedWifiAsync(CancellationToken cancellationToken)
     {
         RefreshProvisionedWifiCalls++;
+        Provisioning = RefreshedProvisioning ?? Provisioning;
         return Task.FromResult(State.Wifi.Provisioned);
     }
 
@@ -110,7 +120,11 @@ internal sealed class FakeConnectionCoordinator : IConnectionCoordinator
     }
 
     /// <inheritdoc />
-    public void RestoreProvisioning(ProvisioningOutcome outcome) => RestoredProvisioning.Add(outcome);
+    public void RestoreProvisioning(ProvisioningOutcome outcome)
+    {
+        RestoredProvisioning.Add(outcome);
+        Provisioning = outcome;
+    }
 
     /// <inheritdoc />
     public Task ApplyObservationAsync(NetworkObservation observation, CancellationToken cancellationToken) =>
