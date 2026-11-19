@@ -443,6 +443,9 @@
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Виконується дротова автентифікація 802.1X.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Пошук мережі…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Мережа готова</value>
   </data>

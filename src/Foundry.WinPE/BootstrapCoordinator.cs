@@ -39,14 +39,15 @@ namespace Foundry.WinPE;
 /// <paramref name="completed"/> receives one result per boot: the first crash, or else the final result, so a boot sends at
 /// most one <c>bootstrap:failed</c>. <paramref name="startDelivery"/> runs once, when there is something to send: as soon as
 /// the running UI process reaches its Deploy phase (a deployment ends with a restart while it still runs), or else when it
-/// exits or crashes. The guardian never synchronizes the clock again: the UI process owns that, and the caller reads the
-/// clock usability when delivery starts. Results of the UI process carry the file version of the executable
+/// exits or crashes. The guardian never synchronizes the clock again: the UI process owns that and records in the UI state
+/// whether the clock is usable; delivery receives that value (the last state read, which for the Deploy phase includes the
+/// system preparation outcome), and the caller combines it with its own early clock probe. Results of the UI process carry the file version of the executable
 /// (<paramref name="readPayloadVersion"/>, default the file version; it must not throw).
 /// </para>
 /// </remarks>
 internal sealed class BootstrapCoordinator(BootstrapContext context,
     ISystemPreparation preparation, IApplicationLauncher launcher, IUiCrashScreen crashScreen,
-    IBootstrapLogPersistence persistence, ILogger logger, Action<BootstrapProgress> progress, Action? startDelivery = null,
+    IBootstrapLogPersistence persistence, ILogger logger, Action<BootstrapProgress> progress, Action<bool>? startDelivery = null,
     Action<BootstrapResult, TimeSpan>? completed = null, Func<string, string?>? readPayloadVersion = null,
     string? executablePath = null, Func<bool>? isSystemShuttingDown = null)
 {
@@ -133,7 +134,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context,
             Report(BootstrapStatus.Running, launch == 1 ? "Starting Foundry" : "Relaunching Foundry");
             ApplicationLaunchResult ui = await launcher.RunUiAsync(executable, context.ChildEnvironment, OnUiState,
                 cancellationToken).ConfigureAwait(false);
-            StartDelivery();
+            StartDelivery(ui.UiState);
             BootstrapStage uiStage = ui.ReadinessConfirmed ? StageOf(ui.UiState) : BootstrapStage.Connect;
             if (ui.Succeeded)
             {
@@ -219,17 +220,17 @@ internal sealed class BootstrapCoordinator(BootstrapContext context,
         catch { }
     }
 
-    // Called on the launcher's supervision thread: the Deploy phase follows system preparation, so the clock is as good as it gets.
+    // Called on the launcher's supervision thread: the Deploy phase follows system preparation, and its state carries the outcome.
     private void OnUiState(UiState state)
     {
-        if (state.Phase == UiPhase.Deploy) { StartDelivery(); }
+        if (state.Phase == UiPhase.Deploy) { StartDelivery(state); }
     }
 
-    private void StartDelivery()
+    private void StartDelivery(UiState? state)
     {
         if (startDelivery is null || Interlocked.Exchange(ref deliveryStarted, 1) != 0) { return; }
         logger.Debug("Guardian telemetry delivery started");
-        try { startDelivery(); }
+        try { startDelivery(state?.ClockUsable ?? false); }
         catch { }
     }
 

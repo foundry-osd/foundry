@@ -91,6 +91,12 @@
   <data name="Catalog.Version" xml:space="preserve">
     <value>เวอร์ชัน</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>ไม่สามารถโหลดแค็ตตาล็อก Windows และไดรเวอร์ได้ ตรวจสอบการเชื่อมต่อเครือข่าย แล้วเลือก ลองอีกครั้ง การเลือก ปิด จะสิ้นสุด Foundry Deploy</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>ไม่สามารถใช้แค็ตตาล็อกได้</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>ยกเลิก</value>
   </data>

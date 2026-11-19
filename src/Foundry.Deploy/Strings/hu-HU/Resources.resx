@@ -91,6 +91,12 @@ Licenc az MIT licenc alatt.</value>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Verzió</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>A Windows- és az illesztőprogram-katalógusokat nem sikerült betölteni. Ellenőrizze a hálózati kapcsolatot, majd válassza az Újrapróbálkozás lehetőséget. A Bezárás leállítja a Foundry Deploy-t.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>A katalógusok nem érhetők el</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Mégse</value>
   </data>

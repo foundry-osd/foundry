@@ -125,17 +125,6 @@ public sealed class MainWindowViewModelTests
     }
 
     [Fact]
-    public async Task InitializeAsync_InitializesThePageOnce()
-    {
-        using MainWindowViewModel viewModel = CreateViewModel();
-
-        await viewModel.InitializeAsync();
-        await viewModel.InitializeAsync();
-
-        Assert.Equal(1, _coordinator.ApplyProvisioningCalls);
-    }
-
-    [Fact]
     public void HandleWindowClosing_RequestsUserAbortedUnlessAnExitWon()
     {
         using MainWindowViewModel viewModel = CreateViewModel();

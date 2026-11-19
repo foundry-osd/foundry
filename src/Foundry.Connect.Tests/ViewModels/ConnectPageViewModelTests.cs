@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Globalization;
-using System.Runtime.CompilerServices;
 using Foundry.Connect.Network;
 using Foundry.Connect.Network.Policy;
 using Foundry.Connect.Security;
@@ -482,59 +481,6 @@ public sealed class ConnectPageViewModelTests : IDisposable
         }
     }
 
-    [Theory]
-    [InlineData(ConnectUnlockResult.Unlocked)]
-    [InlineData(ConnectUnlockResult.Cancelled)]
-    public async Task InitializeAsync_UnlocksWiredBeforeProvisioning(ConnectUnlockResult unlockResult)
-    {
-        _unlock.IsWiredUnlockRequired = true;
-        _unlock.Result = unlockResult;
-        int provisioningCallsAtUnlock = -1;
-        _unlock.OnUnlock = () => provisioningCallsAtUnlock = _coordinator.ApplyProvisioningCalls;
-
-        await _page.InitializeAsync(TestContext.Current.CancellationToken);
-
-        Assert.Equal([ConnectUnlockTrigger.WiredStartup], _unlock.Calls);
-        Assert.Equal(0, provisioningCallsAtUnlock);
-        Assert.Equal(1, _coordinator.ApplyProvisioningCalls);
-        Assert.Equal(1, _monitor.RunCalls);
-    }
-
-    [Fact]
-    public async Task InitializeAsync_AfterTheWiredPrompt_StartsTheCountdownAndFocusesContinueOnceOnline()
-    {
-        _unlock.IsWiredUnlockRequired = true;
-        _unlock.Result = ConnectUnlockResult.Unlocked;
-        await _page.InitializeAsync(TestContext.Current.CancellationToken);
-
-        Publish(ConnectDebugScenario.EthernetReady);
-
-        Assert.True(_page.AutoContinue.IsCounting);
-        Assert.True(_page.AutoContinue.IsContinueDefault);
-        Assert.Equal([ConnectFocusTarget.Continue], _focus);
-    }
-
-    [Fact]
-    public async Task InitializeAsync_OnlineWhileTheWiredPromptIsOpen_StartsTheCountdownOnlyOnceItCloses()
-    {
-        _unlock.IsWiredUnlockRequired = true;
-        _unlock.Result = ConnectUnlockResult.Unlocked;
-        bool countingWhilePrompting = true;
-        _unlock.OnUnlock = () =>
-        {
-            Publish(ConnectDebugScenario.EthernetReady);
-            _clock.Advance(TimeSpan.FromSeconds(11));
-            countingWhilePrompting = _page.AutoContinue.IsCounting;
-        };
-
-        await _page.InitializeAsync(TestContext.Current.CancellationToken);
-
-        Assert.False(countingWhilePrompting);
-        Assert.Equal(0, _exit.Calls);
-        Assert.True(_page.AutoContinue.IsCounting);
-        Assert.Equal(AutoContinuePolicy.CountdownSeconds, _page.AutoContinue.SecondsRemaining);
-    }
-
     [Fact]
     public void UnlockRequested_PromptsForWifiUnlessSimulatedOrDisposed()
     {
@@ -741,23 +687,6 @@ public sealed class ConnectPageViewModelTests : IDisposable
     }
 
     [Fact]
-    public async Task InitializeAsync_AppliesProvisioningOnceThenStartsTheMonitor()
-    {
-        _coordinator.ProvisioningResult = new ProvisioningOutcome(
-            Dot1xState.NotConfigured,
-            new ProvisionedWifiState(ProvisionedWifiStatus.Ready, Ssid: WifiSsid.FromText("Foundry Lab")),
-            null,
-            [NetworkFailureCode.WifiProfileRejected]);
-
-        await _page.InitializeAsync(TestContext.Current.CancellationToken);
-        await _page.InitializeAsync(TestContext.Current.CancellationToken);
-
-        Assert.Equal(1, _coordinator.ApplyProvisioningCalls);
-        Assert.Equal(1, _monitor.RunCalls);
-        Assert.Equal(Text("Wifi.ActionApplyProvisionedFailed"), _page.ProvisionedWifi.FeedbackText);
-    }
-
-    [Fact]
     public void RefreshCommand_RequestsAMonitorRefresh()
     {
         _page.RefreshCommand.Execute(null);
@@ -766,93 +695,13 @@ public sealed class ConnectPageViewModelTests : IDisposable
     }
 
     [Fact]
-    public async Task Dispose_DuringTheWiredPrompt_NeverProvisionsNorStartsTheMonitor()
+    public void Dispose_IsIdempotentAndStopsRendering()
     {
-        _unlock.IsWiredUnlockRequired = true;
-        _unlock.Result = ConnectUnlockResult.Unlocked;
-        _unlock.OnUnlock = _page.Dispose;
-
-        await _page.InitializeAsync(TestContext.Current.CancellationToken);
-
-        Assert.Equal([ConnectUnlockTrigger.WiredStartup], _unlock.Calls);
-        Assert.Equal(0, _coordinator.ApplyProvisioningCalls);
-        Assert.Equal(0, _monitor.RunCalls);
-    }
-
-    [Fact]
-    public async Task Dispose_DuringProvisioning_NeverStartsTheMonitor()
-    {
-        _coordinator.ProvisioningGate = new TaskCompletionSource<ProvisioningOutcome>(TaskCreationOptions.RunContinuationsAsynchronously);
-        Task initialize = _page.InitializeAsync(TestContext.Current.CancellationToken);
-
-        _page.Dispose();
-        _coordinator.ProvisioningGate.TrySetResult(ProvisioningOutcome.NotConfigured);
-        await initialize;
-
-        Assert.Equal(0, _monitor.RunCalls);
-    }
-
-    [Fact]
-    public async Task Dispose_WhileProvisioningIgnoresCancellation_NeverStartsTheMonitor()
-    {
-        _coordinator.ProvisioningIgnoresCancellation = true;
-        _coordinator.ProvisioningGate = new TaskCompletionSource<ProvisioningOutcome>(TaskCreationOptions.RunContinuationsAsynchronously);
-        Task initialize = _page.InitializeAsync(TestContext.Current.CancellationToken);
-
-        _page.Dispose();
-        _coordinator.ProvisioningGate.TrySetResult(new ProvisioningOutcome(
-            Dot1xState.NotConfigured,
-            new ProvisionedWifiState(ProvisionedWifiStatus.Ready, Ssid: WifiSsid.FromText("Foundry Lab")),
-            null,
-            [NetworkFailureCode.WifiProfileRejected]));
-        await initialize;
-
-        Assert.Equal(0, _monitor.RunCalls);
-        Assert.False(_page.ProvisionedWifi.HasFeedback);
-    }
-
-    [Fact]
-    public async Task Dispose_ObservesAFaultedMonitor()
-    {
-        var fault = new InvalidOperationException("Monitor loop failed.");
-        bool unobserved = false;
-        EventHandler<UnobservedTaskExceptionEventArgs> handler = (_, args) => unobserved |= args.Exception.InnerExceptions.Contains(fault);
-        TaskScheduler.UnobservedTaskException += handler;
-        try
-        {
-            WeakReference monitorTask = await StartAndDisposeWithFaultedMonitorAsync(fault);
-
-            // The faulted task can only be collected once nothing, the observing continuation included, references it.
-            for (int attempt = 0; attempt < 100 && monitorTask.IsAlive; attempt++)
-            {
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                await Task.Delay(10, TestContext.Current.CancellationToken);
-            }
-
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            Assert.False(monitorTask.IsAlive);
-            Assert.False(unobserved);
-        }
-        finally
-        {
-            TaskScheduler.UnobservedTaskException -= handler;
-        }
-    }
-
-    [Fact]
-    public async Task Dispose_IsIdempotentAndStopsRendering()
-    {
-        await _page.InitializeAsync(TestContext.Current.CancellationToken);
-
         _page.Dispose();
         _page.Dispose();
         Publish(ConnectDebugScenario.EthernetReady);
-        await _page.InitializeAsync(TestContext.Current.CancellationToken);
 
         Assert.Equal(ConnectPageStatus.Checking, _page.Status);
-        Assert.Equal(1, _monitor.RunCalls);
     }
 
     [Fact]
@@ -877,24 +726,12 @@ public sealed class ConnectPageViewModelTests : IDisposable
         Assert.Equal("Debug scenario applied. Scenario=WifiReady", entry.Message);
     }
 
-    // Not inlined: once it returns, nothing in the test references the page, the monitor or the faulted task.
-    [MethodImpl(MethodImplOptions.NoInlining)]
-    private async Task<WeakReference> StartAndDisposeWithFaultedMonitorAsync(Exception fault)
-    {
-        var monitor = new FakeNetworkMonitor { RunResult = Task.FromException(fault) };
-        ConnectPageViewModel page = CreatePage(new RecordingLogger<ConnectPageViewModel>(), monitor);
-        await page.InitializeAsync(TestContext.Current.CancellationToken);
-        var monitorTask = new WeakReference(monitor.RunResult);
-        page.Dispose();
-        return monitorTask;
-    }
-
-    private ConnectPageViewModel CreatePage(RecordingLogger<ConnectPageViewModel> logger, FakeNetworkMonitor? monitor = null, IUiDispatcher? dispatcher = null)
+    private ConnectPageViewModel CreatePage(RecordingLogger<ConnectPageViewModel> logger, IUiDispatcher? dispatcher = null)
     {
         var actions = new ConnectNetworkActions(_coordinator, _unlock, new RecordingLogger<ConnectNetworkActions>());
         dispatcher ??= new ImmediateUiDispatcher();
         return new ConnectPageViewModel(
-            _localization, _coordinator, monitor ?? _monitor, actions,
+            _localization, _coordinator, _monitor, actions,
             new AutoContinueViewModel(_localization, _exit, new FakeApplicationLifetime(), _clock, dispatcher, new RecordingLogger<AutoContinueViewModel>(), isAutoContinueEnabled: false),
             new EthernetSectionViewModel(_localization),
             new ProvisionedWifiViewModel(_localization, actions, new FoundryConnectConfigurationDocument()),

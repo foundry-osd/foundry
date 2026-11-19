@@ -91,6 +91,12 @@ MIT Lisansı kapsamında lisanslanmıştır.</value>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Sürüm</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>Windows ve sürücü katalogları yüklenemedi. Ağ bağlantısını denetleyin ve Yeniden dene'yi seçin. Kapat, Foundry Deploy'u sonlandırır.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>Kataloglar kullanılamıyor</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>İptal</value>
   </data>

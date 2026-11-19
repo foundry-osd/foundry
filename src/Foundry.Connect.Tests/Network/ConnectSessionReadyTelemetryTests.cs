@@ -32,7 +32,7 @@ public sealed class ConnectSessionReadyTelemetryTests
             Wifi = new ConnectWifiSettings { IsEnabled = true }
         };
 
-        IReadOnlyDictionary<string, object?> properties = ConnectSessionReadyTelemetry.Build(state, configuration);
+        IReadOnlyDictionary<string, object?> properties = ConnectSessionReadyTelemetry.Build(state, configuration, connectSkipped: false);
 
         Assert.Equal("wifi", properties["connect_network_connection_type"]);
         Assert.False(properties.ContainsKey("connect_network_layout_mode"));
@@ -55,7 +55,7 @@ public sealed class ConnectSessionReadyTelemetryTests
             Wifi = WifiState.Initial with { Availability = WifiAvailability.RuntimeMissing }
         };
 
-        IReadOnlyDictionary<string, object?> properties = ConnectSessionReadyTelemetry.Build(state, new FoundryConnectConfigurationDocument());
+        IReadOnlyDictionary<string, object?> properties = ConnectSessionReadyTelemetry.Build(state, new FoundryConnectConfigurationDocument(), connectSkipped: false);
 
         Assert.Equal("ethernet", properties["connect_network_connection_type"]);
         Assert.False(properties.ContainsKey("connect_network_layout_mode"));
@@ -68,10 +68,10 @@ public sealed class ConnectSessionReadyTelemetryTests
     {
         NetworkState state = NetworkState.Initial(Now) with { Internet = InternetStatus.Online };
 
-        IReadOnlyDictionary<string, object?> properties = ConnectSessionReadyTelemetry.Build(state, new FoundryConnectConfigurationDocument());
+        IReadOnlyDictionary<string, object?> properties = ConnectSessionReadyTelemetry.Build(state, new FoundryConnectConfigurationDocument(), connectSkipped: false);
 
         Assert.Equal(
-            ["connect_ethernet_available", "connect_network_connection_type", "connect_wifi_available", "connect_wifi_provisioned", "connect_wifi_security_type", "connect_wifi_source", "connect_wired_dot1x_enabled"],
+            ["connect_ethernet_available", "connect_network_connection_type", "connect_skipped", "connect_wifi_available", "connect_wifi_provisioned", "connect_wifi_security_type", "connect_wifi_source", "connect_wired_dot1x_enabled"],
             properties.Keys.Order(StringComparer.Ordinal));
     }
 
@@ -80,10 +80,24 @@ public sealed class ConnectSessionReadyTelemetryTests
     public void Build_SurvivesTheTelemetryAllowlist()
     {
         NetworkState state = NetworkState.Initial(Now) with { Internet = InternetStatus.Online };
-        IReadOnlyDictionary<string, object?> properties = ConnectSessionReadyTelemetry.Build(state, new FoundryConnectConfigurationDocument());
+        IReadOnlyDictionary<string, object?> properties = ConnectSessionReadyTelemetry.Build(state, new FoundryConnectConfigurationDocument(), connectSkipped: false);
 
         IReadOnlyDictionary<string, object?> sanitized = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.ConnectSessionReady, properties);
 
         Assert.Equal(properties.OrderBy(static item => item.Key), sanitized.OrderBy(static item => item.Key));
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void Build_ReportsWhetherConnectWasSkipped_AndTheAllowlistKeepsIt(bool connectSkipped)
+    {
+        NetworkState state = NetworkState.Initial(Now) with { Internet = InternetStatus.Online };
+
+        IReadOnlyDictionary<string, object?> properties = ConnectSessionReadyTelemetry.Build(state, new FoundryConnectConfigurationDocument(), connectSkipped);
+        IReadOnlyDictionary<string, object?> sanitized = TelemetryEventPropertyPolicy.Sanitize(TelemetryEvents.ConnectSessionReady, properties);
+
+        Assert.Equal(connectSkipped, properties["connect_skipped"]);
+        Assert.Equal(connectSkipped, sanitized["connect_skipped"]);
     }
 }

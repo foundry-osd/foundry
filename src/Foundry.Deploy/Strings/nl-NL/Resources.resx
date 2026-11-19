@@ -91,6 +91,12 @@ Gelicentieerd onder de MIT-licentie.</value>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Versie</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>De Windows- en stuurprogrammacatalogi konden niet worden geladen. Controleer de netwerkverbinding en selecteer Opnieuw proberen. Sluiten beëindigt Foundry Deploy.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>Catalogi niet beschikbaar</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Annuleren</value>
   </data>

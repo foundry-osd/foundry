@@ -443,6 +443,9 @@ Licencirano pod licenco MIT.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Žično overjanje 802.1X poteka.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Iskanje omrežja…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Omrežje pripravljeno</value>
   </data>

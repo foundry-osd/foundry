@@ -199,6 +199,26 @@ public sealed class ConnectUnlockServiceTests
     }
 
     [Fact]
+    public async Task IsPromptOpen_CoversEveryPromptAndItsRetryDelay()
+    {
+        _prompt.Answers.Enqueue("wrong".ToCharArray());
+        _prompt.Answers.Enqueue("right password".ToCharArray());
+        using ConnectUnlockService service = Create(LockedSecrets());
+        var openWhilePrompting = new List<bool>();
+        _prompt.OnPrompt = () => openWhilePrompting.Add(service.IsPromptOpen);
+        Assert.False(service.IsPromptOpen);
+
+        Task<ConnectUnlockResult> unlock = service.UnlockAsync(ConnectUnlockTrigger.AutomaticWifi, TestContext.Current.CancellationToken);
+        await AsyncAssert.EventuallyAsync(() => _prompt.Calls.Count == 1 && _time.ActiveTimerCount == 1, "first prompt and its 1 s delay");
+        Assert.True(service.IsPromptOpen);
+        _time.Advance(TimeSpan.FromSeconds(1));
+
+        Assert.Equal(ConnectUnlockResult.Unlocked, await unlock);
+        Assert.Equal([true, true], openWhilePrompting);
+        Assert.False(service.IsPromptOpen);
+    }
+
+    [Fact]
     public async Task UnlockAsync_NothingLocked_DoesNotPrompt()
     {
         ConnectUnlockResult result = await Create(ConnectRuntimeSecrets.None()).UnlockAsync(ConnectUnlockTrigger.WiredStartup, TestContext.Current.CancellationToken);
@@ -237,9 +257,11 @@ public sealed class ConnectUnlockServiceTests
         public List<bool> Calls { get; } = [];
         public List<char[]> Returned { get; } = [];
         public Exception? Failure { get; set; }
+        public Action? OnPrompt { get; set; }
         public char[]? Prompt(bool previousAttemptFailed)
         {
             Calls.Add(previousAttemptFailed);
+            OnPrompt?.Invoke();
             if (Failure is not null) throw Failure;
             char[]? answer = Answers.Dequeue();
             if (answer is not null) Returned.Add(answer);

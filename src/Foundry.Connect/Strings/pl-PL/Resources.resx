@@ -443,6 +443,9 @@ Licencjonowany na licencji MIT.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Trwa przewodowe uwierzytelnianie 802.1X.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Wyszukiwanie sieci…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Sieć gotowa</value>
   </data>

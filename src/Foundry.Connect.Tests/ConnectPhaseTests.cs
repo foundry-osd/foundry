@@ -9,8 +9,10 @@ using Foundry.Connect.Startup;
 using Foundry.Core.Models.Configuration;
 using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
+using Foundry.Connect.Tests.Support;
 using Foundry.Deploy.Tests;
 using Foundry.Telemetry;
+using Foundry.Wpf.Localization;
 using Foundry.Wpf.Shell;
 using Microsoft.Extensions.Hosting;
 
@@ -20,6 +22,17 @@ namespace Foundry.Connect.Tests;
 public sealed class ConnectPhaseTests
 {
     private static readonly RuntimeApplicationIdentity Identity = new("Foundry.Connect", TelemetryApps.FoundryConnect, "1.0.0.0");
+
+    [Fact]
+    public void CreateStatusPageModel_UsesTheHostTitleAndFallsBackToTheApplicationName()
+    {
+        ResourceLocalizationService localization = TestLocalization.Create();
+
+        Assert.Equal("Foundry OSD", ConnectPhase.CreateStatusPageModel("Foundry OSD", localization).Title);
+        Assert.Equal(localization.GetString("App.Name"), ConnectPhase.CreateStatusPageModel(null, localization).Title);
+        Assert.Equal(localization.GetString("App.Name"), ConnectPhase.CreateStatusPageModel(" ", localization).Title);
+        Assert.Equal(localization.GetString("Status.LookingForNetwork"), ConnectPhase.CreateStatusPageModel("x", localization).Status);
+    }
 
     [Fact]
     public void LoadServices_ReportsConfigurationLoadedOnceTheServicesAreBuilt()

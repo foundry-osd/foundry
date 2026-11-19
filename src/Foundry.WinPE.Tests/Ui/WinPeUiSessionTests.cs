@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.Concurrent;
+using System.Globalization;
 using Foundry.Connect;
 using Foundry.Core.Services.Runtime;
 using Foundry.Deploy;
@@ -25,7 +26,7 @@ public sealed class WinPeUiSessionTests
         int exitCode = await fixture.RunAsync();
 
         Assert.Equal(DeployPhase.UnhandledExceptionExitCode, exitCode);
-        Assert.Equal(["connect", "system", "deploy"], fixture.Calls);
+        Assert.Equal(["connect", "status", "system", "deploy"], fixture.Calls);
         Assert.Equal([UiPhase.Connect, UiPhase.System, UiPhase.Deploy], fixture.States.Select(state => state.Phase));
         Assert.All(fixture.States, state => Assert.False(state.DestructiveStarted));
         DeployPhaseOptions options = fixture.DeployOptions!;
@@ -94,8 +95,9 @@ public sealed class WinPeUiSessionTests
         Assert.Equal(DeployPhase.SuccessExitCode, await fixture.RunAsync());
 
         Assert.Same(fixture.Shell, fixture.ConnectOptions!.Shell);
+        Assert.Equal(WinPeUiSession.StatusPageTitle, fixture.ConnectOptions.StatusPageTitle);
         Assert.Same(fixture.Shell, fixture.DeployOptions!.Shell);
-        Assert.Equal(2, fixture.Shell.ShowCount);
+        Assert.Equal(3, fixture.Shell.ShowCount);
         Assert.Equal(0, fixture.Shell.WindowAccessCount);
     }
 
@@ -109,7 +111,7 @@ public sealed class WinPeUiSessionTests
         Assert.Equal(DeployPhase.SuccessExitCode, await fixture.RunAsync());
 
         Assert.False(accepted);
-        Assert.Equal(["connect", "system", "deploy"], fixture.Calls);
+        Assert.Equal(["connect", "status", "system", "deploy"], fixture.Calls);
     }
 
     [Theory]
@@ -174,13 +176,97 @@ public sealed class WinPeUiSessionTests
     }
 
     [Fact]
+    public async Task SystemPreparation_ShowsTheStatusPageInConnectsLanguageBetweenConnectAndDeployForAtLeastTheMinimumTime()
+    {
+        var fixture = new Fixture();
+        int shown = -1;
+        fixture.OnSystemPreparation = () => shown = fixture.Shell.ShowCount;
+        // An English process language proves the page does not fall back to it: the result does not depend on the machine.
+        CultureInfo previous = CultureInfo.CurrentUICulture;
+        CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
+        try
+        {
+            await fixture.RunAsync();
+        }
+        finally
+        {
+            CultureInfo.CurrentUICulture = previous;
+        }
+
+        Assert.Equal(["connect", "status", "system", "deploy"], fixture.Calls);
+        // The page is on screen before the preparation starts.
+        Assert.Equal(1, shown);
+        StatusPageModel model = Assert.Single(fixture.StatusPages);
+        // The fixture's Connect ends in French, the language the page follows.
+        Assert.Equal("Réglage de l'horloge et du fuseau horaire…", model.Status);
+        Assert.Equal(WinPeUiSession.StatusPageTitle, model.Title);
+        Assert.Equal(model.Title, fixture.ConnectOptions!.StatusPageTitle);
+    }
+
+    [Fact]
+    public async Task StatusPage_IsNotShownOutsideWindowsPeOrWhenConnectFailsOrIsSkipped()
+    {
+        var outside = new Fixture { IsWinPe = false };
+        await outside.RunAsync();
+        var failed = new Fixture { ConnectExitCode = 21 };
+        await failed.RunAsync();
+        var skipped = new Fixture { SkipConnect = true };
+        await skipped.RunAsync();
+
+        Assert.Empty(outside.StatusPages);
+        Assert.Empty(failed.StatusPages);
+        Assert.Empty(skipped.StatusPages);
+    }
+
+    [Fact]
+    public async Task ClockUsable_IsRecordedInTheDeployStateAfterASuccessfulSync()
+    {
+        var fixture = new Fixture { ClockUsableAfterPreparation = true };
+
+        await fixture.RunAsync();
+
+        Assert.Equal([false, false, true], fixture.States.Select(state => state.ClockUsable));
+        Assert.Equal([UiPhase.Connect, UiPhase.System, UiPhase.Deploy], fixture.States.Select(state => state.Phase));
+    }
+
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public async Task ClockUsable_StaysFalseWhenTheSyncFailsAndDeployStillStarts(bool throws)
+    {
+        // Review focus 4: no HTTPS time source. The step either reports an unusable clock or fails.
+        var fixture = new Fixture { SystemPreparationFails = throws, ClockUsableAfterPreparation = false };
+
+        Assert.Equal(DeployPhase.SuccessExitCode, await fixture.RunAsync());
+
+        Assert.Equal(["connect", "status", "system", "deploy"], fixture.Calls);
+        Assert.All(fixture.States, state => Assert.False(state.ClockUsable));
+    }
+
+    [Fact]
+    public async Task ClockUsable_SurvivesLaterStateWrites()
+    {
+        var fixture = new Fixture { ClockUsableAfterPreparation = true };
+        fixture.Deploy = options =>
+        {
+            options.OnCultureChanged!("it-IT");
+            options.OnDestructiveStepStarted();
+            return Task.FromResult(DeployPhase.SuccessExitCode);
+        };
+
+        await fixture.RunAsync();
+
+        Assert.Equal(new UiState(UiPhase.Deploy, DestructiveStarted: true, Culture: "it-IT", ClockUsable: true), fixture.States[^1]);
+    }
+
+    [Fact]
     public async Task SystemPreparationFailure_IsAWarningAndDeployStillStarts()
     {
         var fixture = new Fixture { SystemPreparationFails = true };
 
         Assert.Equal(DeployPhase.SuccessExitCode, await fixture.RunAsync());
 
-        Assert.Equal(["connect", "system", "deploy"], fixture.Calls);
+        Assert.Equal(["connect", "status", "system", "deploy"], fixture.Calls);
         Assert.Contains(fixture.Events, item => item.Level == LogEventLevel.Warning &&
             item.MessageTemplate.Text.Contains("System preparation", StringComparison.Ordinal));
     }
@@ -242,7 +328,7 @@ public sealed class WinPeUiSessionTests
             };
 
             Assert.Equal(DeployPhase.UnhandledExceptionExitCode, await fixture.RunAsync());
-            Assert.Equal(["connect", "system", "deploy"], fixture.Calls);
+            Assert.Equal(["connect", "status", "system", "deploy"], fixture.Calls);
         }
         finally { Directory.Delete(directory, recursive: true); }
     }
@@ -289,7 +375,7 @@ public sealed class WinPeUiSessionTests
 
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => fixture.RunWithTokenAsync(cancellation.Token));
 
-        Assert.Equal(["connect", "system"], fixture.Calls);
+        Assert.Equal(["connect", "status", "system"], fixture.Calls);
         Assert.False(fixture.Key.TryTake(new byte[DeploymentKeyTransfer.KeyLength]));
     }
 
@@ -358,6 +444,23 @@ public sealed class WinPeUiSessionTests
         }
     }
 
+    /// <summary>A clock whose timers fire at once, so the status page minimum display time costs nothing in a test.</summary>
+    private sealed class ImmediateTimeProvider : TimeProvider
+    {
+        public override ITimer CreateTimer(TimerCallback callback, object? state, TimeSpan dueTime, TimeSpan period)
+        {
+            if (dueTime != Timeout.InfiniteTimeSpan) { ThreadPool.QueueUserWorkItem(_ => callback(state)); }
+            return new NoopTimer();
+        }
+
+        private sealed class NoopTimer : ITimer
+        {
+            public bool Change(TimeSpan dueTime, TimeSpan period) => true;
+            public void Dispose() { }
+            public ValueTask DisposeAsync() => ValueTask.CompletedTask;
+        }
+    }
+
     private sealed class Fixture : IConnectPhaseRunner, ISystemPreparationStep, IDeployPhaseRunner, IUiStateWriter, IUiReadinessReporter
     {
         private readonly ConcurrentQueue<LogEvent> events = new();
@@ -371,6 +474,8 @@ public sealed class WinPeUiSessionTests
         internal int ConnectExitCode { get; init; }
         internal bool ConnectRenders { get; init; } = true;
         internal bool SystemPreparationFails { get; init; }
+        internal bool ClockUsableAfterPreparation { get; init; }
+        internal List<StatusPageModel> StatusPages { get; } = [];
         internal bool IsWinPe { get; init; } = true;
         internal bool SkipConnect { get; init; }
         internal int DeployExitCode { get; init; }
@@ -383,7 +488,12 @@ public sealed class WinPeUiSessionTests
 
         internal WinPeUiSession CreateSession() => new(Shell, this, this, this, StateWriter ?? this, this, () => IsWinPe,
             new LoggerConfiguration().MinimumLevel.Verbose().WriteTo.Sink(new DelegatingSink(events.Enqueue)).CreateLogger(),
-            SkipConnect);
+            SkipConnect, model =>
+            {
+                Calls.Add("status");
+                StatusPages.Add(model);
+                return null!;
+            }, new ImmediateTimeProvider());
 
         internal Task<int> RunAsync() => CreateSession().RunAsync(TestContext.Current.CancellationToken);
 
@@ -400,11 +510,13 @@ public sealed class WinPeUiSessionTests
             return Task.FromResult(new ConnectPhaseResult(ConnectExitCode, Key, "Dark", "fr-FR"));
         }
 
-        Task ISystemPreparationStep.RunAsync(CancellationToken cancellationToken)
+        Task<bool> ISystemPreparationStep.RunAsync(CancellationToken cancellationToken)
         {
             Calls.Add("system");
             OnSystemPreparation?.Invoke();
-            return SystemPreparationFails ? Task.FromException(new HttpRequestException("Offline")) : Task.CompletedTask;
+            return SystemPreparationFails
+                ? Task.FromException<bool>(new HttpRequestException("Offline"))
+                : Task.FromResult(ClockUsableAfterPreparation);
         }
 
         Task<int> IDeployPhaseRunner.RunAsync(DeployPhaseOptions options, CancellationToken cancellationToken)

@@ -2,6 +2,8 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Globalization;
+using System.Windows;
 using Foundry.Connect;
 using Foundry.Core.Models.Runtime;
 using Foundry.Deploy;
@@ -19,18 +21,21 @@ namespace Foundry.WinPE.Ui;
 /// <para>
 /// Runs on the UI thread of the host's WPF application; the phases resume there. Connect's deployment key, theme and language
 /// reach Deploy in memory. Both phases show their content in the one shell the host gives the session: Connect's content stays
-/// shown, disabled, until Deploy's content replaces it (or the process ends when Deploy never shows one), so the screen never
-/// goes blank between the phases. The session never closes the shell and handles none of its close requests: a phase handles
+/// shown, disabled, until the next content replaces it (the status page while the system is prepared, then Deploy's content),
+/// so the screen never goes blank between the phases. The session never closes the shell and handles none of its close requests: a phase handles
 /// them while it runs, and the shell refuses them in between (while system preparation runs).
 /// </para>
 /// <para>
 /// Readiness: <c>configuration_loaded</c> comes from Connect, <c>ui_ready</c> once from the first content of the session
-/// (Connect's page or its password prompt, or Deploy's content when Connect is skipped), and <c>startup_failed</c> when Connect
+/// (Connect's "Looking for the network" status page, or Deploy's content in the debug Deploy-only mode where the Connect
+/// phase is skipped entirely; the network gate skipping Connect's page does not change it), and <c>startup_failed</c> when Connect
 /// fails before any content rendered.
 /// The UI state file follows each phase, the language the operator works in, and the start of a destructive deployment step
 /// (before that step runs).
 /// System preparation runs only in Windows PE, because it sets the clock and time zone of the machine; its failure is a
-/// warning. The hooks given to the phases log their own failures: the phases swallow hook exceptions.
+/// warning. It runs behind the shared status page ("Setting the clock and time zone…", at least
+/// <see cref="StatusPageMinimumDisplay"/>), and whether the clock is usable afterwards is recorded in the Deploy-phase state
+/// the session writes next, so the guardian sees it before it starts its telemetry delivery. The hooks given to the phases log their own failures: the phases swallow hook exceptions.
 /// </para>
 /// </remarks>
 /// <param name="shell">The shell window both phases show their content in, created by the host.</param>
@@ -44,6 +49,11 @@ namespace Foundry.WinPE.Ui;
 /// <param name="skipConnect">
 /// Starts with the Deploy phase, without key, preferences or system preparation. Only the debug mode picker uses it.
 /// </param>
+/// <param name="createStatusPage">
+/// Creates the status page for a model; by default the shared <see cref="StatusPageView"/>. Replaced in tests, which have no UI
+/// thread.
+/// </param>
+/// <param name="timeProvider">The clock of the status page minimum display time; the system clock by default.</param>
 internal sealed class WinPeUiSession(
     IShellHost shell,
     IConnectPhaseRunner connectPhase,
@@ -53,8 +63,23 @@ internal sealed class WinPeUiSession(
     IUiReadinessReporter readiness,
     Func<bool> isWinPeRuntime,
     ILogger logger,
-    bool skipConnect = false)
+    bool skipConnect = false,
+    Func<StatusPageModel, FrameworkElement>? createStatusPage = null,
+    TimeProvider? timeProvider = null)
 {
+    /// <summary>The minimum time the status page stays on screen, so a fast step does not flash.</summary>
+    internal static readonly TimeSpan StatusPageMinimumDisplay = TimeSpan.FromSeconds(1);
+
+    /// <summary>The title shared by every status page of the startup: Connect's and the session's.</summary>
+    internal const string StatusPageTitle = "Foundry OSD";
+
+    private const string StatusPageStatusKey = "SystemPreparation.Status";
+    private const string StatusPageStatusEnglish = "Setting the clock and time zone…";
+
+    private readonly Func<StatusPageModel, FrameworkElement> _createStatusPage =
+        createStatusPage ?? (static model => new StatusPageView { DataContext = model });
+    private readonly TimeProvider _timeProvider = timeProvider ?? TimeProvider.System;
+
     private readonly Lock _stateGate = new();
     private UiState _state = UiState.Initial;
     private int _uiReady;
@@ -86,7 +111,8 @@ internal sealed class WinPeUiSession(
             Shell = shell,
             OnConfigurationLoaded = OnConnectConfigurationLoaded,
             OnCultureChanged = OnCultureChanged,
-            OnFirstContentRendered = OnConnectFirstContentRendered
+            OnFirstContentRendered = OnConnectFirstContentRendered,
+            StatusPageTitle = StatusPageTitle
         }, cancellationToken));
         try
         {
@@ -106,7 +132,7 @@ internal sealed class WinPeUiSession(
             cancellationToken.ThrowIfCancellationRequested();
             // No close handler from here until Deploy attaches its own: the shell refuses a close while the system is prepared.
             EnterPhase(UiPhase.System);
-            await PrepareSystemAsync(cancellationToken);
+            await PrepareSystemAsync(connect.CultureName, cancellationToken);
             return await RunDeployAsync(connect, cancellationToken);
         }
         finally
@@ -148,7 +174,7 @@ internal sealed class WinPeUiSession(
         }
     }
 
-    private async Task PrepareSystemAsync(CancellationToken cancellationToken)
+    private async Task PrepareSystemAsync(string? cultureName, CancellationToken cancellationToken)
     {
         if (!isWinPeRuntime())
         {
@@ -157,15 +183,35 @@ internal sealed class WinPeUiSession(
         }
 
         logger.Information("System preparation (clock and time zone) started.");
+        bool clockUsable = false;
         try
         {
-            await systemPreparation.RunAsync(cancellationToken);
-            logger.Information("System preparation completed.");
+            shell.ShowContent(_createStatusPage(CreateStatusPageModel(cultureName)));
+            Task<bool> run = systemPreparation.RunAsync(cancellationToken);
+            await StatusPageModel.EnsureMinimumDisplayAsync(run, StatusPageMinimumDisplay, _timeProvider);
+            clockUsable = await run;
+            logger.Information("System preparation completed. ClockUsable={ClockUsable}", clockUsable);
         }
         catch (Exception exception) when (exception is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
         {
             logger.Warning(exception, "System preparation failed. Foundry Deploy starts anyway.");
         }
+
+        // Written with the Deploy phase state that follows: the guardian reads it before it starts its telemetry delivery.
+        lock (_stateGate)
+        {
+            _state = _state with { ClockUsable = clockUsable };
+        }
+    }
+
+    // The page follows the language Connect ended with, then the last one a phase reported, then the process language.
+    private StatusPageModel CreateStatusPageModel(string? cultureName)
+    {
+        CultureInfo culture = UiStateFile.TryGetSupportedCulture(cultureName)
+            ?? UiStateFile.TryGetSupportedCulture(_state.Culture)
+            ?? CultureInfo.CurrentUICulture;
+        return new StatusPageModel(StatusPageTitle,
+            WinPeDialogApplication.Localize(StatusPageStatusKey, StatusPageStatusEnglish, culture));
     }
 
     private void EnterPhase(UiPhase phase, string? connectCulture = null)

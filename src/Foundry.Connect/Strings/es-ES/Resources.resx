@@ -443,6 +443,9 @@ Licenciado bajo la Licencia MIT.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>La autenticación 802.1X por cable está en curso.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Buscando la red…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Red lista</value>
   </data>

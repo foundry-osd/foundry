@@ -91,6 +91,12 @@
   <data name="Catalog.Version" xml:space="preserve">
     <value>الإصدار</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>تعذر تحميل كتالوجات Windows وبرامج التشغيل. تحقق من اتصال الشبكة، ثم حدد إعادة المحاولة. يؤدي الإغلاق إلى إنهاء Foundry Deploy.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>الكتالوجات غير متاحة</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>إلغاء</value>
   </data>

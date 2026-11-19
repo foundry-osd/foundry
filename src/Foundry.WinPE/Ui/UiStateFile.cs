@@ -30,7 +30,12 @@ internal enum UiPhase
 /// The UI culture the operator works in, for example <c>fr-FR</c>, so the guardian can show its crash window in that language;
 /// <see langword="null"/> when none is known or the recorded value is not a supported Foundry culture.
 /// </param>
-internal sealed record UiState(UiPhase Phase, bool DestructiveStarted, string? Culture = null)
+/// <param name="ClockUsable">
+/// Whether the UI process set or verified the system clock against an internet time source, so the guardian can tell its
+/// startup telemetry the clock is trustworthy. Recorded by the session before the Deploy phase starts; <see langword="false"/>
+/// when the sync failed, never ran or the file predates this field.
+/// </param>
+internal sealed record UiState(UiPhase Phase, bool DestructiveStarted, string? Culture = null, bool ClockUsable = false)
 {
     /// <summary>Gets the state of a UI process that has not recorded anything yet.</summary>
     internal static UiState Initial { get; } = new(UiPhase.Connect, DestructiveStarted: false);
@@ -38,7 +43,7 @@ internal sealed record UiState(UiPhase Phase, bool DestructiveStarted, string? C
 
 /// <summary>
 /// Reads and writes the UI state file, <c>{ "phase": "connect" | "system" | "deploy", "destructiveStarted": bool,
-/// "culture": string }</c> (the culture is optional), whose path the guardian gives the UI process in <see cref="PathEnvironmentVariable"/>.
+/// "culture": string, "clockUsable": bool }</c> (the culture and the clock state are optional), whose path the guardian gives the UI process in <see cref="PathEnvironmentVariable"/>.
 /// </summary>
 /// <remarks>
 /// A write goes to a temporary file in the same directory, flushed to disk, which then replaces the state file, so a reader
@@ -53,6 +58,7 @@ internal static class UiStateFile
     private const string PhaseProperty = "phase";
     private const string DestructiveStartedProperty = "destructiveStarted";
     private const string CultureProperty = "culture";
+    private const string ClockUsableProperty = "clockUsable";
     private const int MaximumCultureLength = 85;
     private static readonly SupportedCultureCatalog SupportedCultures = FoundrySupportedCultures.CreateCatalog();
 
@@ -70,7 +76,8 @@ internal static class UiStateFile
         var document = new Dictionary<string, object>
         {
             [PhaseProperty] = ToName(state.Phase),
-            [DestructiveStartedProperty] = state.DestructiveStarted
+            [DestructiveStartedProperty] = state.DestructiveStarted,
+            [ClockUsableProperty] = state.ClockUsable
         };
         if (state.Culture is not null)
         {
@@ -124,13 +131,17 @@ internal static class UiStateFile
                 return null;
             }
 
-            return new UiState(parsedPhase, destructive.GetBoolean(), ReadCulture(root));
+            return new UiState(parsedPhase, destructive.GetBoolean(), ReadCulture(root), ReadClockUsable(root));
         }
         catch (Exception exception) when (exception is IOException or UnauthorizedAccessException or JsonException)
         {
             return null;
         }
     }
+
+    // A missing or non-boolean value is an unusable clock, never a reason to distrust the rest of the state.
+    private static bool ReadClockUsable(JsonElement root) =>
+        root.TryGetProperty(ClockUsableProperty, out JsonElement element) && element.ValueKind == JsonValueKind.True;
 
     // A missing, malformed or unsupported culture is dropped, never a reason to distrust the rest of the state.
     private static string? ReadCulture(JsonElement root)

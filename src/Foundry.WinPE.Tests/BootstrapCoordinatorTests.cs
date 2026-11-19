@@ -77,6 +77,40 @@ public sealed class BootstrapCoordinatorTests
     }
 
     [Fact]
+    public async Task DeliveryReceivesTheClockStateOfTheDeployStateAndStartsOnce()
+    {
+        using var fixture = new Fixture { ObserveDiagnostics = true };
+        fixture.ObservedStates.Enqueue([new UiState(UiPhase.System, false), new UiState(UiPhase.Deploy, false, ClockUsable: true)]);
+        fixture.Launches.Enqueue(Exited(0, ready: true, new UiState(UiPhase.Deploy, false, ClockUsable: true)));
+
+        await fixture.RunAsync();
+
+        Assert.Equal([true], fixture.DeliveryClockStates);
+    }
+
+    [Fact]
+    public async Task DeliveryKeepsTheClockUnusableWhenTheSyncFailed()
+    {
+        using var fixture = new Fixture { ObserveDiagnostics = true };
+        fixture.ObservedStates.Enqueue([new UiState(UiPhase.Deploy, false)]);
+
+        await fixture.RunAsync();
+
+        Assert.Equal([false], fixture.DeliveryClockStates);
+    }
+
+    [Fact]
+    public async Task DeliveryAtUiExitUsesTheLastStateRead()
+    {
+        using var fixture = new Fixture { ObserveDiagnostics = true };
+        fixture.Launches.Enqueue(Exited(21, ready: true, new UiState(UiPhase.Connect, false, ClockUsable: true)));
+
+        await fixture.RunAsync();
+
+        Assert.Equal([true], fixture.DeliveryClockStates);
+    }
+
+    [Fact]
     public async Task CrashDuringSystemShutdownIsANormalEnd()
     {
         using var fixture = new Fixture { ObserveDiagnostics = true, ShuttingDown = true };
@@ -380,6 +414,7 @@ public sealed class BootstrapCoordinatorTests
         internal List<string> LaunchedExecutables { get; } = [];
         internal List<BootstrapProgress> Progress { get; } = [];
         internal Queue<ApplicationLaunchResult> Launches { get; } = [];
+        internal List<bool> DeliveryClockStates { get; } = [];
         internal Queue<UiCrashChoice> Choices { get; } = [];
         internal List<bool> CrashWindows { get; } = [];
         internal List<string?> CrashCultures { get; } = [];
@@ -403,7 +438,8 @@ public sealed class BootstrapCoordinatorTests
 
         internal Task<BootstrapResult> RunAsync() => new BootstrapCoordinator(Context, this, this, this, this,
             logger, Progress.Add,
-            ObserveDiagnostics ? () => Calls.Add("delivery") : null,
+            ObserveDiagnostics ? clockUsable => { Calls.Add("delivery"); DeliveryClockStates.Add(clockUsable); }
+        : null,
             ObserveDiagnostics ? (result, _) => Outcomes.Add(result) : null, ReadPayloadVersion, GuardianPath,
             () => ShuttingDown).RunAsync(cancellation.Token);
 

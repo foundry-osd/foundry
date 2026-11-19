@@ -57,6 +57,17 @@ public sealed class NetworkServiceRegistrationTests
     }
 
     [Fact]
+    public void AddFoundryConnectApplicationServices_HoldsTheCountdownUntilThePageIsShown()
+    {
+        using ServiceProvider provider = BuildProvider();
+        AutoContinueViewModel autoContinue = provider.GetRequiredService<AutoContinueViewModel>();
+
+        autoContinue.OnInternetStatusChanged(InternetStatus.Online);
+
+        Assert.False(autoContinue.IsCounting);
+    }
+
+    [Fact]
     public async Task AddFoundryConnectApplicationServices_ComposesThePageAroundOneNetworkActions()
     {
         using ServiceProvider provider = BuildProvider();

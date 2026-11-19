@@ -443,6 +443,9 @@ Licencirano pod MIT licencom.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Žična potvrda autentičnosti 802.1X je u toku.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Traženje mreže…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Mreža spremna</value>
   </data>

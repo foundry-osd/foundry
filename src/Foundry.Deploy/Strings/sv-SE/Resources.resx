@@ -91,6 +91,12 @@ Licensierad under MIT-licensen.</value>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Version</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>Windows- och drivrutinskatalogerna kunde inte läsas in. Kontrollera nätverksanslutningen och välj Försök igen. Stäng avslutar Foundry Deploy.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>Katalogerna är inte tillgängliga</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Avbryt</value>
   </data>

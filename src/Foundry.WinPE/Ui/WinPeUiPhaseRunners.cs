@@ -31,9 +31,13 @@ internal sealed class WpfDeployPhaseRunner(Action beforeDeploy) : IDeployPhaseRu
 }
 
 /// <summary>Runs the full clock synchronization, then the time zone selection, off the UI thread.</summary>
-internal sealed class WinPeSystemPreparationStep(ISystemPreparation preparation) : ISystemPreparationStep
+internal sealed class WinPeSystemPreparationStep(WinPeSystemPreparation preparation) : ISystemPreparationStep
 {
     /// <inheritdoc />
-    public Task RunAsync(CancellationToken cancellationToken) =>
-        Task.Run(() => preparation.PrepareSystemAsync(cancellationToken), cancellationToken);
+    /// <remarks>A failed clock sync is not an exception: the preparation stays unusable and the time zone step still runs.</remarks>
+    public async Task<bool> RunAsync(CancellationToken cancellationToken)
+    {
+        await Task.Run(() => preparation.PrepareSystemAsync(cancellationToken), cancellationToken).ConfigureAwait(false);
+        return preparation.IsClockUsable;
+    }
 }

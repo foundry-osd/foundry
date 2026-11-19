@@ -443,6 +443,9 @@
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>جارٍ تنفيذ مصادقة 802.1X السلكية.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>جارٍ البحث عن الشبكة…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>الشبكة جاهزة</value>
   </data>

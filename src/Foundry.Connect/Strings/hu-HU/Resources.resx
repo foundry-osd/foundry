@@ -443,6 +443,9 @@ Licenc az MIT licenc alatt.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>A vezetékes 802.1X-hitelesítés folyamatban van.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Hálózat keresése…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Hálózat készen áll</value>
   </data>

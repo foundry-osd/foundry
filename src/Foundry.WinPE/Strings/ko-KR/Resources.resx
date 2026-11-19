@@ -21,6 +21,9 @@
   <data name="ObsoleteMedia.Title" xml:space="preserve">
     <value>오래된 부팅 미디어</value>
   </data>
+  <data name="SystemPreparation.Status" xml:space="preserve">
+    <value>시계 및 표준 시간대를 설정하는 중…</value>
+  </data>
   <data name="UiCrash.Close" xml:space="preserve">
     <value>닫기</value>
   </data>

@@ -16,9 +16,10 @@ namespace Foundry.Connect.ViewModels;
 /// <summary>
 /// The single Connect page: renders the live or simulated <see cref="NetworkState"/> into the banner, the connection
 /// chip and the five child view models, chooses the session layout, requests the focus on page status changes,
-/// switches debug scenarios, and owns the startup sequence (the wired unlock prompt, the provisioning, then the network
-/// monitor), the automatic unlock prompt of the provisioned Wi-Fi (<see cref="IConnectionCoordinator.UnlockRequested"/>)
-/// and its shutdown.
+/// switches debug scenarios, and owns the automatic unlock prompt of the provisioned Wi-Fi
+/// (<see cref="IConnectionCoordinator.UnlockRequested"/>). The startup provisioning and the network monitor belong to the
+/// network gate (<see cref="Lifetime.NetworkGate"/>), which runs before the page is shown; the page is created first, so it
+/// renders the state and opens the automatic prompt while the gate runs.
 /// </summary>
 /// <remarks>
 /// <para>
@@ -64,17 +65,15 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     private ITimer? _internetRecheckTimer;
     private int _internetRecheckTicks;
     private bool _isLayoutDecided;
-    private bool _isInitialized;
     private bool _isDisposed;
-    private Task? _monitorTask;
 
     /// <summary>
     /// Subscribes to the coordinator, the networking interactions and the language changes, then renders the current
     /// coordinator state without requesting the focus.
     /// </summary>
     /// <param name="localization">Source of the texts and language change events.</param>
-    /// <param name="coordinator">Owner of the network state; also applies the provisioning at startup.</param>
-    /// <param name="monitor">Periodic observer started by <see cref="InitializeAsync"/>; refreshed by <see cref="RefreshCommand"/>.</param>
+    /// <param name="coordinator">Owner of the network state.</param>
+    /// <param name="monitor">Periodic observer started by the network gate; refreshed by <see cref="RefreshCommand"/> and the internet re-check.</param>
     /// <param name="actions">The page's only path to the coordinator and to the unlock prompts.</param>
     /// <param name="autoContinue">The countdown and Continue.</param>
     /// <param name="ethernet">The Ethernet card.</param>
@@ -212,56 +211,6 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         NetworkTextKeys.BannerKeys(Status, BlockedReason, _renderedState, IsWifiSectionShown);
 
     /// <summary>
-    /// Asks for the deployment password when wired 802.1X needs it, applies the provisioning once, shows its Wi-Fi
-    /// feedback, then starts the network monitor. Later calls do nothing.
-    /// </summary>
-    /// <remarks>
-    /// Call it once the Connect content is loaded and visible: the wired prompt is owned by it and may run a nested
-    /// modal loop inside this call. A cancelled prompt still provisions, with wired 802.1X unavailable for the session. The
-    /// monitor is started with the page lifetime token, not <paramref name="cancellationToken"/>, and is not awaited: it
-    /// runs its loop off the caller thread until <see cref="Dispose"/>. It never starts once the page is disposed.
-    /// </remarks>
-    /// <param name="cancellationToken">Caller cancellation for the provisioning step.</param>
-    /// <returns>A task that completes once the monitor is started, or when the page is disposed or cancelled first.</returns>
-    public async Task InitializeAsync(CancellationToken cancellationToken)
-    {
-        if (_isDisposed || _isInitialized)
-        {
-            return;
-        }
-
-        _isInitialized = true;
-
-        // Read before the first await: Dispose disposes the source.
-        CancellationToken lifetime = _disposeCts.Token;
-        using CancellationTokenSource linked = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, lifetime);
-        ProvisioningOutcome outcome;
-        try
-        {
-            // No ConfigureAwait(false): the continuations update bound properties on the UI thread.
-            await UnlockWithCountdownHeldAsync(_actions.UnlockWiredAtStartupAsync, linked.Token);
-            if (_isDisposed)
-            {
-                return;
-            }
-
-            outcome = await _coordinator.ApplyProvisioningAsync(linked.Token);
-        }
-        catch (OperationCanceledException) when (linked.IsCancellationRequested)
-        {
-            return;
-        }
-
-        if (_isDisposed)
-        {
-            return;
-        }
-
-        _dispatcher.Run(() => ProvisionedWifi.ApplyProvisioningOutcome(outcome));
-        _monitorTask = _monitor.RunAsync(lifetime);
-    }
-
-    /// <summary>
     /// Replaces the rendered state with a simulated scenario, or returns to the live state with
     /// <see cref="ConnectDebugScenario.Live"/>. The focus logic and the interaction pause start over.
     /// </summary>
@@ -292,8 +241,7 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
     }
 
     /// <summary>
-    /// Unsubscribes, stops the internet re-check, cancels the network monitor and observes its task without waiting for
-    /// it. Idempotent.
+    /// Unsubscribes, stops the internet re-check and cancels an automatic unlock prompt still queued. Idempotent.
     /// </summary>
     public override void Dispose()
     {
@@ -310,9 +258,6 @@ public sealed partial class ConnectPageViewModel : LocalizedViewModelBase
         LocalizationService.LanguageChanged -= OnLocalizationLanguageChanged;
         StopInternetRecheck();
         _disposeCts.Cancel();
-
-        // Never block the UI thread on the monitor; reading Exception keeps a faulted loop from going unobserved.
-        _ = _monitorTask?.ContinueWith(static task => _ = task.Exception, TaskScheduler.Default);
         _disposeCts.Dispose();
         base.Dispose();
     }

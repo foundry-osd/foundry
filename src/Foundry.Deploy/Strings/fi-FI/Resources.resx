@@ -91,6 +91,12 @@ Lisensoitu MIT-lisenssillä.</value>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Versio</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>Windows- ja ohjainluetteloita ei voitu ladata. Tarkista verkkoyhteys ja valitse Yritä uudelleen. Sulje lopettaa Foundry Deployn.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>Luettelot eivät ole käytettävissä</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Peruuta</value>
   </data>

@@ -91,6 +91,12 @@
   <data name="Catalog.Version" xml:space="preserve">
     <value>גרסה</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>לא ניתן היה לטעון את הקטלוגים של Windows ושל מנהלי ההתקנים. בדוק את חיבור הרשת ולאחר מכן בחר נסה שוב. סגור מסיים את Foundry Deploy.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>הקטלוגים אינם זמינים</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>ביטול</value>
   </data>

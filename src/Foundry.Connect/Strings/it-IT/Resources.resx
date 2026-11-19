@@ -443,6 +443,9 @@ Concesso in licenza con la licenza MIT.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Autenticazione 802.1X cablata in corso.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Ricerca della rete…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Rete pronta</value>
   </data>

@@ -91,6 +91,12 @@
   <data name="Catalog.Version" xml:space="preserve">
     <value>Версия</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>Каталозите на Windows и драйверите не можаха да бъдат заредени. Проверете мрежовата връзка и изберете Повторен опит. Затваряне прекратява Foundry Deploy.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>Каталозите не са налични</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Отказ</value>
   </data>

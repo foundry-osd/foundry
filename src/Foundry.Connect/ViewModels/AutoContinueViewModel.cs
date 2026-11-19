@@ -14,8 +14,8 @@ using Microsoft.Extensions.Logging;
 namespace Foundry.Connect.ViewModels;
 
 /// <summary>
-/// Automatic continue: a 10 second countdown once the internet is online, held while an automatic deployment password
-/// prompt is open, paused for the session by a networking interaction (and never started once one happened), cancelled by
+/// Automatic continue: a 10 second countdown once the internet is online, held until the Connect page is shown and while an
+/// automatic deployment password prompt is open, paused for the session by a networking interaction (and never started once one happened), cancelled by
 /// "Stay here", and ended by the final probe of <see cref="ISuccessfulExitService"/>.
 /// </summary>
 /// <remarks>
@@ -48,6 +48,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     private bool _isSimulation;
     private bool _hasNetworkingInteraction;
     private bool _isPasswordPromptOpen;
+    private bool _isPageShown;
     private bool _isCompleting;
     private bool _isDisposed;
 
@@ -61,6 +62,11 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     /// <param name="dispatcher">Marshals timer ticks to the UI thread.</param>
     /// <param name="logger">Logger for the countdown lifecycle.</param>
     /// <param name="isAutoContinueEnabled">Whether the countdown runs in live mode.</param>
+    /// <param name="isPageShown">
+    /// Whether the Connect page is already shown. <see langword="false"/> holds the countdown until <see cref="OnPageShown"/>:
+    /// the page lives behind the network gate's status page first, and its countdown must start from the full delay on the
+    /// visible page and never leave from behind the status page.
+    /// </param>
     public AutoContinueViewModel(
         ILocalizationService localization,
         ISuccessfulExitService successfulExit,
@@ -68,7 +74,8 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
         TimeProvider timeProvider,
         IUiDispatcher dispatcher,
         ILogger<AutoContinueViewModel> logger,
-        bool isAutoContinueEnabled)
+        bool isAutoContinueEnabled,
+        bool isPageShown = true)
         : base(localization)
     {
         _successfulExit = successfulExit ?? throw new ArgumentNullException(nameof(successfulExit));
@@ -77,6 +84,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
         _dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _isAutoContinueEnabled = isAutoContinueEnabled;
+        _isPageShown = isPageShown;
     }
 
     /// <summary>
@@ -177,7 +185,9 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
         _internet = internet;
         if (IsCountdownAllowed)
         {
-            AutoContinueState next = AutoContinuePolicy.OnInternetStatus(State, internet, _hasNetworkingInteraction, _isPasswordPromptOpen);
+            // A hidden page holds the countdown exactly like an open prompt: the internet counts as not online yet.
+            bool isHeld = _isPasswordPromptOpen || !_isPageShown;
+            AutoContinueState next = AutoContinuePolicy.OnInternetStatus(State, internet, _hasNetworkingInteraction, isHeld);
             if (next.Status == AutoContinueStatus.Paused && State.Status != AutoContinueStatus.Paused)
             {
                 _logger.LogInformation("Automatic continue not started; the technician already interacted with the network.");
@@ -223,6 +233,22 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
     /// starts from the full delay when the internet is online and no networking interaction happened.
     /// </summary>
     public void OnPasswordPromptClosed() => SetPasswordPromptOpen(false);
+
+    /// <summary>
+    /// Releases the hold of a page created hidden (see the <c>isPageShown</c> constructor argument) once the Connect page is
+    /// presented: the last internet status applies again, so a countdown starts from the full delay when the internet is
+    /// online, no prompt is open and no networking interaction happened. Later calls change nothing.
+    /// </summary>
+    public void OnPageShown()
+    {
+        if (_isDisposed || _isPageShown)
+        {
+            return;
+        }
+
+        _isPageShown = true;
+        OnInternetStatusChanged(_internet);
+    }
 
     /// <summary>
     /// Raises <see cref="CaptionText"/> again after a language change; the countdown keeps its seconds.
@@ -343,7 +369,7 @@ public sealed partial class AutoContinueViewModel : LocalizedViewModelBase
         try
         {
             // No ConfigureAwait(false): the continuation changes bound properties on the UI thread.
-            SuccessfulExitResult result = await _successfulExit.TryCompleteAsync(token);
+            SuccessfulExitResult result = await _successfulExit.TryCompleteAsync(connectSkipped: false, token);
             if (_isDisposed)
             {
                 return;

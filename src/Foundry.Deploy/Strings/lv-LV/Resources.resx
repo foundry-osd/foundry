@@ -91,6 +91,12 @@ Licencēts saskaņā ar MIT licenci.</value>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Versija</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>Neizdevās ielādēt Windows un draiveru katalogus. Pārbaudiet tīkla savienojumu un atlasiet Mēģināt vēlreiz. Aizvērt beidz Foundry Deploy darbību.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>Katalogi nav pieejami</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Atcelt</value>
   </data>

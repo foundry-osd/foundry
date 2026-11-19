@@ -443,6 +443,9 @@ Licensed under the MIT License.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Wired 802.1X authentication is in progress.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Looking for the network…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Network ready</value>
   </data>

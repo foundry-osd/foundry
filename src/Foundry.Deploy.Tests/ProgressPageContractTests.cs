@@ -8,6 +8,7 @@ using Foundry.Core.Services.DomainJoin;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
 using Foundry.Deploy.Services.Cache;
+using Foundry.Deploy.Services.Catalog;
 using Foundry.Deploy.Services.Deployment;
 using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.DriverPacks;
@@ -88,21 +89,23 @@ public sealed class ProgressPageContractTests
     });
 
     /// <summary>Creates the Deploy main window view model around test doubles; the services a test does not reach throw.</summary>
-    internal static MainWindowViewModel CreateMainWindowViewModel(IDeploymentExecutionService execution, IThemeService? theme = null)
+    internal static MainWindowViewModel CreateMainWindowViewModel(IDeploymentExecutionService execution, IThemeService? theme = null,
+        IDeploymentAccessGate? accessGate = null, IDeploymentStartupCoordinator? coordinator = null, IApplicationShellService? shell = null,
+        ICatalogStartupDialogService? catalogDialog = null)
     {
         var localization = new ResourceLocalizationService(LocalizationText.ResourceManager);
         return new MainWindowViewModel(
             localization,
             theme ?? new AutopilotInteractiveTestRuntime.FixedTheme(Foundry.Wpf.Theme.ThemeMode.Light),
             new OperationProgressService(),
-            new Unused(),
-            new Unused(),
+            accessGate ?? new Unused(),
+            coordinator ?? new Unused(),
             new IsoRuntime(),
             new ReadyLaunch(),
             execution,
             new StartableWizard(),
             new IdleOrchestrator(),
-            new Unused(),
+            shell ?? new Unused(),
             new WizardFactory(localization),
             new Unused(),
             new AutopilotInteractiveTestRuntime.FixedKeyboardLayout("00000409"),
@@ -110,6 +113,7 @@ public sealed class ProgressPageContractTests
             new Unused(),
             new StartingCredentialCheck(),
             new Unused(),
+            catalogDialog ?? new Unused(),
             new NullTelemetryService(),
             _ => Task.FromResult<string?>(null),
             NullLogger<MainWindowViewModel>.Instance,
@@ -186,12 +190,16 @@ public sealed class ProgressPageContractTests
 
     /// <summary>Services the cancellation flow never reaches; any call fails the test.</summary>
     private sealed class Unused : IDeploymentAccessGate, IDeploymentStartupCoordinator, IApplicationShellService, IProcessRunner,
-        IDomainCredentialVerifier, IZeroTouchMediaCredentialCheck, INetworkCacheStartupDialogService
+        IDomainCredentialVerifier, IZeroTouchMediaCredentialCheck, INetworkCacheStartupDialogService, ICatalogStartupDialogService
     {
         public Task<bool> AuthorizeAsync(CancellationToken cancellationToken = default) => throw new NotSupportedException();
 
         public Task<DeploymentStartupSnapshot> InitializeAsync(DeploymentStartupRequest request, CancellationToken cancellationToken = default) =>
             throw new NotSupportedException();
+
+        public Task<DeploymentCatalogSnapshot> ReloadCatalogsAsync(CancellationToken cancellationToken = default) => throw new NotSupportedException();
+
+        public CatalogStartupChoice ShowFailure(Exception failure) => throw new NotSupportedException();
 
         public void ShowAbout() => throw new NotSupportedException();
         public bool ConfirmWarning(string title, string message) => throw new NotSupportedException();

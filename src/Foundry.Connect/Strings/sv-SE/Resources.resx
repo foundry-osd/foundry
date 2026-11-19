@@ -443,6 +443,9 @@ Licensierad under MIT-licensen.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Trådbunden 802.1X-autentisering pågår.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Söker efter nätverket…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Nätverk redo</value>
   </data>

@@ -443,6 +443,9 @@ MIT 라이선스에 따라 라이선스가 부여됩니다.</value>
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>유선 802.1X 인증이 진행 중입니다.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>네트워크를 찾는 중…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>네트워크 준비</value>
   </data>

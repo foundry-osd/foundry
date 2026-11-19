@@ -91,6 +91,12 @@ Licencirano pod MIT licencom.</value>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Verzija</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>Katalozi Windows-a i drajvera nisu mogli da se učitaju. Proverite mrežnu vezu, a zatim izaberite Pokušaj ponovo. Zatvori završava Foundry Deploy.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>Katalozi nisu dostupni</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Otkaži</value>
   </data>

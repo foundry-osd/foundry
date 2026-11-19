@@ -19,7 +19,8 @@ namespace Foundry.Connect;
 /// <param name="ThemeMode">The theme Connect ended with, a <c>Foundry.Wpf.Theme.ThemeMode</c> name such as <c>Dark</c>.</param>
 /// <param name="CultureName">The UI culture Connect ended with, for example <c>fr-FR</c>.</param>
 /// <remarks>
-/// On success Connect's content stays shown in the shell, disabled, until the next phase's content replaces it.
+/// On success Connect's content stays shown in the shell, disabled, or its status page when the network gate skipped the
+/// Connect page, until the next phase's content replaces it.
 /// </remarks>
 public sealed record ConnectPhaseResult(
     int ExitCode,

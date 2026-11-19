@@ -43,5 +43,13 @@ public sealed record DeploymentStartupSnapshot
     public required HardwareProfile? DetectedHardware { get; init; }
     public required string? HardwareDetectionFailureMessage { get; init; }
     public required IReadOnlyList<TargetDiskInfo> TargetDisks { get; init; }
+
+    /// <summary>Gets the catalogs, empty when <see cref="CatalogFailure"/> is set.</summary>
     public required DeploymentCatalogSnapshot CatalogSnapshot { get; init; }
+
+    /// <summary>
+    /// Gets why the operating system or driver pack catalogs could not be loaded after the download retries, or
+    /// <see langword="null"/> when they loaded. The wizard never opens while it is set.
+    /// </summary>
+    public Exception? CatalogFailure { get; init; }
 }

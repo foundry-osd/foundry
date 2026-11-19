@@ -91,6 +91,12 @@ Lisensiert under MIT-lisensen.</value>
   <data name="Catalog.Version" xml:space="preserve">
     <value>Versjon</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>Windows- og driverkatalogene kunne ikke lastes inn. Kontroller nettverkstilkoblingen, og velg deretter Prøv igjen. Lukk avslutter Foundry Deploy.</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>Katalogene er ikke tilgjengelige</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>Avbryt</value>
   </data>

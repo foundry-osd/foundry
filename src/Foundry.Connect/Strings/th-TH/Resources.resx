@@ -443,6 +443,9 @@
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>กำลังรับรองความถูกต้อง 802.1X แบบใช้สาย</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>กำลังค้นหาเครือข่าย…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>เครือข่ายพร้อม</value>
   </data>

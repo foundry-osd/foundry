@@ -12,19 +12,25 @@ namespace Foundry.Connect.Tests.Support;
 /// </summary>
 internal sealed class FakeSuccessfulExitService : ISuccessfulExitService
 {
-    /// <summary>Gets or sets the result returned by every call when no gate is set.</summary>
+    /// <summary>Gets or sets the result returned by every call when no gate is set and <see cref="Results"/> is empty.</summary>
     public SuccessfulExitResult Result { get; set; } = SuccessfulExitResult.Exited;
+
+    /// <summary>Gets results handed out one per call before <see cref="Result"/> applies.</summary>
+    public Queue<SuccessfulExitResult> Results { get; } = new();
 
     /// <summary>Gets or sets a gate whose task every call returns, to test the in-flight window or a throwing exit.</summary>
     public TaskCompletionSource<SuccessfulExitResult>? Gate { get; set; }
 
     /// <summary>Gets the number of <see cref="TryCompleteAsync"/> calls.</summary>
-    public int Calls { get; private set; }
+    public int Calls => ConnectSkipped.Count;
+
+    /// <summary>Gets the <c>connectSkipped</c> argument of every call.</summary>
+    public List<bool> ConnectSkipped { get; } = [];
 
     /// <inheritdoc />
-    public Task<SuccessfulExitResult> TryCompleteAsync(CancellationToken cancellationToken)
+    public Task<SuccessfulExitResult> TryCompleteAsync(bool connectSkipped, CancellationToken cancellationToken)
     {
-        Calls++;
-        return Gate?.Task ?? Task.FromResult(Result);
+        ConnectSkipped.Add(connectSkipped);
+        return Gate?.Task ?? Task.FromResult(Results.Count > 0 ? Results.Dequeue() : Result);
     }
 }

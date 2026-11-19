@@ -55,6 +55,12 @@ public interface IConnectUnlockService
     bool IsWifiUnlockRequired { get; }
 
     /// <summary>
+    /// Gets whether an <see cref="UnlockAsync"/> call is showing the prompt, from its first prompt until its outcome, wrong
+    /// password retry delays included. The network gate never skips Foundry Connect while it is set.
+    /// </summary>
+    bool IsPromptOpen { get; }
+
+    /// <summary>
     /// Prompts for the deployment password until it unwraps the deployment key or the technician cancels; each wrong
     /// password waits Deploy's retry delay before the prompt reopens with the error text.
     /// </summary>

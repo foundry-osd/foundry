@@ -91,6 +91,12 @@
   <data name="Catalog.Version" xml:space="preserve">
     <value>版本</value>
   </data>
+  <data name="CatalogStartup.Message" xml:space="preserve">
+    <value>无法加载 Windows 和驱动程序目录。请检查网络连接，然后选择“重试”。选择“关闭”将结束 Foundry Deploy。</value>
+  </data>
+  <data name="CatalogStartup.Title" xml:space="preserve">
+    <value>目录不可用</value>
+  </data>
   <data name="Common.Cancel" xml:space="preserve">
     <value>取消</value>
   </data>

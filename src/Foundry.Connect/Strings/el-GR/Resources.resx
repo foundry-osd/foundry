@@ -443,6 +443,9 @@
   <data name="Status.Dot1xAuthenticatingDescription" xml:space="preserve">
     <value>Ο ενσύρματος έλεγχος ταυτότητας 802.1X βρίσκεται σε εξέλιξη.</value>
   </data>
+  <data name="Status.LookingForNetwork" xml:space="preserve">
+    <value>Αναζήτηση δικτύου…</value>
+  </data>
   <data name="Status.NetworkReadyTitle" xml:space="preserve">
     <value>Έτοιμο το δίκτυο</value>
   </data>

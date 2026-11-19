@@ -23,8 +23,9 @@ public sealed class AutoContinueViewModelTests : IDisposable
 
     public void Dispose() => _viewModel?.Dispose();
 
-    private AutoContinueViewModel Create(bool enabled = true, RecordingLogger<AutoContinueViewModel>? logger = null) =>
-        _viewModel = new AutoContinueViewModel(_localization, _exit, _lifetime, _clock, new ImmediateUiDispatcher(), logger ?? new RecordingLogger<AutoContinueViewModel>(), enabled);
+    private AutoContinueViewModel Create(bool enabled = true, RecordingLogger<AutoContinueViewModel>? logger = null, bool pageShown = true) =>
+        _viewModel = new AutoContinueViewModel(
+            _localization, _exit, _lifetime, _clock, new ImmediateUiDispatcher(), logger ?? new RecordingLogger<AutoContinueViewModel>(), enabled, pageShown);
 
     private void Tick(int seconds)
     {
@@ -74,6 +75,51 @@ public sealed class AutoContinueViewModelTests : IDisposable
     }
 
     [Fact]
+    public void OnlineBeforeThePageIsShown_NeverCountsNorContinues()
+    {
+        AutoContinueViewModel viewModel = Create(pageShown: false);
+
+        viewModel.OnInternetStatusChanged(InternetStatus.Online);
+        Tick(30);
+
+        Assert.False(viewModel.IsCounting);
+        Assert.Equal(AutoContinueStatus.Idle, viewModel.State.Status);
+        Assert.Equal(0, _exit.Calls);
+        Assert.Equal(0, _clock.ActiveTimerCount);
+    }
+
+    [Fact]
+    public async Task OnPageShown_WhileOnline_StartsTheFullCountdownThenContinues()
+    {
+        AutoContinueViewModel viewModel = Create(pageShown: false);
+        viewModel.OnInternetStatusChanged(InternetStatus.Online);
+        Tick(13);
+
+        viewModel.OnPageShown();
+
+        Assert.True(viewModel.IsCounting);
+        Assert.Equal(AutoContinuePolicy.CountdownSeconds, viewModel.SecondsRemaining);
+        Tick(AutoContinuePolicy.CountdownSeconds);
+        await viewModel.PendingCompletion!;
+        Assert.Equal([false], _exit.ConnectSkipped);
+    }
+
+    [Fact]
+    public void OnPageShown_WhileAPasswordPromptIsOpen_WaitsForThePromptToClose()
+    {
+        AutoContinueViewModel viewModel = Create(pageShown: false);
+        viewModel.OnInternetStatusChanged(InternetStatus.Online);
+        viewModel.OnPasswordPromptOpened();
+
+        viewModel.OnPageShown();
+        Assert.False(viewModel.IsCounting);
+        viewModel.OnPasswordPromptClosed();
+
+        Assert.True(viewModel.IsCounting);
+        Assert.Equal(AutoContinuePolicy.CountdownSeconds, viewModel.SecondsRemaining);
+    }
+
+    [Fact]
     public async Task Countdown_Elapsed_ContinuesExactlyOnce()
     {
         AutoContinueViewModel viewModel = Create();
@@ -85,7 +131,7 @@ public sealed class AutoContinueViewModelTests : IDisposable
         await viewModel.PendingCompletion!;
         Tick(30);
 
-        Assert.Equal(1, _exit.Calls);
+        Assert.Equal([false], _exit.ConnectSkipped);
         Assert.Equal(0, _clock.ActiveTimerCount);
     }
 
@@ -255,7 +301,7 @@ public sealed class AutoContinueViewModelTests : IDisposable
         await manual;
         await (viewModel.PendingCompletion ?? Task.CompletedTask);
 
-        Assert.Equal(1, _exit.Calls);
+        Assert.Equal([false], _exit.ConnectSkipped);
     }
 
     [Fact]

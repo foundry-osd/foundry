@@ -74,6 +74,7 @@ public sealed class LocalizationResourceTests
         "Status.BlockedNoInternetDescription", "Status.BlockedNoIpAddressDescription", "Status.BlockedNoIpAddressTitle",
         "Status.BlockedNoLinkDescription", "Status.BlockedNoLinkTitle", "Status.BlockedTitle", "Status.CheckingTitle",
         "Status.ConnectingDescription", "Status.ConnectingTitle", "Status.DisconnectingTitle", "Status.Dot1xAuthenticatingDescription",
+        "Status.LookingForNetwork",
         "Unlock.Continue", "Unlock.Description", "Unlock.Heading", "Unlock.InvalidPassword", "Unlock.PasswordPlaceholder", "Unlock.Title",
         "Unlock.TogglePasswordVisibility", "Wifi.ActionConnectTimedOut", "Wifi.ActionInvalidPassphrase", "Wifi.ActionNetworkNotVisible",
         "Wifi.ConnectProvisionedAutomationName", "Wifi.ConnectSelectedAutomationFormat", "Wifi.DisconnectProvisionedAutomationName",
