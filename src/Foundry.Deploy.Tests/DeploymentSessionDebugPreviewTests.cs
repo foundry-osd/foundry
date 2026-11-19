@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using System.Globalization;
 using System.Windows.Threading;
 using Foundry.Deploy.Models;
 using Foundry.Deploy.Models.Configuration;
@@ -209,11 +210,18 @@ public sealed class DeploymentSessionDebugPreviewTests
         Assert.Equal(LocalizationText.GetString("StepResult.OperatingSystemImageResolvedFromCache"), download.DetailText);
     }
 
+    /// <summary>
+    /// Runs <paramref name="test"/> on a dedicated STA dispatcher thread. A new thread reads the culture from the process-wide
+    /// <see cref="CultureInfo.DefaultThreadCurrentUICulture"/>, which other tests set while they run in parallel, so the thread
+    /// pins its own culture first; otherwise the labels the session built and the ones the test expects could differ.
+    /// </summary>
     private static Task WithSession(Action<DeploymentSessionViewModel> test)
     {
         TaskCompletionSource completion = new(TaskCreationOptions.RunContinuationsAsynchronously);
         Thread thread = new(() =>
         {
+            CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("en-US");
+            CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("en-US");
             Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
             try
             {
