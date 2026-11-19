@@ -1,14 +1,9 @@
-﻿<Window x:Class="Foundry.Connect.MainWindow"
+﻿<UserControl x:Class="Foundry.Connect.ConnectShellContent"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="clr-namespace:Foundry.Connect.Views"
-    Title="{Binding WindowTitle}"
-    Icon="/Foundry.Connect;component/Assets/Icons/app.ico"
-    ResizeMode="NoResize"
-    WindowState="Maximized"
-    WindowStyle="None"
     mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -205,4 +200,4 @@
             Grid.Row="1"
             DataContext="{Binding Page}" />
     </Grid>
-</Window>
+</UserControl>

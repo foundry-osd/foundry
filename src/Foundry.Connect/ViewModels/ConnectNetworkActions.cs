@@ -85,7 +85,7 @@ public sealed class ConnectNetworkActions(IConnectionCoordinator coordinator, IC
 
     /// <summary>
     /// Asks for the deployment password at startup when wired 802.1X needs a locked secret. Call it before the
-    /// provisioning, once the main window is shown; a cancel leaves wired 802.1X unavailable for the session.
+    /// provisioning, once the Connect content is shown; a cancel leaves wired 802.1X unavailable for the session.
     /// </summary>
     /// <param name="cancellationToken">Caller cancellation.</param>
     /// <returns><see cref="ConnectUnlockResult.NotRequired"/> without a prompt unless a wired secret is locked; else the unlock outcome.</returns>

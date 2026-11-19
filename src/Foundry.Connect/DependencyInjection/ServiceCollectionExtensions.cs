@@ -41,10 +41,10 @@ public static class ServiceCollectionExtensions
     internal static readonly TimeSpan TelemetryHttpTimeout = TimeSpan.FromSeconds(10);
 
     /// <summary>
-    /// Registers the Foundry Connect phase window, lifetime, telemetry and network services.
+    /// Registers the Foundry Connect phase content, lifetime, telemetry and network services.
     /// </summary>
     /// <remarks>
-    /// The caller pre-registers <see cref="IConnectConfigurationService"/>, the loaded <see cref="FoundryConnectConfigurationDocument"/>,
+    /// The caller pre-registers the <see cref="IShellHost"/> that shows the page, <see cref="IConnectConfigurationService"/>, the loaded <see cref="FoundryConnectConfigurationDocument"/>,
     /// its <see cref="ConnectRuntimeSecrets"/> and the phase's <see cref="RuntimeStartupDiagnostics"/>. Nothing here ends the
     /// WPF application: the lifetime service and the shell service end the phase, and the Foundry.WinPE UI host owns the
     /// single-instance mutex.
@@ -53,7 +53,7 @@ public static class ServiceCollectionExtensions
     /// <returns>The same service collection.</returns>
     public static IServiceCollection AddFoundryConnectApplicationServices(this IServiceCollection services)
     {
-        services.AddSingleton<MainWindow>();
+        services.AddSingleton<ConnectShellContent>();
         services.AddSingleton<MainWindowViewModel>();
         AddPageViewModels(services);
 
@@ -62,7 +62,7 @@ public static class ServiceCollectionExtensions
             sp.GetRequiredService<ILocalizationService>(),
             sp.GetRequiredService<WpfApplicationIdentity>(),
             () => sp.GetRequiredService<IApplicationLifetimeService>().TryExit(ChildRuntimeExitCode.UserAborted)));
-        services.AddSingleton(WpfApplicationIdentity.FromAssembly(typeof(MainWindow).Assembly));
+        services.AddSingleton(WpfApplicationIdentity.FromAssembly(typeof(ConnectShellContent).Assembly));
         services.AddSingleton(sp => new ApplicationLifetimeService(sp.GetRequiredService<ILogger<ApplicationLifetimeService>>()));
         services.AddSingleton<IApplicationLifetimeService>(sp => sp.GetRequiredService<ApplicationLifetimeService>());
         services.AddSingleton(CreateTelemetryOptions);
@@ -91,7 +91,7 @@ public static class ServiceCollectionExtensions
                 sp.GetRequiredService<TelemetryContext>(),
                 logger);
         });
-        services.AddSingleton<ILocalizationService>(_ => new ResourceLocalizationService(new ResourceManager("Foundry.Connect.Strings.Resources", typeof(MainWindow).Assembly)));
+        services.AddSingleton<ILocalizationService>(_ => new ResourceLocalizationService(new ResourceManager("Foundry.Connect.Strings.Resources", typeof(ConnectShellContent).Assembly)));
         services.AddSingleton<INetworkAdapterSnapshotProvider, WindowsNetworkAdapterSnapshotProvider>();
         services.AddSingleton<INetworkProfileRoamingService, NetworkProfileRoamingService>();
         AddNetworkServices(services);
@@ -103,7 +103,7 @@ public static class ServiceCollectionExtensions
     }
 
     /// <summary>
-    /// Registers the single page and its sections as singletons with the window's lifetime. One
+    /// Registers the single page and its sections as singletons with the phase's lifetime. One
     /// <see cref="ConnectNetworkActions"/> is shared by the page and every section, so a debug scenario set on the page
     /// gates every network action and every action pauses the countdown.
     /// </summary>

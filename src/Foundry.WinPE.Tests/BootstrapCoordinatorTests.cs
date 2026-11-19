@@ -225,6 +225,17 @@ public sealed class BootstrapCoordinatorTests
     }
 
     [Fact]
+    public async Task CrashWindowReceivesTheCultureRecordedInTheUiState()
+    {
+        using var fixture = new Fixture { ObserveDiagnostics = true };
+        fixture.Launches.Enqueue(Exited(30, ready: true, new UiState(UiPhase.Deploy, DestructiveStarted: false, Culture: "fr-FR")));
+
+        await fixture.RunAsync();
+
+        Assert.Equal(["fr-FR"], fixture.CrashCultures);
+    }
+
+    [Fact]
     public async Task CrashAfterTheDestructiveStepRefusesRelaunchAndCloseFailsTheBoot()
     {
         using var fixture = new Fixture { ObserveDiagnostics = true };
@@ -371,6 +382,7 @@ public sealed class BootstrapCoordinatorTests
         internal Queue<ApplicationLaunchResult> Launches { get; } = [];
         internal Queue<UiCrashChoice> Choices { get; } = [];
         internal List<bool> CrashWindows { get; } = [];
+        internal List<string?> CrashCultures { get; } = [];
         internal bool PreparationFails { get; init; }
         internal bool PersistenceFails { get; init; }
         internal bool CancelUi { get; init; }
@@ -432,10 +444,11 @@ public sealed class BootstrapCoordinatorTests
                 : Exited(0, ready: true, new UiState(UiPhase.Deploy, false)));
         }
 
-        public Task<UiCrashChoice> ShowAsync(bool relaunchAllowed, CancellationToken cancellationToken)
+        public Task<UiCrashChoice> ShowAsync(bool relaunchAllowed, string? culture, CancellationToken cancellationToken)
         {
             Calls.Add("crash");
             CrashWindows.Add(relaunchAllowed);
+            CrashCultures.Add(culture);
             if (CrashWindowFails) { throw new InvalidOperationException("No window station."); }
             return Task.FromResult(Choices.TryDequeue(out UiCrashChoice choice) ? choice : UiCrashChoice.Close);
         }

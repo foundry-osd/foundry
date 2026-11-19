@@ -180,10 +180,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="..\..\Assets\Brand\Foundry.ico" Link="Assets\Icons\app.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>Foundry.Connect.Tests</_Parameter1>
     </AssemblyAttribute>

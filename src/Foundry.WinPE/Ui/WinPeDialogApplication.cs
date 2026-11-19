@@ -31,7 +31,10 @@ internal static class WinPeDialogApplication
         WinPeApplicationResources.Apply(application, WinPeApplicationResources.Standalone);
     }
 
-    /// <summary>Returns the resource for the current UI culture, or the English text when the key is missing.</summary>
-    internal static string Localize(string key, string english) =>
-        Strings.GetString(key, CultureInfo.CurrentUICulture) ?? english;
+    /// <summary>
+    /// Returns the resource for <paramref name="culture"/> (the current UI culture by default), or the English text when the key
+    /// is missing.
+    /// </summary>
+    internal static string Localize(string key, string english, CultureInfo? culture = null) =>
+        Strings.GetString(key, culture ?? CultureInfo.CurrentUICulture) ?? english;
 }

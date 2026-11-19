@@ -115,7 +115,6 @@ Foundry WifiPageHeader.Title
 
 # Foundry.Deploy
 Foundry.Deploy App.Name
-Foundry.Deploy App.WindowTitle
 Foundry.Deploy Autopilot.Title
 Foundry.Deploy Catalog.Version de-DE fr-CA fr-FR sv-SE
 Foundry.Deploy Common.No es-ES es-MX it-IT
@@ -159,7 +158,6 @@ Foundry.AutopilotInteractive Theme.System da-DK de-DE nb-NO sv-SE
 
 # Foundry.Connect
 Foundry.Connect App.Name
-Foundry.Connect App.WindowTitle
 Foundry.Connect Common.VersionFormat da-DK de-DE sv-SE
 Foundry.Connect Ethernet.AdapterLabel da-DK de-DE et-EE hr-HR hu-HU nb-NO nl-NL pl-PL sl-SI sr-Latn-RS sv-SE
 Foundry.Connect Ethernet.Dot1xLabel

@@ -4,65 +4,58 @@
 
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
-using Foundry.Wpf.Motion;
 using Foundry.Core.Services.Runtime;
 using Foundry.Deploy.ViewModels;
 using Foundry.Deploy.Views;
+using Foundry.Wpf.Motion;
+using Foundry.Wpf.Shell;
 
 namespace Foundry.Deploy;
 
 /// <summary>
-/// The Foundry Deploy phase window. Closing it ends the phase, except while a deployment runs: the close then requests the
-/// deployment's cancellation instead.
+/// The Foundry Deploy page of the WinPE shell window: the menu row and the splash, wizard and deployment status pages. It runs
+/// the page initialization once it is loaded. The phase decides what a close request of the shell does (see
+/// <see cref="DeployPhase"/>); <see cref="Detach"/> releases the page when the phase ends.
 /// </summary>
-public partial class MainWindow : Window
+public partial class DeployShellContent : UserControl
 {
     private readonly MainWindowViewModel _viewModel;
     private readonly RuntimeStartupDiagnostics _startup;
     private readonly DeployPhaseLifetime _lifetime;
-    private readonly TaskCompletionSource _rendered = new(TaskCreationOptions.RunContinuationsAsynchronously);
+    private readonly IShellHost _shell;
+    private readonly ShellContentAttachment _shellAttachment;
     private bool _closed;
     private DeploymentPage _previousPage = DeploymentPage.Splash;
 
     /// <remarks>
     /// The phase applies the theme and language chosen in Foundry Connect to <paramref name="viewModel"/> before it resolves
-    /// this window, so the first frame already uses them.
+    /// this page, so the first frame already uses them.
     /// </remarks>
-    internal MainWindow(MainWindowViewModel viewModel, RuntimeStartupDiagnostics startup, DeployPhaseLifetime lifetime)
+    internal DeployShellContent(MainWindowViewModel viewModel, RuntimeStartupDiagnostics startup, DeployPhaseLifetime lifetime, IShellHost shell)
     {
         InitializeComponent();
         _viewModel = viewModel;
         _startup = startup;
         _lifetime = lifetime;
+        _shell = shell;
         DataContext = viewModel;
         _viewModel.Session.PropertyChanged += OnSessionPropertyChanged;
         Loaded += OnLoaded;
-        ContentRendered += (_, _) => _rendered.TrySetResult();
+        _shellAttachment = new ShellContentAttachment(shell, this, Detach);
     }
 
-    protected override void OnClosing(CancelEventArgs e)
-    {
-        if (_viewModel.IsDeploymentRunning)
-        {
-            e.Cancel = true;
-            if (_viewModel.CancelDeploymentCommand.CanExecute(null))
-            {
-                _viewModel.CancelDeploymentCommand.Execute(null);
-            }
-        }
-
-        base.OnClosing(e);
-    }
-
-    protected override void OnClosed(EventArgs e)
+    /// <summary>
+    /// Releases the page: stops the initialization observer, unsubscribes from the shell and disposes the view model. Called
+    /// when the phase ends or the shell closes; safe to call more than once.
+    /// </summary>
+    internal void Detach()
     {
         _closed = true;
-        _rendered.TrySetCanceled();
+        _shellAttachment.Dispose();
         _viewModel.Session.PropertyChanged -= OnSessionPropertyChanged;
         _viewModel.Dispose();
-
-        base.OnClosed(e);
     }
 
     private async void OnLoaded(object sender, RoutedEventArgs e)
@@ -84,7 +77,7 @@ public partial class MainWindow : Window
 
     private async Task WaitForRenderedAsync()
     {
-        await _rendered.Task;
+        await _shellAttachment.Rendered;
         await Dispatcher.InvokeAsync(() => { }, DispatcherPriority.ContextIdle);
     }
 
@@ -119,7 +112,7 @@ public partial class MainWindow : Window
         var dialog = new DeploymentErrorDetailsDialog
         {
             DataContext = _viewModel.Session,
-            Owner = this
+            Owner = _shell.Window
         };
         _ = dialog.ShowDialog();
     }

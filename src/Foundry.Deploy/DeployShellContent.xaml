@@ -1,4 +1,4 @@
-﻿<Window x:Class="Foundry.Deploy.MainWindow"
+﻿<UserControl x:Class="Foundry.Deploy.DeployShellContent"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:configuration="clr-namespace:Foundry.Core.Models.Configuration;assembly=Foundry.Core"
@@ -8,13 +8,8 @@
     xmlns:progress="clr-namespace:Foundry.Wpf.Progress;assembly=Foundry.Wpf"
     xmlns:runtime="clr-namespace:Foundry.Deploy.Services.Runtime"
     xmlns:views="clr-namespace:Foundry.Deploy.Views"
-    Title="{Binding WindowTitle}"
-    Icon="/Foundry.Deploy;component/Assets/Icons/app.ico"
-    ResizeMode="NoResize"
-    WindowState="Maximized"
-    WindowStyle="None"
     mc:Ignorable="d">
-    <Window.Resources>
+    <UserControl.Resources>
         <DataTemplate x:Key="SplashPageTemplate">
             <views:SplashView />
         </DataTemplate>
@@ -23,7 +18,7 @@
             <views:WizardView />
         </DataTemplate>
 
-    </Window.Resources>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -448,4 +443,4 @@
         </Grid>
 
     </Grid>
-</Window>
+</UserControl>

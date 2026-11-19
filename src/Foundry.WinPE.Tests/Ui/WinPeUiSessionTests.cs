@@ -3,10 +3,12 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Collections.Concurrent;
+using Foundry.Connect;
 using Foundry.Core.Services.Runtime;
 using Foundry.Deploy;
 using Foundry.WinPE.Tests.Support;
 using Foundry.WinPE.Ui;
+using Foundry.Wpf.Shell;
 using Serilog;
 using Serilog.Events;
 using Xunit;
@@ -33,39 +35,81 @@ public sealed class WinPeUiSessionTests
     }
 
     [Fact]
-    public async Task ConnectWindow_IsClosedOnlyOnceDeployRendered()
+    public async Task Culture_IsRecordedAtConnectStartAfterALanguageChangeAndAtDeployStart()
+    {
+        var fixture = new Fixture();
+        fixture.OnConnect = () =>
+        {
+            fixture.ConnectOptions!.OnCultureChanged!("en-US");
+            fixture.ConnectOptions.OnCultureChanged("de-DE");
+        };
+        fixture.Deploy = options =>
+        {
+            options.OnCultureChanged!("fr-FR");
+            return Task.FromResult(DeployPhase.SuccessExitCode);
+        };
+
+        await fixture.RunAsync();
+
+        Assert.Equal(
+            [
+                (UiPhase.Connect, (string?)null),
+                (UiPhase.Connect, "en-US"),
+                (UiPhase.Connect, "de-DE"),
+                (UiPhase.System, "de-DE"),
+                // Deploy starts with the culture Connect ended with, then reports its own.
+                (UiPhase.Deploy, "fr-FR"),
+                (UiPhase.Deploy, "fr-FR")
+            ],
+            fixture.States.Select(state => (state.Phase, state.Culture)));
+    }
+
+    [Fact]
+    public async Task Culture_ChangeDuringDeploy_KeepsTheDestructiveFlag()
     {
         var fixture = new Fixture();
         fixture.Deploy = options =>
         {
-            Assert.Equal(0, fixture.Window.CloseCount);
-            options.OnFirstWindowRendered();
-            Assert.Equal(1, fixture.Window.CloseCount);
-            options.OnFirstWindowRendered();
+            options.OnDestructiveStepStarted();
+            options.OnCultureChanged!("it-IT");
             return Task.FromResult(DeployPhase.SuccessExitCode);
         };
 
-        Assert.Equal(DeployPhase.SuccessExitCode, await fixture.RunAsync());
-        Assert.Equal(1, fixture.Window.CloseCount);
-    }
-
-    [Fact]
-    public async Task ConnectWindow_IsClosedWhenDeployEndsWithoutRendering()
-    {
-        var fixture = new Fixture { DeployExitCode = DeployPhase.UnhandledExceptionExitCode };
-
         await fixture.RunAsync();
 
-        Assert.Equal(1, fixture.Window.CloseCount);
+        Assert.Equal(new UiState(UiPhase.Deploy, DestructiveStarted: true, Culture: "it-IT"), fixture.States[^1]);
     }
 
     [Fact]
-    public async Task ConnectSuccessWithoutWindow_StillRunsDeploy()
+    public async Task BothPhases_ShowTheirContentInTheSameShellAndTheSessionNeverClosesIt()
     {
-        var fixture = new Fixture { HasWindow = false };
+        var fixture = new Fixture();
+        fixture.Deploy = options =>
+        {
+            options.Shell.ShowContent(null!);
+            return Task.FromResult(DeployPhase.SuccessExitCode);
+        };
+        fixture.OnConnect = () => fixture.Shell.ShowContent(null!);
 
         Assert.Equal(DeployPhase.SuccessExitCode, await fixture.RunAsync());
-        Assert.Contains("deploy", fixture.Calls);
+
+        Assert.Same(fixture.Shell, fixture.ConnectOptions!.Shell);
+        Assert.Same(fixture.Shell, fixture.DeployOptions!.Shell);
+        Assert.Equal(2, fixture.Shell.ShowCount);
+        Assert.Equal(0, fixture.Shell.WindowAccessCount);
+    }
+
+    [Fact]
+    public async Task CloseRequest_DuringSystemPreparation_IsRefusedAndDeployStillRuns()
+    {
+        var fixture = new Fixture();
+        bool? accepted = null;
+        fixture.OnSystemPreparation = () => accepted = fixture.Shell.RequestClose();
+
+        Assert.Equal(DeployPhase.SuccessExitCode, await fixture.RunAsync());
+
+        Assert.False(accepted);
+        Assert.Equal(["connect", "system", "deploy"], fixture.Calls);
     }
 
     [Theory]
@@ -90,7 +134,7 @@ public sealed class WinPeUiSessionTests
     [InlineData(21, true)]
     [InlineData(22, true)]
     [InlineData(23, true)]
-    public async Task ConnectEndingBeforeItsFirstWindow_ReportsStartupFailureOnlyForFailures(int connectExitCode, bool failed)
+    public async Task ConnectEndingBeforeItsFirstContent_ReportsStartupFailureOnlyForFailures(int connectExitCode, bool failed)
     {
         var fixture = new Fixture { ConnectExitCode = connectExitCode, ConnectRenders = false };
 
@@ -101,7 +145,7 @@ public sealed class WinPeUiSessionTests
     }
 
     [Fact]
-    public async Task ConnectFailureAfterItsFirstWindow_NeverReportsStartupFailure()
+    public async Task ConnectFailureAfterItsFirstContent_NeverReportsStartupFailure()
     {
         var fixture = new Fixture { ConnectExitCode = 23 };
 
@@ -111,17 +155,21 @@ public sealed class WinPeUiSessionTests
     }
 
     [Fact]
-    public async Task Readiness_IsReportedOnceAtConnectsFirstRenderAndNeverByDeploy()
+    public async Task Readiness_IsReportedOnceAtConnectsFirstContentAndNotAgainWhenDeploysContentRenders()
     {
+        // Each phase calls its hook once (Connect: its prompt or its page; Deploy: its own content in the same shell).
         var fixture = new Fixture();
+        int deployHookCalls = 0;
         fixture.Deploy = options =>
         {
-            options.OnFirstWindowRendered();
+            options.OnFirstContentRendered();
+            deployHookCalls++;
             return Task.FromResult(DeployPhase.SuccessExitCode);
         };
 
         await fixture.RunAsync();
 
+        Assert.Equal(1, deployHookCalls);
         Assert.Equal(["configuration_loaded", "ui_ready"], fixture.Readiness);
     }
 
@@ -161,7 +209,7 @@ public sealed class WinPeUiSessionTests
             var fixture = new Fixture { StateWriter = new UiStateFileWriter(path, new LoggerConfiguration().CreateLogger()) };
             fixture.Deploy = options =>
             {
-                Assert.Equal(new UiState(UiPhase.Deploy, DestructiveStarted: false), UiStateFile.Read(path));
+                Assert.Equal(new UiState(UiPhase.Deploy, DestructiveStarted: false, Culture: "fr-FR"), UiStateFile.Read(path));
                 options.OnDestructiveStepStarted();
                 recorded = UiStateFile.Read(path);
                 return Task.FromResult(DeployPhase.SuccessExitCode);
@@ -169,7 +217,7 @@ public sealed class WinPeUiSessionTests
 
             await fixture.RunAsync();
 
-            Assert.Equal(new UiState(UiPhase.Deploy, DestructiveStarted: true), recorded);
+            Assert.Equal(new UiState(UiPhase.Deploy, DestructiveStarted: true, Culture: "fr-FR"), recorded);
         }
         finally { Directory.Delete(directory, recursive: true); }
     }
@@ -205,7 +253,7 @@ public sealed class WinPeUiSessionTests
         var fixture = new Fixture { SkipConnect = true };
         fixture.Deploy = options =>
         {
-            options.OnFirstWindowRendered();
+            options.OnFirstContentRendered();
             return Task.FromResult(DeployPhase.SuccessExitCode);
         };
 
@@ -217,23 +265,12 @@ public sealed class WinPeUiSessionTests
         Assert.Null(options.InitialDeploymentKey);
         Assert.Null(options.ThemeMode);
         Assert.Null(options.CultureName);
-        // Without Connect, Deploy's window is the session's first window.
+        // Without Connect, Deploy's content is the session's first content.
         Assert.Equal(["ui_ready"], fixture.Readiness);
     }
 
     [Fact]
-    public async Task ConnectFailureWithAWindow_ClosesItExactlyOnce()
-    {
-        var fixture = new Fixture { ConnectExitCode = 23, WindowOnFailure = true };
-
-        Assert.Equal(23, await fixture.RunAsync());
-
-        Assert.Equal(1, fixture.Window.CloseCount);
-        Assert.Equal(["connect"], fixture.Calls);
-    }
-
-    [Fact]
-    public async Task Cancellation_DuringConnect_StartsNoFurtherPhaseAndStillReleasesKeyAndWindow()
+    public async Task Cancellation_DuringConnect_StartsNoFurtherPhaseAndStillReleasesTheKey()
     {
         using var cancellation = new CancellationTokenSource();
         var fixture = new Fixture { OnConnect = cancellation.Cancel };
@@ -241,7 +278,6 @@ public sealed class WinPeUiSessionTests
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => fixture.RunWithTokenAsync(cancellation.Token));
 
         Assert.Equal(["connect"], fixture.Calls);
-        Assert.Equal(1, fixture.Window.CloseCount);
         Assert.False(fixture.Key.TryTake(new byte[DeploymentKeyTransfer.KeyLength]));
     }
 
@@ -254,7 +290,6 @@ public sealed class WinPeUiSessionTests
         await Assert.ThrowsAnyAsync<OperationCanceledException>(() => fixture.RunWithTokenAsync(cancellation.Token));
 
         Assert.Equal(["connect", "system"], fixture.Calls);
-        Assert.Equal(1, fixture.Window.CloseCount);
         Assert.False(fixture.Key.TryTake(new byte[DeploymentKeyTransfer.KeyLength]));
     }
 
@@ -279,6 +314,50 @@ public sealed class WinPeUiSessionTests
         Assert.False(session.IsPhaseRunning);
     }
 
+    /// <summary>
+    /// The shared shell as the session sees it: it counts the contents shown, refuses a close request without a handler as
+    /// the WinPE shell window does, and records any access to its window, which the session must never need.
+    /// </summary>
+    private sealed class FakeShellHost : IShellHost
+    {
+        internal int ShowCount { get; private set; }
+
+        internal int WindowAccessCount { get; private set; }
+
+        public System.Windows.Window Window
+        {
+            get
+            {
+                WindowAccessCount++;
+                throw new NotSupportedException("The session never touches the shell window.");
+            }
+        }
+
+        public event EventHandler<System.ComponentModel.CancelEventArgs>? CloseRequested;
+
+        public event EventHandler<ShellContentRenderedEventArgs>? ShellContentRendered
+        {
+            add { }
+            remove { }
+        }
+
+        public void ShowContent(System.Windows.FrameworkElement content) => ShowCount++;
+
+        /// <summary>Raises a close request and returns whether the window would close.</summary>
+        internal bool RequestClose()
+        {
+            EventHandler<System.ComponentModel.CancelEventArgs>? handler = CloseRequested;
+            if (handler is null)
+            {
+                return false;
+            }
+
+            var args = new System.ComponentModel.CancelEventArgs();
+            handler(this, args);
+            return !args.Cancel;
+        }
+    }
+
     private sealed class Fixture : IConnectPhaseRunner, ISystemPreparationStep, IDeployPhaseRunner, IUiStateWriter, IUiReadinessReporter
     {
         private readonly ConcurrentQueue<LogEvent> events = new();
@@ -287,12 +366,10 @@ public sealed class WinPeUiSessionTests
         internal List<UiState> States { get; } = [];
         internal List<string> Readiness { get; } = [];
         internal IReadOnlyList<LogEvent> Events => [.. events];
-        internal FakeWindow Window { get; } = new();
+        internal FakeShellHost Shell { get; } = new();
         internal DeploymentKeyTransfer Key { get; } = DeploymentKeyTransfer.FromKey(new byte[DeploymentKeyTransfer.KeyLength]);
         internal int ConnectExitCode { get; init; }
         internal bool ConnectRenders { get; init; } = true;
-        internal bool HasWindow { get; init; } = true;
-        internal bool WindowOnFailure { get; init; }
         internal bool SystemPreparationFails { get; init; }
         internal bool IsWinPe { get; init; } = true;
         internal bool SkipConnect { get; init; }
@@ -301,9 +378,10 @@ public sealed class WinPeUiSessionTests
         internal Func<DeployPhaseOptions, Task<int>>? Deploy { get; set; }
         internal Action? OnConnect { get; set; }
         internal Action? OnSystemPreparation { get; set; }
+        internal ConnectPhaseOptions? ConnectOptions { get; private set; }
         internal DeployPhaseOptions? DeployOptions { get; private set; }
 
-        internal WinPeUiSession CreateSession() => new(this, this, this, StateWriter ?? this, this, () => IsWinPe,
+        internal WinPeUiSession CreateSession() => new(Shell, this, this, this, StateWriter ?? this, this, () => IsWinPe,
             new LoggerConfiguration().MinimumLevel.Verbose().WriteTo.Sink(new DelegatingSink(events.Enqueue)).CreateLogger(),
             SkipConnect);
 
@@ -311,16 +389,15 @@ public sealed class WinPeUiSessionTests
 
         internal Task<int> RunWithTokenAsync(CancellationToken cancellationToken) => CreateSession().RunAsync(cancellationToken);
 
-        Task<ConnectPhaseOutcome> IConnectPhaseRunner.RunAsync(Action onConfigurationLoaded, Action onFirstWindowRendered,
-            CancellationToken cancellationToken)
+        Task<ConnectPhaseResult> IConnectPhaseRunner.RunAsync(ConnectPhaseOptions options, CancellationToken cancellationToken)
         {
             Calls.Add("connect");
+            ConnectOptions = options;
             OnConnect?.Invoke();
-            onConfigurationLoaded();
-            if (ConnectRenders) onFirstWindowRendered();
-            bool succeeded = ConnectExitCode == 0;
-            return Task.FromResult(new ConnectPhaseOutcome(ConnectExitCode, Key, "Dark", "fr-FR",
-                (succeeded || WindowOnFailure) && HasWindow ? Window : null));
+            options.OnConfigurationLoaded?.Invoke();
+            if (ConnectRenders) options.OnFirstContentRendered();
+
+            return Task.FromResult(new ConnectPhaseResult(ConnectExitCode, Key, "Dark", "fr-FR"));
         }
 
         Task ISystemPreparationStep.RunAsync(CancellationToken cancellationToken)
@@ -344,12 +421,5 @@ public sealed class WinPeUiSessionTests
         void IUiReadinessReporter.ReportUiReady() => Readiness.Add("ui_ready");
 
         void IUiReadinessReporter.ReportStartupFailed(int exitCode) => Readiness.Add($"startup_failed:{exitCode}");
-    }
-
-    private sealed class FakeWindow : IHandOverWindow
-    {
-        internal int CloseCount { get; private set; }
-
-        public void Close() => CloseCount++;
     }
 }

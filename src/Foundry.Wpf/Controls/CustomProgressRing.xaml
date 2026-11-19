@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Foundry.Wpf.Controls.CustomProgressRing"
+﻿<UserControl x:Class="Foundry.Wpf.Controls.CustomProgressRing" x:Name="RingRoot"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     MinWidth="120"
@@ -13,7 +13,7 @@
                 Value="Transparent" />
             <Setter
                 Property="Stroke"
-                Value="{Binding ProgressBrush, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                Value="{Binding ProgressBrush, ElementName=RingRoot}" />
             <Setter
                 Property="StrokeEndLineCap"
                 Value="Round" />
@@ -22,7 +22,7 @@
                 Value="Round" />
             <Setter
                 Property="StrokeThickness"
-                Value="{Binding Thickness, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+                Value="{Binding Thickness, ElementName=RingRoot}" />
             <Setter Property="Effect">
                 <Setter.Value>
                     <DropShadowEffect
@@ -37,8 +37,8 @@
     <Grid>
         <Ellipse
             Fill="Transparent"
-            Stroke="{Binding TrackBrush, RelativeSource={RelativeSource AncestorType=UserControl}}"
-            StrokeThickness="{Binding Thickness, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+            Stroke="{Binding TrackBrush, ElementName=RingRoot}"
+            StrokeThickness="{Binding Thickness, ElementName=RingRoot}" />
 
         <Path x:Name="DeterminateArc"
             Style="{StaticResource ProgressArcStyle}" />

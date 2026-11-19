@@ -71,7 +71,7 @@ internal sealed class UiStateFileWriter(string? path, ILogger logger, Action<str
         try
         {
             _write(statePath, state);
-            logger.Debug("UI state recorded. Phase={Phase}, DestructiveStarted={DestructiveStarted}", state.Phase, state.DestructiveStarted);
+            logger.Debug("UI state recorded. Phase={Phase}, DestructiveStarted={DestructiveStarted}, Culture={Culture}", state.Phase, state.DestructiveStarted, state.Culture);
             return true;
         }
         catch (Exception exception)

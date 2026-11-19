@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Foundry.WinPE.Shell.MessagePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  Standalone resources only: the guardian and the legacy executable host this page without the Connect and Deploy styles.  -->
+    <Grid
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+        <StackPanel
+            MaxWidth="640"
+            Margin="32">
+            <TextBlock x:Name="TitleText"
+                FontSize="28"
+                FontWeight="SemiBold"
+                TextWrapping="Wrap" />
+            <TextBlock x:Name="MessageText"
+                Margin="0,16,0,0"
+                FontSize="16"
+                TextWrapping="Wrap" />
+            <!--  Wraps so that long translated captions move to a new line instead of being clipped.  -->
+            <WrapPanel
+                Margin="0,24,0,0"
+                HorizontalAlignment="Right">
+                <Button x:Name="SecondaryButton"
+                    MinWidth="120"
+                    Margin="8,8,0,0"
+                    Click="SecondaryButton_OnClick" />
+                <Button x:Name="PrimaryButton"
+                    MinWidth="120"
+                    Margin="8,8,0,0"
+                    Click="PrimaryButton_OnClick"
+                    IsDefault="True"
+                    Style="{DynamicResource AccentButtonStyle}" />
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

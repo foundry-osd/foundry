@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
-using System.Windows;
 using Foundry.Core.Models.Runtime;
 using Foundry.Core.Services.Runtime;
 
@@ -19,13 +18,11 @@ namespace Foundry.Connect;
 /// </param>
 /// <param name="ThemeMode">The theme Connect ended with, a <c>Foundry.Wpf.Theme.ThemeMode</c> name such as <c>Dark</c>.</param>
 /// <param name="CultureName">The UI culture Connect ended with, for example <c>fr-FR</c>.</param>
-/// <param name="MainWindow">
-/// On success, Connect's window, left open and disabled so the host closes it once the next window rendered; otherwise
-/// <see langword="null"/>: the phase closed its window, ended before creating it, or the window was already closed.
-/// </param>
+/// <remarks>
+/// On success Connect's content stays shown in the shell, disabled, until the next phase's content replaces it.
+/// </remarks>
 public sealed record ConnectPhaseResult(
     int ExitCode,
     DeploymentKeyTransfer? DeploymentKey,
     string ThemeMode,
-    string CultureName,
-    Window? MainWindow);
+    string CultureName);

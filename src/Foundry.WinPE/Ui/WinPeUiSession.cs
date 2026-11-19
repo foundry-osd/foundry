@@ -2,8 +2,10 @@
 // Licensed under the MIT License.
 // See the LICENSE file in the project root for more information.
 
+using Foundry.Connect;
 using Foundry.Core.Models.Runtime;
 using Foundry.Deploy;
+using Foundry.Wpf.Shell;
 using Serilog;
 
 namespace Foundry.WinPE.Ui;
@@ -16,17 +18,22 @@ namespace Foundry.WinPE.Ui;
 /// <remarks>
 /// <para>
 /// Runs on the UI thread of the host's WPF application; the phases resume there. Connect's deployment key, theme and language
-/// reach Deploy in memory. Connect's window stays open and disabled until Deploy's first window rendered (or Deploy ended
-/// without rendering), so the screen never goes blank between the phases.
+/// reach Deploy in memory. Both phases show their content in the one shell the host gives the session: Connect's content stays
+/// shown, disabled, until Deploy's content replaces it (or the process ends when Deploy never shows one), so the screen never
+/// goes blank between the phases. The session never closes the shell and handles none of its close requests: a phase handles
+/// them while it runs, and the shell refuses them in between (while system preparation runs).
 /// </para>
 /// <para>
-/// Readiness: <c>configuration_loaded</c> comes from Connect, <c>ui_ready</c> once from the first window of the session
-/// (Connect's, or Deploy's when Connect is skipped), and <c>startup_failed</c> when Connect fails before any window rendered.
-/// The UI state file follows each phase and records the start of a destructive deployment step before that step runs.
+/// Readiness: <c>configuration_loaded</c> comes from Connect, <c>ui_ready</c> once from the first content of the session
+/// (Connect's page or its password prompt, or Deploy's content when Connect is skipped), and <c>startup_failed</c> when Connect
+/// fails before any content rendered.
+/// The UI state file follows each phase, the language the operator works in, and the start of a destructive deployment step
+/// (before that step runs).
 /// System preparation runs only in Windows PE, because it sets the clock and time zone of the machine; its failure is a
 /// warning. The hooks given to the phases log their own failures: the phases swallow hook exceptions.
 /// </para>
 /// </remarks>
+/// <param name="shell">The shell window both phases show their content in, created by the host.</param>
 /// <param name="connectPhase">Runs the Foundry Connect phase.</param>
 /// <param name="systemPreparation">Prepares the clock and time zone.</param>
 /// <param name="deployPhase">Runs the Foundry Deploy phase.</param>
@@ -38,6 +45,7 @@ namespace Foundry.WinPE.Ui;
 /// Starts with the Deploy phase, without key, preferences or system preparation. Only the debug mode picker uses it.
 /// </param>
 internal sealed class WinPeUiSession(
+    IShellHost shell,
     IConnectPhaseRunner connectPhase,
     ISystemPreparationStep systemPreparation,
     IDeployPhaseRunner deployPhase,
@@ -51,7 +59,6 @@ internal sealed class WinPeUiSession(
     private UiState _state = UiState.Initial;
     private int _uiReady;
     private int _phaseRunning;
-    private IHandOverWindow? _connectWindow;
 
     /// <summary>
     /// Gets whether the Connect or Deploy phase is running. A phase handles the dispatcher exceptions raised while it runs; the
@@ -62,7 +69,7 @@ internal sealed class WinPeUiSession(
     /// <summary>Runs the session and returns the UI process exit code.</summary>
     /// <param name="cancellationToken">
     /// Cancelled by the host when it ends the process: a running phase ends as its own cancellation defines, no further
-    /// phase starts, and the key and Connect's window are still released.
+    /// phase starts, and the deployment key is still released.
     /// </param>
     /// <exception cref="OperationCanceledException"><paramref name="cancellationToken"/> was cancelled before a phase started.</exception>
     public async Task<int> RunAsync(CancellationToken cancellationToken)
@@ -74,9 +81,13 @@ internal sealed class WinPeUiSession(
         }
 
         EnterPhase(UiPhase.Connect);
-        ConnectPhaseOutcome connect = await RunPhaseAsync(() =>
-            connectPhase.RunAsync(OnConnectConfigurationLoaded, OnConnectFirstWindowRendered, cancellationToken));
-        _connectWindow = connect.Window;
+        ConnectPhaseResult connect = await RunPhaseAsync(() => connectPhase.RunAsync(new ConnectPhaseOptions
+        {
+            Shell = shell,
+            OnConfigurationLoaded = OnConnectConfigurationLoaded,
+            OnCultureChanged = OnCultureChanged,
+            OnFirstContentRendered = OnConnectFirstContentRendered
+        }, cancellationToken));
         try
         {
             if (connect.ExitCode != (int)ChildRuntimeExitCode.Success)
@@ -93,30 +104,31 @@ internal sealed class WinPeUiSession(
 
             // A cancelled session (the host is ending the process) starts no further phase; the finally still runs.
             cancellationToken.ThrowIfCancellationRequested();
+            // No close handler from here until Deploy attaches its own: the shell refuses a close while the system is prepared.
             EnterPhase(UiPhase.System);
             await PrepareSystemAsync(cancellationToken);
             return await RunDeployAsync(connect, cancellationToken);
         }
         finally
         {
-            // Deploy disposes the key it received; this covers the paths where it never did. Connect's window is still open
-            // when Deploy ended without rendering.
+            // Deploy disposes the key it received; this covers the paths where it never did.
             connect.DeploymentKey?.Dispose();
-            CloseConnectWindow();
         }
     }
 
-    private async Task<int> RunDeployAsync(ConnectPhaseOutcome? connect, CancellationToken cancellationToken)
+    private async Task<int> RunDeployAsync(ConnectPhaseResult? connect, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        EnterPhase(UiPhase.Deploy);
+        EnterPhase(UiPhase.Deploy, connect?.CultureName);
         var options = new DeployPhaseOptions
         {
+            Shell = shell,
             InitialDeploymentKey = connect?.DeploymentKey,
             ThemeMode = connect?.ThemeMode,
             CultureName = connect?.CultureName,
-            OnFirstWindowRendered = OnDeployFirstWindowRendered,
-            OnDestructiveStepStarted = OnDestructiveStepStarted
+            OnFirstContentRendered = OnDeployFirstContentRendered,
+            OnDestructiveStepStarted = OnDestructiveStepStarted,
+            OnCultureChanged = OnCultureChanged
         };
         int exitCode = await RunPhaseAsync(() => deployPhase.RunAsync(options, cancellationToken));
         logger.Information("UI session ended in Foundry Deploy with code {ExitCode}.", exitCode);
@@ -156,29 +168,36 @@ internal sealed class WinPeUiSession(
         }
     }
 
-    private void EnterPhase(UiPhase phase)
+    private void EnterPhase(UiPhase phase, string? connectCulture = null)
     {
         lock (_stateGate)
         {
-            _state = _state with { Phase = phase };
+            // Deploy starts in the language Connect ended with, before it reports its own.
+            _state = _state with { Phase = phase, Culture = connectCulture ?? _state.Culture };
             stateWriter.Write(_state);
         }
 
         logger.Information("UI phase {Phase} started.", phase);
     }
 
-    private void OnConnectConfigurationLoaded() => RunHook("configuration_loaded", readiness.ReportConfigurationLoaded);
-
-    private void OnConnectFirstWindowRendered() => RunHook("connect_first_window", ReportUiReady);
-
-    private void OnDeployFirstWindowRendered() => RunHook("deploy_first_window", () =>
+    // Called from each phase's localization service, at its start and after a language change: the guardian shows its crash
+    // window in the language the operator works in.
+    private void OnCultureChanged(string culture) => RunHook("culture_changed", () =>
     {
-        CloseConnectWindow();
-        if (skipConnect)
+        lock (_stateGate)
         {
-            ReportUiReady();
+            _state = _state with { Culture = culture };
+            stateWriter.Write(_state);
         }
     });
+
+    private void OnConnectConfigurationLoaded() => RunHook("configuration_loaded", readiness.ReportConfigurationLoaded);
+
+    private void OnConnectFirstContentRendered() => RunHook("connect_first_content", ReportUiReady);
+
+    // Called once Deploy's own content rendered; it decides readiness only when Connect was skipped: after Connect, Connect's
+    // first content already reported it and this call changes nothing.
+    private void OnDeployFirstContentRendered() => RunHook("deploy_first_content", ReportUiReady);
 
     // Called on the deployment thread right before the step that can wipe the target disk; the record is on disk when it returns.
     private void OnDestructiveStepStarted() => RunHook("destructive_step", () =>
@@ -197,27 +216,7 @@ internal sealed class WinPeUiSession(
         if (Interlocked.Exchange(ref _uiReady, 1) == 0)
         {
             readiness.ReportUiReady();
-            logger.Information("The UI session rendered its first window.");
-        }
-    }
-
-    private void CloseConnectWindow()
-    {
-        IHandOverWindow? window = Interlocked.Exchange(ref _connectWindow, null);
-        if (window is null)
-        {
-            return;
-        }
-
-        try
-        {
-            window.Close();
-            logger.Debug("Foundry Connect window closed after the hand-over to Foundry Deploy.");
-        }
-        catch (Exception exception)
-        {
-            logger.Warning("Foundry Connect window could not be closed. FailureType={FailureType}, ErrorCode={ErrorCode}",
-                exception.GetType().Name, exception.HResult);
+            logger.Information("The UI session rendered its first content.");
         }
     }
 

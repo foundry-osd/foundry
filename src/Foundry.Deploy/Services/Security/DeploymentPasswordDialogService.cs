@@ -39,8 +39,7 @@ public sealed class DeploymentPasswordDialogService(ILocalizationService localiz
         return DeploymentPasswordPromptResult.SubmittedOwned(dialog.TakePassword());
     }
 
-    // A disabled window is skipped: Connect's window stays open and disabled until Deploy rendered, and closing it would close
-    // a dialog it owned.
+    // The active, enabled window owns the dialog, else the shell window (the application's main window, set by the phase).
     private static Window? ResolveOwnerWindow()
     {
         if (Application.Current?.Windows is not null)

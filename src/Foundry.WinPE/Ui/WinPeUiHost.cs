@@ -10,6 +10,7 @@ using Foundry.Deploy;
 using Foundry.Telemetry;
 using Foundry.Utilities.Diagnostics;
 using Foundry.Utilities.Runtime;
+using Foundry.WinPE.Shell;
 using Foundry.WinPE.SystemPreparation;
 using Serilog;
 
@@ -28,10 +29,13 @@ namespace Foundry.WinPE.Ui;
 /// failure is a startup failure (21, <c>startup_failed</c>); see <see cref="UiProcessExit"/>.
 /// </para>
 /// <para>
-/// The application uses <see cref="ShutdownMode.OnExplicitShutdown"/>: closing a phase window never ends the process. The
-/// session runs from <see cref="Application.Startup"/> and the host calls <see cref="Application.Shutdown(int)"/> with its
-/// result as soon as it returns. That also ends a Deploy phase that failed while a deployment was running, whose window
-/// refused to close and whose services are already disposed: application shutdown closes the window without asking it.
+/// The host creates the one <see cref="WinPeShellWindow"/> of the process, hidden, makes it the application's main window and
+/// gives it to the session, which runs both phases in it; the window appears with the first content a phase shows. The
+/// application uses <see cref="ShutdownMode.OnExplicitShutdown"/>: closing the window never ends the process. The session
+/// runs from <see cref="Application.Startup"/> and the host calls <see cref="Application.Shutdown(int)"/> with its result as
+/// soon as it returns, after it allowed the window to close (<see cref="WinPeShellWindow.AllowClose"/>). That also ends a
+/// Deploy phase that failed while a deployment was running, whose services are already disposed: application shutdown closes
+/// the window without asking it.
 /// </para>
 /// <para>
 /// Dispatcher exceptions: one raised while a phase runs is the phase's (it ends the phase, Connect with 21 or 23, Deploy with
@@ -119,12 +123,19 @@ internal static class WinPeUiHost
         logger?.Debug("Enabled '{SwitchName}'.", DisableFluentBackdropSwitch);
     }
 
-    /// <summary>Creates the application and its session, and returns the call that runs it.</summary>
+    /// <summary>Creates the application, its shell window and its session, and returns the call that runs it.</summary>
     private static Func<int> CreateApplication(bool skipConnect, UiReadinessReporter readiness, UiRemoteDiagnostics diagnostics,
         HttpClient httpClient, CancellationTokenSource sessionCancellation, ILogger logger)
     {
+        var application = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
+        WinPeApplicationResources.Apply(application, WinPeApplicationResources.UiProcess);
+        // Created after the resources it uses; it stays hidden until a phase shows its first content.
+        var shell = new WinPeShellWindow();
+        application.MainWindow = shell;
+
         ILogger sessionLogger = UiHostLog.CreateLogger(typeof(WinPeUiSession));
         var session = new WinPeUiSession(
+            shell,
             new WpfConnectPhaseRunner(),
             new WinPeSystemPreparationStep(new WinPeSystemPreparation(WinPeRoot, httpClient,
                 UiHostLog.CreateLogger(typeof(WinPeSystemPreparation)))),
@@ -139,8 +150,6 @@ internal static class WinPeUiHost
             sessionLogger,
             skipConnect);
 
-        var application = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
-        WinPeApplicationResources.Apply(application, WinPeApplicationResources.UiProcess);
         // Subscribed before any phase: every handler runs, so this one acts only when no phase owns the exception.
         application.DispatcherUnhandledException += (_, eventArgs) =>
         {
@@ -153,6 +162,7 @@ internal static class WinPeUiHost
             eventArgs.Handled = true;
             // Shutdown is posted: without the cancellation, a session continuation queued before it could start the next phase.
             sessionCancellation.Cancel();
+            shell.AllowClose = true;
             application.Shutdown(UiProcessExit.UnhandledExceptionExitCode);
         };
         application.Startup += async (_, _) =>
@@ -174,6 +184,7 @@ internal static class WinPeUiHost
             }
 
             // The first Shutdown wins: an earlier one from the dispatcher handler keeps its crash code.
+            shell.AllowClose = true;
             application.Shutdown(exitCode);
         };
         return application.Run;

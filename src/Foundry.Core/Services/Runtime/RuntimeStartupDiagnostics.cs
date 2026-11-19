@@ -42,7 +42,7 @@ public sealed class RuntimeStartupDiagnostics
     /// <paramref name="onUiReady"/> once.
     /// </summary>
     /// <param name="identity">The phase that starts, used for its log entries.</param>
-    /// <param name="onUiReady">Called once, on the reporting thread, when the phase's first window or prompt rendered.</param>
+    /// <param name="onUiReady">Called once, on the reporting thread, when the phase's first content or prompt rendered.</param>
     /// <param name="onConfigurationLoaded">
     /// Called on the reporting thread when the phase loaded its configuration and built its services, or
     /// <see langword="null"/> when the host does not need it.

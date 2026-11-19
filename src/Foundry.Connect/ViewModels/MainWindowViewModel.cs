@@ -138,9 +138,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
     /// <summary>Gets the current UI culture.</summary>
     public CultureInfo CurrentCulture => LocalizationService.CurrentCulture;
 
-    /// <summary>Gets the localized window title.</summary>
-    public string WindowTitle => LocalizationService.GetString("App.WindowTitle");
-
     /// <summary>Gets the version shown at the right of the menu bar.</summary>
     public string VersionDisplay => LocalizationService.Format("Common.VersionFormat", FoundryConnectApplicationInfo.Version);
 
@@ -334,7 +331,6 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             RefreshKeyboardMenu();
             RefreshDebugScenarios();
             OnPropertyChanged(nameof(CurrentCulture));
-            OnPropertyChanged(nameof(WindowTitle));
             OnPropertyChanged(nameof(VersionDisplay));
             OnPropertyChanged(nameof(BootMediaUpdateRecommendedText));
             OnPropertyChanged(nameof(BootMediaUpdateRecommendedToolTip));

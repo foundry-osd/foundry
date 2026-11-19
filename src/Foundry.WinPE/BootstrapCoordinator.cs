@@ -184,7 +184,7 @@ internal sealed class BootstrapCoordinator(BootstrapContext context,
         UiCrashChoice choice;
         try
         {
-            choice = await crashScreen.ShowAsync(relaunchAllowed, cancellationToken).ConfigureAwait(false);
+            choice = await crashScreen.ShowAsync(relaunchAllowed, ui.UiState?.Culture, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception exception) when (exception is not OperationCanceledException)
         {

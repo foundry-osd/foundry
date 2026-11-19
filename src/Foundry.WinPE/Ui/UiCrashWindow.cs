@@ -3,8 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using System.Globalization;
-using System.Windows;
-using Foundry.Wpf.Dialogs;
+using Foundry.WinPE.Shell;
 
 namespace Foundry.WinPE.Ui;
 
@@ -19,63 +18,98 @@ internal enum UiCrashChoice
 }
 
 /// <summary>
-/// Shows the localized crash window of a UI process that stopped unexpectedly: a message, the log folder, "Relaunch" when
-/// allowed, and "Close". It holds no decision logic beyond mapping the button to a <see cref="UiCrashChoice"/>.
+/// Shows the localized crash screen of a UI process that stopped unexpectedly: a <see cref="MessagePage"/> in the shell window
+/// with the message, the log folder, "Relaunch" when allowed, and "Close". It holds no decision logic beyond mapping the button
+/// to a <see cref="UiCrashChoice"/>.
 /// </summary>
 /// <remarks>
 /// The guardian is a console process: the window is shown without detaching the startnet console, which keeps showing the
-/// boot progress. The window stays on top, so a console that owns the foreground cannot hide it.
+/// boot progress. The window stays on top, so a console that owns the foreground cannot hide it. The texts follow the culture
+/// the UI process recorded in its state file (the language the operator chose), not the Windows PE default.
 /// </remarks>
 internal static class UiCrashWindow
 {
     /// <summary>
-    /// Shows the window modally on the calling STA thread, creating the process's WPF application when needed, and returns the
-    /// operator's choice.
+    /// Shows the shell window with the crash page on the calling STA thread, creating the process's WPF application when needed,
+    /// returns when the window closes, and returns the operator's choice.
     /// </summary>
     /// <param name="relaunchAllowed">Whether "Relaunch" is offered: only when no destructive step had started.</param>
     /// <param name="logDirectory">The folder holding the session logs, or <see langword="null"/> when none is known.</param>
-    internal static UiCrashChoice Show(bool relaunchAllowed, string? logDirectory)
+    /// <param name="culture">
+    /// The culture the UI process recorded, or <see langword="null"/>. A supported Foundry culture becomes the thread's UI
+    /// culture; anything else leaves it unchanged.
+    /// </param>
+    internal static UiCrashChoice Show(bool relaunchAllowed, string? logDirectory, string? culture)
     {
         WinPeUiHost.ConfigureFluentBackdrop();
         WinPeDialogApplication.EnsureCreated();
-        string message = relaunchAllowed
-            ? WinPeDialogApplication.Localize("UiCrash.MessageRelaunchAllowed",
-                "Foundry stopped unexpectedly before the deployment changed the target disk. You can relaunch Foundry, which starts again from the network connection.")
-            : WinPeDialogApplication.Localize("UiCrash.MessageRelaunchRefused",
-                "Foundry stopped unexpectedly. The deployment may already have changed the target disk, so Foundry cannot be relaunched. Restart the computer to start a new deployment.");
-        if (!string.IsNullOrWhiteSpace(logDirectory))
+        return WithUiCulture(culture, () =>
         {
-            message += Environment.NewLine + Environment.NewLine + string.Format(CultureInfo.CurrentCulture,
-                WinPeDialogApplication.Localize("UiCrash.LogFolder", "Logs: {0}"), logDirectory);
+            MessagePageModel model = CreateModel(relaunchAllowed, logDirectory, culture);
+            return ToChoice(relaunchAllowed, MessageWindow.ShowModal(model, topmost: true));
+        });
+    }
+
+    /// <summary>
+    /// Runs <paramref name="action"/> with the thread's UI culture set to the supported culture named by
+    /// <paramref name="culture"/> (unchanged when it is not supported), and restores the previous UI culture afterwards: the
+    /// crash thread's dispatcher is reused by a later crash page, which must not inherit this language.
+    /// </summary>
+    internal static T WithUiCulture<T>(string? culture, Func<T> action)
+    {
+        CultureInfo previous = CultureInfo.CurrentUICulture;
+        CultureInfo? resolved = ResolveCulture(culture);
+        if (resolved is not null)
+        {
+            CultureInfo.CurrentUICulture = resolved;
         }
 
-        string title = WinPeDialogApplication.Localize("UiCrash.Title", "Foundry stopped");
-        string close = WinPeDialogApplication.Localize("UiCrash.Close", "Close");
-        LocalizedMessageDialog window = relaunchAllowed
-            ? new LocalizedMessageDialog(title, message, WinPeDialogApplication.Localize("UiCrash.Relaunch", "Relaunch"), close)
-            : new LocalizedMessageDialog(title, message, close);
-        window.ShowInTaskbar = true;
-        window.Topmost = true;
-        window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         try
         {
-            return ToChoice(relaunchAllowed, window.ShowDialog());
+            return action();
         }
         finally
         {
-            // The application adopts the first window as its main window; a later crash window must not take a closed owner.
-            if (ReferenceEquals(Application.Current?.MainWindow, window))
-            {
-                Application.Current!.MainWindow = null;
-            }
+            CultureInfo.CurrentUICulture = previous;
         }
     }
 
     /// <summary>
-    /// Maps the window's result to the choice: only the confirming button of a window that offers "Relaunch" relaunches.
+    /// Returns the supported Foundry culture named by <paramref name="culture"/>, or <see langword="null"/> when it is missing,
+    /// malformed or not offered by Foundry.
     /// </summary>
-    /// <param name="relaunchAllowed">Whether the window offered "Relaunch" as its confirming button.</param>
-    /// <param name="dialogResult">The <see cref="Window.ShowDialog"/> result.</param>
-    internal static UiCrashChoice ToChoice(bool relaunchAllowed, bool? dialogResult) =>
-        relaunchAllowed && dialogResult == true ? UiCrashChoice.Relaunch : UiCrashChoice.Close;
+    internal static CultureInfo? ResolveCulture(string? culture) => UiStateFile.TryGetSupportedCulture(culture);
+
+    /// <summary>Builds the texts of the crash page in the culture of <paramref name="culture"/>, or the current UI culture.</summary>
+    internal static MessagePageModel CreateModel(bool relaunchAllowed, string? logDirectory, string? culture)
+    {
+        CultureInfo resolved = ResolveCulture(culture) ?? CultureInfo.CurrentUICulture;
+        string message = relaunchAllowed
+            ? WinPeDialogApplication.Localize("UiCrash.MessageRelaunchAllowed",
+                "Foundry stopped unexpectedly before the deployment changed the target disk. You can relaunch Foundry, which starts again from the network connection.",
+                resolved)
+            : WinPeDialogApplication.Localize("UiCrash.MessageRelaunchRefused",
+                "Foundry stopped unexpectedly. The deployment may already have changed the target disk, so Foundry cannot be relaunched. Restart the computer to start a new deployment.",
+                resolved);
+        if (!string.IsNullOrWhiteSpace(logDirectory))
+        {
+            message += Environment.NewLine + Environment.NewLine + string.Format(resolved,
+                WinPeDialogApplication.Localize("UiCrash.LogFolder", "Logs: {0}", resolved), logDirectory);
+        }
+
+        string title = WinPeDialogApplication.Localize("UiCrash.Title", "Foundry stopped", resolved);
+        string close = WinPeDialogApplication.Localize("UiCrash.Close", "Close", resolved);
+        return relaunchAllowed
+            ? new MessagePageModel(title, message, WinPeDialogApplication.Localize("UiCrash.Relaunch", "Relaunch", resolved), close)
+            : new MessagePageModel(title, message, close);
+    }
+
+    /// <summary>
+    /// Maps the operator's answer to the choice: only the primary button of a page that offers "Relaunch" relaunches; closing
+    /// the window or pressing "Close" closes.
+    /// </summary>
+    /// <param name="relaunchAllowed">Whether the page offered "Relaunch" as its primary button.</param>
+    /// <param name="choice">The button the operator pressed, or <see cref="MessageChoice.None"/> when the window was closed.</param>
+    internal static UiCrashChoice ToChoice(bool relaunchAllowed, MessageChoice choice) =>
+        relaunchAllowed && choice == MessageChoice.Primary ? UiCrashChoice.Relaunch : UiCrashChoice.Close;
 }

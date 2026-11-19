@@ -43,9 +43,6 @@ Licensed under the MIT License.</value>
   <data name="App.Name" xml:space="preserve">
     <value>Foundry Connect</value>
   </data>
-  <data name="App.WindowTitle" xml:space="preserve">
-    <value>Foundry Connect</value>
-  </data>
   <data name="BootMedia.UnknownAuthoringVersionToolTip" xml:space="preserve">
     <value>The Foundry OSD version used to create this boot media cannot be determined. Update Foundry OSD on your authoring PC first, then recreate the ISO or update the USB boot media.</value>
   </data>
