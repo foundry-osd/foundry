@@ -94,7 +94,8 @@ public sealed class ProgressPageContractTests
     internal static MainWindowViewModel CreateMainWindowViewModel(IDeploymentExecutionService execution, IThemeService? theme = null,
         IDeploymentAccessGate? accessGate = null, IDeploymentStartupCoordinator? coordinator = null, IApplicationShellService? shell = null,
         ICatalogStartupDialogService? catalogDialog = null, INetworkPageNavigator? networkPageNavigator = null,
-        INetworkCacheStartupDialogService? networkCacheDialog = null, LatestReleaseVersionReader? readLatestReleaseVersion = null)
+        INetworkCacheStartupDialogService? networkCacheDialog = null, LatestReleaseVersionReader? readLatestReleaseVersion = null,
+        IZeroTouchDomainCredentialCheck? zeroTouchCheck = null)
     {
         var localization = new ResourceLocalizationService(LocalizationText.ResourceManager);
         return new MainWindowViewModel(
@@ -114,7 +115,7 @@ public sealed class ProgressPageContractTests
             new AutopilotInteractiveTestRuntime.FixedKeyboardLayout("00000409"),
             new Unused(),
             new Unused(),
-            new StartingCredentialCheck(),
+            zeroTouchCheck ?? new StartingCredentialCheck(),
             networkCacheDialog ?? new Unused(),
             catalogDialog ?? new Unused(),
             new NullTelemetryService(),

@@ -274,6 +274,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
             networkAdapterSnapshotProvider);
         Session.CancelCommand = CancelDeploymentCommand;
         Session.PropertyChanged += OnSessionPropertyChanged;
+        StartDeploymentCommand.PropertyChanged += OnStartDeploymentCommandPropertyChanged;
         _deploymentOrchestrator.CompletionStarting += OnDeploymentCompletionStarting;
         LocalizationService.LanguageChanged += OnLocalizationLanguageChanged;
         RefreshSupportedCultures();
@@ -635,16 +636,31 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         }
 
         // The navigator reports its own outcome and never throws for a page that failed or was cancelled.
-        await _networkPageNavigator!.OpenAsync(CancellationToken.None);
+        Task<bool> open = _networkPageNavigator!.OpenAsync(CancellationToken.None);
+        StartDeploymentCommand.NotifyCanExecuteChanged();
+        await open;
+        StartDeploymentCommand.NotifyCanExecuteChanged();
     }
 
-    // Only from the wizard: the splash page is still starting up, and the status pages belong to a deployment.
+    // Only from the wizard: the splash page is still starting up, and the status pages belong to a deployment. Never while Start
+    // waits on its launch checks either: the deployment would start behind the Foundry Connect page.
     private bool CanOpenNetwork() =>
         IsNetworkMenuVisible
         && Session.CurrentPage == DeploymentPage.Wizard
         && !IsDeploymentRunning
+        && !StartDeploymentCommand.IsRunning
+        && !_isCheckingLaunchCredentials
+        && !DomainJoinStep.IsCheckingCredentials
         && !_isRefreshingAfterNetworkReturn
         && !_networkPageNavigator!.IsOpen;
+
+    private void OnStartDeploymentCommandPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(IAsyncRelayCommand.IsRunning))
+        {
+            OpenNetworkCommand.NotifyCanExecuteChanged();
+        }
+    }
 
     [RelayCommand(CanExecute = nameof(CanUseCustomImageDebugTools))]
     private async Task SetDebugCustomImageScenarioAsync(DebugCustomImageScenario scenario)
@@ -929,6 +945,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _isCheckingLaunchCredentials = value;
         UpdateWizardStepStates();
         PreviousWizardStepCommand.NotifyCanExecuteChanged();
+        OpenNetworkCommand.NotifyCanExecuteChanged();
     }
 
     /// <summary>
@@ -1066,6 +1083,8 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         OnPropertyChanged(nameof(SummaryAutopilotGroupTagText));
         NextWizardStepCommand.NotifyCanExecuteChanged();
         StartDeploymentCommand.NotifyCanExecuteChanged();
+        // The Domain Join credential check reports its state through the wizard context.
+        OpenNetworkCommand.NotifyCanExecuteChanged();
     }
 
     private void OnSessionPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -1208,10 +1227,13 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         return _deploymentWizardStateService.CanGoNext(BuildWizardStateSnapshot());
     }
 
-    // Never while a return from the Network page replaces the network cache session and the content it publishes.
+    // Never while the Foundry Connect page is shown, nor while a return from it replaces the network cache session and the
+    // content it publishes.
     private bool CanStartDeployment()
     {
-        return !_isRefreshingAfterNetworkReturn && _deploymentWizardStateService.CanStartDeployment(BuildWizardStateSnapshot());
+        return _networkPageNavigator?.IsOpen != true
+            && !_isRefreshingAfterNetworkReturn
+            && _deploymentWizardStateService.CanStartDeployment(BuildWizardStateSnapshot());
     }
 
     private bool HasValidDriverPackSelection()
@@ -1649,6 +1671,7 @@ public partial class MainWindowViewModel : LocalizedViewModelBase
         _startupCancellation.Dispose();
         _wizardContext.StateChanged -= OnWizardContextStateChanged;
         Session.PropertyChanged -= OnSessionPropertyChanged;
+        StartDeploymentCommand.PropertyChanged -= OnStartDeploymentCommandPropertyChanged;
         _deploymentOrchestrator.CompletionStarting -= OnDeploymentCompletionStarting;
         LocalizationService.LanguageChanged -= OnLocalizationLanguageChanged;
         if (_networkIndicator is not null)

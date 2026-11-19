@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 
 using Foundry.Deploy.Services.Deployment;
+using Foundry.Deploy.Services.DomainJoin;
 using Foundry.Deploy.Services.Network;
 using Foundry.Deploy.ViewModels;
 
@@ -83,8 +84,56 @@ public sealed class MainWindowViewModelNetworkTests
         Assert.True(viewModel.OpenNetworkCommand.CanExecute(null));
     });
 
-    private static MainWindowViewModel Create(INetworkPageNavigator navigator) =>
-        ProgressPageContractTests.CreateMainWindowViewModel(new UnusedExecution(), networkPageNavigator: navigator);
+    [Fact]
+    public Task OpenNetwork_WhileStartChecksTheLaunchCredentials_IsDisabled() => WpfApplicationTestHost.RunAsync(async () =>
+    {
+        var check = new PendingCredentialCheck();
+        using MainWindowViewModel viewModel = Create(new FakeNavigator(), check);
+        viewModel.Session.CompleteStartupInitialization();
+        viewModel.Session.ShowWizard();
+        int notifications = 0;
+        viewModel.OpenNetworkCommand.CanExecuteChanged += (_, _) => notifications++;
+
+        Task start = viewModel.StartDeploymentCommand.ExecuteAsync(null);
+
+        // The deployment would otherwise start behind the Foundry Connect page.
+        Assert.False(viewModel.IsDeploymentRunning);
+        Assert.False(viewModel.OpenNetworkCommand.CanExecute(null));
+        Assert.True(notifications > 0);
+        check.Complete(new ZeroTouchDomainCredentialCheckDecision(CanStart: false));
+        await start;
+        Assert.True(viewModel.OpenNetworkCommand.CanExecute(null));
+    });
+
+    [Fact]
+    public Task StartDeployment_WhileTheNetworkPageIsOpen_IsDisabled() => WpfApplicationTestHost.RunAsync(async () =>
+    {
+        var navigator = new FakeNavigator();
+        using MainWindowViewModel viewModel = Create(navigator);
+        viewModel.Session.CompleteStartupInitialization();
+        viewModel.Session.ShowWizard();
+        Assert.True(viewModel.StartDeploymentCommand.CanExecute(null));
+
+        Task open = viewModel.OpenNetworkCommand.ExecuteAsync(null);
+
+        Assert.False(viewModel.StartDeploymentCommand.CanExecute(null));
+        navigator.Return(true);
+        await open;
+        Assert.True(viewModel.StartDeploymentCommand.CanExecute(null));
+    });
+
+    private static MainWindowViewModel Create(INetworkPageNavigator navigator, IZeroTouchDomainCredentialCheck? zeroTouchCheck = null) =>
+        ProgressPageContractTests.CreateMainWindowViewModel(new UnusedExecution(), networkPageNavigator: navigator, zeroTouchCheck: zeroTouchCheck);
+
+    private sealed class PendingCredentialCheck : IZeroTouchDomainCredentialCheck
+    {
+        private readonly TaskCompletionSource<ZeroTouchDomainCredentialCheckDecision> _decision = new();
+
+        public void Complete(ZeroTouchDomainCredentialCheckDecision decision) => _decision.SetResult(decision);
+
+        public Task<ZeroTouchDomainCredentialCheckDecision> CheckAsync(DeploymentContext context, DomainJoinPreparedInput? input,
+            CancellationToken token) => _decision.Task;
+    }
 
     private sealed class FakeNavigator(bool isAvailable = true) : INetworkPageNavigator
     {
